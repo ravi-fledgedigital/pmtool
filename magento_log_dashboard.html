@@ -185,22 +185,22 @@ const {useState,useEffect,useRef,useCallback,useMemo} = React;
 
 const ENVS = {
   production: {
-    label: 'Production',
-    host:  '1.ent-pwibh56ncnoes-production-vohbr3y@ssh.ap-3.magento.cloud',
-    port:  7756,
-    color: 'var(--prod)',
-    cls:   'prod',
+    label:   'Production',
+    host:    '1.ent-pwibh56ncnoes-production-vohbr3y@ssh.ap-3.magento.cloud',
+    apiPath: '/api/production/logs',
+    color:   'var(--prod)',
+    cls:     'prod',
   },
   staging: {
-    label: 'Staging',
-    host:  '1.ent-pwibh56ncnoes-staging2-5zxmgzy@ssh.ap-3.magento.cloud',
-    port:  7755,
-    color: 'var(--stag)',
-    cls:   'stag',
+    label:   'Staging',
+    host:    '1.ent-pwibh56ncnoes-staging2-5zxmgzy@ssh.ap-3.magento.cloud',
+    apiPath: '/api/staging/logs',
+    color:   'var(--stag)',
+    cls:     'stag',
   },
 };
 
-const POLL_MS = 15000;
+const POLL_MS = 60000;
 
 // ── priority ────────────────────────────────────────────────────────────────
 const P1_PAT = [/critical/i,/fatal/i,/emergency/i,/alert/i,/database.*connect|connect.*database/i,/mysql.*connect|pdo.*connect/i,/redis.*connect/i,/deadlock/i,/no space left/i,/disk.*full/i,/payment.*fail|checkout.*error|order.*fail/i,/uncaught exception/i,/php fatal/i];
@@ -245,9 +245,9 @@ function group(entries) {
 }
 
 // ── Codebase file fetcher ────────────────────────────────────────────────────
-async function fetchCodeFile(port, relPath) {
+async function fetchCodeFile(envKey, relPath) {
   try {
-    const r = await fetch(`http://localhost:${port}/codefile?path=${encodeURIComponent(relPath)}`,
+    const r = await fetch(`/api/${envKey}/codefile?path=${encodeURIComponent(relPath)}`,
       {signal: AbortSignal.timeout(4000)});
     const d = await r.json();
     return d.exists ? d.content : null;
@@ -269,14 +269,14 @@ function extractStackPaths(message) {
 }
 
 // ── Claude analysis (per card on modal open) ────────────────────────────────
-async function analyzeCard(card, envPort) {
+async function analyzeCard(card, envKey) {
   // 1. Extract file paths from the stack trace
   const stackPaths = extractStackPaths(card.message);
 
-  // 2. Fetch source file contents from local codebase via the fetcher HTTP server
+  // 2. Fetch source file contents from codebase via the server API
   const fileContents = {};
   await Promise.all(stackPaths.map(async (p) => {
-    const src = await fetchCodeFile(envPort, p);
+    const src = await fetchCodeFile(envKey, p);
     if (src) fileContents[p] = src;
   }));
 
@@ -363,12 +363,12 @@ IMPORTANT:
 }
 
 // ── Modal ───────────────────────────────────────────────────────────────────
-function Modal({card, all, onClose, envPort}) {
+function Modal({card, all, onClose, envKey}) {
   const [ai,setAi] = useState(null);
   const [aiLoading,setAiLoading] = useState(false);
   useEffect(()=>{
     setAiLoading(true);
-    analyzeCard(card, envPort||7756).then(r=>{setAi(r);setAiLoading(false);}).catch(()=>setAiLoading(false));
+    analyzeCard(card, envKey||'production').then(r=>{setAi(r);setAiLoading(false);}).catch(()=>setAiLoading(false));
   },[card]);
   const similar = all.filter(c=>c!==card && c.source.split('[')[0]===card.source.split('[')[0] && c.priority===card.priority && c.message.slice(0,40)!==card.message.slice(0,40)).slice(0,4);
   const pri = ai?.priority||card.priority;
@@ -506,14 +506,14 @@ function Column({label,sub,cards,newKeys,pri,onCard}) {
 // ── No-server state ──────────────────────────────────────────────────────────
 function NoServer({env}) {
   const e = ENVS[env];
-  const flagFile = env==='production' ? 'magento_log_fetcher_production.py' : 'magento_log_fetcher.py';
-  const root = env==='production' ? '/app/pwibh56ncnoes' : '/app/pwibh56ncnoes_stg2';
   return React.createElement('div',{className:'no-server'},
-    React.createElement('div',{className:'no-server-icon'},'🔌'),
-    React.createElement('div',{className:'no-server-title'},`Waiting for ${e.label} fetcher…`),
-    React.createElement('div',{style:{color:'var(--muted)',fontSize:11,marginBottom:8}},`Make sure the fetcher is running on port ${e.port}`),
+    React.createElement('div',{className:'no-server-icon'},'🔄'),
+    React.createElement('div',{className:'no-server-title'},`Connecting to ${e.label}…`),
+    React.createElement('div',{style:{color:'var(--muted)',fontSize:11,marginBottom:8}},
+      'The server is establishing an SSH connection to Magento Cloud. This may take up to a minute on first load.'
+    ),
     React.createElement('pre',{className:'no-server-cmd'},
-      `python3 ${flagFile} \\\n  --host "${e.host}" \\\n  --root "${root}" \\\n  --key ~/.ssh/id_rsa \\\n  --days 5 \\\n  --interval 60`
+      `SSH host: ${e.host}\nLogs are fetched automatically every 15 minutes.`
     ),
   );
 }
@@ -533,10 +533,10 @@ function App() {
   const showToast = msg => { setToast(msg); setTimeout(()=>setToast(''),3500); };
 
   const fetchEnv = useCallback(async (envKey) => {
-    const port = ENVS[envKey].port;
+    const apiPath = ENVS[envKey].apiPath;
     setData(d=>({...d,[envKey]:{...d[envKey],fetching:true}}));
     try {
-      const r = await fetch(`http://localhost:${port}/logs`,{signal:AbortSignal.timeout(18000)});
+      const r = await fetch(apiPath,{signal:AbortSignal.timeout(18000)});
       if (!r.ok) throw new Error(`HTTP ${r.status}`);
       const {meta,entries} = await r.json();
       const grouped = group(entries);
@@ -551,7 +551,7 @@ function App() {
       fetchCount.current[envKey]++;
       setData(d=>({...d,[envKey]:{cards:grouped,meta,conn:meta.status==='error'?'err':'ok',connMsg:meta.status==='error'?`SSH: ${meta.error.slice(0,50)}`:`${entries.length} entries · ${grouped.length} issues`,fetching:false}}));
     } catch(e) {
-      setData(d=>({...d,[envKey]:{...d[envKey],conn:'err',connMsg:`Port ${port} unreachable`,fetching:false}}));
+      setData(d=>({...d,[envKey]:{...d[envKey],conn:'err',connMsg:'Server connecting…',fetching:false}}));
     }
   },[]);
 
@@ -646,7 +646,7 @@ function App() {
         ),
 
     // Modal
-    selected && React.createElement(Modal,{card:selected,all:cur.cards,onClose:()=>setSelected(null),envPort:ENVS[env].port}),
+    selected && React.createElement(Modal,{card:selected,all:cur.cards,onClose:()=>setSelected(null),envKey:env}),
 
     // Toast
     toast && React.createElement('div',{className:'toast'},toast),

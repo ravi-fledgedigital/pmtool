@@ -5,34 +5,39 @@ A real-time log monitoring dashboard for Magento Cloud environments (staging and
 
 ## Architecture
 
-- **`server.py`** — Simple Python HTTP server that serves the dashboard HTML on port 5000.
-- **`magento_log_dashboard.html`** — Single-file React dashboard (CDN React, no build step). Connects to the backend log fetcher API endpoints from the browser.
-- **`magento_ssh_core.py`** — Shared SSH + log-reading core. Handles SSH connections, remote Python script injection (base64-encoded), log parsing, and HTTP API serving.
-- **`magento_log_fetcher.py`** — Staging environment log fetcher. Runs an HTTP API on port 7755.
-- **`magento_log_fetcher_production.py`** — Production environment log fetcher. Runs an HTTP API on port 7756.
+Everything runs in a single unified server (`server.py`) on port 5000:
+
+- **`server.py`** — Unified server that:
+  - Serves the dashboard HTML at `/`
+  - Runs background SSH polling threads for staging and production (every 15 minutes)
+  - Exposes REST API at `/api/staging/logs`, `/api/production/logs`, `/api/<env>/status`
+- **`magento_log_dashboard.html`** — Single-file React dashboard. Fetches logs from the server's API using relative URLs.
+- **`magento_ssh_core.py`** — Legacy standalone core (not used by the unified server).
+- **`magento_log_fetcher.py`** — Legacy standalone staging fetcher (not used; kept for reference).
+- **`magento_log_fetcher_production.py`** — Legacy standalone production fetcher (not used; kept for reference).
 
 ## Ports
-- **5000** — Dashboard frontend (served by `server.py`)
-- **7755** — Staging log API (served by `magento_log_fetcher.py`)
-- **7756** — Production log API (served by `magento_log_fetcher_production.py`)
+- **5000** — Everything: dashboard frontend + API (served by `server.py`)
 
 ## How It Works
-1. The dashboard is served as a static HTML page on port 5000.
-2. The user runs one or both Python log fetcher scripts separately (they SSH into Magento Cloud, parse logs, and serve JSON on their respective ports).
-3. The dashboard JavaScript polls `localhost:7755` and `localhost:7756` every 15 seconds for log data.
-4. Logs are classified into P1 (Critical), P2 (High), P3 (Low) priority levels.
+1. Start `python3 server.py` (configured as the default workflow).
+2. The server immediately begins SSH polling both staging and production in background threads.
+3. Logs are re-fetched every **15 minutes** automatically.
+4. The dashboard HTML polls the server's API every **60 seconds** to refresh its view.
+5. Logs are classified into P1 (Critical), P2 (High), P3 (Low) priority levels.
 
-## Running the Backend Fetchers
-```bash
-# Staging (requires SSH key access to Magento Cloud staging)
-python3 magento_log_fetcher.py --days 2 --interval 60
+## SSH Setup (Required)
+The server SSHs into Magento Cloud using `~/.ssh/id_rsa`. You must add your SSH private key as a secret:
+- Secret name: (place private key at `~/.ssh/id_rsa` or configure a path)
+- The Magento Cloud SSH hosts are configured in `server.py` (`STAGING_HOST`, `PROD_HOST`).
 
-# Production (requires SSH key access to Magento Cloud production)
-python3 magento_log_fetcher_production.py --days 2 --interval 60
-```
-
-## SSH Configuration
-The fetchers connect to Magento Cloud via SSH. The SSH host, port, log directory, and key path are configurable via command-line arguments. Default SSH key: `~/.ssh/id_rsa`.
+## Configurable Constants (in server.py)
+| Constant | Default | Description |
+|---|---|---|
+| `FETCH_INTERVAL` | `900` | Seconds between SSH log fetches (15 min) |
+| `DAYS_BACK` | `2` | How many days of logs to fetch |
+| `SSH_KEY` | `~/.ssh/id_rsa` | Path to SSH private key |
+| `HTTP_PORT` | `5000` | Dashboard port |
 
 ## Workflow
 - **Start application** — Runs `python3 server.py` on port 5000 (webview).
