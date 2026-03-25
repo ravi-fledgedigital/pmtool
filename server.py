@@ -9,6 +9,8 @@ Unified Magento Cloud Log Dashboard Server
 
 import base64
 import json
+import os
+import stat
 import subprocess
 import sys
 import textwrap
@@ -16,6 +18,24 @@ import threading
 import time
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
+
+
+# ---------------------------------------------------------------------------
+# SSH key setup — reads SSH_PRIVATE_KEY env var and writes to ~/.ssh/id_rsa
+# ---------------------------------------------------------------------------
+
+def setup_ssh_key():
+    key = os.environ.get("SSH_PRIVATE_KEY", "").strip()
+    if not key:
+        print("[server] WARNING: SSH_PRIVATE_KEY not set — SSH connections will fail.", flush=True)
+        return
+    ssh_dir = Path.home() / ".ssh"
+    ssh_dir.mkdir(mode=0o700, exist_ok=True)
+    key_path = ssh_dir / "id_rsa"
+    key_path.write_text(key + "\n")
+    key_path.chmod(0o600)
+    print(f"[server] SSH key written to {key_path}", flush=True)
+
 
 # ---------------------------------------------------------------------------
 # Config
@@ -460,6 +480,9 @@ class Server(HTTPServer):
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
+    # Write SSH key from environment variable to ~/.ssh/id_rsa
+    setup_ssh_key()
+
     # Start background polling threads for both environments
     for env_key in ("staging", "production"):
         t = threading.Thread(target=poll_loop, args=(env_key,), daemon=True)
