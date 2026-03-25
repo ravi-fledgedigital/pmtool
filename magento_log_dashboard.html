@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Magento Cloud · Error Dashboard</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Syne:wght@600;700;800&display=swap');
+
+:root {
+  --bg:    #080b10;
+  --surf:  #0d1117;
+  --card:  #111620;
+  --bord:  #1c2333;
+  --bord2: #243047;
+  --text:  #c9d1e0;
+  --muted: #4a5568;
+  --acc:   #3b82f6; --acc2: #60a5fa;
+  --p1:#ef4444; --p1b:#1a0808; --p1g:rgba(239,68,68,.18);
+  --p2:#f59e0b; --p2b:#1a1200; --p2g:rgba(245,158,11,.18);
+  --p3:#22c55e; --p3b:#081408; --p3g:rgba(34,197,94,.18);
+  --prod:#a78bfa; --stag:#38bdf8;
+  --mono:'JetBrains Mono',monospace;
+  --sans:'Syne',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--text);font-family:var(--mono);display:flex;flex-direction:column;height:100vh}
+#root{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.06) 2px,rgba(0,0,0,.06) 4px);pointer-events:none;z-index:9000}
+
+/* ── header ── */
+.hd{display:flex;align-items:center;gap:12px;padding:10px 20px;background:var(--surf);border-bottom:1px solid var(--bord);flex-shrink:0;z-index:200}
+.hd-logo{width:28px;height:28px;background:var(--acc);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.hd-title{font-family:var(--sans);font-weight:800;font-size:15px;color:#fff;letter-spacing:-.3px}
+.hd-sub{font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px}
+.hd-right{margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+
+/* env tabs */
+.env-tabs{display:flex;gap:0;border:1px solid var(--bord2);border-radius:8px;overflow:hidden}
+.env-tab{padding:5px 14px;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .15s;color:var(--muted);background:transparent;border:none;font-family:var(--mono)}
+.env-tab:hover{color:var(--text)}
+.env-tab.active-prod{background:rgba(167,139,250,.15);color:var(--prod)}
+.env-tab.active-stag{background:rgba(56,189,248,.15);color:var(--stag)}
+
+/* connection pill */
+.conn-pill{display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:20px;border:1px solid var(--bord2);font-size:10px}
+.conn-pill.ok{border-color:rgba(34,197,94,.4);background:rgba(34,197,94,.08);color:#86efac}
+.conn-pill.err{border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.08);color:#fca5a5}
+.conn-pill.wait{border-color:rgba(245,158,11,.4);background:rgba(245,158,11,.08);color:#fde68a}
+.conn-dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.conn-pill.ok .conn-dot{animation:blink 2.5s infinite}
+.conn-pill.wait .conn-dot{animation:blink .9s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* prog bar */
+.prog{height:2px;background:var(--bord);flex-shrink:0;overflow:hidden}
+.prog-inner{height:100%;width:100%;background:linear-gradient(90deg,var(--acc),var(--acc2),var(--acc));background-size:200%;animation:shimmer 1.4s linear infinite}
+@keyframes shimmer{0%{background-position:200%}100%{background-position:-200%}}
+
+/* ── env banner ── */
+.env-banner{padding:6px 20px;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.env-banner.prod{background:rgba(167,139,250,.08);border-bottom:1px solid rgba(167,139,250,.2);color:var(--prod)}
+.env-banner.stag{background:rgba(56,189,248,.08);border-bottom:1px solid rgba(56,189,248,.2);color:var(--stag)}
+.env-host{font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0;font-size:10px}
+.env-badge{margin-left:auto;font-size:9px;padding:2px 8px;border-radius:10px}
+.env-banner.prod .env-badge{background:rgba(167,139,250,.15);color:var(--prod)}
+.env-banner.stag .env-badge{background:rgba(56,189,248,.15);color:var(--stag)}
+
+/* ── stats ── */
+.stats{display:flex;gap:8px;padding:10px 18px;flex-shrink:0;background:var(--surf);border-bottom:1px solid var(--bord)}
+.stat{display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:7px;border:1px solid var(--bord);min-width:100px}
+.stat.p1{border-left:3px solid var(--p1);background:var(--p1b)}
+.stat.p2{border-left:3px solid var(--p2);background:var(--p2b)}
+.stat.p3{border-left:3px solid var(--p3);background:var(--p3b)}
+.stat.total{border-left:3px solid var(--acc)}
+.stat-val{font-family:var(--sans);font-size:22px;font-weight:800;line-height:1}
+.stat.p1 .stat-val{color:var(--p1)} .stat.p2 .stat-val{color:var(--p2)}
+.stat.p3 .stat-val{color:var(--p3)} .stat.total .stat-val{color:var(--acc2)}
+.stat-lbl{font-size:9px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase}
+
+/* toolbar */
+.toolbar{display:flex;align-items:center;gap:8px;padding:8px 18px;flex-shrink:0;background:var(--surf);border-bottom:1px solid var(--bord)}
+.search{flex:1;background:var(--bg);border:1px solid var(--bord2);border-radius:6px;color:var(--text);font-family:var(--mono);font-size:12px;padding:6px 12px;outline:none}
+.search:focus{border-color:var(--acc)}
+.search::placeholder{color:var(--muted)}
+.btn{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;border:none;border-radius:6px;padding:6px 13px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:5px;white-space:nowrap}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--bord2)}
+.btn-ghost:hover{color:var(--text);border-color:var(--text)}
+.btn-ghost:disabled{opacity:.4;cursor:not-allowed}
+.next-lbl{font-size:10px;color:var(--muted);white-space:nowrap}
+
+/* board */
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:12px 16px;overflow-y:auto;flex:1;min-height:0;align-items:start}
+.col{background:var(--surf);border:1px solid var(--bord);border-radius:10px;display:flex;flex-direction:column;overflow:visible}
+.col-head{padding:10px 14px;border-bottom:1px solid var(--bord);display:flex;align-items:center;gap:8px;flex-shrink:0}
+.col-p1 .col-head{background:var(--p1b);border-bottom-color:rgba(239,68,68,.25)}
+.col-p2 .col-head{background:var(--p2b);border-bottom-color:rgba(245,158,11,.25)}
+.col-p3 .col-head{background:var(--p3b);border-bottom-color:rgba(34,197,94,.25)}
+.col-lbl{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.col-p1 .col-lbl{color:var(--p1)} .col-p2 .col-lbl{color:var(--p2)} .col-p3 .col-lbl{color:var(--p3)}
+.col-sub{font-size:9px;color:var(--muted)}
+.col-cnt{margin-left:auto;font-size:10px;font-weight:700;padding:2px 9px;border-radius:12px}
+.col-p1 .col-cnt{background:var(--p1g);color:var(--p1)}
+.col-p2 .col-cnt{background:var(--p2g);color:var(--p2)}
+.col-p3 .col-cnt{background:var(--p3g);color:var(--p3)}
+.cards{padding:8px;display:flex;flex-direction:column;gap:7px}
+.cards::-webkit-scrollbar{width:4px}
+.cards::-webkit-scrollbar-thumb{background:var(--bord2);border-radius:3px}
+
+/* card */
+.card{background:var(--card);border:1px solid var(--bord);border-radius:7px;padding:11px 11px 11px 14px;cursor:pointer;position:relative;overflow:hidden;transition:transform .15s,box-shadow .15s,border-color .15s}
+.card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
+.col-p1 .card::before{background:var(--p1)} .col-p2 .card::before{background:var(--p2)} .col-p3 .card::before{background:var(--p3)}
+.card:hover{transform:translateY(-2px);border-color:var(--bord2)}
+.col-p1 .card:hover{box-shadow:0 6px 20px rgba(239,68,68,.2)}
+.col-p2 .card:hover{box-shadow:0 6px 20px rgba(245,158,11,.2)}
+.col-p3 .card:hover{box-shadow:0 6px 20px rgba(34,197,94,.15)}
+.card-row1{display:flex;align-items:flex-start;justify-content:space-between;gap:7px;margin-bottom:6px}
+.card-type{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;padding:2px 7px;border-radius:3px;flex-shrink:0}
+.col-p1 .card-type{background:var(--p1g);color:var(--p1)}
+.col-p2 .card-type{background:var(--p2g);color:var(--p2)}
+.col-p3 .card-type{background:var(--p3g);color:var(--p3)}
+.card-src{font-size:9px;color:var(--muted);text-align:right;line-height:1.4;flex-shrink:0;max-width:110px;word-break:break-all}
+.card-msg{font-size:11px;line-height:1.6;color:var(--text);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word}
+.card-foot{margin-top:7px;display:flex;align-items:center;gap:6px}
+.card-ts{font-size:9px;color:var(--muted)}
+.card-cnt{margin-left:auto;font-size:9px;background:rgba(255,255,255,.04);border:1px solid var(--bord2);border-radius:10px;padding:1px 7px;color:var(--muted)}
+.card-cta{font-size:9px;color:var(--acc)}
+.card-new{position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:var(--acc);animation:blink .8s infinite}
+.empty{text-align:center;padding:32px 14px;color:var(--muted);font-size:11px}
+.empty-icon{font-size:24px;margin-bottom:7px}
+
+/* modal */
+.backdrop{position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(5px);z-index:5000;display:flex;align-items:flex-start;justify-content:center;padding:28px 16px;overflow-y:auto}
+.modal{background:var(--surf);border:1px solid var(--bord2);border-radius:12px;width:100%;max-width:820px;flex-shrink:0;animation:mIn .18s ease-out;overflow:hidden}
+@keyframes mIn{from{opacity:0;transform:translateY(-12px) scale(.97)}to{opacity:1;transform:none}}
+.m-head{padding:15px 18px;border-bottom:1px solid var(--bord);display:flex;align-items:flex-start;gap:11px}
+.m-pri{font-size:10px;font-weight:700;letter-spacing:2px;padding:4px 11px;border-radius:4px;flex-shrink:0;margin-top:2px}
+.m-pri.p1{background:var(--p1g);color:var(--p1);border:1px solid rgba(239,68,68,.3)}
+.m-pri.p2{background:var(--p2g);color:var(--p2);border:1px solid rgba(245,158,11,.3)}
+.m-pri.p3{background:var(--p3g);color:var(--p3);border:1px solid rgba(34,197,94,.3)}
+.m-titles{flex:1;min-width:0}
+.m-type{font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.m-title{font-size:14px;font-weight:600;color:#fff;line-height:1.5;word-break:break-word}
+.m-x{background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;padding:2px 8px;border-radius:4px;flex-shrink:0;line-height:1;transition:color .15s}
+.m-x:hover{color:#fff}
+.m-body{padding:16px 18px;display:flex;flex-direction:column;gap:14px}
+.m-sec{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.meta-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:7px}
+.meta-cell{background:var(--card);border:1px solid var(--bord);border-radius:6px;padding:8px 11px}
+.meta-k{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px}
+.meta-v{font-size:12px;color:var(--text)}
+.info-box{border-radius:7px;padding:11px 13px;font-size:12px;line-height:1.7}
+.info-box.impact{background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.2);color:#bfdbfe}
+.info-box.fix{background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);color:#bbf7d0}
+.trace{background:#05080d;border:1px solid var(--bord);border-radius:7px;padding:13px;font-size:11px;line-height:1.75;color:#94a3b8;white-space:pre-wrap;word-break:break-word;max-height:360px;overflow-y:auto}
+.trace::-webkit-scrollbar{width:4px}
+.trace::-webkit-scrollbar-thumb{background:var(--bord2);border-radius:3px}
+.sim-list{display:flex;flex-direction:column;gap:5px}
+.sim-item{background:var(--card);border:1px solid var(--bord);border-radius:6px;padding:8px 11px;font-size:11px;color:var(--muted);line-height:1.5;cursor:pointer;transition:all .12s}
+.sim-item:hover{border-color:var(--bord2);color:var(--text)}
+.sim-ts{font-size:9px;margin-top:2px}
+
+/* toast */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#1e2a3a;border:1px solid var(--acc);border-radius:8px;padding:9px 18px;font-size:11px;color:var(--acc2);z-index:9999;animation:toastIn .2s ease-out;white-space:nowrap}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+/* no-server state */
+.no-server{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:12px;padding:40px;text-align:center}
+.no-server-icon{font-size:48px}
+.no-server-title{font-family:var(--sans);font-size:18px;font-weight:700;color:#fff}
+.no-server-cmd{background:#05080d;border:1px solid var(--bord2);border-radius:8px;padding:14px 20px;font-size:12px;color:var(--acc2);line-height:2;text-align:left;max-width:700px;width:100%}
+
+@media(max-width:860px){.board{grid-template-columns:1fr}}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script>
+const {useState,useEffect,useRef,useCallback,useMemo} = React;
+
+const ENVS = {
+  production: {
+    label: 'Production',
+    host:  '1.ent-pwibh56ncnoes-production-vohbr3y@ssh.ap-3.magento.cloud',
+    port:  7756,
+    color: 'var(--prod)',
+    cls:   'prod',
+  },
+  staging: {
+    label: 'Staging',
+    host:  '1.ent-pwibh56ncnoes-staging2-5zxmgzy@ssh.ap-3.magento.cloud',
+    port:  7755,
+    color: 'var(--stag)',
+    cls:   'stag',
+  },
+};
+
+const POLL_MS = 15000;
+
+// ── priority ────────────────────────────────────────────────────────────────
+const P1_PAT = [/critical/i,/fatal/i,/emergency/i,/alert/i,/database.*connect|connect.*database/i,/mysql.*connect|pdo.*connect/i,/redis.*connect/i,/deadlock/i,/no space left/i,/disk.*full/i,/payment.*fail|checkout.*error|order.*fail/i,/uncaught exception/i,/php fatal/i];
+const P2_PAT = [/timeout|timed.out/i,/curl error/i,/api.*fail/i,/cache.*miss|cache.*fail/i,/elasticsearch/i,/deprecated/i,/class.*not found|module.*not found/i,/memory.*limit|max.*execution/i,/transaction.*roll/i];
+
+function prioritize(e) {
+  if (['CRITICAL','ALERT','EMERGENCY'].includes(e.level)) return 'p1';
+  const t = e.level + ' ' + e.message + ' ' + e.channel;
+  if (P1_PAT.some(p=>p.test(t))) return 'p1';
+  if (e.level === 'ERROR') return 'p2';
+  if (P2_PAT.some(p=>p.test(t))) return 'p2';
+  return 'p3';
+}
+function errorType(e) {
+  const m = e.message + ' ' + e.channel;
+  if (/exception/i.test(m)) return 'Exception';
+  if (/timeout/i.test(m)) return 'Timeout';
+  if (/mysql|pdo|database|mariadb/i.test(m)) return 'Database';
+  if (/redis|cache|memcache/i.test(m)) return 'Cache';
+  if (/payment|checkout|order|cart/i.test(m)) return 'Commerce';
+  if (/elastic|search/i.test(m)) return 'Search';
+  if (/cron/i.test(m)) return 'Cron';
+  if (/import|export/i.test(m)) return 'Import';
+  if (/memory/i.test(m)) return 'Memory';
+  if (/api|curl|http/i.test(m)) return 'API';
+  if (/file|disk|permission|directory/i.test(m)) return 'Filesystem';
+  return e.level;
+}
+function group(entries) {
+  const map = new Map();
+  for (const e of entries) {
+    const key = e.source.split('[')[0] + '|' + e.level + '|' + e.message.slice(0,90);
+    if (!map.has(key)) map.set(key, {...e, count:1});
+    else {
+      const g = map.get(key);
+      g.count++;
+      if (e.timestamp > g.timestamp) { g.timestamp = e.timestamp; g.message = e.message; }
+    }
+  }
+  return [...map.values()].map(g=>({...g, priority:prioritize(g), errorType:errorType(g)}))
+    .sort((a,b)=>b.timestamp.localeCompare(a.timestamp));
+}
+
+// ── Codebase file fetcher ────────────────────────────────────────────────────
+async function fetchCodeFile(port, relPath) {
+  try {
+    const r = await fetch(`http://localhost:${port}/codefile?path=${encodeURIComponent(relPath)}`,
+      {signal: AbortSignal.timeout(4000)});
+    const d = await r.json();
+    return d.exists ? d.content : null;
+  } catch { return null; }
+}
+
+// Extract file paths from a stack trace  e.g.  app/code/Foo/Bar/Model/Baz.php:123
+function extractStackPaths(message) {
+  const paths = [];
+  // Match app/code/... or vendor/magento/... style paths
+  const re = /(?:app\/code|vendor\/magento|vendor\/[a-z0-9\-]+)\/[^\s:()'"]+\.php/gi;
+  let m;
+  while ((m = re.exec(message)) !== null) {
+    const p = m[0].replace(/^\/+/, '');
+    if (!paths.includes(p)) paths.push(p);
+    if (paths.length >= 4) break;  // cap at 4 files
+  }
+  return paths;
+}
+
+// ── Claude analysis (per card on modal open) ────────────────────────────────
+async function analyzeCard(card, envPort) {
+  // 1. Extract file paths from the stack trace
+  const stackPaths = extractStackPaths(card.message);
+
+  // 2. Fetch source file contents from local codebase via the fetcher HTTP server
+  const fileContents = {};
+  await Promise.all(stackPaths.map(async (p) => {
+    const src = await fetchCodeFile(envPort, p);
+    if (src) fileContents[p] = src;
+  }));
+
+  const hasCodeContext = Object.keys(fileContents).length > 0;
+
+  // 3. Build codebase section for Claude prompt
+  let codeSection = '';
+  if (hasCodeContext) {
+    codeSection = '\n\n--- LOCAL CODEBASE FILES ---\n';
+    for (const [path, src] of Object.entries(fileContents)) {
+      codeSection += `\n// FILE: ${path}\n${src.slice(0, 2000)}\n`;
+    }
+  }
+
+  const sys = `You are a senior Magento 2 developer with deep expertise in Adobe Commerce Cloud.
+You will receive a real error log entry AND (when available) the actual source code files from the project codebase that appear in the stack trace.
+
+Use the source code to give PRECISE, file-specific fixes — not generic advice.
+Return ONLY a valid JSON object (no markdown) with these exact fields:
+
+{
+  "priority": "p1"|"p2"|"p3",
+  "error_title": "concise title under 60 chars",
+  "error_type": "Exception|Database|Cache|Timeout|Commerce|Filesystem|Memory|API|Search|Cron|Import|Configuration|Security|Other",
+  "root_cause": "2-3 sentences. If codebase files were provided, reference the specific class/method/line causing the issue.",
+  "impact": "one sentence — business or user impact",
+  "solution_steps": [
+    "Step referencing exact file path and line if available",
+    "Step with exact bin/magento CLI command if applicable",
+    "Step for verification"
+  ],
+  "code_fix": "Actual PHP code change, XML config fix, or CLI command. Reference real class names and methods from the provided source files. Empty string if truly not applicable.",
+  "file_hint": "Primary responsible file path from stack trace, e.g. app/code/Vendor/Module/Model/Foo.php",
+  "prevention": "Specific prevention tied to this codebase, not generic advice"
+}
+
+IMPORTANT:
+- If source files are provided, base your answer on the ACTUAL CODE you can see
+- Reference real method names, class names, line numbers from the code
+- code_fix must contain real, copy-pasteable code or a CLI command — never leave it vague
+- solution_steps[0] must be the single most important immediate action`;
+
+  try {
+    const userMsg =
+      "Environment: Magento 2 Adobe Commerce Cloud\n" +
+      "Project: ASICS Onitsuka Tiger\n" +
+      "Source log file: " + card.source + "\n" +
+      "Log level: " + card.level + "\n" +
+      "Channel: " + card.channel + "\n" +
+      "Occurrences: " + card.count + "x in last 2 days\n" +
+      "Codebase files found: " + (hasCodeContext ? stackPaths.join(', ') : 'none (paths not in local codebase)') + "\n\n" +
+      "=== FULL ERROR TRACE ===\n" + card.message.slice(0, 2500) +
+      codeSection;
+
+    const r = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1800,
+        system: sys,
+        messages: [{role: "user", content: userMsg}]
+      })
+    });
+    const d = await r.json();
+    const txt = (d.content||[]).map(c=>c.text||'').join('').replace(/```json|```/g,'').trim();
+    const s = txt.indexOf('{'), e2 = txt.lastIndexOf('}');
+    const result = JSON.parse(txt.slice(s, e2+1));
+    result._codeFilesUsed = Object.keys(fileContents);
+    return result;
+  } catch(e) {
+    console.error('analyzeCard error:', e);
+    // Return a minimal object so the modal still shows something
+    return {
+      root_cause: 'Analysis failed: ' + String(e),
+      solution_steps: ['Check browser console for details'],
+      code_fix: '',
+      file_hint: '',
+      impact: '',
+      prevention: '',
+      _codeFilesUsed: [],
+    };
+  }
+}
+
+// ── Modal ───────────────────────────────────────────────────────────────────
+function Modal({card, all, onClose, envPort}) {
+  const [ai,setAi] = useState(null);
+  const [aiLoading,setAiLoading] = useState(false);
+  useEffect(()=>{
+    setAiLoading(true);
+    analyzeCard(card, envPort||7756).then(r=>{setAi(r);setAiLoading(false);}).catch(()=>setAiLoading(false));
+  },[card]);
+  const similar = all.filter(c=>c!==card && c.source.split('[')[0]===card.source.split('[')[0] && c.priority===card.priority && c.message.slice(0,40)!==card.message.slice(0,40)).slice(0,4);
+  const pri = ai?.priority||card.priority;
+  const title = ai?.error_title||card.message.slice(0,100);
+  const type  = ai?.error_type||card.errorType;
+  return React.createElement('div',{className:'backdrop',onClick:e=>{if(e.target===e.currentTarget)onClose()}},
+    React.createElement('div',{className:'modal'},
+      React.createElement('div',{className:'m-head'},
+        React.createElement('span',{className:`m-pri ${pri}`},pri.toUpperCase()),
+        React.createElement('div',{className:'m-titles'},
+          React.createElement('div',{className:'m-type'},`${type} · ${card.source}`),
+          React.createElement('div',{className:'m-title'},title),
+        ),
+        React.createElement('button',{className:'m-x',onClick:onClose},'×'),
+      ),
+      React.createElement('div',{className:'m-body'},
+
+        // ── Meta row ──────────────────────────────────────────────────────
+        React.createElement('div',null,
+          React.createElement('div',{className:'m-sec'},'Details'),
+          React.createElement('div',{className:'meta-grid'},
+            [['Last Seen',new Date(card.timestamp).toLocaleString()],['Level',card.level],['Channel',card.channel||'—'],['Occurrences',`${card.count}× in last 2 days`],['Source',card.source]].map(([k,v])=>
+              React.createElement('div',{className:'meta-cell',key:k},
+                React.createElement('div',{className:'meta-k'},k),
+                React.createElement('div',{className:'meta-v'},v),
+              )
+            )
+          ),
+        ),
+
+        // ── Claude analysis ───────────────────────────────────────────────
+        aiLoading && React.createElement('div',{className:'info-box impact',style:{display:'flex',alignItems:'center',gap:8,padding:'12px 14px'}},
+          React.createElement('span',{style:{animation:'spin 1s linear infinite',display:'inline-block',marginRight:6}},'⟳'),
+          ' Fetching codebase files and analyzing with Claude…'
+        ),
+        !aiLoading && !ai && React.createElement('div',{className:'info-box',style:{background:'rgba(239,68,68,.06)',border:'1px solid rgba(239,68,68,.2)',color:'#fca5a5',borderRadius:7,padding:'11px 13px',fontSize:12}},
+          '⚠ Analysis unavailable — Claude API may not be reachable from this browser context. Check console.'
+        ),
+
+        ai && ai._codeFilesUsed && React.createElement('div',{style:{fontSize:9,color:'var(--muted)',padding:'4px 0',letterSpacing:'1px'}},
+          ai._codeFilesUsed.length > 0
+            ? '📂 Codebase context: ' + ai._codeFilesUsed.join(' · ')
+            : '📂 No matching codebase files found — analysis based on stack trace only'
+        ),
+
+        ai && ai.root_cause && React.createElement('div',null,
+          React.createElement('div',{className:'m-sec'},'🔍 Root Cause'),
+          React.createElement('div',{className:'info-box impact'},ai.root_cause),
+        ),
+
+        ai?.impact && React.createElement('div',null,
+          React.createElement('div',{className:'m-sec'},'⚠ Business Impact'),
+          React.createElement('div',{className:'info-box',style:{background:'rgba(239,68,68,.06)',border:'1px solid rgba(239,68,68,.2)',color:'#fca5a5',borderRadius:7,padding:'11px 13px',fontSize:12,lineHeight:1.7}},ai.impact),
+        ),
+
+        ai?.solution_steps?.length > 0 && React.createElement('div',null,
+          React.createElement('div',{className:'m-sec'},'✅ Solution Steps'),
+          React.createElement('div',{style:{display:'flex',flexDirection:'column',gap:6}},
+            ai.solution_steps.map((step,i)=>
+              React.createElement('div',{key:i,style:{display:'flex',gap:10,background:'rgba(34,197,94,.06)',border:'1px solid rgba(34,197,94,.15)',borderRadius:6,padding:'9px 12px'}},
+                React.createElement('span',{style:{color:'var(--p3)',fontWeight:700,flexShrink:0,fontSize:12}},`${i+1}.`),
+                React.createElement('span',{style:{fontSize:12,lineHeight:1.6,color:'#bbf7d0'}},step),
+              )
+            )
+          ),
+        ),
+
+        ai?.code_fix && React.createElement('div',null,
+          React.createElement('div',{className:'m-sec'},'💻 Command / Code Fix'),
+          React.createElement('pre',{className:'trace',style:{background:'#020408',borderColor:'rgba(96,165,250,.2)',color:'#93c5fd',fontSize:12}},ai.code_fix),
+        ),
+
+        ai?.file_hint && React.createElement('div',null,
+          React.createElement('div',{className:'m-sec'},'📁 Likely File / Module'),
+          React.createElement('div',{style:{background:'var(--card)',border:'1px solid var(--bord2)',borderRadius:6,padding:'9px 13px',fontSize:11,color:'var(--acc2)',fontFamily:'var(--mono)'}},ai.file_hint),
+        ),
+
+        ai?.prevention && React.createElement('div',null,
+          React.createElement('div',{className:'m-sec'},'🛡 Prevention'),
+          React.createElement('div',{className:'info-box fix'},ai.prevention),
+        ),
+
+        // ── Full trace ────────────────────────────────────────────────────
+        React.createElement('div',null,
+          React.createElement('div',{className:'m-sec'},'📋 Full Error Trace'),
+          React.createElement('pre',{className:'trace'},card.message||(card.errorType+' — no message body captured')),
+        ),
+
+        // ── Similar errors ────────────────────────────────────────────────
+        similar.length>0 && React.createElement('div',null,
+          React.createElement('div',{className:'m-sec'},`🔗 Related Errors (${similar.length})`),
+          React.createElement('div',{className:'sim-list'},
+            similar.map((s,i)=>React.createElement('div',{className:'sim-item',key:i},
+              s.message.slice(0,120),
+              React.createElement('div',{className:'sim-ts'},new Date(s.timestamp).toLocaleString()),
+            ))
+          ),
+        ),
+      )
+    )
+  );
+}
+
+// ── Card / Column ────────────────────────────────────────────────────────────
+function Card({card,isNew,onClick}) {
+  return React.createElement('div',{className:'card',onClick:()=>onClick(card)},
+    isNew && React.createElement('div',{className:'card-new'}),
+    React.createElement('div',{className:'card-row1'},
+      React.createElement('span',{className:'card-type'},card.errorType),
+      React.createElement('div',{className:'card-src'},card.source.replace('[','\n[')),
+    ),
+    React.createElement('div',{className:'card-msg'},card.message||'(empty — click to view trace)'),
+    React.createElement('div',{className:'card-foot'},
+      React.createElement('span',{className:'card-ts'},new Date(card.timestamp).toLocaleString()),
+      card.count>1 && React.createElement('span',{className:'card-cnt'},`×${card.count}`),
+      React.createElement('span',{className:'card-cta'},'View →'),
+    )
+  );
+}
+function Column({label,sub,cards,newKeys,pri,onCard}) {
+  return React.createElement('div',{className:`col col-${pri}`},
+    React.createElement('div',{className:'col-head'},
+      React.createElement('div',{className:'col-lbl'},label),
+      React.createElement('div',{className:'col-sub'},sub),
+      React.createElement('span',{className:'col-cnt'},cards.length),
+    ),
+    React.createElement('div',{className:'cards'},
+      cards.length===0
+        ? React.createElement('div',{className:'empty'},React.createElement('div',{className:'empty-icon'},pri==='p1'?'✓':pri==='p2'?'–':'·'),'No issues')
+        : cards.map((c,i)=>React.createElement(Card,{key:i,card:c,isNew:newKeys.has(c.source+'|'+c.level+'|'+c.message.slice(0,90)),onClick:onCard}))
+    )
+  );
+}
+
+// ── No-server state ──────────────────────────────────────────────────────────
+function NoServer({env}) {
+  const e = ENVS[env];
+  const flagFile = env==='production' ? 'magento_log_fetcher_production.py' : 'magento_log_fetcher.py';
+  const root = env==='production' ? '/app/pwibh56ncnoes' : '/app/pwibh56ncnoes_stg2';
+  return React.createElement('div',{className:'no-server'},
+    React.createElement('div',{className:'no-server-icon'},'🔌'),
+    React.createElement('div',{className:'no-server-title'},`Waiting for ${e.label} fetcher…`),
+    React.createElement('div',{style:{color:'var(--muted)',fontSize:11,marginBottom:8}},`Make sure the fetcher is running on port ${e.port}`),
+    React.createElement('pre',{className:'no-server-cmd'},
+      `python3 ${flagFile} \\\n  --host "${e.host}" \\\n  --root "${root}" \\\n  --key ~/.ssh/id_rsa \\\n  --days 5 \\\n  --interval 60`
+    ),
+  );
+}
+
+// ── Main App ─────────────────────────────────────────────────────────────────
+function App() {
+  const [env, setEnv] = useState('production');
+  const [data, setData] = useState({production:{cards:[],meta:null,conn:'wait',connMsg:'Connecting…',fetching:false}, staging:{cards:[],meta:null,conn:'wait',connMsg:'Connecting…',fetching:false}});
+  const [newKeys, setNewKeys] = useState({production:new Set(),staging:new Set()});
+  const [filter, setFilter] = useState('');
+  const [selected, setSelected] = useState(null);
+  const [toast, setToast] = useState('');
+  const [nextIn, setNextIn] = useState(POLL_MS/1000);
+  const prevKeys = useRef({production:new Set(),staging:new Set()});
+  const fetchCount = useRef({production:0,staging:0});
+
+  const showToast = msg => { setToast(msg); setTimeout(()=>setToast(''),3500); };
+
+  const fetchEnv = useCallback(async (envKey) => {
+    const port = ENVS[envKey].port;
+    setData(d=>({...d,[envKey]:{...d[envKey],fetching:true}}));
+    try {
+      const r = await fetch(`http://localhost:${port}/logs`,{signal:AbortSignal.timeout(18000)});
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      const {meta,entries} = await r.json();
+      const grouped = group(entries);
+      const curKeys = new Set(grouped.map(c=>c.source+'|'+c.level+'|'+c.message.slice(0,90)));
+      const fresh = new Set([...curKeys].filter(k=>!prevKeys.current[envKey].has(k)));
+      prevKeys.current[envKey] = curKeys;
+      if (fresh.size>0 && fetchCount.current[envKey]>0) {
+        setNewKeys(nk=>({...nk,[envKey]:fresh}));
+        showToast(`[${ENVS[envKey].label}] +${fresh.size} new issue${fresh.size>1?'s':''}`);
+        setTimeout(()=>setNewKeys(nk=>({...nk,[envKey]:new Set()})),8000);
+      }
+      fetchCount.current[envKey]++;
+      setData(d=>({...d,[envKey]:{cards:grouped,meta,conn:meta.status==='error'?'err':'ok',connMsg:meta.status==='error'?`SSH: ${meta.error.slice(0,50)}`:`${entries.length} entries · ${grouped.length} issues`,fetching:false}}));
+    } catch(e) {
+      setData(d=>({...d,[envKey]:{...d[envKey],conn:'err',connMsg:`Port ${port} unreachable`,fetching:false}}));
+    }
+  },[]);
+
+  useEffect(()=>{
+    // Fetch both envs immediately
+    fetchEnv('production');
+    fetchEnv('staging');
+    const id = setInterval(()=>{
+      setNextIn(POLL_MS/1000);
+      fetchEnv('production');
+      fetchEnv('staging');
+    },POLL_MS);
+    const tick = setInterval(()=>setNextIn(n=>Math.max(0,n-1)),1000);
+    return ()=>{clearInterval(id);clearInterval(tick);};
+  },[fetchEnv]);
+
+  const cur = data[env];
+  const envCfg = ENVS[env];
+  const p1 = useMemo(()=>cur.cards.filter(c=>c.priority==='p1'),[cur.cards]);
+  const p2 = useMemo(()=>cur.cards.filter(c=>c.priority==='p2'),[cur.cards]);
+  const p3 = useMemo(()=>cur.cards.filter(c=>c.priority==='p3'),[cur.cards]);
+  const filt = list => !filter.trim() ? list : list.filter(c=>
+    c.message.toLowerCase().includes(filter.toLowerCase())||
+    c.errorType.toLowerCase().includes(filter.toLowerCase())||
+    c.source.toLowerCase().includes(filter.toLowerCase())||
+    c.level.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  const serverDown = cur.conn==='err' && cur.cards.length===0;
+
+  return React.createElement('div',{style:{flex:'1',minHeight:'0',display:'flex',flexDirection:'column',overflow:'hidden'}},
+    // Header
+    React.createElement('div',{className:'hd'},
+      React.createElement('div',{className:'hd-logo'},'⚡'),
+      React.createElement('div',null,
+        React.createElement('div',{className:'hd-title'},'Magento Cloud · Error Dashboard'),
+        React.createElement('div',{className:'hd-sub'},'system.log · exception.log · support_report.log · cloud.log'),
+      ),
+      React.createElement('div',{className:'hd-right'},
+        // Env switcher
+        React.createElement('div',{className:'env-tabs'},
+          Object.entries(ENVS).map(([key,cfg])=>
+            React.createElement('button',{
+              key,
+              className:`env-tab${env===key?' active-'+cfg.cls:''}`,
+              onClick:()=>setEnv(key),
+            },cfg.label)
+          )
+        ),
+        // Connection status for active env
+        React.createElement('div',{className:`conn-pill ${cur.conn}`},
+          React.createElement('div',{className:'conn-dot'}),
+          cur.connMsg,
+        ),
+      )
+    ),
+
+    // Progress
+    React.createElement('div',{className:'prog'},cur.fetching&&React.createElement('div',{className:'prog-inner'})),
+
+    // Env banner
+    React.createElement('div',{className:`env-banner ${envCfg.cls}`},
+      React.createElement('span',null,`● ${envCfg.label}`),
+      React.createElement('span',{className:'env-host'},envCfg.host),
+      cur.meta?.last_fetch && React.createElement('span',{className:'env-badge'},`Updated ${new Date(cur.meta.last_fetch).toLocaleTimeString()}`),
+    ),
+
+    serverDown
+      ? React.createElement(NoServer,{env})
+      : React.createElement(React.Fragment,null,
+          // Stats
+          React.createElement('div',{className:'stats'},
+            React.createElement('div',{className:'stat total'},React.createElement('div',{className:'stat-val'},cur.cards.length),React.createElement('div',{className:'stat-lbl'},'Total')),
+            React.createElement('div',{className:'stat p1'},React.createElement('div',{className:'stat-val'},p1.length),React.createElement('div',{className:'stat-lbl'},'P1 Critical')),
+            React.createElement('div',{className:'stat p2'},React.createElement('div',{className:'stat-val'},p2.length),React.createElement('div',{className:'stat-lbl'},'P2 High')),
+            React.createElement('div',{className:'stat p3'},React.createElement('div',{className:'stat-val'},p3.length),React.createElement('div',{className:'stat-lbl'},'P3 Low')),
+          ),
+
+          // Toolbar
+          React.createElement('div',{className:'toolbar'},
+            React.createElement('input',{className:'search',placeholder:'🔍  Filter by message, type, source, level…',value:filter,onChange:e=>setFilter(e.target.value)}),
+            React.createElement('span',{className:'next-lbl'},`Next: ${nextIn}s`),
+            React.createElement('button',{className:'btn btn-ghost',onClick:()=>{setNextIn(POLL_MS/1000);fetchEnv(env);},disabled:cur.fetching},cur.fetching?'⟳ Fetching…':'↻ Refresh'),
+          ),
+
+          // Board
+          React.createElement('div',{className:'board'},
+            React.createElement(Column,{label:'P1 — Critical',sub:'Site-down · DB · Payment',cards:filt(p1),newKeys:newKeys[env],pri:'p1',onCard:setSelected}),
+            React.createElement(Column,{label:'P2 — High',sub:'Degraded · Timeout · Cache',cards:filt(p2),newKeys:newKeys[env],pri:'p2',onCard:setSelected}),
+            React.createElement(Column,{label:'P3 — Low',sub:'Warnings · Deprecations',cards:filt(p3),newKeys:newKeys[env],pri:'p3',onCard:setSelected}),
+          ),
+        ),
+
+    // Modal
+    selected && React.createElement(Modal,{card:selected,all:cur.cards,onClose:()=>setSelected(null),envPort:ENVS[env].port}),
+
+    // Toast
+    toast && React.createElement('div',{className:'toast'},toast),
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
+</script>
+</body>
+</html>
