@@ -24,29 +24,35 @@ from pathlib import Path
 # SSH key setup — reads SSH_PRIVATE_KEY env var and writes to ~/.ssh/id_rsa
 # ---------------------------------------------------------------------------
 
-def setup_ssh_key():
-    key = os.environ.get("SSH_PRIVATE_KEY", "").strip()
+def _write_key(env_var, filename):
+    """Read an SSH key from an env var and write it to ~/.ssh/<filename>."""
+    key = os.environ.get(env_var, "").strip()
     if not key:
-        print("[server] WARNING: SSH_PRIVATE_KEY not set — SSH connections will fail.", flush=True)
-        return
+        return False
 
-    # Replit secrets strip newlines, storing the key as one long space-separated line.
-    # Reconstruct the proper PEM format.
+    # Replit secrets strip newlines — reconstruct proper PEM format.
     if "\n" not in key:
         header = "-----BEGIN OPENSSH PRIVATE KEY-----"
         footer = "-----END OPENSSH PRIVATE KEY-----"
-        # Remove header/footer and collapse all whitespace to get raw base64
         body = key.replace(header, "").replace(footer, "").replace(" ", "")
-        # Re-wrap base64 content at 70 chars per line (OpenSSH standard)
         wrapped = "\n".join(body[i:i+70] for i in range(0, len(body), 70))
         key = f"{header}\n{wrapped}\n{footer}"
 
     ssh_dir = Path.home() / ".ssh"
     ssh_dir.mkdir(mode=0o700, exist_ok=True)
-    key_path = ssh_dir / "id_rsa"
+    key_path = ssh_dir / filename
     key_path.write_text(key + "\n")
     key_path.chmod(0o600)
     print(f"[server] SSH key written to {key_path}", flush=True)
+    return True
+
+
+def setup_ssh_key():
+    # Prefer Ed25519 key (id_ed25519), fall back to RSA (id_rsa)
+    ok = _write_key("SSH_ED25519_KEY", "id_ed25519")
+    ok = _write_key("SSH_PRIVATE_KEY", "id_rsa") or ok
+    if not ok:
+        print("[server] WARNING: No SSH keys set — SSH connections will fail.", flush=True)
 
 
 # ---------------------------------------------------------------------------
@@ -61,7 +67,7 @@ PROD_HOST    = "1.ent-pwibh56ncnoes-production-vohbr3y@ssh.ap-3.magento.cloud"
 PROD_PORT    = 22
 PROD_LOG_DIR = "/app/pwibh56ncnoes/var/log"
 
-SSH_KEY      = "~/.ssh/id_rsa"
+SSH_KEY      = "~/.ssh/id_ed25519"
 DAYS_BACK    = 2
 FETCH_INTERVAL = 900   # 15 minutes
 HTTP_PORT    = 5000
