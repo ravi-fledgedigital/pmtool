@@ -29,6 +29,18 @@ def setup_ssh_key():
     if not key:
         print("[server] WARNING: SSH_PRIVATE_KEY not set — SSH connections will fail.", flush=True)
         return
+
+    # Replit secrets strip newlines, storing the key as one long space-separated line.
+    # Reconstruct the proper PEM format.
+    if "\n" not in key:
+        header = "-----BEGIN OPENSSH PRIVATE KEY-----"
+        footer = "-----END OPENSSH PRIVATE KEY-----"
+        # Remove header/footer and collapse all whitespace to get raw base64
+        body = key.replace(header, "").replace(footer, "").replace(" ", "")
+        # Re-wrap base64 content at 70 chars per line (OpenSSH standard)
+        wrapped = "\n".join(body[i:i+70] for i in range(0, len(body), 70))
+        key = f"{header}\n{wrapped}\n{footer}"
+
     ssh_dir = Path.home() / ".ssh"
     ssh_dir.mkdir(mode=0o700, exist_ok=True)
     key_path = ssh_dir / "id_rsa"
