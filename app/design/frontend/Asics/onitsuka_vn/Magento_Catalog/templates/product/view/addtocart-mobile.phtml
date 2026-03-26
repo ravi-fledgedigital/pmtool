@@ -1,0 +1,19 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php $buttonTitle = __('Add to Cart'); ?>
+<?php if ($_product->isSaleable()) :?>
+    <div class="box-btn">
+        <button class="btn btn-cart" onclick="jQuery('.content-wrap.item-detail .area-content .box-tocart .action.primary.tocart').trigger('click');"><?= __('ADD TO CART')?></button>
+    </div>
+<?php else: ?>
+    <div class="box-btn">
+        <button class="btn btn-cart disable"><?= __('ADD TO CART')?></button>
+    </div>
+<?php endif; ?>

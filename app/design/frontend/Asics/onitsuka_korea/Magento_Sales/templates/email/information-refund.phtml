@@ -1,0 +1,18 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+/** @var $block \Magento\Sales\Block\Order\Email\Creditmemo\Items */
+?>
+<?php $helperOrder = $this->helper(\OnitsukaTiger\Sales\Helper\Data::class)?>
+<?php $helperStore = $this->helper(\OnitsukaTiger\Store\Helper\Data::class);?>
+<?php $_creditMemo = $block->getCreditmemo() ?>
+<?php if($_creditMemo): ?>
+    <p class="email-title"><?= __('Return Details')?></p>
+    <p><?= __('RMA Number:')?> <?= $_creditMemo->getIncrementId()?></p>
+    <p><?= __('Refund Amount:')?> <?= $block->getOrder()->formatPrice($_creditMemo->getGrandTotal())?></p>
+<?php endif;?>

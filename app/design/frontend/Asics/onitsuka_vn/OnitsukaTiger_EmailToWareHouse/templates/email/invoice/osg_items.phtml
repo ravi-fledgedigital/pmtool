@@ -1,0 +1,130 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+$_invoice = $block->getInvoice();
+$_order   = $block->getOrder();
+$crmHelper = $this->helper(\OnitsukaTigerCpss\Crm\Helper\HelperData::class);
+?>
+
+<?php if ($_invoice && $_order) : ?>
+    <?php
+    $helperFixture = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);
+    $priceIncludingTax = $helperFixture->getConfig('tax/calculation/price_includes_tax');
+    $totalInclusiveTax = $helperFixture->getConfig('tax/cart_display/subtotal');
+    if ($priceIncludingTax == 1){
+        $priceIncludeLabel = 'Including';
+    }else{
+        $priceIncludeLabel = 'Excluding';
+    }
+    if ($totalInclusiveTax == 1){
+        $totalIncludeLabel = 'Exclusive';
+    }else{
+        $totalIncludeLabel = 'Inclusive';
+    }
+
+    $taxInfo = $this->helper(\Magento\Tax\Helper\Data::class)->getCalculatedTaxes($_invoice);
+    $listTaxTitle = array_column($taxInfo, 'title');
+    ?>
+    <?php
+    $usedPoint = 0;
+    $pointValue = 0;
+    $pointLabel = 'Points to be earned:';
+    if ($_order->getUsedPoint()) {
+        $usedPoint = number_format($_order->getUsedPoint());
+    }
+    if ($_order->getAddedPointDate() > 0 || $_order->getAcquiredPoint() > 0) {
+        $pointValue = number_format($_order->getAcquiredPoint());
+
+        if ($_order->getAddedPoint() > 0) {
+            $pointLabel = 'Added Points:';
+            $pointValue = number_format($_order->getAddedPoint());
+        }
+    }
+    ?>
+    <table class="table text-center" style="font-family: 'DejaVu Sans', sans-serif;">
+        <thead>
+        <tr>
+            <th scope="col">
+                <?= $block->escapeHtml(__('STT')) ?>
+            </th>
+            <th scope="col">
+                <?= $block->escapeHtml(__('Mã Sản Phẩm')) ?>
+            </th>
+            <th scope="col">
+                <?= $block->escapeHtml(__('Mô Tả Sản Phẩm')) ?>
+            </th>
+            <th scope="col">
+                <?= $block->escapeHtml(__('Số')) ?>
+                <br>
+                <?= $block->escapeHtml(__('Lượng')) ?>
+            </th>
+            <th scope="col">
+                <?= $block->escapeHtml(__('Giá')) ?>
+                <br>
+                <?= $block->escapeHtml(__('(Bao gồm thuế)')) ?>
+            </th>
+            <th scope="col">
+                <?= $block->escapeHtml(__('Tổng cộng')) ?>
+            </th>
+        </tr>
+        </thead>
+        <?php foreach ($_invoice->getAllItems() as $_item) : ?>
+            <?php if (!$_item->getOrderItem()->getParentItem()) : ?>
+                <tbody>
+                <?= $block->getItemHtml($_item) ?>
+                </tbody>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </table>
+    <div class="row" style="font-family: 'DejaVu Sans', sans-serif;">
+        <div class="col-7">
+            <p class="note">
+                <?= $block->escapeHtml(__('*Lưu ý: Đơn hàng của bạn có thể được giao nhiều lần.')) ?><br>
+                <?= $block->escapeHtml(__('Vui lòng từ chối nhận hàng nếu kiện hàng có dấu hiệu bị vỡ hoặc bao bì không nguyên vẹn')) ?><br>
+                <?= $block->escapeHtml(__('Miễn trừ trách nhiệm: Do việc làm tròn, bạn sẽ thấy có sự khác biệt nhỏ trong số tiền thanh toán')) ?><br>
+            </p>
+        </div>
+        <div class="col-3 text-right">
+            <?= $block->escapeHtml(__('Shipping:')) ?><br>
+            <b><?= $block->escapeHtml(__('Total ('. $totalIncludeLabel .' of VAT):')) ?></b><br>
+            <?php if ($taxInfo) : ?>
+                <?php foreach ($taxInfo as $tax) : ?>
+                    <?php
+                    $taxPercent = round((float) $tax['percent'], 2);
+                    ?>
+                    <?= $block->escapeHtml(__('VAT ' . $totalIncludeLabel . ' ' . $taxPercent . '%:')) ?><br>
+                <?php endforeach; ?>
+            <?php else : ?>
+                <?= $block->escapeHtml(__('VAT '. $totalIncludeLabel .' 0%:')) ?><br>
+            <?php endif; ?>
+            <?php if ($crmHelper->isEnableModule()): ?>
+                <?= /* @noEscape */ __('Used point:') ?><br>
+                <?= /* @noEscape */ __($pointLabel) ?>
+            <?php endif; ?>
+        </div>
+        <div class="col-2 text-right">
+            <div class="pr-9">
+                <?= $_order->formatPrice($_invoice->getShippingAmount()) ?><br>
+                <b><?= $_order->formatPrice($_invoice->getGrandTotal()) ?></b><br>
+                <?php if ($taxInfo) : ?>
+                    <?php foreach ($taxInfo as $tax) : ?>
+                        <?php if(isset($tax['tax_amount'])) :?>
+                            <b><?= $_order->formatPrice($_invoice->getTaxAmount()) ?></b><br>
+                        <?php else:?>
+                            <b><?= $_order->formatPrice($tax['tax_amount']) ?></b><br>
+                        <?php endif;?>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <b><?= $_order->formatPrice(0.00) ?></b><br>
+                <?php endif; ?>
+                <?php if ($crmHelper->isEnableModule()): ?>
+                    <?= /* @noEscape */ __($usedPoint) . __(' points')?><br>
+                    <?= /* @noEscape */ __($pointValue) . __(' points') ?>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="head.additional">
+            <block class="Magento\Framework\View\Element\Text" name="notosans.fonts">
+                <arguments>
+                    <argument name="text" xsi:type="string"><![CDATA[
+                        <link rel="preconnect" href="https://fonts.googleapis.com">
+                        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+                    ]]></argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceContainer name="footer-container">
+            <container htmlTag="div" htmlClass="footer-box-wrapper-container" before="-" after="footer">
+                <container htmlTag="div" htmlClass="footer-bussiness-wrapper">
+                    <block class="Magento\Cms\Block\Block" before="-" name="footer-business-information">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">footer-business-information</argument>
+                        </arguments>
+                    </block>
+                    <container htmlTag="div" htmlClass="footer-box-wrapper">
+                        <block class="Magento\Cms\Block\Block" before="-" name="footer-box-content">
+                            <arguments>
+                                <argument name="block_id" xsi:type="string">footer-box</argument>
+                            </arguments>
+                        </block>
+                    </container>
+                </container>
+            </container>
+        </referenceContainer>
+        <referenceContainer name="root">
+            <block class="Magento\Newsletter\Block\Subscribe" name="newsletter-popup-main" after="-" template="Magento_Theme::html/newsletter-init.phtml">
+                <block class="Magento\Cms\Block\Block" name="newsletter-popup" after="-">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">newsletter-popup</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="head.additional">
+            <block class="Magento\Framework\View\Element\Template" name="onitsukatiger.korea.head.custom.tag" template="Magento_Theme::head/customLinkOnHead.phtml" />
+        </referenceBlock>
+        <referenceBlock name="footer-box" remove="true"/>
+        <referenceBlock name="footer-store-information" remove="true"/>
+        <move element="top.search" destination="header-wrapper" after="logo"/>
+    </body>
+</page>

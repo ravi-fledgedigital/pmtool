@@ -1,0 +1,53 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/* @var \Magento\Wishlist\Block\Customer\Wishlist\Item\Options $block */
+$helperData = $this->helper(OnitsukaTigerKorea\ConfigurableProduct\Helper\Data::class);
+?>
+<?php $helper = $this->helper(\OnitsukaTiger\Rma\Helper\Data::class); ?>
+<?php $product = $block->getItem()->getProduct(); ?>
+<?php $color = $product->getResource()->getAttribute('color') ?>
+<?php $colorValue = $color->getSource()->getOptionText($product->getData('color')); ?>
+<?php $childProduct = null; ?>
+<?php $options = $block->getOptionList(); ?>
+<?php $product = $block->getItem()->getProduct(); ?>
+<?php $sizeForDisplay = $helperData->getSizeForDisplay($product->getSku(), $product->getStoreId())?>
+<?php if ($options) : ?>
+    <?php
+    $superAttribute = [];
+    foreach ($options as $option) {
+        if (array_key_exists('option_id', $option)) {
+            $superAttribute[$option['option_id']] = $option['option_value'];
+        }
+    }
+    ?>
+    <?php $childProduct = $helper->getChildFromProductAttribute($product, $superAttribute); ?>
+    <?php if ($childProduct) : ?>
+        <?php $colorValue = $color->getSource()->getOptionText($childProduct->getData('color')); ?>
+    <?php endif; ?>
+    <div class="product-items-options">
+        <?php foreach ($options as $option) : ?>
+            <?php if (strtolower($option['label']) !== 'width'): ?>
+                <div class="product-options-<?= strtolower($option['label'])?>">
+                    <span class="label"><?= $block->escapeHtml(__($option['label'])) ?>: </span>
+                    <span class="value-options">
+                        <?php if($sizeForDisplay && strtolower ($option['label'])== 'size'): ?>
+                            <?= /* @noEscape */ $sizeForDisplay ?>
+                        <?php elseif ($colorValue && strtolower($option['label']) == 'colors'): ?>
+                            <?= /* @noEscape */ $colorValue ?>
+                        <?php else: ?>
+                            <?php if (is_array($option['value'])) : ?>
+                                <?= /* @noEscape */ nl2br(implode("\n", $option['value'])) ?>
+                            <?php else : ?>
+                                <?= /* @noEscape */ $option['value'] ?>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </span>
+                </div>
+            <?php endif;?>
+        <?php endforeach; ?>
+    </div>
+<?php endif ?>

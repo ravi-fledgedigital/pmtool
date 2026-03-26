@@ -1,0 +1,65 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php /** @var $block \Magento\Sales\Block\Order\Info */ ?>
+<?php $_order = $block->getOrder() ?>
+<?php $helper = $this->helper(\OnitsukaTiger\OrderTracking\Helper\Guest::class)?>
+<?php
+$helperConfig = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);
+$telephonePrefix = $helperConfig->getConfig('general/telephone_prefix/number') ? $helperConfig->getConfig('general/telephone_prefix/number') : '66';
+?>
+<div class="block block-order-details-view">
+    <div class="block-content">
+        <?php if (!$_order->getIsVirtual()) : ?>
+            <div class="box box-order-shipping-address">
+                <strong class="box-title"><span><?= $block->escapeHtml(__('Shipping Address')) ?></span></strong>
+                <div class="box-content">
+                    <ul>
+                        <li class="name"><?= $block->escapeHtml($_order->getShippingAddress()->getFirstname()) ?></li>
+                        <?php foreach ($_order->getShippingAddress()->getStreet() as $street):?>
+                            <li><?= $block->escapeHtml($street) ?>,</li>
+                        <?php endforeach;?>
+                        <?php if($_order->getShippingAddress()->getCity() != ''): ?>
+                            <li><?= $block->escapeHtml($_order->getShippingAddress()->getCity()) ?></li>
+                        <?php endif; ?>
+                        <li><?= $block->escapeHtml($helper->getCountryByCode($_order->getShippingAddress()->getCountryId())) ?>, <?= $block->escapeHtml($_order->getShippingAddress()->getPostcode()) ?></li>
+                        <li class="email"><?= $_order->getCustomerEmail()?></li>
+                        <?php if($helperConfig->getConfig('general/telephone_prefix/enable')): ?>
+                            <li class="phone"><?= $telephonePrefix.'-'.substr($block->escapeHtml($_order->getShippingAddress()->getTelephone()), 2) ?></li>
+                        <?php else: ?>
+                            <li class="phone"><?= $block->escapeHtml($_order->getShippingAddress()->getTelephone()) ?></li>
+                        <?php endif;?>
+
+                    </ul>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <div class="box box-order-billing-address">
+            <strong class="box-title">
+                <span><?= $block->escapeHtml(__('Billing Address')) ?></span>
+            </strong>
+            <div class="box-content">
+                <ul>
+                    <li class="name"><?= $block->escapeHtml($_order->getBillingAddress()->getFirstname()) ?></li>
+                    <?php foreach ($_order->getBillingAddress()->getStreet() as $street):?>
+                        <li><?= $block->escapeHtml($street) ?>,</li>
+                    <?php endforeach;?>
+                    <?php if($_order->getBillingAddress()->getCity() != ''): ?>
+                        <li><?= $block->escapeHtml($_order->getBillingAddress()->getCity()) ?></li>
+                    <?php endif; ?>
+                    <li><?= $block->escapeHtml($helper->getCountryByCode($_order->getBillingAddress()->getCountryId())) ?>, <?= $block->escapeHtml($_order->getBillingAddress()->getPostcode()) ?></li>
+                    <li class="email"><?= $_order->getCustomerEmail()?></li>
+                    <?php if($helperConfig->getConfig('general/telephone_prefix/enable')): ?>
+                        <li class="phone"><?= $telephonePrefix.'-'.substr($block->escapeHtml($_order->getBillingAddress()->getTelephone()), 2) ?></li>
+                    <?php else: ?>
+                        <li class="phone"><?= $block->escapeHtml($_order->getBillingAddress()->getTelephone()) ?></li>
+                    <?php endif;?>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

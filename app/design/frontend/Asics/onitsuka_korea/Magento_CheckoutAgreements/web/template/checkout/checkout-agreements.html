@@ -1,0 +1,57 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div data-role="checkout-agreements">
+    <div class="checkout-agreements fieldset" data-bind="visible: isVisible">
+        <!-- ko foreach: agreements -->
+        <!-- ko if: ($parent.isAgreementRequired($data)) -->
+        <div class="checkout-agreement field choice required">
+            <input type="checkbox" class="required-entry"
+                   data-bind="attr: {
+                            'id': $parent.getCheckboxId($parentContext, agreementId),
+                            'name': 'agreement[' + agreementId + ']',
+                            'value': agreementId
+                            }"/>
+            <!-- ko if: ($parent.termAndCondition(checkboxText)) -->
+            <a target="_blank" href="../terms-and-conditions" style="color: #00e">이용약관</a>
+            <!-- /ko -->
+            <label class="label" data-bind="attr: {'for': $parent.getCheckboxId($parentContext, agreementId)}">
+                <span data-bind="html: checkboxText"></span>
+                <!-- ko if: ($parent.isLinkFound(checkboxText)) -->
+                <a data-bind="click: function(data, event) { return $parent.showContent(data, event) }" style="color: #00e">
+                    자세히보기
+                </a>
+                <!-- /ko -->
+            </label>
+        </div>
+        <!-- /ko -->
+        <!-- ko ifnot: ($parent.isAgreementRequired($data)) -->
+        <div class="checkout-agreement field choice">
+            <input type="checkbox"
+                   data-bind="attr: {
+                        'id': $parent.getCheckboxId($parentContext, agreementId),
+                        'name': 'agreement[' + agreementId + ']',
+                        'value': agreementId
+                        }"/>
+            <!-- ko if: ($parent.termAndCondition(checkboxText)) -->
+            <a target="_blank" href="../terms-and-conditions" style="color: #00e">이용약관</a>
+            <!-- /ko -->
+            <label class="label" data-bind="attr: {'for': $parent.getCheckboxId($parentContext, agreementId)}">
+                <span data-bind="html: checkboxText"></span>
+                <!-- ko if: ($parent.isLinkFound(checkboxText)) -->
+                <a data-bind="click: function(data, event) { return $parent.showContent(data, event) }" style="color: #00e">
+                    자세히보기
+                </a>
+                <!-- /ko -->
+            </label>
+        </div>
+        <!-- /ko -->
+        <!-- /ko -->
+        <div id="checkout-agreements-modal" data-bind="afterRender: initModal" style="display: none">
+            <div class="checkout-agreements-item-content" data-bind="html: modalContent, style: {height: contentHeight, overflow:'auto' }"></div>
+        </div>
+    </div>
+</div>

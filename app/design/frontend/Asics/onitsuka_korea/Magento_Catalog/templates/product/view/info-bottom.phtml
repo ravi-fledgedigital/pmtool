@@ -1,0 +1,20 @@
+<div class="product-info-price-details">
+    <?= $block->getChildHtml()?>
+</div>
+<script type="text/javascript">
+    require(
+        [
+            'jquery',
+            'matchMedia'
+        ],function($, mediaCheck) {
+            'use strict';
+            mediaCheck({
+                media: '(max-width: 768px)',
+                entry: function () {
+                    $('.block-variation .page-title-wrapper.product').append($(".product-addto-links"));
+                    $('.block-variation .product-info-stock-sku').append($('.product-info-price-details'));           
+                }     
+            });
+        }
+    );
+</script>

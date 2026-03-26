@@ -1,0 +1,37 @@
+<!--Use 'stepCode' as id attribute-->
+<li data-bind="fadeVisible: isVisible, attr: { id: stepCode }">
+    <!-- ko ifnot: isLogedIn -->
+    <div class="login-guest-content">
+        <div class="heading" data-bind="i18n: 'Have an Onitsuka Tiger ID? login here'"></div>
+        <div class="login-ctrl">
+            <each args="getRegion('customer-email')" render=""></each>
+        </div>
+        <div id="checkout-step-title"
+             class="step-content"
+             data-role="content">
+            <div class="heading" data-bind="i18n: 'don\'t have an id?'"></div>
+            <a href="#" data-bind="click: navigateToNextStep" class="continue-guest">
+                <span><!-- ko i18n: 'Continue as a guest'--><!-- /ko --></span>
+            </a>
+            <div class="helptxt"><!-- ko i18n: 'OR'--><!-- /ko --></div>
+            <a data-bind="attr: {href : getLoginLink()}" class="continue-guest">
+                <span><!-- ko i18n: 'create an id'--><!-- /ko --></span>
+            </a>
+        </div>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: isLogedIn -->
+    <form data-bind="submit: navigateToNextStep" novalidate="novalidate">
+        <div class="heading username">
+            <span data-bind="text: getCustomerEmail()"></span>
+        </div>
+        <div class="actions-toolbar checkout-logged">
+            <div class="primary">
+                <button data-role="opc-continue" type="submit" class="button action continue primary">
+                    <span><!-- ko i18n: 'Continue as existing user'--><!-- /ko --></span>
+                </button>
+            </div>
+        </div>
+    </form>
+    <!-- /ko -->
+</li>

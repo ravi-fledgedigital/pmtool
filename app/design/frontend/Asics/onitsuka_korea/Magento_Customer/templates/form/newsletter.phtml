@@ -1,0 +1,33 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Customer\Block\Newsletter $block */
+?>
+<?= $block->getChildHtml('form_before') ?>
+    <form class="form form-newsletter-manage" action="<?= $block->escapeUrl($block->getAction()) ?>" method="post" id="form-validate">
+        <fieldset class="fieldset">
+            <?= $block->getBlockHtml('formkey') ?>
+            <div class="field gender">
+                <label class="label" for="is_subscribed">
+                    <span><?= $block->escapeHtml(__('General Subscription')) ?></span>
+                </label>
+                <div class="control">
+                    <select id="is_subscribed" name="is_subscribed">
+                        <option value="" <?php if (!$block->getIsSubscribed()) : ?> selected="selected"<?php endif; ?>><?= __('OFF')?></option>
+                        <option value="1" <?php if ($block->getIsSubscribed()) : ?> selected="selected"<?php endif; ?>><?= __('ON')?></option>
+                    </select>
+                </div>
+            </div>
+            <?php /* Extensions placeholder */ ?>
+            <?= $block->getChildHtml('customer.form.newsletter.extra') ?>
+        </fieldset>
+        <div class="actions-toolbar">
+            <div class="primary"><button type="button" title="<?= $block->escapeHtmlAttr(__('Save')) ?>" id="newsletter-save" class="action save primary"><span><?= $block->escapeHtml(__('Save')) ?></span></button></div>
+            <div class="secondary"><a class="action back" href="<?= $block->escapeUrl($block->getBackUrl()) ?>"><span><?= $block->escapeHtml(__('Go back')) ?></span></a></div>
+        </div>
+    </form>
+<?php /* Extensions placeholder */ ?>
+<?= $block->getChildHtml('customer.form.newsletter.extra2') ?>

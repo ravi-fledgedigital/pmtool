@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock class="OnitsukaTigerKorea\Customer\Block\Address\Edit" name="customer_address_edit_popup" template="OnitsukaTigerKorea_Customer::address/edit-popup.phtml" />
+    </body>
+</page>

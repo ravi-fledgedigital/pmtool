@@ -1,0 +1,32 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+$_invoice = $block->getInvoice();
+$_order   = $block->getOrder();
+?>
+
+<?php if ($_invoice && $_order) : ?>
+    <table class="table text-center" style="font-family: 'DejaVu Sans', sans-serif;">
+        <thead>
+        <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Mã Sản Phẩm</th>
+            <th scope="col"">Mô Tả Sản Phẩm</th>
+            <th scope="col">Số <br> Lượng</th>
+            <th scope="col">Đổi trả <br> (Vui lòng chọn)</th>
+            <th scope="col">Số lượng đổi trả</th>
+            <th scope="col">Lý do đổi trả</th>
+        </tr>
+        </thead>
+        <?php foreach ($_invoice->getAllItems() as $_item) : ?>
+            <?php if (!$_item->getOrderItem()->getParentItem()) : ?>
+                <tbody>
+                <?= $block->getItemHtml($_item) ?>
+                </tbody>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </table>
+<?php endif; ?>

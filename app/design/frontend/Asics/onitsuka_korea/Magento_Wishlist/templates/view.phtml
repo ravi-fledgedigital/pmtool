@@ -1,0 +1,71 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Wishlist\Block\Customer\Wishlist $block */
+?>
+<?php
+$helper = $this->helper(\OnitsukaTiger\Wishlist\Helper\Data::class);
+/** @var \Vaimo\OTAdobeDataLayer\Helper\Data $vaimoHelper */
+$vaimoHelper = $this->helper('\Vaimo\OTAdobeDataLayer\Helper\Data');
+$vaimoHelper->setViewWishListEvent($block->getWishlistItems());
+?>
+<?php if ($this->helper(\Magento\Wishlist\Helper\Data::class)->isAllow()) : ?>
+    <?= ($block->getChildHtml('wishlist.rss.link')) ?>
+    <form class="form-wishlist-items" id="wishlist-view-form"
+          data-mage-init='{"wishlist":{
+          "addToCartUrl":<?= /* @noEscape */ $block->getItemAddToCartParams("%item%") ?>,
+          "addAllToCartUrl":<?= /* @noEscape */ $helper->getAddAllToCartParams() ?>,
+          "addSelectedToCartUrl":<?= /* @noEscape */ $helper->getAddSelectedToCartParams() ?>,
+          "commentString":""},
+          "validation": {}}' action="<?= $block->escapeUrl($block->getUrl('wishlist/index/update', ['wishlist_id' => $block->getWishlistInstance()->getId()])) ?>" method="post">
+        <?= $block->getChildHtml('top') ?>
+        <?php if ($block->hasWishlistItems()) : ?>
+            <?= $block->getBlockHtml('formkey') ?>
+            <?php $block->getChildBlock('items')->setItems($block->getWishlistItems()); ?>
+            <?= $block->getChildHtml('items') ?>
+        <?php else : ?>
+            <div class="address-empty">
+                <!-- <h2><?= __('Empty Wishlist')?></h2> -->
+                <h2> <?= __('위시리스트에 <a href="%1">상품</a>을 추가해보세요.', $block->getUrl(''),['a'])?></h2>
+            </div>
+        <?php endif ?>
+        <?= $block->getChildHtml('bottom') ?>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <?= $block->getChildHtml('control_buttons') ?>
+            </div>
+        </div>
+    </form>
+    <script id="form-tmpl" type="text/x-magento-template">
+        <form id="wishlist-hidden-form" method="post" action="<%- data.url %>" class="no-display">
+            <% if (data.qty) { %>
+            <input name="qty" value="<%- data.qty %>">
+            <% } %>
+
+            <% if (data.item) { %>
+            <input name="item" value="<%- data.item %>">
+            <% } %>
+
+            <% if (data.entity) { %>
+            <input name="entity" value="<%- data.entity %>">
+            <% } %>
+        </form>
+    </script>
+    <div class="toolbar wishlist-toolbar"><br><?= $block->getChildHtml('wishlist_item_pager'); ?></div>
+<?php endif ?>
+<div class="popup-confirm-delete">
+    <div id="popup_overlay"></div>
+    <div id="popup_container" class="jalertbox ui-draggable">
+        <h1 id="popup_title" style="cursor: move;"></h1>
+        <div id="popup_content" class="confirm">
+            <div id="popup_message"><?= __('Do you want to remove selected item from Wishlist?')?></div>
+            <div id="popup_panel">
+                <input type="button" value="<?= __('Ok')?>" id="popup_ok" class="btn-ok">
+                <input type="button" value="<?= __('Cancel')?>" id="popup_cancel" class="btn-cancel">
+            </div>
+        </div>
+    </div>
+</div>

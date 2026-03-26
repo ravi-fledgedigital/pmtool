@@ -1,0 +1,25 @@
+<?php
+$helper = $this->helper(\OnitsukaTiger\Customer\Helper\Data::class);
+$helperConfig = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);
+$telephonePrefix = $helperConfig->getConfig('general/telephone_prefix/number') ? $helperConfig->getConfig('general/telephone_prefix/number') : '66';
+$_order = $block->getOrder();
+$_shipment = $block->getShipment();
+?>
+<?php if ($_order) : ?>
+    <p class="title-address"><?= __('Shipping Address')?></p>
+    <?= $_order->getShippingAddress()->getFirstName()?> <?= $_order->getShippingAddress()->getLastName()?> <br/>
+    <?php foreach ($_order->getShippingAddress()->getStreet() as $street): ?>
+        <?php if($street):?>
+            <?= $street ?>,
+        <?php endif;?>
+    <?php endforeach;?><br/>
+    <?php if($_order->getShippingAddress()->getCity()):?><?= $_order->getShippingAddress()->getCity() ?>,<?php endif;?><?php if($_order->getShippingAddress()->getRegion()):?> <?= $_order->getShippingAddress()->getRegion() ?><br/><?php endif;?>
+    <?= $helper->getCountryByCode($_order->getShippingAddress()->getCountryId())?><br/>
+    <?= __('Postal Code:')?> <?= $_order->getShippingAddress()->getPostcode()?>,<br/>
+    <?php if($helperConfig->getConfig('general/telephone_prefix/enable')): ?>
+        <?= __('Mobile:')?> <?= $telephonePrefix.'-'.substr($block->escapeHtml($_order->getShippingAddress()->getTelephone()), 2) ?><br/>
+    <?php else: ?>
+        <?= __('Mobile:')?> <?= $block->escapeHtml($_order->getShippingAddress()->getTelephone()) ?><br/>
+    <?php endif;?>
+    <?= __('Email:')?> <?= $_order->getShippingAddress()->getEmail()?><br/>
+<?php endif; ?>

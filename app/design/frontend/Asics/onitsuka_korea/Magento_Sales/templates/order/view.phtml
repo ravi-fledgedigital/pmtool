@@ -1,0 +1,165 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<?php /** @var  $block \Magento\Sales\Block\Order\View*/?>
+<?php
+$helperTracking = $this->helper(\OnitsukaTiger\OrderStatusTracking\Helper\Data::class);
+$helperReturn = $this->helper(\OnitsukaTiger\Rma\Helper\Data::class);
+$helperStore = $this->helper(\OnitsukaTiger\Store\Helper\Data::class);
+$helper = $this->helper(\OnitsukaTiger\Sales\Helper\Data::class);
+$showShipment = false;
+?>
+<div class="page-title-wrapper">
+    <h1 class="page-title">
+        <span class="base" data-ui-id="page-title-wrapper"><?= __('My Orders')?></span>
+    </h1>
+</div>
+<div class="order-details-items ordered">
+    <?php $_order = $block->getOrder() ?>
+    <?php $date = $helperStore->formatDate($_order->getCreatedAt(),$_order->getStoreId());?>
+    <?php $updateDate = $helperStore->formatDate($_order->getUpdatedAt(),$_order->getStoreId());?>
+    <?php $statusOrderTrack = $helperTracking->getStatusTracking($_order);?>
+    <?php $totalTrack = count($statusOrderTrack)?>
+    <?php $orderStatus = $_order->getStatusLabel()?>
+    <?php $index=0; foreach ($statusOrderTrack as $key => $track): $index++;?>
+        <?php if((int)$index == $totalTrack){
+            $updateDate = $helperStore->formatDate($track->getCreatedAt(),$_order->getStoreId());
+        } ?>
+    <?php endforeach;?>
+    <div class="order-title">
+        <div class="order-id"><strong><?= __('Order ID:')?></strong> <?= $_order->getIncrementId()?></div>
+        <div class="order-date"><strong><?= __('Order date:')?></strong><?= $date?></div>
+    </div>
+    <div class="order-details-container">
+        <div class="order-head">
+            <div class="order-details">
+                <span><?= __($orderStatus)?></span> <?= $updateDate?>
+            </div>
+            <div class="order-tracking-graph">
+                <ul class="hidden">
+                    <?php $totalTrack = count($statusOrderTrack)?>
+                    <?php $index=0; foreach ($statusOrderTrack as $key => $track): $index++;?>
+                        <li class="order-step processed <?php if((int)$index == $totalTrack): echo 'processed-continous';endif; ?>" data-index="<?= $key?>"><div class="setp-bullet"></div></li>
+                    <?php endforeach;?>
+                </ul>
+                <div class="info-box">
+                    <?php $index=0; foreach ($statusOrderTrack as $key => $track): $index++;?>
+                        <div class="loginfodiv" style="display: <?php if((int)$index == $totalTrack): echo 'block'; else: echo 'none';endif; ?>" data-index="<?= $key?>">
+                            <div class="arrow arrow0"></div>
+                            <div class="info-msg"><?= __($helperTracking->getStatusDescription($track->getStatus()))?></div>
+                        </div>
+                    <?php endforeach;?>
+                </div>
+            </div>
+        </div>
+        <div class="order-items-list">
+            <?= $block->getChildHtml('order_items') ?>
+        </div>
+    </div>
+
+    <?php if(count($_order->getShipmentsCollection()) > 0 ): ?>
+        <?php foreach ($_order->getShipmentsCollection() as $shipment) : ?>
+            <?php $trackDetail = $helper->getTrackDetail($shipment); ?>
+            <?php if(!empty($trackDetail)): ?>
+                <?php if($trackDetail['con_no'] != ''): $showShipment = true;?><?php endif;?>
+            <?php endif;?>
+        <?php endforeach; ?>
+        <?php if($showShipment) : ?>
+            <div class="order-details-container shipment-list">
+                <div class="order-items-list">
+                    <?= $block->getChildHtml('shipment_items') ?>
+                </div>
+            </div>
+        <?php endif;?>
+    <?php endif;?>
+    <?php if($helperReturn->checkButtonReorder($_order) || (!$_order->getOrderSynced() && $_order->getStatus() != \OnitsukaTiger\OrderStatus\Model\OrderStatus::STATUS_STOCK_PENDING && $_order->getStatus() != \OnitsukaTiger\OrderStatus\Model\OrderStatus::STATUS_CLOSED && $_order->hasInvoices())): ?>
+    <div class="reorder-order">
+        <?php if($helperReturn->checkButtonReorder($_order)): ?>
+            <a data-role="order-return" href="#" data-return='<?= /* @noEscape */$helperReturn->getCreateReturnUrl($_order) ?>' class="action order">
+                <span><?= $block->escapeHtml(__('Return')) ?></span>
+            </a>
+        <?php endif ?>
+        <?php if(!$_order->getOrderSynced() && $_order->getStatus() != \OnitsukaTiger\OrderStatus\Model\OrderStatus::STATUS_STOCK_PENDING && $_order->getStatus() != \OnitsukaTiger\OrderStatus\Model\OrderStatus::STATUS_CLOSED && $_order->hasInvoices()): ?>
+            <a data-role="order-cancel" href="#" data-order='<?= /* @noEscape */ $_order->getEntityId() ?>' class="action order">
+                <span><?= $block->escapeHtml(__('Cancel Order')) ?></span>
+            </a>
+            <div id="modal-cancel-order" class="hidden">
+                <div class="modal-body-content">
+                    <div class="form form-cancel">
+                        <div class="fieldset" style="margin-bottom: 0px">
+                            <div class="field email required">
+                                <label class="label" for="email"><span><?= $block->escapeHtml(__('Cancel Reason')) ?></span></label>
+                                <div class="control">
+                                    <?php $reasonBlock = $this->getChildBlock('order.cancel.reason'); ?>
+                                    <select id="reason">
+                                        <option value=""><?= $block->escapeHtml(__('Please choose')) ?></option>
+                                        <?php foreach ($reasonBlock->getReasons() as $reason): ?>
+                                            <option value="<?= $reason->getLabel() ?>">
+                                                <?= $block->escapeHtml(__($reason->getLabel())) ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                        <option value="other"><?= $block->escapeHtml(__('Other')) ?></option>
+                                    </select>
+                                    <input type="text" class="other-options hidden" style="margin-top: 20px">
+                                    <input type="hidden" class="reason-value" value="" data-validate="{required:true}">
+                                    <div class="message-error hidden"><?= __('This is a required field.')?></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script type="text/x-magento-init">
+                {
+                    ".reorder-order": {
+                        "orderCancel": {
+                            "actionUrlPrefix": "<?= $block->escapeJs($block->escapeUrl($block->getUrl('cancelorder/customer/cancel'))) ?>"
+                        }
+                    }
+                }
+            </script>
+        <?php endif ?>
+    </div>
+    <?php endif; ?>
+    <div class="message-hidden-ajax">
+        <div role="alert" class="messages">
+            <div class="message" data-ui-id="message-success">
+                <div >You canceled the order.</div>
+            </div>
+        </div>
+    </div>
+    <script type="text/x-magento-init">
+                {
+                    ".order-items": {
+                        "orderAjax": {
+                            "addressJson": "",
+                            "deleteUrlPrefix": ""
+                        }
+                    }
+                }
+            </script>
+</div>
+<script type="text/javascript">
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ], function($) {
+            $(".order-tracking-graph .order-step").hover(function(){
+                $('.info-box .loginfodiv').hide();
+                $('.info-box .loginfodiv[data-index="'+$(this).data("index")+'"]').show();
+            }, function(){
+                $('.info-box .loginfodiv').hide();
+                $('.info-box .loginfodiv:last-child').show();
+            });
+        }
+    );
+</script>
+<div class="loadding-ajax">
+    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+</div>

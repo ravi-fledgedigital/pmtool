@@ -1,0 +1,55 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .about-member-program.modal-popup._inner-scroll {
+        .modal-inner-wrap {
+            border-radius: 0;
+            max-width: 650px;
+        }
+        .modal-title{
+            border-bottom: none;
+        }
+        .modal-inner-wrap[class]{
+            background: #fff;
+        }
+        .modal-content{
+            border: 1px solid #dddddd;
+            background: #fff;
+            padding: 20px;
+            margin: 14px 28px;
+            outline: #f4f4f4 solid 14px;
+        }
+        .agree-membership-message{
+            margin-bottom: 20px;
+        }
+        .modal-footer{
+            border-top: none;
+            padding-left: 14px;
+            text-align: center;
+        }
+    }
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .about-member-program.modal-popup.modal-slide {
+        bottom: 15px;
+        left: 15px;
+        right: 15px;
+        top: 15px;
+        width: auto;
+        .modal-inner-wrap[class]{
+            max-width: inherit;
+        }
+    }
+}

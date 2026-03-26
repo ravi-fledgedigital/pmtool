@@ -1,0 +1,29 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+<?php
+$helper = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);
+?>
+<?php if ($helper->getConfig('korean_address/customer_account/allow_delete_customer')): ?>
+    <div class="remove-account-toolbar">
+        <button type="button" class="action remove primary"  id="remove-account"><span><?= $block->escapeHtml(__('Delete My account')) ?></span></button>
+        <script type="text/x-magento-init">
+            {
+                "#remove-account": {
+                    "accountRemove": {
+                        "deleteUrlPrefix": "<?= $block->escapeJs($block->getUrl('cancelorder/customer/delete')) ?>"
+                    }
+                }
+            }
+        </script>
+        <div class="hidden">
+            <div id="modal-remove-account">
+                <div class="modal-body-content">
+                    <p>&nbsp;</p>
+                    <p><?= $block->escapeHtml($helper->getConfig('korean_address/customer_account/delete_customer_message')) ?></p>
+                    <p>&nbsp;</p>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif;?>

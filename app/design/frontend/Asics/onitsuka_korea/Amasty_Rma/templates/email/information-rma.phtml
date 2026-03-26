@@ -1,0 +1,21 @@
+<?php $helper = $this->helper(\OnitsukaTiger\Checkout\Helper\Data::class); ?>
+<?php $helperOrder = $this->helper(\OnitsukaTiger\Sales\Helper\Data::class)?>
+<?php $_order = $helper->getOrderByIncrementId($block->getOrder()) ?>
+<?php $date = date("d-M-Y", strtotime($_order->getCreatedAt()));?>
+<?php $helperFixture = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);?>
+<?php $rmaStatus = $block->getStatus();?>
+<?php if ($_order) : ?>
+    <table style="width:100%" cellspacing="0" cellpadding="0">
+        <tr class="email-summary">
+            <td class="order-information">
+                <p><strong><?= __('Order Number:')?></strong> <?= $_order->getIncrementId()?></p>
+                <p><strong><?= __('Order Date:')?></strong> <?= $date?></p>
+                <p><strong><?= __('Order Total:')?></strong> <?= $_order->formatPrice($_order->getGrandTotal())?></p>
+                <p><strong><?= __('Shipping & Handling:')?></strong> <?= $_order->formatPrice($_order->getShippingAmount())?></p>
+                <p><strong><?= __('Promotion Discount:')?></strong> <?= $_order->formatPrice($_order->getDiscountAmount())?></p>
+                <p><strong><?= __('Order Status:')?></strong> <?= __('Refund Processed'); ?></p>
+            </td>
+        </tr>
+    </table>
+    <p class="space-order-items">&nbsp;</p>
+<?php endif; ?>

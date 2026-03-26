@@ -1,0 +1,13 @@
+home,Home
+Place Order,Place Your Order
+Edit Account Information,Personal Information
+Now Shopping by,Active Filters
+Thailand (Thai),ประเทศไทย (ไทย)
+%1 and above,%1+
+%1 - %2,%1-%2
+"Invalid login or password.","Invalid email or password.</br>We have recently updated our Ecommerce platform. If you have a registered account, please reset your password by clicking ""Forgot Your Password?"""
+"The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.","Invalid email or password.</br>We have recently updated our Ecommerce platform. If you have a registered account, please reset your password by clicking ""Forgot Your Password?"""
+"Thank you for registering with %1.","Thank you for registering with Onitsuka Tiger"
+"Your Onitsuka Tiger order has been shipped %order_id","Your Onitsuka Tiger order has been shipped"
+"style:","style #:"
+"FLAGSHIP STORE", "VISIT OUR STORE"

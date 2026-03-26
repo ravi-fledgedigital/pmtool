@@ -1,0 +1,182 @@
+<?php
+/**
+ *
+ * @var $block \Magento\Framework\View\Element\Template
+ */
+// phpcs:ignoreFile
+?>
+<?php $urlPrivacy = $block->getUrl().'privacy-policy'?>
+<div class="promotion-popup">
+    <div class="promotion-popup-content">
+        <button class="promotion-popup-close"></button>
+        <div class="newsletter-container">
+            <form class="subscribe-popup-form"
+                  novalidate
+                  action="<?= $block->escapeUrl($block->getFormActionUrl()) ?>"
+                  method="post"
+                  data-mage-init='{"validation": {"errorClass": "mage-error"}}'
+                  id="newsletter-validate-popup-details">
+                <input type="hidden" name="isAjax" value="1"/>
+                <input name="dob" id="dob" type="text" class="hidden"/>
+                <div class="heading-block">
+                    <?php echo $block->getChildHtml('newsletter-popup');?>
+                    <h4 class="heading small-heading">
+                        <?= $this->getLayout()
+                            ->createBlock('Magento\Cms\Block\Block')
+                            ->setBlockId('newsletter-message-information')
+                            ->toHtml();?>
+                    </h4>
+                </div>
+                <div class="field">
+                    <input name="email" type="email" id="newsletter"
+                           placeholder="<?= $block->escapeHtmlAttr(__('Enter Email Address')) ?>"
+                           data-bind="valueUpdate: 'change'"
+                           data-mage-init='{"mage/trim-input":{}}'
+                           data-validate="{required:true, 'validate-email':true}" data-msg-required="<?= __('Please enter a valid Email Id')?>"
+                    />
+                </div>
+                <div class="field">
+                    <span><?= __('DATE OF BIRTH:')?></span>
+                    <div class="date-of-birth">
+                        <div class="month-select">
+                            <select name="month" class="month" id="month-picker" data-validate="{required:true}">
+                                <option value="" selected=""><?= __('Month')?></option>
+                                <option value="01"><?= __('January')?></option>
+                                <option value="02"><?= __('February')?></option>
+                                <option value="03"><?= __('March')?></option>
+                                <option value="04"><?= __('April')?></option>
+                                <option value="05"><?= __('May')?></option>
+                                <option value="06"><?= __('June')?></option>
+                                <option value="07"><?= __('July')?></option>
+                                <option value="08"><?= __('August')?></option>
+                                <option value="09"><?= __('September')?></option>
+                                <option value="10"><?= __('October')?></option>
+                                <option value="11"><?= __('November')?></option>
+                                <option value="12"><?= __('December')?></option>
+                            </select>
+                        </div>
+                        <div class="day-select">
+                            <select name="day" id="day-picker" class="day" data-validate="{required:true}">
+                                <option value="" selected=""><?= __('day')?></option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                                <option value="24">24</option>
+                                <option value="25">25</option>
+                                <option value="26">26</option>
+                                <option value="27">27</option>
+                                <option value="28">28</option>
+                                <option value="29">29</option>
+                                <option value="30">30</option>
+                                <option value="31">31</option>
+                            </select>
+                        </div>
+                        <?php
+                        $Startyear = date('Y') - 1;
+                        $endYear= $Startyear - 89;
+                        $yearArray = range($Startyear,$endYear);
+                        ?>
+                        <div class="year-select">
+                            <select name="year" class="year" id="year-picker" data-validate="{required:true}">
+                                <option selected="" value=""><?= __('Year')?></option>
+                                <?php
+                                foreach ($yearArray as $year) {
+                                    echo '<option value="'.$year.'">'.$year.'</option>';
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="gender">
+                        <div class="control">
+                            <input id="male_val" type="radio" class="radio required-entry" name="gender" data-validate="{'validate-one-required-by-name':true}" value="1">
+                            <label class="radio gender_labels" for="male_val"><?= __('Male')?></label>
+                            <input id="female_val" type="radio" class="radio required-entry" name="gender" data-validate="{'validate-one-required-by-name':true}" value="2">
+                            <label class="radio gender_labels" for="female_val"><?= __('Female')?></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="validation-age hidden">
+                    <span><?= __('You must be at least sixteen (16) years of age to subscribe.')?></span>
+                    <span class="validate-days hidden"><?= __('Please select valid date')?></span>
+                </div>
+                <div class="validation-message-result hidden">
+                    <span></span>
+                </div>
+                <div class="actions">
+                    <button class="action subscribe primary"
+                            title="<?= $block->escapeHtmlAttr(__('Submit')) ?>"
+                            type="submit"
+                            aria-label="Subscribe">
+                        <span><?= $block->escapeHtml(__('Submit')) ?></span>
+                    </button>
+                </div>
+                <div class="validation-checkbox">
+                    <input id="term-conditions" name="term-conditions" data-validate="{required:true}" type="checkbox" data-msg-required="<?= __('*Highlighted fields are mandatory.')?>">
+                    <label id="policy-checkbox"  for="term-conditions" class="policy-checkbox">
+                        <?= $block->escapeHtml(__("I have read the <a href='%1'>privacy policy</a> and agree with it upon clicking the Submit button.", $urlPrivacy), ['a']) ?>
+                    </label>
+                </div>
+            </form>
+            <script type="text/javascript">
+                require.config({
+                    map: {
+                        '*': {
+                            newsletterPopup: 'Magento_Newsletter/js/newsletter-popup'
+                        }
+                    }
+                });
+            </script>
+            <script type="text/x-magento-init">
+                {
+                    "#newsletter-validate-popup-details": {
+                        "newsletterPopup": {
+                        }
+                    }
+                }
+            </script>
+        </div>
+    </div>
+</div>
+<div class="promotion-popup-overlay"></div>
+<script type="text/javascript">
+    require([
+        'jquery'
+    ], function($){
+        if(!document.cookie.match('InStoreCookie_2237')){
+            $(".promotion-popup,.promotion-popup-overlay").show();
+            $('.promotion-popup-close').on("click", function (e) {
+                document.cookie = 'InStoreCookie_2237={"WN":"2237||"}; expires='.concat(new Date(Date.now() + 864e5).toUTCString(), "; path=/;");
+                $(".promotion-popup,.promotion-popup-overlay").hide();
+            });
+            $('#news-letter-customer-account-create').click(function(){
+                document.cookie = 'InStoreCookie_2237={"WN":"2237||"}; expires='.concat(new Date(Date.now() + 864e5).toUTCString(), "; path=/;");
+                $(".promotion-popup,.promotion-popup-overlay").hide();
+            });
+        }else{
+            $(".promotion-popup,.promotion-popup-overlay").remove();
+        }
+    });
+</script>

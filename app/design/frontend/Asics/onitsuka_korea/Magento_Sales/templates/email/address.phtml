@@ -1,0 +1,38 @@
+<?php
+$helper = $this->helper(\OnitsukaTiger\Customer\Helper\Data::class);
+$_order = $block->getOrder();
+$_shipment = $block->getShipment();
+$helperConfig = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);
+$telephonePrefix = $helperConfig->getConfig('general/telephone_prefix/number') ? $helperConfig->getConfig('general/telephone_prefix/number') : '66';
+?>
+<?php if ($_order) : ?>
+    <p class="title-address"><?= __('Shipping Address')?></p>
+    <?php if($_order->getShippingAddress()):?>
+        <?= $_order->getShippingAddress()->getFirstName()?> <?= $_order->getShippingAddress()->getLastName()?> <br/>
+        <?php foreach ($_order->getShippingAddress()->getStreet() as $street): ?>
+            <?= $street ?>,
+        <?php endforeach;?><br/>
+        <?= $_order->getShippingAddress()->getCity() ?>, <?= $_order->getShippingAddress()->getRegion() ?><br/>
+        <?= $helper->getCountryByCode($_order->getShippingAddress()->getCountryId())?><br/>
+        <?= __('Postal Code:')?> <?= $_order->getShippingAddress()->getPostcode()?>,<br/>
+        <?php if($helperConfig->getConfig('general/telephone_prefix/enable')): ?>
+            <?= __('Mobile:')?> <?= $telephonePrefix.'-'.substr($block->escapeHtml($_order->getShippingAddress()->getTelephone()), 2) ?><br/>
+        <?php else: ?>
+            <?= __('Mobile:')?> <?= $block->escapeHtml($_order->getShippingAddress()->getTelephone()) ?><br/>
+        <?php endif;?>
+        <?= __('Email:')?> <?= $_order->getShippingAddress()->getEmail()?>
+    <?php endif; ?>
+    <?php if ($_shipment) : ?>
+        <p>
+            <a style="text-decoration: none !important; font-size: 16px !important;font-weight: normal !important;" target="_blank" href="<?= $block->getUrl('')?>sales/order/history/"><?= __('배송정보는 국내우편 사이트에서 조회하세요.')?></a>
+        </p>
+        <p style="font-size: 13px !important;">
+            <?= __('국내우편(등기/택배)배송조회')?>
+            <br>
+            <a style="font-weight: normal !important; font-size: 13px !important;" href="https://service.epost.go.kr/iservice/usr/trace/usrtrc001k01.jsp" target="_blank">https://service.epost.go.kr/iservice/usr/trace/usrtrc001k01.jsp</a>
+        </p>
+        <?php foreach ($_shipment->getTracksCollection() as $track): ?>
+            <p><strong style="font-size: 13px !important;"><?= __('Tracking Number:')?></strong> <?= $track->getTrackNumber()?></p>
+        <?php endforeach;?>
+    <?php endif; ?>
+<?php endif; ?>

@@ -1,0 +1,9 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+<?= $block->escapeHtml(__("An email with the URL for registration has been sent to the registered email address. If you access the URL, the registration is completed. You can also send the mail again by <a class='default-tag-a' href='%1'>click here</a>", $block->getData('url')), ['a']);

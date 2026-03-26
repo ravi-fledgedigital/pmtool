@@ -1,0 +1,54 @@
+<?php
+$helper = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);
+$currentStore = $helper->getCurrentStore();
+$storesLanguage = ['web_th_th'=>'web_th_th','web_th_en' =>'web_th_en'];
+$isCustomerLoggedIn = $block->getLayout()->createBlock(Magento\Customer\Block\Account\AuthorizationLink::class);
+?>
+<?php if (!$isCustomerLoggedIn->isLoggedIn()) {?>
+    <li class="login-registration-button">
+        <div class="login-button">
+            <a href="<?= $block->getUrl('customer/account') ?>">
+                <span class="text"><?= $block->escapeHtml(__('로그인 / 회원 가입')) ?></span>
+            </a>
+        </div>
+    </li>
+<?php } else { ?>
+    <li class="login-registration-button">
+        <div class="login-button">
+            <a href="<?= $block->getUrl('customer/account/logout') ?>">
+                <span class="text"><?= $block->escapeHtml(__('로그아웃')) ?></span>
+            </a>
+        </div>
+    </li>
+<?php } ?>
+
+<?php if(array_key_exists($currentStore->getCode(),$storesLanguage)): ?>
+    <li class="link-header store-language-link">
+        <a href="javascript:void(0)">
+            <span class="text"><?= $block->escapeHtml(__('Language')) ?></span>
+        </a>
+        <div class="content-links">
+            <ul>
+                <?php foreach ($storesLanguage as $storeCode): ?>
+                    <?php $storeData = $helper->getStoreDataByCodeLanguage($storeCode); ?>
+                    <li>
+                        <a href="<?= ($currentStore->getCode() != $storeData['code']) ? $storeData['url'] : 'javascript:void(0)';?>">
+                            <?= ($storeData['code'] == 'web_th_en') ? 'English' : 'ไทย'; ?>
+                        </a>
+                    </li>
+                <?php endforeach;?>
+            </ul>
+        </div>
+    </li>
+<?php endif; ?>
+<li class="link-header store-help-link">
+    <a href="<?= $block->getUrl()?>contact-us">
+        <span class="text"><?= $block->escapeHtml(__('Contact Us')) ?></span>
+    </a>
+</li>
+<li class="link-header link-store-details">
+    <a href="<?= $block->getUrl($helper->getConfig('amlocator/locator/main_settings/url')) ? $block->getUrl($helper->getConfig('amlocator/locator/main_settings/url')) : 'amlocator';?>">
+        <span class="text"><?= $block->escapeHtml(__('STORE')) ?></span>
+        <span class="text mobile-text hidden"><?= $block->escapeHtml(__('Find A Store')) ?></span>
+    </a>
+</li>

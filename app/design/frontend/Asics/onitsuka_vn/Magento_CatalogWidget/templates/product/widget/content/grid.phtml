@@ -1,0 +1,128 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+use Magento\Framework\App\Action\Action;
+
+/** @var \Magento\CatalogWidget\Block\Product\ProductsList $block */
+
+// phpcs:disable Generic.Files.LineLength.TooLong
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundHelper
+?>
+<?php if ($exist = ($block->getProductCollection() && $block->getProductCollection()->getSize())): ?>
+    <?php
+    $type = 'widget-product-grid';
+
+    $mode = 'grid';
+
+    $image = 'new_products_content_widget_grid';
+    $items = $block->getProductCollection()->getItems();
+
+    $showWishlist = true;
+    $showCompare = true;
+    $showCart = true;
+    $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+    $description = false;
+    $helperConfigration = $this->helper('OnitsukaTiger\Fixture\Helper\Data');
+    ?>
+    <div class="block widget block-products-list <?= /* @noEscape */ $mode ?>">
+        <?php if ($block->getTitle()): ?>
+            <div class="block-title">
+                <strong><?= $block->escapeHtml(__($block->getTitle())) ?></strong>
+            </div>
+        <?php endif ?>
+        <div class="block-content">
+            <?= /* @noEscape */ '<!-- ' . $image . '-->' ?>
+            <div class="swiper-container products-<?= /* @noEscape */ $mode ?> <?= /* @noEscape */ $mode ?>">
+                <div class="product-items swiper-wrapper <?= /* @noEscape */ $type ?>">
+                    <?php $iterator = 1; ?>
+                    <?php foreach ($items as $_item) : ?>
+                        <?php
+                        $gender = $_item->getResource()->getAttribute('gender');
+                        $genderValue = $gender->getSource()->getOptionText($_item->getData('gender'));
+                        $brands = null;
+                        if ($helperConfigration->getConfig('catalog/them_customize/brands')) {
+                            $brands = $_item->getBrands();
+                            $attribute = $_item->getResource()->getAttribute('brands');
+                            $optionsIds = null;
+                            if ($brands) {
+                                $optionsIds = explode(',', $brands)[0];
+                            }
+                        }
+                        ?>
+                        <div class="product-item swiper-slide">
+                            <div class="product-item-info">
+                                <a href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>" class="product-item-photo">
+                                    <?= $block->getImage($_item, $image)->toHtml() ?>
+                                </a>
+                                <div class="product-item-details">
+                                    <?php if ($brands): ?>
+                                        <strong class="product-item-brands">
+                                            <?= /* @noEscape */ $attribute->getSource()->getOptionText($optionsIds) ?>
+                                        </strong>
+                                    <?php endif; ?>
+                                    <strong class="product-item-name">
+                                        <a title="<?= $block->escapeHtmlAttr($_item->getName()) ?>"
+                                           href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>"
+                                           class="product-item-link">
+                                            <?= $block->escapeHtml($_item->getName()) ?>
+                                        </a>
+                                    </strong>
+                                    <?php if ($_item->getGender()): ?>
+                                        <strong class="product-item-gender">
+                                            <span class="gender-label"><?= $block->escapeHtml($genderValue) ?>
+                                        </strong>
+                                    <?php endif; ?>
+                                    <?php if ($templateType) : ?>
+                                        <?= $block->getReviewsSummaryHtml($_item, $templateType) ?>
+                                    <?php endif; ?>
+
+                                    <?= $block->getProductPriceHtml($_item, $type) ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach ?>
+                </div>
+            </div>
+            <div class="button-prev">
+                <img src="<?php echo $this->getViewFileUrl('images/top/button-prev.svg'); ?>" alt="">
+            </div>
+            <div class="button-next">
+                <img src="<?php echo $this->getViewFileUrl('images/top/button-next.svg'); ?>" alt="">
+            </div>
+        </div>
+        <script type="text/javascript">
+            require([
+                'jquery',
+                'Magento_Theme/js/swiper-bundle'
+            ], function($, Swiper){
+                var largeSliders = document.querySelectorAll('.block-products-list .swiper-container');
+                var prevArrow = document.querySelectorAll('.block-products-list .button-prev');
+                var nextArrow = document.querySelectorAll('.block-products-list .button-next');
+
+                largeSliders.forEach((slider, index)=>{
+                    var sliderLength =  slider.children[0].children.length;
+                    var result = (sliderLength > 1) ? true : false;
+                    var productSlider = new Swiper(slider, {
+                        allowTouchMove: !0,
+                        slidesPerView: 2,
+                        spaceBetween: 15,
+                        navigation: {
+                            nextEl: nextArrow[index],
+                            prevEl: prevArrow[index]
+                        },
+                        breakpoints: {
+                            769: {
+                                slidesPerView: 4,
+                                spaceBetween: 45
+                            }
+                        }
+                    });
+                });
+            });
+        </script>
+
+    </div>
+<?php endif;?>

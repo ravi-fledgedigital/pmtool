@@ -1,0 +1,123 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:ignoreFile
+
+/**
+ * @var $block \Magento\ProductAlert\Block\Email\Stock
+ * @var $escaper \Magento\Framework\Escaper
+ */
+$catalogHelper = $this->helper(\Magento\Catalog\Helper\Image::class);
+$scene7Helper = $this->helper(\Vaimo\OTScene7Integration\Helper\Data::class);
+$restockHelper = $this->helper(\OnitsukaTiger\Restock\Helper\Data::class);
+?>
+<?php if ($_products = $block->getProducts()): ?>
+    <p><?= $escaper->escapeHtml(
+            __('재입고 알림 신청하신 상품이 입고되었습니다.
+입고 수량이 한정되어 구매 시점에 따라 품절이 발생할 수 있습니다.')
+        ) ?></p>
+    <table>
+        <?php foreach ($_products as $_product): ?>
+            <tr>
+                <td class="col photo" style="padding-right: 20px;">
+                    <a title="<?= $escaper->escapeHtml(
+                        $_product->getName()
+                    ) ?>" class="product photo">
+                        <?php $productObj = $restockHelper->getProductById(
+                            $_product->getId()
+                        ); ?>
+                        <?php $image_url =
+                            $scene7Helper->getOrderItemProductImage(
+                                $productObj
+                            ) ??
+                            $catalogHelper
+                                ->init($productObj, "product_page_image_small")
+                                ->setImageFile($productObj->getImage())
+                                ->resize(80, 80)
+                                ->getUrl(); ?>
+                        <span>
+                        <span>
+                            <img src="<?= /* @noEscape */ $image_url ?>" width="75" height="75"
+                                 alt="<?= $escaper->escapeHtml(
+                                     $_product->getName()
+                                 ) ?>">
+                        </span>
+                    </span>
+                    </a>
+                </td>
+                <td class="col item">
+                    <p>
+                        <strong class="product name">
+                            <a><?= $escaper->escapeHtml(
+                                    $_product->getName()
+                                ) ?></a>
+                            <?php
+                            $parentProductUrl = $restockHelper->getParentUrlBySku(
+                                $_product->getSku()
+                            );
+                            if ($parentProductUrl): ?>
+                                <?php
+                                $baseUrl = $parentProductUrl;
+                                $queryParams = "?utm_source=email&utm_medium=click&utm_campaign=restock&restock=1&pid=".$_product->getId();
+                                if (str_contains($baseUrl, "?")) {
+                                    $queryParams = "&utm_source=email&utm_medium=click&utm_campaign=restock&restock=1&pid=".$_product->getId();
+                                }
+                                $finalUrl = $block->escapeUrl(
+                                    $baseUrl . $queryParams
+                                );
+                                ?>
+                                <a style="background: #000;color: #fff !important;font-weight: 700;
+                                    padding: 8px 12px;
+                                    display: inline-block;margin-left: 10px;font-size: 16px;"
+                                   class="email-button-link"
+                                   href="<?= $escaper->escapeUrl(
+                                       $finalUrl
+                                   ) ?>">
+                                    <?= $escaper->escapeHtml(__("바로 가기")) ?>
+                                </a>
+                            <?php endif;
+                            ?>
+                        </strong>
+                    </p>
+                    <?php if (
+                        $shortDescription = $block->getFilteredContent(
+                            $_product->getShortDescription()
+                        )
+                    ): ?>
+                        <p><small><?= /* @noEscape */ $shortDescription ?></small></p>
+                    <?php endif; ?>
+                    <?= $block->getProductPriceHtml(
+                        $_product,
+                        \Magento\Catalog\Pricing\Price\FinalPrice::PRICE_CODE,
+                        \Magento\Framework\Pricing\Render::ZONE_EMAIL,
+                        [
+                            "display_label" => __("가격:"),
+                        ]
+                    ) ?>
+                    <p class="email-button-link-wrap">
+                        <small>
+                            <a href="<?= $escaper->escapeUrl(
+                                $block->getProductUnsubscribeUrl(
+                                    $_product->getId()
+                                )
+                            ) ?>">
+                                <?= $escaper->escapeHtml(
+                                    __("이 상품의 재입고 알림 끄기")
+                                ) ?>
+                            </a>
+
+                        </small>
+                    </p>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+    <p>
+        <a href="<?= $escaper->escapeUrl($block->getUnsubscribeUrl()) ?>">
+            <?= $escaper->escapeHtml(__("모든 재입고 알림 끄기")) ?>
+        </a>
+    </p>
+<?php endif; ?>

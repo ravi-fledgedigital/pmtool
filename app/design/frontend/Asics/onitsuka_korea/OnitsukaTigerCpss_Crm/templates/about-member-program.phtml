@@ -1,0 +1,80 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->get('Magento\Customer\Model\SessionFactory');
+if ($customerSession->create()->isLoggedIn()) :
+    $customerId = $customerSession->create()->getCustomerId();
+    $helper = $this->helper(\OnitsukaTigerCpss\Crm\Helper\HelperData::class);
+    $isAgreed = $helper->checkAgreementById($customerId);
+    $writer = new \Zend_Log_Writer_Stream(BP . '/var/log/memberInfo.log');
+    $logger = new \Zend_Log();
+    $logger->addWriter($writer);
+    $logger->info('Logged In Customer ID: ' . $customerId);
+    $logger->info('Is Agreed: ' . $isAgreed);
+    ?>
+    <?php /*if (!$isAgreed || in_array($customerId, [436, 1106, 808])) :*/?>
+    <?php if (!$isAgreed) :?>
+    <div id="about-member-program">
+        <?php
+        echo $this->getLayout()
+            ->createBlock('Magento\Cms\Block\Block')
+            ->setBlockId('about-member-program')
+            ->toHtml(); ?>
+        <!--<div class="modal-footer">
+                <p><?php /*= __('멤버십 약관을 끝까지 읽으시면 동의하기 버튼이 활성화됩니다.'); */?></p>
+                <button type="button" disabled id="i-agree" class="btn btn-primary"><?php /*= __('동의하기'); */?></button>
+            </div>-->
+        <div id="button-show"></div>
+    </div>
+    <script type="text/javascript">
+        require(
+            [
+                'jquery',
+                'Magento_Ui/js/modal/modal'
+            ],
+            function(
+                $,
+                modal
+            ) {
+                var options = {
+                    'type': 'popup',
+                    'title': '멤버십 가입 동의 안내',
+                    'modalClass': 'about-member-program',
+                    'responsive': true,
+                    'innerScroll': true,
+                    'buttons': [{
+                        text: $.mage.__('동의하기'),
+                        class: 'agree-member-button',
+                        id: 'agree-member-button',
+                        disabled: true,
+                        click: function () {
+                            window.location.href = "<?= $this->getUrl('customer/register/addmember'); ?>";
+                        }
+                    }]
+                };
+
+                $(document).ready(function(){
+                    var popup = modal(options, $('#about-member-program'));
+                    $("#about-member-program").modal("openModal");
+                    var buttonMessage = "<p class='agree-membership-message'><?= __('멤버십 약관을 끝까지 읽으시면 동의하기 버튼이 활성화됩니다.');?></p>";
+                    $(buttonMessage).insertBefore(".agree-member-button");
+
+                    $(".agree-member-button").attr("disabled", true);
+                    $('.modal-content').scroll(function () {
+                        if ($(this).scrollTop() + $(this).innerHeight() +2 >= $(this)[0].scrollHeight) {
+                            $(".agree-member-button").attr("disabled", false);
+                        }/* else {
+                                $(".agree-member-button").attr("disabled", true);
+                            }*/
+                    });
+                });
+                /*$('#i-agree').on('click', function () {
+                    window.location.href = "<?= $this->getUrl('customer/register/addmember'); ?>";
+                    });*/
+                $('#about-member-program').on('modalclosed', function() {
+                    window.location.href = "<?= $this->getUrl('customer/account/logout'); ?>";
+                });
+            }
+        );
+    </script>
+<?php endif;?>
+<?php endif;?>

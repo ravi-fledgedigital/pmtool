@@ -1,0 +1,57 @@
+<?php $helper = $this->helper(\OnitsukaTiger\Checkout\Helper\Data::class); ?>
+<?php $helperOrder = $this->helper(\OnitsukaTiger\Sales\Helper\Data::class)?>
+<?php $helperFixture = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);?>
+<?php $_order = $helper->getOrderByIncrementId($block->getOrder()) ?>
+<?php $helperStore = $this->helper(\OnitsukaTiger\Store\Helper\Data::class);?>
+<?php $date = $helperStore->formatDate($_order->getCreatedAt(), $_order->getStoreId());?>
+<?php $items = $block->getReturnItems();?>
+<?php $crmHelper = $this->helper(\OnitsukaTigerCpss\Crm\Helper\HelperData::class)?>
+<?php $prices = 0;?>
+<?php if ($_order) : ?>
+    <?php $_items = $_order->getAllItems(); ?>
+    <?php if ($items):
+        foreach ($items as $item): ?>
+            <?php foreach ($_items as $_item) : ?>
+                <?php if (!$_item->getParentItem()) : ?>
+                    <?php if($_item->getSku() != $item->getItemSku()): continue;?><?php endif;?>
+                    <?php $prices += (float)$_item->getPrice();?>
+                <?php endif; ?>
+            <?php endforeach;?>
+        <?php endforeach;
+    endif;?>
+    <?php
+    $usedPoint = 0;
+    $pointValue = 0;
+    $pointLabel = 'Points to be earned:';
+    if ($_order->getUsedPoint()) {
+        $usedPoint = number_format($_order->getUsedPoint());
+    }
+    if ($_order->getAddedPointDate() > 0 || $_order->getAcquiredPoint() > 0) {
+        $pointValue = number_format($_order->getAcquiredPoint());
+
+        if ($_order->getAddedPoint() > 0) {
+            $pointLabel = 'Added Points:';
+            $pointValue = number_format($_order->getAddedPoint());
+        }
+    }
+    ?>
+    <table style="width:100%" cellspacing="0" cellpadding="0">
+        <tr class="email-summary">
+            <td class="order-information">
+                <p><strong><?= __('Order Number:')?></strong> <?= $_order->getIncrementId()?></p>
+                <p><strong><?= __('Order Date:')?></strong> <?= $date?></p>
+                <p><strong><?= __('Order Total:')?></strong> <?= $_order->formatPrice($_order->getGrandTotal())?></p>
+                <?php if ($crmHelper->isCpssModuleEnable()): ?>
+                    <p><strong><?= /* @noEscape */ __('Used point:') ?></strong>
+                        <?= /* @noEscape */ $block->escapeHtml($usedPoint) . __(' points') ?></p>
+                    <p><strong><?= /* @noEscape */ __($pointLabel) ?></strong>
+                        <?= /* @noEscape */ $block->escapeHtml($pointValue) . __(' points') ?></p>
+                <?php endif; ?>
+                <p><strong><?= __('Shipping & Handling:')?></strong> <?= $_order->formatPrice($_order->getShippingAmount())?></p>
+                <p><strong><?= __('Promotion Discount:')?></strong> <?= $_order->formatPrice($_order->getDiscountAmount())?></p>
+                <p><strong><?= __('Order Status:')?></strong> <?= __('Delivered'); ?></p>
+            </td>
+        </tr>
+    </table>
+    <p class="space-order-items">&nbsp;</p>
+<?php endif; ?>

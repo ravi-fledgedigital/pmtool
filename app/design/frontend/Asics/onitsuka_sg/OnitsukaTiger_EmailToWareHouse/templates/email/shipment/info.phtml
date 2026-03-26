@@ -1,0 +1,87 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \OnitsukaTiger\EmailToWareHouse\Block\Order\Info */
+$shipment = $block->getShipment();
+$shippingAddress = $shipment->getShippingAddress();
+$company = is_null($shippingAddress->getCompany()) ? '' : $shippingAddress->getCompany() . ', ';
+$helper = $this->helper(\OnitsukaTiger\Customer\Helper\Data::class);
+/** @var $helperEmailToWareHouse \OnitsukaTiger\EmailToWareHouse\Helper\Data*/
+$helperEmailToWareHouse = $this->helper(\OnitsukaTiger\EmailToWareHouse\Helper\Data::class);
+
+$address = $company . implode(', ', $shippingAddress->getStreet()) . ', ' . $shippingAddress->getPostCode() . ', '.$helper->getCountryByCode($shippingAddress->getCountryId());
+
+$avatarImage = $helperEmailToWareHouse->getMediaFromUrl('OnitsukaTiger_EmailToWareHouse::images/avatar.png');
+
+$telephoneImage = $helperEmailToWareHouse->getMediaFromUrl('OnitsukaTiger_EmailToWareHouse::images/telephone.png');
+
+$mapImage = $helperEmailToWareHouse->getMediaFromUrl('OnitsukaTiger_EmailToWareHouse::images/map.png');
+$orderId = $shipment->getOrder()->getIncrementId();
+?>
+
+<div class="row my-30">
+    <table class="table-info">
+        <tr class="border-top border-bottom">
+            <td><h4>FROM ( SENDER )</h4></td>
+            <td><h4>TO ( ADDRESSEE )</h4></td>
+        </tr>
+        <tr>
+            <td>
+                <div class="icon"><img class="avatar" src="<?= $avatarImage ?>"></div>
+                <div class="info"><?= $block->escapeHtml($block->getWarehouseName($shipment)) ?></div>
+                <div class="clear"></div>
+            </td>
+            <td>
+                <div class="icon"><img class="avatar" src="<?= $avatarImage ?>"></div>
+                <div class="info"><?= $block->escapeHtml($block->getToName($shipment)) ?></div>
+                <div class="clear"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <?php if (!empty($block->getWarehousePhone($shipment))) : ?>
+                <div class="icon"><img class="phone" src="<?= $telephoneImage ?>"></div>
+                <div class="info"><?= $block->escapeHtml($block->getWarehousePhone($shipment)) ?></div>
+                <div class="clear"></div>
+                <?php endif; ?>
+            </td>
+            <td>
+                <div class="icon"><img class="phone" src="<?= $telephoneImage ?>"></div>
+                <div class="info"><?= $block->escapeHtml($block->getToPhone($shipment)) ?></div>
+                <div class="clear"></div>
+            </td>
+        </tr>
+        <tr class="border-bottom">
+            <td>
+                <div class="icon"><img class="map" src="<?= $mapImage ?>"></div>
+                <div class="info"><?= $block->escapeHtml($block->getDetailWarehouseAddress($shipment)) ?></div>
+                <div class="clear"></div>
+            </td>
+            <td>
+                <div class="icon"><img class="map" src="<?= $mapImage ?>"></div>
+                <div class="info"><?= $block->escapeHtml($block->getDetailShippingAddress($shipment)) ?></div>
+                <div class="clear"></div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="box">
+            <h4 class="box-heading">Comments</h4>
+            <div class="box-content comment">
+                <div class="info">
+                    <div class="order-number">
+                        <span>Order No. <?= $orderId ?></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .promotion-popup-content .success-message-popup {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+    .promotion-popup-content {
+        .newsletter-container {
+            .center-text {
+                text-align: center;
+                color: #ffffff;
+                font-size: 24px;
+                margin-bottom: 10px;
+                &:first-child {
+                    margin-top: 40px;
+                }
+                a {
+                    display: inline-block;
+                    vertical-align: top;
+                    margin-top: 40px;
+                }
+            }
+            .subscribe-popup-form {
+                div.field {
+                    .date-of-birth {
+                        select{
+                            background-color: #000;
+                            text-align: center;
+                            text-align: -webkit-center;
+                        }
+                    }
+                }
+                .heading-block {
+                    p {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+
+    label#newsletter-error {
+        display: none!important;
+    }
+}
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .promotion-popup {
+        .promotion-popup-content {
+            .newsletter-container {
+                .center-text {
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+}

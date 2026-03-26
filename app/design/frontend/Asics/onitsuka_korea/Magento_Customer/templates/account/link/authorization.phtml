@@ -1,0 +1,25 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Customer\Block\Account\AuthorizationLink $block */
+
+$dataPostParam = '';
+$loginClass ='';
+$label = __('Membership/My Page');
+if ($block->isLoggedIn()) {
+    $dataPostParam = sprintf(" data-post='%s'", $block->getPostParams());
+    $loginClass ='active-showing';
+    $label = __('(Log Out)');
+}
+?>
+<div class="my-account-link">
+    <a href="<?= $block->getUrl('customer/account') ?>" class="icon">&nbsp;</a>
+    <div class="content-links <?php if ($block->isLoggedIn()): echo 'logged-in';endif;?>">
+        <a <?= /* @noEscape */ $block->getLinkAttributes() ?><?= /* @noEscape */ $dataPostParam ?>>
+            <span class="text"><?= $block->escapeHtml($label) ?></span>
+        </a>
+    </div>
+</div>

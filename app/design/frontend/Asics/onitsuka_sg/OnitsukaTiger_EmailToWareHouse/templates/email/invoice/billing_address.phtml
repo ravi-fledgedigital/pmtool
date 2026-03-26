@@ -1,0 +1,24 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php /** @var $block \OnitsukaTiger\EmailToWareHouse\Block\Order\Email\Invoice\Address */ ?>
+<?php
+$_order = $block->getOrder();
+$billingAddress = $_order->getBillingAddress();
+?>
+
+<span class="address"><?= $block->escapeHtml($block->getName($billingAddress)) ?></span><br>
+<?php foreach ($block->getStreet($billingAddress) as $street) : ?>
+    <span class="address"><?= $block->escapeHtml($street) ?></span><br>
+<?php endforeach; ?>
+<p class="address country"><?= $block->escapeHtml($block->getCountry($billingAddress)) ?>, <?= $block->escapeHtml($block->getPostCode($billingAddress)) ?></p>
+<span class="address"><?= $block->escapeHtml($block->getTelephone($billingAddress)) ?></span><br>
+<span class="address"><?= $block->escapeHtml($block->getEmail($billingAddress)) ?></span><br>
+<?php if ($_order->getTaxId() != '') : ?>
+    <span class="address">TAX ID:
+        <?= $block->escapeHtml($_order->getTaxId()) ?>
+    </span>
+<?php endif; ?>

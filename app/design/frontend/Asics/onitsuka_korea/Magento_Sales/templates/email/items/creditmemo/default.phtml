@@ -1,0 +1,71 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
+
+/** @var $_item \Magento\Sales\Model\Order\Item */
+$_item = $block->getItem();
+/** @var $_order \Magento\Sales\Model\Order */
+$_order = $block->getItem()->getOrder();
+
+$catalogHelper = $this->helper(\Magento\Catalog\Helper\Image::class);
+$productHelper = $this->helper(\OnitsukaTiger\Checkout\Helper\Data::class);
+$helperData = $this->helper(OnitsukaTigerKorea\ConfigurableProduct\Helper\Data::class);
+$helperReturn = $this->helper(\OnitsukaTiger\Rma\Helper\Data::class);
+$productForThumbnail = $helperReturn->getFinalProductThumbnail($_item->getOrderItem(), $_order);
+
+$productHelperData = $this->helper(\OnitsukaTiger\Catalog\Helper\Data::class);
+$product = $productHelperData->getProduct($_item->getSku());
+$color = $product->getResource()->getAttribute('color');
+$colorValue = $color->getSource()->getOptionText($product->getData('color'));
+
+/** @var \Vaimo\OTScene7Integration\Helper\Data $scene7Helper */
+$scene7Helper = $this->helper(\Vaimo\OTScene7Integration\Helper\Data::class);
+$image_url = $scene7Helper->getOrderItemProductImage($productForThumbnail, "order_item_image_size");
+$helperFixture = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);?>
+<tr>
+    <td class="item-info">
+        <p>
+            <img border="0" src="<?= $image_url ?>" alt="<?= $block->escapeHtml($_item->getName()) ?>"/>
+        </p>
+    </td>
+    <td class="item-name <?= ($block->getItemOptions() ? ' has-extra' : '') ?>">
+        <div class="product-information">
+            <p class="product-name"><?= $block->escapeHtml($_item->getName()) ?></p>
+            <p class="sku"><?= $block->escapeHtml(__('Style')) ?> : <?= $block->escapeHtml($block->getSku($_item)) ?></p>
+            <?php if ($block->getItemOptions()) : ?>
+                <div class="product-options">
+                    <?php foreach ($block->getItemOptions() as $_option) : ?>
+                        <?php $sizeForDisplay = $helperData->getSizeForDisplay($_item->getSku(), $_item->getStoreId()) ?>
+                        <?php if ($sizeForDisplay && strtolower($_option['label']) == 'size') : ?>
+                            <p>
+                                <?= $block->escapeHtml(__($_option['label'])) ?> : <?= /* @noEscape */
+                                nl2br($block->escapeHtml($sizeForDisplay)) ?>
+                            </p>
+                        <?php elseif ($colorValue && strtolower($_option['label']) == 'colors') : ?>
+                            <p>
+                                <?= $block->escapeHtml(__($_option['label'])) ?> : <?= /* @noEscape */
+                                nl2br($block->escapeHtml($colorValue)) ?>
+                            </p>
+                        <?php elseif (strtolower($_option['label']) !== 'width'): ?>
+                            <p>
+                                <?= $block->escapeHtml(__($_option['label'])) ?>: <?= /* @noEscape */
+                                nl2br($block->escapeHtml($_option['print_value'] ?? __($_option['value']))) ?>
+                            </p>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+    </td>
+    <td class="item-qty"><?= (float) $_item->getQty() ?></td>
+    <td class="item-price" style=" border-right: 1px solid #000000;">
+        <?php if((int)$helperFixture->getConfig('tax/cart_display/subtotal') == 1):?>
+            <?= /* @noEscape */ $_order->formatPrice($_item->getPrice()) ?>
+        <?php else: ?>
+            <?= /* @noEscape */ $_order->formatPrice($_item->getPriceInclTax()) ?>
+        <?php endif;?>
+    </td>
+</tr>

@@ -1,0 +1,893 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//  The contents of this file will get split into two output files: email.less and email-inline.less.
+//
+//  email.less
+//  Styles contained in the .email-non-inline() and .media-width() mixins will be output in the email.less file
+//  and will be included in a <style> tag in emails. Non-inline styles should be used for styles that can't be applied
+//  as inline CSS, such as media queries.
+//
+//  email-inline.less
+//  Styles not included in the mixins mentioned above will be included in the email-inline.less file.
+//  Since email client support for CSS in <style> tags is limited, the majority of styles should be added as "inline"
+//  styles. CSS will be applied to transactional email HTML via the Emogrifier library, which only has support for
+//  certain CSS selectors (source: https://github.com/jjriv/emogrifier#supported-css-selectors):
+//
+//  Supported selectors (examples in parenthesis):
+//      * ID (#logo)
+//      * class (.logo)
+//      * type (h1)
+//      * descendant (.logo > a)
+//      * child (.logo a)
+//      * adjacent (.logo + .second-example)
+//      * attribute presence (a[title])
+//      * attribute value (a[title="example"])
+//      * attribute only ([title="example"])
+//
+//  Unsupported selectors (examples in parenthesis):
+//      * first-child (div:first-child)
+//      * last-child (div:last-child)
+//      * nth-child (div:nth-child(3n+1))
+//      * universal (*)
+//      * pseudo (a:hover, a:active, a:focus, span:before, span:after, etc)
+
+//
+//  Variables
+//  _____________________________________________
+
+@font-size-unit-convert: false; // Prevents font-related measurements from being converted to the incompatible rem unit
+
+//
+//  Resets
+//  ---------------------------------------------
+
+//  Generic resets
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    border: 0;
+    height: auto;
+    line-height: 100%;
+    outline: none;
+    text-decoration: none;
+}
+
+table {
+    border-collapse: collapse;
+
+    td {
+        vertical-align: top;
+    }
+}
+
+//  Client-specific resets (from the Salted email template: https://github.com/rodriguezcommaj/salted)
+
+.email-non-inline() {
+    //  Prevent WebKit and Windows mobile from changing default text sizes
+    body,
+    table,
+    td,
+    a {
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
+    }
+
+    //  Allow smoother rendering of resized images in Internet Explorer (such as high-resolution logo)
+    img {
+        -ms-interpolation-mode: bicubic;
+    }
+
+    //  Remove spacing between tables in Outlook 2007 and up
+    table,
+    td {
+        mso-table-lspace: 0pt;
+        mso-table-rspace: 0pt;
+    }
+}
+
+//
+//  Typography
+//  ---------------------------------------------
+
+//  See email-fonts.less for @font-face declarations
+
+.lib-typography-all();
+
+body {
+    font-family: 'Roboto';
+    font-weight: normal;
+    text-align: left;
+}
+
+th,
+td {
+    font-family: 'Roboto';
+}
+
+a {
+    color: @link__color;
+    text-decoration: @link__text-decoration;
+}
+
+.email-non-inline() {
+    a:visited {
+        color: @link__visited__color !important;
+        text-decoration: @link__visited__text-decoration !important;
+    }
+
+    a:hover {
+        color: @link__hover__color !important;
+        text-decoration: @link__hover__text-decoration !important;
+    }
+
+    a:active {
+        color: @link__active__color !important;
+        text-decoration: @link__active__text-decoration !important;
+    }
+
+    //  Remove link color on iOS
+    .no-link a {
+        color: @text__color !important;
+        cursor: default !important;
+        text-decoration: none !important;
+    }
+}
+
+//
+//  Layout
+//  ---------------------------------------------
+
+html,
+body {
+    background-color: @email__background-color;
+}
+
+.wrapper {
+    margin: 0 auto;
+}
+
+.wrapper-inner {
+    padding-bottom: @email-content__padding__l;
+    width: 100%;
+}
+
+.main {
+    margin: 0 auto;
+    text-align: left; // Necessary to prevent all text from centering in Outlook 2003
+    width: 100%;
+    border: 2px solid #000000;
+    border-collapse: separate;
+    border-spacing: 0px;
+    max-width: 598px;
+    td {
+        padding: 0px;
+    }
+    .email-header-links {
+        text-align: left;
+        display: inline-block;
+        vertical-align: top;
+        width: 100%;
+        box-sizing: border-box;
+        td {
+            background: #4d4d4d;
+            &.left {
+                padding-top: 26px !important;
+                padding-left: 20px !important;
+                text-align: left;
+            }
+            &.right {
+                padding-right: 30px !important;
+                padding-bottom: 15px !important;
+                padding-top: 20px !important;
+                text-align: right;
+            }
+            &.account-link {
+                padding-right: 15px;
+            }
+            &.social-link-box {
+                padding-right: 15px !important;
+                padding-bottom: 15px !important;
+                padding-top: 20px !important;
+                text-align: right;
+            }
+        }
+        .store-link {
+            color: #ffffff !important;
+            text-transform: uppercase;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 13px;
+            display: inline;
+            vertical-align: top;
+            float: left;
+            span {
+                color: #ffffff !important;
+            }
+            &:hover ,
+            &:active ,
+            &:focus {
+                color: #ffffff !important;
+            }
+        }
+        .my-account-link {
+            color: #ffffff !important;
+            text-transform: uppercase;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 13px;
+            display: inline;
+            vertical-align: top;
+            padding-left: 15px;
+            &:hover ,
+            &:active ,
+            &:focus {
+                color: #ffffff !important;
+            }
+            span {
+                color: #ffffff !important;
+            }
+        }
+        .social-links {
+            float: right;
+            display: inline-block;
+            td {
+                text-align: right;
+                padding: 0px;
+                &.icon-instagram {
+                    padding-left: 20px;
+                }
+            }
+        }
+    }
+    .footer-links {
+        background: #4d4d4d;
+        padding: 0px;
+        text-align: center;
+        display: inline-block;
+        vertical-align: top;
+        width: 100%;
+        box-sizing: border-box;
+        a {
+            color: #ffffff !important;
+            text-transform: uppercase;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 11px;
+            display: inline-block;
+            vertical-align: top;
+            line-height: 14px;
+            &:hover ,
+            &:active ,
+            &:focus {
+                color: #ffffff !important;
+            }
+        }
+        span {
+            display: inline-block;
+            vertical-align: top;
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 10px;
+            margin-top: 0px;
+        }
+        table {
+            display: none;
+        }
+    }
+    .order-container-information {
+        display: inline-block;
+        vertical-align: top;
+        width: 100%;
+        box-sizing: border-box;
+        .account-greeting {
+            margin-top: 10px;
+        }
+    }
+    td.main-content {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    td.footer {
+        background: #4d4d4d;
+        padding-top: 28px;
+        padding-bottom: 27px;
+    }
+    .email-intro {
+        p {
+            font-size: 13px;
+            color: #222222;
+            font-weight: 500;
+            &.email-title {
+                font-size: 20px;
+                text-transform: uppercase;
+                font-weight: bold;
+                padding-top: 30px;
+                padding-bottom: 7px;
+            }
+            &.greeting-order {
+                padding-bottom: 9px;
+                &.rma-order-title {
+                    padding-top: 15px;
+                }
+            }
+            a {
+                color: #15c !important;
+                text-decoration: underline;
+                &:hover ,
+                &:active ,
+                &:focus {
+                    color: #15c !important;
+                }
+            }
+        }
+        &.rma-details {
+            font-size: 14px;
+            font-weight: 500;
+        }
+    }
+    .order-information {
+        border: none;
+        background: #4d4d4d;
+        padding-left: 10px;
+        box-sizing: border-box;
+        padding-bottom: 10px;
+        border-top: 27px solid #ffffff;
+        display: table-cell;
+        p {
+            color: #ffffff;
+            font-size: 13px;
+            margin-bottom: 0px;
+            margin-top: 10px;
+            display: block;
+            width: 100%;
+            font-weight: 500;
+            a {
+                color: #ffffff;
+                font-size: 13px;
+                font-weight: 500;
+            }
+            &:last-child {
+                margin-bottom: 10px;
+            }
+            span {
+                text-transform: capitalize;
+            }
+            &.order-total-content {
+                display: block !important;
+            }
+        }
+        div {
+            color: #ffffff;
+            font-size: 13px;
+            margin-bottom: 0px;
+            margin-top: 10px;
+            display: inline-block;
+            width: 100%;
+            font-weight: 500;
+            dl {
+                display: inline;
+                margin: 0px;
+                dt {
+                    display: inline;
+                    margin: 0px;
+                    color: #ffffff;
+                    font-size: 13px;
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+    .title-order-details {
+        color: #222222;
+        font-size: 17px;
+        margin-top: 40px;
+    }
+    .space-order-items {
+        margin-bottom: 10px;
+    }
+    .shipment-track-title-space {
+        margin-bottom: 40px;
+        height: 1px;
+    }
+    .shipment-track-items-space {
+        margin-bottom: 10px;
+        height: 1px;
+    }
+    .email-information {
+        font-size: 13px;
+        color: #222222;
+        line-height: 1.5;
+        font-weight: 500;
+        .title-address {
+            margin-bottom: 10px;
+            display: inline-block;
+            vertical-align: top;
+            width: 100%;
+            margin-top: 40px;
+            font-size: 17px;
+            font-weight: bold;
+        }
+        .shipment-information {
+            a {
+                font-size: 16px;
+                font-weight: bold;
+                color: #222222 !important;
+                text-decoration: underline;
+                &:hover ,
+                &:active ,
+                &:focus {
+                    color: #222222 !important;
+                }
+            }
+            p {
+                font-size: 15px;
+                strong {
+                    font-weight: 500;
+                }
+            }
+        }
+        a {
+            color: #15c !important;
+            text-decoration: underline;
+            &:hover ,
+            &:active ,
+            &:focus {
+                color: #15c !important;
+            }
+        }
+    }
+    .order-notification {
+        p {
+            font-size: 13px;
+            color: #222222;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            display: inline-block;
+            vertical-align: top;
+            width: 100%;
+            font-weight: 500;
+            &.question-order-information {
+                margin-top: 20px;
+            }
+        }
+        a {
+            color: #15c !important;
+            text-decoration: underline;
+            &:hover ,
+            &:active ,
+            &:focus {
+                color: #15c !important;
+            }
+        }
+    }
+    .order-items-content {
+        display: block;
+        padding: 0px;
+        box-sizing: border-box;
+        width: 100%;
+        overflow: hidden;
+        padding-top: 25px;
+    }
+    .email-items {
+        border-collapse: collapse;
+        border: none;
+        color: #222222;
+        width: 100%;
+        box-sizing: border-box;
+        thead {
+            tr {
+                th ,
+                td {
+                    background: #ffffff;
+                    color: #ffffff;
+                    border-top: 1px solid #000000;
+                    div {
+                        background: #4d4d4d;
+                        margin-bottom: 0px;
+                        box-sizing: border-box;
+                        display: block;
+                        width: 100%;
+                        color: #ffffff;
+                        padding-left: 3px;
+                        height: 22px;
+                        line-height: 22px;
+                        float: left;
+                        white-space: nowrap;
+                    }
+                    p {
+                        padding-left: 3px !important;
+                        height: 22px !important;
+                        line-height: 22px !important;
+                    }
+                    padding: 2px 1px 0px 2px;
+                    text-align: left;
+                    font-weight: 500;
+                    &.item-info {
+                        border-left: 1px solid #000000;
+                    }
+                    &:first-child {
+                        padding-left: 2px;
+                    }
+                    &:last-child {
+                        border-right: 1px solid #000000;
+                        padding-right: 2px;
+                    }
+                }
+            }
+        }
+        tbody {
+            tr {
+                td {
+                    border-left: none;
+                    border-top: none;
+                    border-right: none;
+                    padding: 5px 0px 10px 3px;
+                    vertical-align: middle;
+                    border-bottom: 1px solid #000000;
+                    &.item-info {
+                        padding: 5px 10px;
+                        text-align: center;
+                        img {
+                            margin-bottom: 5px;
+                            max-width: 100px;
+                        }
+                    }
+                    &.item-price ,
+                    &.item-qty {
+                        text-align: left;
+                        width: 16%;
+                    }
+                    &:last-child {
+                        border-right: 1px solid #000000;
+                    }
+                    &:first-child {
+                        border-left: 1px solid #000000;
+                    }
+                }
+            }
+        }
+        .item-name {
+            font-weight: 500;
+            .product-name {
+                margin-bottom: 0px;
+                text-transform: uppercase;
+                font-weight: 500;
+                margin-top: 3px;
+                font-size: 13px;
+            }
+            .product-information {
+                max-width: 250px;
+                display: inline-block;
+                .sku {
+                    color: #4d4d4d;
+                    margin-top: 13px;
+                    margin-bottom: 14px;
+                }
+            }
+            .product-options {
+                p {
+                    font-size: 13px;
+                    margin-bottom: 0px;
+                    text-transform: uppercase;
+                }
+                ul {
+                    padding: 0px;
+                    list-style: none;
+                    margin: 0px;
+                    li {
+                        padding: 0px;
+                        list-style: none;
+                        margin: 0px;
+                        text-transform: uppercase;
+                        font-size: 13px;
+                    }
+                }
+            }
+        }
+    }
+    .logo-email {
+        background: #000000;
+        padding-left: 20px;
+        padding-bottom: 5px;
+        box-sizing: border-box;
+        padding-top: 10px;
+        a ,
+        img {
+            display: inline-block;
+            vertical-align: top;
+        }
+    }
+    .customer-account-container {
+        display: inline-block;
+        vertical-align: top;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 13.5pt;
+        p {
+            font-size: 12pt;
+            line-height: 24px;
+            font-family: Helvetica,sans-serif;
+            color: #40495e;
+            padding: 0px 20px;
+            &.title-account {
+                line-height: 32.5px;
+                font-size: 19.5pt;
+                font-family: Helvetica,sans-serif;
+                color: #40495e;
+                text-align: center;
+            }
+        }
+        img {
+            max-width: 100%;
+            margin-bottom: 10px;
+        }
+        .button-account {
+            width: 100%;
+            max-width: 86px;
+            height: 54px;
+            line-height: 54px;
+            background: #2aadea;
+            text-align: center;
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 16px;
+            font-family: "Arial";
+            display: inline-block;
+            text-transform: uppercase;
+            margin-top: 5px;
+            b {
+                color: #ffffff;
+                text-decoration: underline;
+                span {
+                    color: #ffffff;
+                }
+            }
+            &:hover ,
+            &:active,
+            &:focus {
+                color: #ffffff !important;
+            }
+        }
+        .button-account-reset {
+            width: auto;
+            max-width: 100%;
+            height: 54px;
+            line-height: 54px;
+            background: #000000;
+            text-align: center;
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 16px;
+            font-family: "Arial";
+            display: inline-block;
+            text-transform: uppercase;
+            margin-top: 5px;
+            padding: 0px 20px;
+            b {
+                color: #ffffff;
+                text-decoration: underline;
+                span {
+                    color: #ffffff;
+                }
+            }
+            &:hover ,
+            &:active,
+            &:focus {
+                color: #ffffff !important;
+            }
+        }
+    }
+    .newsletter-subscription-container {
+        text-align: center;
+        .title-subscriber {
+            margin: 0;
+            font-family: Arial Black,Arial,Tahoma,Trebuchet MS,Verdana;
+            font-size: 30px;
+            line-height: 27px;
+            color: #000000;
+            font-weight: 900;
+            padding: 60px 0px 40px;
+        }
+        .message-content {
+            font-family: Arial,Tahoma,Trebuchet MS,Verdana;
+            font-size: 16px;
+            line-height: 20px;
+            color: #000000;
+            text-align: center;
+            a {
+                color: #15c;
+            }
+        }
+        .shop-now-button {
+            padding: 20px 0px;
+            a {
+                color: #ffffff;
+                display: inline-block;
+                font-family: Arial,Tahoma,"Trebuchet MS",Verdana;
+                font-size: 17px;
+                line-height: 45px;
+                text-align: center;
+                text-decoration: none;
+                width: 245px;
+                font-weight: 600;
+                text-transform: uppercase;
+                background-color: #000000;
+                border: 0px solid #009ddc;
+                padding: 0px;
+                border-radius: 0px;
+            }
+        }
+    }
+}
+
+.header {
+    padding: @email-body__padding @email-body__padding 0;
+}
+
+.main-content {
+    background-color: @email-content__background-color;
+    padding: 10px;
+}
+
+.footer {
+    padding: 0 @email-body__padding @email-body__padding; // Reduce space between body of email and closing text
+}
+
+//  Layout (Mobile)
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__s) {
+    html,
+    body {
+        //  Change background/foreground to same color
+        background-color: @email-content__background-color;
+        width: 100% !important;
+    }
+
+    .main {
+        max-width: 100% !important;
+        min-width: 240px;
+        width: auto !important;
+    }
+}
+
+//
+//  Buttons
+//  ---------------------------------------------
+
+.button {
+    & > tr > td {
+        padding-bottom: @indent__s;
+    }
+
+    .inner-wrapper {
+        td {
+            .lib-css(border-radius, @button__border-radius, 1);
+            background-color: @button-primary__background;
+
+            a {
+                .lib-css(border-radius, @button__border-radius, 1);
+                border: 1px solid @button-primary__background;
+                color: @button-primary__color;
+                display: inline-block;
+                font-size: @button__font-size;
+                padding: @button__padding;
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+.email-non-inline() {
+    .button {
+        .inner-wrapper {
+            td:hover {
+                background-color: @button-primary__hover__background !important;
+            }
+
+            a:active,
+            td:active {
+                background-color: @button-primary__active__background !important;
+            }
+        }
+
+        a:active,
+        a:hover,
+        a:visited {
+            //  Undo general link hover state
+            border: none;
+            text-decoration: none !important;
+        }
+    }
+    .email-header-links {
+        .store-link {
+            &:hover ,
+            &:active ,
+            &:focus {
+                color: #ffffff !important;
+            }
+        }
+        .my-account-link {
+            &:hover ,
+            &:active ,
+            &:focus {
+                color: #ffffff !important;
+            }
+        }
+    }
+    .footer-links {
+        color: #fff!important;
+        a {
+            &:hover ,
+            &:active ,
+            &:focus {
+                color: #ffffff !important;
+            }
+        }
+    }
+    .media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__xs) {
+        .button {
+            .inner-wrapper {
+                width: 100% !important;
+
+                td {
+                    a {
+                        font-size: @button__font-size + 2;
+                    }
+                }
+            }
+        }
+    }
+}
+
+//
+//  Messages
+//  ---------------------------------------------
+
+.message-info,
+.message-gift {
+    width: @table__width;
+
+    td {
+        background-color: @message-email__background;
+        border: 1px solid @message-email__border-color;
+        color: @message-email__color;
+        margin: 0;
+        padding: @email-content__padding__base;
+
+        a {
+            color: @message-email-link__color;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin-top: 0;
+        }
+    }
+}
+
+.message-details {
+    margin-bottom: @indent__s;
+
+    b {
+        font-weight: bold;
+    }
+
+    td {
+        padding-bottom: @indent__xs;
+
+        b {
+            margin-right: @indent__s;
+        }
+    }
+}

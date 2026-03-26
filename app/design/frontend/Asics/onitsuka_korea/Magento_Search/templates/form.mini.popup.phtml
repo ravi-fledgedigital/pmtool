@@ -1,0 +1,196 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+
+/** @var $block \Magento\Framework\View\Element\Template */
+/** @var $escaper \Magento\Framework\Escaper */
+$helper = $this->helper(\Magento\Search\Helper\Data::class);
+$searchBlock = $block->getLayout()->createBlock(\OnitsukaTigerKorea\Search\Block\Search::class);
+$productList = $searchBlock->getRotatingProducts();
+$productJson = json_encode($productList);
+$productNames = array_column($productList, 'name');
+$productNamesJson = json_encode($productNames);
+$searchHelper = $this->helper(\OnitsukaTigerKorea\Search\Helper\Data::class);
+$isEnabled = $searchHelper->isEnabled();
+if ($isEnabled) {
+
+    ?>
+    <div class="popup-search-outer">
+        <div class="popup-search">
+            <div class="popup-search-button">
+                <span>&nbsp;</span>
+            </div>
+
+            <div class="block block-search search-open-animation animation-1">
+                <div class="block block-title"><strong><?= $escaper->escapeHtml(__('Search')) ?></strong></div>
+                <div class="block block-content">
+                    <form class="form minisearch" id="search_mini_form"
+                          action="<?= $block->escapeUrl($helper->getResultUrl()) ?>" method="get">
+                        <div class="field search">
+                            <label class="label" for="search" data-role="minisearch-label">
+                                <span><?= $block->escapeHtml(__('Search')) ?></span>
+                            </label>
+
+                            <div class="search-sku-bar swiper-container search-sku-bar-swiper-mobile">
+                                <div class="swiper-wrapper">
+                                    <?php foreach ($productList as $product): ?>
+                                        <div class="swiper-slide">
+                                            <?= $escaper->escapeHtml($product['name']) ?>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                            <div class="control">
+                                <input id="search"
+                                       type="text"
+                                       name="<?= $escaper->escapeHtmlAttr($helper->getQueryParamName()) ?>"
+                                       value="<?= /* @noEscape */
+                                       $helper->getEscapedQueryText() ?>"
+                                       placeholder=""
+                                       class="input-text myInput"
+                                       maxlength="<?= $escaper->escapeHtmlAttr($helper->getMaxQueryLength()) ?>"
+                                       role="combobox"
+                                       aria-haspopup="false"
+                                       aria-autocomplete="both"
+                                       autocomplete="off"
+                                       aria-expanded="false"/>
+                                <div id="search_autocomplete" class="search-autocomplete"></div>
+                                <?= $block->getChildHtml() ?>
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <button type="submit"
+                                    title="<?= $escaper->escapeHtml(__('Search')) ?>"
+                                    class="action search"
+                                    aria-label="Search"
+                            >
+                                <span><?= $escaper->escapeHtml(__('Search')) ?></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="homepage-container popup-search-slider popup-search-slider-1 search-open-animation animation-2">
+                <div class="main-box">
+                    <div class="slider-product">
+                        <div class="block-title"><strong> 인기 검색어 </strong></div>
+                        <div class="block-content">
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper-new">
+                                    <?php foreach ($productList as $product): ?>
+                                        <div class="product-item swiper-slide">
+                                            <div class="product-item-info">
+                                                <a href="<?= $escaper->escapeUrl($product['url']) ?>" target="_self">
+                                                    <img src="<?= $escaper->escapeUrl($product['image']) ?>"
+                                                         alt="<?= $escaper->escapeHtml($product['name']) ?>">
+                                                    <div class="product-item-details">
+                                                        <strong
+                                                            class="product-item-name"><?= $escaper->escapeHtml($product['name']) ?></strong>
+                                                        <div class="price-box">
+                                                            <span
+                                                                class="price"><?= $escaper->escapeHtml($product['price']) ?></span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="popup-search-slider search-open-animation animation-3">
+                <div class="slider-popup slider-popup-new-arrival">
+                    <?= $block->getLayout()
+                        ->createBlock(\Magento\Cms\Block\Block::class)
+                        ->setBlockId('search_popup_block')
+                        ->toHtml(); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        require([
+                'jquery',
+                'Magento_Theme/js/swiper-bundle'
+            ],
+
+            function ($, Swiper) {
+                $(".search-popup-input, .search-button").click(function () {
+                    var swiper = new Swiper('.swiper-container.search-sku-bar-swiper-mobile', {
+                        direction: 'vertical',
+                        slidesPerView: 1,
+                        grabCursor: true,
+                        loop: true,
+                        autoplay: {
+                            delay: 1200,
+                        },
+                    });
+                });
+            });
+    </script>
+    <script type="text/javascript">
+        require(['jquery', 'jquery/ui', 'Magento_PageBuilder/js/resource/slick/slick'], function ($) {
+            $(document).ready(function () {
+                $(".search-popup-input, .search-button").click(function () {
+                    console.log('Inside click event');
+                    if ($('.popup-search .popup-search-slider-1 .swiper-wrapper-new').hasClass('slick-initialized')) {
+                        $('.popup-search .popup-search-slider-1 .swiper-wrapper-new').slick('unslick');
+                    }
+
+                    const windowWidth = $(window).width();
+                    let slidesToShow;
+                    if (windowWidth >= 991) {
+                        slidesToShow = 4;
+                    } else if (windowWidth >= 767) {
+                        slidesToShow = 3;
+                    } else {
+                        slidesToShow = 2;
+                    }
+
+                    $('.popup-search .popup-search-slider-1 .swiper-wrapper-new').not('.slick-initialized').slick({
+                        infinite: false,
+                        slidesToShow: slidesToShow,
+                        slidesToScroll: 1,
+                        autoplay: false,
+                        dots: false,
+                        arrows: true
+                    });
+
+                    if ($('.popup-search-slider .home-page-recomended').hasClass('slick-initialized')) {
+                        $('.popup-search-slider .home-page-recomended').slick('unslick');
+                    }
+
+                    $('.popup-search-slider .home-page-recomended').not('.slick-initialized').slick({
+                        infinite: false,
+                        slidesToShow: slidesToShow,
+                        slidesToScroll: 1,
+                        autoplay: false,
+                        dots: false,
+                        arrows: true
+                    });
+
+                });
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        require(['jquery'], function ($) {
+            $(document).ready(function () {
+                if (window.innerWidth < 768) {
+                    $('.myInput').attr('placeholder','');
+                } else {
+                    $('.myInput').attr('placeholder','검색');
+                }
+            });
+        });
+    </script>
+<?php } ?>

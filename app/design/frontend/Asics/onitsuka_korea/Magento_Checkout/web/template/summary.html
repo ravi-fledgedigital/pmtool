@@ -1,0 +1,22 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- ko if: window.checkoutConfig.is_checkbox_show_mobile === true -->
+<div class="gift-packaging-section-mobile" style="display: none">
+    <div data-bind="html: window.checkoutConfig.gift_packaging_block_mobile"></div>
+</div>
+<!--/ko-->
+<div class="opc-block-summary" data-bind="blockLoader: isLoading">
+    <span data-bind="i18n: 'Order Summary'" class="title"></span>
+    <!-- ko foreach: elems() -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <!-- /ko -->
+</div>
+<!-- ko if: window.checkoutConfig.is_checkbox_show_mobile === true -->
+<div class="gift-packaging-section" style="display: none">
+    <div data-bind="html: window.checkoutConfig.gift_packaging_block_desktop"></div>
+</div>
+<!--/ko-->

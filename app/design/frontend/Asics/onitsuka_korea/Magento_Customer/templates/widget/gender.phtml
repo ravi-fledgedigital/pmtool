@@ -1,0 +1,47 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+/** @var \Magento\Customer\Block\Widget\Gender $block */
+/** @var \Magento\Framework\App\RequestInterface $request */
+$request = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\Framework\App\RequestInterface::class);
+$isEditAccountPage = ($request->getFullActionName() === 'customer_account_edit');
+/** @var \Magento\Customer\Model\Session $customerSession */
+$isKakaoLogin = 0;
+$customerSession = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\Customer\Model\Session::class);
+if ($customerSession->isLoggedIn()) {
+    $customer = $customerSession->getCustomer();
+    if ($customer && $customer->getId()) {
+        $isKakaoLogin = $customer->getIsKakaoLogin();
+    }
+}
+$linkBlock = $block->getLayout()->createBlock(Seoulwebdesign\KakaoSync\Block\Customer\Link::class);
+$linkStatus = $linkBlock->getLinkStatus();
+/*if (!empty($niceApiBlock->getNiceApiResponse())) {
+    $niceApiResponse = $niceApiBlock->getNiceApiResponse();
+    if (isset($niceApiResponse['gender'])) {
+        $gender = (int) trim($niceApiResponse['gender']);
+    }
+}*/
+?>
+<div class="field gender required">
+    <label class="label"
+           for="<?= $block->escapeHtmlAttr($block->getFieldId('gender')) ?>"><span><?= $block->escapeHtml($block->getStoreLabel('gender')) ?></span></label>
+    <div class="control">
+        <select data-validate="{required:true}" <?php if($block->getGender() && $isEditAccountPage && (isset($linkStatus['id']))) { ?>style="pointer-events: none; background-color: #f5f5f5; color: #888; border: 1px solid #ccc;" <?php } ?>
+                id="<?= $block->escapeHtmlAttr($block->getFieldId('gender')) ?>"
+                name="<?= $block->escapeHtmlAttr($block->getFieldName('gender')) ?>"
+                title="<?= $block->escapeHtmlAttr($block->getStoreLabel('gender')) ?>"<?php if ($block->isRequired()) : ?> class="validate-select" data-validate="{required:true}"<?php endif; ?>>
+            <?php $options = $block->getGenderOptions(); ?>
+            <?php $value = $block->getGender(); ?>
+
+            <?php foreach ($options as $option) : ?>
+                <?php $optionLabel = (empty(trim($option->getLabel()))) ? 'Please select': $option->getLabel();?>
+                <option value="<?= $block->escapeHtmlAttr($option->getValue()) ?>"<?= ($option->getValue() == $value) ? ' selected="selected"' : '' ?>><?= $block->escapeHtml(__($optionLabel)) ?></option>
+            <?php endforeach;?>
+        </select>
+    </div>
+</div>

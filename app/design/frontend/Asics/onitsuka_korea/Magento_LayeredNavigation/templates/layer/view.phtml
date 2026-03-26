@@ -1,0 +1,84 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Category layered navigation
+ *
+ * @var $block \Magento\LayeredNavigation\Block\Navigation
+ */
+$filterHelper = $this->helper(\OnitsukaTigerKorea\CategoryFilters\Helper\Data::class);
+$helper = $this->helper(\OnitsukaTiger\CategoryShopby\Helper\Category::class);
+$helperCategory = $this->helper(\Magento\Catalog\Helper\Category::class);
+$categories = $helperCategory->getStoreCategories(true, false, false);
+$selectedClass = '';
+?>
+<?php if ($block->canShowBlock()) : ?>
+    <div class="block filter">
+        <div class="mobile-filter-active hidden">
+            <span onclick="jQuery('body').toggleClass('active-filter-mobile')">&nbsp;</span>
+        </div>
+        <div class="block-title filter-title">
+            <strong><?= $block->escapeHtml(__('Shop By')) ?></strong>
+        </div>
+        <div class="block-content filter-content">
+            <?= $block->getChildHtml('state') ?>
+            <?php if ($filterHelper->isModuleEnabled()) : ?>
+                <div class="filter-options filter-category-container">
+                    <div class="filter-options-item filter-category">
+                        <div class="filter-options-title"><?= '카테고리'; ?></div>
+                        <div class="filter-options-content">
+                            <ul class="items">
+                                <?php foreach ($categories as $category) : ?>
+                                    <?php $category = $helper->getCategory($category->getId()); ?>
+                                    <?php if ($category->getIsSpecialFilter()): ?>
+                                        <?php if(!empty($filterHelper->getCurrentCategory())) {?>
+                                            <?php $selectedClass = $filterHelper->getCurrentCategory()->getEntityId() == $category->getEntityId() ? 'selected-link-category' : ''; ?>
+                                        <?php } ?>
+                                        <li class="item <?= $selectedClass; ?>">
+                                            <a class="shopby-link-selected" href="<?= $category->getUrl() ?>">
+                                                <span class="label"><?= $category->getName() ?></span>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <?php $wrapOptions = false; ?>
+            <?php foreach ($block->getFilters() as $filter) : ?>
+        <?php if (!$wrapOptions) : ?>
+            <strong role="heading" aria-level="2"
+                    class="block-subtitle filter-subtitle"><?= $block->escapeHtml(__('Shopping Options')) ?></strong>
+            <div class="filter-content">
+                <dl class="filter-options filter-attribute-container" id="narrow-by-list">
+                    <?php $wrapOptions = true;
+                    endif; ?>
+                    <?php if ($filter->getItemsCount()) : ?>
+                        <dt role="heading" aria-level="3"
+                            class="filter-options-item">
+                            <span class="filter-options-title"><?= $block->escapeHtml(__($filter->getName())) ?></span>
+                        </dt>
+                        <dd class="filter-options-content filter-options-item"><?= /* @noEscape */
+                            $block->getChildBlock('renderer')->render($filter) ?>
+                        </dd>
+                    <?php endif; ?>
+                    <?php endforeach; ?>
+                    <?php if ($wrapOptions) : ?>
+                </dl>
+            </div>
+        <?php endif; ?>
+            <?php if ($block->getLayer()->getState()->getFilters()) : ?>
+                <div class="block-actions filter-actions filter-clear-all">
+                    <a href="<?= $block->escapeUrl($block->getClearUrl()) ?>"
+                       class="action clear filter-clear"><span><?= $block->escapeHtml(__('Clear All')) ?></span></a>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>

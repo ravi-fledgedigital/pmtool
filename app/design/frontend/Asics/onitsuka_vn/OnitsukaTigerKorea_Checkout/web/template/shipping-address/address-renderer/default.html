@@ -1,0 +1,39 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="shipping-address-item" data-bind="attr: {'id': 'customer_address_' + address().customerAddressId}, click:selectedAddress()" css="'selected-item' : isSelected() , 'not-selected-item':!isSelected()">
+    <div class="address-container">
+        <div class="address-name">
+            <text args="address().prefix"></text> <text args="address().firstname"></text>
+            <text args="address().middlename"></text>
+            <text args="address().lastname"></text> <text args="address().suffix"></text>
+        </div>
+        <div class="customer-address">
+            <span html="getAddressLine(address().street)"></span><br/>
+            <text args="address().postcode"></text>,<br/>
+            <text args="getCountryName(address().countryId)"></text>
+        </div>
+        <div class="customer-phone">
+            <span class="customer-email"><text args="getCustomerEmail()"></text></span>
+            <a if="address().telephone" attr="'href': 'tel:' + address().telephone" text="getAddressPhone(address().telephone)"></a>
+        </div>
+        <button type="button" click="selectAddress" class="action action-select-shipping-item">
+            <span translate="'Deliver here'"></span>
+        </button>
+    </div>
+    <div class="address-actions">
+        <button type="button"
+                class="action delete-address-link"
+                click="deleteAddress(address().customerAddressId)">
+            <span translate="'Delete'"></span>
+        </button>
+        <button type="button"
+                class="action edit-address-link"
+                click="editAddress">
+            <span translate="'Edit'"></span>
+        </button>
+    </div>
+</div>

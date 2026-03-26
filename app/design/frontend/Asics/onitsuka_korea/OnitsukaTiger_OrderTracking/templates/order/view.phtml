@@ -1,0 +1,101 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<?php /** @var  $block \Magento\Sales\Block\Order\View*/?>
+<div class="order-details-items ordered">
+    <?php $_order = $block->getOrder() ?>
+    <?php
+    $helper = $this->helper(\OnitsukaTiger\Sales\Helper\Data::class);
+    $helperTracking = $this->helper(\OnitsukaTiger\OrderStatusTracking\Helper\Data::class);
+    $helperReturn = $this->helper(\OnitsukaTigerKorea\Rma\Helper\RmaGuest::class);
+    $helperStore = $this->helper(\OnitsukaTiger\Store\Helper\Data::class);
+    ?>
+    <?php $date = $helperStore->formatDate($_order->getCreatedAt(), $_order->getStoreId());?>
+    <?php $canReturn = ($_order->getCustomerIsGuest() && $helperReturn->checkButtonReorderForGuest($_order)); ?>
+    <?php $shipmentTrackHistory = $helper->getKerryTrackHistory($_order);?>
+    <?php $shipmentTrack = $helper->getKerryTrack($_order);?>
+    <?php $statusOrderTrack = $helperTracking->getStatusTracking($_order);?>
+    <?php $totalTrack = count($statusOrderTrack)?>
+    <?php $orderStatus = $_order->getStatusLabel()?>
+    <?php $index=0; foreach ($statusOrderTrack as $key => $track): $index++;?>
+        <?php if((int)$index == $totalTrack){
+            $updateDate = $helperStore->formatDate($track->getCreatedAt(), $_order->getStoreId());
+        } ?>
+    <?php endforeach;?>
+    <div class="order-title">
+        <div class="order-id"><strong><?= __('Order ID:')?></strong> <?= $_order->getIncrementId()?></div>
+        <div class="order-status"><?= __($orderStatus)?></div>
+        <?php if ($canReturn): ?>
+            <div class="order-return order-status">
+                <a href="#" data-post='<?= /* @noEscape */ $helperReturn->getActionLoginUrlForGuest($_order) ?>' class="action order return" title="<?= /* @noEscape */ __('Return') ?>">
+                    <span><?= /* @noEscape */ __('Return') ?></span>
+                </a>
+            </div>
+        <?php endif ?>
+        <div class="order-date"><?= $date?></div>
+        <?php if ($canReturn): ?>
+            <?php if ($rmaItems = $helperReturn->getRmaByOrderId($_order->getId())): ?>
+                <div class="rma-history">
+                    <span><?= /* @noEscape */ __('This order has already been requested for a return') ?></span>
+                    <ul>
+                        <?php foreach ($rmaItems as $rma): ?>
+                        <li>
+                            <a href="<?= /* @noEscape */ $helperReturn->getRmaUrlByHash($rma->getUrlHash()) ?>">
+                                <?= $block->escapeHtml("#" . str_pad($rma->getRequestId(), 9, '0', STR_PAD_LEFT)); ?>
+                            </a>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif ?>
+        <?php endif ?>
+    </div>
+    <?= $block->getChildHtml('order_items') ?>
+    <?php if(!$_order->getOrderSynced() && $_order->getStatus() != \OnitsukaTiger\OrderStatus\Model\OrderStatus::STATUS_STOCK_PENDING && $_order->getStatus() != \OnitsukaTiger\OrderStatus\Model\OrderStatus::STATUS_CLOSED && $_order->hasInvoices()): ?>
+        <div class="reorder-order">
+            <a id="cancel-order" href="#" data-cancel='<?= /* @noEscape */ $block->getUrl('cancelorder/customer/cancel') ?>' class="action order">
+                <span><?= $block->escapeHtml(__('Cancel Order')) ?></span>
+            </a>
+        </div>
+        <div id="modal-cancel-order" class="hidden">
+            <div class="modal-body-content">
+                <div class="form form-cancel">
+                    <div class="fieldset" style="margin-bottom: 0px">
+                        <div class="field email required">
+                            <label class="label" for="email"><span><?= $block->escapeHtml(__('Cancel Reason')) ?></span></label>
+                            <div class="control">
+                                <?php $reasonBlock = $this->getChildBlock('order.cancel.reason'); ?>
+                                <select id="reason">
+                                    <option value=""><?= $block->escapeHtml(__('Please choose')) ?></option>
+                                    <?php foreach ($reasonBlock->getReasons() as $reason): ?>
+                                        <option value="<?= $reason->getLabel() ?>">
+                                            <?= $block->escapeHtml(__($reason->getLabel())) ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                    <option value="other"><?= $block->escapeHtml(__('Other')) ?></option>
+                                </select>
+                                <input type="text" class="other-options hidden" style="margin-top: 20px">
+                                <input type="hidden" class="reason-value" value="" data-validate="{required:true}">
+                                <div class="message-error hidden"><?= __('This is a required field.')?></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/x-magento-init">
+                {
+                    ".reorder-order": {
+                        "orderCancel": {
+                            "actionUrlPrefix": "<?= $block->escapeJs($block->escapeUrl($block->getUrl('cancelorder/guest/cancel'))) ?>"
+                        }
+                    }
+                }
+        </script>
+    <?php endif; ?>
+</div>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="block-variation" htmlTag="div"  htmlClass="block-variation-container">
+            <block name="product_detail_attr_gender" class="Magento\Catalog\Block\Product\View\Description" template="Magento_Catalog::product/view/attribute.phtml" before="-">
+                <arguments>
+                    <argument name="at_call" xsi:type="string">getGender</argument>
+                    <argument name="at_code" xsi:type="string">gender</argument>
+                    <argument name="css_class" xsi:type="string">gender</argument>
+                    <argument name="at_label" xsi:type="string">default</argument>
+                    <argument name="at_type" xsi:type="string">text</argument>
+                    <argument name="add_attribute" xsi:type="string">itemprop="gender"</argument>
+                </arguments>
+            </block>
+            <block name="product_detail_button_view_description" class="Magento\Catalog\Block\Product\View\Description" template="Magento_Catalog::product/view/product_description_popup.phtml" after="-"/>
+        </referenceContainer>
+        <referenceBlock name="product.info">
+            <block class="Magento\Catalog\Block\Product\View" name="product.info.price.content" as="form_bottom" template="Magento_Catalog::product/view/info-bottom.phtml"/>
+        </referenceBlock>
+        <move element="product_detail_attr_brands" destination="block-variation" after="product_detail_attr_gender"/>
+        <move element="page.main.title" destination="block-variation" after="product_detail_attr_brands"/>
+        <move element="product.info.stock.sku" destination="block-variation" before="product_detail_button_view_description"/>
+        <move element="product.info.price" destination="product.info.price.content" after="-"/>
+        <move element="page.messages" destination="block-variation" before="-"/>
+    </body>
+</page>

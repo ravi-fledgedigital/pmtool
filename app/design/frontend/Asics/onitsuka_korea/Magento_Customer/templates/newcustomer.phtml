@@ -1,0 +1,26 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Customer\Block\Form\Login\Info $block */
+?>
+<?php if ($block->getRegistration()->isAllowed()) : ?>
+    <div class="block block-new-customer">
+        <div class="block-title">
+            <strong id="block-new-customer-heading" role="heading" aria-level="2"><?= $block->escapeHtml(__('신규 고객')) ?></strong>
+        </div>
+        <div class="block-content" aria-labelledby="block-new-customer-heading">
+            <p class="m-t-15"><?= $block->escapeHtml(__('오니츠카타이거 멤버쉽의 다양한 혜택을 누리세요.')) ?></p>
+            <p><?= __('• 구매 금액의 5% 포인트 적립')?></p>
+            <p><?= __('• 전 제품 무료 배송 및 반품')?></p>
+            <p><?= __('• 브랜드 매거진 구독')?></p>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <a href="<?= $block->escapeUrl($block->getCreateAccountUrl()) ?>" class="action create primary"><span><?= $block->escapeHtml(__('Create an Account')) ?></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>

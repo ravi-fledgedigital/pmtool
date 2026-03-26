@@ -1,0 +1,64 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+
+<!-- ko foreach: getRegion('before_details') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!-- /ko -->
+<div class="product-item-details">
+
+    <div class="product-item-inner">
+        <div class="product-item-name-block">
+            <!-- ko if: (isCustomerLoggedIn())-->
+            <strong class="product-item-name" data-bind="html: $parent.name"></strong>
+            <!--/ko-->
+            <!-- ko ifnot: (isCustomerLoggedIn())-->
+            <span data-bind="text: $parent.qty"></span> <strong class="product-item-name" style="display: inline;" data-bind="html: $parent.name"></strong>
+            <!--/ko-->
+            <!-- ko if: (JSON.parse($parent.options).length > 0)-->
+            <div class="product options" data-bind="mageInit: {'collapsible':{'openedState': 'active'}}">
+                <span data-role="title" class="toggle"><!-- ko i18n: 'View Details' --><!-- /ko --></span>
+                <div data-role="content" class="content">
+                    <strong class="subtitle"><!-- ko i18n: 'Options Details' --><!-- /ko --></strong>
+                    <dl class="item-options">
+                        <!--ko foreach: JSON.parse($parent.options)-->
+                            <!-- ko ifnot: label.toLowerCase() === 'width'-->
+                                <dt class="label" data-bind="text: $t(label)"></dt>
+                                <!-- ko if: (((label.toLowerCase() === 'qa_size' || label.toLowerCase() === 'size') && $parent.getSizeForDisplay($parents[1].item_id)) || ((label.toLowerCase() === 'color_code' || label.toLowerCase() === 'colors') && $parent.getColor($parents[1].item_id)))-->
+                                <!-- ko if: ((label.toLowerCase() === 'qa_size' || label.toLowerCase() === 'size') && $parent.getSizeForDisplay($parents[1].item_id)) -->
+                                <dd class="values" data-bind="html: $parent.getSizeForDisplay($parents[1].item_id)"></dd>
+                                <!-- /ko -->
+                                <!-- ko ifnot: ((label.toLowerCase() === 'qa_size' || label.toLowerCase() === 'size') && $parent.getSizeForDisplay($parents[1].item_id))-->
+                                <dd class="values" data-bind="html: $parent.getColor($parents[1].item_id)"></dd>
+                                <!-- /ko -->
+                                <!-- /ko -->
+                                <!-- ko ifnot: (((label.toLowerCase() === 'qa_size' || label.toLowerCase() === 'size') && $parent.getSizeForDisplay($parents[1].item_id)) || ((label.toLowerCase() === 'color_code' || label.toLowerCase() === 'colors') && $parent.getColor($parents[1].item_id)))-->
+                                <!-- ko if: ($data.full_view)-->
+                                <dd class="values" data-bind="html: full_view"></dd>
+                                <!-- /ko -->
+                                <!-- ko ifnot: ($data.full_view)-->
+                                <dd class="values" data-bind="html: value"></dd>
+                                <!-- /ko -->
+                                <!-- /ko -->
+                            <!-- /ko -->
+                        <!-- /ko -->
+                    </dl>
+                </div>
+            </div>
+            <!-- /ko -->
+            <div class="details-qty">
+                <span class="label"><!-- ko i18n: 'Qty' --><!-- /ko --></span>
+                <span class="value" data-bind="text: $parent.qty"></span>
+            </div>
+            <!-- ko foreach: getRegion('after_details') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!-- /ko -->
+        </div>
+    </div>
+</div>
+<!-- ko foreach: getRegion('item_message') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!-- /ko -->

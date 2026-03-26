@@ -1,0 +1,59 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
+
+/** @var  $block \Magento\Sales\Block\Order\Item\Renderer\DefaultRenderer */
+/** @var $_item \Magento\Sales\Model\Order\Item */
+$_item = $block->getItem();
+$_order = $block->getOrder();
+
+$catalogHelper = $this->helper(\Magento\Catalog\Helper\Image::class);
+$helperReturn = $this->helper(\OnitsukaTiger\Rma\Helper\Data::class);
+/*$helperProduct = $this->helper(\OnitsukaTigerKorea\SftpImportExport\Helper\Data::class);
+
+$skuWms = $helperProduct->formatSkuWms($_item->getSkuWms());*/
+$productForThumbnail = $helperReturn->getFinalProductThumbnail($_item, $_order);
+/** @var \Vaimo\OTScene7Integration\Helper\Data $scene7Helper */
+$scene7Helper = $this->helper(\Vaimo\OTScene7Integration\Helper\Data::class);
+$image_url = $scene7Helper->getOrderItemProductImage($productForThumbnail);
+?>
+
+<?php
+/**
+ * @var $helperProductSkuWMS \OnitsukaTigerKorea\Sales\Helper\Data;
+ */
+$helperProductSkuWMS = $this->helper(\OnitsukaTigerKorea\Sales\Helper\Data::class);
+?>
+<?php $product = $helperProductSkuWMS->getProductBySku($_item->getSku()); ?>
+<tr id="order-item-row-<?= (int) $_item->getId() ?>">
+    <td class="item-info">
+        <a href="<?= $_item->getProduct()? $_item->getProduct()->getProductUrl() :'#'?>"><img src="<?= $image_url?>" alt="<?= $block->escapeHtml($_item->getName()) ?>"/></a>
+    </td>
+    <td class="col name">
+        <div class="item-description-content">
+            <strong class="product name product-item-name"><?= $block->escapeHtml($_item->getName()) ?></strong>
+            <!--<strong class="product name product-item-name"><?php /*= $block->escapeHtml($skuWms) */?></strong>-->
+            <strong class="product name product-item-name"><?= $block->escapeHtml($product->getSkuWms()) ?></strong>
+        </div>
+        <div class="item-details-container">
+            <div class="item-qty">
+                <label><?= $block->escapeHtml(__('Quantity:')) ?></label>
+                <span><?= (int) $block->getItem()->getQtyOrdered() ?></span>
+            </div>
+            <div class="unit-price">
+                <label><?= $block->escapeHtml(__('Unit Price:')) ?></label>
+                <span><?= $block->getItemPriceHtml() ?></span>
+            </div>
+            <div class="sub-total">
+                <label><?= $block->escapeHtml(__('Sub Total:')) ?></label>
+                <span><?= $block->getItemRowTotalHtml() ?></span>
+            </div>
+        </div>
+    </td>
+    <td class="col actions">
+
+    </td>
+</tr>

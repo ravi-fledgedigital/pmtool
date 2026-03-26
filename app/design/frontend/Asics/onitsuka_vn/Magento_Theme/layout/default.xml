@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!-- phpcs:ignoreFile -->
+<page layout="3columns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!--<referenceBlock name="header">
+             <arguments>
+                 <argument name="show_part" xsi:type="string">other</argument>
+             </arguments>
+         </referenceBlock>-->
+        <!-- <referenceBlock name="multiple-wish-list-link" remove="true" />
+        <referenceBlock name="minicart" remove="true" />
+        <referenceBlock name="menu-mobile" remove="true" />
+        <referenceBlock name="authorization-link-header" remove="true" />
+        <referenceBlock name="newsletter-popup-main" remove="true" />-->
+        <referenceContainer name="footer">
+            <container name="footer-owner-information" as="footer-owner-information" htmlTag="div" htmlClass="footer-owner-information" before="-">
+                <block class="Magento\Cms\Block\Block">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">footer-owner-information</argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceContainer>
+
+        <move element="footer-owner-information" destination="footer-container" after="footer-downloadable-options-container"/>
+    </body>
+</page>

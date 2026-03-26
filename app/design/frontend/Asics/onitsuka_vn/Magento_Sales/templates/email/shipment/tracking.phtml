@@ -1,0 +1,22 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+/** @var $block \Magento\Sales\Block\Order\Email\Items */
+?>
+<?php $_shipment = $block->getShipment() ?>
+<?php $_order = $block->getOrder() ?>
+<?php if ($_shipment) : ?>
+<div class="shipment-information">
+    <p class="shipment-track-title-space">&nbsp;</p>
+    <a target="_blank" href="https://i.ghtk.vn/"><?= __('Track your order here')?></a>
+    <?php foreach ($_shipment->getTracksCollection() as $track): ?>
+        <p class="shipment-track-items-space">&nbsp;</p>
+        <p><strong><?= __('Tracking Number:')?></strong> <a href="javascript:void(0)"><?= $track->getTrackNumber()?></a></p>
+    <?php endforeach;?>
+</div>
+<?php endif; ?>

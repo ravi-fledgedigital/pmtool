@@ -1,0 +1,16 @@
+<!--
+/**
+ * Copyright © Aitoc. All rights reserved.
+ */
+-->
+<!--@subject Products back in stock alert @-->
+<!--@vars {
+"var customerName":"Customer Name",
+"var productName":"Product Name",
+"template config_path=\"design\/email\/footer_template\"":"Email Footer Template",
+"template config_path=\"design\/email\/header_template\"":"Email Header Template"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+<p class="greeting">{{trans "%name," name=$customerName}}</p>
+<p>{{trans"In stock alert! We wanted you to know that"}} {{trans "%product," product=$productName}} {{trans"product is now available."}}</p>

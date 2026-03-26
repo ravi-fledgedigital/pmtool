@@ -1,0 +1,94 @@
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .amrma-products-table .items-details-container .return-items .amrma-checkbox-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .amrma-tracking-add button.amreturn-btn {
+        padding: 7px 10px;
+    }
+    .amrma-tracking-add .amrma-text {
+        height: 100%;
+    }
+
+    .amrma-table-container {
+        > .amrma-items-table {
+            > .amrma-table {
+                > .amrma-tbody {
+                    > .amrma-row {
+                        .amrma-status {
+                            padding: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .amrma-items-table {
+        > thead.amrma-thead {
+            > tr {
+                > th, > td {
+                    border-bottom: none
+                }
+            }
+        }
+    }
+
+    .amrma-send{
+        min-width: 60px;
+    }
+
+    div.amrma-table-container {
+        .table-wrapper>.amrma-table {
+            .amrma-tbody > .amrma-row {
+                position: relative;
+                > .col {
+                    &:first-child {
+                        left: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .products-grid.wishlist {
+        .product-item {
+            .product-item-actions {
+                .action.delete {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .amrma-customer-information .amrma-customer-address {
+        margin-bottom: 20px;
+    }
+
+    .amrma-tracking-information {
+        .amrma-items-table {
+            .table:not(.cart):not(.totals):not(.table-comparison) {
+                tbody {
+                    >tr.amrma-row {
+                        display: flex;
+                        >td {
+                            padding: 10px 20px 10px 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,53 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var  $block \OnitsukaTiger\OrderTracking\Block\Order\Item\Renderer\DefaultRenderer */
+$_item = $block->getItem();
+$_order = $block->getOrder();
+$catalogHelper = $this->helper(\Magento\Catalog\Helper\Image::class);
+$helperReturn = $this->helper(\OnitsukaTiger\Rma\Helper\Data::class);
+$productForThumbnail = $helperReturn->getFinalProductThumbnail($_item, $_order);
+$helperConfig = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);
+/** @var \Vaimo\OTScene7Integration\Helper\Data $scene7Helper */
+$scene7Helper = $this->helper(\Vaimo\OTScene7Integration\Helper\Data::class);
+$image_url = $scene7Helper->getOrderItemProductImage($productForThumbnail);
+?>
+<tr id="order-item-row-<?= (int) $_item->getId() ?>">
+    <td class="col name" data-th="<?= $block->escapeHtmlAttr(__('Product Name')) ?>">
+        <img src="<?= $image_url?>" alt="<?= $block->escapeHtml($_item->getName()) ?>"/>
+        <strong class="product name product-item-name"><?= $block->escapeHtml($_item->getName()) ?></strong>
+    </td>
+
+    <td class="col qty" data-th="<?= $block->escapeHtmlAttr(__('Total Qty')) ?>">
+        <span class="content"><?= (float) $block->getItem()->getQtyOrdered() ?></span>
+    </td>
+
+    <td class="col qty" data-th="<?= $block->escapeHtmlAttr(__('Shipped Qty')) ?>">
+        <span class="content"><?= (float) $block->getItem()->getQtyShipped() ?></span>
+    </td>
+
+    <td class="col price" data-th="<?= $block->escapeHtmlAttr(__('Item Price')) ?>">
+        <?= $block->getItemPriceHtml() ?>
+    </td>
+
+    <td class="col subtotal" data-th="<?= $block->escapeHtmlAttr(__('Subtotal')) ?>">
+        <?= $block->getItemRowTotalHtml() ?>
+    </td>
+
+    <td class="col status" data-th="<?= $block->escapeHtmlAttr(__('Status')) ?>">
+        <div class="order-status">
+            <div class="status">
+                <span> <?= $block->escapeHtml($_item->getOrder()->getStatusLabel()) ?></span>
+            </div>
+        </div>
+    </td>
+
+    <td class="col logistic" data-th="<?= $block->escapeHtmlAttr(__('Logistic')) ?>">
+        <?php foreach ($block->getOrder()->getTracksCollection() as $track): ?>
+            <p><strong><?= __('Tracking Number:')?></strong> <a <?= $helperConfig->getConfig('shipping/shipping_link/enable') ? 'href="'.$helperConfig->getConfig('shipping/shipping_link/links').'"' :  'href="javascript:void(0)"';  ?>><?= $track->getTrackNumber()?></a></p>
+        <?php endforeach;?>
+    </td>
+</tr>

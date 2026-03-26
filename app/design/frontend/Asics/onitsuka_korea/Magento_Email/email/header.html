@@ -1,0 +1,105 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "Header"}} @-->
+<!--@vars {
+"var logo_url":"Email Logo Image URL",
+"var logo_alt":"Email Logo Alt Text",
+"var logo_height":"Email Logo Image Height",
+"var logo_width":"Email Logo Image Width",
+"var template_styles|raw":"Template CSS"
+} @-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <style type="text/css">
+        {{var template_styles|raw}}
+
+        {{css file="css/email.css"}}
+    </style>
+</head>
+<body>
+{{inlinecss file="css/email-inline.css"}}
+
+<!-- Begin wrapper table -->
+<table class="wrapper" width="100%">
+    <tr>
+        <td class="wrapper-inner" align="center">
+            <table class="main" align="center">
+                <tr>
+                    <td class="header">
+                        <div class="email-header-links">
+                            <table style="width:100%" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td align="left" class="left account-link">
+                                        <table style="max-width:230px;width: 100%" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                                <td align="left">
+                                                    <a href="{{config path="web/secure/base_url"}}store-finder" class="store-link"><span>{{trans "Store Locator"}}</span></a>
+                                                </td>
+                                                <td align="right">
+                                                    <a href="{{config path="web/secure/base_url"}}customer/account/" class="my-account-link"><span>{{trans "My Account "}}</span></a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td align="right" class="social-link-box">
+                                        <div class="social-links">
+                                            <table style="width: 100%; max-width: 150px;" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                <tr>
+                                                    <td style="padding-right: 10px !important;" align="right icon-fb">
+                                                        <a href="{{customVar code=facebook-link}}" target="_blank" rel="noopener">
+                                                            <img src="{{view url=images/email/facebook-icon.png}}" alt="" width="30" height="30">
+                                                        </a>
+                                                    </td>
+                                                    <td class="icon-instagram" style="padding-left: 10px !important;padding-right: 10px !important;" align="right">
+                                                        <a class="icon-instagram" href="{{customVar code=instagram-link}}" target="_blank" rel="noopener">
+                                                            <img src="{{view url=images/email/instagram-icon.png}}" alt="" width="30" height="30">
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div>
+                            <table style="width:100%" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td align="left" class="logo-email">
+                                        <a class="logo" href="{{config path="web/secure/base_url"}}">
+                                        <img
+                                            {{if logo_width}}
+                                            width="{{var logo_width}}"
+                                            {{else}}
+                                            {{/if}}
+
+                                        {{if logo_height}}
+                                        height="{{var logo_height}}"
+                                        {{/if}}
+
+                                        src="{{var logo_url}}"
+                                        alt="{{var logo_alt}}"
+                                        border="0"
+                                        />
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main-content">
+                    <!-- Begin Content -->

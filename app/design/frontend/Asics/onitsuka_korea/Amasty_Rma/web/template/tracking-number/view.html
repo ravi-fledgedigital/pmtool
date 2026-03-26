@@ -1,0 +1,30 @@
+<!-- ko if: $data.addAllowed || $data.trackingNumbers().length -->
+<div class="amrma-tracking-information">
+    <h2 class="amrma-title" data-bind="i18n: 'Tracking Information'"></h2>
+    <!-- ko if: $data.trackingNumbers().length -->
+    <div class="table-wrapper amrma-items-table">
+        <table class="data table table-returns-items amrma-table">
+            <caption class="table-caption" data-bind="i18n: 'Tracking Information'"></caption>
+            <thead class="amrma-thead">
+            <tr>
+                <th scope="col" class="col amrma-col carrier" >
+                    <div class="amrma-th" data-bind="i18n: 'Carrier'"></div>
+                </th>
+                <th scope="col" class="col amrma-col id">
+                    <div class="amrma-th" data-bind="i18n: 'Tracking Number'"></div>
+                </th>
+            </tr>
+            </thead>
+            <tbody class="amrma-tbody">
+            <!-- ko foreach: $data.trackingNumbers() -->
+            <tr class="amrma-row">
+                <td class="col amrma-col" data-bind="text: $parent.indexedCarriers[$data.code]"></td>
+                <td class="col id amrma-col" data-bind="text: $data.number"></td>
+            </tr>
+            <!-- /ko -->
+            </tbody>
+        </table>
+    </div>
+    <!-- /ko -->
+</div>
+<!-- /ko -->

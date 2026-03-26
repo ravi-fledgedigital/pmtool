@@ -1,0 +1,69 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+/** phpcs:ignoreFile */
+/**
+ * @var \Magento\Theme\Block\Html\Header $block
+ */
+$welcomeMessage = $block->getWelcome();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->get('Magento\Customer\Model\Session');
+?>
+<?php if ($block->getShowPart() == 'welcome') : ?>
+    <li id="desktop-link-welcome" class="greet welcome" data-bind="scope: 'customer'">
+        <!-- ko if: customer().fullname  -->
+        <div class="my-account-link">
+            <a href="<?= $block->getUrl('customer/account') ?>" class="icon">&nbsp;</a>
+            <div class="content-links logged-in">
+                <a class="logged-in" href="<?= $block->getUrl('customer/account') ?>">
+                    <span class="text" data-bind="i18n: new String('<?= $block->escapeHtml(__('%1님', '%1')) ?>').replace('%1', customer().firstname)"></span>
+                </a>
+                <a class="logged-in" href="<?= $block->getUrl('customer/account/logout') ?>">
+                    <span class="text"><?= __('(Log Out)')?></span>
+                </a>
+            </div>
+        </div>
+        <!-- /ko -->
+        <!-- ko ifnot: customer().fullname  -->
+        <?= $block->getChildHtml('authorization-link-header') ?>
+        <!-- /ko -->
+    </li>
+    <script type="text/x-magento-init">
+        {
+            "#desktop-link-welcome": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "customer": {
+                            "component": "Magento_Customer/js/view/customer"
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+<?php elseif ($block->getShowPart() == 'other') :?>
+    <?= $block->getChildHtml() ?>
+<?php endif ?>
+
+<script type="text/javascript">
+    require(
+        [
+            'jquery',
+            'matchMedia'
+        ],function($, mediaCheck) {
+            'use strict';
+            mediaCheck({
+                media: '(min-width: 768px)',
+                entry: function () {
+                        $(".no-link-desktop").attr("href", "javascript:void(0)");
+                        $(".no-link-desktop").click(function(){
+                        e.preventDefault();
+                        setAttribute('href', "javascript:void(0)');");
+                    });
+                }
+            });
+        }
+    );
+</script>

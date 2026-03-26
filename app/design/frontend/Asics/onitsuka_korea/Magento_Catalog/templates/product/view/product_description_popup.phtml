@@ -1,0 +1,55 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+
+/**
+ * Product description template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\Description
+ */
+$description =  $this->helper(Magento\Catalog\Helper\Output::class)->productAttribute(
+    $block->getProduct(),
+    $block->getProduct()->getDescription(),
+    'description'
+);
+?>
+<?php if ($description): ?>
+    <div class="show_popup_description">
+        <span id="show_modal_description"><?= __('더보기 (상품 정보 고시)')?></span>
+        <div id="content_des">
+            <?= /* @noEscape */ $description ?>
+        </div>
+    </div>
+    <script type="text/javascript">
+        require(
+            [
+                'jquery',
+                'Magento_Ui/js/modal/modal'
+            ],
+            function($, modal) {
+                var options = {
+                    type: 'popup',
+                    responsive: true,
+                    innerScroll: true,
+                    modalClass: 'product-description-modals',
+                    buttons: [{
+                        text: $.mage.__('Close'),
+                        class: 'modal-close',
+                        click: function (){
+                            this.closeModal();
+                        }
+                    }]
+                };
+
+                modal(options, $("#content_des"));
+                $("#show_modal_description").on('click',function(){
+                    $("#content_des").modal("openModal");
+                });
+            }
+        );
+    </script>
+<?php endif; ?>

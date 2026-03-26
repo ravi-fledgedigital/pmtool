@@ -1,0 +1,316 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+
+/** phpcs:ignoreFile */
+?>
+<?php
+/**
+ * @var \Amasty\Rma\Block\Returns\View $block
+ */
+
+$helperStore = $this->helper(\OnitsukaTiger\Store\Helper\Data::class);
+$addressHelper = $this->helper(\OnitsukaTigerKorea\RmaAddress\Helper\Data::class);
+$helperConfig = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);
+/** @var \OnitsukaTiger\Rma\Helper\DataCancelReturn $helperRma */
+$helperRma= $this->helper(\OnitsukaTiger\Rma\Helper\DataCancelReturn::class);
+/** @var \Vaimo\OTScene7Integration\Helper\Data $scene7Helper */
+$scene7Helper = $this->helper(\Vaimo\OTScene7Integration\Helper\Data::class);
+$request = $block->getReturnRequest();
+$rmaId = $request->getRequestId();
+$status = $block->getStatusModel($request->getStatus());
+/** @var \Amasty\Rma\Api\Data\StatusStoreInterface $statusStore */
+$statusStore = $status->getStore();
+$order = $block->getOrderById($request->getOrderId());
+if ($status->getState() !== 4) {
+    $steps = [
+        0 => ($status->getState() > 0 ? '-complete' : '-checked'),
+        1 => ($status->getState() > 1 ? '-complete' : ($status->getState() === 1 ? '-checked' : '')),
+        2 => ($status->getState() > 2 ? '-complete' : ($status->getState() === 2 ? '-checked' : '')),
+        3 => ($status->getState() === 3 ? '-complete' : 'disabled'),
+    ];
+    $percent = $status->getState() * 33;
+} else {
+    $percent = 100;
+    $steps = [
+        0 => '-complete',
+        1 => '-failed',
+        2 => '-failed',
+        3 => '-complete',
+    ];
+}
+?>
+
+    <div class="amrma-header-block">
+        <div class="amrma-return-number">
+            <h1 class="amrma-header">
+                <?= $block->escapeHtml(__('Return #%1', str_pad($request->getRequestId(), 9, '0', STR_PAD_LEFT))); ?>
+            </h1>
+            <span class="amrma-status"<?= !empty($status->getColor()) ? ' style="background-color:' . $block->escapeHtml($status->getColor()) . '"' : '' ?>>
+            <?= __($statusStore->getLabel()); ?>
+        </span>
+        </div>
+        <?php if ( $helperRma->getIsShowCustomerCanceledStatusConfig($order->getStoreId()) ): ?>
+            <?php if ( $helperRma->validCancelStatus($order,$request) ): ?>
+                <form action="<?= $block->escapeUrl($block->getCancelUrl()) ?>" method="post">
+                    <input type="hidden" name="form_key" value="<?= $block->getFormKey() ?>" />
+                    <input type="hidden" name="request_id" value="<?= $block->escapeHtmlAttr($rmaId) ?>" />
+                    <button type="submit" class="amrma-cancel">
+                        <?= $block->escapeHtml(__('Cancel Return Request')) ?>
+                    </button>
+                </form>
+            <?php endif; ?>
+        <?php endif; ?>
+    </div>
+    <div class="amrma-status-container">
+        <div class="amrma-progress">
+            <div class="amrma-percent -status-<?= $block->escapeHtml($status->getState()); ?>"></div>
+        </div>
+        <div class="amrma-steps">
+            <div class="amrma-step -pending <?= $block->escapeHtml($steps[0]); ?>" id="0" data-number="1" data-label="1. <?= $block->escapeHtml(__('Processing')) ?>">
+                <span class="amrma-name">1. <?= $block->escapeHtml(__('Processing')) ?></span>
+            </div>
+            <div class="amrma-step -authorized <?= $block->escapeHtml($steps[1]); ?>" id="1" data-number="2" data-label="2. <?= $block->escapeHtml(__('Approved')) ?>">
+                <span class="amrma-name">2. <?= $block->escapeHtml(__('Approved')) ?></span>
+            </div>
+            <div class="amrma-step -received <?= $block->escapeHtml($steps[2]); ?>" id="2" data-number="3" data-label="3. <?= $block->escapeHtml(__('Delivered')) ?>">
+                <span class="amrma-name">3. <?= $block->escapeHtml(__('Delivered')) ?></span>
+            </div>
+            <div class="amrma-step -resolved <?= $block->escapeHtml($steps[3]); ?>" id="3" data-number="4" data-label="4. <?= $block->escapeHtml(__('Completed')) ?>">
+                <span class="amrma-name">4. <?= $block->escapeHtml(__('Completed')) ?></span>
+            </div>
+
+        </div>
+    </div>
+<?php if ($block->getConfig()->isEnableFeedback() && !$request->getRating() && $status->getState() === \Amasty\Rma\Model\OptionSource\State::RESOLVED): ?>
+    <div class="amrma-stars-container">
+        <div class="rated-message amrma-title" style="display:none">
+            <?= $block->escapeHtml(__('Thank you for your feedback.')); ?>
+        </div>
+        <form method="post" name="amrma-stars-form" action="<?= $block->escapeUrl($block->getRateUrl()); ?>">
+            <input type="hidden" name="hash" value="<?= $block->escapeHtml($request->getUrlHash()); ?>">
+            <div class="amrma-rating-block">
+                <p class="amrma-title"><?= $block->escapeHtml(__('How do you rate the work of a manager?')) ?></p>
+                <div class="amrma-stars-block review-control-vote">
+                    <?php for ($star = 1; $star < 6; $star++): ?>
+                        <input type="radio" name="rating" id="rating_<?= (int)$star; ?>"
+                               value="<?= (int)$star; ?>" class="amrma-radio radio" aria-required="true">
+                        <label class="amrma-star rating-<?= (int)$star; ?>" for="rating_<?= (int)$star; ?>"
+                               title="<?= $block->escapeHtml(__('%1 star', (int)$star)); ?>">
+                            <span><?= $block->escapeHtml(__('%1 star', (int)$star)); ?></span>
+                        </label>
+                    <?php endfor; ?>
+                </div>
+            </div>
+            <div class="amrma-feedback-container">
+                <input type="text" class="amrma-feedback" name="rating_comment"
+                       placeholder="<?= $block->escapeHtml(__('You can also leave a comment.')) ?>" />
+                <button class="amrma-send" title="<?= $block->escapeHtml(__('Send')) ?>"><?= $block->escapeHtml(__('Send')) ?></button>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        require(['jquery'], function ($) {
+            $(function () {
+                $('[name="amrma-stars-form"]').submit(function (e) {
+                    if ($('[name="rating"]:checked').length) {
+                        $.post($(this).attr('action'), $(this).serialize(), function () {
+                            $(this).hide();
+                            $('.rated-message').show();
+                        }.bind(this));
+                    }
+                    e.preventDefault();
+                });
+            });
+        });
+    </script>
+<?php endif; ?>
+
+    <div class="amrma-customer-information">
+        <div class="amrma-customer-name">
+            <p class="_nomargin">
+                <span class="_strong"><?= $block->escapeHtml(__('Order ID:')) ?> </span>
+                <span class="amrma-name">#<?= $block->escapeHtml($order->getIncrementId()); ?></span>
+            </p>
+            <p class="_nomargin">
+            <span class="_strong">
+                <?= $block->escapeHtml(__('Customer name:')) ?>
+            </span>
+                <span class="amrma-name">
+                <?= $block->escapeHtml($request->getCustomerName()) ?>
+            </span>
+            </p>
+            <p class="_nomargin">
+            <span class="_strong">
+                <?= $block->escapeHtml(__('Email:')) ?>
+            </span>
+                <span class="amrma-email">
+                <?= $block->escapeHtml($order->getCustomerEmail()); ?>
+            </span>
+            </p>
+            <p class="_nomargin">
+                <span class="_strong"><?= $block->escapeHtml(__('Created At:')) ?> </span>
+                <span class=""><?= $helperStore->formatDate($request->getCreatedAt(),$order->getStoreId()); ?></span>
+            </p>
+        </div>
+        <div class="amrma-customer-address">
+            <p class="_nomargin">
+                <span class="_strong"><?= $block->escapeHtml(__('Customer Address')) ?> </span>
+            </p>
+            <p>
+                <?= /** @noEscape */ $block->getFormatAddress($order->getBillingAddress()); ?>
+            </p>
+        </div>
+        <?php if($helperConfig->getConfig('onitsukatiger_catalog_product/rma_address/enable')):?>
+            <?php if ($addressHelper->rmaAddressToHtml($request) != ''): ?>
+                <div class="amrma-address">
+                    <p class="_nomargin">
+                        <span class="_strong"><?= $block->escapeHtml(__('RMA Address')) ?> </span>
+                    </p>
+                    <p>
+                        <?= /** @noEscape */ $addressHelper->rmaAddressToHtml($request); ?>
+                    </p>
+                </div>
+            <?php endif; ?>
+        <?php endif; ?>
+    </div>
+    <div class="amrma-bank-details">
+        <?php if (($customFieldData = $request->getCustomFields()) && ($customFields = $block->getConfig()->getCustomFields())): ?>
+            <h2 class="amrma-title"><?= $block->escapeHtml($block->getConfig()->getCustomFieldsLabel()); ?></h2>
+            <?php foreach ($customFields as $code => $label): ?>
+                <?php if (!empty($customFieldData[$code])): ?>
+                    <p class="_nomargin">
+                        <span class="_strong"><?= $block->escapeHtml($label) ?>: </span>
+                        <span class="amrma-name"><?= $block->escapeHtml($customFieldData[$code]); ?></span>
+                    </p>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+<?php if (!empty($statusStore->getDescription())): ?>
+    <div class="amrma-return-instructions">
+        <input type="checkbox" id="amrma-instruction-block" class="amrma-instructions" checked />
+        <label for="amrma-instruction-block" class="amrma-instructions-title">
+            <h2 class="amrma-title"><?= $block->escapeHtml(__('Returns: how it works')) ?></h2>
+            <div class="amrma-show"></div>
+        </label>
+
+        <div class="amrma-instruction-block">
+            <?= /* @noEscape */ __($block->getReturnInstruction($statusStore)) ?>
+        </div>
+    </div>
+<?php endif; ?>
+    <div class="amrma-table-container">
+        <h2 class="amrma-title"><?= $block->escapeHtml(__('Items')) ?></h2>
+        <div class="table-wrapper amrma-items-table">
+            <table class="data table table-returns-items amrma-table">
+                <caption class="table-caption"><?= $block->escapeHtml(__('Items')) ?></caption>
+                <thead>
+                <tr>
+                    <th scope="col" class="col img"></th>
+                    <th scope="col" class="col shipping"><?= $block->escapeHtml(__('Product Details')) ?></th>
+                    <th scope="col" class="col id"><?= $block->escapeHtml(__('Return Details')) ?></th>
+                    <th scope="col" class="col status"><?= $block->escapeHtml(__('Item Status')) ?></th>
+                </tr>
+                </thead>
+                <tbody class="amrma-tbody">
+                <?php foreach ($request->getRequestItems() as $requestItem):
+                    $product = $block->getProductByOrderItemId($requestItem->getOrderItemId());
+                    $imageUrl = $scene7Helper->getOrderItemProductImage($product, "order_item_image_size") ?? $block->getOrderItemImageUrl($requestItem->getOrderItemId());
+                    ?>
+                    <tr class="amrma-row">
+                        <td data-th="" class="col item">
+                            <div class="amrma-image"><img src="<?= $block->escapeUrl($imageUrl) ?>" /></div>
+                        </td>
+                        <td data-th="<?= $block->escapeHtml(__('Product Details')) ?>" class="col amrma-details">
+                            <div class="amrma-product-information">
+                                <strong><?= $block->escapeHtml($product->getName()); ?></strong>
+                                <p class="_nomargin"><strong><?= $block->escapeHtml(__('SKU')) ?>: </strong><?= $block->escapeHtml($product->getSku()); ?></p>
+                                <p class="_nomargin"><strong><?= $block->escapeHtml(__('Qty')) ?>: </strong><?= (double)$requestItem->getQty(); ?></p>
+                            </div>
+                        </td>
+                        <td data-th="<?= $block->escapeHtml(__('RMA Details')) ?>" class="col details">
+                            <p class="_nomargin"><strong><?= $block->escapeHtml(__('Return Reason')); ?>: </strong><?= __($block->getReasonLabel($requestItem->getReasonId())); ?></p>
+                            <p class="_nomargin"><strong><?= $block->escapeHtml(__('Items Conditions')); ?>: </strong><?= __($block->getConditionLabel($requestItem->getConditionId())); ?></p>
+                            <p class="_nomargin"><strong><?= $block->escapeHtml(__('Return Resolution')); ?>: </strong><?= __($block->getResolutionLabel($requestItem->getResolutionId())); ?></p>
+                            <br>
+                        </td>
+                        <td data-th="<?= $block->escapeHtml(__('Status')) ?>" class="col status">
+                        <span class="amrma-status -<?= $block->escapeHtml(strtolower($block->getItemStatusText($requestItem->getItemStatus()))); ?>">
+                            <?= __($block->getItemStatusText($requestItem->getItemStatus())); ?>
+                        </span>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<?php
+$availableStates = [
+    \Amasty\Rma\Model\OptionSource\State::AUTHORIZED,
+    \Amasty\Rma\Model\OptionSource\State::RECEIVED
+];
+?>
+
+    <div id="tracking-number" data-bind="scope: 'amrma-tracking-number'">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    </div>
+<?php
+$carriers = $block->getConfig()->getCarriers();
+$trackingNumbers = [];
+/** @var \Amasty\Rma\Api\Data\TrackingInterface $trackingNumber */
+foreach ($request->getTrackingNumbers() as $trackingNumber) {
+    $trackingNumbers[] = [
+        'id' => $trackingNumber->getTrackingId(),
+        'code' => $trackingNumber->getTrackingCode(),
+        'number' => $trackingNumber->getTrackingNumber(),
+        'customer' => $trackingNumber->isCustomer(),
+    ];
+}
+?>
+    <script type="text/x-magento-init">
+        {
+            "#tracking-number": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "amrma-tracking-number": {
+                            "component": "Amasty_Rma/js/tracking-number/view",
+                            "carriers": <?= /** @noEscaoe */ json_encode($carriers); ?>,
+                    "trackingNumbers": <?= /** @noEscaoe */ json_encode($trackingNumbers); ?>,
+                    "saveUrl": "<?= $block->escapeUrl($block->getTrackingSaveUrl($request->getUrlHash())); ?>",
+                    "removeUrl": "<?= $block->escapeUrl($block->getTrackingRemoveUrl($request->getUrlHash())); ?>",
+                    "addAllowed": <?= (int)(in_array($status->getState(), $availableStates) && $carriers); ?>
+        }
+    }
+}
+}
+}
+    </script>
+<?php if ($block->isChatEnabled()): ?>
+    <h2 class="amrma-title amrma-chat-title"><?= $block->escapeHtml(__('Chat')) ?></h2>
+    <div id="chat" data-bind="scope: 'amrma-chat'"><!-- ko template: getTemplate() --><!-- /ko --></div>
+
+    <script type="text/x-magento-init">
+        {
+            "#chat": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "amrma-chat": {
+                            "component": "Amasty_Rma/js/chat/view",
+                            "fetchUrl": "<?= $block->escapeUrl($block->getChatFetchUrl($request->getUrlHash())); ?>",
+                            "saveUrl": "<?= $block->escapeUrl($block->getChatSaveUrl($request->getUrlHash())); ?>",
+                            "uploadUrl": "<?= $block->escapeUrl($block->getChatUploadUrl($request->getUrlHash())); ?>",
+                            "deleteUrl": "<?= $block->escapeUrl($block->getChatDeleteUrl($request->getUrlHash())); ?>",
+                            "deleteMessageUrl": "<?= $block->escapeUrl($block->getChatDeleteMessageUrl($request->getUrlHash())); ?>"
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+<?php endif; ?>

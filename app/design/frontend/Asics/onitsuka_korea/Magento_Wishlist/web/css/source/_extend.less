@@ -1,0 +1,90 @@
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .wishlist-index-configure {
+        .product-info-main,
+        .product.media {
+            border: none;
+            padding: 0 12px;
+            margin: 15px 0;
+        }
+
+        .product.info.detailed {
+            padding: 0 12px;
+            box-sizing: border-box;
+            margin-top: 15px;
+        }
+    }
+    .products-grid.wishlist {
+        .product-item-photo {
+            padding-top: 30px;
+            .product-image-photo {
+                height: auto;
+            }
+        }
+    }
+    .form-wishlist-items {
+        .address-empty {
+            width: 100%;
+            padding: 10px 0;
+            border-color: #ccc;
+            &:before {
+                width: 16px;
+                height: 14px;
+                top: 50%;
+                transform: translateY(-50%);
+                left: 14px;
+            }
+            h2 {
+                font-weight: 400;
+                font-size: 1.3rem;
+                line-height: 1.2em;
+                color: #000;
+                padding-left: 40px;
+            }
+        }
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .wishlist-index-configure {
+        #maincontent {
+            padding-top: 116px;
+        }
+
+        .product.info.detailed {
+            margin: 30px auto;
+            max-width: 90vw;
+        }
+    }
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .wishlist-index-configure {
+        .product-info-main {
+            .product-info-stock-sku {
+                margin-top: 10px;
+                text-align: center;
+            }
+            .page-title-wrapper .page-title {
+                text-align: center;
+            }
+            .price-box.price-final_price {
+                justify-content: center;
+            }
+        }
+        .product.media .fotorama__nav--thumbs .fotorama__nav__frame{
+            max-height: 100px;
+        }
+    }
+}

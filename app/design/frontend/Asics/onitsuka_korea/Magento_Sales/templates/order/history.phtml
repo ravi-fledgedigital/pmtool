@@ -1,0 +1,93 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+/** @var \Magento\Sales\Block\Order\History $block */
+?>
+<?php $_orders = $block->getOrders(); ?>
+<?= $block->getChildHtml('info') ?>
+<?php $helperReturn = $this->helper(\OnitsukaTiger\Rma\Helper\Data::class);?>
+<?php $helperStore = $this->helper(\OnitsukaTiger\Store\Helper\Data::class);?>
+<?php if ($_orders && count($_orders)) : ?>
+
+    <div class="table-wrapper orders-history">
+        <div class="note">
+            <span><?= __('The contents of your past order history are insufficient.') ?></span>
+        </div>
+        <div class="order-items">
+            <?php foreach ($_orders as $_order) : ?>
+                <?php $orderDate = $helperStore->formatDate($_order->getCreatedAt(), $_order->getStoreId());?>
+                <?php
+                $items = $_order->getAllItems();
+                $quantityCart = 0;
+                foreach ($items as $item) {
+                    if ($item->getParentItem()) {
+                       continue;
+                    }
+                    $quantityCart += (int) $item->getQtyOrdered();
+                }
+                ?>
+                <div class="order-item">
+                    <div class="order-left-content">
+                        <div class="order-information">
+                            <?= $block->escapeHtml(__('Order ID:')) ?> <strong><?= $block->escapeHtml($_order->getRealOrderId()) ?></strong>
+                        </div>
+                        <div class="order-information">
+                            <?= $block->escapeHtml(__('Order Date:')) ?> <strong><?= $orderDate ?></strong>
+                        </div>
+                        <div class="order-information">
+                            <?= $block->escapeHtml(__('Amount:')) ?> <strong><?= /* @noEscape */ $_order->formatPrice($_order->getGrandTotal()) ?></strong>
+                        </div>
+                        <div class="order-information">
+                            <?= $block->escapeHtml(__('No. Of Items:')) ?> <strong><?= $block->escapeHtml($quantityCart) ?></strong>
+                        </div>
+                    </div>
+                    <div class="order-right-content">
+                        <div class="order-status">
+                            <div class="status <?= $block->escapeHtml(strtolower($_order->getStatusLabel())) ?>">
+                                <span><?= $block->escapeHtml(__($_order->getStatusLabel())) ?></span>
+                            </div>
+                        </div>
+                        <div class="order-actions">
+                            <div class="view-details-btn">
+                                <span><?= $block->escapeHtml(__('View Details')) ?></span>
+                                <ul>
+                                    <?php if($helperReturn->checkButtonReorder($_order)): ?>
+                                        <li>
+                                            <a data-role="order-return" href="#" data-return='<?= /* @noEscape */$helperReturn->getCreateReturnUrl($_order) ?>' class="action order">
+                                                <span><?= $block->escapeHtml(__('Return')) ?></span>
+                                            </a>
+                                        </li>
+                                    <?php endif ?>
+                                    <li><a data-role="order-details" data-order="<?= $block->escapeUrl($block->getViewUrl($_order)) ?>"><?= __('Order Details')?></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach;?>
+            <script type="text/x-magento-init">
+                {
+                    ".order-items": {
+                        "orderAjax": {
+                            "addressJson": "",
+                            "deleteUrlPrefix": ""
+                        }
+                    }
+                }
+            </script>
+        </div>
+    </div>
+    <?php if ($block->getPagerHtml()) : ?>
+        <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml() ?></div>
+    <?php endif ?>
+<?php else : ?>
+    <div class="message info empty"><span><?= $block->escapeHtml(__('No transactions found in the selected time duration.')) ?></span></div>
+<?php endif ?>
+<div class="loadding-ajax">
+    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+</div>

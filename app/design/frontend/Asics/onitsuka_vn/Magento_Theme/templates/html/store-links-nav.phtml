@@ -1,0 +1,42 @@
+<?php
+/**
+ * @var $block Magento\Framework\View\Element\Template
+ */
+?>
+
+<?php
+$helper = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);
+$currentStore = $helper->getCurrentStore();
+$storesLanguage = ['web_vn_vi'=>'web_vn_vi','web_vn_en' =>'web_vn_en'];
+?>
+
+<?php if(array_key_exists($currentStore->getCode(),$storesLanguage)): ?>
+    <li class="link-header store-language-link">
+        <a href="javascript:void(0)">
+            <span class="text"><?= $block->escapeHtml(__('Language')) ?></span>
+        </a>
+        <div class="content-links">
+            <ul>
+                <?php foreach ($storesLanguage as $storeCode): ?>
+                    <?php $storeData = $helper->getStoreDataByCodeLanguage($storeCode); ?>
+                    <li>
+                        <a href="<?= ($currentStore->getCode() != $storeData['code']) ? $storeData['url'] : 'javascript:void(0)';?>">
+                            <?= ($storeData['code'] == 'web_vn_en') ? 'English' : 'Vietnamese'; ?>
+                        </a>
+                    </li>
+                <?php endforeach;?>
+            </ul>
+        </div>
+    </li>
+<?php endif; ?>
+<li class="link-header store-help-link">
+    <a href="<?= $block->getUrl()?>faq">
+        <span class="text"><?= $block->escapeHtml(__('HELP')) ?></span>
+    </a>
+</li>
+<li class="link-header link-store-details">
+    <a href="<?= $block->getUrl($helper->getConfig('amlocator/locator/main_settings/url')) ? $block->getUrl($helper->getConfig('amlocator/locator/main_settings/url')) : 'amlocator';?>">
+        <span class="text"><?= $block->escapeHtml(__('STORE')) ?></span>
+        <span class="text mobile-text hidden"><?= $block->escapeHtml(__('Find A Store')) ?></span>
+    </a>
+</li>

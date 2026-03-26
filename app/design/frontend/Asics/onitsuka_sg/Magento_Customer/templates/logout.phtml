@@ -1,0 +1,31 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+$helperCheckout = $this->helper('OnitsukaTiger\Checkout\Helper\Data');
+
+
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+<p><?= $block->escapeHtml(__('You have signed out and will go to our homepage in 5 seconds.')) ?></p>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Customer/js/logout-redirect": {
+                "url": "<?= $block->escapeJs($block->escapeUrl($block->getUrl())) ?>"
+            }
+        }
+    }
+</script>
+<script type="text/javascript">
+    require([
+        'jquery',
+    ], function($){
+        <?php if($helperCheckout->isCustomerLoggedIn()):?>
+        document.cookie = 'checkoutStepCurrent=shipping; expires='.concat(new Date(Date.now() + 6048e5).toUTCString(), "; path=/;");
+        <?php else: ?>
+        document.cookie = 'checkoutStepCurrent=isLogedCheck; expires='.concat(new Date(Date.now() + 6048e5).toUTCString(), "; path=/;");
+        <?php endif; ?>
+    });
+</script>

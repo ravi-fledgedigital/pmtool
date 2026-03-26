@@ -1,0 +1,45 @@
+<form class="form subscribe"
+      action="<?= $block->escapeUrl($block->getUrl()) ?>subscriber/newsletter/remove"
+      method="post"
+      data-mage-init='{"validation": {"errorClass": "mage-error"}}'
+      id="newsletter-validate-unsubscriber">
+    <div class="form-container">
+        <div class="message-unsubscriber"><?= __('이메일을 다시 입력해 주십시오.')?></div>
+        <div class="field newsletter">
+            <div class="control">
+                <label for="newsletter-unsubscriber">
+                    <input name="email" type="email" id="newsletter-unsubscriber"
+                           placeholder="<?= $block->escapeHtmlAttr(__('이메일 주소')) ?>"
+                           data-validate="{required:true, 'validate-email':true}" data-msg-required="<?= __('이메일을 다시 입력해 주십시오.')?>"
+                           data-mage-init='{"mage/trim-input":{}}'
+                    />
+                </label>
+            </div>
+        </div>
+        <div class="actions">
+            <button disabled="disabled" class="action unsubscribe primary"
+                    title="<?= $block->escapeHtmlAttr(__('이메일 수신거부')) ?>"
+                    type="submit"
+                    aria-label="Subscribe">
+                <span><?= $block->escapeHtml(__('이메일 수신거부')) ?></span>
+            </button>
+        </div>
+    </div>
+    <script type="text/javascript">
+        require.config({
+            map: {
+                '*': {
+                    newsletterUnsubscriber: 'Magento_Newsletter/js/newsletter-unsubscriber'
+                }
+            }
+        });
+    </script>
+    <script type="text/x-magento-init">
+        {
+            "#newsletter-validate-unsubscriber": {
+                "newsletterUnsubscriber": {
+                }
+            }
+        }
+    </script>
+</form>

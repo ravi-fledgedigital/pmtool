@@ -1,0 +1,29 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+/** @var $block \Magento\Sales\Block\Order\Email\Items */
+?>
+<?php $_shipment = $block->getShipment() ?>
+<?php $_order = $block->getOrder() ?>
+<?php $helperConfig = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);?>
+<?php if ($_shipment) : ?>
+<div class="shipment-information">
+    <p class="shipment-track-title-space">&nbsp;</p>
+    <p>
+        <a style="text-decoration: none !important; font-size: 16px !important;font-weight: normal !important;" target="_blank" href="<?= $block->getUrl('')?>sales/order/history/"><?= __('배송정보는 국내우편 사이트에서 조회하세요.')?></a>
+    </p>
+    <p style="font-size: 13px !important;">
+        <?= __('국내우편(등기/택배)배송조회')?>
+        <br>
+        <a style="font-weight: normal !important; font-size: 13px !important;" href="https://service.epost.go.kr/iservice/usr/trace/usrtrc001k01.jsp" target="_blank">https://service.epost.go.kr/iservice/usr/trace/usrtrc001k01.jsp</a>
+    </p>
+    <?php foreach ($_shipment->getTracksCollection() as $track): ?>
+        <p><strong style="font-size: 13px !important;"><?= __('Tracking Number:')?></strong> <?= $track->getTrackNumber()?></p>
+    <?php endforeach;?>
+</div>
+<?php endif; ?>
