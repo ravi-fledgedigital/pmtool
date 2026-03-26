@@ -1,0 +1,51 @@
+//
+//  RMA history
+//  ____________________________________________
+
+//
+//  Common
+//  ----------------------------------------------
+& when (@media-common = true) {
+    .amrma-history-modal {
+        margin-bottom: 40px;
+    }
+
+    .amrma-history-table {
+        & {
+            width: 100%;
+        }
+
+        .amrma-head {
+            box-sizing: border-box;
+            margin-bottom: 40px;
+            padding: 10px 12px;
+            border: 1px solid #89837f;
+            text-align: left;
+            background: #4f4944;
+            color: #fff;
+        }
+
+        .amrma-column {
+            padding: 10px 12px;
+            min-width: 120px;
+        }
+
+        .amrma-column.-date {
+            min-width: 120px;
+        }
+
+        .amrma-column.-name {
+            min-width: 160px;
+        }
+
+        .amrma-column.-changes {
+            border-left: 1px dashed #d6d6d6;
+            border-right: 1px dashed #d6d6d6;
+            white-space: pre-wrap;
+        }
+
+        .amrma-row:nth-child(even) {
+            background: #f5f5f5;
+        }
+    }
+}

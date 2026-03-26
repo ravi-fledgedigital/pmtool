@@ -1,0 +1,29 @@
+
+File "/var/www/html/app/code/Magento/CustomerBalance/Test/Mftf/Test/AdminCreateOrderFromCustomerPageWithStoreCreditAndCheckMoneyPaymentMethodTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 StorefrontSalesOrderSection from module(s): magento/module-multishipping
+	 AdminDeleteAllGiftCardAccountsActionGroup from module(s): magento/module-gift-card-account
+	 AdminGrabLastGiftCardAccountCodeActionGroup from module(s): magento/module-gift-card-account
+	 AdminAddToOrderGiftCardCodeActionGroup from module(s): magento/module-gift-card
+
+File "/var/www/html/app/code/Magento/CustomerBalance/Test/Mftf/Test/AdminRefundWithDiscountGifCardAndStoreCreditTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStoresConfigurationGiftCardAccountGeneralSettingsPage from module(s): magento/module-gift-card-account
+	 AdminGiftCardAccountGeneralSettingsSection from module(s): magento/module-gift-card-account
+	 AdminGiftCardAccountGridSection from module(s): magento/module-gift-card-account
+	 StorefrontApplyGiftCardAccountSection from module(s): magento/module-gift-card-account
+	 CliDisableFreeShippingMethodActionGroup from module(s): magento/module-offline-shipping
+	 AddGiftCardAccountActionGroup from module(s): magento/module-gift-card-account
+	 CliEnableFreeShippingMethodActionGroup from module(s): magento/module-offline-shipping
+
+File "/var/www/html/app/code/Magento/CustomerBalance/Test/Mftf/Test/StorefrontAssertCustomerCreditIsDisplayedCorrectlyWithMultipleCurrenciesTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 SetAllowedCurrenciesConfigForUSD from module(s): magento/module-currency-symbol
+	 SetAllowedCurrenciesConfigForEUR from module(s): magento/module-currency-symbol
+	 SetCurrencyUSDBaseConfig from module(s): magento/module-currency-symbol
+	 AdminOpenCurrencyRatesPageActionGroup from module(s): magento/module-currency-symbol
+	 AdminSetCurrencyRatesActionGroup from module(s): magento/module-currency-symbol
+	 StorefrontSwitchCurrencyActionGroup from module(s): magento/module-currency-symbol

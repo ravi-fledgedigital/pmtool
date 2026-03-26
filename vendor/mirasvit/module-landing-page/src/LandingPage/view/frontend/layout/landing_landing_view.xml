@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <attribute name="class" value="page-with-filter"/>
+        <attribute name="class" value="page-products"/>
+
+        <referenceContainer name="columns.top">
+            <container name="landing.view.container" htmlTag="div" htmlClass="category-view container" htmlId="category-view-container" after="-">
+                <block class="Mirasvit\LandingPage\Block\Landing\View" name="landing.image" template="Mirasvit_LandingPage::landing/image.phtml"/>
+                <block class="Mirasvit\LandingPage\Block\Landing\View" name="landing.description" template="Mirasvit_LandingPage::landing/description.phtml"/>
+                <block class="Mirasvit\LandingPage\Block\Landing\View" name="landing.cms.top_block" template="Mirasvit_LandingPage::landing/top_block.phtml"/>
+            </container>
+        </referenceContainer>
+        <referenceBlock name="search_result_list">
+            <referenceContainer name="additional" remove="true"/>
+        </referenceBlock>
+
+        <referenceContainer name="sidebar.main">
+            <referenceBlock name="catalogsearch.leftnav" remove="true"/>
+            <block class="Magento\LayeredNavigation\Block\Navigation\Category" name="catalog.leftnav" before="-" template="Magento_LayeredNavigation::layer/view.phtml">
+                <block class="Magento\LayeredNavigation\Block\Navigation\State" name="catalog.navigation.state" as="state" />
+                <block class="Magento\LayeredNavigation\Block\Navigation\FilterRenderer" name="catalog.navigation.renderer" as="renderer" template="Magento_LayeredNavigation::layer/filter.phtml">
+                    <arguments>
+                        <argument name="product_layer_view_model" xsi:type="object">Magento\LayeredNavigation\ViewModel\Layer\Filter</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceContainer>
+
+        <referenceContainer name="page.breadcrumbs">
+            <referenceBlock class="Mirasvit\LandingPage\Block\Landing\Breadcrumbs" name="breadcrumbs"/>
+        </referenceContainer>
+
+        <referenceContainer name="page.bottom.container">
+            <container name="landing.view.container.bottom" htmlTag="div" htmlClass="landing-view" after="-">
+                <block class="Mirasvit\LandingPage\Block\Landing\View" name="landing.cms.bottom_block" template="Mirasvit_LandingPage::landing/bottom_block.phtml"/>
+            </container>
+        </referenceContainer>
+        <referenceBlock name="category.products.list">
+            <arguments>
+                <argument name="viewModel" xsi:type="object">Magento\Catalog\ViewModel\Product\OptionsData</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

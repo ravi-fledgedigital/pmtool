@@ -1,0 +1,11 @@
+
+File "/var/www/html/app/code/Magento/Rma/Test/Mftf/Test/AdminReturnProductsUsingReturnMerchandiseAuthorizationTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminCreateApiConfigurableProductActionGroup from module(s): magento/module-configurable-product
+
+File "/var/www/html/app/code/Magento/Rma/Test/Mftf/Test/StoreFrontValidateReturnPageWhenOrderedConfigurableProductDeletedTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminCreateApiConfigurableProductActionGroup from module(s): magento/module-configurable-product
+	 StorefrontAddConfigurableProductToTheCartActionGroup from module(s): magento/module-configurable-product

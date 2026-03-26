@@ -1,0 +1,46 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+//phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+//phpcs:disable Magento2.Files.LineLength.MaxExceeded
+/** @var \Magento\Rma\Block\Email\Items $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+<table class="email-items rma-items">
+    <thead>
+    <tr>
+        <th><?= $escaper->escapeHtml(__('Product')) ?></th>
+        <th><?= $escaper->escapeHtml(__('SKU')) ?></th>
+        <th><?= $escaper->escapeHtml(__('Condition')) ?></th>
+        <th><?= $escaper->escapeHtml(__('Resolution')) ?></th>
+        <th><?= $escaper->escapeHtml(__('Requested Qty')) ?></th>
+        <th><?= $escaper->escapeHtml(__('Qty')) ?></th>
+        <th><?= $escaper->escapeHtml(__('Status')) ?></th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($block->getCollection() as $item): ?>
+    <tr>
+        <td>
+            <strong><?= $escaper->escapeHtml($item->getProductName()) ?></strong>
+            <?php if ($_options = $item->getOptions()): ?>
+            <dl class="item-options">
+                <?php foreach ($_options as $_option): ?>
+                <dt><?= $escaper->escapeHtml($_option['label']) ?></dt>
+                <dd><?= /* @noEscape */ $_option['value'] ?></dd>
+                <?php endforeach; ?>
+            </dl>
+            <?php endif; ?>
+        </td>
+        <td><?= $escaper->escapeHtml($item->getProductSku()) ?></td>
+        <td><?= $escaper->escapeHtml($block->getOptionAttributeStringValue($item->getCondition())) ?></td>
+        <td><?= $escaper->escapeHtml($block->getOptionAttributeStringValue($item->getResolution())) ?></td>
+        <td><?= /* @noEscape */ $block->getRmaViewModel()->parseQuantity($item->getQtyRequested(), $item) ?></td>
+        <td><?= /* @noEscape */ $block->getRmaViewModel()->getQty($item) ?></td>
+        <td><?= $escaper->escapeHtml($item->getStatusLabel()) ?></td>
+    </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Mirasvit\Core\Block\Adminhtml\Menu">
+        <arguments>
+            <argument name="menu" xsi:type="array">
+                <item name="brand" xsi:type="object">Mirasvit\Brand\Block\Adminhtml\Menu</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Mirasvit\Brand\Controller\Adminhtml\Brand\LogoUpload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Mirasvit\Brand\ImageUploader</argument>
+        </arguments>
+    </type>
+    <type name="Mirasvit\Brand\Controller\Adminhtml\Brand\BannerUpload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Mirasvit\Brand\ImageUploader</argument>
+        </arguments>
+    </type>
+    
+    <!--UI-->
+    <virtualType name="BrandBrandGridFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="BrandBrandGridDataProvider" type="Mirasvit\Brand\Ui\BrandPage\Listing\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Mirasvit\Brand\Model\ResourceModel\BrandPage\Grid\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">BrandBrandGridFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <type name="Mirasvit\Brand\Model\Brand\PostData\Processor">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="m__brandAttributeId" xsi:type="object">Mirasvit\Brand\Model\Brand\PostData\AttributeIdProcessor</item>
+                <item name="m__brandStores" xsi:type="object">Mirasvit\Brand\Model\Brand\PostData\StoresProcessor</item>
+                <item name="m__brandImage" xsi:type="object">Mirasvit\Brand\Model\Brand\PostData\ImageProcessor</item>
+                <item name="m__urlKey" xsi:type="object">Mirasvit\Brand\Model\Brand\PostData\UrlKeyProcessor</item>
+                <item name="m__title" xsi:type="object">Mirasvit\Brand\Model\Brand\PostData\TitleProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\MediaStorage\Model\File\Validator\NotProtectedExtension">
+        <plugin
+            name="Mirasvit_Brand::allow_svg_plugin"
+            type="Mirasvit\Brand\Plugin\AllowSvgPlugin"
+            sortOrder="1000"
+        />
+    </type>
+</config>

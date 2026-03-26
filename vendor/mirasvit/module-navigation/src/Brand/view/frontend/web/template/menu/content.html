@@ -1,0 +1,12 @@
+<div class="letter-row" data-bind="if: (typeof brands !== 'undefined') && brands().length > 0">
+    <ul data-bind="foreach: brands">
+        <li>
+            <a data-bind="attr: { href: url }">
+                <div class="logo-wrapper" data-bind="if: !!image">
+                    <img data-bind="attr: { alt: label, src: image }">
+                </div>
+                <div class="m__all_brand_label" data-bind="text: label"></div>
+            </a>
+        </li>
+    </ul>
+</div>

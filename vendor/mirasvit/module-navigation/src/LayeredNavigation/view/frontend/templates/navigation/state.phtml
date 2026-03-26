@@ -1,0 +1,70 @@
+<?php
+
+/**
+ * @var $block \Mirasvit\LayeredNavigation\Block\Navigation\State
+ */
+
+$filters = $block->getActiveFilters();
+?>
+<?php if (!empty($filters)): ?>
+    <div class="filter-current" data-mst-nav-part="state" data-mage-init='{"collapsible":{"active": false, "openedState": "active", "collapsible": true}}'>
+        <h2 class="block-subtitle filter-current-subtitle" data-role="title" data-count="<?= count($filters) ?>">
+            <?= $block->escapeHtml(__('Now Shopping by')) ?>
+        </h2>
+
+        <ol class="items" role="list">
+            <?php if ($block->isHorizontalFilter()): ?>
+                <li class="block-actions filter-actions" role="listitem">
+                    <a href="<?= $block->escapeUrl($block->getClearUrl()) ?>" rel="<?= $block->escapeHtmlAttr($block->getRelAttributeValue()) ?>"
+                        class="action clear filter-clear" aria-label="<?= $block->escapeHtmlAttr(__('Clear all active filters')) ?>">
+                        <span><?= $block->escapeHtml(__('Clear All')) ?></span>
+                    </a>
+                </li>
+            <?php endif ?>
+
+            <?php foreach ($filters as $filter): ?>
+                <?php
+                $clearLinkUrl = $filter->getClearLinkUrl();
+                $filterName   = __($filter->getName());
+                $filterLabel  = __($block->stripTags($filter->getLabel()));
+                ?>
+                <li class="item mst-nav__state-filter" data-element="filter" role="listitem">
+                    <span class="filter-label"><?= $block->escapeHtml($filterName) ?></span>
+                    <span class="filter-value"><?= $block->escapeHtml($filterLabel) ?></span>
+
+                    <?php if ($clearLinkUrl): ?>
+                        <a class="action previous" rel="<?= $block->escapeHtmlAttr($block->getRelAttributeValue()) ?>"
+                           href="<?= $block->escapeUrl($filter->getRemoveUrl()) ?>"
+                           aria-label="<?= $block->escapeHtmlAttr(__('Go to previous filter state for %1', $filterName)) ?>"
+                           title="<?= $block->escapeHtml(__('Previous')) ?>">
+                            <span class="visually-hidden"><?= $block->escapeHtml(__('Go to previous filter state for %1', $filterName)) ?></span>
+                            <span aria-hidden="true"><?= $block->escapeHtml(__('Previous')) ?></span>
+                        </a>
+
+                        <a class="action remove" rel="<?= $block->escapeHtmlAttr($block->getRelAttributeValue()) ?>"
+                           title="<?= $block->escapeHtml($filter->getFilter()->getClearLinkText()) ?>"
+                           aria-label="<?= $block->escapeHtmlAttr(__('Remove filter: %1 %2', $filterName, $filterLabel)) ?>"
+                           href="<?= $block->escapeUrl($clearLinkUrl) ?>">
+                            <span class="visually-hidden"><?= $block->escapeHtml(__('Remove filter: %1 %2', $filterName, $filterLabel)) ?></span>
+                            <span aria-hidden="true"><?= $block->escapeHtml(__('Remove This Item')) ?></span>
+                        </a>
+                    <?php else: ?>
+                        <a class="action remove"
+                            rel="<?= $block->escapeHtmlAttr($block->getRelAttributeValue()) ?>" href="<?= $block->escapeUrl($filter->getRemoveUrl()) ?>" 
+                           title="<?= $block->escapeHtml(__('Remove %1', $filterLabel)) ?>"
+                           aria-label="<?= $block->escapeHtmlAttr(__('Remove filter: %1 %2', $filterName, $filterLabel)) ?>">
+                            <span class="visually-hidden"><?= $block->escapeHtml(__('Remove filter: %1 %2', $filterName, $filterLabel)) ?></span>
+                            <span aria-hidden="true"><?= $block->escapeHtml(__('Remove This Item')) ?></span>
+                        </a>
+                    <?php endif ?>
+                </li>
+            <?php endforeach ?>
+        </ol>
+
+        <script type="text/x-magento-init"><?= \Mirasvit\Core\Service\SerializeService::encode([
+                '[data-mst-nav-part="state"]' => [
+                    'Mirasvit_LayeredNavigation/js/ajax/state' => [],
+                ],
+            ]) ?></script>
+    </div>
+<?php endif ?>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminGiftCardCreationWithNegativeAmountRestriction">
+        <annotations>
+            <features value="GiftCard"/>
+            <stories value="GiftCard"/>
+            <title value="Create a gift card with negative amount restriction"/>
+            <description value="Should not be able to create a gift card with negative amounts"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="AC-7372"/>
+            <group value="GiftCard"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="logIn"/>
+        </before>
+
+        <after>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logOut"/>
+        </after>
+
+        <!-- Create a gift card with negative amount -->
+        <amOnPage url="{{AdminProductCreatePage.url(GiftCard.attribute_set_id, GiftCard.type_id)}}" stepKey="gotoCreateGiftCard"/>
+        <waitForPageLoad stepKey="wait1"/>
+        <fillField selector="{{AdminProductFormSection.productName}}" userInput="{{GiftCard.name}}" stepKey="fillName"/>
+        <actionGroup ref="addGiftCardAmount" stepKey="addNegativeAmount">
+            <argument name="giftCardAmount" value="GiftCard.negativeAmount[0]"/>
+        </actionGroup>
+        <click selector="body" stepKey="clickBodyToFixFocus"/>
+        <wait time="1" stepKey="waitForErrorMessageToAppear"/>
+        <!-- Check error message for negative amount -->
+        <grabTextFrom selector="{{AdminProductFormSection.negativeDiscountAmountError}}" stepKey="grabErrorMessage"/>
+        <assertEquals stepKey="checkErrorMessage">
+            <expectedResult type="string">Please enter a number greater than 0, without comma in this field.</expectedResult>
+            <actualResult type="string">{$grabErrorMessage}</actualResult>
+        </assertEquals>
+    </test>
+</tests>
+

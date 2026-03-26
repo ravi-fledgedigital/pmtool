@@ -1,0 +1,8 @@
+
+File "/var/www/html/app/code/Magento/CatalogEvent/Test/Mftf/Test/AdminCountProductsToAssignedCategoriesTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminCategoryAddProductsModalSection from module(s): magento/module-visual-merchandiser
+	 AdminProductsInCategoryStartAddingProductsActionGroup from module(s): magento/module-visual-merchandiser
+	 AdminProductsInCategoryAddProductBySearchActionGroup from module(s): magento/module-visual-merchandiser
+	 AdminProductsInCategoryAddProductsModalSaveAndCloseActionGroup from module(s): magento/module-visual-merchandiser

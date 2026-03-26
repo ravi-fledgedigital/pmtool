@@ -1,0 +1,126 @@
+<?php
+/**
+ * @var $block \Mirasvit\LayeredNavigation\Block\Renderer\LabelRenderer
+ * @var $escaper \Magento\Framework\Escaper
+ */
+
+$attributeCode  = $block->getAttributeCode();
+$cacheKey       = rand(100000, 1000000);
+$filterAccessor = $attributeCode . 'A' . $cacheKey . 'A';
+$filter         = $block->getFilter();
+
+$isMultiselect = (int)$block->isMultiselectEnabled();
+
+$useAlphabeticalIndex = strpos(get_class($filter), 'AttributeFilter') !== false && $filter->isUseAlphabeticalIndex();
+
+$checkedItemsCount = 0;
+
+$letter  = '';
+?>
+
+<div data-attribute-code="<?= $block->escapeHtmlAttr($attributeCode) ?>" data-is-multiselect="<?= $block->escapeHtmlAttr($isMultiselect) ?>" data-mst-nav-filter="<?= $block->escapeHtmlAttr($filterAccessor) ?>" class="mst-nav__label" data-mst-nav-cache-key="<?= $block->escapeHtmlAttr($cacheKey) ?>">
+    <?= /* @noEscape */ $block->getSearchBoxElement($filterAccessor) ?>
+    <div data-holder="alphabetical"></div>
+
+    <ol class="items" role="list">
+        <?php foreach ($block->getFilterItems() as $key => $filterItem):
+            $label = $filterItem->getData('label');
+            $numberOfResults = $filterItem->getData('count');
+
+            $isItemChecked = $block->isFilterItemChecked($filterItem, true);
+
+            if ($isItemChecked) {
+                $checkedItemsCount++;
+            }
+
+            $imageUrl         = $block->getImageUrl($filterItem);
+            $isFullWidthImage = $block->isFullWidthImage($filterItem);
+
+            $cssClass = [
+                'item',
+                'mst-nav__label-item',
+                '_mode-' . $block->getFilterItemDisplayMode($attributeCode),
+                $isItemChecked ? '_checked' : '',
+                $isItemChecked && $block->isHighlightEnabled() ? '_highlight' : '',
+                $imageUrl ? '_image' : '',
+                $imageUrl && $isFullWidthImage ? '_full-width' : '',
+            ];
+            ?>
+
+            <?php if(
+                $useAlphabeticalIndex
+                && $filter->isSortByLabel()
+                && $letter !== $block->getFirstLetter($label)
+            ):
+                $letter = $block->getFirstLetter($label);
+            ?>
+            <li class="mst-nav__letter mst-nav__label-item" data-letter="<?= $block->escapeHtmlAttr($letter) ?>" data-element = filter role="listitem">
+                <b><?= $block->escapeHtml($letter) ?></b>
+            </li>
+            <?php endif ?>
+
+            <li
+                data-element="filter"
+                data-hidden="false"
+                data-search-hidden="false"
+                data-letter-hidden="false"
+                class="<?= $block->escapeHtmlAttr(implode(' ', $cssClass)) ?>"
+                data-value="<?= $block->escapeHtmlAttr($filterItem->getValueString()) ?>"
+                role="listitem"
+                <?= $useAlphabeticalIndex ? 'data-letter="' . $block->escapeHtmlAttr($block->getFirstLetter($label)) . '"' : '' ?>
+            >
+                <?php if ($numberOfResults >= 0): ?>
+                    <?php
+                    $url = $isItemChecked ? $filterItem->getRemoveUrl() : $filterItem->getUrl();
+                    $id  = $block->getItemId($filterItem);
+                    ?>
+                    <a href="<?= $escaper->escapeUrl($url) ?>"
+                       rel="<?= $block->escapeHtmlAttr($block->getRelAttributeValue()) ?>"
+                       aria-label="<?= $block->escapeHtmlAttr($isItemChecked ? __('Remove filter: %1', strip_tags($label)) : __('Filter by %1', strip_tags($label))) ?>"
+                       role="checkbox"
+                       aria-checked="<?= $isItemChecked ? 'true' : 'false' ?>"
+                       tabindex="0"
+                    >
+                        <?php if ($imageUrl): ?>
+                            <div class="swatch-option image" style="background: url(<?= $block->escapeUrl($imageUrl) ?>) no-repeat center;  background-size: auto 100%;" aria-hidden="true"></div>
+                        <?php endif ?>
+
+                        <input id="<?= $block->escapeHtmlAttr($id) ?>" type="checkbox" <?= $isItemChecked ? 'checked' : '' ?> tabindex="-1" aria-hidden="true" />
+
+                        <label for="<?= $block->escapeHtmlAttr($id) ?>" title="<?= /* @noEscape */ strip_tags($label) ?>" >
+                            <?= /* @noEscape */ $label ?>
+                        </label>
+                        <span class="visually-hidden">
+                            <?= $block->escapeHtml($isItemChecked ? __('Selected: %1', strip_tags($label)) : __('Not selected: %1', strip_tags($label))) ?>
+                        </span>
+                        <?= /* @noEscape */ $block->getCountElement($filterItem) ?>
+                    </a>
+                <?php else: ?>
+                    <?= /* @noEscape */ $label ?>
+                    <?= /* @noEscape */ $block->getCountElement($filterItem) ?>
+                <?php endif ?>
+            </li>
+        <?php endforeach ?>
+
+        <?= /* @noEscape */ $block->getSizeLimiterElement($filterAccessor) ?>
+    </ol>
+</div>
+
+<script type="text/x-magento-init"><?= \Mirasvit\Core\Service\SerializeService::encode([
+        '[data-mst-nav-filter=' . $filterAccessor . ']' => [
+            'Mirasvit_LayeredNavigation/js/renderer/label-renderer' => [],
+            'Mirasvit_LayeredNavigation/js/helper/checked-items' => [
+                'count'    => $checkedItemsCount,
+                'clearUrl' => $block->getAttributeClearUrl($attributeCode)
+            ],
+            'Mirasvit_LayeredNavigation/js/helper/tooltip' => [
+                'tooltip' => $block->getTooltip(),
+            ],
+            'Mirasvit_LayeredNavigation/js/renderer/element/alphabetical' => [
+                'shouldDisplay' => $useAlphabeticalIndex && $filter->isAlphabeticalIndexAllowedByLimit(),
+                'limit'         => $filter->getAlphabeticalLimit()
+            ],
+        ],
+    ]) ?></script>
+
+

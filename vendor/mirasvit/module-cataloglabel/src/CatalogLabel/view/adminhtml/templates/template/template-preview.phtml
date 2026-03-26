@@ -1,0 +1,26 @@
+<?php
+    /** @var Mirasvit\CatalogLabel\Block\Adminhtml\Template\Preview $block */
+?>
+
+<div data-mst-template-preview class="mst_cataloglabel_template_preview">
+    <div class="preview_content">
+        <div class="htmlcontent">
+            <?= $block->getTemplateHtmlContent(); ?>
+        </div>
+        <div class="style">
+            <?= $block->escapeHtml($block->getTemplateStyles(), ['style']); ?>
+        </div>
+    </div>
+
+    <div class="loader-wrapper">
+        <div class="preview-loader"><div></div><div></div><div></div><div></div></div>
+    </div>
+</div>
+
+<?php if ($block->isFormPage()): ?>
+<script type="text/x-magento-init"><?= \Mirasvit\Core\Service\SerializeService::encode([
+        '[data-mst-template-preview]' => [
+            'Mirasvit_CatalogLabel/js/template/preview' => $block->getJsConfig()
+        ],
+    ]) ?></script>
+<?php endif; ?>

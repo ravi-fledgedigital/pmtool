@@ -1,0 +1,41 @@
+<?php
+
+/** @var \Mirasvit\LayeredNavigation\Block\Adminhtml\Filter\AttributeItem $block */
+/** @var array $attribute */
+/** @var int|string $id */
+
+$attribute = $block->getAttributeData();
+$id = $block->getAttributeId();
+
+$label = $block->escapeHtml($attribute['label']);
+$code = $block->escapeHtml($attribute['code']);
+?>
+
+<div class="mst-filters__attribute-item" title="<?= $block->escapeHtmlAttr($label) ?> (<?= $block->escapeHtmlAttr($code) ?>)">
+    <div class="mst-filters__attribute-header">
+        <input type="checkbox" name="attribute[<?= $block->escapeHtmlAttr($id) ?>][use]" id="attribute-<?= $block->escapeHtmlAttr($id) ?>" value="1" />
+
+        <label for="attribute-<?= $block->escapeHtmlAttr($id) ?>" class="mst-filters__attribute-title">
+            <strong class="label"><?= $block->escapeHtml($label) ?></strong>
+            <div class="code"><?= $block->escapeHtml($code) ?></div>
+        </label>
+    </div>
+
+    <div class="mst-filters__attribute-options">
+        <label>
+            <span><?= $block->escapeHtml(__('Location:')) ?></span>
+            <select name="attribute[<?= $block->escapeHtmlAttr($id) ?>][location]" class="admin__control-select">
+                <option value="sidebar"><?= $block->escapeHtml(__('Sidebar (Default)')) ?></option>
+                <option value="horizontal"><?= $block->escapeHtml(__('Horizontal')) ?></option>
+                <option value="both"><?= $block->escapeHtml(__('Both')) ?></option>
+            </select>
+        </label>
+        <label>
+            <span><?= $block->escapeHtml(__('Filterable:')) ?></span>
+            <select name="attribute[<?= $block->escapeHtmlAttr($id) ?>][filterable]" class="admin__control-select">
+                <option value="1" selected><?= $block->escapeHtml(__('Filterable (with results)')) ?></option>
+                <option value="2"><?= $block->escapeHtml(__('Filterable (no results)')) ?></option>
+            </select>
+        </label>
+    </div>
+</div>

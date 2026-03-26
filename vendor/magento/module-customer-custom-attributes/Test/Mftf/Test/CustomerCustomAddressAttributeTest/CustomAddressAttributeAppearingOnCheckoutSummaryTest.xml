@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="CustomAddressAttributeAppearingOnCheckoutSummaryTest">
+        <annotations>
+            <stories value="Customer Address"/>
+            <title value="Custom Address attribute appearing on Checkout summary"/>
+            <description value="Custom Address attribute appearing on Checkout summary"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="AC-3969"/>
+            <group value="customer"/>
+        </annotations>
+        <before>
+            <createData entity="SimpleProduct2" stepKey="createSimpleProduct"/>
+            <!--Login as admin-->
+            <actionGroup ref="AdminLoginActionGroup" stepKey="LoginAsAdmin"/>
+        </before>
+        <after>
+            <amOnPage url="{{CustomerAddressAttributesPage.url}}" stepKey="navigateToCustomerAddress"/>
+            <actionGroup ref="AdminDeleteCustomerAttribute" stepKey="adminDeleteCustomerAttribute">
+                <argument name="defaultLabel" value="{{AddressAttributeTextField.frontend_label}}"/>
+            </actionGroup>
+            <actionGroup ref="ClearFiltersAdminDataGridActionGroup" stepKey="clearFilter"/>
+            <actionGroup ref="AdminDeleteCustomerActionGroup" stepKey="deleteCustomer">
+                <argument name="customerEmail" value="Simple_US_Customer.email"/>
+            </actionGroup>
+            <actionGroup ref="ClearFiltersAdminDataGridActionGroup" stepKey="clearCustomerFilter"/>
+            <deleteData createDataKey="createSimpleProduct" stepKey="deleteProduct"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logOut"/>
+        </after>
+        <!--Create new Customer attribute-->
+        <amOnPage url="{{CustomerAddressAttributesPage.url}}" stepKey="navigateToCustomerAddress"/>
+        <waitForPageLoad stepKey="waitForCustomerAttributePageLoaded"/>
+        <!--Create customer address attribute-->
+        <actionGroup ref="AdminCreateCustomerNewAttributeWithRequiredValues" stepKey="createCustomerAddressAttribute">
+            <argument name="defaultLabel" value="{{AddressAttributeTextField.frontend_label}}"/>
+            <argument name="attributeCode" value="{{AddressAttributeTextField.attribute_code}}"/>
+            <argument name="inputType" value="{{AddressAttributeTextField.frontend_input}}"/>
+            <argument name="sortOrder" value="{{AddressAttributeTextField.sort_order}}"/>
+            <argument name="message" value="You saved the customer address attribute."/>
+        </actionGroup>
+        <!-- create customer on storefront -->
+        <actionGroup ref="StorefrontOpenCustomerAccountCreatePageActionGroup" stepKey="openCreateAccountPage"/>
+        <actionGroup ref="ReloadPageActionGroup" stepKey="refreshPage"/>
+        <actionGroup ref="StorefrontFillCustomerAccountCreationFormActionGroup" stepKey="fillCreateAccountForm">
+            <argument name="customer" value="Simple_US_Customer"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontClickCreateAnAccountCustomerAccountCreationFormActionGroup" stepKey="submitCreateAccountForm"/>
+        <!-- Open AddressBook and set Country as "United Kingdom" -->
+        <actionGroup ref="StorefrontCustomerGoToSidebarMenu" stepKey="goToAddressBookPage">
+            <argument name="menu" value="Address Book"/>
+        </actionGroup>
+        <!-- Fill Shipping Address info -->
+        <actionGroup ref="StorefrontFillCustomerAddressWithAttributeActionGroup" stepKey="fillAddress"/>
+        <!--Open the created product and add it to cart-->
+        <amOnPage url="{{StorefrontProductPage.url($$createSimpleProduct.custom_attributes[url_key]$$)}}" stepKey="openProductAPage"/>
+        <actionGroup ref="StorefrontAddProductToCartActionGroup" stepKey="AddSimpleProductToCart">
+        <argument name="product" value="$$createSimpleProduct$$"/>
+        <argument name="productCount" value="1"/>
+        </actionGroup>
+        <!-- Click mini cart and click on proceed to checkout-->
+        <actionGroup ref="StorefrontClickOnMiniCartActionGroup" stepKey="clickMiniCart"/>
+        <click selector="{{StorefrontMinicartSection.goToCheckout}}" stepKey="goToCheckout"/>
+        <!-- Grab text from address-->
+        <grabTextFrom selector="{{CheckoutShippingSection.savedAddress}}"  stepKey="grabAddress"/>
+        <!-- Assert the value of created customer attribut in shipping address block of checkout page-->
+        <assertStringContainsString stepKey="assertCustomerAddresAttribute">
+            <actualResult type="variable">$grabAddress</actualResult>
+            <expectedResult type="string">{{UK_Not_Default_Address.street[0]}}</expectedResult>
+        </assertStringContainsString>
+    </test>
+</tests>

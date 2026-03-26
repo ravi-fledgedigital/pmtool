@@ -1,0 +1,20 @@
+<?php
+declare(strict_types=1);
+
+/** @var \Mirasvit\Brand\Block\Product\Breadcrumbs $block */
+/** @var \Magento\Catalog\ViewModel\Product\Breadcrumbs $viewModel */
+$viewModel = $block->getData('viewModel');
+?>
+<div class="breadcrumbs"></div>
+<?php
+$widget = $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonDecode($viewModel->getJsonConfigurationHtmlEscaped());
+$widget['breadcrumbs']['brandConfig'] = $block->getBrandsBreadcrumbsConfig();
+$widgetOptions = $this->helper(\Magento\Framework\Json\Helper\Data::class)->jsonEncode($widget['breadcrumbs']);
+?>
+<script type="text/x-magento-init">
+    {
+        ".breadcrumbs": {
+            "breadcrumbs": <?= /* @noEscape */ $widgetOptions ?>
+        }
+    }
+</script>

@@ -1,0 +1,36 @@
+<?php
+
+use Magento\Catalog\Block\Adminhtml\Category\AssignProducts;
+use Magento\Catalog\Block\Adminhtml\Category\Tab\Product;
+use Magento\Framework\View\Helper\SecureHtmlRenderer;
+
+/**
+ * @see Magento_Catalog::catalog/category/edit/assign_products.phtml
+ * @var AssignProducts     $block
+ * @var Product            $blockGrid
+ * @var SecureHtmlRenderer $secureRenderer
+ */
+
+$blockGrid        = $block->getBlockGrid();
+$gridJsObjectName = $blockGrid->getJsObjectName();
+?>
+
+<?= /* @noEscape */
+$block->getGridHtml() ?>
+<input type="hidden" name="category_products" id="in_category_products" data-form-part="category_form" value=""/>
+<input type="hidden" name="pinned_product_ids" id="pinned_product_ids" data-form-part="category_form" value=""/>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Catalog/catalog/category/assign-products": {
+            "selectedProducts": <?= /* @noEscape */ $block->getProductsJson() ?>,
+            "gridJsObjectName": <?= /* @noEscape */ '"' . $gridJsObjectName . '"' ? : '{}' ?>
+        },
+        "Mirasvit_Sorting/js/catalog/category/pinned-products": {
+            "gridJsObjectName": <?= /* @noEscape */ '"' . $gridJsObjectName . '"' ? : '{}' ?>
+        }
+    }
+}
+</script>
+
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], "require('mage/apply/main').apply();", false) ?>

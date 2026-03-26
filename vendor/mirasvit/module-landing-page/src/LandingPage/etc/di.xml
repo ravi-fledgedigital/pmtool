@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Mirasvit\LandingPage\Api\Data\PageInterface" type="Mirasvit\LandingPage\Model\Page"/>
+    <preference for="Mirasvit\LandingPage\Api\Data\PageStoreInterface" type="Mirasvit\LandingPage\Model\Page\Store"/>
+
+    <virtualType name="Mirasvit\LandingPage\ImageUploader" type="Magento\Catalog\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">landing/tmp</argument>
+            <argument name="basePath" xsi:type="string">landing</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Mirasvit\LandingPage\Model\Page">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Mirasvit\LandingPage\ImageUploader</argument>
+        </arguments>
+    </type>
+
+    <!--register requests for all search indices-->
+    <type name="Magento\Framework\Search\Request\Config\FilesystemReader">
+        <plugin name="mstLandingPageSearchIndices" type="Mirasvit\LandingPage\Plugin\RequestConfigPlugin"/>
+    </type>
+
+    <!--UI-->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="mst_landing_listing_data_source" xsi:type="string">Mirasvit\LandingPage\Model\ResourceModel\Page\Grid</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Store\Model\StoreSwitcher">
+        <arguments>
+            <argument name="storeSwitchers" xsi:type="array">
+                <item name="mstManageLandingUrl" xsi:type="object">Mirasvit\LandingPage\Model\StoreSwitcher\ManagePageUrl</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

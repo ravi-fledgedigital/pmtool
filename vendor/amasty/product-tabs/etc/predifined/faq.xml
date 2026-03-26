@@ -1,0 +1,274 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Product Tabs for Magento 2
+ */-->
+<tab>
+    <tab_title>FAQ</tab_title>
+    <tab_name>FAQ</tab_name>
+    <content>
+        <![CDATA[
+        <div id="accordionGroup" class="accordion-container">
+            <h1>FAQ - Frequently Asked Questions</h1>
+            <p>Welcome to Demo Store's FAQ! Here you'll find answers to our most asked questions. Still can't find quite what
+                you're looking for, or have something we should know? Send us an email, we're happy to help!</p>
+            <ul role="list">
+                <li class="details-info">
+                    <details>
+                        <summary id="amtab-q1">
+                            <span class="summary-text"><b>Q1:</b> Do you ship to my country?</span>
+                            <i aria-hidden="true"></i>
+                        </summary>
+                        <div id="amtab-answer1" aria-labelledby="amtab-q1">
+                            <p><b>A1:</b> Most likely, you can see what countries we ship to in the drop-down at the checkout.</p>
+                        </div>
+                    </details>
+                </li>
+                <li class="details-info">
+                    <details>
+                        <summary id="amtab-q2" aria-controls="amtab-answer2">
+                            <span class="summary-text"><b>Q2:</b> How much do I pay for shipping?</span>
+                            <i aria-hidden="true"></i>
+                        </summary>
+                        <div id="amtab-answer2" aria-labelledby="amtab-q2">
+                            <p><b>A2:</b> The shipping charge will be added to your order and visible on your receipt before you check
+                                out. The shipping is based on the destination country. You’ll get free shipping on orders above a
+                                certain amount.</p>
+                            <p>Free shipping on orders above:</p>
+                            <ul class="details-list">
+                                <li>Denmark – 600 DKK</li>
+                                <li>Norway – 1000 NOK</li>
+                                <li>Finland – 100 EUR</li>
+                                <li>Germany – 100 EUR</li>
+                                <li>UK – 70 GBP</li>
+                                <li>Rest of the EU – 100-250 EUR</li>
+                                <li>Global – 200 USD</li>
+                            </ul>
+                        </div>
+                    </details>
+                </li>
+                <li class="details-info">
+                    <details>
+                        <summary id="amtab-q3" aria-controls="amtab-answer3">
+                            <span class="summary-text"><b>Q3:</b> What are the accepted payment methods?</span>
+                            <i aria-hidden="true"></i>
+                        </summary>
+                        <div id="amtab-answer3" aria-labelledby="amtab-q3">
+                            <p><b>A3:</b> We accept online card payment with MasterCard, VISA or via PayPal. Residents within Sweden are
+                                also offered the option to pay by invoice through our partner Klarna. Please see Klarna’s home page for
+                                more information.
+                            </p>
+                        </div>
+                    </details>
+                </li>
+                <li class="details-info">
+                    <details>
+                        <summary id="amtab-q4" aria-controls="amtab-answer4">
+                            <span class="summary-text"><b>Q4:</b> What currency do I pay in?</span>
+                            <i aria-hidden="true"></i>
+                        </summary>
+                        <div id="amtab-answer4" aria-labelledby="amtab-q4">
+                            <p><b>A4:</b> The currencies used are EUR, USD, GBP, DKK, NOK and SEK. The currency is chosen automatically
+                                depending on your shipping country. Swedish VAT is included in all our prices within the EU.
+                            </p>
+                        </div>
+                    </details>
+                </li>
+                <li class="details-info">
+                    <details>
+                        <summary id="amtab-q5" aria-controls="amtab-answer5">
+                            <span class="summary-text"><b>Q5:</b> When do I receive my order?</span>
+                            <i aria-hidden="true"></i>
+                        </summary>
+                        <div id="amtab-answer5" aria-labelledby="amtab-q5">
+                            <p><b>A5:</b> We dispatch all orders in 1-2 business days with FedEx, delivery time will depend on the
+                                shipping country and address.</p>
+                        </div>
+                    </details>
+                </li>
+                <li class="details-info">
+                    <details>
+                        <summary id="amtab-q6" aria-controls="amtab-answer6">
+                            <span class="summary-text"><b>Q6:</b> Do I have to pay international taxes and duties?</span>
+                            <i aria-hidden="true"></i>
+                        </summary>
+                        <div id="amtab-answer6" aria-labelledby="amtab-q6">
+                            <p><b>A6:</b> Your order may be subject to import duties and taxes, which are levied once a shipment reaches
+                                your country. We cannot control and is not responsible for any duties/taxes applied to your package upon
+                                delivery. You will be responsible for paying additional charges for customs clearance. Customs policies
+                                vary widely from country to country; please contact your local customs office for further information.
+                            </p>
+                        </div>
+                    </details>
+                </li>
+            </ul>
+            <style xml="space"><!--
+            .accordion-container {
+                min-height: 0;
+                display: inline-block;
+                position: relative;
+                padding: 30px;
+            }
+            .accordion-container h1 {
+                text-transform: uppercase;
+                font-size: 36px;
+                line-height: 42px;
+                letter-spacing: 3px;
+                font-weight: 100;
+            }
+            .accordion-container h1,
+            .accordion-container .summary-text {
+                color: #1979c3;
+            }
+
+            .accordion-container .summary-text {
+                font-size: 26px;
+                line-height: 34px;
+                font-weight: 300;
+                letter-spacing: 1px;
+                margin: 0;
+            }
+
+            .accordion-container p,
+            .accordion-container .details-list {
+                color: rgba(48, 69, 92, 0.8);
+                font-size: 17px;
+                line-height: 26px;
+                letter-spacing: 1px;
+            }
+
+            .accordion-container ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .accordion-container ul li {
+                position: relative;
+                padding: 18px 0 4px;
+                border-top: 1px dotted #dce7eb;
+            }
+
+            .accordion-container ul li summary {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                cursor: pointer;
+                list-style: none;
+            }
+
+            .accordion-container .details-list li {
+                border: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .accordion-container ul li summary::-webkit-details-marker {
+                display: none;
+            }
+
+            .accordion-container ul li i {
+                position: relative;
+                width: 12px;
+                height: 12px;
+            }
+
+            .accordion-container ul li i:before,
+            .accordion-container ul li i:after {
+                content: "";
+                position: absolute;
+                background-color: #1979c3;
+                width: 3px;
+                height: 9px;
+            }
+
+            .accordion-container ul li i:before {
+                transform: translate(-2px, 0) rotate(-45deg);
+            }
+
+            .accordion-container ul li i:after {
+                transform: translate(2px, 0) rotate(45deg);
+            }
+
+            .accordion-container details[open] summary i:before {
+                transform: translate(2px, 0) rotate(-45deg);
+            }
+
+            .accordion-container details[open] summary i:after {
+                transform: translate(-2px, 0) rotate(45deg);
+            }
+
+            .accordion-container details div {
+                max-height: 0;
+                opacity: 0;
+                margin-top: 0;
+                transition: all 0.25s ease;
+            }
+
+            .accordion-container details[open] div {
+                max-height: 800px;
+                opacity: 1;
+                margin-top: 14px;
+            }
+
+            .accordion-container h1,
+            .accordion-container ul li {
+                animation: flipdown 0.5s ease both;
+            }
+
+            details::details-content {
+                opacity: 0;
+                transition: opacity 0.5s, content-visibility 0.5s allow-discrete;
+            }
+
+            details[open]::details-content {
+                opacity: 1;
+            }
+
+            .accordion-container { animation-delay: 0.1s; }
+            .accordion-container ul .details-info:nth-child(1) { animation-delay: 0.5s; }
+            .accordion-container ul .details-info:nth-child(2) { animation-delay: 0.75s; }
+            .accordion-container ul .details-info:nth-child(3) { animation-delay: 1.25s; }
+            .accordion-container ul .details-info:nth-child(4) { animation-delay: 1.5s; }
+            .accordion-container ul .details-info:nth-child(5) { animation-delay: 2s; }
+            .accordion-container ul .details-info:nth-child(6) { animation-delay: 2.25s; }
+            .accordion-container ul .details-info:nth-child(7) { animation-delay: 2.5s; }
+            .accordion-container ul .details-info:nth-child(8) { animation-delay: 3s; }
+            .accordion-container ul .details-info:nth-child(9) { animation-delay: 3.25s; }
+
+            @keyframes flipdown {
+                0% {
+                    opacity: 0;
+                    transform-origin: top center;
+                    transform: rotateX(-90deg);
+                }
+                5% {
+                    opacity: 1;
+                }
+                80% {
+                    transform: rotateX(8deg);
+                }
+                83% {
+                    transform: rotateX(6deg);
+                }
+                92% {
+                    transform: rotateX(-3deg);
+                }
+                100% {
+                    transform-origin: top center;
+                    transform: rotateX(0deg);
+                }
+            }
+            --></style>
+        </div>
+        ]]>
+    </content>
+    <stores>0</stores>
+    <module_name>Amasty_ProductTabs</module_name>
+    <type>0</type>
+    <status>0</status>
+    <customer_groups>0,1,2,3</customer_groups>
+    <sort_order>100</sort_order>
+</tab>

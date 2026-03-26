@@ -1,0 +1,64 @@
+<?php
+/**
+ * @var $block \Mirasvit\Brand\Block\BrandList
+ */
+?>
+<?php
+$collection = $block->getBrandsByLetters();
+?>
+<div class="mst-brand__brand-list">
+    <h1 <?= $block->showPageTitle() ? '' : ' class="visually-hidden"' ?>>
+        <?= $block->escapeHtml(__($block->getPageTitle())) ?>
+    </h1>
+    <nav class="toolbar" role="navigation" aria-labelledby="brand-filter-title">
+        <h3 id="brand-filter-title" class="visually-hidden"><?= $block->escapeHtml(__('Filter brands by letter')) ?></h3>
+        <a href="#" class="js-brand-letter _active" data-letter="" aria-label="<?= $block->escapeHtmlAttr(__('Show all brands')) ?>"><?= $block->escapeHtml(__('All brands')) ?></a>
+
+        <div class="letters" role="list">
+            <?php foreach ($collection as $letter => $brands): ?>
+                <div role="listitem">
+                    <a href="#" class="js-brand-letter" data-letter="<?= $block->escapeHtmlAttr($letter) ?>" aria-label="<?= $block->escapeHtmlAttr(__('Filter brands starting with %1', $letter)) ?>">
+                        <?= $block->escapeHtml($letter) ?>
+                    </a>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </nav>
+
+    <?php foreach ($collection as $letter => $brands): ?>
+        <div class="letter-row js-brand-row" data-letter="<?= $block->escapeHtmlAttr($letter) ?>">
+            <div class="letter"><?= $block->escapeHtml($letter) ?></div>
+            <ul role="list">
+                <?php /** @var \Mirasvit\Brand\Api\Data\BrandInterface $brand */ ?>
+                <?php foreach ($brands as $label => $brand): ?>
+                    <li role="listitem">
+                        <a href="<?= $block->escapeUrl($brand->getUrl()) ?>" aria-label="<?= $block->escapeHtmlAttr(__('View %1 brand page', $label)) ?>">
+                            <?php if ($block->canShowImage($brand)): ?>
+                                <div class="logo-wrapper">
+                                    <img 
+                                        alt="<?= $block->escapeHtmlAttr(__('Logo of %1', $label)) ?>"
+                                        <?php if ($block->getBrandLogoImageWidth()): ?>
+                                            width="<?= $block->escapeHtmlAttr($block->getBrandLogoImageWidth()) ?>"
+                                        <?php endif; ?>
+                                        <?php if ($block->getBrandLogoImageHeight()): ?>
+                                            height="<?= $block->escapeHtmlAttr($block->getBrandLogoImageHeight()) ?>"
+                                        <?php endif; ?>
+                                        src="<?= $block->escapeUrl($brand->getImage()) ?>">
+                                </div>
+                            <?php endif; ?>
+
+                            <div class="m__all_brand_label"><?= $block->escapeHtml($label) ?></div>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endforeach; ?>
+</div>
+<script type="text/x-magento-init">
+{
+    ".js-brand-letter": {
+        "Mirasvit_Brand/js/brand-list": {}
+    }
+}
+</script>

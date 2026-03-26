@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package RMA Base for Magento 2
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\Rma\Api\ConditionRepositoryInterface" type="Amasty\Rma\Model\Condition\Repository"/>
+    <preference for="Amasty\Rma\Api\Data\ConditionInterface" type="Amasty\Rma\Model\Condition\Condition"/>
+    <preference for="Amasty\Rma\Api\Data\ConditionStoreInterface" type="Amasty\Rma\Model\Condition\ConditionStore"/>
+
+    <preference for="Amasty\Rma\Api\ReasonRepositoryInterface" type="Amasty\Rma\Model\Reason\Repository"/>
+    <preference for="Amasty\Rma\Api\Data\ReasonInterface" type="Amasty\Rma\Model\Reason\Reason"/>
+    <preference for="Amasty\Rma\Api\Data\ReasonStoreInterface" type="Amasty\Rma\Model\Reason\ReasonStore"/>
+
+    <preference for="Amasty\Rma\Api\ResolutionRepositoryInterface" type="Amasty\Rma\Model\Resolution\Repository"/>
+    <preference for="Amasty\Rma\Api\Data\ResolutionInterface" type="Amasty\Rma\Model\Resolution\Resolution"/>
+    <preference for="Amasty\Rma\Api\Data\ResolutionStoreInterface" type="Amasty\Rma\Model\Resolution\ResolutionStore"/>
+
+    <preference for="Amasty\Rma\Api\StatusRepositoryInterface" type="Amasty\Rma\Model\Status\Repository"/>
+    <preference for="Amasty\Rma\Api\Data\StatusInterface" type="Amasty\Rma\Model\Status\Status"/>
+    <preference for="Amasty\Rma\Api\Data\StatusStoreInterface" type="Amasty\Rma\Model\Status\StatusStore"/>
+
+    <preference for="Amasty\Rma\Api\ChatRepositoryInterface" type="Amasty\Rma\Model\Chat\Repository"/>
+    <preference for="Amasty\Rma\Api\Data\MessageInterface" type="Amasty\Rma\Model\Chat\Message"/>
+    <preference for="Amasty\Rma\Api\Data\MessageFileInterface" type="Amasty\Rma\Model\Chat\MessageFile"/>
+
+    <preference for="Amasty\Rma\Api\RequestRepositoryInterface" type="Amasty\Rma\Model\Request\Repository"/>
+    <preference for="Amasty\Rma\Api\CustomerRequestRepositoryInterface" type="Amasty\Rma\Model\Request\CustomerRequestRepository"/>
+    <preference for="Amasty\Rma\Api\Data\RequestInterface" type="Amasty\Rma\Model\Request\Request"/>
+    <preference for="Amasty\Rma\Api\Data\RequestItemInterface" type="Amasty\Rma\Model\Request\RequestItem"/>
+    <preference for="Amasty\Rma\Api\Data\TrackingInterface" type="Amasty\Rma\Model\Request\Tracking"/>
+    <preference for="Amasty\Rma\Api\GuestCreateRequestProcessInterface" type="Amasty\Rma\Model\Request\GuestCreateRequestProcess"/>
+    <preference for="Amasty\Rma\Api\Data\GuestCreateRequestInterface" type="Amasty\Rma\Model\Request\GuestCreateRequest"/>
+
+    <preference for="Amasty\Rma\Api\CreateReturnProcessorInterface" type="Amasty\Rma\Model\Order\CreateReturnProcessor"/>
+    <preference for="Amasty\Rma\Api\Data\ReturnOrderInterface" type="Amasty\Rma\Model\Order\ReturnOrder"/>
+    <preference for="Amasty\Rma\Api\Data\ReturnOrderItemInterface" type="Amasty\Rma\Model\Order\ReturnOrderItem"/>
+
+    <preference for="Amasty\Rma\Api\HistoryRepositoryInterface" type="Amasty\Rma\Model\History\Repository"/>
+    <preference for="Amasty\Rma\Api\Data\HistoryInterface" type="Amasty\Rma\Model\History\History"/>
+
+    <preference for="Amasty\Rma\Api\Data\NotifierInterface" type="Amasty\Rma\Model\Notifier\CustomerNotifier"/>
+
+    <type name="Amasty\Rma\Block\Account\Returns\OrderList">
+        <arguments>
+            <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Amasty\Rma\Block\FooterLink">
+        <arguments>
+            <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\Rma\Model\History\CreateEvent">
+        <arguments>
+            <argument name="authSession" xsi:type="object">Magento\Backend\Model\Auth\Session\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\Rma\Model\Request\Email\EmailRequest">
+        <arguments>
+            <argument name="urlBuilder" shared="false" xsi:type="object">Magento\Framework\Url</argument>
+        </arguments>
+    </type>
+
+    <preference for="Amasty\Rma\Api\ReturnRulesRepositoryInterface" type="Amasty\Rma\Model\ReturnRules\Repository"/>
+    <preference for="Amasty\Rma\Api\Data\ReturnRulesInterface" type="Amasty\Rma\Model\ReturnRules\ReturnRules"/>
+    <preference for="Amasty\Rma\Api\Data\ReturnRulesCustomerGroupsInterface" type="Amasty\Rma\Model\ReturnRules\ReturnRulesCustomerGroups"/>
+    <preference for="Amasty\Rma\Api\Data\ReturnRulesResolutionsInterface" type="Amasty\Rma\Model\ReturnRules\ReturnRulesResolutions"/>
+    <preference for="Amasty\Rma\Api\Data\ReturnRulesWebsitesInterface" type="Amasty\Rma\Model\ReturnRules\ReturnRulesWebsites"/>
+    <preference for="Amasty\Rma\Api\Data\RequestCustomFieldInterface" type="Amasty\Rma\Model\Request\CustomField"/>
+</config>

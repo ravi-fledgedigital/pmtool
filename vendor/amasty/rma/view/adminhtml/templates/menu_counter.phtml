@@ -1,0 +1,39 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package RMA Base for Magento 2
+ */
+/**
+ * @var \Amasty\Rma\Block\Adminhtml\MenuRequestCounter $block
+ */
+?>
+<script>
+    require(['jquery'], function ($) {
+        var management = $('.item-rma-management'),
+            amastymenu = $('#menu-amasty-rma-container'),
+            manageCount = <?= (int)$block->getManageCount(); ?>,
+            pendingCount = <?= (int)$block->getPendingCount(); ?>;
+        if (management.length) {
+            var manage = management.find('.item-manage'),
+                pending = management.find('.item-pending');
+            if (manage.length && manageCount > 0) {
+                manage.find('a').html(manage.find('a').text() + ' <span class="amrma-status">' + manageCount + '</span>');
+            }
+            if (pending.length && pendingCount > 0) {
+                pending.find('a').html(pending.find('a').text() + ' <span class="amrma-status">' + pendingCount + '</span>');
+            }
+        }
+
+        if (amastymenu.length) {
+            var amastymanage = amastymenu.find('.item-managemenu'),
+                amastypending = amastymenu.find('.item-pendingmenu');
+            if (amastymanage.length && manageCount > 0) {
+                amastymanage.find('a').html(amastymanage.find('a').text() + ' <span class="amrma-status">' + manageCount + '</span>');
+            }
+            if (amastypending.length && pendingCount > 0) {
+                amastypending.find('a').html(amastypending.find('a').text() + ' <span class="amrma-status">' + pendingCount + '</span>');
+            }
+        }
+    });
+</script>

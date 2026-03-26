@@ -1,0 +1,50 @@
+<div class="amrma-chat-container">
+    <div class="amrma-chat-block" data-amrma-js="chat-block">
+        <!-- ko if: $data.elems().length -->
+            <!-- ko foreach: $data.elems() -->
+                <!--ko template: getTemplate()--><!-- /ko -->
+            <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko ifnot: $data.elems().length -->
+            <!--ko template: getEmptyChatTemplate()--><!-- /ko -->
+        <!-- /ko -->
+    </div>
+    <div class="amrma-chat-control" data-bind="css:{'with-quick-reply': $data.quick_replies.length}">
+        <div class="amrma-quick-reply">
+            <select class="amrma-select" data-bind="event:{ change: setQuickMessage}">
+                <option value="" selected data-bind="i18n: 'Quick reply'"></option>
+                <!-- ko foreach: $data.quick_replies -->
+                    <option data-bind="value:$index, text: $data.value"></option>
+                <!-- /ko -->
+            </select>
+        </div>
+        <div class="amrma-chat-send">
+                <div class="amrma-attach-file">
+                    <div class="amrma-add-attach-file">
+                    <label for="amrma-attach"
+                           class="amrma-label">
+                        <span class="sr-only" data-bind="i18n: 'Attach File'"></span>
+                    </label>
+                    <input type="file"
+                           id="amrma-attach"
+                           multiple
+                           class="sr-only amrma-attach-input"
+                           accept=".pdf,.png,.jpg,.gif"
+                           data-bind="event:{change: uploadFiles}">
+                </div>
+            </div>
+            <textarea class="amrma-textarea" data-bind="value: value, attr:{placeholder: $t('Message')}, event: {keyup: changeTextareaSize}" rows="1"></textarea>
+            <p class="amrma-hiddentext"></p>
+            <button class="amrma-send" data-bind="i18n:'Send', click: sendMessage"></button>
+        </div>
+    </div>
+    <!-- ko if: $data.files().length -->
+        <!-- ko foreach: $data.files() -->
+            <div class="amrma-chat-file -preview">
+                <span class="amrma-file" data-bind="text: $data.filename"></span>
+                <span tabindex="0" class="amrma-file amrma-delete"
+                      data-bind="click: $parent.deleteFile.bind($parent, $index), keyboard: { 13: (e) => e.target.click() }"></span>
+            </div>
+        <!-- /ko -->
+    <!-- /ko -->
+</div>

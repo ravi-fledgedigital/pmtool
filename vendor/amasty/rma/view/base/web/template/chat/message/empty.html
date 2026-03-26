@@ -1,0 +1,10 @@
+<!-- ko if: $data.isAdmin -->
+<div class="amrma-chat-comment" data-bind="i18n:'Start of conversation with customer'">
+
+</div>
+<!-- /ko -->
+<!-- ko ifnot: $data.isAdmin -->
+<div class="amrma-chat-comment" data-bind="i18n:'Start of conversation with manager'">
+
+</div>
+<!-- /ko -->

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\App\RouterList">
+        <arguments>
+            <argument name="routerList" xsi:type="array">
+                <item name="mst_landing" xsi:type="array">
+                    <item name="class" xsi:type="string">Mirasvit\LandingPage\Controller\Router</item>
+                    <item name="disable" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="string">70</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- filter collection by landing filters -->
+    <type name="Magento\Catalog\Model\Layer\CollectionFilterInterface">
+        <plugin name="Mirasvit_LandingPage::filterByLanding" sortOrder="1000" type="Mirasvit\LandingPage\Plugin\Frontend\FilterCollectionByLandingPlugin"/>
+    </type>
+
+    <type name="Magento\Catalog\Model\Layer\FilterList">
+        <plugin name="mstSearchTermFilterApply" type="Mirasvit\LandingPage\Plugin\Frontend\ApplySearchTermFilterPlugin"/>
+    </type>
+
+    <type name="Magento\Swatches\Block\LayeredNavigation\RenderLayered">
+        <plugin name="Mirasvit_LandingPage::clearSwatchUrl" type="Mirasvit\LandingPage\Plugin\Frontend\ClearSwatchUrlParamsPlugin" sortOrder="200"/>
+    </type>
+
+    <type name="Magento\Catalog\Model\Layer">
+        <plugin name="Mirasvit_LandingPage::landingSearchTerm" type="Mirasvit\LandingPage\Plugin\Frontend\AddLandingSearchTermPlugin" sortOrder="10"/>
+    </type>
+
+    <!-- Handle missing bucket exception when using quick_search_container for relevance sorting -->
+    <type name="Magento\CatalogSearch\Model\ResourceModel\Fulltext\Collection">
+        <plugin name="Mirasvit_LandingPage::handleMissingBucket" type="Mirasvit\LandingPage\Plugin\Frontend\HandleMissingBucketExceptionPlugin" sortOrder="10"/>
+    </type>
+
+    <!-- Preserve search_term when Mirasvit_LayeredNavigation creates extended faceted data (fixes price filter counts) -->
+    <type name="Mirasvit\LayeredNavigation\Model\ResourceModel\Fulltext\Collection">
+        <plugin name="Mirasvit_LandingPage::preserveSearchTerm" type="Mirasvit\LandingPage\Plugin\Frontend\PreserveSearchTermPlugin" sortOrder="10"/>
+    </type>
+
+    <type name="Magento\Framework\View\Model\Layout\Merge">
+        <plugin name="Mirasvit_LandingPage::addRelatedPagesLayout" type="Mirasvit\LandingPage\Plugin\Frontend\AddRelatedPagesLayoutPlugin"/>
+    </type>
+</config>

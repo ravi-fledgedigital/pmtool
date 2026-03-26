@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Product Recommendations</title>
+    </head>
+    <body>
+        <referenceContainer name="page.main.actions">
+            <block class="Magento\Backend\Block\Store\Switcher" name="product_recommendations.store_switcher">
+                <arguments>
+                    <argument name="switch_websites" xsi:type="string">0</argument>
+                    <argument name="switch_store_groups" xsi:type="string">0</argument>
+                    <argument name="switch_store_views" xsi:type="string">1</argument>
+                    <argument name="use_confirm" xsi:type="string">1</argument>
+                    <argument name="default_selection_name" xsi:type="string" translate="true">Select Store View</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Magento\ProductRecommendationsAdmin\Block\Adminhtml\Index" template="Magento_ProductRecommendationsAdmin::index.phtml" cacheable="false" />
+        </referenceContainer>
+    </body>
+</page>

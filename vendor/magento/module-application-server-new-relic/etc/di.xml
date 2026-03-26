@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\ApplicationServer\App\Application">
+        <plugin name="application-server-new-relic-transaction" type="Magento\ApplicationServerNewRelic\Plugin\NewRelicRequestMonitoringPlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\ApplicationServer\Console\ServerStartCommand">
+        <plugin name="disable-new-relic-on-start" type="Magento\ApplicationServerNewRelic\Plugin\DisableNewRelicOnCommandStart"/>
+    </type>
+</config>

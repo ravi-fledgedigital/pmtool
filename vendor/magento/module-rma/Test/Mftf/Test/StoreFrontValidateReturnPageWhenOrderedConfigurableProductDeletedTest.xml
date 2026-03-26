@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StoreFrontValidateReturnPageWhenOrderedConfigurableProductDeletedTest">
+        <annotations>
+            <features value="Rma"/>
+            <stories value="Returns behavior when the configurable product of the ordered simple product is deleted."/>
+            <title value="Validate storefront return page with no errors when configurable product (not a children product) is deleted."/>
+            <description value="Validate storefront return page with no errors when configurable product (not a children product) is deleted."/>
+            <testCaseId value="AC-7115"/>
+            <useCaseId value="ACP2E-1387"/>
+            <severity value="MAJOR"/>
+            <group value="Rma"/>
+        </annotations>
+
+        <before>
+            <createData entity="EnableRmaOnStorefront" stepKey="enableRmaOnStorefront"/>
+            <!-- Create Simple Product -->
+            <createData entity="SimpleProduct2" stepKey="createSimpleProduct"/>
+            <createData entity="Simple_US_Customer" stepKey="createCustomer"/>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="AdminCreateApiConfigurableProductActionGroup" stepKey="createConfigurableProduct"/>
+        </before>
+        <after>
+            <createData entity="DisableRmaOnStorefront" stepKey="disableRmaOnStorefront"/>
+            <deleteData createDataKey="createSimpleProduct" stepKey="deleteSimpleProduct"/>
+            <actionGroup ref="StorefrontCustomerLogoutActionGroup" stepKey="logoutCustomer" />
+            <deleteData createDataKey="createCustomer" stepKey="deleteCustomer"/>
+            <deleteData createDataKey="createConfigChildProduct1CreateConfigurableProduct" stepKey="deleteConfigurableChildProduct1"/>
+            <deleteData createDataKey="createConfigChildProduct2CreateConfigurableProduct" stepKey="deleteConfigurableChildProduct2"/>
+            <deleteData createDataKey="createConfigProductAttributeCreateConfigurableProduct" stepKey="deleteConfigurableProductAttribute"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+        <!--Login to storefront from customer -->
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="logInFromCustomer">
+            <argument name="Customer" value="$$createCustomer$$"/>
+        </actionGroup>
+        <!-- Add configurable product to the cart  -->
+        <actionGroup ref="StorefrontAddConfigurableProductToTheCartActionGroup" stepKey="addConfigurableProductToCart">
+            <argument name="urlKey" value="$$createConfigProductCreateConfigurableProduct.custom_attributes[url_key]$$" />
+            <argument name="productAttribute" value="$$createConfigProductAttributeCreateConfigurableProduct.default_value$$"/>
+            <argument name="productOption" value="$$getConfigAttributeOption2CreateConfigurableProduct.label$$"/>
+            <argument name="qty" value="1"/>
+        </actionGroup>
+        <!-- Add simple product to shopping cart -->
+        <actionGroup ref="AddSimpleProductToCartActionGroup" stepKey="cartAddSimpleProductToCart">
+            <argument name="product" value="$$createSimpleProduct$$"/>
+        </actionGroup>
+        <!-- Go to Shopping cart and Place Order -->
+        <actionGroup ref="GoToCheckoutFromMinicartActionGroup" stepKey="goToCheckout"/>
+        <actionGroup ref="CheckoutSelectFlatRateShippingMethodActionGroup" stepKey="selectFlatRateShippingMethod"/>
+        <actionGroup ref="StorefrontCheckoutClickNextButtonActionGroup" stepKey="clickNext"/>
+        <actionGroup ref="CheckoutSelectCheckMoneyOrderPaymentActionGroup" stepKey="clickCheckMoneyOrderPayment"/>
+        <actionGroup ref="ClickPlaceOrderActionGroup" stepKey="clickPlaceOrder"/>
+        <grabTextFrom selector="{{CheckoutSuccessMainSection.orderNumber22}}" stepKey="grabOrderNumber"/>
+        <!-- Open create order in admin section -->
+        <actionGroup ref="OpenOrderByIdActionGroup" stepKey="openOrder">
+            <argument name="orderId" value="{$grabOrderNumber}"/>
+        </actionGroup>
+        <grabFromCurrentUrl regex="~/order_id/(\d+)/~" stepKey="grabOrderId"/>
+        <actionGroup ref="GoToShipmentIntoOrderActionGroup" stepKey="goToShipment"/>
+        <actionGroup ref="SubmitShipmentIntoOrderActionGroup" stepKey="submitShipment"/>
+        <deleteData createDataKey="createConfigProductCreateConfigurableProduct" stepKey="deleteConfigurableProduct"/>
+        <!-- Go to My Account -> My Orders -> View Order and click Return in storefront section -->
+        <actionGroup ref="StorefrontGoToCustomerOrderDetailsPageActionGroup" stepKey="goToViewOrderOnFrontend">
+            <argument name="orderId" value="$grabOrderId"/>
+            <argument name="orderNumber" value="$grabOrderNumber"/>
+        </actionGroup>
+        <click selector="{{StorefrontCustomerOrderViewSection.return}}" stepKey="clickButtonReturn"/>
+        <see userInput="{$grabOrderNumber}" selector="{{StorefrontCustomerReturnSection.orderId}}" stepKey="seeOrderId"/>
+    </test>
+</tests>

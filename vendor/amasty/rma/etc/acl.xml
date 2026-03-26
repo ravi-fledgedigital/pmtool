@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package RMA Base for Magento 2
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Amasty_Rma::config" title="Amasty RMA Settings" sortOrder="181301" />
+                        </resource>
+                    </resource>
+                </resource>
+
+                <resource id="Magento_Sales::sales">
+                    <resource id="Amasty_Rma::rma_management" title="RMA Management" sortOrder="100">
+                        <resource id="Amasty_Rma::is_rma_manager" title="Assign as RMA Manager" />
+                        <resource id="Amasty_Rma::manage" title="Manage Requests" />
+                        <resource id="Amasty_Rma::manage_delete" translate="title" title="Delete Requests" />
+                        <resource id="Amasty_Rma::pending" title="Customers` Pending Requests" />
+                        <resource id="Amasty_Rma::pending_delete"
+                                  translate="title"
+                                  title="Delete Customers` Pending Requests"
+                        />
+                        <resource id="Amasty_Rma::archive" title="Archived Requests" />
+                        <resource id="Amasty_Rma::archive_delete" translate="title" title="Delete Archived Requests" />
+                    </resource>
+
+                    <resource id="Amasty_Rma::rma" title="RMA Settings" sortOrder="101">
+                        <resource id="Amasty_Rma::reason" title="Return Reasons" />
+                        <resource id="Amasty_Rma::condition" title="Item Conditions" />
+                        <resource id="Amasty_Rma::resolution" title="Return Resolutions" />
+                        <resource id="Amasty_Rma::status" title="RMA Statuses" />
+                        <resource id="Amasty_Rma::return_rules" title="Return Rules" />
+                        <resource id="Amasty_Rma::rma_create" title="RMA Create" />
+                        <resource id="Amasty_Rma::request_view" title="RMA View" />
+                        <resource id="Amasty_Rma::request_save" title="RMA Save" />
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

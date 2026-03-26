@@ -1,0 +1,107 @@
+
+File "/var/www/html/app/code/Magento/CustomerCustomAttributes/Test/Mftf/Test/AdminAssertCustomCustomersAttributeValueInOrderTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 ChangeDynamicBlockScopeActionGroup from module(s): magento/module-banner
+
+File "/var/www/html/app/code/Magento/CustomerCustomAttributes/Test/Mftf/Test/AdminCreateDateTypeCustomCustomerAttributeTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CustomerSegmentDefault from module(s): magento/module-customer-segment, magento/module-customer-segment
+	 AdminCustomerSegmentEditSection from module(s): magento/module-customer-segment
+	 AdminCustomerSegmentConditionsEditSection from module(s): magento/module-customer-segment
+	 FindAndDeleteCustomerSegmentActionGroup from module(s): magento/module-customer-segment
+	 CreateCustomerSegmentWithContinueEditActionGroup from module(s): magento/module-customer-segment
+
+File "/var/www/html/app/code/Magento/CustomerCustomAttributes/Test/Mftf/Test/AdminCreateTextAreaTypeCustomCustomerAttributeTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CustomerSegmentDefault from module(s): magento/module-customer-segment, magento/module-customer-segment
+	 AdminCustomerSegmentEditSection from module(s): magento/module-customer-segment
+	 AdminCustomerSegmentConditionsEditSection from module(s): magento/module-customer-segment
+	 FindAndDeleteCustomerSegmentActionGroup from module(s): magento/module-customer-segment
+	 CreateCustomerSegmentWithContinueEditActionGroup from module(s): magento/module-customer-segment
+
+File "/var/www/html/app/code/Magento/CustomerCustomAttributes/Test/Mftf/Test/AdminCustomAttributeNotVisibleInStoreFrontAndCreateOrderWithNewCustomerTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminAddProductToOrderBySKU from module(s): magento/module-advanced-checkout
+
+File "/var/www/html/app/code/Magento/CustomerCustomAttributes/Test/Mftf/Test/AdminCustomerLabelDisplayOnStoreFrontTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminDeleteStoreActionGroup from module(s): magento/module-admin-gws
+
+File "/var/www/html/app/code/Magento/CustomerCustomAttributes/Test/Mftf/Test/AdminDeleteDateTypeCustomerCustomAttributeTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CustomerSegmentDefault from module(s): magento/module-customer-segment, magento/module-customer-segment
+	 FindAndDeleteCustomerSegmentActionGroup from module(s): magento/module-customer-segment
+	 CreateCustomerSegmentWithContinueEditActionGroup from module(s): magento/module-customer-segment
+
+File "/var/www/html/app/code/Magento/CustomerCustomAttributes/Test/Mftf/Test/AdminDeleteDropDownTypeCustomerCustomAttributeTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CustomerSegmentDefault from module(s): magento/module-customer-segment, magento/module-customer-segment
+	 FindAndDeleteCustomerSegmentActionGroup from module(s): magento/module-customer-segment
+	 CreateCustomerSegmentWithContinueEditActionGroup from module(s): magento/module-customer-segment
+
+File "/var/www/html/app/code/Magento/CustomerCustomAttributes/Test/Mftf/Test/AdminDeleteMultipleLineTypeCustomerCustomAttributeTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CustomerSegmentDefault from module(s): magento/module-customer-segment, magento/module-customer-segment
+	 FindAndDeleteCustomerSegmentActionGroup from module(s): magento/module-customer-segment
+	 CreateCustomerSegmentWithContinueEditActionGroup from module(s): magento/module-customer-segment
+
+File "/var/www/html/app/code/Magento/CustomerCustomAttributes/Test/Mftf/Test/AdminDeleteTextAreaTypeCustomerCustomAttributeTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CustomerSegmentDefault from module(s): magento/module-customer-segment, magento/module-customer-segment
+	 FindAndDeleteCustomerSegmentActionGroup from module(s): magento/module-customer-segment
+	 CreateCustomerSegmentWithContinueEditActionGroup from module(s): magento/module-customer-segment
+
+File "/var/www/html/app/code/Magento/CustomerCustomAttributes/Test/Mftf/Test/AdminDeleteTextFieldTypeCustomerCustomAttributeTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CustomerSegmentDefault from module(s): magento/module-customer-segment, magento/module-customer-segment
+	 FindAndDeleteCustomerSegmentActionGroup from module(s): magento/module-customer-segment
+	 CreateCustomerSegmentWithContinueEditActionGroup from module(s): magento/module-customer-segment
+
+File "/var/www/html/app/code/Magento/CustomerCustomAttributes/Test/Mftf/Test/StorefrontCustomerCustomAttributesTest/StorefrontCustomerCustomAttributesMultishippingFormTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 NewMultishippingAddressPage from module(s): magento/module-multishipping
+
+File "/var/www/html/app/code/Magento/CustomerCustomAttributes/Test/Mftf/Test/StorefrontVerifyCustomCustomerAddressAttributeTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CheckoutBillingAddressSection from module(s): magento/module-checkout-address-search
+
+File "/var/www/html/app/code/Magento/CustomerCustomAttributes/Test/Mftf/Test/UpdateMultipleLineCustomerAttributeTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CustomerSegmentForNoorders from module(s): magento/module-customer-segment
+	 CreateCustomerSegmentActionGroup from module(s): magento/module-customer-segment
+	 FindAndOpenCustomerSegmentActionGroup from module(s): magento/module-customer-segment
+	 CreateCustomerSegmentConditionWithCustomerCustomAttributeActionGroup from module(s): magento/module-customer-segment
+	 FindAndDeleteCustomerSegmentActionGroup from module(s): magento/module-customer-segment
+
+File "/var/www/html/app/code/Magento/CustomerCustomAttributes/Test/Mftf/Test/UpdateTextAreaCustomerAttributeTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CustomerSegmentForNoorders from module(s): magento/module-customer-segment
+	 CreateCustomerSegmentActionGroup from module(s): magento/module-customer-segment
+	 FindAndOpenCustomerSegmentActionGroup from module(s): magento/module-customer-segment
+	 CreateCustomerSegmentConditionWithCustomerCustomAttributeActionGroup from module(s): magento/module-customer-segment
+	 FindAndDeleteCustomerSegmentActionGroup from module(s): magento/module-customer-segment
+
+File "/var/www/html/app/code/Magento/CustomerCustomAttributes/Test/Mftf/ActionGroup/AdminCustomerAddressAttributeEditValidationRuleActionGroup.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminReturnAttributePropertiesSection from module(s): magento/module-rma
+
+File "/var/www/html/app/code/Magento/CustomerCustomAttributes/Test/Mftf/ActionGroup/AssertDeletedCustomerAttributeNotInCustomerSegmentActionGroup.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminCustomerSegmentEditSection from module(s): magento/module-customer-segment
+	 AdminCustomerSegmentConditionsEditSection from module(s): magento/module-customer-segment

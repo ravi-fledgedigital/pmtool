@@ -1,0 +1,5 @@
+
+File "/var/www/html/app/code/Magento/CatalogStagingPageBuilder/Test/Mftf/Test/AdminCheckProductShortDescriptionOnMultipleUpdateTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliCacheCleanActionGroup from module(s): magento/module-backend

@@ -1,0 +1,22 @@
+<!-- ko foreach: $data.items() -->
+<tr data-js="amrma-row" data-bind="attr: {class: $data.splited ? 'amrma-row -no-border' : 'amrma-row'}">
+    <td class="amrma-cell -product">
+        <!--ko template: $parent.getProductTemplate()--><!-- /ko -->
+    </td>
+    <!-- ko if: $parents[1].is_createForm -->
+    <!--ko template: $parent.getStateTemplate()--><!-- /ko -->
+    <!-- /ko -->
+
+    <!-- ko ifnot: $parents[1].is_createForm -->
+    <!--ko template: $parent.getEditStateTemplate()--><!-- /ko -->
+    <!-- /ko -->
+
+    <!-- ko if: $parents[1].is_createForm -->
+    <!--ko template: $parent.getCreateFieldsTemplate()--><!-- /ko -->
+    <!-- /ko -->
+
+    <!-- ko ifnot: $parents[1].is_createForm -->
+    <!--ko template: $parent.getViewFieldsTemplate()--><!-- /ko -->
+    <!-- /ko -->
+</tr>
+<!-- /ko -->

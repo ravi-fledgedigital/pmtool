@@ -1,0 +1,280 @@
+Image,Image
+"Click here or drag and drop to add image","Click here or drag and drop to add image"
+"Delete image","Delete image"
+Hidden,Hidden
+Images,Images
+Title,Title
+Appearance,Appearance
+"Display Mode","Display Mode"
+"Value Template","Value Template"
+"Slider Step","Slider Step"
+"Show Search Box","Show Search Box"
+No,No
+Yes,Yes
+Tooltip,Tooltip
+Additional,Additional
+"Enable Multiselect","Enable Multiselect"
+Default,Default
+"Multiselect Logic","Multiselect Logic"
+OR,OR
+AND,AND
+"Sort Options by","Sort Options by"
+"Use Alphabetical Index","Use Alphabetical Index"
+Visibility,Visibility
+"Categories Visibility Mode","Categories Visibility Mode"
+Categories,Categories
+"Hide Filter in Search results","Hide Filter in Search results"
+"Layered Navigation","Layered Navigation"
+"Layered Navigation configuration will be available after attribute creation","Layered Navigation configuration will be available after attribute creation"
+"Layered Navigation configuration is not available for this attribute","Layered Navigation configuration is not available for this attribute"
+Add,Add
+Attribute,Attribute
+Position,Position
+"Sidebar (default)","Sidebar (default)"
+Horizontal,Horizontal
+"Sidebar & Horizontal","Sidebar & Horizontal"
+"Select Filtered Attributes","Select Filtered Attributes"
+"Select Filters for Slider","Select Filters for Slider"
+"Mirasvit Layered Navigation","Mirasvit Layered Navigation"
+"Grouped Options","Grouped Options"
+"This grouped options no longer exist.","This grouped options no longer exist."
+"The grouped options has been deleted.","The grouped options has been deleted."
+"New Group","New Group"
+"Please select groups(s)","Please select groups(s)"
+"Total of %1 record(s) were deleted","Total of %1 record(s) were deleted"
+"This Grouped Options no longer exist.","This Grouped Options no longer exist."
+"Grouped Options with the code %1 already exists.","Grouped Options with the code %1 already exists."
+"Grouped Options were successfully saved","Grouped Options were successfully saved"
+"Please select attribute and options","Please select attribute and options"
+"Please upload the swatch image","Please upload the swatch image"
+"Label for the Admin area can't be empty","Label for the Admin area can't be empty"
+"Filter type ""%1"" does not exist","Filter type ""%1"" does not exist"
+Ranges,Ranges
+Dropdown,Dropdown
+Slider,Slider
+From-To,From-To
+"Slider & From-To","Slider & From-To"
+"Position (default)","Position (default)"
+"Label (alphabetically)","Label (alphabetically)"
+"Product Count","Product Count"
+"Filtered links (default behaviour)","Filtered links (default behaviour)"
+"Category navigation links","Category navigation links"
+Instantly,Instantly
+"By button click","By button click"
+"Default (link)","Default (link)"
+"Simple Checkbox","Simple Checkbox"
+Checkbox,Checkbox
+Circle,Circle
+"All Filterable Attributes","All Filterable Attributes"
+"All filterable attributes","All filterable attributes"
+"Follow rel=""follow""","Follow rel=""follow"""
+"No Follow rel=""nofollow""","No Follow rel=""nofollow"""
+Disabled,Disabled
+"Scroll to page top","Scroll to page top"
+"Stay on last selected filter","Stay on last selected filter"
+"Disabled (no limits)","Disabled (no limits)"
+"Scroll box","Scroll box"
+"Show/hide link","Show/hide link"
+"[x]Climate: Cold, Rain","[x]Climate: Cold, Rain"
+"[x]Climate: Cold [x]Climate: Rain","[x]Climate: Cold [x]Climate: Rain"
+None,None
+Color,Color
+All,All
+"Display only in Selected Categories","Display only in Selected Categories"
+"Hide only in Selected Categories","Hide only in Selected Categories"
+Category,Category
+"%1 and above","%1 and above"
+"%1 - %2","%1 - %2"
+"%1 & Up","%1 & Up"
+Back,Back
+Delete,Delete
+"Are you sure you want to proceed?","Are you sure you want to proceed?"
+"Save and Continue Edit","Save and Continue Edit"
+Save,Save
+Edit,Edit
+"Option Name","Option Name"
+Options,Options
+Option,Option
+Label,Label
+"Whole width image","Whole width image"
+items,items
+item,item
+Show,Show
+"Now Shopping by","Now Shopping by"
+"Clear all active filters","Clear all active filters"
+"Clear All","Clear All"
+"Go to previous filter state for %1","Go to previous filter state for %1"
+Previous,Previous
+"Remove filter: %1 %2","Remove filter: %1 %2"
+"Remove This Item","Remove This Item"
+"Remove %1","Remove %1"
+"item' 'items","item' 'items"
+"Search in filter options","Search in filter options"
+Search,Search
+"Remove filter: %1","Remove filter: %1"
+"Filter by %1","Filter by %1"
+"Selected: %1","Selected: %1"
+"Not selected: %1","Not selected: %1"
+"Remove rating filter: %1 stars and up","Remove rating filter: %1 stars and up"
+"Filter by %1 stars and up","Filter by %1 stars and up"
+"Selected: %1 stars and up","Selected: %1 stars and up"
+"Not selected: %1 stars and up","Not selected: %1 stars and up"
+" & Up"," & Up"
+"Search within %1","Search within %1"
+"Apply search filter","Apply search filter"
+Apply,Apply
+"Remove search filter: %1","Remove search filter: %1"
+"Price range slider","Price range slider"
+"Filter by %1 range","Filter by %1 range"
+"From %1","From %1"
+from,from
+"To %1","To %1"
+to,to
+"Apply %1 range filter","Apply %1 range filter"
+OK,OK
+"This is a required field.","This is a required field."
+"We don't recognize or support this file extension type.","We don't recognize or support this file extension type."
+"Dismiss Filter","Dismiss Filter"
+Filter,Filter
+"Layered Navigation Filters","Layered Navigation Filters"
+"General Settings","General Settings"
+"Enable AJAX Filtering","Enable AJAX Filtering"
+"Enables AJAX for smooth filter application without page reloads.","Enables AJAX for smooth filter application without page reloads."
+"Filter Application Mode","Filter Application Mode"
+"Choose how filters are applied: instantly on selection or manually by button click.","Choose how filters are applied: instantly on selection or manually by button click."
+"Options counts precalculation","Options counts precalculation"
+"Filters options counts are precalculated on filter selection in by_button_click mode. Used for filters in main sidebar","Filters options counts are precalculated on filter selection in by_button_click mode. Used for filters in main sidebar"
+"Scroll behaviour after filtering","Scroll behaviour after filtering"
+"Defines where the page should be scrolled to after applying filter. <br/>
+                    Option ""Stay on last selected filter"" applicable for filters in multiselect mode and only in instant ajax mode. Otherwise it uses the ""Scroll to page top"" behaviour. For horizontal filters the behaviour is also ""Scroll to page top""","Defines where the page should be scrolled to after applying filter. <br/>
+                    Option ""Stay on last selected filter"" applicable for filters in multiselect mode and only in instant ajax mode. Otherwise it uses the ""Scroll to page top"" behaviour. For horizontal filters the behaviour is also ""Scroll to page top"""
+"Mobile Settings","Mobile Settings"
+"Apply Filters by Button Click on Mobile","Apply Filters by Button Click on Mobile"
+"Overrides instant filtering for mobile devices, requiring users to tap a button to apply filters.","Overrides instant filtering for mobile devices, requiring users to tap a button to apply filters."
+"Screen width breakpoint (px)","Screen width breakpoint (px)"
+"If empty the extension will use 768px as a breakpoint","If empty the extension will use 768px as a breakpoint"
+"Allows users to select multiple options in each filter category.","Allows users to select multiple options in each filter category."
+"Enable Sticky Sidebar","Enable Sticky Sidebar"
+"Keeps the sidebar in a fixed position while scrolling.","Keeps the sidebar in a fixed position while scrolling."
+"Appearance Settings","Appearance Settings"
+"Customize the appearance and functionality of filter options.","Customize the appearance and functionality of filter options."
+"Filter Appearance","Filter Appearance"
+"Show Expanded Filters by Default","Show Expanded Filters by Default"
+"Limit for Default Expanded Filters","Limit for Default Expanded Filters"
+"Set the number of filters expanded by default; leave empty for all to be open.","Set the number of filters expanded by default; leave empty for all to be open."
+"Hide Inactive Filter Options","Hide Inactive Filter Options"
+"Hide filter options with no available products.","Hide filter options with no available products."
+"Show Clear Options Button","Show Clear Options Button"
+"Display clear button with selected options count for applied filters.","Display clear button with selected options count for applied filters."
+"Filter Selection Display Style","Filter Selection Display Style"
+"Choose how filter options appear: as checkboxes, circles, etc.","Choose how filter options appear: as checkboxes, circles, etc."
+"Option will not be applied if images added for multiselect attributes","Option will not be applied if images added for multiselect attributes"
+"Selection Background Color","Selection Background Color"
+"Set the background color for selected checkboxes or circles. Defaults to white if left empty.","Set the background color for selected checkboxes or circles. Defaults to white if left empty."
+"For example: #337ab7, #5cb85c, #5bc0de, #f0ad4e, #d9534f etc.","For example: #337ab7, #5cb85c, #5bc0de, #f0ad4e, #d9534f etc."
+"Selection Border Color","Selection Border Color"
+"Specify the border color for checkboxes or circles. Defaults to #ccc if left empty.","Specify the border color for checkboxes or circles. Defaults to #ccc if left empty."
+"Selection Mark Color","Selection Mark Color"
+"Set the color of the checkmark or selection mark. Defaults to #555555 if left empty.","Set the color of the checkmark or selection mark. Defaults to #555555 if left empty."
+"Filter Options Appearance","Filter Options Appearance"
+"Limit the number of displayed filter options","Limit the number of displayed filter options"
+"Allows users to limit the number of shown filter options.","Allows users to limit the number of shown filter options."
+"Height of scroll box (px)","Height of scroll box (px)"
+"Set the height of the scrolled box.","Set the height of the scrolled box."
+"Filter Option Count Threshold","Filter Option Count Threshold"
+"If enabled, features such as ""Show Search Box"" or ""Show More / Show Less"" toggle will use this value to determine when to activate.","If enabled, features such as ""Show Search Box"" or ""Show More / Show Less"" toggle will use this value to determine when to activate."
+"Show Alphabetical Index if Filter Options Exceed","Show Alphabetical Index if Filter Options Exceed"
+"Display an alphabetical index if the number of filter options is higher than this limit. Leave empty to always show the index.","Display an alphabetical index if the number of filter options is higher than this limit. Leave empty to always show the index."
+"Label for ""Show Less""","Label for ""Show Less"""
+"Custom text for the ""show less"" option when hiding excess filter options.","Custom text for the ""show less"" option when hiding excess filter options."
+"Label for ""Show More""","Label for ""Show More"""
+"Custom text for the ""show more"" option when displaying additional filter options.","Custom text for the ""show more"" option when displaying additional filter options."
+"Link Highlighting","Link Highlighting"
+"Enable Link Highlighting","Enable Link Highlighting"
+"Highlights active links in filters.","Highlights active links in filters."
+"Highlight Color","Highlight Color"
+"Color for highlighting active links. Defaults to #ff5501 if left empty.","Color for highlighting active links. Defaults to #ff5501 if left empty."
+"Custom CSS","Custom CSS"
+"Add additional CSS for custom styling.","Add additional CSS for custom styling."
+"Price Slider Styling","Price Slider Styling"
+"Primary Slider Color","Primary Slider Color"
+"Main color for range sliders, such as price filters.","Main color for range sliders, such as price filters."
+"Secondary Slider Color","Secondary Slider Color"
+"Color for the slider track.","Color for the slider track."
+"Product Price Settings","Product Price Settings"
+"Customize product price filering","Customize product price filering"
+"Use price including tax","Use price including tax"
+"Enabling this option may reduce filtering speed.","Enabling this option may reduce filtering speed."
+"Additional filters","Additional filters"
+"Enabling and customization of additional filters.","Enabling and customization of additional filters."
+"Category filter","Category filter"
+"Enable Category Filtering","Enable Category Filtering"
+"Enables category-based filtering for easier navigation.","Enables category-based filtering for easier navigation."
+"Show Nested Categories","Show Nested Categories"
+"Display subcategories within the main categories.","Display subcategories within the main categories."
+"Collapsible Subcategories","Collapsible Subcategories"
+"Allows subcategories to be collapsible for a cleaner layout.","Allows subcategories to be collapsible for a cleaner layout."
+"Category Filter Mode","Category Filter Mode"
+"Toggle between filtered URLs and category-based links in the category filter.","Toggle between filtered URLs and category-based links in the category filter."
+"Define sort order for categories in category filter.","Define sort order for categories in category filter."
+"Use Alphabetical Index.","Use Alphabetical Index."
+"New Products","New Products"
+Enabled,Enabled
+"To show new products filter date should be set in ""CATALOG > Products > {Edit Product} > Autosettings > Set Product as New From""","To show new products filter date should be set in ""CATALOG > Products > {Edit Product} > Autosettings > Set Product as New From"""
+"On Sale","On Sale"
+"It shows products with discount configured in ""MARKETING > Catalog Price Rule"" and products with configured ""Special Price"" in ""CATALOG > Products > {Edit Product} > Advanced Pricing""","It shows products with discount configured in ""MARKETING > Catalog Price Rule"" and products with configured ""Special Price"" in ""CATALOG > Products > {Edit Product} > Advanced Pricing"""
+Stock,Stock
+"To show out of stock products should be set to ""Yes"" following configuration ""STORES > Configuration > Catalog > Inventory > Stock Options > Display Out of Stock Products""","To show out of stock products should be set to ""Yes"" following configuration ""STORES > Configuration > Catalog > Inventory > Stock Options > Display Out of Stock Products"""
+"In Stock Filter Label","In Stock Filter Label"
+"Out of Stock Filter Label","Out of Stock Filter Label"
+Rating,Rating
+"Rating filter","Rating filter"
+"Search Filter","Search Filter"
+"Search filter","Search filter"
+"Fulltext Search","Fulltext Search"
+"If enabled, the search field will work as a fulltext search inside the category page","If enabled, the search field will work as a fulltext search inside the category page"
+"Search by Attribute Options","Search by Attribute Options"
+"If enabled, a popup block will be added with attributes and options that match the search query","If enabled, a popup block will be added with attributes and options that match the search query"
+"Horizontal Filters","Horizontal Filters"
+"Сustomize the display and functionality of horizontal filter panels.","Сustomize the display and functionality of horizontal filter panels."
+"Filter Display for Horizontal Panels","Filter Display for Horizontal Panels"
+"Select Attributes for Horizontal Display","Select Attributes for Horizontal Display"
+"Set attributes for display in the horizontal filter panel with positions.","Set attributes for display in the horizontal filter panel with positions."
+"Hide Horizontal Filters on Small Screens","Hide Horizontal Filters on Small Screens"
+"Hide horizontal filters on screens smaller than specified width.","Hide horizontal filters on screens smaller than specified width."
+"Clear Filter Block","Clear Filter Block"
+"Clear Filter Position","Clear Filter Position"
+"Position of the filter clear button.","Position of the filter clear button."
+"Group Selected Options by Attribute","Group Selected Options by Attribute"
+"Group selected filters under attribute name (e.g., ""Color: Red, Blue"").","Group selected filters under attribute name (e.g., ""Color: Red, Blue"")."
+"SEO Settings","SEO Settings"
+"Customize SEO of filtered pages to improve visibility and indexing by search engines.","Customize SEO of filtered pages to improve visibility and indexing by search engines."
+"SEO Configuration","SEO Configuration"
+"Meta Header for Filtered Pages","Meta Header for Filtered Pages"
+"Set meta header behavior for filtered pages to improve SEO.","Set meta header behavior for filtered pages to improve SEO."
+"Canonical Links for Filtered Pages","Canonical Links for Filtered Pages"
+"Set canonical link behavior for filtered pages.","Set canonical link behavior for filtered pages."
+"Rel Attribute for Filter Links","Rel Attribute for Filter Links"
+"Set rel attribute (e.g., follow/nofollow) for filter links.","Set rel attribute (e.g., follow/nofollow) for filter links."
+"Active Filters Nofollow Threshold","Active Filters Nofollow Threshold"
+"Set the threshold of applied filters to set rel=nofollow for filter links; leave empty to set rel attribute based only on ""Rel Attribute for Filter Links"" setting.","Set the threshold of applied filters to set rel=nofollow for filter links; leave empty to set rel attribute based only on ""Rel Attribute for Filter Links"" setting."
+"Product Attribute Links","Product Attribute Links"
+"Set clickable filter links for product attributes on the product page.","Set clickable filter links for product attributes on the product page."
+"Dynamic Links for Product Attributes","Dynamic Links for Product Attributes"
+"Enable Dynamic Attribute Links on the product page","Enable Dynamic Attribute Links on the product page"
+"Creates clickable filter links for product attributes on the product page.","Creates clickable filter links for product attributes on the product page."
+Target,Target
+Attributes,Attributes
+"Choose attributes to be enabled for attribute linking.","Choose attributes to be enabled for attribute linking."
+"Integrate with Brands","Integrate with Brands"
+"If enabled, the extension will use the brand page link for brands in the layered navigation instead of the default layered navigation URL.","If enabled, the extension will use the brand page link for brands in the layered navigation instead of the default layered navigation URL."
+"General Information","General Information"
+"Is Active","Is Active"
+"Group Code","Group Code"
+Swatch,Swatch
+"Allowed image types: jpg, jpeg, png","Allowed image types: jpg, jpeg, png"
+"Add New Group","Add New Group"
+"Are you sure you want to delete the selected grouped options?","Are you sure you want to delete the selected grouped options?"
+ID,ID
+"Use only letters (a-z, A-Z), numbers (0-9), underscore (_) or hyphen (-). Must start with a letter.","Use only letters (a-z, A-Z), numbers (0-9), underscore (_) or hyphen (-). Must start with a letter."
+"Invalid Group Code. Use only letters (a-z, A-Z), numbers (0-9), underscore (_) or hyphen (-). Must start with a letter.","Invalid Group Code. Use only letters (a-z, A-Z), numbers (0-9), underscore (_) or hyphen (-). Must start with a letter."

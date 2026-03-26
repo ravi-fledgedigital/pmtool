@@ -1,0 +1,65 @@
+<?php
+/** @var \Mirasvit\CatalogLabel\Block\Product\Label $block */
+/** @var \Mirasvit\CatalogLabel\Model\Label\Display $display */
+
+$displays = $block->getDisplays();
+$block->setLabelObjectsArray($displays);
+$isProductList = $block->isProductList();
+
+?>
+<?php if($block->getFullActionCode() != 'checkout_cart_index'): ?>
+    <?php foreach ($displays as $display): ?>
+        <?php if ($display->getImage()): ?>
+            <?php if ($display->getUrl() || $display->getDescription()): ?>
+                <span style="<?= $display->getUrl() ? 'cursor: pointer;' : '' ?>"
+                onclick="window.location = '<?php echo $block->escapeUrl($display->getUrl() ? $display->getUrl() : '#') ?>'"
+                    title="<?php echo $block->escapeHtml($display->getDescription()) ?>"
+                    aria-label="<?php echo $block->escapeHtml($display->getUrl() ? __('View %1', $display->getTitle()) : $display->getDescription()) ?>"
+                    <?php if ($display->getUrl()): ?>role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();}"<?php endif; ?>
+                <?= ($display->getUrl() && $isProductList)
+                    ? "onfocus = 'mLabelLinkEnterFunction(this, this.parentNode)'
+                       onblur  = 'mLabelLinkOutFunction(this, this.parentNode)'" : ''?>>
+                <?php if ($display->getUrl() && $isProductList): ?>
+                   <script>
+                        function mLabelLinkEnterFunction(x, xparent) {
+                            var url = '<?php echo $block->escapeUrl($display->getUrl());?>';
+                            if (typeof url != 'undefined') {
+                                currentmLabelEnterCustomUrl = xparent.href;
+                                xparent.href = url;
+                            }
+                        }
+
+                        function mLabelLinkOutFunction(x, xparent) {
+                            if (currentmLabelEnterCustomUrl) {
+                                xparent.href = currentmLabelEnterCustomUrl;
+                            }
+                        }
+                    </script>
+                <?php endif; ?>
+            <?php endif; ?>
+                <div class="cataloglabel cataloglabel-product-top-label cataloglabel-<?php
+                        echo $block->escapeHtml($block->getPlaceholderCode());
+                    ?> cataloglabel-<?php
+                        echo $block->escapeHtml($display->getType());
+                    ?> position-<?php
+                        echo $block->escapeHtml($display->getPosition());
+                    ?>" style="background:url('<?php echo $block->escapeUrl($display->getImageUrl()) ?>'); background-repeat: no-repeat; <?php
+                        echo $block->escapeHtml($block->getImageSizeHtml($display->getPosition(), $block->getLabelPositionCount($display), $display->getType()) . $display->getStyle());
+                    ?>">
+                    <span><?php echo $block->escapeHtml($display->getTitle()) ?></span>
+                </div>
+                <?php $block->setLabelPositionCount($display); ?>
+            <?php if ($display->getUrl() || $display->getDescription()): ?>
+                </span>
+            <?php endif; ?>
+        <?php else: ?>
+            <div class="cataloglabel cataloglabel-product-top-label cataloglabel-<?php echo $block->escapeHtml($block->getPlaceholderCode());?>
+                cataloglabel-<?php echo $block->escapeHtml($display->getType());?>
+                position-<?php echo $block->escapeHtml($display->getPosition());?>"
+                style="<?php echo $block->escapeHtml($display->getStyle())?>" >
+
+                <span><?php echo $block->escapeHtml($display->getTitle())?></span>
+            </div>
+        <?php endif ?>
+    <?php endforeach ?>
+<?php endif ?>

@@ -1,0 +1,42 @@
+<?php
+
+/** @var \Mirasvit\LayeredNavigation\Block\Adminhtml\Filter\FiltersManager $block */
+/** @var array $filters */
+/** @var string $position */
+
+$filters = $block->getData('filters');
+$position = $block->getData('position');
+?>
+
+<?php foreach ($filters as $code => $attribute): ?>
+    <li class="mst-filters__item" data-code="<?= $block->escapeHtmlAttr($code) ?>">
+        <div class="mst-filters__item-content">
+            <div class="mst-filters__item-drag">
+                <div class="filters__action-button--remdragve mst-action-secondary"
+                     title="<?= $block->escapeHtmlAttr(__('Drag to reorder')) ?>">
+                </div>
+            </div>
+            <div class="mst-filters__attribute-title" title="<?= $block->escapeHtmlAttr($attribute['label']) ?>">
+                <strong class="label"><?= $block->escapeHtml($attribute['label']) ?></strong>
+                <div class="code"><?= $block->escapeHtml($attribute['code']) ?></div>
+            </div>
+            <div class="mst-filters__item-actions">
+                <button class="mst-filters__action-button--edit mst-action-secondary"
+                        data-label="<?= $block->escapeHtmlAttr($attribute['label']) ?>"
+                        data-code="<?= $block->escapeHtmlAttr($attribute['code']) ?>"
+                        data-from="<?= $block->escapeHtmlAttr($position) ?>"
+                        data-id="<?= $block->escapeHtmlAttr($attribute['id']) ?>">
+                    <?= $block->escapeHtml(__('Edit')) ?>
+                </button>
+                <button class="filters__action-button--remove mst-action-secondary"
+                        data-code="<?= $block->escapeHtmlAttr($attribute['code']) ?>"
+                        data-from="<?= $block->escapeHtmlAttr($position) ?>"
+                        data-id="<?= $block->escapeHtmlAttr($attribute['id']) ?>"
+                        data-label="<?= $block->escapeHtmlAttr($attribute['label']) ?>">
+
+                    <?= $block->escapeHtml(__('Remove')) ?>
+                </button>
+            </div>
+        </div>
+    </li>
+<?php endforeach; ?>

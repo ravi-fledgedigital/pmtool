@@ -1,0 +1,157 @@
+//
+//  Small Grid Styles
+//  _________________________
+
+//
+//  Common
+//  --------------------------
+
+& when (@media-common = true) {
+    .amtab-grid-wrapper.-small {
+        .amtab-grid-container {
+            flex-basis: 100%;
+        }
+
+        .amtab-head-line {
+            background: @amtab-grid__secondary__color;
+            font-weight: normal;
+            height: 64px;
+        }
+
+        .amtab-table-line {
+            & {
+                height: 45px;
+            }
+
+            &:nth-child(odd) {
+                background: @amtab-grid__secondary__color;
+            }
+
+            .amtab-title {
+                font-weight: bold;
+            }
+        }
+
+        .amtab-steps-container {
+            & {
+                .am-flex(center, center, wrap);
+                align-self: flex-start;
+                position: relative;
+                width: 100%;
+            }
+
+            .amtab-img {
+                .am-flex(center);
+                top: 0;
+            }
+
+            .amtab-head {
+                .am-flex(none, center);
+                color: @amtab-grid__active__color__secondary;
+                display: inline-flex;
+                font-weight: bold;
+                margin: 0 0 (@amtab__indent / 2);
+                position: relative;
+            }
+
+            .amtab-desc {
+                color: @color-black;
+                font-size: 12px;
+                margin: 0;
+            }
+        }
+
+        .amtab-arrow {
+            & {
+                .am-transition(.1);
+                border-bottom: 1px solid @amtab-grid__active__color__secondary;
+                border-radius: 5px 0 0 5px;
+                display: none;
+                position: absolute;
+            }
+
+            &:after,
+            &:before {
+                .am-transition(.1);
+                border-bottom: 1px solid @amtab-grid__active__color__secondary;
+                content: '';
+                display: block;
+                position: absolute;
+                width: 5px;
+            }
+        }
+
+        .amtab-step {
+            margin: 0;
+            max-width: 300px;
+            position: absolute;
+        }
+
+        .amtab-measure {
+            & {
+                .am-flex(center, none, wrap);
+                position: relative;
+            }
+
+            > .amtab-title {
+                align-self: flex-start;
+                margin: @amtab__indent__xl * 2 0 35px 0;
+            }
+        }
+    }
+}
+
+//
+//  Tablet
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .amtab-grid-wrapper.-small {
+        .amtab-grid-container {
+            &.amtab-measure {
+                flex-basis: 52%;
+                margin: 0 auto;
+                max-width: 610px;
+                min-height: 379px;
+            }
+
+            &.amtab-sizes {
+                flex-basis: 48%;
+            }
+        }
+
+        .amtab-table-container {
+            margin: 0 50px 0 0;
+        }
+
+        .amtab-step {
+            max-width: 190px;
+        }
+
+        .amtab-img {
+            position: absolute;
+        }
+
+        .amtab-measure > .amtab-title {
+            margin: 0 0 32px;
+        }
+
+        .amtab-steps-container {
+            height: 100%;
+        }
+    }
+}
+
+//
+//  Mobile
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__s) {
+    .amtab-grid-wrapper.-small {
+        .amtab-arrow {
+            display: block;
+        }
+    }
+}
+
+

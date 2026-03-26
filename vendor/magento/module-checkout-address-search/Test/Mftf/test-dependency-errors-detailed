@@ -1,0 +1,15 @@
+
+File "/var/www/html/app/code/Magento/CheckoutAddressSearch/Test/Mftf/Test/StorefrontCustomerCheckoutWithEnabledAddressSearchCustomerAddressAttributeTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CustomerAddressAttributesPage from module(s): magento/module-customer-custom-attributes
+	 AttributeDropdownData from module(s): magento/module-customer-custom-attributes
+	 AdminAddOptionsCustomerAttribute from module(s): magento/module-customer-custom-attributes
+	 AdminDeleteCustomerAttribute from module(s): magento/module-customer-custom-attributes
+
+File "/var/www/html/app/code/Magento/CheckoutAddressSearch/Test/Mftf/Test/StorefrontCustomerCheckoutWithEnabledAddressSearchDisplayBillingAddressOnPaymentPageTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 EnableCheckMoneyOrderPaymentMethod from module(s): magento/module-offline-payments
+	 EnableCashOnDeliveryPaymentMethod from module(s): magento/module-offline-payments
+	 DisableCashOnDeliveryPaymentMethod from module(s): magento/module-offline-payments

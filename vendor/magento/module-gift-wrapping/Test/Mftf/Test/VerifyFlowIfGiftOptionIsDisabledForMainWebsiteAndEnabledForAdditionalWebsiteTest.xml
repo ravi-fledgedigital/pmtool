@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+  <test name="VerifyFlowIfGiftOptionIsDisabledForMainWebsiteAndEnabledForAdditionalWebsiteTest">
+    <annotations>
+      <features value="Gift Wrapping"/>
+      <stories value="Verify flow if Gift Option is disabled for Main Website and enabled for Additional Website"/>
+      <title value="Verify flow if Gift Option is disabled for Main Website and enabled for Additional Website"/>
+      <description value="Verify flow if Gift Option is disabled for Main Website and enabled for Additional Website"/>
+      <severity value="MAJOR"/>
+      <testCaseId value="AC-4465"/>
+      <group value="giftWrapping"/>
+        <group value="cloud"/>
+    </annotations>
+    <before>
+      <!--Create Category-->
+      <createData entity="SimpleSubCategory" stepKey="createCategory"/>
+
+      <!--Create Simple Product-->
+      <createData entity="SimpleProduct" stepKey="createSimpleProduct">
+        <requiredEntity createDataKey="createCategory"/>
+      </createData>
+
+      <!-- Login as Admin for setting the pre-condition -->
+      <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+
+      <!--Create Secondary Website, Store and Store view -->
+      <actionGroup ref="AdminCreateWebsiteActionGroup" stepKey="adminCreateNewWebsite">
+        <argument name="newWebsiteName" value="{{NewWebSiteData.name}}"/>
+        <argument name="websiteCode" value="{{NewWebSiteData.code}}"/>
+      </actionGroup>
+      <actionGroup ref="AdminCreateNewStoreGroupActionGroup" stepKey="adminCreateNewStore">
+        <argument name="website" value="{{NewWebSiteData.name}}"/>
+        <argument name="storeGroupName" value="{{NewStoreData.name}}"/>
+        <argument name="storeGroupCode" value="{{NewStoreData.code}}"/>
+      </actionGroup>
+      <actionGroup ref="AdminCreateStoreViewActionGroup" stepKey="createStoreView">
+        <argument name="StoreGroup" value="NewStoreData"/>
+        <argument name="customStore" value="storeViewData"/>
+      </actionGroup>
+
+      <!--Assign Secondary Website to the Product along with the Main website-->
+      <amOnPage url="{{AdminProductEditPage.url($$createSimpleProduct.id$$)}}" stepKey="goToSimpleProductEditPage"/>
+      <waitForPageLoad stepKey="waitForEditProductPageToLoad"/>
+      <actionGroup ref="SelectProductInWebsitesActionGroup" stepKey="selectSecondaryWebsiteForSimpleProduct">
+        <argument name="website" value="{{NewWebSiteData.name}}"/>
+      </actionGroup>
+
+      <!--Assign Gift wrapping and Gift message as No for the product for main website-->
+      <actionGroup ref="AllowGiftMessageForProductActionGroup" stepKey="setAllowGiftMessageAsNoMainWebsite">
+        <argument name="allowGiftMsg" value="1"/>
+      </actionGroup>
+      <actionGroup ref="AllowGiftsWrappingForProductActionGroup" stepKey="setAllowGiftsWrappingAsNoMainWebsite">
+        <argument name="allowGiftWrap" value="1"/>
+      </actionGroup>
+      <actionGroup ref="SaveProductFormActionGroup" stepKey="saveSimpleProductForMainWebsite"/>
+
+      <!-- Create gift wrapping -->
+      <actionGroup ref="AdminCreateGiftsWrappingWithTwoWebsitesActionGroup" stepKey="createGiftsWrappingWithTwoWebsite">
+        <argument name="giftsWrappingDesign" value="Test Design"/>
+        <argument name="giftsWrappingWebsite1" value="Main Website"/>
+        <argument name="giftsWrappingWebsite2" value="{{NewWebSiteData.name}}"/>
+        <argument name="giftsWrappingPrice" value="2"/>
+      </actionGroup>
+
+      <!-- Reset the gift options config for Main website as No -->
+      <actionGroup ref="AdminConfigSalesGiftsOptionsActionGroup" stepKey="resetTheGiftOptionsConfigForMainWebsite">
+        <argument name="allowGiftMsgOnOrderLevel" value="No"/>
+        <argument name="allowGiftMsgOnOrderItems" value="No"/>
+        <argument name="allowWrappingGiftOnOrderLevel" value="No"/>
+        <argument name="allowWrappingGiftOnItemLevel" value="No"/>
+        <argument name="allowGiftReceipt" value="No"/>
+        <argument name="allowPrintedCard" value="No"/>
+        <argument name="defaultPrice" value="100"/>
+      </actionGroup>
+        <actionGroup ref="CliIndexerReindexActionGroup" stepKey="performReindexForPreCondition">
+            <argument name="indices" value=""/>
+        </actionGroup>
+        <actionGroup ref="CliCacheFlushActionGroup" stepKey="cleanCacheForPreCondition">
+            <argument name="tags" value=""/>
+        </actionGroup>
+    </before>
+    <after>
+      <actionGroup ref="AdminDeleteGiftWrappingActionGroup" stepKey="deleteGiftsWrapping">
+        <argument name="giftWrappingDesign" value="Test Design"/>
+      </actionGroup>
+      <deleteData createDataKey="createCategory" stepKey="deleteCreatedCategory"/>
+      <deleteData createDataKey="createSimpleProduct" stepKey="deleteSimpleProduct"/>
+      <!-- Step3 Reset the New Website as the default website -->
+      <actionGroup ref="AdminSetDefaultWebsiteActionGroup" stepKey="SetMainWebsiteAsDefault">
+        <argument name="websiteName" value="Main Website"/>
+      </actionGroup>
+      <actionGroup ref="AdminDeleteWebsiteActionGroup" stepKey="deleteWebsite">
+        <argument name="websiteName" value="{{NewWebSiteData.name}}"/>
+      </actionGroup>
+        <actionGroup ref="CliIndexerReindexActionGroup" stepKey="performReindexAsCleanup">
+            <argument name="indices" value=""/>
+        </actionGroup>
+        <actionGroup ref="CliCacheFlushActionGroup" stepKey="cleanCacheAsCleanUp">
+            <argument name="tags" value=""/>
+        </actionGroup>
+      <actionGroup ref="AdminLogoutActionGroup" stepKey="logoutOfApplication"/>
+    </after>
+
+    <!-- Step1 Add the Simple product to the cart on Storefront -->
+    <actionGroup ref="AddSimpleProductToCartActionGroup" stepKey="AddSimpleProductToCart">
+      <argument name="product" value="$$createSimpleProduct$$"/>
+    </actionGroup>
+
+    <!-- Step2 Verify the gift options is not present for simple product at item level and order level as well-->
+    <click selector="{{AdminCustomerInformationSection.showCart}}" stepKey="clickShoppingCartButton"/>
+    <waitForPageLoad stepKey="waitForShoppingCartPullDownToLoad"/>
+    <click selector="{{StorefrontMinicartSection.viewAndEditCart}}" stepKey="clickViewAndEditCartButton"/>
+    <waitForPageLoad stepKey="waitForViewAndEditCartPageToLoad"/>
+    <wait time="10" stepKey="waitForGiftMessageFromItemLevelToDisplay1"/>
+    <dontSeeElement selector="{{StorefrontProductCartGiftOptionSection.viewGiftOptions('$$createSimpleProduct.name$$')}}" stepKey="DontSeeGiftOptionAtItemLevelMainWebsite"/>
+    <dontSeeElement selector="{{StorefrontProductCartGiftOptionSection.viewGiftOptionsOrderLevel}}" stepKey="DontSeeGiftOptionAtOrderLevelMainWebsite"/>
+    <actionGroup ref="RemoveProductFromMiniCartActionGroup" stepKey="removeSimpleProductFromCart">
+      <argument name="productName" value="$$createSimpleProduct.name$$"/>
+    </actionGroup>
+
+    <!-- Step3 Reset the New Website as the default website -->
+    <actionGroup ref="AdminSetDefaultWebsiteActionGroup" stepKey="SetSecondaryWebsiteAsDefault">
+      <argument name="websiteName" value="{{NewWebSiteData.name}}"/>
+    </actionGroup>
+    <!-- Reset the gift options config for New website as Yes -->
+    <actionGroup ref="AdminConfigSalesGiftsOptionsActionGroup" stepKey="resetTheGiftOptionsConfigForAdditionalWebsite">
+      <argument name="allowGiftMsgOnOrderLevel" value="Yes"/>
+      <argument name="allowGiftMsgOnOrderItems" value="Yes"/>
+      <argument name="allowWrappingGiftOnOrderLevel" value="Yes"/>
+      <argument name="allowWrappingGiftOnItemLevel" value="Yes"/>
+      <argument name="allowGiftReceipt" value="Yes"/>
+      <argument name="allowPrintedCard" value="Yes"/>
+      <argument name="defaultPrice" value="200"/>
+    </actionGroup>
+
+    <!--Step4 Assign Gift wrapping and Gift message as Yes for the product for New website-->
+    <amOnPage url="{{AdminProductEditPage.url($$createSimpleProduct.id$$)}}" stepKey="goToSimpleProductEditPagePostNewWebsite"/>
+    <actionGroup ref="AllowGiftMessageForProductActionGroup" stepKey="setAllowGiftMessageAsYesForNewWebsite">
+      <argument name="allowGiftMsg" value="0"/>
+    </actionGroup>
+    <actionGroup ref="AllowGiftsWrappingForProductActionGroup" stepKey="setAllowGiftsWrappingAsYesForNewWebsite">
+      <argument name="allowGiftWrap" value="0"/>
+    </actionGroup>
+    <fillField selector="{{AdminProductGridSection.priceForGiftsWrapping}}" userInput="2.00" stepKey="setTheGiftWrappingPrice"/>
+    <actionGroup ref="SaveProductFormActionGroup" stepKey="saveSimpleProductForSecondaryWebsite"/>
+
+      <actionGroup ref="CliIndexerReindexActionGroup" stepKey="performReindexPostSettingNewWebsiteAsDefault">
+          <argument name="indices" value=""/>
+      </actionGroup>
+      <actionGroup ref="CliCacheFlushActionGroup" stepKey="cleanCacheAsCleanUpPostSettingNewWebsiteAsDefault">
+          <argument name="tags" value=""/>
+      </actionGroup>
+
+    <!--Step5 Add the product to cart for New website-->
+    <actionGroup ref="AddSimpleProductToCartActionGroup" stepKey="AddSimpleProductToCartForAdditionalWebsite">
+      <argument name="product" value="$$createSimpleProduct$$"/>
+    </actionGroup>
+    <click selector="{{AdminCustomerInformationSection.showCart}}" stepKey="clickShoppingCartButtonAdditionalWebsite"/>
+    <waitForPageLoad stepKey="waitForShoppingCartPullDownToLoadForAdditionalWebsite"/>
+    <click selector="{{StorefrontMinicartSection.viewAndEditCart}}" stepKey="clickViewAndEditCartButtonAdditionalWebsite"/>
+    <waitForPageLoad stepKey="waitForViewAndEditCartPageToLoadAdditionalWebsite"/>
+    <seeElement selector="{{StorefrontProductCartGiftOptionSection.viewGiftOptions('$$createSimpleProduct.name$$')}}" stepKey="SeeGiftOptionAtItemLevelNewWebsite"/>
+    <seeElement selector="{{StorefrontProductCartGiftOptionSection.viewGiftOptionsOrderLevel}}" stepKey="SeeGiftOptionAtOrderLevelNewWebsite"/>
+
+    <!-- Step7.1 Select gift wrapping and message for simple product -->
+    <click selector="{{StorefrontProductCartGiftOptionSection.viewGiftOptions('$$createSimpleProduct.name$$')}}" stepKey="ClickTheGiftOptionButtonForConfigProduct"/>
+    <click selector="{{StorefrontProductCartGiftOptionSection.giftWrapIcon('Test Design')}}" stepKey="ClickTheGiftWrapperIcon"/>
+    <seeElement selector="{{StorefrontProductCartGiftOptionSection.giftWrapIconPreview('Test Design')}}" stepKey="SeeTheGiftWrapperIconPreview"/>
+    <click selector="{{StorefrontProductCartGiftOptionSection.update}}" stepKey="ClickTheUpdateButton"/>
+    <waitForPageLoad stepKey="waitForUpdatedCartSummaryToLoad"/>
+    <waitForLoadingMaskToDisappear stepKey="waitForLoadingMaskToDisappearPostAddingTheGiftsWrapping"/>
+    <seeElement selector="{{StorefrontProductCartGiftOptionSection.giftsWrappingItemAmt('2.00')}}" stepKey="SeeTheGiftsWrappingPriceOnCartSummary"/>
+
+    <!-- Step7.2 Click Edit button for simple product gift options -->
+    <click selector="{{StorefrontProductCartGiftOptionSection.editGiftSummary}}" stepKey="ClickEditGiftSummaryButton"/>
+    <fillField selector="{{StorefrontProductCartGiftOptionSection.fieldTo}}" userInput="ItemLevelTo" stepKey="fillToField"/>
+    <fillField selector="{{StorefrontProductCartGiftOptionSection.fieldFrom}}" userInput="ItemLevelFrom" stepKey="fillFromField"/>
+    <fillField selector="{{StorefrontProductCartGiftOptionSection.message}}" userInput="This is a message from Item Level gift options" stepKey="fillMessageField"/>
+    <click selector="{{StorefrontProductCartGiftOptionSection.update}}" stepKey="ClickTheUpdateButtonPostGiftMessage"/>
+    <waitForLoadingMaskToDisappear stepKey="waitForLoadingMaskToDisappearAfterUpdatingMessage"/>
+    <wait time="5" stepKey="waitForGiftMessageFromItemLevelToDisplay"/>
+
+    <!-- Step8 Verify the gift options details at item level -->
+    <seeElement selector="{{StorefrontProductCartGiftOptionSection.itemLevelGiftsWrapping('$$createSimpleProduct.name$$','Test Design')}}" stepKey="SeeTheGiftsWrappingItemLevel"/>
+    <seeElement selector="{{StorefrontProductCartGiftOptionSection.itemLevelGiftsWrappingPrice('$$createSimpleProduct.name$$','2.00')}}" stepKey="SeeTheGiftsWrappingPriceItemLevel"/>
+    <seeElement selector="{{StorefrontProductCartGiftOptionSection.giftsWrappingItemAmt('2.00')}}" stepKey="SeeTheGiftsWrappingAmtOnCartSummary"/>
+    <grabTextFrom selector="{{StorefrontProductCartGiftOptionSection.itemLevelGiftsWrappingMsg}}" stepKey="grabItemLeveGiftsMessage"/>
+    <assertEquals stepKey="assertTheItemsLevelGiftMessage">
+      <expectedResult type="string">Message: This is a message from Item Level gift options</expectedResult>
+      <actualResult type="variable">$grabItemLeveGiftsMessage</actualResult>
+    </assertEquals>
+    <!-- Step9 Click Edit button for simple product gift options at order level-->
+    <click selector="{{StorefrontProductCartGiftOptionSection.giftOptionsOrderLevel}}" stepKey="ClickOnGiftOptionsOrderLevelButton"/>
+    <click selector="{{StorefrontProductCartGiftOptionSection.giftWrapIcon('Test Design')}}" stepKey="ClickTheGiftWrapperIconOrderLevel"/>
+    <seeElement selector="{{StorefrontProductCartGiftOptionSection.giftWrapIconPreview('Test Design')}}" stepKey="SeeTheGiftWrapperIconPreviewOrderLevel"/>
+    <checkOption selector="{{StorefrontProductCartGiftOptionSection.giftReceipt}}" stepKey="checkTheGiftReceiptOrderLevel"/>
+    <checkOption selector="{{StorefrontProductCartGiftOptionSection.printedCard}}" stepKey="checkThePrintedCardOrderLevel"/>
+    <fillField selector="{{StorefrontProductCartGiftOptionSection.fieldTo}}" userInput="OrderLevelTo" stepKey="fillToFieldOrderLevel"/>
+    <fillField selector="{{StorefrontProductCartGiftOptionSection.fieldFrom}}" userInput="OrderLevelFrom" stepKey="fillFromFieldOrderLevel"/>
+    <fillField selector="{{StorefrontProductCartGiftOptionSection.message}}" userInput="This is a message from Order Level gift options" stepKey="fillMessageFieldOrderLevel"/>
+    <click selector="{{StorefrontProductCartGiftOptionSection.update}}" stepKey="ClickTheUpdateButtonPostGiftMessageOrderLevel"/>
+    <waitForLoadingMaskToDisappear stepKey="waitForLoadingMaskToDisappearAfterUpdatingMessagePostOrderLevel"/>
+    <wait time="5" stepKey="waitForGiftMessageFromItemLevelToDisplayOrderLevel"/>
+
+    <!-- Step10 Verify the gift options details at order level -->
+    <seeElement selector="{{StorefrontProductCartGiftOptionSection.orderLevelGiftsWrapping('Test Design')}}" stepKey="SeeTheGiftsWrappingOrderLevelSummary"/>
+    <seeElement selector="{{StorefrontProductCartGiftOptionSection.orderLevelGiftsWrappingPrice('2.00')}}" stepKey="SeeTheGiftsWrappingPriceOrderLevelSummary"/>
+    <seeElement selector="{{StorefrontProductCartGiftOptionSection.orderLevelPrintedCard}}" stepKey="SeeTheGiftsWrappingPrintedCardOrderLevelSummary"/>
+    <seeElement selector="{{StorefrontProductCartGiftOptionSection.orderLevelPrintedCardPrice('200.00')}}" stepKey="SeeTheGiftsWrappingPrintedCardPriceOrderLevelSummary"/>
+    <seeElement selector="{{StorefrontProductCartGiftOptionSection.orderLevelGiftsReceipt}}" stepKey="SeeTheGiftsWrappingReceiptOrderLevelSummary"/>
+    <seeElement selector="{{StorefrontProductCartGiftOptionSection.giftsWrappingItemAmt('2.00')}}" stepKey="SeeTheGiftsWrappingAmtItemLevelOnCartSummary"/>
+    <seeElement selector="{{StorefrontProductCartGiftOptionSection.giftsWrappingOrderAmt('2.00')}}" stepKey="SeeTheGiftsWrappingAmtOrderLevelOnCartSummary"/>
+    <seeElement selector="{{StorefrontProductCartGiftOptionSection.giftsWrappingPrintedCard('200.00')}}" stepKey="SeeThePrintedCardPriceOnCartSummary"/>
+
+    <grabTextFrom selector="{{StorefrontProductCartGiftOptionSection.orderLevelGiftsWrappingMsg}}" stepKey="grabOrderLeveGiftsMessage"/>
+    <assertEquals stepKey="assertTheOrderLevelGiftMessage">
+      <expectedResult type="string">Message: This is a message from Order Level gift options</expectedResult>
+      <actualResult type="variable">$grabOrderLeveGiftsMessage</actualResult>
+    </assertEquals>
+
+  </test>
+</tests>

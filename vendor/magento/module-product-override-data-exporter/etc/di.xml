@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * ADOBE CONFIDENTIAL
+ *
+ * Copyright 2024 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Indexer & metadata declaration -->
+    <!-- Products feed -->
+    <virtualType name="Magento\ProductOverrideDataExporter\Model\Indexer\ProductOverridesFeedIndexMetadata"
+                 type="Magento\DataExporter\Model\Indexer\FeedIndexMetadata">
+        <arguments>
+            <argument name="feedName" xsi:type="string">productOverrides</argument>
+            <argument name="indexerId" xsi:type="string">catalog_data_exporter_product_overrides</argument>
+            <argument name="feedSummary" xsi:type="string">Product Overrides Feed</argument>
+            <argument name="feedIdentity" xsi:type="string">productId</argument>
+            <argument name="sourceTableName" xsi:type="string">catalog_product_entity</argument>
+            <argument name="sourceTableField" xsi:type="string">entity_id</argument>
+            <argument name="feedTableName" xsi:type="string">cde_product_overrides_feed</argument>
+            <argument name="feedTableMutableColumns" xsi:type="array">
+                <item name="feed_data" xsi:type="string">feed_data</item>
+                <item name="is_deleted" xsi:type="string">is_deleted</item>
+            </argument>
+            <argument name="entitiesRemovable" xsi:type="boolean">true</argument>
+
+            <argument name="exportImmediately" xsi:type="boolean">true</argument>
+            <argument name="persistExportedFeed" xsi:type="init_parameter">Magento\DataExporter\Model\ExportFeedInterface::PERSIST_EXPORTED_FEED</argument>
+
+            <argument name="minimalPayload" xsi:type="array">
+                <item name="productId" xsi:type="string">productId</item>
+                <item name="sku" xsi:type="string">sku</item>
+                <item name="customerGroupCode" xsi:type="string">customerGroupCode</item>
+                <item name="websiteCode" xsi:type="string">websiteCode</item>
+                <item name="modifiedAt" xsi:type="string">modifiedAt</item>
+            </argument>
+
+            <argument name="feedItemIdentifiers" xsi:type="array">
+                <item name="websiteCode" xsi:type="string">websiteCode</item>
+                <item name="customerGroupCode" xsi:type="string">customerGroupCode</item>
+                <item name="sku" xsi:type="string">sku</item>
+            </argument>
+
+            <argument name="entityIdentifierMapping" xsi:type="array">
+                <item name="productId" xsi:type="string">entity_id</item>
+                <item name="sku" xsi:type="string">sku</item>
+                <item name="default" xsi:type="string">sku</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\DataExporter\Model\FeedMetadataPool">
+        <arguments>
+            <argument name="classMap" xsi:type="array">
+                <item name="productOverrides" xsi:type="object">Magento\ProductOverrideDataExporter\Model\Indexer\ProductOverridesFeedIndexMetadata</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Magento\ProductOverrideDataExporter\Model\Indexer\ProductOverrideFeedIndexer"
+                 type="Magento\DataExporter\Model\Indexer\FeedIndexer">
+        <arguments>
+            <argument name="feedIndexMetadata" xsi:type="object">
+                Magento\ProductOverrideDataExporter\Model\Indexer\ProductOverridesFeedIndexMetadata
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Magento\ProductOverrideDataExporter\Model\ProductOverridesFeed"
+                 type="Magento\DataExporter\Model\Feed">
+        <arguments>
+            <argument name="feedIndexMetadata" xsi:type="object">
+                Magento\ProductOverrideDataExporter\Model\Indexer\ProductOverridesFeedIndexMetadata
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\DataExporter\Model\FeedPool">
+        <arguments>
+            <argument name="classMap" xsi:type="array">
+                <item name="productOverrides" xsi:type="string">
+                    Magento\ProductOverrideDataExporter\Model\ProductOverridesFeed
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\DataExporter\Model\Indexer\AffectedIdsResolverPool">
+        <arguments>
+            <argument name="resolvers" xsi:type="array">
+                <item name="productOverrides" xsi:type="array">
+                    <item name="configurable" xsi:type="string">
+                        Magento\ConfigurableProductDataExporter\Model\Indexer\AffectedIdsResolver
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\CatalogDataExporter\Plugin\Index\InvalidateOnConfigChange">
+        <arguments>
+            <argument name="configValues" xsi:type="array">
+                <item name="catalog/magento_catalogpermissions/enabled" xsi:type="string">catalog/magento_catalogpermissions/enabled</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\ProductOverrideDataExporter\Model\StagingSubscription">
+        <arguments>
+            <argument name="entityInterface" xsi:type="string">Magento\Catalog\Api\Data\ProductInterface</argument>
+        </arguments>
+    </type>
+    <!-- Indexes mass-invalidation logic -->
+    <type name="Magento\CatalogDataExporter\Model\Indexer\IndexInvalidationManager">
+        <arguments>
+            <argument name="invalidationEvents" xsi:type="array">
+                <item name="website_changed" xsi:type="array">
+                    <item name="product_overrides" xsi:type="string">catalog_data_exporter_product_overrides</item>
+                </item>
+                <item name="group_changed" xsi:type="array">
+                    <item name="product_overrides" xsi:type="string">catalog_data_exporter_product_overrides</item>
+                </item>
+                <item name="config_changed" xsi:type="array">
+                    <item name="product_overrides" xsi:type="string">catalog_data_exporter_product_overrides</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Solution for command indexer:set-dimensions-mode -->
+    <type name="Magento\ProductOverrideDataExporter\Model\Query\DimensionalPermissionsIndexQuery">
+        <arguments>
+            <argument name="feedIndexMetadata" xsi:type="object">Magento\ProductOverrideDataExporter\Model\Indexer\ProductOverridesFeedIndexMetadata</argument>
+        </arguments>
+    </type>
+    <type name="Magento\CatalogPermissions\Model\Indexer\TableMaintainer">
+        <plugin name="data-exporter-create-catalog-permission-view" type="Magento\ProductOverrideDataExporter\Plugin\CreateViewAfterTableMaintenance" />
+    </type>
+    <type name="Magento\Customer\Model\ResourceModel\GroupRepository">
+        <plugin name="data-exporter-recreate-catalog-permission-view" type="Magento\ProductOverrideDataExporter\Plugin\CreateViewAfterChangeCustomerGroup" />
+    </type>
+    <type name="Magento\Framework\Mview\Config">
+        <plugin name="data-exporter-mview-config-get-view" type="Magento\ProductOverrideDataExporter\Plugin\GetDimensionalViewsFromConfig" />
+    </type>
+    <type name="Magento\ProductOverrideDataExporter\Plugin\GetDimensionalViewsFromConfig">
+        <arguments>
+            <argument name="metadata" xsi:type="object">Magento\ProductOverrideDataExporter\Model\Indexer\ProductOverridesFeedIndexMetadata</argument>
+        </arguments>
+    </type>
+</config>

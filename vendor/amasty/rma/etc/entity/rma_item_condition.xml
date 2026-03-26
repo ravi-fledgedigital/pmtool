@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package RMA Base for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="amasty_rma_item_condition">
+        <name>Amasty RMA Item Condition</name>
+        <group>Amasty RMA</group>
+        <collectionFactory class="Amasty\Rma\Model\Condition\ResourceModel\CollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+            <fields>
+                <field name="is_deleted">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="rma_request_item_condition">
+        <parent_entity>amasty_rma_request_item</parent_entity>
+        <child_entity>amasty_rma_item_condition</child_entity>
+        <sub_entity_field_name>amasty_rma_item_condition</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">condition_id</argument>
+            <argument name="child_field_name" xsi:type="string">condition_id</argument>
+        </arguments>
+    </relation>
+    <relation code="rma_condition_request_item">
+        <parent_entity>amasty_rma_item_condition</parent_entity>
+        <child_entity>amasty_rma_request_item</child_entity>
+        <sub_entity_field_name>amasty_rma_request_item</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">condition_id</argument>
+            <argument name="child_field_name" xsi:type="string">condition_id</argument>
+        </arguments>
+    </relation>
+</config>

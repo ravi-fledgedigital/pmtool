@@ -1,0 +1,31 @@
+input ProductAttributeFilterInput 
+{
+    mst_stock_status: MstStockStatus
+    mst_on_sale: MstOnSale
+    mst_new_products: MstNewProducts
+    mst_rating_summary: MstRatingSummary
+}
+
+input MstStockStatus {
+    code: String
+    value: Int
+    eq: String
+}
+
+input MstOnSale {
+    code: String
+    value: Int
+    eq: String
+}
+
+input MstNewProducts {
+    code: String
+    value: Int
+    eq: String
+}
+
+input MstRatingSummary {
+    code: String
+    value: Int
+    eq: String
+}

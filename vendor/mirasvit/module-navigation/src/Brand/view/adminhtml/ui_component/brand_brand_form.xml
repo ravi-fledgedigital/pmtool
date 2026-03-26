@@ -1,0 +1,1150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">brand_brand_form.brand_brand_form_data_source</item>
+            <item name="deps" xsi:type="string">brand_brand_form.brand_brand_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">General Information</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">brand_brand_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">Mirasvit\Brand\Ui\BrandPage\Form\Control\BackButton</item>
+            <item name="delete" xsi:type="string">Mirasvit\Brand\Ui\BrandPage\Form\Control\DeleteButton</item>
+            <item name="reset" xsi:type="string">Mirasvit\Brand\Ui\BrandPage\Form\Control\ResetButton</item>
+            <item name="save" xsi:type="string">Mirasvit\Brand\Ui\BrandPage\Form\Control\SaveButton</item>
+            <item name="save_and_continue" xsi:type="string">Mirasvit\Brand\Ui\BrandPage\Form\Control\SaveAndContinueButton</item>
+        </item>
+    </argument>
+    <dataSource name="brand_brand_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Mirasvit\Brand\Ui\BrandPage\Form\DataProvider</argument>
+            <argument name="name" xsi:type="string">brand_brand_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">brand_page_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="*/*/save"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <fieldset name="general">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string">General Information</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+
+        <container name="attribute_option_id">
+            <argument name="data" xsi:type="array">
+                <item name="type" xsi:type="string">group</item>
+                <item name="config" xsi:type="array">
+                    <item name="breakLine" xsi:type="boolean">false</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/components/group</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                </item>
+            </argument>
+            <field name="attribute_option_id" class="Mirasvit\Brand\Ui\BrandPage\Form\Component\Option\AttributeOptionId">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Brand</item>
+                        <item name="dataScope" xsi:type="string">attribute_option_id</item>
+                        <item name="dataType" xsi:type="string">int</item>
+                        <item name="componentType" xsi:type="string">field</item>
+                        <item name="formElement" xsi:type="string">select</item>
+                        <item name="elementTmpl" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                        <item name="component" xsi:type="string">Mirasvit_Brand/js/brand/new-brand</item>
+                        <item name="source" xsi:type="string">brand</item>
+                        <item name="filterOptions" xsi:type="boolean">true</item>
+                        <item name="showCheckbox" xsi:type="boolean">false</item>
+                        <item name="disableLabel" xsi:type="boolean">true</item>
+                        <item name="multiple" xsi:type="boolean">false</item>
+                        <item name="sortOrder" xsi:type="number">20</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                        <item name="listens" xsi:type="array">
+                            <item name="index=create_brand:responseData" xsi:type="string">setParsed</item>
+                            <item name="newOption" xsi:type="string">toggleOptionSelected</item>
+                        </item>
+                        <item name="imports" xsi:type="array">
+                            <item name="disabled" xsi:type="string">${ $.provider }:data.configured</item>
+                        </item>
+                    </item>
+                </argument>
+                <settings>
+                    <imports>
+                        <link name="disabled">${ $.provider}:data.disable_default</link>
+                    </imports>
+                </settings>
+            </field>
+            <field name="create_button">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="title" xsi:type="string">Add New Brand</item>
+                        <item name="formElement" xsi:type="string">container</item>
+                        <item name="componentType" xsi:type="string">container</item>
+                        <item name="component" xsi:type="string">Magento_Ui/js/form/components/button</item>
+                        <item name="template" xsi:type="string">ui/form/components/button/container</item>
+                        <item name="displayArea" xsi:type="string">insideGroup</item>
+                        <item name="additionalClasses" xsi:type="string">admin__field-small</item>
+                        <item name="additionalForGroup" xsi:type="boolean">true</item>
+                        <item name="actions" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="targetName" xsi:type="string">brand_brand_form.brand_brand_form.create_brand_modal</item>
+                                <item name="actionName" xsi:type="string">toggleModal</item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="targetName" xsi:type="string">brand_brand_form.brand_brand_form.create_brand_modal.create_brand</item>
+                                <item name="actionName" xsi:type="string">render</item>
+                            </item>
+                        </item>
+                        <item name="imports" xsi:type="array">
+                            <item name="disabled" xsi:type="string">${ $.provider }:data.configured</item>
+                        </item>
+                    </item>
+                </argument>
+                <settings>
+                    <imports>
+                        <link name="visible">${ $.provider }:data.disable_default_inverse</link>
+                    </imports>
+                </settings>
+            </field>
+        </container>
+
+        <field name="is_active">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Is Active</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="dataScope" xsi:type="string">is_active</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+            </argument>
+            <settings>
+                <imports>
+                    <link name="disabled">${ $.provider}:data.disable_default</link>
+                </imports>
+            </settings>
+        </field>
+        <field name="url_key">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">URL key</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="notice" xsi:type="string" translate="true">If the field is empty, URL Key will be created automatically</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                </item>
+            </argument>
+            <settings>
+                <imports>
+                    <link name="disabled">${ $.provider }:data.default.url_key</link>
+                </imports>
+            </settings>
+        </field>
+        <field name="default.url_key" sortOrder="31">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="use-default">true</class>
+                </additionalClasses>
+                <imports>
+                    <link name="visible">${ $.provider}:data.disable_default</link>
+                </imports>
+                <exports>
+                    <link name="checked">${ $.provider }:data.default.url_key</link>
+                </exports>
+            </settings>
+        </field>
+        <field name="logo">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Logo</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/element/file-uploader</item>
+                    <item name="formElement" xsi:type="string">fileUploader</item>
+                    <item name="componentType" xsi:type="string">fileUploader</item>
+                    <item name="notice" xsi:type="string" translate="true">Allowed file types: png, gif, jpg, jpeg, svg.</item>
+                    <item name="maxFileSize" xsi:type="number">2097152</item>
+                    <item name="allowedExtensions" xsi:type="string">jpg jpeg gif png svg</item>
+                    <item name="uploaderConfig" xsi:type="array">
+                        <item name="url" xsi:type="string">brand/brand/logoUpload</item>
+                    </item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                </item>
+            </argument>
+            <settings>
+                <imports>
+                    <link name="disabled">${ $.provider}:data.disable_default</link>
+                </imports>
+            </settings>
+        </field>
+        <field name="store_ids" sortOrder="70">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Cms\Ui\Component\Listing\Column\Cms\Options</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="label" xsi:type="string" translate="true">Store view</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="source" xsi:type="string">page</item>
+                    <item name="dataScope" xsi:type="string">store_ids</item>
+                    <item name="default" xsi:type="string">0</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <imports>
+                    <link name="disabled">${ $.provider}:data.disable_default</link>
+                </imports>
+            </settings>
+        </field>
+    </fieldset>
+    <fieldset name="content">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string">Content</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">false</item>
+                <item name="sortOrder" xsi:type="number">10</item>
+            </item>
+        </argument>
+        <field name="brand_title" sortOrder="10">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Title</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="notice" xsi:type="string" translate="true">If empty, Title will be generated automatically</item>
+                </item>
+            </argument>
+            <settings>
+                <imports>
+                    <link name="disabled">${ $.provider }:data.default.brand_title</link>
+                </imports>
+            </settings>
+        </field>
+        <field name="default.brand_title" sortOrder="11">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="use-default">true</class>
+                </additionalClasses>
+                <imports>
+                    <link name="visible">${ $.provider}:data.disable_default</link>
+                </imports>
+                <exports>
+                    <link name="checked">${ $.provider }:data.default.brand_title</link>
+                </exports>
+            </settings>
+        </field>
+
+        <fieldset name="content_brand_description">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Description</item>
+                    <item name="collapsible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <field name="brand_description" sortOrder="20">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="disableLabel" xsi:type="boolean">true</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">wysiwyg</item>
+                        <item name="wysiwyg" xsi:type="boolean">true</item>
+                        <item name="wysiwygConfigData" xsi:type="array">
+                            <item name="is_pagebuilder_enabled" xsi:type="boolean">true</item>
+                            <item name="height" xsi:type="number">200</item>
+                        </item>
+                    </item>
+                </argument>
+                <settings>
+                    <imports>
+                        <link name="disabled">${ $.provider }:data.default.brand_description</link>
+                    </imports>
+                </settings>
+            </field>
+            <field name="default.brand_description" sortOrder="21">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataType" xsi:type="string">boolean</item>
+                        <item name="formElement" xsi:type="string">checkbox</item>
+                        <item name="default" xsi:type="number">1</item>
+                        <item name="visible" xsi:type="boolean">false</item>
+                        <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                    </item>
+                </argument>
+                <settings>
+                    <additionalClasses>
+                        <class name="use-default">true</class>
+                    </additionalClasses>
+                    <imports>
+                        <link name="visible">${ $.provider}:data.disable_default</link>
+                    </imports>
+                    <exports>
+                        <link name="checked">${ $.provider }:data.default.brand_description</link>
+                    </exports>
+                </settings>
+            </field>
+        </fieldset>
+
+        <fieldset name="content_brand_short_description">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Short Description</item>
+                    <item name="collapsible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <field name="brand_short_description" sortOrder="30">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="disableLabel" xsi:type="boolean">true</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">wysiwyg</item>
+                        <item name="wysiwyg" xsi:type="boolean">true</item>
+                        <item name="wysiwygConfigData" xsi:type="array">
+                            <item name="is_pagebuilder_enabled" xsi:type="boolean">true</item>
+                            <item name="height" xsi:type="number">200</item>
+                        </item>
+                    </item>
+                </argument>
+                <settings>
+                    <imports>
+                        <link name="disabled">${ $.provider }:data.default.brand_short_description</link>
+                    </imports>
+                </settings>
+            </field>
+            <field name="default.brand_short_description" sortOrder="31">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataType" xsi:type="string">boolean</item>
+                        <item name="formElement" xsi:type="string">checkbox</item>
+                        <item name="default" xsi:type="number">1</item>
+                        <item name="visible" xsi:type="boolean">false</item>
+                        <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                    </item>
+                </argument>
+                <settings>
+                    <additionalClasses>
+                        <class name="use-default">true</class>
+                    </additionalClasses>
+                    <imports>
+                        <link name="visible">${ $.provider}:data.disable_default</link>
+                    </imports>
+                    <exports>
+                        <link name="checked">${ $.provider }:data.default.brand_short_description</link>
+                    </exports>
+                </settings>
+            </field>
+        </fieldset>
+
+        <field name="brand_display_mode" sortOrder="40">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Mirasvit\Brand\Model\Config\Source\DisplayModeSource</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Display Mode</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                </item>
+            </argument>
+            <settings>
+                <imports>
+                    <link name="disabled">${ $.provider }:data.default.brand_display_mode</link>
+                </imports>
+            </settings>
+        </field>
+        <field name="default.brand_display_mode" sortOrder="41">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="use-default">true</class>
+                </additionalClasses>
+                <imports>
+                    <link name="visible">${ $.provider}:data.disable_default</link>
+                </imports>
+                <exports>
+                    <link name="checked">${ $.provider }:data.default.brand_display_mode</link>
+                </exports>
+            </settings>
+        </field>
+
+        <field name="brand_cms_block" sortOrder="50">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Catalog\Model\Category\Attribute\Source\Page</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">CMS Block</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                </item>
+            </argument>
+            <settings>
+                <imports>
+                    <link name="disabled">${ $.provider }:data.default.brand_cms_block</link>
+                </imports>
+            </settings>
+        </field>
+        <field name="default.brand_cms_block" sortOrder="51">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="use-default">true</class>
+                </additionalClasses>
+                <imports>
+                    <link name="visible">${ $.provider}:data.disable_default</link>
+                </imports>
+                <exports>
+                    <link name="checked">${ $.provider }:data.default.brand_cms_block</link>
+                </exports>
+            </settings>
+        </field>
+    </fieldset>
+
+    <fieldset name="meta_data" sortOrder="20">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string">Search Engine Optimization</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+
+        <field name="meta_title" sortOrder="10">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Meta title</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                </item>
+            </argument>
+            <settings>
+                <imports>
+                    <link name="disabled">${ $.provider }:data.default.meta_title</link>
+                </imports>
+            </settings>
+        </field>
+        <field name="default.meta_title" sortOrder="11">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="use-default">true</class>
+                </additionalClasses>
+                <imports>
+                    <link name="visible">${ $.provider}:data.disable_default</link>
+                </imports>
+                <exports>
+                    <link name="checked">${ $.provider }:data.default.meta_title</link>
+                </exports>
+            </settings>
+        </field>
+        <field name="meta_keyword" sortOrder="20">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Meta keywords</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                </item>
+            </argument>
+            <settings>
+                <imports>
+                    <link name="disabled">${ $.provider }:data.default.meta_keyword</link>
+                </imports>
+            </settings>
+        </field>
+
+        <field name="default.meta_keyword" sortOrder="21">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                </item>
+            </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="use-default">true</class>
+                </additionalClasses>
+                <imports>
+                    <link name="visible">${ $.provider}:data.disable_default</link>
+                </imports>
+                <exports>
+                    <link name="checked">${ $.provider }:data.default.meta_keyword</link>
+                </exports>
+            </settings>
+        </field>
+        <field name="meta_description" sortOrder="30">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Meta description</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                </item>
+            </argument>
+            <settings>
+                <imports>
+                    <link name="disabled">${ $.provider }:data.default.meta_description</link>
+                </imports>
+            </settings>
+        </field>
+
+        <field name="default.meta_description" sortOrder="31">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                </item>
+            </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="use-default">true</class>
+                </additionalClasses>
+                <imports>
+                    <link name="visible">${ $.provider}:data.disable_default</link>
+                </imports>
+                <exports>
+                    <link name="checked">${ $.provider }:data.default.meta_description</link>
+                </exports>
+            </settings>
+        </field>
+        <fieldset name="meta_data_seo_description">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">SEO description</item>
+                    <item name="collapsible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <field name="seo_description" sortOrder="40">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="disableLabel" xsi:type="boolean">true</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">wysiwyg</item>
+                        <item name="wysiwyg" xsi:type="boolean">true</item>
+                        <item name="wysiwygConfigData" xsi:type="array">
+                            <item name="is_pagebuilder_enabled" xsi:type="boolean">true</item>
+                            <item name="height" xsi:type="number">200</item>
+                        </item>
+                    </item>
+                </argument>
+                <settings>
+                    <imports>
+                        <link name="disabled">${ $.provider }:data.default.seo_description</link>
+                    </imports>
+                </settings>
+            </field>
+            <field name="default.seo_description" sortOrder="41">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataType" xsi:type="string">boolean</item>
+                        <item name="formElement" xsi:type="string">checkbox</item>
+                        <item name="default" xsi:type="number">1</item>
+                        <item name="visible" xsi:type="boolean">false</item>
+                        <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                    </item>
+                </argument>
+                <settings>
+                    <additionalClasses>
+                        <class name="use-default">true</class>
+                    </additionalClasses>
+                    <imports>
+                        <link name="visible">${ $.provider}:data.disable_default</link>
+                    </imports>
+                    <exports>
+                        <link name="checked">${ $.provider }:data.default.seo_description</link>
+                    </exports>
+                </settings>
+            </field>
+        </fieldset>
+        <field name="seo_position" sortOrder="50">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Mirasvit\Brand\Ui\BrandPage\Form\Source\SeoDescriptionPosition</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">SEO description position</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                </item>
+            </argument>
+            <settings>
+                <imports>
+                    <link name="disabled">${ $.provider }:data.default.seo_position</link>
+                </imports>
+            </settings>
+        </field>
+        <field name="default.seo_position" sortOrder="51">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="use-default">true</class>
+                </additionalClasses>
+                <imports>
+                    <link name="visible">${ $.provider}:data.disable_default</link>
+                </imports>
+                <exports>
+                    <link name="checked">${ $.provider }:data.default.seo_position</link>
+                </exports>
+            </settings>
+        </field>
+        <field name="canonical" sortOrder="60">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Canonical url</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                </item>
+            </argument>
+            <settings>
+                <imports>
+                    <link name="disabled">${ $.provider }:data.default.canonical</link>
+                </imports>
+            </settings>
+        </field>
+        <field name="default.canonical" sortOrder="61">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="use-default">true</class>
+                </additionalClasses>
+                <imports>
+                    <link name="visible">${ $.provider}:data.disable_default</link>
+                </imports>
+                <exports>
+                    <link name="checked">${ $.provider }:data.default.canonical</link>
+                </exports>
+            </settings>
+        </field>
+        <field name="robots" sortOrder="70">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Mirasvit\Brand\Ui\BrandPage\Form\Source\Robots</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Robots</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                </item>
+            </argument>
+            <settings>
+                <imports>
+                    <link name="disabled">${ $.provider }:data.default.robots</link>
+                </imports>
+            </settings>
+        </field>
+        <field name="default.robots" sortOrder="71">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="use-default">true</class>
+                </additionalClasses>
+                <imports>
+                    <link name="visible">${ $.provider}:data.disable_default</link>
+                </imports>
+                <exports>
+                    <link name="checked">${ $.provider }:data.default.robots</link>
+                </exports>
+            </settings>
+        </field>
+        
+    </fieldset>
+
+    <fieldset name="banner">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string">Banner</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">false</item>
+                <item name="sortOrder" xsi:type="number">40</item>
+            </item>
+        </argument>
+        <field name="banner_alt" sortOrder="10">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Banner Alt</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="notice" xsi:type="string" translate="true">If the field is empty, alt will be created automatically from Brand field</item>
+                </item>
+            </argument>
+            <settings>
+                <imports>
+                    <link name="disabled">${ $.provider }:data.default.banner_alt</link>
+                </imports>
+            </settings>
+        </field>
+        <field name="default.banner_alt" sortOrder="11">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="use-default">true</class>
+                </additionalClasses>
+                <imports>
+                    <link name="visible">${ $.provider}:data.disable_default</link>
+                </imports>
+                <exports>
+                    <link name="checked">${ $.provider }:data.default.banner_alt</link>
+                </exports>
+            </settings>
+        </field>
+        <field name="banner_title" sortOrder="20">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Banner Title</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="notice" xsi:type="string" translate="true">If the field is empty, title will be created automatically from Brand field</item>
+                </item>
+            </argument>
+            <settings>
+                <imports>
+                    <link name="disabled">${ $.provider }:data.default.banner_title</link>
+                </imports>
+            </settings>
+        </field>
+        <field name="default.banner_title" sortOrder="21">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="use-default">true</class>
+                </additionalClasses>
+                <imports>
+                    <link name="visible">${ $.provider}:data.disable_default</link>
+                </imports>
+                <exports>
+                    <link name="checked">${ $.provider }:data.default.banner_title</link>
+                </exports>
+            </settings>
+        </field>
+        <field name="banner" sortOrder="30">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Banner Image</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/element/file-uploader</item>
+                    <item name="formElement" xsi:type="string">fileUploader</item>
+                    <item name="componentType" xsi:type="string">fileUploader</item>
+                    <item name="notice" xsi:type="string" translate="true">Allowed file types: png, gif, jpg, jpeg.</item>
+                    <item name="maxFileSize" xsi:type="number">2097152</item>
+                    <item name="allowedExtensions" xsi:type="string">jpg jpeg gif png</item>
+                    <item name="uploaderConfig" xsi:type="array">
+                        <item name="url" xsi:type="string">brand/brand/bannerUpload</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <imports>
+                    <link name="disabled">${ $.provider }:data.default.banner</link>
+                </imports>
+            </settings>
+        </field>
+        <field name="default.banner" sortOrder="31">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="use-default">true</class>
+                </additionalClasses>
+                <imports>
+                    <link name="visible">${ $.provider}:data.disable_default</link>
+                </imports>
+                <exports>
+                    <link name="checked">${ $.provider }:data.default.banner</link>
+                </exports>
+            </settings>
+        </field>
+        <field name="banner_position" sortOrder="40">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Mirasvit\Brand\Ui\BrandPage\Form\Source\BannerPosition</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" translate="true" xsi:type="string">Banner position</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">popup</item>
+                    <item name="dataScope" xsi:type="string">banner_position</item>
+                </item>
+            </argument>
+            <settings>
+                <imports>
+                    <link name="disabled">${ $.provider }:data.default.banner_position</link>
+                </imports>
+            </settings>
+        </field>
+        <field name="default.banner_position" sortOrder="41">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="use-default">true</class>
+                </additionalClasses>
+                <imports>
+                    <link name="visible">${ $.provider}:data.disable_default</link>
+                </imports>
+                <exports>
+                    <link name="checked">${ $.provider }:data.default.banner_position</link>
+                </exports>
+            </settings>
+        </field>
+    </fieldset>
+    <fieldset name="banner_slider">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string">Banner slider</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">false</item>
+            </item>
+        </argument>
+        <field name="is_show_in_brand_slider">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Show in Brand Slider</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="dataScope" xsi:type="string">is_show_in_brand_slider</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+            </argument>
+            <settings>
+                <imports>
+                    <link name="disabled">${ $.provider}:data.disable_default</link>
+                </imports>
+            </settings>
+        </field>
+        <field name="slider_position">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Slider Position</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                </item>
+            </argument>
+            <settings>
+                <imports>
+                    <link name="disabled">${ $.provider}:data.disable_default</link>
+                </imports>
+            </settings>
+        </field>
+    </fieldset>
+    <fieldset name="products">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Products of this brand</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">false</item>
+                <item name="visible" xsi:type="boolean">false</item>
+                <item name="imports" xsi:type="array">
+                    <item name="visible" xsi:type="string">${ $.provider }:data.configured</item>
+                </item>
+            </item>
+        </argument>
+
+        <container name="button_set">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="boolean">false</item>
+                    <item name="template" xsi:type="string">ui/form/components/complex</item>
+                </item>
+            </argument>
+            <container name="button_product">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="title" xsi:type="string" translate="true">Add Products</item>
+                        <item name="component" xsi:type="string">Magento_Ui/js/form/components/button</item>
+                        <item name="actions" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="targetName" xsi:type="string">brand_brand_form.brand_brand_form.products.modal</item>
+                                <item name="actionName" xsi:type="string">toggleModal</item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="targetName" xsi:type="string">brand_brand_form.brand_brand_form.products.modal.brand_brand_form_product_listing</item>
+                                <item name="actionName" xsi:type="string">render</item>
+                            </item>
+                        </item>
+                        <item name="provider" xsi:type="boolean">false</item>
+                    </item>
+                </argument>
+            </container>
+        </container>
+
+        <modal name="modal">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/modal/modal-component</item>
+                    <item name="options" xsi:type="array">
+                        <item name="title" xsi:type="string" translate="true">Add Products to this Brand</item>
+                        <item name="buttons" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="text" xsi:type="string" translate="true">Cancel</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="string">closeModal</item>
+                                </item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="text" xsi:type="string" translate="true">Add Selected Products</item>
+                                <item name="class" xsi:type="string">action-primary</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="targetName" xsi:type="string">index=brand_brand_form_product_listing</item>
+                                        <item name="actionName" xsi:type="string">save</item>
+                                    </item>
+                                    <item name="1" xsi:type="string">closeModal</item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+            <insertListing name="brand_brand_form_product_listing">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="autoRender" xsi:type="boolean">false</item>
+                        <item name="dataScope" xsi:type="string">brand_brand_form_product_listing</item>
+                        <item name="externalProvider" xsi:type="string">brand_brand_form_product_listing.brand_brand_form_product_listing_data_source</item>
+                        <item name="selectionsProvider" xsi:type="string">brand_brand_form_product_listing.brand_brand_form_product_listing.columns.ids</item>
+                        <item name="ns" xsi:type="string">brand_brand_form_product_listing</item>
+                        <item name="render_url" xsi:type="url" path="mui/index/render"/>
+                        <item name="realTimeLink" xsi:type="boolean">true</item>
+                        <item name="dataLinks" xsi:type="array">
+                            <item name="imports" xsi:type="boolean">false</item>
+                            <item name="exports" xsi:type="boolean">true</item>
+                        </item>
+                        <item name="behaviourType" xsi:type="string">simple</item>
+                        <item name="externalFilterMode" xsi:type="boolean">true</item>
+                        <item name="imports" xsi:type="array">
+                            <item name="entity_id" xsi:type="string">${ $.provider }:data.brand_page_id</item>
+                        </item>
+                        <item name="exports" xsi:type="array">
+                            <item name="entity_id" xsi:type="string">${ $.externalProvider }:data.entity_id</item>
+                        </item>
+                        <item name="component" xsi:type="string">Magento_Ui/js/form/components/insert-listing</item>
+                    </item>
+                </argument>
+            </insertListing>
+        </modal>
+
+        <dynamicRows name="products">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="componentType" xsi:type="string">dynamicRows</item>
+                    <item name="columnsHeader" xsi:type="boolean">false</item>
+                    <item name="columnsHeaderAfterRender" xsi:type="boolean">true</item>
+                    <item name="renderDefaultRecord" xsi:type="boolean">false</item>
+                    <item name="template" xsi:type="string">ui/dynamic-rows/templates/grid</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/dynamic-rows/dynamic-rows-grid</item>
+                    <item name="addButton" xsi:type="boolean">false</item>
+                    <item name="recordTemplate" xsi:type="string">record</item>
+                    <item name="dataScope" xsi:type="string">links</item>
+                    <item name="deleteButtonLabel" xsi:type="string" translate="true">Remove</item>
+                    <item name="dataProvider" xsi:type="string">data.brand_brand_form_product_listing</item>
+                    <item name="map" xsi:type="array">
+                        <item name="id" xsi:type="string">entity_id</item>
+                        <item name="name" xsi:type="string">name</item>
+                        <item name="status" xsi:type="string">status_text</item>
+                        <item name="thumbnail" xsi:type="string">thumbnail_src</item>
+                    </item>
+                    <item name="links" xsi:type="array">
+                        <item name="insertData" xsi:type="string">${ $.provider }:${ $.dataProvider }</item>
+                    </item>
+                    <item name="dndConfig" xsi:type="array">
+                        <item name="enabled" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+
+            <container name="record">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="isTemplate" xsi:type="boolean">true</item>
+                        <item name="is_collection" xsi:type="boolean">true</item>
+                        <item name="component" xsi:type="string">Magento_Ui/js/dynamic-rows/record</item>
+                        <item name="componentType" xsi:type="string">container</item>
+                    </item>
+                </argument>
+                <field name="id">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="elementTmpl" xsi:type="string">ui/dynamic-rows/cells/text</item>
+                            <item name="component" xsi:type="string">Magento_Ui/js/form/element/text</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="dataScope" xsi:type="string">id</item>
+                            <item name="label" xsi:type="string" translate="true">ID</item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="thumbnail">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="elementTmpl" xsi:type="string">ui/dynamic-rows/cells/thumbnail</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="dataScope" xsi:type="string">thumbnail</item>
+                            <item name="label" xsi:type="string" translate="true">Thumbnail</item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="name">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="elementTmpl" xsi:type="string">ui/dynamic-rows/cells/text</item>
+                            <item name="component" xsi:type="string">Magento_Ui/js/form/element/text</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="dataScope" xsi:type="string">name</item>
+                            <item name="label" xsi:type="string" translate="true">Name</item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="status">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="elementTmpl" xsi:type="string">ui/dynamic-rows/cells/text</item>
+                            <item name="component" xsi:type="string">Magento_Ui/js/form/element/text</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="dataScope" xsi:type="string">status</item>
+                            <item name="label" xsi:type="string" translate="true">Status</item>
+                        </item>
+                    </argument>
+                </field>
+                <actionDelete name="actionDelete">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="actionDelete" xsi:type="string">data-grid-actions-cell</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="label" xsi:type="string" translate="true">Actions</item>
+                        </item>
+                    </argument>
+                </actionDelete>
+                <field name="position">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="dataType" xsi:type="string">number</item>
+                            <item name="dataScope" xsi:type="string">position</item>
+                            <item name="visible" xsi:type="boolean">false</item>
+                        </item>
+                    </argument>
+                </field>
+            </container>
+        </dynamicRows>
+    </fieldset>
+</form>

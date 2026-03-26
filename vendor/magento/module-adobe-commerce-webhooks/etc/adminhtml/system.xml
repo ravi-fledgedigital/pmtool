@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<!--
+/************************************************************************
+ *
+ * ADOBE CONFIDENTIAL
+ * ___________________
+ *
+ * Copyright 2024 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ * ************************************************************************
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+<system>
+    <tab id="adobe_services" translate="label" sortOrder="1000">
+        <label>Adobe Services</label>
+    </tab>
+    <section id="commerce_webhooks" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="150">
+        <label>Webhooks</label>
+        <tab>adobe_services</tab>
+        <class>separator-top</class>
+        <resource>Magento_AdobeCommerceWebhooks::digital_signature_settings</resource>
+        <group id="digital_signature" translate="label" showInDefault="1" showInWebsite="0" showInStore="0">
+            <fieldset_css>active</fieldset_css>
+            <label>Digital Signature configuration</label>
+            <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" canRestore="1">
+                <label>Enabled</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="public_key" translate="label" type="textarea" sortOrder="20" showInDefault="1">
+                <label>Public key</label>
+                <frontend_model>Magento\AdobeCommerceWebhooks\Block\Adminhtml\System\Config\PublicKey</frontend_model>
+                <depends>
+                    <field id="enabled">1</field>
+                </depends>
+            </field>
+            <field id="private_key_generate_button" translate="none" type="button" sortOrder="30" showInDefault="1">
+                <label>Generate Keys</label>
+                <frontend_model>Magento\AdobeCommerceWebhooks\Block\Adminhtml\System\Config\GenerateKeysButton</frontend_model>
+                <depends>
+                    <field id="enabled">1</field>
+                </depends>
+            </field>
+        </group>
+        <group id="db_log" translate="label" showInDefault="1" showInWebsite="0" showInStore="0">
+            <fieldset_css>active</fieldset_css>
+            <label>Database logging configuration</label>
+            <field id="db_log_enabled" translate="label" type="select" sortOrder="10" showInDefault="1" canRestore="1">
+                <label>Enabled</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="retention_period" translate="label" type="text" sortOrder="20" showInDefault="1" canRestore="1">
+                <label>Log retention time (in days)</label>
+                <validate>validate-digits</validate>
+                <depends>
+                    <field id="db_log_enabled">1</field>
+                </depends>
+            </field>
+            <field id="level" translate="none" type="select" sortOrder="30" showInDefault="1" canRestore="1">
+                <label>Minimum Log level</label>
+                <source_model>Magento\AdobeCommerceWebhooks\Ui\Component\Listing\Log\LevelOptionSource</source_model>
+                <depends>
+                    <field id="db_log_enabled">1</field>
+                </depends>
+            </field>
+            <field id="db_log_full_message" translate="label" type="select" sortOrder="40" showInDefault="1" canRestore="1">
+                <label>Save full log messages</label>
+                <comment>Full log messages can contain sensitive information. If you select yes, any sensitive data will be present in the logs.</comment>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                <depends>
+                    <field id="db_log_enabled">1</field>
+                </depends>
+            </field>
+        </group>
+    </section>
+</system>
+</config>

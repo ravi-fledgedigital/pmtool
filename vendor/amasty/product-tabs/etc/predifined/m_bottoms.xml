@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Product Tabs for Magento 2
+ */-->
+<tab>
+    <tab_title>Men Bottoms</tab_title>
+    <tab_name>Men Bottoms</tab_name>
+    <content>
+        <![CDATA[
+            <section class="amtab-grid-wrapper -bottoms -men -small">
+                <figure class="amtab-grid-container amtab-sizes">
+                    <h2 id="amtab-caption" class="amtab-title">
+                        Find your size
+                    </h2>
+                    <table role="grid" aria-labelledby="amtab-caption" class="amtab-table-container" data-mage-init='{ "Amasty_CustomTabs/js/components/grid-sizes": {} }'>
+                        <thead>
+                        <tr  class="amtab-head-line">
+                            <th scope="col" class="amtab-title" class="amtab-title">
+                                Product<br/> Size
+                            </th>
+                            <th scope="col" class="amtab-cell">Waist<em class="amtab-desc">(in)</em></th>
+                            <th scope="col" class="amtab-cell">Hip<em class="amtab-desc">(in)</em></th>
+                            <th scope="col" class="amtab-cell">Inseam<em class="amtab-desc">(in)</em></th>
+                            <th scope="col" class="amtab-cell">
+                                <span class="amtab-cell-select">
+                                    <select name="amtab_sizes_type" class="amtab-select" aria-label="Select size system">
+                                        <option value="US" class="amtab-option">US</option>
+                                    </select>
+                                </span>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="amtab-table-line">
+                            <th scope="row" class="amtab-title">S</th>
+                            <td class="amtab-cell">30" - 31"</td>
+                            <td class="amtab-cell">33" - 35"</td>
+                            <td class="amtab-cell">29"</td>
+                            <td class="amtab-cell">29 - 31</td>
+                        </tr>
+                        <tr class="amtab-table-line">
+                            <th scope="row" class="amtab-title">M</th>
+                            <td class="amtab-cell">31" - 33"</td>
+                            <td class="amtab-cell">36" - 38"</td>
+                            <td class="amtab-cell">30"</td>
+                            <td class="amtab-cell">32 - 34</td>
+                        </tr>
+                        <tr class="amtab-table-line">
+                            <th scope="row" class="amtab-title">L</th>
+                            <td class="amtab-cell">33" - 34"</td>
+                            <td class="amtab-cell">38" - 41"</td>
+                            <td class="amtab-cell">31"</td>
+                            <td class="amtab-cell">35 - 36</td>
+                        </tr>
+                        <tr class="amtab-table-line">
+                            <th scope="row" class="amtab-title">XL</th>
+                            <td class="amtab-cell">34" - 36"</td>
+                            <td class="amtab-cell">41" - 42"</td>
+                            <td class="amtab-cell">31" </td>
+                            <td class="amtab-cell">38 - 40</td>
+                        </tr>
+                        <tr class="amtab-table-line">
+                            <th scope="row" class="amtab-title">XXL</th>
+                            <td class="amtab-cell">36" - 38"</td>
+                            <td class="amtab-cell">44" - 45"</td>
+                            <td class="amtab-cell">32"</td>
+                            <td class="amtab-cell">42 - 44</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </figure>
+                <figure class="amtab-grid-container amtab-measure">
+                    <h2 class="amtab-title">
+                        How to measure
+                    </h2>
+                    <div class="amtab-steps-container">
+                        <div class="amtab-img">
+                            <img src="{{media url='amasty/custom_tabs/sizes/bottoms/m_bottoms.png'}}" alt="Men's bottom clothing shown"/>
+                        </div>
+                        <ul class="amtab-steps">
+                            <li class="amtab-step">
+                                <p class="amtab-head">
+                                    Waist
+                                    <span class="amtab-arrow"></span>
+                                </p>
+                                <p class="amtab-desc">
+                                    Measure around the narrowest part of the waist, keeping the tape horizontally.
+                                </p>
+                            </li>
+                            <li class="amtab-step">
+                                <p class="amtab-head">
+                                    Hips
+                                    <span class="amtab-arrow"></span>
+                                </p>
+                                <p class="amtab-desc">
+                                    Measure around the fullest part of your hips, keeping the tape horizontal.
+                                </p>
+                            </li>
+                            <li class="amtab-step">
+                                <p class="amtab-head">
+                                    Inseam
+                                    <span class="amtab-arrow"></span>
+                                </p>
+                                <p class="amtab-desc">
+                                    Measure from your crotch to the bottom of your leg. Be aware that the inseam measurments are based on a regular inseam.
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </figure>
+            </section>
+        ]]>
+    </content>
+    <stores>0</stores>
+    <module_name>Amasty_ProductTabs</module_name>
+    <type>0</type>
+    <status>0</status>
+    <customer_groups>0,1,2,3</customer_groups>
+    <sort_order>300</sort_order>
+</tab>

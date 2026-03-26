@@ -1,0 +1,867 @@
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/AdminDisablePageBuilderStagingDashboardTest/PageBuilderStagingDashboardDisablePageBuilderInCMSBlockTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 PageBuilderStage from module(s): magento/module-page-builder
+	 AdminCMSBlockStagingSlideOutSection from module(s): magento/module-staging
+	 AdminLoginActionGroup from module(s): magento/module-admin-analytics, magento/module-backend, magento/module-two-factor-auth
+	 NavigateToCreatedCMSBlockPageActionGroup from module(s): magento/module-cms
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 AdminOpenPageBuilderFromContentPreviewOverlayActionGroup from module(s): magento/module-page-builder
+	 dragContentTypeToContainer from module(s): magento/module-page-builder
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 FillScheduleUpdateBasicActionGroup from module(s): magento/module-staging
+	 navigateToViewStagingUpdateFromStagingDashboard from module(s): magento/module-staging
+	 openEditSlideOutForCMSBlockStagingUpdateFromViewStagingUpdate from module(s): magento/module-staging
+	 CliCacheCleanActionGroup from module(s): magento/module-backend
+	 StagingDashboardClearFiltersActionGroup from module(s): magento/module-staging
+	 AdminLogoutActionGroup from module(s): magento/module-backend
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/AdminDisablePageBuilderStagingDashboardTest/PageBuilderStagingDashboardDisablePageBuilderInCMSPageTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingDashboardSection from module(s): magento/module-staging
+	 PageBuilderStage from module(s): magento/module-page-builder
+	 AdminCMSPageStagingSlideOutSection from module(s): magento/module-staging
+	 AdminLoginActionGroup from module(s): magento/module-admin-analytics, magento/module-backend, magento/module-two-factor-auth
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 FillScheduleUpdateBasicActionGroup from module(s): magento/module-staging
+	 navigateToViewStagingUpdateFromStagingDashboard from module(s): magento/module-staging
+	 openEditSlideOutForCMSPagesStagingUpdateFromViewStagingUpdate from module(s): magento/module-staging
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 CliCacheCleanActionGroup from module(s): magento/module-backend
+	 StagingDashboardClearFiltersActionGroup from module(s): magento/module-staging
+	 AdminLogoutActionGroup from module(s): magento/module-backend
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/AdminDisablePageBuilderStagingDashboardTest/PageBuilderStagingDashboardDisablePageBuilderInCatalogCategoryTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingDashboardSection from module(s): magento/module-staging
+	 PageBuilderProductAttribute from module(s): magento/module-page-builder
+	 AdminCatalogCategoryStagingSlideOutSection from module(s): magento/module-staging
+	 AdminLoginActionGroup from module(s): magento/module-admin-analytics, magento/module-backend, magento/module-two-factor-auth
+	 NavigateToCreatedCategoryActionGroup from module(s): magento/module-catalog
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 FillScheduleUpdateBasicActionGroup from module(s): magento/module-staging
+	 navigateToViewStagingUpdateFromStagingDashboard from module(s): magento/module-staging
+	 openEditSlideOutForCategoriesStagingUpdateFromViewStagingUpdate from module(s): magento/module-staging
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 CliCacheCleanActionGroup from module(s): magento/module-backend
+	 StagingDashboardClearFiltersActionGroup from module(s): magento/module-staging
+	 AdminLogoutActionGroup from module(s): magento/module-backend
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/AdminDisablePageBuilderStagingDashboardTest/PageBuilderStagingDashboardDisablePageBuilderInCatalogProductTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingDashboardSection from module(s): magento/module-staging
+	 PageBuilderProductAttribute from module(s): magento/module-page-builder
+	 AdminCatalogProductStagingSlideOutSection from module(s): magento/module-staging
+	 AdminLoginActionGroup from module(s): magento/module-admin-analytics, magento/module-backend, magento/module-two-factor-auth
+	 NavigateToCreatedProductEditPageActionGroup from module(s): magento/module-catalog
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 FillScheduleUpdateBasicActionGroup from module(s): magento/module-staging
+	 navigateToViewStagingUpdateFromStagingDashboard from module(s): magento/module-staging
+	 openEditSlideOutForProductsStagingUpdateFromViewStagingUpdate from module(s): magento/module-staging
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 openPageBuilderForAttribute from module(s): magento/module-page-builder
+	 CliCacheCleanActionGroup from module(s): magento/module-backend
+	 StagingDashboardClearFiltersActionGroup from module(s): magento/module-staging
+	 NavigateToAndResetProductGridToDefaultViewActionGroup from module(s): magento/module-catalog
+	 AdminLogoutActionGroup from module(s): magento/module-backend
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/AdminPageBuilderStagingDashboardTest/PageBuilderStagingDashboardAddAndEditRowColumnSlideTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 AdminStagingDashboardSection from module(s): magento/module-staging
+	 AdminStagingDashboardPage from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 FillScheduleUpdateBasicActionGroup from module(s): magento/module-staging
+	 navigateToViewStagingUpdateFromStagingDashboard from module(s): magento/module-staging
+	 openEditSlideOutForCMSPagesStagingUpdateFromViewStagingUpdate from module(s): magento/module-staging
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 ClearFiltersAdminDataGridActionGroup from module(s): magento/module-ui
+	 saveStagingDashboardSlideOutUpdateForm from module(s): magento/module-staging
+	 saveStagingDashboardUpdateForm from module(s): magento/module-staging
+	 openPreviewForScheduledUpdateFromSlideOut from module(s): magento/module-staging
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 PageBuilderCatalogProductAddAndEditRowColumnSlideTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/AdminPageBuilderStagingDashboardTest/PageBuilderStagingDashboardAddContentDirectlyToStageTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 AdminStagingDashboardSection from module(s): magento/module-staging
+	 AdminStagingDashboardPage from module(s): magento/module-staging
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 FillScheduleUpdateBasicActionGroup from module(s): magento/module-staging
+	 navigateToViewStagingUpdateFromStagingDashboard from module(s): magento/module-staging
+	 openEditSlideOutForCMSPagesStagingUpdateFromViewStagingUpdate from module(s): magento/module-staging
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 ClearFiltersAdminDataGridActionGroup from module(s): magento/module-ui
+	 dragContentTypeToContainer from module(s): magento/module-page-builder
+	 dragContentTypeToDropZone from module(s): magento/module-page-builder
+	 saveStagingDashboardSlideOutUpdateForm from module(s): magento/module-staging
+	 saveStagingDashboardUpdateForm from module(s): magento/module-staging
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 openPreviewForScheduledUpdateFromSlideOut from module(s): magento/module-staging
+	 PageBuilderCMSPageAddContentDirectlyToStageTest from module(s): magento/module-banner-page-builder, magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/AdminPageBuilderStagingDashboardTest/PageBuilderStagingDashboardCreateAndApplyTemplate.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingDashboardSection from module(s): magento/module-staging
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 ButtonItemOnStage from module(s): magento/module-page-builder
+	 AdminStagingDashboardPage from module(s): magento/module-staging
+	 AdminLoginActionGroup from module(s): magento/module-admin-analytics, magento/module-backend, magento/module-two-factor-auth
+	 NavigateToCreatedCMSPageActionGroup from module(s): magento/module-cms
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 FillScheduleUpdateBasicActionGroup from module(s): magento/module-staging
+	 navigateToViewStagingUpdateFromStagingDashboard from module(s): magento/module-staging
+	 openEditSlideOutForCMSPagesStagingUpdateFromViewStagingUpdate from module(s): magento/module-staging
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 dragContentTypeToContainer from module(s): magento/module-page-builder
+	 expandPageBuilderPanelMenuSection from module(s): magento/module-page-builder
+	 dragContentTypeToStage from module(s): magento/module-page-builder
+	 ClearFiltersAdminDataGridActionGroup from module(s): magento/module-ui
+	 navigateToPageBuilderTemplatesGridPage from module(s): magento/module-page-builder
+	 clearFiltersPageBuilderTemplateGrid from module(s): magento/module-page-builder
+	 searchByKeywordPageBuilderTemplateGrid from module(s): magento/module-page-builder
+	 deletePageBuilderTemplate from module(s): magento/module-page-builder
+	 AdminLogoutActionGroup from module(s): magento/module-backend
+	 openPageBuilderSaveTemplateModal from module(s): magento/module-page-builder
+	 fillPageBuilderSaveTemplateForm from module(s): magento/module-page-builder
+	 savePageBuilderTemplate from module(s): magento/module-page-builder
+	 AdminVerifyEmptyStageActionGroup from module(s): magento/module-page-builder
+	 openPageBuilderApplyTemplateSlideOut from module(s): magento/module-page-builder
+	 clickApplyFromPageBuilderApplyTemplateSlideOut from module(s): magento/module-page-builder
+	 confirmApplyFromPageBuilderApplyTemplateSlideOut from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/AdminPageBuilderStagingDashboardTest/PageBuilderStagingDashboardFullScreenCanAddAndEditContentTypesTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingDashboardSection from module(s): magento/module-staging
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 AdminStagingDashboardPage from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 FillScheduleUpdateBasicActionGroup from module(s): magento/module-staging
+	 navigateToViewStagingUpdateFromStagingDashboard from module(s): magento/module-staging
+	 openEditSlideOutForCMSPagesStagingUpdateFromViewStagingUpdate from module(s): magento/module-staging
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 ClearFiltersAdminDataGridActionGroup from module(s): magento/module-ui
+	 saveStagingDashboardSlideOutUpdateForm from module(s): magento/module-staging
+	 saveStagingDashboardUpdateForm from module(s): magento/module-staging
+	 PageBuilderFullScreenCanAddAndEditContentTypesTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/AdminPageBuilderStagingDashboardTest/PageBuilderStagingDashboardFullScreenCoversEntireScreenTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingDashboardSection from module(s): magento/module-staging
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 AdminStagingDashboardPage from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 FillScheduleUpdateBasicActionGroup from module(s): magento/module-staging
+	 navigateToViewStagingUpdateFromStagingDashboard from module(s): magento/module-staging
+	 openEditSlideOutForCMSPagesStagingUpdateFromViewStagingUpdate from module(s): magento/module-staging
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 ClearFiltersAdminDataGridActionGroup from module(s): magento/module-ui
+	 PageBuilderFullScreenCoversEntireScreenTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/AdminPageBuilderStagingDashboardTest/PageBuilderStagingDashboardFullScreenLeftPanelHeightAndFunctionalityTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingDashboardSection from module(s): magento/module-staging
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 AdminStagingDashboardPage from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 FillScheduleUpdateBasicActionGroup from module(s): magento/module-staging
+	 navigateToViewStagingUpdateFromStagingDashboard from module(s): magento/module-staging
+	 openEditSlideOutForCMSPagesStagingUpdateFromViewStagingUpdate from module(s): magento/module-staging
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 ClearFiltersAdminDataGridActionGroup from module(s): magento/module-ui
+	 PageBuilderFullScreenLeftPanelHeightAndFunctionalityTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/AdminPageBuilderStagingDashboardTest/PageBuilderStagingDashboardIsVisibleInCMSBlockTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 PageBuilderStage from module(s): magento/module-page-builder
+	 NavigateToCreatedCMSBlockPageActionGroup from module(s): magento/module-cms
+	 AdminOpenPageBuilderFromContentPreviewOverlayActionGroup from module(s): magento/module-page-builder
+	 dragContentTypeToContainer from module(s): magento/module-page-builder
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 openEditSlideOutForCMSBlockStagingUpdateFromViewStagingUpdate from module(s): magento/module-staging
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/AdminPageBuilderStagingDashboardTest/PageBuilderStagingDashboardIsVisibleInCMSPageTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingDashboardSection from module(s): magento/module-staging
+	 AdminStagingDashboardPage from module(s): magento/module-staging
+	 PageBuilderStage from module(s): magento/module-page-builder
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 TabOnStage from module(s): magento/module-page-builder
+	 PageBuilderTabName1Default from module(s): magento/module-page-builder
+	 AdminLoginActionGroup from module(s): magento/module-admin-analytics, magento/module-backend, magento/module-two-factor-auth
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 FillScheduleUpdateBasicActionGroup from module(s): magento/module-staging
+	 navigateToViewStagingUpdateFromStagingDashboard from module(s): magento/module-staging
+	 openEditSlideOutForCMSPagesStagingUpdateFromViewStagingUpdate from module(s): magento/module-staging
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 ClearFiltersAdminDataGridActionGroup from module(s): magento/module-ui
+	 AdminLogoutActionGroup from module(s): magento/module-backend
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 dragContentTypeToContainer from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/AdminPageBuilderStagingDashboardTest/PageBuilderStagingDashboardIsVisibleInCategoryTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 PageBuilderStage from module(s): magento/module-page-builder
+	 NavigateToCreatedCategoryActionGroup from module(s): magento/module-catalog
+	 openEditSlideOutForCategoriesStagingUpdateFromViewStagingUpdate from module(s): magento/module-staging
+	 openPageBuilderForAttribute from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/AdminPageBuilderStagingDashboardTest/PageBuilderStagingDashboardIsVisibleInProductsTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 PageBuilderStage from module(s): magento/module-page-builder
+	 NavigateToCreatedProductEditPageActionGroup from module(s): magento/module-catalog
+	 openEditSlideOutForProductsStagingUpdateFromViewStagingUpdate from module(s): magento/module-staging
+	 openPageBuilderForAttribute from module(s): magento/module-page-builder
+	 NavigateToAndResetProductGridToDefaultViewActionGroup from module(s): magento/module-catalog
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/AdminPageBuilderStagingDashboardTest/PageBuilderStagingDashboardVerifyCanAddChildContentTypesFromOnHoverOptionMenusTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 AdminStagingDashboardSection from module(s): magento/module-staging
+	 AdminStagingDashboardPage from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 FillScheduleUpdateBasicActionGroup from module(s): magento/module-staging
+	 navigateToViewStagingUpdateFromStagingDashboard from module(s): magento/module-staging
+	 openEditSlideOutForCMSPagesStagingUpdateFromViewStagingUpdate from module(s): magento/module-staging
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 ClearFiltersAdminDataGridActionGroup from module(s): magento/module-ui
+	 saveStagingDashboardSlideOutUpdateForm from module(s): magento/module-staging
+	 saveStagingDashboardUpdateForm from module(s): magento/module-staging
+	 openPreviewForScheduledUpdateFromSlideOut from module(s): magento/module-staging
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 PageBuilderCatalogProductVerifyCanAddChildContentTypesFromOnHoverOptionMenusTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/AdminPageBuilderStagingDashboardTest/PageBuilderStagingDashboardVerifyCanDeleteContentTypesFromOnClickOptionMenusTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingDashboardSection from module(s): magento/module-staging
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 AdminStagingDashboardPage from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 FillScheduleUpdateBasicActionGroup from module(s): magento/module-staging
+	 navigateToViewStagingUpdateFromStagingDashboard from module(s): magento/module-staging
+	 openEditSlideOutForCMSPagesStagingUpdateFromViewStagingUpdate from module(s): magento/module-staging
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 ClearFiltersAdminDataGridActionGroup from module(s): magento/module-ui
+	 saveStagingDashboardSlideOutUpdateForm from module(s): magento/module-staging
+	 saveStagingDashboardUpdateForm from module(s): magento/module-staging
+	 openPreviewForScheduledUpdateFromSlideOut from module(s): magento/module-staging
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 PageBuilderCatalogProductVerifyCanDeleteContentTypesFromOnClickOptionMenusTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/AdminPageBuilderStagingDashboardTest/PageBuilderStagingDashboardVerifyCanDeleteContentTypesFromOnHoverOptionMenusTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 AdminStagingDashboardSection from module(s): magento/module-staging
+	 AdminStagingDashboardPage from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 FillScheduleUpdateBasicActionGroup from module(s): magento/module-staging
+	 navigateToViewStagingUpdateFromStagingDashboard from module(s): magento/module-staging
+	 openEditSlideOutForCMSPagesStagingUpdateFromViewStagingUpdate from module(s): magento/module-staging
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 ClearFiltersAdminDataGridActionGroup from module(s): magento/module-ui
+	 saveStagingDashboardSlideOutUpdateForm from module(s): magento/module-staging
+	 saveStagingDashboardUpdateForm from module(s): magento/module-staging
+	 openPreviewForScheduledUpdateFromSlideOut from module(s): magento/module-staging
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 PageBuilderCatalogProductVerifyCanDeleteContentTypesFromOnHoverOptionMenusTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/AdminPageBuilderStagingDashboardTest/PageBuilderStagingDashboardVerifyCanDuplicateContentTypesFromOnClickOptionMenusTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingDashboardSection from module(s): magento/module-staging
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 AdminStagingDashboardPage from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 FillScheduleUpdateBasicActionGroup from module(s): magento/module-staging
+	 navigateToViewStagingUpdateFromStagingDashboard from module(s): magento/module-staging
+	 openEditSlideOutForCMSPagesStagingUpdateFromViewStagingUpdate from module(s): magento/module-staging
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 ClearFiltersAdminDataGridActionGroup from module(s): magento/module-ui
+	 saveStagingDashboardSlideOutUpdateForm from module(s): magento/module-staging
+	 saveStagingDashboardUpdateForm from module(s): magento/module-staging
+	 closeStagingDashboardSlideOutUpdateForm from module(s): magento/module-staging
+	 openPreviewForScheduledUpdateFromSlideOut from module(s): magento/module-staging
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 PageBuilderCatalogProductVerifyCanDuplicateContentTypesFromOnClickOptionMenusTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/AdminPageBuilderStagingDashboardTest/PageBuilderStagingDashboardVerifyCanDuplicateContentTypesFromOnHoverOptionMenusTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 AdminStagingDashboardSection from module(s): magento/module-staging
+	 AdminStagingDashboardPage from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 FillScheduleUpdateBasicActionGroup from module(s): magento/module-staging
+	 navigateToViewStagingUpdateFromStagingDashboard from module(s): magento/module-staging
+	 openEditSlideOutForCMSPagesStagingUpdateFromViewStagingUpdate from module(s): magento/module-staging
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 ClearFiltersAdminDataGridActionGroup from module(s): magento/module-ui
+	 saveStagingDashboardSlideOutUpdateForm from module(s): magento/module-staging
+	 saveStagingDashboardUpdateForm from module(s): magento/module-staging
+	 closeStagingDashboardSlideOutUpdateForm from module(s): magento/module-staging
+	 openPreviewForScheduledUpdateFromSlideOut from module(s): magento/module-staging
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 PageBuilderCatalogProductVerifyCanDuplicateContentTypesFromOnHoverOptionMenusTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/AdminPageBuilderStagingDashboardTest/PageBuilderStagingDashboardVerifyCanEditContentTypesFromOnClickOptionMenusTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingDashboardSection from module(s): magento/module-staging
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 AdminStagingDashboardPage from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 FillScheduleUpdateBasicActionGroup from module(s): magento/module-staging
+	 navigateToViewStagingUpdateFromStagingDashboard from module(s): magento/module-staging
+	 openEditSlideOutForCMSPagesStagingUpdateFromViewStagingUpdate from module(s): magento/module-staging
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 ClearFiltersAdminDataGridActionGroup from module(s): magento/module-ui
+	 saveStagingDashboardSlideOutUpdateForm from module(s): magento/module-staging
+	 saveStagingDashboardUpdateForm from module(s): magento/module-staging
+	 closeStagingDashboardSlideOutUpdateForm from module(s): magento/module-staging
+	 openPreviewForScheduledUpdateFromSlideOut from module(s): magento/module-staging
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 PageBuilderCatalogProductVerifyCanEditContentTypesFromOnClickOptionMenusTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/AdminPageBuilderStagingDashboardTest/PageBuilderStagingDashboardVerifyCanEditContentTypesFromOnHoverOptionMenusTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 AdminStagingDashboardSection from module(s): magento/module-staging
+	 AdminStagingDashboardPage from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 FillScheduleUpdateBasicActionGroup from module(s): magento/module-staging
+	 navigateToViewStagingUpdateFromStagingDashboard from module(s): magento/module-staging
+	 openEditSlideOutForCMSPagesStagingUpdateFromViewStagingUpdate from module(s): magento/module-staging
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 ClearFiltersAdminDataGridActionGroup from module(s): magento/module-ui
+	 saveStagingDashboardSlideOutUpdateForm from module(s): magento/module-staging
+	 saveStagingDashboardUpdateForm from module(s): magento/module-staging
+	 closeStagingDashboardSlideOutUpdateForm from module(s): magento/module-staging
+	 openPreviewForScheduledUpdateFromSlideOut from module(s): magento/module-staging
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 PageBuilderCatalogProductVerifyCanEditContentTypesFromOnHoverOptionMenusTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/AdminPageBuilderStagingDashboardTest/PageBuilderStagingDashboardVerifyCanMoveButtonItemsTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingDashboardSection from module(s): magento/module-staging
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 AdminStagingDashboardPage from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 FillScheduleUpdateBasicActionGroup from module(s): magento/module-staging
+	 navigateToViewStagingUpdateFromStagingDashboard from module(s): magento/module-staging
+	 openEditSlideOutForCMSPagesStagingUpdateFromViewStagingUpdate from module(s): magento/module-staging
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 ClearFiltersAdminDataGridActionGroup from module(s): magento/module-ui
+	 saveStagingDashboardSlideOutUpdateForm from module(s): magento/module-staging
+	 saveStagingDashboardUpdateForm from module(s): magento/module-staging
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 openPreviewForScheduledUpdateFromSlideOut from module(s): magento/module-staging
+	 ButtonItemMoveButtonStackedAppearanceTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/AdminPageBuilderStagingDashboardTest/PageBuilderStagingDashboardVerifyCanMoveContentTypesFromOnHoverOptionMenusTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingDashboardSection from module(s): magento/module-staging
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 AdminStagingDashboardPage from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 FillScheduleUpdateBasicActionGroup from module(s): magento/module-staging
+	 navigateToViewStagingUpdateFromStagingDashboard from module(s): magento/module-staging
+	 openEditSlideOutForCMSPagesStagingUpdateFromViewStagingUpdate from module(s): magento/module-staging
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 ClearFiltersAdminDataGridActionGroup from module(s): magento/module-ui
+	 expandPageBuilderPanelMenuSection from module(s): magento/module-page-builder
+	 saveStagingDashboardSlideOutUpdateForm from module(s): magento/module-staging
+	 saveStagingDashboardUpdateForm from module(s): magento/module-staging
+	 openPreviewForScheduledUpdateFromSlideOut from module(s): magento/module-staging
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 PageBuilderCatalogProductVerifyCanMoveContentTypesFromOnHoverOptionMenusTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/AdminPageBuilderStagingDashboardTest/PageBuilderStagingDashboardVerifyCanMoveSlideItemsTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingDashboardSection from module(s): magento/module-staging
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 AdminStagingDashboardPage from module(s): magento/module-staging
+	 SliderOnStage from module(s): magento/module-page-builder
+	 SlideOnBackend from module(s): magento/module-page-builder
+	 PageBuilderSlideItemSlideName_Slide3 from module(s): magento/module-page-builder
+	 PageBuilderSlideItemSlideName_Slide1 from module(s): magento/module-page-builder
+	 PageBuilderSlideItemContent_Slide1 from module(s): magento/module-page-builder
+	 SlideOnFrontend from module(s): magento/module-page-builder
+	 PageBuilderSlideItemContent_Slide3 from module(s): magento/module-page-builder
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 FillScheduleUpdateBasicActionGroup from module(s): magento/module-staging
+	 navigateToViewStagingUpdateFromStagingDashboard from module(s): magento/module-staging
+	 openEditSlideOutForCMSPagesStagingUpdateFromViewStagingUpdate from module(s): magento/module-staging
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 ClearFiltersAdminDataGridActionGroup from module(s): magento/module-ui
+	 saveEditPanelSettings from module(s): magento/module-page-builder
+	 saveStagingDashboardSlideOutUpdateForm from module(s): magento/module-staging
+	 saveStagingDashboardUpdateForm from module(s): magento/module-staging
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 openPreviewForScheduledUpdateFromSlideOut from module(s): magento/module-staging
+	 SlideItemMoveSlideItemsToRearrangeTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/AdminPageBuilderStagingDashboardTest/PageBuilderStagingDashboardVerifyCanMoveTabItemsTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingDashboardSection from module(s): magento/module-staging
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 AdminStagingDashboardPage from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 FillScheduleUpdateBasicActionGroup from module(s): magento/module-staging
+	 navigateToViewStagingUpdateFromStagingDashboard from module(s): magento/module-staging
+	 openEditSlideOutForCMSPagesStagingUpdateFromViewStagingUpdate from module(s): magento/module-staging
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 ClearFiltersAdminDataGridActionGroup from module(s): magento/module-ui
+	 saveStagingDashboardSlideOutUpdateForm from module(s): magento/module-staging
+	 saveStagingDashboardUpdateForm from module(s): magento/module-staging
+	 openPreviewForScheduledUpdateFromSlideOut from module(s): magento/module-staging
+	 TabsRearrangeTabItemsTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/ScheduleUpdatePageBuilderTests/PageBuilderScheduleUpdateAddAndEditRowColumnSlideTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 createAndSaveScheduleUpdateOneDayInFuture from module(s): magento/module-staging
+	 openEditFormForStagingSlideOut from module(s): magento/module-staging
+	 openPreviewForScheduledUpdateFromSlideOut from module(s): magento/module-staging
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 PageBuilderCatalogProductAddAndEditRowColumnSlideTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/ScheduleUpdatePageBuilderTests/PageBuilderScheduleUpdateCMSBlockContentSnapshotTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 RowOnStage from module(s): magento/module-page-builder
+	 NavigateToCreatedCMSBlockPageActionGroup from module(s): magento/module-cms
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 ValidatePageBuilderPreviewActionGroup from module(s): magento/module-page-builder
+	 AdminVerifyEmptyStageActionGroup from module(s): magento/module-page-builder
+	 AdminOpenPageBuilderFromContentPreviewOverlayActionGroup from module(s): magento/module-page-builder
+	 dragContentTypeToContainer from module(s): magento/module-page-builder
+	 expandPageBuilderPanelMenuSection from module(s): magento/module-page-builder
+	 inlineEditButton from module(s): magento/module-page-builder
+	 PageBuilderCatalogCategoryContentSnapshotTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/ScheduleUpdatePageBuilderTests/PageBuilderScheduleUpdateCMSPageAddAndEditButtonsTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 ButtonItemOnStorefront from module(s): magento/module-page-builder
+	 AdminLoginActionGroup from module(s): magento/module-admin-analytics, magento/module-backend, magento/module-two-factor-auth
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 expandPageBuilderPanelMenuSection from module(s): magento/module-page-builder
+	 dragContentTypeToStage from module(s): magento/module-page-builder
+	 dragContentTypeToContainer from module(s): magento/module-page-builder
+	 inlineEditButton from module(s): magento/module-page-builder
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 SaveAndContinueEditCmsPageActionGroup from module(s): magento/module-cms
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 AdminLogoutActionGroup from module(s): magento/module-backend
+	 dragContentTypeToDropZone from module(s): magento/module-page-builder
+	 openPageBuilderEditPanelSmallByIndex from module(s): magento/module-page-builder
+	 fillSlideOutPanelFieldGeneral from module(s): magento/module-page-builder
+	 saveEditPanelSettings from module(s): magento/module-page-builder
+	 addChildContentTypeFromOptionMenu from module(s): magento/module-page-builder
+	 validateButtonItemContent from module(s): magento/module-page-builder
+	 createAndSaveScheduleUpdateOneDayInFuture from module(s): magento/module-staging
+	 openPreviewForScheduledUpdate from module(s): magento/module-staging
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/ScheduleUpdatePageBuilderTests/PageBuilderScheduleUpdateCMSPageContentSnapshotTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 expandAdminCategorySection from module(s): magento/module-page-builder
+	 ValidatePageBuilderPreviewActionGroup from module(s): magento/module-page-builder
+	 PageBuilderCatalogCategoryContentSnapshotTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/ScheduleUpdatePageBuilderTests/PageBuilderScheduleUpdateCatalogCategoryContentSnapshotTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 expandAdminCategorySection from module(s): magento/module-page-builder
+	 ValidatePageBuilderPreviewActionGroup from module(s): magento/module-page-builder
+	 PageBuilderCatalogCategoryContentSnapshotTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/ScheduleUpdatePageBuilderTests/PageBuilderScheduleUpdateCatalogProductContentSnapshotTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 NavigateToCreatedProductEditPageActionGroup from module(s): magento/module-catalog
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 expandAdminCategorySection from module(s): magento/module-page-builder
+	 NavigateToAndResetProductGridToDefaultViewActionGroup from module(s): magento/module-catalog
+	 ValidatePageBuilderPreviewActionGroup from module(s): magento/module-page-builder
+	 PageBuilderCatalogCategoryContentSnapshotTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/ScheduleUpdatePageBuilderTests/PageBuilderScheduleUpdateCreateAndApplyTemplate.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 PageBuilderStage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 dragContentTypeToContainer from module(s): magento/module-page-builder
+	 expandPageBuilderPanelMenuSection from module(s): magento/module-page-builder
+	 openPageBuilderSaveTemplateModal from module(s): magento/module-page-builder
+	 savePageBuilderTemplate from module(s): magento/module-page-builder
+	 AdminVerifyEmptyStageActionGroup from module(s): magento/module-page-builder
+	 openPageBuilderApplyTemplateSlideOut from module(s): magento/module-page-builder
+	 confirmApplyFromPageBuilderApplyTemplateSlideOut from module(s): magento/module-page-builder
+	 PageBuilderCMSPageCreateAndApplyTemplate from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/ScheduleUpdatePageBuilderTests/PageBuilderScheduleUpdateFullScreenCanAddAndEditContentTypesTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 createAndSaveScheduleUpdateOneDayInFuture from module(s): magento/module-staging
+	 openEditFormForStagingSlideOut from module(s): magento/module-staging
+	 PageBuilderFullScreenCanAddAndEditContentTypesTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/ScheduleUpdatePageBuilderTests/PageBuilderScheduleUpdateFullScreenCoversEntireScreenTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 PageBuilderFullScreenCoversEntireScreenTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/ScheduleUpdatePageBuilderTests/PageBuilderScheduleUpdateFullScreenLeftPanelHeightAndFunctionalityTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 PageBuilderFullScreenLeftPanelHeightAndFunctionalityTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/ScheduleUpdatePageBuilderTests/PageBuilderScheduleUpdateIsVisibleInCMSBlockTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 PageBuilderStage from module(s): magento/module-page-builder
+	 NavigateToCreatedCMSBlockPageActionGroup from module(s): magento/module-cms
+	 AdminOpenPageBuilderFromContentPreviewOverlayActionGroup from module(s): magento/module-page-builder
+	 dragContentTypeToContainer from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/ScheduleUpdatePageBuilderTests/PageBuilderScheduleUpdateIsVisibleInCMSPageTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 PageBuilderStage from module(s): magento/module-page-builder
+	 TabOnStage from module(s): magento/module-page-builder
+	 PageBuilderTabName1Default from module(s): magento/module-page-builder
+	 AdminLoginActionGroup from module(s): magento/module-admin-analytics, magento/module-backend, magento/module-two-factor-auth
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 dragContentTypeToContainer from module(s): magento/module-page-builder
+	 AdminLogoutActionGroup from module(s): magento/module-backend
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/ScheduleUpdatePageBuilderTests/PageBuilderScheduleUpdateIsVisibleInCategoryTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 PageBuilderStage from module(s): magento/module-page-builder
+	 NavigateToCreatedCategoryActionGroup from module(s): magento/module-catalog
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 openPageBuilderForAttribute from module(s): magento/module-page-builder
+	 dragContentTypeToContainer from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/ScheduleUpdatePageBuilderTests/PageBuilderScheduleUpdateIsVisibleInProductsTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 PageBuilderStage from module(s): magento/module-page-builder
+	 NavigateToCreatedProductEditPageActionGroup from module(s): magento/module-catalog
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 dragContentTypeToContainer from module(s): magento/module-page-builder
+	 openPageBuilderForAttribute from module(s): magento/module-page-builder
+	 NavigateToAndResetProductGridToDefaultViewActionGroup from module(s): magento/module-catalog
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/ScheduleUpdatePageBuilderTests/PageBuilderScheduleUpdateVerifyCanAddChildContentTypesFromOnHoverOptionMenusTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 createAndSaveScheduleUpdateOneDayInFuture from module(s): magento/module-staging
+	 openEditFormForStagingSlideOut from module(s): magento/module-staging
+	 openPreviewForScheduledUpdateFromSlideOut from module(s): magento/module-staging
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 PageBuilderCatalogProductVerifyCanAddChildContentTypesFromOnHoverOptionMenusTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/ScheduleUpdatePageBuilderTests/PageBuilderScheduleUpdateVerifyCanDeleteContentTypesFromOnClickOptionMenusTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 createAndSaveScheduleUpdateOneDayInFuture from module(s): magento/module-staging
+	 openEditFormForStagingSlideOut from module(s): magento/module-staging
+	 saveScheduleUpdate from module(s): magento/module-staging
+	 openPreviewForScheduledUpdateFromSlideOut from module(s): magento/module-staging
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 PageBuilderCatalogProductVerifyCanDeleteContentTypesFromOnClickOptionMenusTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/ScheduleUpdatePageBuilderTests/PageBuilderScheduleUpdateVerifyCanDeleteContentTypesFromOnHoverOptionMenusTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 createAndSaveScheduleUpdateOneDayInFuture from module(s): magento/module-staging
+	 openEditFormForStagingSlideOut from module(s): magento/module-staging
+	 saveScheduleUpdate from module(s): magento/module-staging
+	 openPreviewForScheduledUpdate from module(s): magento/module-staging
+	 PageBuilderCatalogProductVerifyCanDeleteContentTypesFromOnHoverOptionMenusTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/ScheduleUpdatePageBuilderTests/PageBuilderScheduleUpdateVerifyCanDuplicateContentTypesFromOnClickOptionMenusTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 createAndSaveScheduleUpdateOneDayInFuture from module(s): magento/module-staging
+	 openEditFormForStagingSlideOut from module(s): magento/module-staging
+	 openPreviewForScheduledUpdateFromSlideOut from module(s): magento/module-staging
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 PageBuilderCatalogProductVerifyCanDuplicateContentTypesFromOnClickOptionMenusTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/ScheduleUpdatePageBuilderTests/PageBuilderScheduleUpdateVerifyCanDuplicateContentTypesFromOnHoverOptionMenusTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 createAndSaveScheduleUpdateOneDayInFuture from module(s): magento/module-staging
+	 openEditFormForStagingSlideOut from module(s): magento/module-staging
+	 openPreviewForScheduledUpdateFromSlideOut from module(s): magento/module-staging
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 PageBuilderCatalogProductVerifyCanDuplicateContentTypesFromOnHoverOptionMenusTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/ScheduleUpdatePageBuilderTests/PageBuilderScheduleUpdateVerifyCanEditContentTypesFromOnClickOptionMenusTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 createAndSaveScheduleUpdateOneDayInFuture from module(s): magento/module-staging
+	 openEditFormForStagingSlideOut from module(s): magento/module-staging
+	 closeEditPanelSettings from module(s): magento/module-page-builder
+	 openPreviewForScheduledUpdateFromSlideOut from module(s): magento/module-staging
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 PageBuilderCatalogProductVerifyCanEditContentTypesFromOnClickOptionMenusTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/ScheduleUpdatePageBuilderTests/PageBuilderScheduleUpdateVerifyCanEditContentTypesFromOnHoverOptionMenusTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 createAndSaveScheduleUpdateOneDayInFuture from module(s): magento/module-staging
+	 openEditFormForStagingSlideOut from module(s): magento/module-staging
+	 closeEditPanelSettings from module(s): magento/module-page-builder
+	 openPreviewForScheduledUpdateFromSlideOut from module(s): magento/module-staging
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 PageBuilderCatalogProductVerifyCanEditContentTypesFromOnHoverOptionMenusTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/ScheduleUpdatePageBuilderTests/PageBuilderScheduleUpdateVerifyCanMoveButtonItemsTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 createAndSaveScheduleUpdateOneDayInFuture from module(s): magento/module-staging
+	 openEditFormForStagingSlideOut from module(s): magento/module-staging
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 openPreviewForScheduledUpdateFromSlideOut from module(s): magento/module-staging
+	 ButtonItemMoveButtonStackedAppearanceTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/ScheduleUpdatePageBuilderTests/PageBuilderScheduleUpdateVerifyCanMoveContentTypesFromOnHoverOptionMenusTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 expandPageBuilderPanelMenuSection from module(s): magento/module-page-builder
+	 createAndSaveScheduleUpdateOneDayInFuture from module(s): magento/module-staging
+	 openEditFormForStagingSlideOut from module(s): magento/module-staging
+	 openPreviewForScheduledUpdateFromSlideOut from module(s): magento/module-staging
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 PageBuilderCatalogProductVerifyCanMoveContentTypesFromOnHoverOptionMenusTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/ScheduleUpdatePageBuilderTests/PageBuilderScheduleUpdateVerifyCanMoveSlideItemsTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 SliderOnStage from module(s): magento/module-page-builder
+	 SlideOnBackend from module(s): magento/module-page-builder
+	 PageBuilderSlideItemSlideName_Slide3 from module(s): magento/module-page-builder
+	 PageBuilderSlideItemSlideName_Slide1 from module(s): magento/module-page-builder
+	 PageBuilderSlideItemContent_Slide1 from module(s): magento/module-page-builder
+	 SlideOnFrontend from module(s): magento/module-page-builder
+	 PageBuilderSlideItemContent_Slide3 from module(s): magento/module-page-builder
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 createAndSaveScheduleUpdateOneDayInFuture from module(s): magento/module-staging
+	 openEditFormForStagingSlideOut from module(s): magento/module-staging
+	 saveScheduleUpdate from module(s): magento/module-staging
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 openPreviewForScheduledUpdateFromSlideOut from module(s): magento/module-staging
+	 SlideItemMoveSlideItemsToRearrangeTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/ScheduleUpdatePageBuilderTests/PageBuilderScheduleUpdateVerifyCanMoveTabItemsTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 navigateToCMSPage from module(s): magento/module-page-builder
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 createAndSaveScheduleUpdateOneDayInFuture from module(s): magento/module-staging
+	 openEditFormForStagingSlideOut from module(s): magento/module-staging
+	 exitPageBuilderFullScreen from module(s): magento/module-page-builder
+	 openPreviewForScheduledUpdateFromSlideOut from module(s): magento/module-staging
+	 TabsRearrangeTabItemsTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/StagingDisablePageBuilderTests/AdminCheckCMSBlockStagedOnWidgetTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliCacheCleanActionGroup from module(s): magento/module-backend
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/StagingDisablePageBuilderTests/PageBuilderScheduleUpdateDisablePageBuilderContentPreviewInCatalogCategoryTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 ValidatePageBuilderPreviewActionGroup from module(s): magento/module-page-builder
+	 PageBuilderCategoryDisablePageBuilderContentPreviewTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/StagingDisablePageBuilderTests/PageBuilderScheduleUpdateDisablePageBuilderContentPreviewInCatalogProductTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 ValidatePageBuilderPreviewActionGroup from module(s): magento/module-page-builder
+	 PageBuilderProductDisablePageBuilderContentPreviewTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/StagingDisablePageBuilderTests/PageBuilderScheduleUpdateDisablePageBuilderInCMSBlockTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminCMSBlockStagingSlideOutSection from module(s): magento/module-staging
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 PageBuilderCmsBlockDisablePageBuilderTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/StagingDisablePageBuilderTests/PageBuilderScheduleUpdateDisablePageBuilderInCMSPageTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 AdminCMSPageStagingSlideOutSection from module(s): magento/module-staging
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 switchToPageBuilderStage from module(s): magento/module-page-builder
+	 PageBuilderCmsPageDisablePageBuilderTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/StagingDisablePageBuilderTests/PageBuilderScheduleUpdateDisablePageBuilderInCatalogCategoryTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 AdminCatalogCategoryStagingSlideOutSection from module(s): magento/module-staging
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 PageBuilderCatalogCategoryDisablePageBuilderTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/Test/StagingDisablePageBuilderTests/PageBuilderScheduleUpdateDisablePageBuilderInCatalogProductTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminStagingSlideOutSection from module(s): magento/module-staging
+	 AdminCatalogProductStagingSlideOutSection from module(s): magento/module-staging
+	 navigateToStagingSlideout from module(s): magento/module-staging
+	 ExpandAdminProductSectionActionGroup from module(s): magento/module-catalog
+	 PageBuilderProductDisablePageBuilderTest from module(s): magento/module-page-builder
+
+File "/var/www/html/app/code/Magento/StagingPageBuilder/Test/Mftf/ActionGroup/AdminStagingActionGroup.xml"
+contains entity references that violate dependency constraints:
+		
+	 PageBuilderStage from module(s): magento/module-page-builder
+	 RowOnStage from module(s): magento/module-page-builder
+	 OpenContentSectionOnStagingSlideOut from module(s): magento/module-staging

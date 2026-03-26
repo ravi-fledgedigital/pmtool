@@ -1,0 +1,9 @@
+
+/* ovewrite magento style */
+.amcustomtabs-add_attribute {
+    display: inline-block !important;
+}
+
+.admin__control-wysiwig .buttons-set button {
+    margin-bottom: 10px;
+}

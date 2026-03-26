@@ -1,0 +1,87 @@
+
+File "/var/www/html/app/code/Magento/CatalogStaging/Test/Mftf/Test/AdminCategoryScheduleDesignUpdateNotAvailableWithCatalogStagingModuleTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 ApplyUpdatedRuleStagingByCron from module(s): magento/module-catalog-rule-staging
+
+File "/var/www/html/app/code/Magento/CatalogStaging/Test/Mftf/Test/AdminCheckEditDataGiftOptionsForSimpleProductIfCreateNewUpdate.xml"
+contains entity references that violate dependency constraints:
+		
+	 AllowGiftMessageForProductToScheduleNewUpdateActionGroup from module(s): magento/module-gift-wrapping
+	 AllowGiftsWrappingForProductToScheduleNewUpdateActionGroup from module(s): magento/module-gift-wrapping
+	 AssertGiftMessageSettingsSavedForScheduledUpdateActionGroup from module(s): magento/module-gift-wrapping
+	 AssertGiftWrappingSettingsSavedForScheduledUpdateActionGroup from module(s): magento/module-gift-wrapping
+
+File "/var/www/html/app/code/Magento/CatalogStaging/Test/Mftf/Test/AdminCheckProductUseDefaultValueAfterUpdateTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 ApplyUpdatedRuleStagingByCron from module(s): magento/module-catalog-rule-staging
+
+File "/var/www/html/app/code/Magento/CatalogStaging/Test/Mftf/Test/AdminCheckThatProductIsAvailableOnPreviewTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminUpdateBlockSection from module(s): magento/module-cms-staging
+
+File "/var/www/html/app/code/Magento/CatalogStaging/Test/Mftf/Test/AdminCreateNewAndEditCategoryUpdateTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 ApplyUpdatedRuleStagingByCron from module(s): magento/module-catalog-rule-staging
+
+File "/var/www/html/app/code/Magento/CatalogStaging/Test/Mftf/Test/AdminCreateNewCategoryUpdateTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 ApplyUpdatedRuleStagingByCron from module(s): magento/module-catalog-rule-staging
+
+File "/var/www/html/app/code/Magento/CatalogStaging/Test/Mftf/Test/AdminDeleteUsedCategoryUpdateTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 SimpleReminderAbandonedCart from module(s): magento/module-reminder
+	 AdminEmailReminderRuleFormNavigationSection from module(s): magento/module-reminder
+	 AdminEmailReminderRuleFormMatchedCustomersSection from module(s): magento/module-reminder
+	 AdminAddEmailReminderWithShoppingCartConditionActionGroup from module(s): magento/module-reminder
+	 AdminDeleteEmailReminderActionGroup from module(s): magento/module-reminder
+	 AdminRunEmailReminderActionGroup from module(s): magento/module-reminder
+
+File "/var/www/html/app/code/Magento/CatalogStaging/Test/Mftf/Test/AdminDisplaySpecialCharsInProductNameTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminReturnInformationSection from module(s): magento/module-rma
+	 AdminReturnItemsTabSection from module(s): magento/module-rma
+	 createReturns from module(s): magento/module-rma
+	 goToReturnItemsTab from module(s): magento/module-rma
+	 addReturnItem from module(s): magento/module-rma
+	 submitReturnItem from module(s): magento/module-rma
+	 AdminGoToReturnPage from module(s): magento/module-rma
+	 filterReturnsByOrder from module(s): magento/module-rma
+
+File "/var/www/html/app/code/Magento/CatalogStaging/Test/Mftf/Test/AdminMassUpdateSetProductAsNewTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminProductAttributeUpdateMessageConsumerData from module(s): magento/module-message-queue
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CatalogStaging/Test/Mftf/Test/AdminProductChangeImagesBeforeScheduledUpdateTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 ApplyUpdatedRuleStagingByCron from module(s): magento/module-catalog-rule-staging
+
+File "/var/www/html/app/code/Magento/CatalogStaging/Test/Mftf/Test/CreateProductUpdateAndValidateUpdateInCustomWebsiteTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 ApplyUpdatedRuleStagingByCron from module(s): magento/module-catalog-rule-staging
+
+File "/var/www/html/app/code/Magento/CatalogStaging/Test/Mftf/Test/CreateProductUpdateAndValidateUpdateInDefaultWebsiteTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 ApplyUpdatedRuleStagingByCron from module(s): magento/module-catalog-rule-staging
+
+File "/var/www/html/app/code/Magento/CatalogStaging/Test/Mftf/Test/ScheduleUpdateForCategoryDesignAttributeTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 SaveRuleStagingActionGroup from module(s): magento/module-catalog-rule-staging
+	 ApplyUpdatedRuleStagingByCron from module(s): magento/module-catalog-rule-staging
+
+File "/var/www/html/app/code/Magento/CatalogStaging/Test/Mftf/Test/StoreFrontProductSpecialPriceSetByScheduledUpdateTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 ApplyUpdatedRuleStagingByCron from module(s): magento/module-catalog-rule-staging

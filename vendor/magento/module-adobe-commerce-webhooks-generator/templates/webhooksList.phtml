@@ -1,0 +1,96 @@
+<?php
+/************************************************************************
+ *
+ * ADOBE CONFIDENTIAL
+ * ___________________
+ *
+ * Copyright 2023 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ * ************************************************************************
+ */
+
+/** @var \Magento\AdobeCommerceOutOfProcessExtensibility\Model\Generator\ModuleBlock $block */
+/** @var Magento\Framework\Escaper $escaper */
+/** @var string $name */
+/** @var array $plugins */
+/** @var array $observers */
+?>
+<?='<?php';?>
+
+# Generated code. DO NOT EDIT!
+
+/************************************************************************
+ *
+ * ADOBE CONFIDENTIAL
+ * ___________________
+ *
+ * Copyright 2024 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ * ************************************************************************
+ */
+declare(strict_types=1);
+
+namespace <?= $block->getNamespace(); ?>\WebhooksList;
+
+/**
+ * Auto generated class with list of registered webhook names and types for <?= strtolower($name) ?>
+
+ */
+class <?= $name; ?>
+
+{
+    private array $webhooks = [
+<?php
+    if (isset($plugins)) {
+        foreach ($plugins as $plugin) {
+            echo sprintf(
+                    "        '%s %s' => '%s %s',\n",
+                    $escaper->escapeHtml($plugin['webhookName']),
+                    $escaper->escapeHtml($plugin['webhookType']),
+                    $escaper->escapeHtml($plugin['interfaceShort']),
+                    $escaper->escapeHtml($plugin['method']['methodName'])
+            );
+        }
+    }
+    if (isset($observers)) {
+        foreach ($observers as $observer) {
+            echo sprintf(
+                "        '%s %s' => '%s %s',\n",
+                $escaper->escapeHtml($observer['webhookName']),
+                $escaper->escapeHtml($observer['webhookType']),
+                $escaper->escapeHtml($observer['webhookName']),
+                $escaper->escapeHtml($observer['webhookType'])
+            );
+        }
+    }
+?>
+    ];
+
+    /**
+     * Returns list of available webhooks
+     *
+     * @return array
+     */
+    public function getWebhooks(): array
+    {
+        return $this->webhooks;
+    }
+}

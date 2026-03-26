@@ -1,0 +1,84 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+declare(strict_types=1);
+
+namespace Magento\MagentoCloud\Command\Wizard;
+
+use Magento\MagentoCloud\Cli;
+use Magento\MagentoCloud\Command\Wizard\Util\OutputFormatter;
+use Magento\MagentoCloud\Config\Stage\DeployInterface;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
+/**
+ * Verifies master-slave configuration
+ *
+ */
+class MasterSlave extends Command
+{
+    public const NAME = 'wizard:master-slave';
+
+    /**
+     * @var OutputFormatter
+     */
+    private $outputFormatter;
+
+    /**
+     * @var DeployInterface
+     */
+    private $deployConfig;
+
+    /**
+     * @param OutputFormatter $outputFormatter
+     * @param DeployInterface $deployConfig
+     */
+    public function __construct(OutputFormatter $outputFormatter, DeployInterface $deployConfig)
+    {
+        $this->outputFormatter = $outputFormatter;
+        $this->deployConfig = $deployConfig;
+
+        parent::__construct();
+    }
+
+    /**
+     */
+    protected function configure(): void
+    {
+        $this->setName(self::NAME)
+            ->setDescription('Verifies master-slave configuration.');
+    }
+
+    /**
+     */
+    public function execute(InputInterface $input, OutputInterface $output): int
+    {
+        $errors = [];
+
+        if (!$this->deployConfig->get(DeployInterface::VAR_MYSQL_USE_SLAVE_CONNECTION)) {
+            $errors[] = 'MySQL slave connection is not configured';
+        }
+
+        if (!$this->deployConfig->get(DeployInterface::VAR_REDIS_USE_SLAVE_CONNECTION)) {
+            $errors[] = 'Redis slave connection is not configured';
+        }
+
+        if (!$this->deployConfig->get(DeployInterface::VAR_VALKEY_USE_SLAVE_CONNECTION)) {
+            $errors[] = 'Valkey slave connection is not configured';
+        }
+        foreach ($errors as $error) {
+            $this->outputFormatter->writeItem($output, $error);
+        }
+
+        $message = $errors
+            ? 'Slave connections are not configured'
+            : 'Slave connections are configured';
+
+        $this->outputFormatter->writeResult($output, !$errors, $message);
+
+        return Cli::SUCCESS;
+    }
+}

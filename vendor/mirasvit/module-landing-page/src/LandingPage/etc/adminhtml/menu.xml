@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Mirasvit_LandingPage::landing" title="Landing Pages" module="Mirasvit_LandingPage"
+             resource="Mirasvit_LandingPage::landing" sortOrder="100" parent="Magento_Backend::content"/>
+        <add id="Mirasvit_LandingPage::landing_pages" title="Landing Pages" module="Mirasvit_LandingPage"
+             resource="Mirasvit_LandingPage::landing_pages" sortOrder="50" parent="Mirasvit_LandingPage::landing"
+             action="mst_landing/page"/>
+    </menu>
+</config>

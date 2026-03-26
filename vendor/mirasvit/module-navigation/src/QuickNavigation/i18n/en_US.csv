@@ -1,0 +1,15 @@
+"%1 & Up","%1 & Up"
+Previous,Previous
+Next,Next
+"Quick Navigation Bar","Quick Navigation Bar"
+"General Settings","General Settings"
+"Enable Quick Navigation Bar","Enable Quick Navigation Bar"
+"Activates the Quick Navigation Bar, allowing users faster access to frequently used filters.","Activates the Quick Navigation Bar, allowing users faster access to frequently used filters."
+"Total Filter Count Threshold","Total Filter Count Threshold"
+"Total Threshold","Total Threshold"
+"Set the maximum number of filter options to display in the Quick Navigation Bar.","Set the maximum number of filter options to display in the Quick Navigation Bar."
+"Threshold Per Attribute","Threshold Per Attribute"
+"Define the maximum number of options displayed per attribute in the Quick Navigation Bar.","Define the maximum number of options displayed per attribute in the Quick Navigation Bar."
+"Filter History Cleanup","Filter History Cleanup"
+"Enable Cleanup for Filter History","Enable Cleanup for Filter History"
+"Automatically deletes rarely used filter combinations on a scheduled basis to optimize performance.","Automatically deletes rarely used filter combinations on a scheduled basis to optimize performance."

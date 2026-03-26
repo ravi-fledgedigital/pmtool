@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Product Tabs for Magento 2
+ */-->
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">amcustomtabs_tabs_form.amcustomtabs_tabs_form_data_source</item>
+            <item name="deps" xsi:type="string">amcustomtabs_tabs_form.amcustomtabs_tabs_form_data_source</item>
+        </item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">amcustomtabs_tabs_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Edit Tab</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="array">
+                <item name="name" xsi:type="string">back</item>
+                <item name="label" xsi:type="string" translate="true">Back</item>
+                <item name="class" xsi:type="string">back</item>
+                <item name="url" xsi:type="string">*/*/</item>
+            </item>
+            <item name="delete" xsi:type="string">Amasty\CustomTabs\Block\Adminhtml\Buttons\Tabs\DeleteButton</item>
+            <item name="duplicate" xsi:type="string">Amasty\CustomTabs\Block\Adminhtml\Buttons\Tabs\DuplicateButton</item>
+            <item name="save" xsi:type="array">
+                <item name="name" xsi:type="string">save</item>
+                <item name="label" xsi:type="string" translate="true">Save Tab</item>
+                <item name="class" xsi:type="string">save primary</item>
+            </item>
+            <item name="save_and_continue" xsi:type="array">
+                <item name="name" xsi:type="string">save_and_continue</item>
+                <item name="label" xsi:type="string" translate="true">Save and Continue Edit</item>
+                <item name="class" xsi:type="string">save_and_continue</item>
+                <item name="sort_order" xsi:type="number">20</item>
+            </item>
+        </item>
+    </argument>
+    <dataSource name="amcustomtabs_tabs_form.amcustomtabs_tabs_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Amasty\CustomTabs\Model\Tabs\DataProvider\Form</argument>
+            <argument name="name" xsi:type="string">amcustomtabs_tabs_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">tab_id</argument>
+            <argument name="requestFieldName" xsi:type="string">tab_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="*/*/save"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <fieldset name="general">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Tabs Details</item>
+                <item name="sortOrder" xsi:type="string">10</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="opened" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+        <field name="id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">amcustomtabs_tab</item>
+                    <item name="dataScope" xsi:type="string">tab_id</item>
+                </item>
+            </argument>
+        </field>
+        <field name="type">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Type</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="component" xsi:type="string">Amasty_CustomTabs/js/form/element/type</item>
+                    <item name="elementTmpl" xsi:type="string">Amasty_CustomTabs/form/type</item>
+                    <item name="tooltipTpl" xsi:type="string">Amasty_CustomTabs/form/element/helper/tooltip</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="tooltip" xsi:type="array">
+                        <item name="description" xsi:type="string" translate="true"><![CDATA[
+                            <ul>
+                            <li>‘Default’ - default Magento tabs</li>
+                            <li>‘Custom’ - the tabs created via the extension</li>
+                            <li>‘3rd-party’ - the tabs generated by any other third-party extensions</li>
+                            </ul>
+                        ]]></item>
+                    </item>
+                    <item name="value" xsi:type="string">0</item>
+                    <item name="sortOrder" xsi:type="number">1</item>
+                </item>
+                <item name="options" xsi:type="object">Amasty\CustomTabs\Model\Source\Type</item>
+            </argument>
+        </field>
+        <field name="status">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Status</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="source" xsi:type="string">amcustomtabs_tab</item>
+                    <item name="sortOrder" xsi:type="number">5</item>
+                    <item name="dataScope" xsi:type="string">status</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="toggleLabels" xsi:type="array">
+                        <item name="on" xsi:type="string" translate="true">Enabled</item>
+                        <item name="off" xsi:type="string" translate="true">Disabled</item>
+                    </item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="scopeLabel" xsi:type="string">[STORE VIEW]</item>
+                </item>
+            </argument>
+        </field>
+        <field name="tab_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Tab Name</item>
+                    <item name="notice" xsi:type="string" translate="true">Set tab name describing its content/conditions to display</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">amcustomtabs_tab</item>
+                    <item name="dataScope" xsi:type="string">tab_name</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="tab_title">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Tab Title</item>
+                    <item name="notice" xsi:type="string" translate="true">Tab name to be displayed on product pages</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">amcustomtabs_tab</item>
+                    <item name="dataScope" xsi:type="string">tab_title</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="scopeLabel" xsi:type="string">[STORE VIEW]</item>
+                </item>
+            </argument>
+        </field>
+        <field name="sort_order">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Tab Order</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">amcustomtabs_tab</item>
+                    <item name="dataScope" xsi:type="string">sort_order</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="validate-number" xsi:type="boolean">true</item>
+                        <item name="greater-than-equals-to" xsi:type="number">1</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="anchor">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Tab Anchor</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">amcustomtabs_tab</item>
+                    <item name="dataScope" xsi:type="string">anchor</item>
+                    <item name="notice" xsi:type="string" translate="true"><![CDATA[Adjust the anchor to set up custom url for the tab. Leave blank to use the value from the configuration.]]></item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="customer_groups">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Customer Groups</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="value" xsi:type="string">0,1,2,3</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+                <item name="options" xsi:type="object">Magento\Customer\Ui\Component\Listing\Column\Group\Options</item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="content">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Tab Content</item>
+                <item name="sortOrder" xsi:type="string">20</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+
+        <fieldset name="edit_tab_content">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Edit Tab Content</item>
+                    <item name="sortOrder" xsi:type="string">10</item>
+                    <item name="collapsible" xsi:type="boolean">true</item>
+                    <item name="opened" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+            <field name="content">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">wysiwyg</item>
+                        <item name="source" xsi:type="string">amcustomtabs_tab</item>
+                        <item name="label" xsi:type="string">Content</item>
+                        <item name="notice" xsi:type="string"><![CDATA[If you want to reset the content of the tabs with type 'Default' of '3rd-party' to its default values copy the variable {{default_tab_content}} and paste it in the WYSIWYG editor]]></item>
+                        <item name="template" xsi:type="string">ui/form/field</item>
+                        <item name="wysiwyg" xsi:type="boolean">true</item>
+                        <item name="dataScope" xsi:type="string">content</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="wysiwygConfigData" xsi:type="array">
+                            <item name="is_amasty_tab" xsi:type="boolean">true</item>
+                            <item name="is_pagebuilder_enabled" xsi:type="boolean">false</item>
+                        </item>
+                        <item name="scopeLabel" xsi:type="string">[STORE VIEW]</item>
+                    </item>
+                </argument>
+            </field>
+        </fieldset>
+
+        <fieldset name="product_blocks">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Related, Up-Sell, Cross-Sell Products</item>
+                    <item name="sortOrder" xsi:type="string">20</item>
+                    <item name="collapsible" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+
+            <field name="related_enabled">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataType" xsi:type="string">boolean</item>
+                        <item name="label" xsi:type="string" translate="true">Show Related Products</item>
+                        <item name="formElement" xsi:type="string">checkbox</item>
+                        <item name="prefer" xsi:type="string">toggle</item>
+                        <item name="source" xsi:type="string">amcustomtabs_tab</item>
+                        <item name="sortOrder" xsi:type="number">10</item>
+                        <item name="dataScope" xsi:type="string">related_enabled</item>
+                        <item name="valueMap" xsi:type="array">
+                            <item name="true" xsi:type="number">1</item>
+                            <item name="false" xsi:type="number">0</item>
+                        </item>
+                        <item name="default" xsi:type="number">0</item>
+                    </item>
+                </argument>
+            </field>
+            <field name="upsell_enabled">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataType" xsi:type="string">boolean</item>
+                        <item name="label" xsi:type="string" translate="true">Show Up-Sell Products</item>
+                        <item name="formElement" xsi:type="string">checkbox</item>
+                        <item name="prefer" xsi:type="string">toggle</item>
+                        <item name="source" xsi:type="string">amcustomtabs_tab</item>
+                        <item name="sortOrder" xsi:type="number">20</item>
+                        <item name="dataScope" xsi:type="string">upsell_enabled</item>
+                        <item name="valueMap" xsi:type="array">
+                            <item name="true" xsi:type="number">1</item>
+                            <item name="false" xsi:type="number">0</item>
+                        </item>
+                        <item name="default" xsi:type="number">0</item>
+                    </item>
+                </argument>
+            </field>
+            <field name="crosssell_enabled">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataType" xsi:type="string">boolean</item>
+                        <item name="label" xsi:type="string" translate="true">Show Cross-Sell Products</item>
+                        <item name="formElement" xsi:type="string">checkbox</item>
+                        <item name="prefer" xsi:type="string">toggle</item>
+                        <item name="source" xsi:type="string">amcustomtabs_tab</item>
+                        <item name="sortOrder" xsi:type="number">30</item>
+                        <item name="dataScope" xsi:type="string">crosssell_enabled</item>
+                        <item name="valueMap" xsi:type="array">
+                            <item name="true" xsi:type="number">1</item>
+                            <item name="false" xsi:type="number">0</item>
+                        </item>
+                        <item name="default" xsi:type="number">0</item>
+                    </item>
+                </argument>
+            </field>
+        </fieldset>
+    </fieldset>
+    <fieldset name="products">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Assign to Products</item>
+                <item name="sortOrder" xsi:type="string">30</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+
+        <container name="conditions" >
+            <htmlContent name="html_content">
+                <argument name="block" xsi:type="object">Amasty\CustomTabs\Block\Adminhtml\Tabs\Conditions</argument>
+            </htmlContent>
+        </container>
+    </fieldset>
+</form>

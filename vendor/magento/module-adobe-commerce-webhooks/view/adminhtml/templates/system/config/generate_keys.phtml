@@ -1,0 +1,84 @@
+<?php
+/************************************************************************
+ *
+ * ADOBE CONFIDENTIAL
+ * ___________________
+ *
+ * Copyright 2024 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ * ************************************************************************
+ */
+use Magento\Framework\Escaper;
+use Magento\AdobeCommerceWebhooks\Block\Adminhtml\System\Config\GenerateKeysButton;
+
+/** @var Escaper $escaper */
+/** @var GenerateKeysButton $block */
+?>
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/confirm'
+    ], function ($, confirm) {
+        function showErrorMessage(message) {
+            $('#generate_keys_message .message-text').text(message);
+            $('#generate_keys_message').addClass('message message-error error').show();
+            $('#generate_keys').prop('disabled', false);
+        }
+
+        function hideErrorMessage() {
+            $('#generate_keys_message').removeClass('message message-error error').hide();
+        }
+
+        function generateKeys() {
+            new Ajax.Request('<?= $escaper->escapeUrl($block->getGenerateKeysUrl()) ?>', {
+                method: 'GET',
+                loaderArea: true,
+                onSuccess: function() {
+                    location.reload();
+                },
+                onFailure: function() {
+                    showErrorMessage('Failed to generate keys. See logs for details.');
+                }
+            });
+        }
+
+        $('#generate_keys').click(function() {
+            hideErrorMessage();
+            $(this).prop('disabled', true);
+            <?php if ($block->isKeyPairGenerated()): ?>
+            confirm({
+                'content': 'Are you sure you want to generate a new pair of keys? The old keys will be invalidated.',
+                'actions': {
+                    confirm: function () {
+                        generateKeys();
+                    },
+
+                    cancel: function () {
+                        $('#generate_keys').prop('disabled', false);
+                    }
+                }
+            });
+            <?php else: ?>
+            generateKeys();
+            <?php endif; ?>
+        });
+    });
+</script>
+
+<?= $block->getButtonHtml() ?>
+
+<div id="button-info">
+    <p class="note"><span>The configuration cache will be refreshed after the new keys have been generated.</span></p>
+    <div id="generate_keys_message" style="display: none;">
+        <div class="message-text"></div>
+    </div>
+</div>

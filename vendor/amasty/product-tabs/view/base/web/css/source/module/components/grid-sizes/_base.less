@@ -1,0 +1,236 @@
+//
+//  Base Wrapper Grid Styles
+//  _________________________
+
+//
+//  Variables
+//  --------------------------
+
+@amtab-select__active__color: @amtab-grid__active__color;
+@amtab-select__focus__color: #3b68bb;
+@amtab-select__color: @amtab-font__color;
+
+//
+//  Common
+//  --------------------------
+
+& when (@media-common = true) {
+	.amtab-grid-wrapper {
+		.am-flex(none, stretch, wrap);
+	}
+
+	.amtab-cell-select {
+		& {
+			position: relative;
+			margin: 0 0 0 -@amtab__indent;
+			cursor: pointer;
+		}
+
+		&:focus,
+		&:active {
+			&:after {
+				border-color: @amtab-select__focus__color transparent transparent transparent;
+				transform: rotate(180deg);
+			}
+
+			.amtab-select {
+				color: @amtab-select__focus__color;
+			}
+		}
+
+		&:after {
+			.am-transition(.1);
+
+			display: none;
+			position: absolute;
+			top: 45%;
+			right: 0;
+			border-width: 4px 3px 0 3px;
+			border-style: solid;
+			border-color: @amtab-select__active__color transparent transparent transparent;
+			pointer-events: none;
+			content: '';
+		}
+
+		.amtab-select {
+			& {
+				.am-transition(.1);
+
+				pointer-events: none;
+				padding: 0 @amtab__indent;
+				outline: none;
+				border: none;
+				background: none;
+				box-shadow: none;
+				color: @amtab-select__active__color;
+				font-weight: 600;
+				cursor: pointer;
+			}
+
+			&:focus,
+			&:hover {
+				outline: none;
+				border: none;
+				box-shadow: none;
+			}
+
+			::-ms-expand {
+				display: none;
+			}
+
+			.amtab-option {
+				color: @amtab-select__color;
+			}
+		}
+	}
+
+	.amtab-grid-container {
+		> .amtab-title {
+			width: 100%;
+			margin: 0 0 25px;
+			font-weight: 600;
+			font-size: 16px;
+		}
+
+		> .amtab-note {
+			margin: @amtab__indent 0 0 0;
+			color: #6f716e;
+			font-size: 12px;
+		}
+
+		> .amtab-desc {
+			margin: 0 0 @amtab__indent 0;
+			color: @amtab-font__color;
+			font-size: 14px;
+		}
+	}
+
+	.amtab-table-container {
+		& {
+			flex-basis: 100%;
+			border: 1px solid @amtab-grid__border__color;
+			color: @amtab-font__color;
+		}
+
+		.amtab-cell {
+			& {
+				.am-flex(none, center, wrap);
+
+				cursor: pointer;
+			}
+
+			&:not(:last-child) {
+				border-right: 1px solid @amtab-grid__border__color;
+			}
+
+			.amtab-desc {
+				.am-transition(.1);
+
+				flex-basis: 100%;
+				color: @amtab-grid__active__color;
+				font-weight: bold;
+				font-style: normal;
+			}
+		}
+
+		.amtab-title {
+			& {
+				.am-flex(none, center);
+
+				border-right: 1px solid @amtab-grid__border__color;
+				border-bottom: 1px solid @amtab-grid__border__color;
+			}
+
+			&.-amtab-hoverline {
+				background: @amtab-grid__active__color;
+				color: #fff;
+			}
+		}
+
+		.amtab-title,
+		.amtab-cell {
+			.am-noselect();
+			.am-transition(.1);
+
+			align-content: center;
+			flex-wrap: wrap;
+			box-sizing: border-box;
+			padding: 0 0 0 14px;
+			width: 100%;
+			font-size: 14px;
+		}
+
+		.amtab-table-line .amtab-cell:hover,
+		.amtab-table-line .amtab-cell.-active {
+			background: @amtab-grid__active__color;
+			color: #fff;
+			font-weight: bold;
+		}
+
+		.-amtab-hoverline {
+			background: fade(@amtab-grid__active__color, 20%);
+		}
+
+		.amtab-table-line,
+		.amtab-head-line {
+			.am-flex();
+
+			margin: 0;
+		}
+
+		.amtab-table-line:not(:last-child) .amtab-cell,
+		.amtab-head-line .amtab-cell {
+			border-bottom: 1px solid @amtab-grid__border__color;
+		}
+
+		.amtab-head-line .-amtab-hoverline {
+			& {
+				background: @amtab-grid__active__color;
+				color: #fff;
+				font-weight: bold;
+			}
+
+			.amtab-select {
+				& {
+					color: #fff;
+				}
+
+				&:after {
+					border-color: #fff transparent transparent transparent;
+				}
+			}
+
+			.amtab-desc {
+				color: #fff;
+			}
+		}
+	}
+
+	.amtab-steps-container {
+		& {
+			position: relative;
+			margin: 0;
+			padding-left: 0;
+			list-style: none;
+		}
+
+		.amtab-steps {
+			margin: 0;
+			padding-left: 0;
+			list-style: none;
+		}
+	}
+}
+
+//
+//  Tablet
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+	.amtab-grid-wrapper .amtab-table-container {
+		.amtab-title,
+		.amtab-cell {
+			padding: 0 0 0 @amtab__indent__xl;
+		}
+	}
+}

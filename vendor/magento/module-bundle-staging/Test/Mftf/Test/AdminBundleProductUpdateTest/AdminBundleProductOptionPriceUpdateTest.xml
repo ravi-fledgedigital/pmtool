@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminBundleProductOptionPriceUpdateTest">
+        <annotations>
+            <features value="BundleStaging"/>
+            <stories value="Admin manages staging update"/>
+            <title value="Bundle product option price is updated correctly per scope after Staging Update"/>
+            <description value="Verify that Admin can Proceed To Checkout from Cart page during Staging Review"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="AC-9814"/>
+            <useCaseId value="ACP2E-2252"/>
+            <group value="bundleStaging"/>
+            <group value="staging"/>
+        </annotations>
+        <before>
+            <!-- Set in Stores > Configuration > Catalog > Catalog > Price - Catalog Price Scope = "Website" -->
+            <magentoCLI command="config:set {{WebsiteCatalogPriceScopeConfigData.path}} {{WebsiteCatalogPriceScopeConfigData.value}}" stepKey="setPriceScopeWebsite"/>
+
+            <!-- Create Bundle Product with Drop-down Option and two Simple Products -->
+            <createData entity="SimpleProduct2" stepKey="createSimpleProduct">
+                <field key="price">100.00</field>
+            </createData>
+            <createData entity="ApiFixedBundleProduct" stepKey="createBundleProduct"/>
+            <createData entity="DropDownBundleOption" stepKey="createBundleOption">
+                <requiredEntity createDataKey="createBundleProduct"/>
+            </createData>
+            <createData entity="ApiBundleLink" stepKey="LinkOptionToFirstProduct">
+                <requiredEntity createDataKey="createBundleProduct"/>
+                <requiredEntity createDataKey="createBundleOption"/>
+                <requiredEntity createDataKey="createSimpleProduct"/>
+                <field key="price_type">0</field>
+                <field key="price">5.00</field>
+            </createData>
+
+            <!-- Login as Admin -->
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+
+            <!-- Create website, Store and Store View -->
+            <actionGroup ref="AdminCreateWebsiteActionGroup" stepKey="createWebsite">
+                <argument name="newWebsiteName" value="{{NewWebSiteData.name}}"/>
+                <argument name="websiteCode" value="{{NewWebSiteData.code}}"/>
+            </actionGroup>
+            <actionGroup ref="AdminCreateNewStoreGroupActionGroup" stepKey="createNewStore">
+                <argument name="website" value="{{NewWebSiteData.name}}"/>
+                <argument name="storeGroupName" value="{{NewStoreData.name}}"/>
+                <argument name="storeGroupCode" value="{{NewStoreData.code}}"/>
+            </actionGroup>
+            <actionGroup ref="AdminCreateStoreViewActionGroup" stepKey="createCustomStoreView">
+                <argument name="StoreGroup" value="NewStoreData"/>
+                <argument name="customStore" value="NewStoreViewData"/>
+            </actionGroup>
+
+            <!-- Go to Catalog -> Products  -->
+            <actionGroup ref="AdminOpenProductIndexPageActionGroup" stepKey="goToProductPage"/>
+
+            <!-- Add Simple Product to the New Website -->
+            <actionGroup ref="FilterProductGridBySkuActionGroup" stepKey="filterSimpleProduct">
+                <argument name="product" value="$$createSimpleProduct$$"/>
+            </actionGroup>
+            <click selector="{{AdminDataGridTableSection.rowViewAction('1')}}" stepKey="clickSimpleProduct"/>
+            <waitForPageLoad stepKey="waitForEditProductPage"/>
+            <actionGroup ref="SelectProductInWebsitesActionGroup" stepKey="selectWebsiteForProduct2">
+                <argument name="website" value="{{NewWebSiteData.name}}"/>
+            </actionGroup>
+            <actionGroup ref="SaveProductFormActionGroup" stepKey="saveSimpleProduct"/>
+
+            <magentoCron groups="index" stepKey="reindex"/>
+        </before>
+        <after>
+            <magentoCLI command="config:set {{GlobalCatalogPriceScopeConfigData.path}} {{GlobalCatalogPriceScopeConfigData.value}}" stepKey="setPriceScopeGlobal"/>
+            <deleteData createDataKey="createSimpleProduct" stepKey="deleteSimpleProduct"/>
+            <deleteData createDataKey="createBundleProduct" stepKey="deleteBundleProduct"/>
+            <actionGroup ref="AdminDeleteWebsiteActionGroup" stepKey="deleteWebsite">
+                <argument name="websiteName" value="{{NewWebSiteData.name}}"/>
+            </actionGroup>
+            <magentoCron groups="index" stepKey="reindex"/>
+            <!-- Logout from Admin -->
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logoutFromAdmin"/>
+        </after>
+
+        <!-- Open Product edit page -->
+        <actionGroup ref="AdminProductPageOpenByIdActionGroup" stepKey="goToProductEditPage">
+            <argument name="productId" value="$createBundleProduct.id$"/>
+        </actionGroup>
+
+        <!-- Add Bundle Product to the New Website -->
+        <actionGroup ref="SelectProductInWebsitesActionGroup" stepKey="selectWebsiteForProduct3">
+            <argument name="website" value="{{NewWebSiteData.name}}"/>
+        </actionGroup>
+
+        <!-- Change price of the first option -->
+        <fillField selector="{{AdminProductFormBundleSection.bundleOptionXProductYPrice('0', '0')}}" userInput="10" stepKey="fillBundleOption1Price"/>
+
+        <!-- Save bundle product -->
+        <actionGroup ref="SaveProductFormActionGroup" stepKey="saveBundleProduct"/>
+        <waitForPageLoad stepKey="waitForEditProductPage2"/>
+
+        <!-- Switch to the New Website Storeview -->
+        <actionGroup ref="AdminSwitchStoreViewActionGroup" stepKey="switchToNewStoreView">
+            <argument name="storeView" value="NewStoreViewData.name"/>
+        </actionGroup>
+        <waitForPageLoad stepKey="waitForEditProductPage3"/>
+
+        <!-- Create Schedule Update -->
+        <generateDate stepKey="generateEndDate" date="+1 week" format="m/d/Y g:i A"/>
+        <actionGroup stepKey="fillOutNewStaging" ref="createEntityNameUseDefaultStagingUpdate">
+            <argument name="staging" value="_defaultStaging"/>
+            <argument name="endDate" value="{$generateEndDate}"/>
+        </actionGroup>
+        <waitForPageLoad stepKey="waitForEditProductPage4"/>
+
+        <!-- Switch to the default storeview -->
+        <actionGroup ref="AdminSwitchStoreViewActionGroup" stepKey="switchToDefaultStoreView">
+            <argument name="storeView" value="_defaultStore.name"/>
+        </actionGroup>
+        <waitForPageLoad stepKey="waitForEditProductPage5"/>
+
+        <!-- Assert bundle product option price remains correct after staging update -->
+        <grabValueFrom selector="{{AdminProductFormBundleSection.bundleOptionXProductYPrice('0', '0')}}" stepKey="grabbedFirstBundleOptionPrice"/>
+        <assertEquals stepKey="assertFirstBundleOptionPrice">
+            <expectedResult type="string">5.000000</expectedResult>
+            <actualResult type="string">$grabbedFirstBundleOptionPrice</actualResult>
+        </assertEquals>
+    </test>
+</tests>

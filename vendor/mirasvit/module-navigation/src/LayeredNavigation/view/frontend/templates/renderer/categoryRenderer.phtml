@@ -1,0 +1,117 @@
+<?php
+/**
+ * @var $block \Mirasvit\LayeredNavigation\Block\Renderer\CategoryRenderer
+ * @var $escaper \Magento\Framework\Escaper
+ */
+$attributeCode = $block->getAttributeCode();
+$lastLevel     = 0;
+$filterItems   = $block->getFilterItems();
+$filter        = $block->getFilter();
+
+$useAlphabeticalIndex = !$filter->isShowNestedCategories() && $filter->isUseAlphabeticalIndex();
+
+$checkedItemsCount = 0;
+
+$letter  = '';
+?>
+<div data-mst-nav-filter="<?= $block->escapeHtmlAttr($attributeCode) ?>" class="mst-nav__label mst-nav__category">
+    <?= /* @noEscape */ $block->getSearchBoxElement($attributeCode) ?>
+    <div data-holder="alphabetical"></div>
+
+    <ol class="items <?= $block->isCategoriesCollapsible() ? 'collapsible' : '' ?>">
+        <?php foreach ($filterItems as $key => $filterItem):
+            $label = $filterItem->getData('label');
+            $numberOfResults = $filterItem->getData('count');
+            $level = $filterItem->getData('level');
+            $isParent = $filterItem->getData('is_parent');
+
+            $isItemChecked = $block->isFilterItemChecked($filterItem, true);
+
+            if ($isItemChecked) {
+                $checkedItemsCount++;
+            }
+
+            $cssClass = [
+                'item',
+                'mst-nav__label-item',
+                '_mode-' . $block->getFilterItemDisplayMode('category_ids'),
+                $isItemChecked ? '_checked' : '',
+                $isItemChecked && $block->isHighlightEnabled() ? '_highlight' : '',
+                $isParent ? '_parent' : '',
+                !$numberOfResults ? '_disabled' : ''
+            ];
+            ?>
+
+            <?= /* @noEscape */ $level > $lastLevel
+            ? str_repeat('<ol class="items">', $level - $lastLevel)
+            : str_repeat('</ol>', $lastLevel - $level)
+            ?>
+
+            <?php if(
+                $useAlphabeticalIndex
+                && $filter->isSortByLabel()
+                && $letter !== $block->getFirstLetter($label)
+            ):
+                $letter = $block->getFirstLetter($label);
+            ?>
+            <li class="mst-nav__letter mst-nav__label-item" data-letter="<?= $block->escapeHtmlAttr($letter) ?>" data-element = filter>
+                <b><?= $block->escapeHtml($letter) ?></b>
+            </li>
+            <?php endif; ?>
+
+            <li
+                data-element="filter"
+                data-hidden="false"
+                data-search-hidden="false"
+                data-letter-hidden="false"
+                data-value="<?= $block->escapeHtmlAttr($filterItem->getValueString()) ?>"
+                class="<?= $block->escapeHtmlAttr(implode(' ', $cssClass)) ?>"
+                <?= $block->escapeHtmlAttr($useAlphabeticalIndex ? 'data-letter="' .  $block->getFirstLetter($label) . '"' : '') ?>
+            >
+                <?php if ($numberOfResults >= 0): ?>
+                    <?php if ($block->isCategoryFilterModeLink()) {
+                        $url = $filterItem->getData('url');
+                    } else {
+                        $url = $isItemChecked ? $filterItem->getRemoveUrl() : $filterItem->getUrl();
+                    }
+                    $id  = $block->getItemId($filterItem);
+                    ?>
+                    <a href="<?= $block->escapeUrl($filterItem->getData('count') > 0 ? $escaper->escapeUrl($url) : '#') ?>" rel="<?= $block->escapeHtmlAttr($block->getRelAttributeValue()) ?>">
+                        <input id="<?= $block->escapeHtmlAttr($id) ?>" type="checkbox" <?= $block->escapeHtmlAttr($isItemChecked ? 'checked' : '') ?>
+                            <?= $filterItem->getData('count') == 0 ? 'disabled' : '' ?> />
+
+                        <label for="<?= $block->escapeHtmlAttr($id) ?>" title="<?= /* @noEscape */ $label ?>">
+                            <?= /* @noEscape */ $label ?>
+                        </label>
+                        <?= /* @noEscape */ $block->getCountElement($filterItem) ?>
+                    </a>
+                <?php else: ?>
+                    <?= /* @noEscape */ $label ?>
+                    <?= /* @noEscape */ $block->getCountElement($filterItem) ?>
+                <?php endif ?>
+            </li>
+            <?php $lastLevel = $level ?>
+        <?php endforeach ?>
+
+        <?php if (!$block->isCategoriesCollapsible()): ?>
+        <?= /* @noEscape */ $block->getSizeLimiterElement($attributeCode) ?>
+        <?php endif; ?>
+    </ol>
+</div>
+<script type="text/x-magento-init"><?= \Mirasvit\Core\Service\SerializeService::encode([
+        '[data-mst-nav-filter=' . $attributeCode . ']' => [
+            'Mirasvit_LayeredNavigation/js/renderer/label-renderer' => [],
+            'Mirasvit_LayeredNavigation/js/helper/checked-items' => [
+                'count'    => $checkedItemsCount,
+                'clearUrl' => $block->getAttributeClearUrl($attributeCode)
+            ],
+            'Mirasvit_LayeredNavigation/js/renderer/element/alphabetical' => [
+                'shouldDisplay' => $useAlphabeticalIndex && $filter->isAlphabeticalIndexAllowedByLimit(),
+                'limit'         => $filter->getAlphabeticalLimit()
+            ],
+            'Mirasvit_LayeredNavigation/js/renderer/element/nested-toggler' => [
+                'shouldDisplay' => $block->isCategoriesCollapsible(),
+            ],
+        ],
+    ]) ?></script>
+

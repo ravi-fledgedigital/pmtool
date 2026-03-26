@@ -1,0 +1,261 @@
+//
+//  Variables
+//  --------------------------------------------
+@amrma-icon__chat_triangle_left: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTEiIGhlaWdodD0iMjIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEwLjUgMjEuNUwuMzI3IDMuMTlDLS41MzUgMS42MzUuOTA0LS4xODggMi42MTUuMjkxTDEwLjUgMi41djE5eiIgZmlsbD0iI0UxRjVGRSIvPjwvc3ZnPg==');
+@amrma-icon__chat_triangle_right: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTEiIGhlaWdodD0iMjIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgMjEuNUwxMC4xNzIgMy4xOWMuODYzLTEuNTU0LS41NzYtMy4zNzctMi4yODctMi44OThMMCAyLjV2MTl6IiBmaWxsPSIjRUNFRUZGIi8+PC9zdmc+');
+@amrma-icon__attach_file: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTciIGhlaWdodD0iMTYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zLjM5NiAxNmEzLjMzMiAzLjMzMiAwIDAgMS0yLjM5My0xLjAzNUEzLjU2NSAzLjU2NSAwIDAgMSAwIDEyLjQ5MmEzLjMxOCAzLjMxOCAwIDAgMSAuOTIyLTIuMzE4bC4xNC0uMTQ3TDkuNTU4IDEuMjVBNC4wNzkgNC4wNzkgMCAwIDEgMTIuNTExIDBjMS4xMzYtLjAwMSAyLjI4Ny40NjMgMy4xNjUgMS4zN0E0LjcwNyA0LjcwNyAwIDAgMSAxNyA0LjYzNmE0LjM2NCA0LjM2NCAwIDAgMS0xLjIxIDMuMDVsLTcuMTMyIDcuMzctLjUzMS41NDgtMS4wNi0xLjA5N0wxNC43MyA2LjU5Yy41MTMtLjUzLjc2OC0xLjIyNi43Ny0xLjk1M2EzLjEzIDMuMTMgMCAwIDAtLjg4Ni0yLjE3MSAyLjkzMiAyLjkzMiAwIDAgMC0yLjEwMy0uOTE1IDIuNTk5IDIuNTk5IDAgMCAwLTEuODkuNzk1TDEuOTg0IDExLjI3Yy0uMzIyLjMzMi0uNDguNzYzLS40ODIgMS4yMjIgMCAuNDg1LjE4My45ODYuNTYyIDEuMzc3LjM3OS4zOS44NjIuNTggMS4zMzIuNThhMS42MzUgMS42MzUgMCAwIDAgMS4xODQtLjQ5Nmw2LjUxNC02LjczYS42NTUuNjU1IDAgMCAwIC4xODItLjQ3LjguOCAwIDAgMC0uMjI5LS41NTYuNzQ1Ljc0NSAwIDAgMC0uNTM4LS4yMzYuNjIuNjIgMCAwIDAtLjQ1My4xODhsLTUuNTQgNS43MjQtMS4wNjItMS4wOTYgNS41NC01LjcyNGMuNDE2LS40MzIuOTctLjY0NiAxLjUxNS0uNjQ0LjU3OCAwIDEuMTYuMjM2IDEuNi42OTEuNDQuNDU2LjY3IDEuMDU2LjY3IDEuNjU0IDAgLjU2LS4yMDcgMS4xMzQtLjYyMyAxLjU2NEw1LjY0IDE1LjA0OUEzLjEwNCAzLjEwNCAwIDAgMSAzLjQwMiAxNmgtLjAwNnoiIGZpbGw9IiMxOTc5QzMiLz48L3N2Zz4=');
+@amrma-icon__attach_file_big: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjkiIGhlaWdodD0iMjciIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik01Ljc5MyAyN2MtMS40Ny4wMDItMi45NTMtLjU5Mi00LjA4My0xLjc0N0E1Ljk4MiA1Ljk4MiAwIDAgMSAwIDIxLjA4MWE1LjU2OCA1LjU2OCAwIDAgMSAxLjU3My0zLjkxMmwuMjQtLjI0OEwxNi4zMDQgMi4xMDlBNi45OTYgNi45OTYgMCAwIDEgMjEuMzQyIDBjMS45MzgtLjAwMiAzLjkwMi43OCA1LjM5OSAyLjMxQTcuODk4IDcuODk4IDAgMCAxIDI5IDcuODI1Yy4wMDMgMS44NjgtLjY4MyAzLjczOC0yLjA2NCA1LjE0OUwxNC43NyAyNS40MDlsLS45MDYuOTI1LTEuODEtMS44NTFMMjUuMTI4IDExLjEyYy44NzYtLjg5NSAxLjMxMS0yLjA3IDEuMzEzLTMuMjk3IDAtMS4yOTYtLjUtMi42My0xLjUxLTMuNjYzLTEuMDEzLTEuMDM1LTIuMzE2LTEuNTQzLTMuNTg4LTEuNTQ0YTQuNDU3IDQuNDU3IDAgMCAwLTMuMjI0IDEuMzQzTDMuMzg0IDE5LjAxOGMtLjU0OS41Ni0uODIgMS4yODctLjgyMiAyLjA2My4wMDIuODE4LjMxMyAxLjY2My45NiAyLjMyMy42NDUuNjU3IDEuNDcuOTc4IDIuMjcxLjk4YTIuODA0IDIuODA0IDAgMCAwIDIuMDItLjgzOWwxMS4xMTItMTEuMzU3Yy4yMDgtLjIxMy4zMS0uNDgyLjMxMS0uNzkxIDAtLjMyNi0uMTI0LS42NjYtLjM5MS0uOTRhMS4yNzggMS4yNzggMCAwIDAtLjkxOC0uMzk4IDEuMDYzIDEuMDYzIDAgMCAwLS43NzMuMzE4bC05LjQ1IDkuNjU4LTEuODEyLTEuODQ4IDkuNDUyLTkuNjZhMy41OCAzLjU4IDAgMCAxIDIuNTgzLTEuMDg2Yy45ODYgMCAxLjk3OC4zOTcgMi43MyAxLjE2NmEzLjk5OSAzLjk5OSAwIDAgMSAxLjE0MSAyLjc5IDMuNzcxIDMuNzcxIDAgMCAxLTEuMDYxIDIuNjRMOS42MiAyNS4zOTRBNS4zMjMgNS4zMjMgMCAwIDEgNS44MDMgMjdoLS4wMSIgZmlsbD0iIzE5NzlDMyIvPjwvc3ZnPg==');
+@amrma-icon__delete: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAzNiAzNSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTM1LjkxOCAyLjcxNEwzMy4yMDMgMCAxOC40MTggMTQuNzg3IDMuNjMzIDAgLjkxOCAyLjcxMyAxNS43MDUgMTcuNS45MiAzMi4yODcgMy42MzMgMzVsMTQuNzg1LTE0Ljc4NiAxNC43ODUgMTQuNzg1IDIuNzExLTIuNzEzTDIxLjEzMSAxNy41IDM1LjkxOCAyLjcxNCIgZmlsbD0iIzAwNmJiNCIvPjwvc3ZnPg==');
+@amrma-btn__color_blue: #1979c3;
+@amrma-chat__container__background: #f9f9fc;
+@amrma-chat__container__border: #ebeef5;
+@amrma-chat__message-left__background: #e2f5fe;
+@amrma-chat__message-right__background: #eceeff;
+
+& when (@media-common = true) {
+    .amrma-chat-container {
+        background: @amrma-chat__container__background;
+        border: 1px solid @amrma-chat__container__border;
+        border-radius: 2px;
+        box-sizing: border-box;
+    }
+
+    .amrma-chat-block {
+        & {
+            display: flex;
+            flex-direction: column;
+            margin: 30px 20px 20px;
+            max-height: 270px;
+            min-height: 270px;
+            overflow-y: hidden;
+            padding-right: 5px;
+        }
+
+        &:hover {
+            overflow-y: scroll;
+            padding-right: 0;
+        }
+
+        &::-webkit-scrollbar-track {
+            border-radius: 3px;
+        }
+
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: @color-gray-light6;
+            border-radius: 4px;
+        }
+    }
+
+    .amrma-message-block {
+        & {
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            padding: 15px 20px 10px;
+            position: relative;
+        }
+
+        &:before {
+            content: '';
+            height: 22px;
+            position: absolute;
+            top: 15px;
+            width: 11px;
+        }
+
+        .amrma-message {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .amrma-date {
+            align-self: flex-end;
+            color: @color-black_dark;
+            font-size: 12px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .amrma-image {
+            height: auto;
+            margin: 0;
+            max-width: 225px;
+            padding: 0;
+            width: auto;
+        }
+
+        .amrma-chat-message.-left & {
+            & {
+                background: @amrma-chat__message-left__background;
+            }
+
+            &:before {
+                left: -11px;
+                .lib-css(background, @amrma-icon__chat_triangle_left);
+            }
+        }
+
+        .amrma-chat-message.-right & {
+            & {
+                background: @amrma-chat__message-right__background;
+            }
+
+            &:before {
+                right: -11px;
+                .lib-css(background, @amrma-icon__chat_triangle_right);
+            }
+        }
+    }
+
+    .amrma-chat-message {
+        & {
+            margin: 5px 20px;
+            max-width: 80%;
+        }
+
+        &.-default {
+            display: none;
+        }
+
+        &.-left {
+            align-self: flex-start;
+        }
+
+        &.-right {
+            & {
+                align-self: flex-end;
+            }
+
+            .amrma-username {
+                text-align: right;
+            }
+        }
+
+        .amrma-username {
+            color: @color-black_dark;
+            margin-bottom: 5px;
+        }
+
+        .amrma-delete-container {
+            text-align: right;
+        }
+    }
+
+    .amrma-message:before {
+        content: '';
+        height: 20px;
+        position: absolute;
+        width: 13px;
+    }
+
+    .amrma-chat-file {
+        & {
+            padding-left: 25px;
+            position: relative;
+        }
+
+        &.-preview {
+            align-items: center;
+            color: @color-blue2;
+            display: flex;
+            margin: 25px;
+            padding-right: 20px;
+        }
+
+        &:before {
+            content: '';
+            height: 16px;
+            left: 0;
+            position: absolute;
+            top: 2px;
+            width: 17px;
+            .lib-css(background-image, @amrma-icon__attach_file);
+        }
+
+        .amrma-file {
+            font-weight: 600;
+        }
+    }
+
+    .amrma-delete {
+        background: @amrma-icon__delete;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        display: inline-block;
+        height: 16px;
+        margin-left: 10px;
+        width: 16px;
+    }
+
+    .amrma-chat-send {
+        & {
+            align-items: flex-end;
+            background: @color-white;
+            border-radius: 2px;
+            display: flex;
+            padding: 10px;
+            position: relative;
+        }
+
+        .amrma-textarea {
+            border: none;
+            margin-left: 25px;
+            max-height: 250px;
+            min-height: 40px;
+            resize: none;
+            width: 86%;
+        }
+
+        .amrma-hiddentext {
+            opacity: 0;
+            position: absolute;
+            visibility: hidden;
+            white-space: pre-wrap;
+        }
+    }
+
+    .amrma-chat-notification {
+        & {
+            display: flex;
+            margin: 5px 0 5px 20px;
+        }
+
+        .amrma-notification {
+            font-size: 14px;
+            font-weight: 600;
+            margin-right: 15px;
+        }
+
+        .amrma-date {
+            line-height: 19px;
+        }
+    }
+
+    .amrma-chat-comment {
+        color: @color-gray40;
+        margin: 0 auto;
+        padding: 125px 0;
+    }
+
+    .amrma-quick-reply {
+        display: none;
+    }
+
+    .action-close:focus-visible::before {
+        box-shadow: 0 0 3px 1px @color-blue3;
+    }
+}
+
+//
+//  Mobile +
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__s) {
+    .amrma-chat-send {
+        margin: 0 20px 20px;
+    }
+}

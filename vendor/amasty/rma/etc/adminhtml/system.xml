@@ -1,0 +1,251 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package RMA Base for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="amrma" translate="label" type="text" sortOrder="181301" showInDefault="1" showInWebsite="1" showInStore="1">
+            <resource>Amasty_Rma::config</resource>
+            <class>separator-top</class>
+            <label>RMA</label>
+            <tab>amasty</tab>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Module Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="route" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>URL Prefix</label>
+                    <comment>Set route name. Example for logged in user: {base_store_url}/{URL prefix}/account/view/request/</comment>
+                    <validate>validate-no-empty</validate>
+                </field>
+                <field id="restricted_customer_groups" translate="label comment" type="multiselect" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Restrict RMA Requests for Customer Group</label>
+                    <frontend_model>RmaSubscriptionFunctionalityPromo</frontend_model>
+                    <source_model>Amasty\Rma\Model\OptionSource\CustomerGroups</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="guest" translate="label tooltip" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow Guests to View Return Requests</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip>Allow guests to view return requests</tooltip>
+                </field>
+                <field id="store_restriction" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Confine Guest RMA to the Current Store View</label>
+                    <frontend_model>RmaSubscriptionFunctionalityPromo</frontend_model>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="guest">1</field>
+                    </depends>
+                </field>
+                <field id="hide_billing" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Hide Billing Last Name from Guest RMA Form</label>
+                    <frontend_model>RmaSubscriptionFunctionalityPromo</frontend_model>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="guest">1</field>
+                    </depends>
+                </field>
+                <field id="allowed_statuses" translate="label comment" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allowed Order Statuses for RMA</label>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                    <comment>Please, note that RMA request can not be created for orders without shipped item(s)</comment>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="show_confirmation_message" translate="label comment" type="select" sortOrder="65" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Confirmation Message</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If “Yes”, a confirmation message will appear when a customer submits a return request.</comment>
+                </field>
+                <field id="confirmation_message" translate="label" type="textarea" sortOrder="66" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Text Message</label>
+                    <depends>
+                        <field id="show_confirmation_message">1</field>
+                    </depends>
+                </field>
+                <field id="show_return_period_product_page" translate="label tooltip" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Return Information on Product Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip>Resolution periods (in days) will be displayed on product details pages in the ‘More Information’ tab.</tooltip>
+                </field>
+                <field id="show_return_period_cart" translate="label tooltip" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Return Information on Shopping Cart Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip>Resolution periods (in days) will be displayed for each product in the shopping cart.</tooltip>
+                </field>
+                <field id="enable_feedback" translate="label tooltip" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ask Customers to Leave Feedback</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip>If enabled customers will see the 'How do you rate the work of a manager' pop-up in the request after it changes its State to 'Completed'.
+                        The feedback consists of the rating stars and text. The rating can be later seen and used in the filter on the 'Archived Requests' grid.
+                        As well as it is used in the RMA Reports Add-on.
+                    </tooltip>
+                </field>
+                <field id="max_file_size" translate="label" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Max Message Attachment File Size (KB)</label>
+                    <validate>validate-digits</validate>
+                </field>
+            </group>
+            <group id="rma_policy" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>RMA Policy</label>
+                <field id="policy_enable" translate="label tooltip" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Return Policy</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip>Customer will be to accept the Return Policy before submitting a Return Request</tooltip>
+                </field>
+                <field id="policy_page" translate="label tooltip" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Return Policy CMS Page</label>
+                    <depends>
+                        <field id="policy_enable">1</field>
+                    </depends>
+                    <tooltip>Please, select the CMS page with your Return Policy text.</tooltip>
+                    <source_model>Amasty\Rma\Model\OptionSource\CmsPage</source_model>
+                </field>
+            </group>
+            <group id="shipping" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Shipping</label>
+                <field id="carriers" translate="label tooltip" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Carriers</label>
+                    <frontend_model>Amasty\Rma\Block\Adminhtml\Settings\Field\Carriers</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    <tooltip>The following carriers will be available for a customer to be selected while attaching a Tracking Number to the RMA Request.</tooltip>
+                </field>
+            </group>
+            <group id="email" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label> RMA Creation Email Notifications</label>
+                <field id="notify_customer" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notify Customer</label>
+                    <comment>Please mind that this setting enables the notification when a new RMA is created. To set notifications on the status change please proceed to 'RMA Statuses' and set it for every Status you need.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="sender" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Sender</label>
+                    <depends>
+                        <field id="notify_customer">1</field>
+                    </depends>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="user_template" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Template</label>
+                    <depends>
+                        <field id="notify_customer">1</field>
+                    </depends>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="notify_customer_new_admin_message" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notify Customer About New Manager Messages If Status Didn't Change</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip>Please note that notification will be sent to the customer only after saving a Return Request.</tooltip>
+                </field>
+                <field id="chat_sender" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Sender</label>
+                    <depends>
+                        <field id="notify_customer_new_admin_message">1</field>
+                    </depends>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="new_message_template" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Template</label>
+                    <depends>
+                        <field id="notify_customer_new_admin_message">1</field>
+                    </depends>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="notify_admin" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notify Admin</label>
+                    <comment>Please mind that this setting enables the notification when a new RMA is created. To set notifications on the status change please proceed to 'RMA Statuses' and set it for every Status you need.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="admin_template" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Template</label>
+                    <depends>
+                        <field id="notify_admin">1</field>
+                    </depends>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="notify_admin_new_customer_message" translate="label comment" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notify Admin About New Customer Messages</label>
+                    <comment>Please mind that this setting enables the notification when a new chat message is send by a customer.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="notify_admin">1</field>
+                    </depends>
+                </field>
+                <field id="notify_admin_gap_time" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notify in (min.)</label>
+                    <comment>A new chat message notification will be sent in a specified period after it is received.</comment>
+                    <depends>
+                        <field id="notify_admin">1</field>
+                        <field id="notify_admin_new_customer_message">1</field>
+                    </depends>
+                </field>
+                <field id="new_message_admin_template" translate="label" type="select" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Template</label>
+                    <depends>
+                        <field id="notify_admin">1</field>
+                        <field id="notify_admin_new_customer_message">1</field>
+                    </depends>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="send_to" translate="label comment" type="textarea" sortOrder="120" showInStore="1" showInWebsite="1" showInDefault="1">
+                    <label>Send Notification to</label>
+                    <comment>Please, put each new email address on a new line</comment>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="notify_admin">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="return" translate="label" sortOrder="42" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Administrator Contact Data</label>
+                <field id="is_show_administrator_contact" translate="label tooltip" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label> Display Administrator Contact Data</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip>Administrator contacts will be displayed to customers while submitting a new RMA request in case an item couldn’t be returned according to the return rules.</tooltip>
+                </field>
+                <field id="administrator_email" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email</label>
+                    <depends>
+                        <field id="is_show_administrator_contact">1</field>
+                    </depends>
+                </field>
+                <field id="administrator_phone" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Phone Number</label>
+                    <depends>
+                        <field id="is_show_administrator_contact">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="extra" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Custom Fields</label>
+                <field id="title" translate="label tooltip" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Block Title</label>
+                    <tooltip>You can create custom text fields to let a customer fill them while submitting an RMA request. The ‘Block Title’ field is responsible for the name of the block with the custom text fields.</tooltip>
+                </field>
+                <field id="custom_fields" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>RMA Request Custom Fields</label>
+                    <frontend_model>Amasty\Rma\Block\Adminhtml\Settings\Field\CustomField</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
+            </group>
+            <group id="chat" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Chat Quick Replies</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Chat on the Frontend</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="quick_replies" translate="label tooltip" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Quick Replies</label>
+                    <frontend_model>Amasty\Rma\Block\Adminhtml\Settings\Field\QuickReplies</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    <tooltip>Quick Replies are used by Admin in the chat. Add common reply templates and use them while processing request to increase your performance.</tooltip>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

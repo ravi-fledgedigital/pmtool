@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\CatalogSyncAdmin\Cron\ForceResyncCatalogInterface" type="Magento\CatalogSyncAdmin\Cron\ForceResyncCatalog"/>
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="catalog_sync_cleanup" xsi:type="object">Magento\CatalogSyncAdmin\Console\Command\CatalogCleanup</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

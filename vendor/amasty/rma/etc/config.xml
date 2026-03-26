@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package RMA Base for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <amrma>
+            <general>
+                <enabled>1</enabled>
+                <route>rma</route>
+                <guest>0</guest>
+                <store_restriction>0</store_restriction>
+                <hide_billing>0</hide_billing>
+                <allowed_statuses>complete</allowed_statuses>
+                <show_confirmation_message>0</show_confirmation_message>
+                <confirmation_message>Are you sure you want to submit a return request?</confirmation_message>
+                <show_return_period_product_page>1</show_return_period_product_page>
+                <show_return_period_cart>1</show_return_period_cart>
+                <enable_feedback>1</enable_feedback>
+                <max_file_size>2000</max_file_size>
+            </general>
+            <rma_policy>
+                <policy_enable>1</policy_enable>
+            </rma_policy>
+            <shipping>
+                <carriers>{"_1563867715950_950":{"carrier_code":"ups","carrier_label":"UPS"},"_1563867717037_37":{"carrier_code":"fedex","carrier_label":"FedEx"},"_1563867717037_38":{"carrier_code":"usps","carrier_label":"USPS"}}</carriers>
+            </shipping>
+            <email>
+                <notify_customer>1</notify_customer>
+                <notify_admin>0</notify_admin>
+                <notify_customer_new_admin_message>1</notify_customer_new_admin_message>
+                <notify_admin_new_customer_message>1</notify_admin_new_customer_message>
+                <notify_admin_gap_time>10</notify_admin_gap_time>
+                <new_message_admin_template>amrma_email_new_message_admin_template</new_message_admin_template>
+            </email>
+            <return>
+                <is_show_administrator_contact>0</is_show_administrator_contact>
+            </return>
+            <chat>
+                <enabled>1</enabled>
+            </chat>
+        </amrma>
+    </default>
+</config>

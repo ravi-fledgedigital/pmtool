@@ -1,0 +1,157 @@
+& when (@media-common = true) {
+    .mst-brand__brand-list {
+        .js-brand-letter {
+            display:         block;
+            padding:         .3rem 1rem;
+            text-align:      center;
+            color:           #767676;
+            font-size:       1.6rem;
+            line-height:     20px;
+            font-weight:     700;
+            text-decoration: none;
+            cursor:          pointer;
+            //border:          1px solid #dadada;
+            //background:      #f0f0f0;
+            text-transform:  uppercase;
+
+            &:hover {
+                border-color:  #ffffff;
+                z-index:       1005;
+                color:         #333333;
+                //border-bottom: 1px solid #999999;
+            }
+
+            &._active {
+                //background:   #ffffff;
+                //outline:      2px solid #ff5501;
+                //border-color: #ffffff;
+                color:        #ff5501;
+                z-index:      900;
+            }
+        }
+
+        .mst-brand__all_brands_link {
+            margin-top: 1.6rem;
+        }
+
+        .toolbar {
+            display:       flex;
+            flex-wrap:     wrap;
+            margin-bottom: 1.6rem;
+
+            > a {
+                margin-right: 5rem;
+            }
+
+            .letters {
+                display:   flex;
+                flex-wrap: wrap;
+
+                a {
+                    margin-left: -1px;
+                }
+            }
+        }
+
+        .letter-row {
+            overflow:      hidden;
+            border-bottom: 1px solid #cccccc;
+            padding-top:   10px;
+
+            .letter {
+                top:         0;
+                left:        0;
+                font-size:   40px;
+                line-height: 60px;
+                clear:       left;
+            }
+
+            ul {
+                list-style: none;
+                margin:     0;
+                display:    flex;
+                flex-wrap:  wrap;
+
+                li {
+                    text-align: center;
+
+                    a {
+                        color:           #333333;
+                        text-decoration: none;
+                        display:         block;
+                        padding:         1rem;
+
+                        .logo-wrapper {
+                            height:         10rem;
+                            vertical-align: middle;
+                            display:        table-cell;
+                            opacity:        0.8;
+
+                            img {
+                                max-height: 10rem;
+                                max-width:  15rem;
+                            }
+                        }
+
+                        &:hover {
+                            text-decoration: underline;
+                            outline:         2px solid #ff5501;
+
+                            .logo-wrapper {
+                                opacity: 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .mst-brand__modal {
+        .mst-brand__menu-title {
+            text-align:    center;
+            margin-top:    0;
+            margin-bottom: 2rem;
+        }
+
+        .mst-brand__brand-list {
+            background: content-box;
+            color:      #333333;
+        }
+
+        .modal-inner-wrap {
+            max-width:  80rem;
+            height:     auto;
+
+            .mst-brand__menu-modal {
+
+                .letter-row {
+                    overflow-y:    auto;
+                    max-height:    32rem;
+                    padding-top:   0;
+                    border-bottom: 0;
+
+                    ul {
+                        padding:         0.25rem;
+                        justify-content: space-evenly;
+
+                        li {
+                            margin-bottom: 0;
+
+                            a .logo-wrapper img {
+                                max-width: 10rem;
+                            }
+                        }
+
+                        .m__all_brand_label {
+                            width:    10rem;
+                            heigh:    4rem;
+                            overflow: hidden;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+

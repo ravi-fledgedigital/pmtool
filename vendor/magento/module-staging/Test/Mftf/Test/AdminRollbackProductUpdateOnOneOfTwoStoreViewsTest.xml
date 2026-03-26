@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+  <test name="AdminRollbackProductUpdateOnOneOfTwoStoreViewsTest">
+    <annotations>
+      <features value="Staging"/>
+      <stories value="Staging updates"/>
+      <title value="ensure that product update rollback for store view"/>
+      <description value=" product update rollback for store view doesn't revert product changes in another store view"/>
+      <severity value="MAJOR"/>
+      <testCaseId value="AC-4333"/>
+      <group value="staging"/>
+    </annotations>
+    <before>
+      <!--Create Simple Product and Category-->
+      <createData entity="_defaultCategory" stepKey="createCategory"/>
+      <createData entity="SimpleProduct" stepKey="simpleProduct">
+        <requiredEntity createDataKey="createCategory"/>
+      </createData>
+      <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+      <!-- Create  Store View -->
+      <actionGroup ref="AdminCreateStoreViewActionGroup" stepKey="createCustomStoreView"/>
+        <actionGroup ref="CliIndexerReindexActionGroup" stepKey="reindex">
+            <argument name="indices" value=""/>
+        </actionGroup>
+    </before>
+    <after>
+      <!-- delete created data -->
+      <deleteData createDataKey="simpleProduct" stepKey="deleteProduct"/>
+      <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+      <actionGroup ref="AdminDeleteStoreViewActionGroup" stepKey="deleteStoreView"/>
+        <actionGroup ref="CliIndexerReindexActionGroup" stepKey="reindex">
+            <argument name="indices" value=""/>
+        </actionGroup>
+      <actionGroup ref="StagingDashboardClearFiltersActionGroup" stepKey="clearStagingFilters"/>
+      <actionGroup ref="AdminClearFiltersActionGroup" stepKey="clearProductFilters"/>
+      <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+    </after>
+    <!-- open created product -->
+    <actionGroup ref="AdminProductPageOpenByIdActionGroup" stepKey="openProductForEdit">
+      <argument name="productId" value="$simpleProduct.id$"/>
+    </actionGroup>
+    <actionGroup ref="AdminSwitchStoreViewActionGroup" stepKey="AdminSwitchCustomStoreView">
+      <argument name="storeView" value="_defaultStore.name"/>
+    </actionGroup>
+    <!-- Click on Schedule New Update Button -->
+    <click stepKey="scheduleNewUpdateBtn" selector="{{AdminStagingSlideOutSection.scheduleNewUpdateBtn}}"/>
+    <generateDate date="+1minute" timezone="America/Chicago" format="m/d/Y g:i A" stepKey="generateStartDateAgain"/>
+    <generateDate date="+2 minute" timezone="America/Chicago" format="m/d/Y g:i A" stepKey="generateEndDateAgain"/>
+    <fillField selector="{{AdminStagingSlideOutSection.updateName}}" userInput="upd1" stepKey="fillUpdateName"/>
+    <fillField selector="{{AdminStagingSlideOutSection.startDate}}" userInput="{$generateStartDateAgain}" stepKey="fillStartDate"/>
+    <fillField selector="{{AdminStagingSlideOutSection.endDate}}" userInput="{$generateEndDateAgain}" stepKey="fillEndDate"/>
+    <click selector="{{AdminCatalogStagingSlideOutSection.useDefaultName}}" stepKey="clickOnUseDefaultValue"/>
+    <fillField selector="{{AdminStagingSlideOutSection.name}}" userInput="Sp1 upd1" stepKey="fillFirstName"/>
+    <click selector="{{AdminStagingSlideOutSection.save}}" stepKey="clickSave"/>
+    <actionGroup ref="AdminSwitchStoreViewActionGroup" stepKey="AdminSwitchCustomStoreView1">
+      <argument name="storeView" value="customStore.name"/>
+    </actionGroup>
+    <click selector="{{AdminStagingSlideOutSection.viewEdit}}" stepKey="clickViewEdit"/>
+    <waitForPageLoad stepKey="waitForViewAndEditSlideOut"/>
+    <click selector="{{AdminCatalogStagingSlideOutSection.useDefaultName}}" stepKey="clickOnDefaultValue"/>
+    <fillField selector="{{AdminStagingSlideOutSection.name}}" userInput="Sp1 upd2" stepKey="fillSecondName"/>
+    <click selector="{{AdminStagingSlideOutSection.save}}" stepKey="clickSaveFirst"/>
+      <magentoCron groups="staging" stepKey="cronRun"/>
+      <magentoCron groups="staging" stepKey="cronRunTwice"/>
+    <click selector="{{AdminStagingSlideOutSection.preview}}" stepKey="clickPreview"/>
+    <waitForPageLoad time="30" stepKey="waitForNewTabPageLoadPreview"/>
+    <switchToNextTab stepKey="switchToNewTab"/>
+    <waitForPageLoad time="30" stepKey="waitForPreview"/>
+    <!--Set frame id because switchToIFrame requires ID as parameter-->
+    <executeJS function="jQuery('[data-role=\'preview-iframe\']').attr('id', 'preview-iframe')" stepKey="setPreviewFrameId"/>
+    <switchToIFrame userInput="preview-iframe" stepKey="switchToPreviewFrame"/>
+    <waitForPageLoad time="30" stepKey="waitForIFrame"/>
+    <see userInput="Sp1 upd1" selector="{{StorefrontProductInfoMainSection.productName}}" stepKey="eeProductName"/>
+    <wait stepKey="waitForAssertion" time="10"/>
+    <switchToIFrame stepKey="switchBackFromPreview"/>
+    <click selector="{{AdminStagingPreviewSection.scopeBtn}}" stepKey="clickScopeBtn"/>
+    <selectOption userInput="{{customStore.code}}" selector="{{AdminStagingPreviewSection.storeView}}" stepKey="selectStoreView"/>
+    <click selector="{{AdminStagingPreviewSection.previewScopeBtn}}" stepKey="clickButtonPreview"/>
+    <waitForPageLoad time="30" stepKey="waitForPreviewLoad"/>
+    <executeJS function="jQuery('[data-role=\'preview-iframe\']').attr('id', 'preview-iframe')" stepKey="againSetPreviewFrameId"/>
+    <switchToIFrame userInput="preview-iframe" stepKey="againSwitchToPreviewFrame"/>
+    <wait stepKey="waitForRefreshPage" time="10"/>
+    <see userInput="Sp1 upd2" selector="{{StorefrontProductInfoMainSection.productName}}" stepKey="seeProductNameInCostumStoreView"/>
+    <waitForPageLoad time="40" stepKey="waitForIFramEnd"/>
+      <magentoCron groups="staging" stepKey="cronRunAgain"/>
+      <magentoCron groups="staging" stepKey="cronRunTwiceAgain"/>
+    <switchToIFrame stepKey="switchBackFromPreviewAgain"/>
+    <click selector="{{AdminStagingPreviewSection.scopeBtn}}" stepKey="clickScopeBtnAgain"/>
+    <selectOption userInput="{{customStore.code}}" selector="{{AdminStagingPreviewSection.storeView}}" stepKey="selectStoreViewAgain"/>
+    <click selector="{{AdminStagingPreviewSection.previewScopeBtn}}" stepKey="clickButtonPreviewAgain"/>
+    <waitForPageLoad time="30" stepKey="waitForPreviewLoadAgain"/>
+    <!--Set frame id because switchToIFrame requires ID as parameter-->
+    <executeJS function="jQuery('[data-role=\'preview-iframe\']').attr('id', 'preview-iframe')" stepKey="setPreviewFrameIdAgain"/>
+    <switchToIFrame userInput="preview-iframe" stepKey="switchToPreviewFrameAgain"/>
+    <waitForPageLoad time="30" stepKey="waitForIFrameAgain"/>
+    <see userInput="Sp1 upd2" selector="{{StorefrontProductInfoMainSection.productName}}" stepKey="eeProductNameAgain"/>
+    <wait stepKey="waitForAssertionAgain" time="10"/>
+    <switchToIFrame stepKey="switchBackFromPreviewAgainAgain"/>
+    <click selector="{{AdminStagingPreviewSection.scopeBtn}}" stepKey="clickScopeBtnAgainAgain"/>
+    <selectOption userInput="{{customStore.code}}" selector="{{AdminStagingPreviewSection.storeView}}" stepKey="selectStoreViewAgainAgain"/>
+    <click selector="{{AdminStagingPreviewSection.previewScopeBtn}}" stepKey="clickButtonPreviewAgainAgain"/>
+    <waitForPageLoad time="30" stepKey="waitForPreviewLoadAgainAgain"/>
+    <!--Set frame id because switchToIFrame requires ID as parameter-->
+    <executeJS function="jQuery('[data-role=\'preview-iframe\']').attr('id', 'preview-iframe')" stepKey="againSetPreviewFrameIdAgain"/>
+    <switchToIFrame userInput="preview-iframe" stepKey="againSwitchToPreviewFrameAgain"/>
+    <wait stepKey="waitForRefreshPageOneMore" time="10"/>
+    <see userInput="Sp1 upd2" selector="{{StorefrontProductInfoMainSection.productName}}" stepKey="seeProductNameInCostumStoreViewAgain"/>
+    <waitForPageLoad time="10" stepKey="waitForIFramEndAgainAgain"/>
+  </test>
+</tests>

@@ -1,0 +1,34 @@
+{
+    "quote_coupons": {
+        "column": {
+            "entity_id": true,
+            "quote_id": true,
+            "coupon_code": true
+        },
+        "index": {
+            "QUOTE_COUPONS_ENTITY_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "QUOTE_COUPONS_QUOTE_ID_QUOTE_ENTITY_ID": true,
+            "QUOTE_COUPONS_ENTITY_ID_QUOTE_ID_COUPON_CODE": true,
+            "QUOTE_COUPONS_QUOTE_ID_COUPON_CODE": true
+        }
+    },
+    "sales_order_coupons": {
+        "column": {
+            "entity_id": true,
+            "sales_order_id": true,
+            "coupon_code": true
+        },
+        "index": {
+            "SALES_ORDER_COUPONS_ENTITY_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "SALES_ORDER_COUPONS_SALES_ORDER_ID_SALES_ORDER_ENTITY_ID": true,
+            "SALES_ORDER_COUPONS_ENTITY_ID_SALES_ORDER_ID_COUPON_CODE": true,
+            "SALES_ORDER_COUPONS_SALES_ORDER_ID_COUPON_CODE": true
+        }
+    }
+}

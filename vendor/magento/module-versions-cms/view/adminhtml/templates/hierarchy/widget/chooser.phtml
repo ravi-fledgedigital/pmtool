@@ -1,0 +1,54 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\VersionsCms\Block\Adminhtml\Cms\Hierarchy\Widget\Chooser $block */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+
+$chooserJsObject = $block->escapeJs($block->getId());
+
+$jsTreeExplore = $block->getCMSHierarchyCategory();
+?>
+<div id="tree-div" class="tree-wrapper x-tree">
+    <div class="tree-holder" id="category-tree<?= $block->escapeHtmlAttr($block->getId()) ?>">
+        <?= /* @noEscape */ $jsTreeExplore; ?>
+    </div>
+</div>
+
+
+<!--[if IE]>
+<script id="ie-deferred-loader" defer="defer" src="//:"></script>
+<![endif]-->
+<?php
+$nodesJson = $block->getNodesJson();
+$rootText = $block->escapeJs(__("Root"));
+$notAvailableMessage = $block->escapeJs(__('No nodes are available'));
+?>
+<?php $scriptString = <<<script
+    require([
+            'jquery',
+            'prototype',
+            'jquery/jstree/jquery.jstree'
+        ], function($){
+
+        window.nodes = {$nodesJson};
+
+        if(nodes.length >0){
+            $('#category-tree{$chooserJsObject}').jstree({});
+         } else {
+            $("#category-tree{$chooserJsObject}").text("{$notAvailableMessage}");
+        }
+
+        $('#category-tree{$chooserJsObject}').on("select_node.jstree", function (e, data) {
+            {$chooserJsObject}.setElementValue(data.node.id);
+            {$chooserJsObject}.setElementLabel(
+                data.node.text
+            );
+            {$chooserJsObject}.close();
+        });
+    });
+script;
+?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false); ?>

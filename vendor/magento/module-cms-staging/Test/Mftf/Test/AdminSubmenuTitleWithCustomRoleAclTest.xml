@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminSubmenuTitleWithCustomRoleAclTest">
+        <annotations>
+            <features value="Acl Control"/>
+            <stories value="Admin submenu title with restricted access"/>
+            <title value="Submenu titles should reflect, irrespective of the access level assigned to the user."/>
+            <description value="Submenu titles should reflect, irrespective of the access level assigned to the user, when they have more than one sibling."/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="AC-9775"/>
+            <useCaseId value="ACP2E-2460"/>
+            <group value="menu"/>
+        </annotations>
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="LoginAsAdmin"/>
+
+            <actionGroup ref="AdminFillUserRoleRequiredDataActionGroup" stepKey="fillUserRoleRequiredData">
+                <argument name="User" value="adminRole"/>
+                <argument name="restrictedRole" value="Dashboard"/>
+            </actionGroup>
+            <actionGroup ref="AdminUserClickRoleResourceTabActionGroup" stepKey="goToRoleResourcesTab" />
+            <actionGroup ref="AdminAddRestrictedRoleActionGroup" stepKey="AddMarketingEventResource">
+                <argument name="User" value="adminRole"/>
+                <argument name="restrictedRole" value="Events"/>
+            </actionGroup>
+            <actionGroup ref="AdminAddRestrictedRoleActionGroup" stepKey="AddContentPagesResource">
+                <argument name="User" value="adminRole"/>
+                <argument name="restrictedRole" value="Pages"/>
+            </actionGroup>
+            <actionGroup ref="AdminAddRestrictedRoleActionGroup" stepKey="AddContentThemeResource">
+                <argument name="User" value="adminRole"/>
+                <argument name="restrictedRole" value="Themes"/>
+            </actionGroup>
+            <actionGroup ref="AdminUserSaveRoleActionGroup" stepKey="saveUserRole" />
+
+            <actionGroup ref="AdminCreateUserActionGroup" stepKey="createAdminUser">
+                <argument name="role" value="adminRole"/>
+                <argument name="User" value="admin2"/>
+            </actionGroup>
+
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logoutOfAdmin"/>
+        </before>
+        <after>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logoutAsSaleRoleUser"/>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <!--Delete created data-->
+            <actionGroup ref="AdminUserOpenAdminRolesPageActionGroup" stepKey="navigateToUserRoleGrid"/>
+            <actionGroup ref="AdminDeleteRoleActionGroup" stepKey="deleteUserRole">
+                <argument name="role" value="adminRole"/>
+            </actionGroup>
+            <actionGroup ref="AdminOpenAdminUsersPageActionGroup" stepKey="goToAllUsersPage"/>
+            <actionGroup ref="AdminDeleteNewUserActionGroup" stepKey="deleteUser">
+                <argument name="userName" value="{{admin2.username}}"/>
+            </actionGroup>
+        </after>
+
+        <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsNewUser">
+            <argument name="username" value="{{admin2.username}}"/>
+            <argument name="password" value="{{admin2.password}}"/>
+        </actionGroup>
+
+        <waitForPageLoad stepKey="waitBeforePageLoad"/>
+
+        <click selector="{{AdminMenuSection.menuItem(AdminMenuMarketing.dataUiId)}}" stepKey="clickOnMarketingMenuItem"/>
+        <waitForPageLoad stepKey="waitToOpenMarketingSubmenu"/>
+        <dontSeeElement selector="strong.submenu-group-title" stepKey="dontSeeSubmenu"/>
+
+        <click selector="{{AdminMenuSection.menuItem(AdminMenuContent.dataUiId)}}" stepKey="clickOnContentMenuItem"/>
+        <waitForPageLoad stepKey="waitToOpenContentSubmenu"/>
+        <seeElement selector="strong.submenu-group-title" stepKey="seeSubmenu"/>
+    </test>
+</tests>

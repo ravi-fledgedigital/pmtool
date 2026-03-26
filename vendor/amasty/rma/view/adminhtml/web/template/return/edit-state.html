@@ -1,0 +1,68 @@
+<td  class="amrma-cell amrma-rma-details">
+    <!-- ko if: $data.is_editable -->
+    <p>
+        <strong data-bind="i18n: 'Return Reason:'"></strong>
+        <span data-bind="text: $parents[1].indexedReasons[$data.reason_id()]"></span>
+    </p>
+    <p>
+        <strong data-bind="i18n: 'Items Conditions:'"></strong>
+        <span data-bind="text: $parents[1].indexedConditions[$data.condition_id]"></span>
+    </p>
+    <p>
+        <strong data-bind="i18n: 'Resolution:'"></strong>
+        <span data-bind="text: $parents[1].indexedResolutions[$data.resolution_id]"></span>
+    </p>
+
+    <a class="amrma-button-rma" data-bind="i18n: 'Edit', attr: {title: 'Edit'}, click: $parent.edit.bind($parent, $index(), $element)"></a>
+    <!-- /ko -->
+
+    <!-- ko ifnot: $data.is_editable  -->
+    <p>
+        <p data-bind="i18n: 'Return Reason:'"></p>
+        <select class="admin__control-select amrma-select"
+                data-bind="options: $parents[1].reasons,
+                optionsText: function (item) {
+                    return item.label;
+                },
+                optionsValue: function (item) {
+                    return item.value;
+                },
+                value: $data.reason_id,
+                attr: {disabled: $data.is_expired ? 'disabled' : false}">
+        </select>
+    </p>
+    <p>
+        <p data-bind="i18n: 'Items Conditions:'"></p>
+        <select class="admin__control-select amrma-select"
+                data-bind="options: $parents[1].conditions,
+                optionsText: function (item) {
+                    return item.label;
+                },
+                optionsValue: function (item) {
+                    return item.value;
+                },
+                value: $data.condition_id,
+                attr: {disabled: $data.is_expired ? 'disabled' : false}">
+        </select>
+    </p>
+    <p>
+        <p data-bind="i18n: 'Resolution:'"></p>
+        <select class="admin__control-select amrma-select"
+                data-bind="options: $parents[1].resolutions,
+                optionsText: function (item) {
+                    return item.label;
+                },
+                optionsValue: function (item) {
+                    return item.value;
+                },
+                value: $data.resolution_id,
+                attr: {disabled: $data.is_expired ? 'disabled' : false}">
+        </select>
+    </p>
+
+    <a class="amrma-button-rma" data-bind="i18n: 'Apply', attr: {title: 'Save'}, click: $parent.save.bind($parent, $index())"></a>
+    <!-- /ko -->
+</td>
+<td class="amrma-cell">
+    <span data-bind="text: $parent.whoPays($data.reason_id())"></span>
+</td>

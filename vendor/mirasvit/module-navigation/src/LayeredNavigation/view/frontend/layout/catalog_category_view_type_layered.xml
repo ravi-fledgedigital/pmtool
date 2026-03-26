@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <container name="m.horizontal.navigation.container" htmlTag="div" htmlClass="mst-nav__horizontal-bar" before="-">
+                <block class="Mirasvit\LayeredNavigation\Block\NavigationHorizontal\Category" name="m.catalog.horizontal" before="-" template="Magento_LayeredNavigation::layer/view.phtml">
+                    <block class="Mirasvit\LayeredNavigation\Block\Navigation\State"
+                           name="m.catalog.navigation.horizontal.state" as="state"/>
+
+                    <block class="Mirasvit\LayeredNavigation\Block\Renderer\FilterRenderer" name="m.catalog.navigation.horizontal.renderer" as="renderer"
+                           template="Magento_LayeredNavigation::layer/filter.phtml"/>
+                </block>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

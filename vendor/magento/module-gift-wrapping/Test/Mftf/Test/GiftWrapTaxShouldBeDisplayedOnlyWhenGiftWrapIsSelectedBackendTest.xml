@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="GiftWrapTaxShouldBeDisplayedOnlyWhenGiftWrapIsSelectedBackendTest">
+        <annotations>
+            <stories value="Gift wrap tax should be displayed only when gift wrap is selected backend"/>
+            <title value="Gift wrap tax should be displayed only when gift wrap is selected backend"/>
+            <description value="Gift wrap tax should be displayed only when gift wrap is selected backend"/>
+            <testCaseId value="AC-4536"/>
+            <severity value="MAJOR"/>
+            <group value="tax"/>
+        </annotations>
+        <before>
+            <!-- Pre-condition:Login to backend as admin -->
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <!-- Pre-condition:Create a tax rule -->
+            <actionGroup ref="AdminTaxRuleGridOpenPageActionGroup" stepKey="goToTaxRulePage"/>
+            <click stepKey="addNewTaxRate" selector="{{AdminGridMainControls.add}}"/>
+            <fillField stepKey="fillRuleName" selector="{{AdminTaxRulesSection.ruleName}}" userInput="SampleRule"/>
+            <!-- Pre-condition:Add CA tax rules -->
+            <actionGroup ref="AddNewTaxRateNoZipActionGroup" stepKey="addCATaxRate">
+                <argument name="taxCode" value="SimpleTaxCA"/>
+            </actionGroup>
+            <click stepKey="clickSave" selector="{{AdminStoresMainActionsSection.saveButton}}"/>
+            <see selector="{{AdminTaxRuleGridSection.successMessage}}" userInput="You saved the tax rule." stepKey="assertTaxRuleSuccessMessage" />
+            <!-- Pre-condition: Create simple product -->
+            <createData entity="defaultSimpleProduct" stepKey="simpleProduct">
+                <field key="price">10.00</field>
+            </createData>
+            <!-- Pre-condition: Create Customer -->
+            <createData entity="Simple_US_Customer_CA" stepKey="createCustomerCA"/>
+        </before>
+        <after>
+            <actionGroup ref="ResetBackTaxClassForGiftOptionsAndShoppingCartDisplaySettingsActionGroup" stepKey="resetBackSalesTaxClassesAndShoppingCartDisplaySettings"/>
+            <!-- PostCondition: Delete the Simple Product -->
+            <deleteData createDataKey="simpleProduct" stepKey="deleteProduct"/>
+            <!-- PostCondition: Delete Tax Rule -->
+            <actionGroup ref="AdminTaxRuleGridOpenPageActionGroup" stepKey="goToTaxRulesPage"/>
+            <actionGroup ref="deleteEntitySecondaryGrid" stepKey="deleteRule">
+                <argument name="name" value="SampleRule"/>
+                <argument name="searchInput" value="{{AdminSecondaryGridSection.taxIdentifierSearch}}"/>
+            </actionGroup>
+            <!-- PostCondition: Delete Tax rate page -->
+            <actionGroup ref="AdminTaxRateGridOpenPageActionGroup" stepKey="goToTaxRatesPage"/>
+            <actionGroup ref="AdminDeleteMultipleTaxRatesActionGroup" stepKey="deleteAllNonDefaultTaxRates"/>
+            <comment userInput="Preserve BiC" stepKey="deleteCARate"/>
+            <!-- PostCondition: Delete teh Created Customer -->
+            <deleteData createDataKey="createCustomerCA" stepKey="deleteCustomerCA"/>
+            <!-- PostCondition: Delete Created Gift Wrapping -->
+            <actionGroup ref="AdminDeleteGiftWrappingActionGroup" stepKey="deleteGiftsWrapping">
+                <argument name="giftWrappingDesign" value="TestWrapping"/>
+            </actionGroup>
+            <!-- PostCondition: Flush cache and re-index -->
+            <actionGroup ref="CliIndexerReindexActionGroup" stepKey="reindexPostDeletingEntities">
+                <argument name="indices" value=""/>
+            </actionGroup>
+            <actionGroup ref="CliCacheFlushActionGroup" stepKey="flushCachePostDeletingEntities">
+                <argument name="tags" value=""/>
+            </actionGroup>
+            <!-- PostCondition: logout of the application as admin -->
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+        <!-- Step1-5: Update the Tax Class configuration -->
+        <actionGroup ref="SetTaxClassForGiftOptionsAndShoppingCartDisplaySettingsActionGroup" stepKey="setSalesTaxClassesAndShoppingCartDisplaySettings"/>
+        <!-- Step 6-7: Navigate to Stores > Gift Wrapping > Add a new Gift Wrapping -->
+        <actionGroup ref="AdminGiftWrappingNewActionGroup" stepKey="CreateNewGiftsWrapping">
+            <argument name="giftWrappingDesign" value="TestWrapping"/>
+            <argument name="giftWrappingWebsite" value="Main Website"/>
+            <argument name="giftWrappingPrice" value="10.00"/>
+        </actionGroup>
+        <!-- Pre-condition: Flush cache and re-index -->
+        <actionGroup ref="CliIndexerReindexActionGroup" stepKey="reindexPostCreatingEntities">
+            <argument name="indices" value=""/>
+        </actionGroup>
+        <actionGroup ref="CliCacheFlushActionGroup" stepKey="flushCachePostCreatingEntities">
+            <argument name="tags" value=""/>
+        </actionGroup>
+        <!-- Step 8-9: Navigate to Sales > Orders > Create New Order -->
+        <actionGroup ref="AdminOrdersPageOpenActionGroup" stepKey="navigateToSalesOrderPage"/>
+        <click selector="{{AdminOrdersGridSection.createNewOrder}}" stepKey="clickCreateNewOrder"/>
+        <waitForPageLoad stepKey="waitForSelectCustomerPageToLoad"/>
+        <!-- Step 10: Select the Customer -->
+        <fillField userInput="$$createCustomerCA.email$$" selector="{{AdminOrderCustomersGridSection.emailInput}}" stepKey="fillFieldWithCustomerEmailAddress"/>
+        <click selector="{{AdminOrderCustomersGridSection.apply}}" stepKey="clickSearchButtonForCustomer"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForCustomerToLoadInGrid"/>
+        <click selector="{{AdminOrderCustomersGridSection.firstRow}}" stepKey="clickOnDisplayedCustomerInGrid"/>
+        <waitForPageLoad stepKey="waitForStoresPageOpened"/>
+        <!-- Step 11-12: Select the product to add to order -->
+        <click selector="{{OrdersGridSection.addProducts}}" stepKey="clickOnAddProducts"/>
+        <waitForPageLoad stepKey="waitForProductsListForOrder"/>
+        <fillField userInput="$$simpleProduct.sku$$" selector="{{AdminOrdersGridSection.orderPageSearchProductBySKU}}" stepKey="enterProductSKU"/>
+        <click selector="{{AdminOrdersGridSection.searchProductButtonOrderPage}}" stepKey="clickSearchButtonForProduct"/>
+        <waitForElementVisible selector="{{AdminOrdersGridSection.productForOrder($$simpleProduct.sku$$)}}" stepKey="waitForProductToBeDisplayedInGrid"/>
+        <click selector="{{AdminOrdersGridSection.productForOrder($$simpleProduct.sku$$)}}" stepKey="chooseTheProduct"/>
+        <waitForPageLoad stepKey="waitForClickProduct"/>
+        <click selector="{{AdminOrderFormItemsSection.addSelected}}" stepKey="addSelectedProductToOrder"/>
+        <waitForPageLoad stepKey="waitForProductAddedInOrder"/>
+        <!-- Step 13: Select the Gift Wrapping Design and Verify the Order totals should have Gift Wrapping -->
+        <scrollTo selector="{{AdminOrdersGridSection.selectGiftsWrappingDesign}}" stepKey="scrollToGiftsWrappingDesign"/>
+        <selectOption selector="{{AdminOrdersGridSection.selectGiftsWrappingDesign}}" userInput="TestWrapping" stepKey="selectTheGiftsWrappingCreated"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForOrderTotalsToUpdatePostSelectingGiftsWrapping"/>
+        <seeElement selector="{{AdminOrdersGridSection.giftsWrappingForOrderExclTaxPrice('10.00')}}" stepKey="verifyGiftsWrappingForOrderExclTaxInOrdersTotal"/>
+        <seeElement selector="{{AdminOrdersGridSection.giftsWrappingForOrderInclTaxPrice('10.82')}}" stepKey="verifyGiftsWrappingForOrderInclTaxInOrdersTotal"/>
+        <!-- Step 14: Select the Gift Wrapping Design Back to Please Select and Verify the Order totals should not have Gift Wrapping -->
+        <scrollTo selector="{{AdminOrdersGridSection.selectGiftsWrappingDesign}}" stepKey="scrollBackToGiftsWrappingDesign"/>
+        <selectOption selector="{{AdminOrdersGridSection.selectGiftsWrappingDesign}}" userInput="Please select" stepKey="selectThePleaseSelectOption"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForOrderTotalsToUpdatePostSelectingPleaseSelect"/>
+        <dontSeeElement selector="{{AdminOrdersGridSection.giftsWrappingForOrderExclTaxPrice('10.00')}}" stepKey="verifyGiftsWrappingForOrderExclTaxInOrdersTotalNotPresent"/>
+        <dontSeeElement selector="{{AdminOrdersGridSection.giftsWrappingForOrderInclTaxPrice('10.82')}}" stepKey="verifyGiftsWrappingForOrderInclTaxInOrdersTotalNotPresent"/>
+    </test>
+</tests>

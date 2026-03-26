@@ -1,0 +1,10 @@
+
+File "/var/www/html/app/code/Magento/Logging/Test/Mftf/Test/AdminSystemArchiveNavigateMenuTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminMenuSystem from module(s): magento/module-admin-notification
+
+File "/var/www/html/app/code/Magento/Logging/Test/Mftf/Test/AdminSystemReportNavigateMenuTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminMenuSystem from module(s): magento/module-admin-notification

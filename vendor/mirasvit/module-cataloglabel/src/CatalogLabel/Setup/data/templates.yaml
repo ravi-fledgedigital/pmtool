@@ -1,0 +1,315 @@
+- name: Badge
+  code: badge
+  html_template: |
+    <div class="shape-badge">
+      <img src="data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 200 200' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M200 99.9834C200 105.123 193.003 109.665 192.224 114.589C191.428 119.645 196.668 126.111 195.126 130.885C193.551 135.743 185.493 137.881 183.205 142.374C180.9 146.9 183.868 154.675 180.9 158.77C177.916 162.865 169.593 162.434 166.012 166.015C162.431 169.595 162.878 177.918 158.766 180.902C154.688 183.869 146.912 180.902 142.386 183.206C137.909 185.494 135.754 193.551 130.896 195.126C126.121 196.668 119.655 191.429 114.598 192.225C109.674 193.004 105.131 200 99.9917 200C94.852 200 90.3092 193.004 85.3851 192.225C80.3283 191.429 73.8622 196.668 69.0873 195.126C64.2295 193.551 62.0907 185.494 57.5976 183.206C53.0714 180.902 45.2955 183.869 41.2004 180.902C37.1052 177.918 37.5363 169.595 33.9551 166.015C30.3739 162.434 22.0509 162.881 19.0666 158.77C16.0988 154.692 19.0666 146.916 16.762 142.391C14.474 137.914 6.41631 135.759 4.84125 130.902C3.31592 126.127 8.57167 119.662 7.77584 114.605C6.9966 109.665 0 105.139 0 99.9834C0 94.8442 6.9966 90.3017 7.77584 85.378C8.57167 80.3216 3.3325 73.8561 4.87441 69.0816C6.44947 64.2241 14.5072 62.0855 16.7952 57.5928C19.0997 53.067 16.132 45.2918 19.0997 41.197C22.0841 37.1021 30.407 37.5332 33.9882 33.9523C37.5694 30.3714 37.1218 22.0491 41.2335 19.065C45.3121 16.0975 53.088 19.065 57.6142 16.7606C62.0907 14.4728 64.246 6.41578 69.1039 4.84085C73.8622 3.31565 80.3283 8.55438 85.3851 7.7752C90.3092 6.99602 94.852 0 99.9917 0C105.131 0 109.674 6.99602 114.598 7.7752C119.655 8.57096 126.121 3.33223 130.896 4.87401C135.754 6.44894 137.893 14.506 142.386 16.7938C146.912 19.0981 154.688 16.1306 158.783 19.0981C162.878 22.0822 162.447 30.4045 166.028 33.9854C169.61 37.5663 177.933 37.1187 180.917 41.2301C183.885 45.3084 180.917 53.0836 183.221 57.6094C185.509 62.0855 193.567 64.2407 195.142 69.0981C196.684 73.8727 191.445 80.3382 192.241 85.3946C193.003 90.3017 200 94.8442 200 99.9834Z' fill='%23427BBF'/%3E%3C/svg%3E%0A" alt="" aria-hidden="true">
+      <div class="shape-badge__content">{{var label.title}}</div>
+    </div>
+  style: |
+    .shape-badge {
+      position: relative;
+    }
+    .shape-badge__content {
+      left: 10px;
+      position: absolute;
+      text-align: center;
+      top: 10px;
+      color: #fff;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+- name: Price Tag
+  code: price-tag
+  html_template: |
+    <div class="shape-price-tag">
+      <span>{{var label.title}}</span>
+    </div>
+  style: |
+    .shape-price-tag {
+      display: inline-block;
+      z-index: 5;
+      width: auto;
+      height: 38px;
+      background-color: green;
+      border-radius: 3px 4px 4px 3px;
+      margin-left: 19px;
+      position: relative;
+      color: white;
+      line-height: 38px;
+      padding: 0 10px 0 10px;
+      font-weight: 600;
+      transform: rotate(30deg);
+    }
+    .shape-price-tag:before {
+      content: "";
+      position: absolute;
+      display: block;
+      top: 4px;
+      left: -14px;
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      border-bottom-left-radius: 8px;
+      background: green;
+      transform: rotate(45deg);
+      z-index: 1;
+    }
+    .shape-price-tag:after {
+      content: "";
+      background-color: white;
+      border-radius: 50%;
+      width: 8px;
+      height: 8px;
+      display: block;
+      position: absolute;
+      left: -9px;
+      top: 15px;
+      z-index: 2;
+    }
+    .shape-price-tag span {
+      z-index: 10;
+      position: relative;
+      white-space: nowrap;
+    }
+- name: Simple
+  code: simple
+  html_template: |
+    <div class="shape-simple">
+      {{var label.title}}
+    </div>
+  style: |
+    .shape-simple {
+      background: #A04E49;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius:2px;
+      white-space: nowrap;
+      display: inline-block;
+      width: fit-content;
+    }
+- name: Rounded
+  code: rounded
+  html_template: |
+    <div class="shape-rounded">
+      {{var label.title}}
+    </div>
+  style: |
+    .shape-rounded {
+      background: #A04E49;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 40px;
+      white-space: nowrap;
+      display: inline-block;
+      width: fit-content;
+    }
+- name: Wave
+  code: wave
+  html_template: |
+    <div class="shape-wave">
+      {{var label.title}}
+    </div>
+  style: |
+    .shape-wave {
+      background: #0064A0;
+      color: #fff;
+      padding: 5px 15px;
+      border-radius: 0 40px;
+      white-space: nowrap;
+      display: inline-block;
+      width: fit-content;
+    }
+- name: Rounded Right
+  code: rounded-right
+  html_template: |
+    <div class="shape-rounded-right">
+      {{var label.title}}
+    </div>
+  style: |
+    .shape-rounded-right {
+      background: #0064A0;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 0 40px 40px 0;
+      white-space: nowrap;
+      display: inline-block;
+      width: fit-content;
+    }
+- name: Rounded Left
+  code: rounded-left
+  html_template: |
+    <div class="shape-rounded-left">
+      {{var label.title}}
+    </div>
+  style: |
+    .shape-rounded-left {
+      background: #0064A0;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 40px 0 0 40px;
+      white-space: nowrap;
+      display: inline-block;
+      width: fit-content;
+    }
+- name: Arrow Right
+  code: arrow-right
+  html_template: |
+    <div class="shape-arrow-right">
+      {{var label.title}}
+    </div>
+  style: |
+    .shape-arrow-right {
+      --bg: #F28550;
+      background: var(--bg);
+      padding: 5px 10px;
+      position: relative;
+      height: 30px;
+      border-radius: 2px 0 0 2px;
+      box-sizing: border-box;
+      white-space: nowrap;
+      display: inline-block;
+      width: fit-content;
+    }
+    .shape-arrow-right:after {
+      content: "";
+      position: absolute;
+      right: -15px;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-left: 15px solid var(--bg);
+      border-top: 15px solid transparent;
+      border-bottom: 15px solid transparent;
+    }
+- name: Flag Right
+  code: flag-right
+  html_template: |
+    <div class="shape-flag-right">
+      {{var label.title}}
+    </div>
+  style: |
+    .shape-flag-right {
+      --bg: #F28550;
+      background: var(--bg);
+      padding: 5px 10px;
+      position: relative;
+      height: 30px;
+      border-radius: 2px 0 0 2px;
+      box-sizing: border-box;
+      white-space: nowrap;
+      display: inline-block;
+      width: fit-content;
+    }
+    .shape-flag-right:after {
+      content: "";
+      position: absolute;
+      right: -15px;
+      top: 0;
+      width: 0;
+      height: 0;
+      border-top: 15px solid var(--bg);
+      border-right: 15px solid transparent;
+    }
+    .shape-flag-right:before {
+      content: "";
+      position: absolute;
+      right: -15px;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-bottom: 15px solid var(--bg);
+      border-right: 15px solid transparent;
+    }
+- name: Circle
+  code: circle
+  html_template: |
+    <div class="shape-circle">
+      <div class="shape-circle__content">{{var label.title}}</div>
+    </div>
+  style: |
+    .shape-circle {
+      background-color: #F2A718;
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: bold;
+    }
+    .shape-circle__content {
+      max-width: 50px;
+      display: flex;
+      align-items:center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-height: 50px;
+      white-space: nowrap;
+    }
+- name: Circle 2 (dynamic)
+  code: circle-2
+  html_template: |
+    <div class="shape-circle-2">
+      <div>{{var label.title}}</div>
+    </div>
+  style: |
+    .shape-circle-2 {
+      padding: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      max-width: 100px;
+      width: fit-content;
+    }
+    .shape-circle-2:before {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 0;
+      padding-bottom: 100%;
+      background: #4679BD;
+      border-radius: 50%;
+      position: absolute;
+    }
+    .shape-circle-2 div {
+      float: left;
+      text-align: center;
+      color: white;
+      white-space: wrap;
+      max-width: 100px;
+      max-height: 100px;
+      text-overflow: ellipsis;
+      z-index: 10;
+    }
+- name: Corner TopLeft
+  code: corner-topleft
+  html_template: |
+    <div class="shape-corner">
+      <div class="shape-corner__content">{{var label.title}}</div>
+    </div>
+  style: |
+    .shape-corner {
+      position: relative;
+      width: 0;
+      height: 0;
+      border-top: 100px solid #F2A718;
+      border-right: 100px solid transparent;
+    }
+    .shape-corner__content {
+      width: 90px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      height: 25px;
+      white-space: nowrap;
+      top: -74px;
+      position: relative;
+      transform: rotate(-45deg);
+    }
+

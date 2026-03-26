@@ -1,0 +1,16 @@
+<label for="amrma-attach" class="amrma-label -newreturn" data-bind="i18n: 'Attach File'"></label>
+<input type="file"
+       id="amrma-attach"
+       accept=".pdf,.png,.jpg,.gif"
+       multiple
+       class="amrma-attach"
+       data-bind="event: {change: processingFile.bind($data, $element.files)}"
+/>
+<input type="hidden"
+       data-bind="value: files, attr: {name: inputName, 'aria-describedby': noticeId, id: uid, disabled: disabled}"/>
+<!-- ko foreach: $data.filesData -->
+<div class="amrma-chat-file -newreturn" data-bind="attr: {'data-filehash' : filehash, 'data-extension' : extension}">
+    <span class="amrma-file" data-bind="text: filename"></span>
+    <span class="amrma-file amrma-delete" data-bind="click: $parent.deleteFile.bind($parent)"></span>
+</div>
+<!-- /ko -->

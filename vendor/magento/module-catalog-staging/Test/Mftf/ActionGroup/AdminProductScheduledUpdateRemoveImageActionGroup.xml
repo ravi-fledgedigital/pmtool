@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminProductScheduledUpdateRemoveImageActionGroup">
+        <annotations>
+            <description>Remove image from product scheduled update.</description>
+        </annotations>
+        <arguments>
+            <argument name="image" defaultValue="ProductImage"/>
+        </arguments>
+        <scrollTo selector="{{AdminProductScheduledUpdateImagesSection.productImagesToggle}}" stepKey="scrollToElement"></scrollTo>
+        <see selector="{{AdminProductScheduledUpdateImagesSection.productImagesToggle}}" userInput="Images And Videos" stepKey="seeImagesAndVideosSection"/>
+        <executeJS function="jQuery('.scheduled-changes-modal-slide div[data-index=gallery] .admin__collapsible-title').click()" stepKey="expandingImages"/>
+        <scrollTo selector="{{AdminProductScheduledUpdateImagesSection.imageFile(image.fileName)}}" stepKey="scrollToImage"></scrollTo>
+        <waitForElementVisible selector="{{AdminProductScheduledUpdateImagesSection.imageFile(image.fileName)}}" stepKey="seeProductImageName"/>
+        <click selector="{{AdminProductScheduledUpdateImagesSection.removeImageByFilename(image.fileName)}}" stepKey="waitForThumbnail"/>
+    </actionGroup>
+</actionGroups>

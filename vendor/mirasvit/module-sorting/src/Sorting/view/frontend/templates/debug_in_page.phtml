@@ -1,0 +1,112 @@
+<?php
+declare(strict_types=1);
+
+/** @var \Mirasvit\Sorting\Block\DebugInPage $block */
+
+$logs = $block->getLogs();
+?>
+
+<div class="mst-sorting__debug-in-page">
+    <?php foreach ($logs as $collection): ?>
+        <pre><?= $block->escapeHtml(get_class($collection)) ?></pre>
+        <pre> <?= $block->escapeHtml($collection->getSelect()->assemble()) ?></pre>
+
+        <table role="table" aria-label="<?= $block->escapeHtmlAttr(__('Product Sorting Debug Information')) ?>">
+            <tr>
+                <th scope="col">Position</th>
+                <th scope="col">Score</th>
+                <th scope="col">Product Details</th>
+                <th scope="col">Global Score Details</th>
+                <th scope="col">Criterion Score Details</th>
+            </tr>
+            <?php $idx = 1 ?>
+            <?php foreach ($collection as $product): ?>
+                <?php $scoreData = $block->getScoresByProduct($product) ?>
+                <tr>
+                    <th scope="row">
+                        #<?= $block->escapeHtml($idx) ?>
+                    </th>
+                    <td>
+                        <?php if ($block->isPinned($product)): ?>
+                            <p><strong><?= $block->escapeHtml(__('Pinned to top')) ?></strong></p>
+                        <?php endif; ?>
+                        <?php $step = 1 ?>
+                        <p>
+                            Step <?= $block->escapeHtml($step); ?> (Global):
+                            <strong><?= $block->escapeHtml($block->getTotalScore($scoreData['global'])) ?></strong>
+                        </p>
+                        <?php foreach ($scoreData['criterion'] as $scope => $scopeData): ?>
+                            <?php $step++; ?>
+                            <p>
+                                Step <?= $block->escapeHtml($step); ?> (<?= $block->escapeHtml(ucfirst($scope)) ?>):
+                                <?= $block->escapeHtml($block->getTotalScore($scopeData)) ?>
+                            </p>
+                        <?php endforeach; ?>
+                    </td>
+                    <td class="product-info">
+                        <img src="<?= $block->escapeHtmlAttr($block->getProductImageUrl($product)) ?>"
+                             alt="<?= $block->escapeHtmlAttr(__('Product image for %1', $product->getName())) ?>"
+                             width="100px">
+                        <p><?= $block->escapeHtml(__('ID: %1', $product->getId())) ?></p>
+                        <p><?= $block->escapeHtml(__('SKU: %1', $product->getSku())) ?></p>
+                        <p><?= $block->escapeHtml(__('Name: %1', $product->getName())) ?></p>
+                        <p><?= /* @noEscape */ __('Price: %1', $block->getProductPrice($product)) ?></p>
+                        <p><?= $block->escapeHtml(__('Rating: %1%', is_object($product->getRatingSummary()) ? (int)$product->getRatingSummary()->getRatingSummary() : (int)$product->getRatingSummary())) ?> </p>
+                    </td>
+                    <td>
+                        <?php foreach ($scoreData['global'] as $data): ?>
+                            <?= $block->getScoresBlockHtml($product, $data) ?>
+                            <?php if (is_null($data['score'])) {
+                                break;
+                            } ?>
+                        <?php endforeach ?>
+                    </td>
+                    <td>
+                        <div class="mst-sorting__debug-in-page__criterion">
+                            <?php foreach ($scoreData['criterion'] as $scope => $scopeData): ?>
+                                <p><?= $block->escapeHtml($block->getScopeLabel($scope) . ' (' . ucfirst($scope) . ')') ?></p>
+                                <?php foreach ($scopeData as $data): ?>
+                                    <?= $block->getScoresBlockHtml($product, $data) ?>
+                                    <?php if (is_null($data['score'])) {
+                                        break;
+                                    } ?>
+                                <?php endforeach; ?>
+                            <?php endforeach ?>
+                        </div>
+                    </td>
+                </tr>
+                <?php $idx++ ?>
+            <?php endforeach; ?>
+        </table>
+    <?php endforeach ?>
+</div>
+<style>
+    .mst-sorting__debug-in-page {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .mst-sorting__debug-in-page * {
+        font-size: 12px;
+    }
+
+    .mst-sorting__debug-in-page table {
+        border: 1px solid #888;
+    }
+
+    .mst-sorting__debug-in-page table td, .mst-sorting__debug-in-page table th {
+        border: 1px solid #888;
+    }
+
+    .mst-sorting__debug-in-page .product-info img {
+        float: left;
+    }
+
+    .mst-sorting__debug-in-page pre {
+        white-space: normal;
+    }
+
+    .mst-sorting__debug-in-page__criterion > div {
+        margin-left: 2rem;
+    }
+</style>

@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="serverStartCommand" xsi:type="object">Magento\ApplicationServer\Console\ServerStartCommand</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\ApplicationServer\GraphQl\Config">
+        <arguments>
+            <argument name="data" xsi:type="object">Magento\Framework\GraphQl\Config\Data</argument>
+        </arguments>
+    </type>
+    <type name="Magento\ApplicationServer\App\CookieManager">
+        <arguments>
+            <argument name="request" xsi:type="object">Magento\ApplicationServer\App\RequestProxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\App\Response\Http">
+        <arguments>
+            <argument name="cookieManager" xsi:type="object">Magento\Framework\Stdlib\CookieManagerInterface\Proxy</argument>
+        </arguments>
+        <plugin name="Http-SwooleResponse" type="Magento\ApplicationServer\Plugin\Http"/>
+    </type>
+    <type name="Magento\Framework\Webapi\RequestAwareErrorProcessor">
+        <arguments>
+            <argument name="request" xsi:type="object">Magento\ApplicationServer\App\RequestProxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Catalog\Model\Product\Option\Type\File\RequestAwareValidatorFile">
+        <arguments>
+            <argument name="request" xsi:type="object">Magento\ApplicationServer\App\RequestProxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Eav\Model\ResourceModel\Entity\Attribute">
+        <plugin name="refresh-state" type="Magento\ApplicationServer\Plugin\RefreshState"/>
+    </type>
+    <type name="Magento\Framework\Session\SessionManagerInterface">
+        <plugin name="application-server" type="Magento\ApplicationServer\Plugin\SessionMangerStarter"/>
+    </type>
+    <type name="Magento\Framework\App\State\ReloadProcessorComposite">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <!-- Note: This needs to be first because it has DeploymentConfig which others require -->
+                <item name="000_Magento::config" xsi:type="object">Magento\Framework\App\State\ReloadProcessor</item>
+                <item name="Magento_ApplicationServer::config" xsi:type="object">Magento\ApplicationServer\App\ReloadProcessor</item>
+                <item name="GraphQl::QueryParser" xsi:type="object">Magento\Framework\GraphQl\Query\QueryParser</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

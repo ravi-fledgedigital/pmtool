@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package PDF Customizer for Magento 2
+ */-->
+
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <listingToolbar name="listing_top">
+        <massaction name="listing_massaction" class="Amasty\PDFCustom\Ui\MassAction" component="Magento_Ui/js/grid/tree-massactions">
+            <action name="pdforders_order">
+                <settings>
+                    <url path="amasty_pdf/order/pdforders"/>
+                    <type>pdforders_order</type>
+                    <label translate="true">Print Orders</label>
+                </settings>
+            </action>
+        </massaction>
+    </listingToolbar>
+</listing>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+  <test name="VerifyThatGiftMessageCanBeDisabledForSpecificProductTest">
+    <annotations>
+      <features value="Gift Wrapping"/>
+      <stories value="Verify that Gift Message can be disabled for specific product"/>
+      <title value="Verify that Gift Message can be disabled for specific product"/>
+      <description value="Verify that Gift Message can be disabled for specific product"/>
+      <testCaseId value="AC-4120"/>
+      <severity value="MAJOR"/>
+        <group value="cloud"/>
+    </annotations>
+    <before>
+      <!--Create Category-->
+      <createData entity="SimpleSubCategory" stepKey="createCategory"/>
+      <!--Create Simple Product-->
+      <createData entity="SimpleProduct" stepKey="createSimpleProduct1">
+        <requiredEntity createDataKey="createCategory"/>
+      </createData>
+      <createData entity="SimpleProduct" stepKey="createSimpleProduct2">
+        <requiredEntity createDataKey="createCategory"/>
+      </createData>
+      <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+    </before>
+    <after>
+      <deleteData createDataKey="createCategory" stepKey="deleteCreatedCategory"/>
+      <deleteData createDataKey="createSimpleProduct2" stepKey="deleteSimpleProduct2"/>
+      <deleteData createDataKey="createSimpleProduct1" stepKey="deleteSimpleProduct1"/>
+      <actionGroup ref="AdminLogoutActionGroup" stepKey="logoutOfApplication"/>
+    </after>
+
+    <!-- Step1 Search for the Created Simple Product1 and set Allow gift message to Yes -->
+    <actionGroup ref="FilterAndSelectProductActionGroup" stepKey="openSimpleProduct1ForEdit">
+      <argument name="productSku" value="$$createSimpleProduct1.sku$$"/>
+    </actionGroup>
+    <actionGroup ref="AllowGiftMessageForProductActionGroup" stepKey="setAllowGiftMessageAsYes">
+      <argument name="allowGiftMsg" value="0"/>
+    </actionGroup>
+    <actionGroup ref="SaveProductFormActionGroup" stepKey="saveSimpleProduct1"/>
+
+    <!-- Step2 Search for the Created Simple Product2 and set Allow gift message to No -->
+    <actionGroup ref="FilterAndSelectProductActionGroup" stepKey="openSimpleProduct2ForEdit">
+      <argument name="productSku" value="$$createSimpleProduct2.sku$$"/>
+    </actionGroup>
+    <actionGroup ref="AllowGiftMessageForProductActionGroup" stepKey="setAllowGiftMessageAsNo">
+      <argument name="allowGiftMsg" value="1"/>
+    </actionGroup>
+    <actionGroup ref="SaveProductFormActionGroup" stepKey="saveSimpleProduct2"/>
+
+    <!-- Step3 Set the Allow Gift messages configuration -->
+    <actionGroup ref="AdminConfigSalesGiftsOptionsActionGroup" stepKey="resetTheGiftOptionsConfig">
+      <argument name="allowGiftMsgOnOrderLevel" value="No"/>
+      <argument name="allowGiftMsgOnOrderItems" value="Yes"/>
+      <argument name="allowWrappingGiftOnOrderLevel" value="No"/>
+      <argument name="allowWrappingGiftOnItemLevel" value="No"/>
+      <argument name="allowGiftReceipt" value="No"/>
+      <argument name="allowPrintedCard" value="No"/>
+    </actionGroup>
+    <actionGroup ref="ClearCacheActionGroup" stepKey="clearCache"/>
+
+    <!-- Step4 Add the products to the cart on Storefront -->
+    <actionGroup ref="AddSimpleProductToCartActionGroup" stepKey="AddSimpleProduct1ToCart">
+      <argument name="product" value="$$createSimpleProduct1$$"/>
+    </actionGroup>
+    <actionGroup ref="AddSimpleProductToCartActionGroup" stepKey="AddSimpleProduct2ToCart">
+      <argument name="product" value="$$createSimpleProduct2$$"/>
+    </actionGroup>
+
+    <!-- Step5 Verify the gift options is present for 1 product and absent for other -->
+    <click selector="{{AdminCustomerInformationSection.showCart}}" stepKey="clickShoppingCartButton"/>
+    <waitForPageLoad stepKey="waitForShoppingCartPullDownToLoad"/>
+    <click selector="{{StorefrontMinicartSection.viewAndEditCart}}" stepKey="clickViewAndEditCartButton"/>
+    <waitForPageLoad stepKey="waitForViewAndEditCartPageToLoad"/>
+    <seeElement selector="{{StorefrontProductCartGiftOptionSection.viewGiftOptions('$$createSimpleProduct1.name$$')}}" stepKey="SeesTheGiftOptionButtonForProduct1"/>
+    <dontSeeElement selector="{{StorefrontProductCartGiftOptionSection.viewGiftOptions('$$createSimpleProduct2.name$$')}}" stepKey="DontseeTheGiftOptionButtonForProduct2"/>
+  </test>
+</tests>

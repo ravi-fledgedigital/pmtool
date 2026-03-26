@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright 2023 Adobe
+ * All Rights Reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_DataExporter:etc/et_schema.xsd">
+    <record name="ProductPriceV2">
+        <field name="websiteId" type="Int"/>
+        <field name="productId" type="Int"/>
+        <field name="sku" type="String"/>
+        <field name="type" type="String"/>
+        <field name="customerGroupCode" type="String"/>
+        <field name="websiteCode" type="String"/>
+        <field name="parents" type="ProductPriceParent" repeated="true"/>
+        <field name="regular" type="Float"/>
+        <field name="discounts" type="DiscountPrice" repeated="true"/>
+        <field name="tierPrices" type="TierPrice" repeated="true"/>
+        <field name="deleted" type="Boolean"/>
+        <field name="updatedAt" type="String" provider="Magento\DataExporter\Model\Provider\DateConverter">
+            <using field="productPriceId"/>
+        </field>
+    </record>
+    <record name="ProductPriceParent">
+        <field name="type" type="String"/>
+        <field name="sku" type="String"/>
+    </record>
+    <record name="DiscountPrice" skipNull="true">
+        <field name="code" type="String"/>
+        <field name="price" type="Float" />
+        <field name="percentage" type="Float" />
+    </record>
+    <record name="TierPrice" skipNull="true">
+        <field name="qty" type="Float"/>
+        <field name="price" type="Float" />
+        <field name="percentage" type="Float" />
+    </record>
+    <record name="Export">
+        <field name="prices" type="ProductPriceV2" repeated="true"
+               provider="Magento\ProductPriceDataExporter\Model\Provider\ProductPrice">
+            <using field="productPriceId"/>
+        </field>
+    </record>
+</config>

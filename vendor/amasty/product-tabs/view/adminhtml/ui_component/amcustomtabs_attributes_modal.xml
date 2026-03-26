@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Product Tabs for Magento 2
+ */-->
+
+<listing
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">amcustomtabs_attributes_modal.attributes_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>attributes</spinner>
+        <deps>
+            <dep>amcustomtabs_attributes_modal.attributes_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="attributes_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">code</param>
+            </storageConfig>
+
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Amasty_CustomTabs::tabs</aclResource>
+        <dataProvider class="Amasty\CustomTabs\Model\Attribute\Ui\Component\DataProvider"
+                      name="attributes_data_source">
+            <settings>
+                <requestFieldName>code</requestFieldName>
+                <primaryFieldName>code</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <filterSearch name="attribute_name"/>
+    </listingToolbar>
+    <columns name="attributes">
+        <column name="attribute_selector" component="Amasty_CustomTabs/js/grid/columns/checkbox">
+            <settings>
+                <label>Select</label>
+            </settings>
+        </column>
+        <column name="label">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Attribute Name</label>
+                <sortable>true</sortable>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="code">
+            <settings>
+                <label translate="true">Attribute Code</label>
+                <sortable>true</sortable>
+            </settings>
+        </column>
+    </columns>
+</listing>

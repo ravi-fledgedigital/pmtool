@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">mst_landing_form.mst_landing_form_data_source</item>
+            <item name="deps" xsi:type="string">mst_landing_form.mst_landing_form_data_source</item>
+        </item>
+
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">mst_landing_form</item>
+        </item>
+
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+
+        <item name="buttons" xsi:type="array">
+            <item name="save" xsi:type="string">Mirasvit\LandingPage\Ui\Page\Form\Control\SaveButton</item>
+            <item name="save_and_continue" xsi:type="string">Mirasvit\LandingPage\Ui\Page\Form\Control\SaveAndContinueButton</item>
+            <item name="delete" xsi:type="string">Mirasvit\LandingPage\Ui\Page\Form\Control\DeleteButton</item>
+            <item name="back" xsi:type="string">Mirasvit\LandingPage\Ui\Page\Form\Control\BackButton</item>
+        </item>
+
+    </argument>
+
+    <dataSource name="mst_landing_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Mirasvit\LandingPage\Ui\Page\Form\DataProvider</argument>
+            <argument name="name" xsi:type="string">mst_landing_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">page_id</argument>
+            <argument name="requestFieldName" xsi:type="string">page_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="*/*/save"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+
+    <fieldset name="general">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string">Page</item>
+                <item name="collapsible" xsi:type="boolean">false</item>
+                <item name="opened" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+
+        <field name="page_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="is_active" formElement="checkbox" sortOrder="80">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">landing</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Status</label>
+                <dataScope>is_active</dataScope>
+                <imports>
+                    <link name="disabled">mst_landing_form.mst_landing_form:default[is_active]</link>
+                </imports>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="default[is_active]" sortOrder="81">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="use-default">true</class>
+                </additionalClasses>
+                <imports>
+                    <link name="visible">${ $.provider}:data.disable_default</link>
+                </imports>
+                <exports>
+                    <link name="checked">mst_landing_form.mst_landing_form:default[is_active]</link>
+                </exports>
+            </settings>
+        </field>
+
+        <field name="store_ids" sortOrder="90">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Cms\Ui\Component\Listing\Column\Cms\Options</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="label" xsi:type="string" translate="true">Store view</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="source" xsi:type="string">page</item>
+                    <item name="dataScope" xsi:type="string">store_ids</item>
+                    <item name="default" xsi:type="string">0</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <imports>
+                    <link name="disabled">${ $.provider}:data.disable_default</link>
+                    <!-- <link name="visible">${ $.provider}:data.disable_default</link> -->
+                </imports>
+            </settings>
+        </field>
+
+        <field name="redirect" formElement="checkbox" sortOrder="95">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="notice" xsi:type="string" translate="true">Perform redirect to the Landing Page when all configured conditions are matched (Categories, Search Term, Filters)</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Redirect</label>
+                <dataScope>redirect</dataScope>
+                <imports>
+                    <link name="disabled">mst_landing_form.mst_landing_form:default[redirect]</link>
+                </imports>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="default[redirect]" sortOrder="96">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="use-default">true</class>
+                </additionalClasses>
+                <imports>
+                    <link name="visible">${ $.provider}:data.disable_default</link>
+                </imports>
+                <exports>
+                    <link name="checked">mst_landing_form.mst_landing_form:default[redirect]</link>
+                </exports>
+            </settings>
+        </field>
+
+        <field name="name" sortOrder="100">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" translate="true" xsi:type="string">Name</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <imports>
+                    <link name="disabled">mst_landing_form.mst_landing_form:default[name]</link>
+                </imports>
+            </settings>
+        </field>
+        <field name="default[name]" sortOrder="101">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <settings>
+                <additionalClasses>
+                    <class name="use-default">true</class>
+                </additionalClasses>
+                <imports>
+                    <link name="visible">${ $.provider}:data.disable_default</link>
+                </imports>
+                <exports>
+                    <link name="checked">mst_landing_form.mst_landing_form:default[name]</link>
+                </exports>
+            </settings>
+        </field>
+
+        <field name="image" sortOrder="105">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Image</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/element/file-uploader</item>
+                    <item name="formElement" xsi:type="string">fileUploader</item>
+                    <item name="componentType" xsi:type="string">fileUploader</item>
+                    <item name="notice" xsi:type="string" translate="true">Allowed file types: png, gif, jpg, jpeg.</item>
+                    <item name="maxFileSize" xsi:type="number">2097152</item>
+                    <item name="allowedExtensions" xsi:type="string">jpg jpeg gif png</item>
+                    <item name="uploaderConfig" xsi:type="array">
+                        <item name="url" xsi:type="string">mst_landing/page/imageUpload</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <fieldset name="seo">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Search Engine Optimization</item>
+                    <item name="collapsible" xsi:type="boolean">true</item>
+                    <item name="opened" xsi:type="boolean">true</item>
+
+                </item>
+            </argument>
+
+            <field name="url_key" sortOrder="110">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" translate="true" xsi:type="string">URL key</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                </argument>
+                <settings>
+                    <imports>
+                        <link name="disabled">mst_landing_form.mst_landing_form:default[url_key]</link>
+                    </imports>
+                </settings>
+            </field>
+            <field name="default[url_key]" sortOrder="111">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                        <item name="dataType" xsi:type="string">boolean</item>
+                        <item name="formElement" xsi:type="string">checkbox</item>
+                        <item name="default" xsi:type="number">1</item>
+                        <item name="visible" xsi:type="boolean">false</item>
+                    </item>
+                </argument>
+                <settings>
+                    <additionalClasses>
+                        <class name="use-default">true</class>
+                    </additionalClasses>
+                    <imports>
+                        <link name="visible">${ $.provider}:data.disable_default</link>
+                    </imports>
+                    <exports>
+                        <link name="checked">mst_landing_form.mst_landing_form:default[url_key]</link>
+                    </exports>
+                </settings>
+            </field>
+
+            <field name="page_title" sortOrder="120">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" translate="true" xsi:type="string">Page title</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                    </item>
+                </argument>
+                <settings>
+                    <imports>
+                        <link name="disabled">mst_landing_form.mst_landing_form:default[page_title]</link>
+                    </imports>
+                </settings>
+            </field>
+            <field name="default[page_title]" sortOrder="121">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                        <item name="dataType" xsi:type="string">boolean</item>
+                        <item name="formElement" xsi:type="string">checkbox</item>
+                        <item name="default" xsi:type="number">1</item>
+                        <item name="visible" xsi:type="boolean">false</item>
+                    </item>
+                </argument>
+                <settings>
+                    <additionalClasses>
+                        <class name="use-default">true</class>
+                    </additionalClasses>
+                    <imports>
+                        <link name="visible">${ $.provider}:data.disable_default</link>
+                    </imports>
+                    <exports>
+                        <link name="checked">mst_landing_form.mst_landing_form:default[page_title]</link>
+                    </exports>
+                </settings>
+            </field>
+
+            <field name="meta_title" sortOrder="130">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" translate="true" xsi:type="string">Meta title</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                    </item>
+                </argument>
+                <settings>
+                    <imports>
+                        <link name="disabled">mst_landing_form.mst_landing_form:default[meta_title]</link>
+                    </imports>
+                </settings>
+            </field>
+            <field name="default[meta_title]" sortOrder="131">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                        <item name="dataType" xsi:type="string">boolean</item>
+                        <item name="formElement" xsi:type="string">checkbox</item>
+                        <item name="default" xsi:type="number">1</item>
+                        <item name="visible" xsi:type="boolean">false</item>
+                    </item>
+                </argument>
+                <settings>
+                    <additionalClasses>
+                        <class name="use-default">true</class>
+                    </additionalClasses>
+                    <imports>
+                        <link name="visible">${ $.provider}:data.disable_default</link>
+                    </imports>
+                    <exports>
+                        <link name="checked">mst_landing_form.mst_landing_form:default[meta_title]</link>
+                    </exports>
+                </settings>
+            </field>
+
+            <field name="meta_description" sortOrder="140">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" translate="true" xsi:type="string">Meta description</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">textarea</item>
+                    </item>
+                </argument>
+                <settings>
+                    <imports>
+                        <link name="disabled">mst_landing_form.mst_landing_form:default[meta_description]</link>
+                    </imports>
+                </settings>
+            </field>
+            <field name="default[meta_description]" sortOrder="141">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                        <item name="dataType" xsi:type="string">boolean</item>
+                        <item name="formElement" xsi:type="string">checkbox</item>
+                        <item name="default" xsi:type="number">1</item>
+                        <item name="visible" xsi:type="boolean">false</item>
+                    </item>
+                </argument>
+                <settings>
+                    <additionalClasses>
+                        <class name="use-default">true</class>
+                    </additionalClasses>
+                    <imports>
+                        <link name="visible">${ $.provider}:data.disable_default</link>
+                    </imports>
+                    <exports>
+                        <link name="checked">mst_landing_form.mst_landing_form:default[meta_description]</link>
+                    </exports>
+                </settings>
+            </field>
+
+            <field name="meta_tags" formElement="select" sortOrder="30">
+                <settings>
+                    <dataType>text</dataType>
+                    <label translate="true">Robots meta tags</label>
+                    <imports>
+                        <link name="disabled">mst_landing_form.mst_landing_form:default[meta_tags]</link>
+                    </imports>
+                </settings>
+                <formElements>
+                    <select>
+                        <settings>
+                            <options class="Mirasvit\LandingPage\Model\Config\Source\RobotsSource"/>
+                        </settings>
+                    </select>
+                </formElements>
+            </field>
+            <field name="default[meta_tags]" sortOrder="31">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                        <item name="dataType" xsi:type="string">boolean</item>
+                        <item name="formElement" xsi:type="string">checkbox</item>
+                        <item name="default" xsi:type="number">1</item>
+                        <item name="visible" xsi:type="boolean">false</item>
+                    </item>
+                </argument>
+                <settings>
+                    <additionalClasses>
+                        <class name="use-default">true</class>
+                    </additionalClasses>
+                    <imports>
+                        <link name="visible">${ $.provider}:data.disable_default</link>
+                    </imports>
+                    <exports>
+                        <link name="checked">mst_landing_form.mst_landing_form:default[meta_tags]</link>
+                    </exports>
+                </settings>
+            </field>
+        </fieldset>
+        <fieldset name="content">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Content</item>
+                    <item name="collapsible" xsi:type="boolean">true</item>
+                    <item name="opened" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+            <field name="description" sortOrder="20" formElement="wysiwyg">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="wysiwygConfigData" xsi:type="array">
+                            <item name="height" xsi:type="string">100px</item>
+                            <item name="add_variables" xsi:type="boolean">true</item>
+                            <item name="add_widgets" xsi:type="boolean">true</item>
+                            <item name="add_images" xsi:type="boolean">true</item>
+                            <item name="add_directives" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                </argument>
+                <settings>
+                    <label>Description</label>
+                    <imports>
+                        <link name="disabled">mst_landing_form.mst_landing_form:default[description]</link>
+                    </imports>
+                </settings>
+                <formElements>
+                    <wysiwyg>
+                        <settings>
+                            <rows>8</rows>
+                            <wysiwyg>true</wysiwyg>
+                        </settings>
+                    </wysiwyg>
+                </formElements>
+            </field>
+            <field name="default[description]" sortOrder="21">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                        <item name="dataType" xsi:type="string">boolean</item>
+                        <item name="formElement" xsi:type="string">checkbox</item>
+                        <item name="default" xsi:type="number">1</item>
+                        <item name="visible" xsi:type="boolean">false</item>
+                    </item>
+                </argument>
+                <settings>
+                    <additionalClasses>
+                        <class name="use-default">true</class>
+                    </additionalClasses>
+                    <imports>
+                        <link name="visible">${ $.provider}:data.disable_default</link>
+                    </imports>
+                    <exports>
+                        <link name="checked">mst_landing_form.mst_landing_form:default[description]</link>
+                    </exports>
+                </settings>
+            </field>
+
+            <field name="top_block" formElement="select" sortOrder="30">
+                <settings>
+                    <dataType>text</dataType>
+                    <label translate="true">Top CMS block</label>
+                    <imports>
+                        <link name="disabled">mst_landing_form.mst_landing_form:default[top_block]</link>
+                    </imports>
+                </settings>
+                <formElements>
+                    <select>
+                        <settings>
+                            <options class="Mirasvit\LandingPage\Model\Config\Source\BlockSource"/>
+                        </settings>
+                    </select>
+                </formElements>
+            </field>
+            <field name="default[top_block]" sortOrder="31">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                        <item name="dataType" xsi:type="string">boolean</item>
+                        <item name="formElement" xsi:type="string">checkbox</item>
+                        <item name="default" xsi:type="number">1</item>
+                        <item name="visible" xsi:type="boolean">false</item>
+                    </item>
+                </argument>
+                <settings>
+                    <additionalClasses>
+                        <class name="use-default">true</class>
+                    </additionalClasses>
+                    <imports>
+                        <link name="visible">${ $.provider}:data.disable_default</link>
+                    </imports>
+                    <exports>
+                        <link name="checked">mst_landing_form.mst_landing_form:default[top_block]</link>
+                    </exports>
+                </settings>
+            </field>
+            <field name="bottom_block" formElement="select" sortOrder="40">
+                <settings>
+                    <dataType>text</dataType>
+                    <label translate="true">Bottom CMS block</label>
+                    <imports>
+                        <link name="disabled">mst_landing_form.mst_landing_form:default[bottom_block]</link>
+                    </imports>
+                </settings>
+                <formElements>
+                    <select>
+                        <settings>
+                            <options class="Mirasvit\LandingPage\Model\Config\Source\BlockSource"/>
+                        </settings>
+                    </select>
+                </formElements>
+            </field>
+            <field name="default[bottom_block]" sortOrder="41">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                        <item name="dataType" xsi:type="string">boolean</item>
+                        <item name="formElement" xsi:type="string">checkbox</item>
+                        <item name="default" xsi:type="number">1</item>
+                        <item name="visible" xsi:type="boolean">false</item>
+                    </item>
+                </argument>
+                <settings>
+                    <additionalClasses>
+                        <class name="use-default">true</class>
+                    </additionalClasses>
+                    <imports>
+                        <link name="visible">${ $.provider}:data.disable_default</link>
+                    </imports>
+                    <exports>
+                        <link name="checked">mst_landing_form.mst_landing_form:default[bottom_block]</link>
+                    </exports>
+                </settings>
+            </field>
+            <field name="layout_update" sortOrder="50">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" translate="true" xsi:type="string">Layout update XML</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">textarea</item>
+                    </item>
+                </argument>
+                <settings>
+                    <imports>
+                        <link name="disabled">mst_landing_form.mst_landing_form:default[layout_update]</link>
+                    </imports>
+                </settings>
+            </field>
+            <field name="default[layout_update]" sortOrder="51">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                        <item name="dataType" xsi:type="string">boolean</item>
+                        <item name="formElement" xsi:type="string">checkbox</item>
+                        <item name="default" xsi:type="number">1</item>
+                        <item name="visible" xsi:type="boolean">false</item>
+                    </item>
+                </argument>
+                <settings>
+                    <additionalClasses>
+                        <class name="use-default">true</class>
+                    </additionalClasses>
+                    <imports>
+                        <link name="visible">${ $.provider}:data.disable_default</link>
+                    </imports>
+                    <exports>
+                        <link name="checked">mst_landing_form.mst_landing_form:default[layout_update]</link>
+                    </exports>
+                </settings>
+            </field>
+        </fieldset>
+        <fieldset name="products">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Products</item>
+                    <item name="collapsible" xsi:type="boolean">true</item>
+                    <item name="opened" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+            <field name="categories">
+                <argument name="data" xsi:type="array">
+                    <item name="options" xsi:type="object">Magento\Catalog\Ui\Component\Product\Form\Categories\Options</item>
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Categories</item>
+                        <item name="componentType" xsi:type="string">field</item>
+                        <item name="formElement" xsi:type="string">select</item>
+                        <item name="component" xsi:type="string">Magento_Catalog/js/components/new-category</item>
+                        <item name="elementTmpl" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                        <item name="dataScope" xsi:type="string">categories</item>
+                        <item name="filterOptions" xsi:type="boolean">true</item>
+                        <item name="showCheckbox" xsi:type="boolean">true</item>
+                        <item name="disableLabel" xsi:type="boolean">true</item>
+                        <item name="chipsEnabled" xsi:type="boolean">true</item>
+                        <item name="multiple" xsi:type="boolean">true</item>
+                        <item name="levelsVisibility" xsi:type="number">1</item>
+                        <item name="sortOrder" xsi:type="number">10</item>
+                    </item>
+                </argument>
+                <settings>
+                    <imports>
+                        <link name="visible">!${ $.provider}:data.disable_default</link>
+                    </imports>
+                </settings>
+            </field>
+            <field name="search_term" sortOrder="20">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" translate="true" xsi:type="string">Search term</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">input</item>
+                    </item>
+                </argument>
+                <settings>
+                    <imports>
+                        <link name="disabled">mst_landing_form.mst_landing_form:default[search_term]</link>
+                    </imports>
+                </settings>
+            </field>
+            <field name="default[search_term]" sortOrder="21">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="description" xsi:type="string" translate="true">Use Default Value</item>
+                        <item name="dataType" xsi:type="string">boolean</item>
+                        <item name="formElement" xsi:type="string">checkbox</item>
+                        <item name="default" xsi:type="number">1</item>
+                        <item name="visible" xsi:type="boolean">false</item>
+                    </item>
+                </argument>
+                <settings>
+                    <additionalClasses>
+                        <class name="use-default">true</class>
+                    </additionalClasses>
+                    <imports>
+                        <link name="visible">${ $.provider}:data.disable_default</link>
+                    </imports>
+                    <exports>
+                        <link name="checked">mst_landing_form.mst_landing_form:default[search_term]</link>
+                    </exports>
+                </settings>
+            </field>
+
+            <dynamicRows name="filters" sortOrder="30">
+                <settings>
+                    <addButtonLabel translate="true">Add Record</addButtonLabel>
+                    <dndConfig>
+                        <param name="enabled" xsi:type="boolean">false</param>
+                    </dndConfig>
+                    <label>Filters</label>
+                    <componentType>dynamicRows</componentType>
+                    <imports>
+                        <link name="visible">!${ $.provider}:data.disable_default</link>
+                    </imports>
+                </settings>
+                <container name="record" component="Magento_Ui/js/dynamic-rows/record">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="isTemplate" xsi:type="boolean">true</item>
+                            <item name="is_collection" xsi:type="boolean">true</item>
+                            <item name="componentType" xsi:type="string">container</item>
+                        </item>
+                    </argument>
+                    <field name="attributes" component="Mirasvit_LandingPage/js/components/select-attribute">
+                        <argument name="data" xsi:type="array">
+                            <item name="options" xsi:type="object">Mirasvit\LandingPage\Model\Config\Source\AttributeSource</item>
+                            <item name="config" xsi:type="array">
+                                <item name="dataType" xsi:type="string">int</item>
+                                <item name="label" xsi:type="string" translate="true">Attribute</item>
+                                <item name="formElement" xsi:type="string">select</item>
+                                <item name="source" xsi:type="string">page</item>
+                                <item name="dataScope" xsi:type="string">attribute</item>
+                            </item>
+                        </argument>
+                    </field>
+                    <field name="options">
+                        <argument name="data" xsi:type="array">
+                            <item name="options" xsi:type="object">Mirasvit\LandingPage\Model\Config\Source\OptionSource</item>
+                            <item name="config" xsi:type="array">
+                                <item name="dataType" xsi:type="string">string</item>
+                                <item name="label" xsi:type="string" translate="true">Options</item>
+                                <item name="formElement" xsi:type="string">multiselect</item>
+                                <item name="source" xsi:type="string">page</item>
+                                <item name="dataScope" xsi:type="string">options</item>
+                            </item>
+                        </argument>
+                    </field>
+                    <actionDelete>
+                        <argument name="data" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="componentType" xsi:type="string">actionDelete</item>
+                                <item name="dataType" xsi:type="string">text</item>
+                                <item name="fit" xsi:type="boolean">false</item>
+                                <item name="label" xsi:type="string">Actions</item>
+                                <item name="additionalClasses" xsi:type="string">data-grid-actions-cell</item>
+                                <item name="template" xsi:type="string">Magento_Backend/dynamic-rows/cells/action-delete</item>
+                            </item>
+                        </argument>
+                    </actionDelete>
+                </container>
+            </dynamicRows>
+        </fieldset>
+    </fieldset>
+</form>

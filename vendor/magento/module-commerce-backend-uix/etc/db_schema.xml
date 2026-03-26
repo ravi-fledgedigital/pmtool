@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * ADOBE CONFIDENTIAL
+ *
+ * Copyright 2023 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="admin_ui_sdk_mass_actions" resource="default" engine="innodb" comment="Table to store apps registered mass actions for Admin UI SDK. (DEPRECATED)">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true"
+                comment="Internal Mass Action ID"/>
+        <column xsi:type="varchar" name="label" nullable="false" length="128"
+                comment="Type"/>
+        <column xsi:type="varchar" name="type" nullable="false" length="128"
+                comment="Type"/>
+        <column xsi:type="varchar" name="ui_grid" nullable="false" length="128"
+                comment="UI Grid"/>
+        <column xsi:type="varchar" name="confirm_title" nullable="false" length="128"
+                comment="Confirm title"/>
+        <column xsi:type="varchar" name="confirm_message" nullable="false" length="128"
+                comment="Confim message"/>
+        <column xsi:type="varchar" name="action_id" nullable="false" length="128"
+                comment="Action ID"/>
+        <column xsi:type="varchar" name="extension_id" nullable="false" length="128"
+                comment="Extension ID"/>
+        <column xsi:type="int" name="product_number_limit" nullable="false"
+                comment="Number of allowed products to select"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="ACTION_ID_UNIQUE">
+            <column name="action_id"/>
+        </constraint>
+    </table>
+    <table name="admin_ui_sdk_mass_actions_failed_request" resource="default" engine="innodb" comment="Table to store failed requests when execution a no iFrame mass action">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true"
+                comment="Unique identifier"/>
+        <column xsi:type="varchar" name="request_id" nullable="false" length="36"
+                comment="Request Id as UUID v4"/>
+        <column xsi:type="varchar" name="action_id" nullable="false" length="128"
+                comment="Action ID"/>
+        <column xsi:type="varchar" name="grid_type" nullable="false" length="128"
+                comment="Grid type where mass action is executed"/>
+        <column xsi:type="int" name="error_status" nullable="false"
+                comment="Status of the request"/>
+        <column xsi:type="varchar" name="error_message" nullable="false" length="255"
+                comment="Error message"/>
+        <column xsi:type="timestamp" name="request_timestamp" nullable="true" on_update="false"
+                comment="Request timestamp"/>
+        <column xsi:type="json" name="selected_ids" nullable="true"
+                comment="Selected ids when request was sent"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="REQUEST_ID_UNIQUE">
+            <column name="request_id"/>
+        </constraint>
+    </table>
+    <table name="admin_ui_sdk_logs" resource="default" engine="innodb" comment="Table to store logs for Admin UI SDK">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true" comment="Unique identifier"/>
+        <column xsi:type="text" name="message" nullable="false" comment="Logs message"/>
+        <column xsi:type="varchar" name="level" nullable="false" length="16" comment="Level of log: debug, info, warning, error" />
+        <column xsi:type="timestamp" name="timestamp" nullable="true" on_update="true" comment="Log timestamp"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+</schema>

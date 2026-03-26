@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="CheckoutAsRegisteredUSCustomerForMultiShippingGiftCardTest">
+        <annotations>
+            <features value="Checkout With MultiShipping Address"/>
+            <stories value="Checkout With MultiShipping Address For Registered Customer"/>
+            <title value="Gift Cards Applied Incorrectly During Checkout With Multiple Addresses"/>
+            <description value="Verify Checkout as a registered US customer with multi shipping using gift card"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="AC-7068"/>
+            <useCaseId value="ACP2E-1350"/>
+            <group value="GiftCardAccount"/>
+        </annotations>
+        <before>
+            <createData stepKey="category" entity="SimpleSubCategory"/>
+            <!-- Create Simple Product 1-->
+            <createData entity="SimpleProduct2" stepKey="createSimpleProduct1">
+                <field key="price">10</field>
+                <requiredEntity createDataKey="category"/>
+            </createData>
+            <!-- Create Simple Product 2-->
+            <createData entity="SimpleProduct2" stepKey="createSimpleProduct2">
+                <field key="price">100</field>
+                <requiredEntity createDataKey="category"/>
+            </createData>
+            <createData entity="GiftCardCodePool" stepKey="createCodePool"/>
+            <!-- Create customer -->
+            <createData entity="Simple_US_Customer_Two_Addresses" stepKey="createCustomer"/>
+            <createData entity="FreeShippinMethodConfig" stepKey="enableFreeShipping"/>
+            <createData entity="FlatRateShippingMethodConfig" stepKey="enableFlatRateShipping"/>
+            <actionGroup ref="CliEnableCheckMoneyOrderPaymentMethodActionGroup" stepKey="enableCheckMoneyOrderPaymentMethod"/>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginToStorefrontAccount">
+                <argument name="Customer" value="$$createCustomer$$"/>
+            </actionGroup>
+        </before>
+        <after>
+            <createData entity="FreeShippinMethodDefault" stepKey="disableFreeShipping"/>
+            <!-- Logout customer -->
+            <actionGroup ref="StorefrontCustomerLogoutActionGroup" stepKey="customerLogoutStorefront"/>
+            <!-- Logout admin -->
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+            <deleteData stepKey="deleteCategory" createDataKey="category"/>
+            <!-- Delete created products -->
+            <deleteData createDataKey="createSimpleProduct2" stepKey="deleteSimpleProduct1"/>
+            <deleteData createDataKey="createSimpleProduct1" stepKey="deleteSimpleProduct2"/>
+            <!-- Delete customer -->
+            <actionGroup ref="StorefrontCustomerLogoutActionGroup" stepKey="logoutCustomer" />
+            <deleteData createDataKey="createCustomer" stepKey="deleteCustomer"/>
+        </after>
+        <!-- Create gift card account with 50 USD -->
+        <actionGroup ref="AddGiftCardAccountActionGroup" stepKey="addGiftCardAccount1">
+            <argument name="website" value="Main Website" />
+            <argument name="balanceAmount" value="50" />
+        </actionGroup>
+        <!-- Grab gift card code 1 -->
+        <grabTextFrom selector="{{AdminGiftCardAccountGridSection.giftCardCode}}" stepKey="giftCardAccountCode1"/>
+        <!-- Create gift card account with 25 USD -->
+        <actionGroup ref="AddGiftCardAccountActionGroup" stepKey="addGiftCardAccount2">
+            <argument name="website" value="Main Website" />
+            <argument name="balanceAmount" value="25" />
+        </actionGroup>
+        <!-- Grab gift card code 2 -->
+        <grabTextFrom selector="{{AdminGiftCardAccountGridSection.giftCardCode}}" stepKey="giftCardAccountCode2"/>
+        <!--Add simple product 1 to cart-->
+        <amOnPage url="$$createSimpleProduct1.custom_attributes[url_key]$$.html" stepKey="goToSimpleProduct1"/>
+        <waitForPageLoad stepKey="waitForSimpleProductPageLoad1"/>
+        <actionGroup ref="AddToCartFromStorefrontProductPageActionGroup" stepKey="addToCartFromStorefrontSimpleProduct1">
+            <argument name="productName" value="$$createSimpleProduct1.name$$"/>
+        </actionGroup>
+        <!--Add simple product 2 to cart-->
+        <amOnPage url="$$createSimpleProduct2.custom_attributes[url_key]$$.html" stepKey="goToSimpleProduct2"/>
+        <waitForPageLoad stepKey="waitForSimpleProductPageLoad2"/>
+        <actionGroup ref="AddToCartFromStorefrontProductPageActionGroup" stepKey="addToCartFromStorefrontSimpleProduct2">
+            <argument name="productName" value="$$createSimpleProduct2.name$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenCartFromMinicartActionGroup" stepKey="openCart"/>
+        <!--Apply Both Gift Card Value To The Cart-->
+        <actionGroup ref="AddGiftCardToOrderFromCartActionGroup" stepKey="applyGiftCard1">
+            <argument name="code" value="$giftCardAccountCode1"/>
+        </actionGroup>
+        <waitForPageLoad stepKey="waitForGiftCardToBeApplied1"/>
+        <actionGroup ref="AddGiftCardToOrderFromCartActionGroup" stepKey="applyGiftCard2">
+            <argument name="code" value="$giftCardAccountCode2"/>
+        </actionGroup>
+        <waitForPageLoad stepKey="waitForGiftCardToBeApplied2"/>
+        <actionGroup ref="CheckingWithMultipleAddressesActionGroup" stepKey="checkoutWithMultipleAddresses"/>
+        <waitForPageLoad stepKey="waitForShippingInfoPageLoad"/>
+        <actionGroup ref="SelectMultiShippingInfoActionGroup" stepKey="checkoutWithMultipleShipping"/>
+        <waitForPageLoad stepKey="waitForBillingInfoPageLoad"/>
+        <actionGroup ref="SelectBillingInfoActionGroup" stepKey="checkoutWithPaymentMethod"/>
+        <actionGroup ref="ReviewOrderForMultiShipmentActionGroup" stepKey="reviewOrderForMultiShipment"/>
+        <!--verify first shipping address first gift card amount-->
+        <actionGroup ref="StoreFrontMultiShippingVerifyGiftCardActionGroup" stepKey="verifyFirstShippingAddressFirstGiftCard">
+            <argument name="shippingMethodPosition" value="1"/>
+            <argument name="giftCardPosition" value="1"/>
+            <argument name="actualResult" value="$15.00"/>
+        </actionGroup>
+        <!--verify first shipping address second gift card amount-->
+        <actionGroup ref="StoreFrontMultiShippingVerifyGiftCardActionGroup" stepKey="verifyFirstShippingAddressSecondGiftCard">
+            <argument name="shippingMethodPosition" value="1"/>
+            <argument name="giftCardPosition" value="2"/>
+            <argument name="actualResult" value="$0.00"/>
+        </actionGroup>
+        <!--verify second shipping address first gift card amount-->
+        <actionGroup ref="StoreFrontMultiShippingVerifyGiftCardActionGroup" stepKey="verifySecondShippingAddressFirstGiftCard">
+            <argument name="shippingMethodPosition" value="2"/>
+            <argument name="giftCardPosition" value="1"/>
+            <argument name="actualResult" value="$10.00"/>
+        </actionGroup>
+        <!--verify second shipping address second gift card amount-->
+        <actionGroup ref="StoreFrontMultiShippingVerifyGiftCardActionGroup" stepKey="verifySecondShippingAddressSecondGiftCard">
+            <argument name="shippingMethodPosition" value="2"/>
+            <argument name="giftCardPosition" value="2"/>
+            <argument name="actualResult" value="$50.00"/>
+        </actionGroup>
+        <!--place order successfully and see the success message-->
+        <actionGroup ref="PlaceOrderActionGroup" stepKey="placeOrder"/>
+        <waitForPageLoad stepKey="waitForOrderToBePlaced"/>
+        <see selector="{{StorefrontMultipleShippingMethodSection.successMessage}}" userInput="Successfully ordered" stepKey="seeSuccessMessage"/>
+        <grabTextFrom selector="{{StorefrontMultipleShippingMethodSection.orderId('1')}}" stepKey="grabFirstOrderId"/>
+        <grabTextFrom selector="{{StorefrontMultipleShippingMethodSection.orderId('2')}}" stepKey="grabSecondOrderId"/>
+        <!-- Go to My Account > My Orders -->
+        <amOnPage url="{{StorefrontCustomerOrdersHistoryPage.url}}" stepKey="goToMyOrdersPage"/>
+        <waitForPageLoad stepKey="waitForMyOrdersPageLoad"/>
+        <seeElement selector="{{StorefrontCustomerOrdersGridSection.orderView({$grabFirstOrderId})}}" stepKey="seeFirstOrder"/>
+        <seeElement selector="{{StorefrontCustomerOrdersGridSection.orderView({$grabSecondOrderId})}}" stepKey="seeSecondOrder"/>
+        <waitForPageLoad stepKey="waitForOrderPageLoad"/>
+        <!-- Go to Admin > Sales > Orders -->
+        <actionGroup ref="AdminOrdersPageOpenActionGroup" stepKey="onOrdersPage"/>
+        <actionGroup ref="SearchAdminDataGridByKeywordActionGroup" stepKey="searchFirstOrder">
+            <argument name="keyword" value="$grabFirstOrderId"/>
+        </actionGroup>
+        <seeElement selector="{{AdminOrdersGridSection.orderId({$grabFirstOrderId})}}" stepKey="seeAdminFirstOrder"/>
+        <actionGroup ref="AdminGridFilterResetActionGroup" stepKey="clearGridFiltersOnBlocksGridPage1"/>
+        <actionGroup ref="SearchAdminDataGridByKeywordActionGroup" stepKey="searchSecondOrder">
+            <argument name="keyword" value="$grabSecondOrderId"/>
+        </actionGroup>
+        <seeElement selector="{{AdminOrdersGridSection.orderId({$grabSecondOrderId})}}" stepKey="seeAdminSecondOrder"/>
+        <actionGroup ref="AdminGridFilterResetActionGroup" stepKey="clearGridFiltersOnBlocksGridPage2"/>
+        <!-- Delete both gift card account -->
+        <actionGroup ref="DeleteGiftCardAccountActionGroup" stepKey="deleteGiftCardAccount1">
+            <argument name="giftCardAccountCode" value="$giftCardAccountCode1"/>
+        </actionGroup>
+        <waitForPageLoad stepKey="waitForGiftCardsToBeDeleted"/>
+        <actionGroup ref="DeleteGiftCardAccountActionGroup" stepKey="deleteGiftCardAccount2">
+            <argument name="giftCardAccountCode" value="$giftCardAccountCode2"/>
+        </actionGroup>
+        <click selector="{{AdminGiftCardAccountGridSection.resetFilter}}" stepKey="clickResetFilterButton"/>
+        <waitForPageLoad stepKey="waitForFilterReset"/>
+    </test>
+</tests>

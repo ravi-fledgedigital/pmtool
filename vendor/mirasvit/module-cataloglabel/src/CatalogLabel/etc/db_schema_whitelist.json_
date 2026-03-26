@@ -1,0 +1,150 @@
+{
+    "mst_cataloglabel_label": {
+        "column": {
+            "label_id": true,
+            "type": true,
+            "attribute_id": true,
+            "placeholder_id": true,
+            "name": true,
+            "active_from": true,
+            "active_to": true,
+            "sort_order": true,
+            "is_active": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "MST_CATALOGLABEL_LABEL_PLACEHOLDER_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_9A601185F21CF7A63C4D12028764180B": true
+        }
+    },
+    "mst_cataloglabel_label_attribute": {
+        "column": {
+            "attribute_id": true,
+            "label_id": true,
+            "display_id": true,
+            "option_id": true,
+            "option_text": true
+        },
+        "index": {
+            "MST_CATALOGLABEL_LABEL_ATTRIBUTE_LABEL_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "MST_CATLBL_LBL_ATTR_LBL_ID_MST_CATLBL_LBL_LBL_ID": true
+        }
+    },
+    "mst_cataloglabel_label_customer_group": {
+        "column": {
+            "id": true,
+            "label_id": true,
+            "customer_group_id": true
+        },
+        "index": {
+            "MST_CATALOGLABEL_LABEL_CUSTOMER_GROUP_CUSTOMER_GROUP_ID": true,
+            "MST_CATALOGLABEL_LABEL_CUSTOMER_GROUP_LABEL_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "MST_CATLBL_LBL_CSTR_GROUP_LBL_ID_MST_CATLBL_LBL_LBL_ID": true
+        }
+    },
+    "mst_cataloglabel_label_display": {
+        "column": {
+            "display_id": true,
+            "list_image": true,
+            "list_title": true,
+            "list_description": true,
+            "list_position": true,
+            "view_image": true,
+            "view_title": true,
+            "view_description": true,
+            "view_position": true,
+            "list_url": true,
+            "view_url": true,
+            "view_style": true,
+            "list_style": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "mst_cataloglabel_label_rule": {
+        "column": {
+            "rule_id": true,
+            "label_id": true,
+            "display_id": true,
+            "conditions_serialized": true,
+            "actions_serialized": true,
+            "stop_rules_processing": true
+        },
+        "index": {
+            "MST_CATALOGLABEL_LABEL_RULE_LABEL_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "MST_CATLBL_LBL_RULE_LBL_ID_MST_CATLBL_LBL_LBL_ID": true
+        }
+    },
+    "mst_cataloglabel_label_store": {
+        "column": {
+            "id": true,
+            "label_id": true,
+            "store_id": true
+        },
+        "index": {
+            "MST_CATALOGLABEL_LABEL_STORE_STORE_ID": true,
+            "MST_CATALOGLABEL_LABEL_STORE_LABEL_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "MST_CATALOGLABEL_LABEL_STORE_STORE_ID_STORE_STORE_ID": true,
+            "MST_CATLBL_LBL_STORE_LBL_ID_MST_CATLBL_LBL_LBL_ID": true
+        }
+    },
+    "mst_cataloglabel_placeholder": {
+        "column": {
+            "placeholder_id": true,
+            "name": true,
+            "code": true,
+            "is_active": true,
+            "is_positioned": true,
+            "output_type": true,
+            "image_type": true,
+            "is_auto_for_list": true,
+            "is_auto_for_view": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "mst_cataloglabel_new_product": {
+        "column": {
+            "id": true,
+            "product_id": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "mst_cataloglabel_label_rule_product": {
+        "column": {
+            "id": true,
+            "rule_id": true,
+            "product_id": true,
+            "store_id": true
+        },
+        "index": {
+            "MST_CATALOGLABEL_LABEL_RULE_PRODUCT_RULE_ID": true,
+            "MST_CATALOGLABEL_LABEL_RULE_PRODUCT_PRODUCT_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

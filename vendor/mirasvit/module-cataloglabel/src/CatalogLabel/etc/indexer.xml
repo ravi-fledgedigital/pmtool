@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Indexer/etc/indexer.xsd">
+    <indexer id="mst_cataloglabel" view_id="mst_cataloglabel" class="Mirasvit\CatalogLabel\Model\Indexer">
+        <title translate="true">Product label index</title>
+        <description translate="true">Rebuild your Product Label index</description>
+    </indexer>
+</config>

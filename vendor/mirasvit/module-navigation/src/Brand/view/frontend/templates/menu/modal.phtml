@@ -1,0 +1,59 @@
+<?php
+declare(strict_types=1);
+
+use Mirasvit\Brand\Block\Menu\Modal;
+
+/**
+ * @var Modal $block
+ */
+
+$alphabet  = $block->getBrandAlphabet() ? : [];
+$menuTitle = $block->getMenuTitle();
+?>
+
+<script>
+    window.ajaxMenuUrl = '<?= $block->escapeUrl($block->getAjaxMenuUrl()) ?>';
+</script>
+
+<div style="display: none;">
+    <div class="mst-brand__menu-modal" data-bind="scope:'mstBrandMenu'">
+        <?php if ($menuTitle): ?>
+            <h2 class="mst-brand__menu-title"><?= $block->escapeHtml(__($menuTitle)) ?></h2>
+        <?php endif; ?>
+
+        <div class="mst-brand__brand-list">
+            <div class="toolbar">
+                <div class="letters">
+                    <?php foreach ($alphabet as $letter): ?>
+                        <a class="js-brand-letter"
+                           data-bind="click: function() { getBrandsMenu('<?= $block->escapeHtmlAttr($letter) ?>') }"
+                           data-letter="<?= $block->escapeHtmlAttr($letter) ?>">
+                            <?= $block->escapeHtml($letter) ?>
+                        </a>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <script type="text/x-magento-init">
+                {
+                    "*": {
+                        "Magento_Ui/js/core/app": {
+                            "components": {
+                                "mstBrandMenu": {
+                                    "component": "Mirasvit_Brand/js/brands-menu"
+                                }
+                            }
+                        }
+                    }
+                }
+            </script>
+
+            <a class="mst-brand__all_brands_link js-brand-letter"
+               href="<?= $block->escapeUrl($block->getBrandsPageUrl()) ?>">
+                <?= $block->escapeHtml(__('View All Brands')) ?>
+            </a>
+        </div>
+
+    </div>
+</div>

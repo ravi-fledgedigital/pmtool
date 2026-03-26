@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * ADOBE CONFIDENTIAL
+ *
+ * Copyright 2024 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="admin_ui_sdk_custom_fees" engine="innodb" comment="Table to store custom fields related to sales orders table">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity id"/>
+        <column xsi:type="int" name="order_id" unsigned="true" nullable="false" comment="Order id"/>
+        <column xsi:type="varchar" name="custom_fee_code" nullable="false" length="128" comment="Custom Fee Code"/>
+        <column xsi:type="varchar" name="custom_fee_label" nullable="false" length="128" comment="Custom Fee Label"/>
+        <column xsi:type="decimal" name="custom_fee_amount" scale="4" precision="20" unsigned="false" nullable="true" default="0" comment="Custom Fee Amount"/>
+        <column xsi:type="decimal" name="base_custom_fee_amount" scale="4" precision="20" unsigned="false" nullable="true" default="0" comment="Base Custom Fee Amount"/>
+        <column xsi:type="decimal" name="custom_fee_amount_invoiced" scale="4" precision="20" unsigned="false" nullable="true" default="0" comment="Custom Fee Amount Invoiced"/>
+        <column xsi:type="decimal" name="base_custom_fee_amount_invoiced" scale="4" precision="20" unsigned="false" nullable="true" default="0" comment="Base Custom Fee Amount Invoiced"/>
+        <column xsi:type="decimal" name="custom_fee_amount_refunded" scale="4" precision="20" unsigned="false" nullable="true" default="0" comment="Custom Fee Amount Refunded"/>
+        <column xsi:type="decimal" name="base_custom_fee_amount_refunded" scale="4" precision="20" unsigned="false" nullable="true" default="0" comment="Base Custom Fee Amount Refunded"/>
+        <column xsi:type="boolean" name="apply_fee_on_last_invoice" nullable="false" default="false" comment="Apply fee on last invoice"/>
+        <column xsi:type="boolean" name="apply_fee_on_last_creditmemo" nullable="false" default="true" comment="Apply fee on last credit memo"/>
+        <column xsi:type="int" name="invoice_id" unsigned="true" nullable="true" comment="Invoice id"/>
+        <column xsi:type="int" name="creditmemo_id" unsigned="true" nullable="true" comment="Credit memo id"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="ADMIN_UI_SDK_CUSTOM_FEES_ORDER_ID_CUSTOM_FEE_CODE">
+            <column name="order_id"/>
+            <column name="custom_fee_code"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="ADMIN_UI_SDK_CUSTOM_FEES_ORDER_ID_SALES_ORDER_ENTITY_ID"
+                    table="admin_ui_sdk_custom_fees"
+                    column="order_id"
+                    referenceTable="sales_order"
+                    referenceColumn="entity_id"
+                    onDelete="CASCADE"/>
+        <index referenceId="ADMIN_UI_SDK_CUSTOM_FEES_ORDER_ID" indexType="btree">
+            <column name="order_id"/>
+        </index>
+   </table>
+</schema>

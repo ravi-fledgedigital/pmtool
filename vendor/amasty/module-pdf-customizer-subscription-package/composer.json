@@ -1,0 +1,25 @@
+{
+    "name": "amasty/module-pdf-customizer-subscription-package",
+    "description": "PDF Customizer Subscription Package",
+    "require": {
+        "php": ">=7.3",
+        "amasty/base": ">=1.20.0",
+        "amasty/module-pdf-customizer": "*"
+    },
+    "suggest": {
+        "amasty/module-pdf-customizer-hyva-compatibility": "Install this package to ensure the PDF Customizer extension works with the Hyv\u00e4 Theme.",
+        "amasty/module-pdf-custom-subscription-functionality": "Install this package for compatibility with subscription features."
+    },
+    "homepage": "https://amasty.com/",
+    "type": "magento2-module",
+    "version": "1.6.0",
+    "license": "proprietary",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\PdfCustomizerSubscriptionPackage\\": ""
+        }
+    }
+}

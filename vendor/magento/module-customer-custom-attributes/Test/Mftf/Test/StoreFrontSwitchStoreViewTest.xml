@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StoreFrontSwitchStoreViewTest">
+        <annotations>
+            <title value="Managing labels for customer attribute while creation new account"/>
+            <description value="Managing labels for customer attribute while creation new account"/>
+            <features value="Module/ Eav"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="MAGETWO-95997"/>
+            <stories value="Guest should be able to switch store view"/>
+            <group value="eav"/>
+            <group value="customer"/>
+        </annotations>
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginToAdmin"/>
+            <actionGroup ref="AdminCreateStoreViewActionGroup" stepKey="createSwedishStoreView">
+                <argument name="customStore" value="swedishStoreGroup"/>
+            </actionGroup>
+            <actionGroup ref="AdminCreateStoreViewActionGroup" stepKey="createFinnishStoreView">
+                <argument name="customStore" value="finnishStoreGroup"/>
+            </actionGroup>
+            <actionGroup ref="CliIndexerReindexActionGroup" stepKey="reindex">
+                <argument name="indices" value=""/>
+            </actionGroup>
+            <actionGroup ref="CliCacheCleanActionGroup" stepKey="cleanInvalidatedCaches">
+                <argument name="tags" value="full_page"/>
+            </actionGroup>
+        </before>
+        <after>
+            <actionGroup ref="AdminDeleteStoreViewActionGroup" stepKey="deleteSwedishStoreView">
+                <argument name="customStore" value="swedishStoreGroup"/>
+            </actionGroup>
+            <actionGroup ref="AdminDeleteStoreViewActionGroup" stepKey="deleteFinnishStoreView">
+                <argument name="customStore" value="finnishStoreGroup"/>
+            </actionGroup>
+            <actionGroup ref="CliIndexerReindexActionGroup" stepKey="reindex">
+                <argument name="indices" value=""/>
+            </actionGroup>
+            <actionGroup ref="CliCacheCleanActionGroup" stepKey="cleanInvalidatedCaches">
+                <argument name="tags" value="full_page"/>
+            </actionGroup>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+        <actionGroup ref="AdminOpenCustomerAttributesLastNamePageActionGroup" stepKey="amOnPageCustomerAttributePage"/>
+        <comment userInput="BIC workaround" stepKey="seeLastNamePage"/>
+        <actionGroup ref="AdminClickManageLabelForCustomerAttributeActionGroup" stepKey="clickOnManageLabelTab"/>
+        <fillField stepKey="fillSwedishLastName" selector="{{AdminCustomerLastNameAttributeSection.secondLastNameInput}}" userInput="{{AttributeLastName.swedish}}"/>
+        <fillField stepKey="fillFinnishLastName" selector="{{AdminCustomerLastNameAttributeSection.thirdLastNameInput}}" userInput="{{AttributeLastName.finnish}}"/>
+        <actionGroup ref="ClickSaveButtonActionGroup" stepKey="save">
+            <argument name="message" value="You saved the customer attribute."/>
+        </actionGroup>
+        <comment userInput="BIC workaround" stepKey="flushCache"/>
+        <actionGroup ref="StorefrontOpenCustomerAccountCreatePageActionGroup" stepKey="goToStoreFront"/>
+        <comment userInput="BIC workaround" stepKey="waitForAccountCreationPage"/>
+        <actionGroup ref="ReloadPageActionGroup" stepKey="refreshPage"/>
+        <actionGroup ref="StorefrontSwitchStoreViewActionGroup" stepKey="switchStoreView">
+            <argument name="storeView" value="swedishStoreGroup"/>
+        </actionGroup>
+        <waitForText stepKey="seeLastNameInSwedish" selector="{{StorefrontCustomerCreateFormSection.lastnameLabel}}" userInput="{{AttributeLastName.swedish}}"/>
+    </test>
+</tests>

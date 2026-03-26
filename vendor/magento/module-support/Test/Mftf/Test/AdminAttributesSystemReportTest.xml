@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminAttributesSystemReportTest">
+        <annotations>
+            <features value="System Reports"/>
+            <stories value="Attributes System Report"/>
+            <group value="reports"/>
+            <title value="Admin create attributes system report"/>
+            <description value="This test verifies that admin should be able to create Attributes System report and verify the columns in the generated reports"/>
+            <severity value="MAJOR"/>
+            <group value="cloud"/>
+            <testCaseId value="AC-4390"/>
+        </annotations>
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="login"/>
+        </before>
+        <after>
+            <actionGroup ref="AdminNavigateToSystemReportPageActionGroup" stepKey="adminNavigateToSystemReportPage"/>
+            <actionGroup ref="AdminDeleteAllSystemReportsActionGroup" stepKey="adminDeleteCreatedSystemReport"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+        <actionGroup ref="AdminNavigateToSystemReportPageActionGroup" stepKey="adminNavigateToSystemReportPage"/>
+        <actionGroup ref="AdminCreateSystemReportActionGroup" stepKey="adminCreateAttributesReportInSystemReport">
+            <argument name="groupField" value="Attributes"/>
+        </actionGroup>
+        <actionGroup ref="AdminSelectCreatedReportActionGroup" stepKey="adminSelectCreatedReportInTheSystemReportGrid">
+            <argument name="reportGroup" value="Attributes"/>
+        </actionGroup>
+        <actionGroup ref="AdminVerifyAttributesInfoColumnsPresentInAttributesSystemReportActionGroup" stepKey="AdminVerifyAttributesInfoStatusIsPresentAttributesSystemReport"/>
+    </test>
+</tests>

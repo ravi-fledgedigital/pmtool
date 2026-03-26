@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/************************************************************************
+ *
+ * Copyright 2024 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ * ************************************************************************
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminCreateOrderApplyDiscardSubsequentRulesCouponCodesTest">
+        <annotations>
+            <stories value="Create Order with multiple coupon codes"/>
+            <title value="Create an order and try to apply a coupon code with more priority when there is already a coupon code applied that has discard subsequent rules condition"/>
+            <description value="Create an order and try to apply a coupon code with more priority when there is already a coupon code applied that has discard subsequent rules condition"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="LYNX-367"/>
+        </annotations>
+        <before>
+            <magentoCLI command="config:set sales/multicoupon/maximum_number_of_coupons_per_order 2" stepKey="EnablingMulticoupon"/>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="LoginAsAdmin"/>
+            <createData entity="Simple_US_Customer" stepKey="createCustomer"/>
+            <createData entity="SimpleProduct2" stepKey="createSimpleProduct">
+                <field key="price">100</field>
+            </createData>
+            <createData entity="SalesRuleSpecificCouponAndByPercentLessPriority" stepKey="createCartPriceRuleLessPriority"/>
+            <createData entity="SimpleSalesRuleCoupon" stepKey="createCouponForCartPriceRuleLessPriority">
+                <requiredEntity createDataKey="createCartPriceRuleLessPriority"/>
+            </createData>
+            <createData entity="SalesRuleSpecificCouponAndByPercentLessPriority" stepKey="createCartPriceRuleLessPriority2"/>
+            <createData entity="SimpleSalesRuleCoupon" stepKey="createCouponForCartPriceRuleLessPriority2">
+                <requiredEntity createDataKey="createCartPriceRuleLessPriority2"/>
+            </createData>
+            <createData entity="SalesRuleSpecificCouponAndByPercent25" stepKey="createCartPriceRule"/>
+            <createData entity="SimpleSalesRuleCoupon" stepKey="createCouponCartPriceRule">
+                <requiredEntity createDataKey="createCartPriceRule"/>
+            </createData>
+        </before>
+        <after>
+            <magentoCLI command="config:set sales/multicoupon/maximum_number_of_coupons_per_order 1" stepKey="DisablingMulticoupon"/>
+            <deleteData createDataKey="createCartPriceRule" stepKey="deleteCartPriceRule"/>
+            <deleteData createDataKey="createCartPriceRuleLessPriority" stepKey="deleteCartPriceRuleLessPriority"/>
+            <deleteData createDataKey="createCartPriceRuleLessPriority2" stepKey="deleteCartPriceRuleLessPriority2"/>
+            <deleteData createDataKey="createCustomer" stepKey="deleteCustomer"/>
+            <deleteData createDataKey="createSimpleProduct" stepKey="deleteSimpleProduct"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <!-- Create order for registered customer -->
+        <actionGroup ref="AdminNavigateToNewOrderPageExistingCustomerActionGroup" stepKey="goToCreateOrderPage">
+            <argument name="customer" value="$$createCustomer$$"/>
+        </actionGroup>
+
+        <!-- Add Simple product to order -->
+        <actionGroup ref="AddSimpleProductToOrderActionGroup" stepKey="addProductToOrder">
+            <argument name="product" value="$$createSimpleProduct$$"/>
+        </actionGroup>
+
+        <!-- Apply coupon codes to the order -->
+        <actionGroup ref="AdminApplyCouponToOrderActionGroup" stepKey="applyCouponLessPriority">
+            <argument name="couponCode" value="$$createCouponForCartPriceRuleLessPriority.code$$"/>
+        </actionGroup>
+        <see selector="{{OrdersGridSection.discount($$createSimpleProduct.name$$)}}" userInput="-$50.00" stepKey="seeDiscountAmountAfterApplyCoupon"/>
+        <actionGroup ref="AdminAddToOrderCouponCodeActionGroup" stepKey="applyInactiveCoupon">
+            <argument name="couponCode" value="$$createCouponForCartPriceRuleLessPriority2.code$$"/>
+        </actionGroup>
+        <see selector="{{AdminOrderFormMessagesSection.error}}" userInput="The &quot;$$createCouponForCartPriceRuleLessPriority2.code$$&quot; coupon code isn't valid. Verify the code and try again." stepKey="seeErrorMessage"/>
+        <actionGroup ref="AdminApplyCouponToOrderActionGroup" stepKey="applyCoupon">
+            <argument name="couponCode" value="$$createCouponCartPriceRule.code$$"/>
+        </actionGroup>
+        <see selector="{{AdminOrderFormMessagesSection.error}}" userInput="The following coupon codes could not be applied: &quot;$$createCouponForCartPriceRuleLessPriority.code$$&quot;." stepKey="seeErrorMessage2"/>
+        <see selector="{{OrdersGridSection.discount($$createSimpleProduct.name$$)}}" userInput="-$25.00" stepKey="seeDiscountAmountAfterApplyCoupon2"/>
+    </test>
+</tests>

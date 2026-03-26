@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package RMA Base for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="amasty_rma_item_condition_store">
+        <name>Amasty RMA Item Condition Store</name>
+        <isHidden>true</isHidden>
+        <collectionFactory class="Amasty\Rma\Model\Condition\ResourceModel\ConditionStoreCollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+            <fields>
+                <field name="store_id">
+                    <actions>
+                        <storeId2StoreCode/>
+                    </actions>
+                    <filter>
+                        <type>store</type>
+                    </filter>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="rma_item_condition_store">
+        <parent_entity>amasty_rma_item_condition</parent_entity>
+        <child_entity>amasty_rma_item_condition_store</child_entity>
+        <sub_entity_field_name>amasty_rma_item_condition_store</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">condition_id</argument>
+            <argument name="child_field_name" xsi:type="string">condition_id</argument>
+        </arguments>
+    </relation>
+</config>

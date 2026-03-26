@@ -1,0 +1,38 @@
+<?php
+
+declare(strict_types=1);
+
+/** @var \Mirasvit\Sorting\Block\CriterionPopularityJs $block */
+
+?>
+<script>
+    const actionUrl = '<?php /* @noEscape */ echo $block->getPopularityUrl(); ?>';
+
+    function publish(criterion) {
+        let url = actionUrl + '?criterion=' + criterion;
+        fetch(url, {
+            method: "get",
+        });
+    }
+
+    document.body.addEventListener("change", () => {
+        const sorter = document.querySelectorAll('[data-role=sorter], #sorter')[0];
+        if (sorter) {
+            sorter.addEventListener(
+                'click',
+                function() {
+                    setTimeout(function() {
+                        publish(sorter.value)
+                    }, 5000);
+                });
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const sorter = document.querySelectorAll('[data-role=sorter], #sorter')[0];
+
+        if (sorter) {
+            publish(sorter.value);
+        }
+    });
+</script>

@@ -1,0 +1,57 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+
+<?php
+/**
+ * @var $block \Magento\PageBuilderProductRecommendations\Block\PageBuilderRecommendation
+ * @var $blockObj \Magento\PageBuilderProductRecommendations\Block\PageBuilderRecommendation
+ * @var $escaper \Magento\Framework\Escaper
+ */
+
+$unitId = $escaper->escapeJs($block->getData('unit_id'));
+$storeId = $escaper->escapeJs($block->getData('store_id'));
+$defaultStoreViewCode = $block->getDefaultStoreViewCode();
+$storeViewCode = $block->getStoreViewCode();
+$storeCode = $block->getStoreCode();
+$blockObj= $block->getLayout()->createBlock('Magento\PageBuilderProductRecommendations\Block\PageBuilderRecommendation');
+$placeholderUrl = $blockObj->getPlaceholderUrl('image');
+$systemLocale = $blockObj->getSystemLocale();
+$currencyConfiguration = $blockObj->getCurrencyConfiguration();
+$alternateEnvironmentId = $blockObj->getAlternateEnvironmentId();
+$priceFormat = $blockObj->getPriceFormat();
+?>
+
+
+<div data-bind="scope:'product_recommendations_unit_<?= $unitId ?>'">
+    <!-- ko template: getTemplate() -->
+    <!-- /ko -->
+</div>
+<script type="text/x-magento-init">
+   {
+       "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "product_recommendations_unit_<?= $unitId ?>": {
+                        "component": "Magento_PageBuilderProductRecommendations/js/pageBuilderRenderer",
+                        "unitId": "<?=$unitId?>",
+                        "placeholderUrl": "<?= /* @noEscape */ $placeholderUrl; ?>",
+                        "systemLocale": "<?= /* @noEscape */ $systemLocale; ?>",
+                        "currencyConfiguration": <?= /* @noEscape */ $currencyConfiguration; ?>,
+                        "defaultStoreViewCode": "<?= /* @noEscape */ $defaultStoreViewCode; ?>",
+                        "storeId": "<?= /* @noEscape */ $storeId; ?>",
+                        <?php if ($storeViewCode && $storeCode): ?>
+                        "storeViewCode": "<?= /* @noEscape */ $storeViewCode; ?>",
+                        "storeCode": "<?= /* @noEscape */ $storeCode; ?>",
+                        <?php endif; ?>
+                        "alternateEnvironmentId": "<?= /* @noEscape */ $alternateEnvironmentId; ?>",
+                        "priceFormat": <?= /* @noEscape */ $priceFormat; ?>
+                    }
+                }
+            }
+        }
+    }
+</script>

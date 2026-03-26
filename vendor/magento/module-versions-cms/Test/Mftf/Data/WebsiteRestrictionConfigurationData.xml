@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+    <!-- Configuration > General > Website Restrictions -->
+    <entity name="WebsiteRestrictionDefaultConfigData">
+        <data key="path">general/restriction/is_active</data>
+        <data key="value">0</data>
+    </entity>
+    <entity name="WebsiteRestrictionDefaultModeConfigData">
+        <data key="path">general/restriction/mode</data>
+        <data key="value">0</data>
+    </entity>
+    <entity name="WebsiteRestrictionDefaultStartUpPageConfigData">
+        <data key="path">general/restriction/http_redirect</data>
+        <data key="value">0</data>
+    </entity>
+    <entity name="WebsiteRestrictionDefaultLandingPageConfigData">
+        <data key="path">general/restriction/cms_page</data>
+        <data key="value">no-route</data>
+    </entity>
+</entities>

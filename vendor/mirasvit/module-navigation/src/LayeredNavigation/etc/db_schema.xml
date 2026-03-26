@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="review_entity_summary" resource="default">
+    <index referenceId="mirasvit_layered_navigation_rating" indexType="btree">
+      <column name="entity_type"/>
+      <column name="entity_pk_value"/>
+      <column name="store_id"/>
+    </index>
+  </table>
+  <table name="mst_navigation_attribute_config" resource="default" engine="innodb" comment="Attribute setting table">
+    <column xsi:type="int" name="config_id" padding="11" unsigned="false" nullable="false" identity="true"/>
+    <column xsi:type="smallint" name="mst_attribute_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Id" disabled="true"/>
+    <column xsi:type="int" name="mst_is_slider" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Is slider" disabled="true"/>
+    <column xsi:type="varchar" name="mst_attribute_code" nullable="true" length="255" comment="Attribute code" disabled="true"/>
+    <column xsi:type="text" name="mst_image_options" nullable="true" comment="Image" disabled="true"/>
+    <column xsi:type="text" name="mst_filter_text" nullable="true" comment="Menu text" disabled="true"/>
+    <column xsi:type="text" name="mst_is_whole_width_image" nullable="true" comment="Whole width picture" disabled="true"/>
+    <column xsi:type="int" name="attribute_id" padding="11" unsigned="false" nullable="true" identity="false" onCreate="migrateDataFrom(mst_attribute_id)"/>
+    <column xsi:type="varchar" name="attribute_code" nullable="true" length="255" onCreate="migrateDataFrom(mst_attribute_code)"/>
+    <column xsi:type="mediumtext" name="config" nullable="true" comment="Config"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="config_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="MST_LN_ATTR_SETTINGS_MST_ATTR_ID_EAV_ATTR_ATTR_ID" table="mst_ln_attribute_settings" column="mst_attribute_id" referenceTable="eav_attribute" referenceColumn="attribute_id" onDelete="CASCADE" disabled="true"/>
+  </table>
+  <table name="mst_navigation_grouped_option" resource="default" engine="innodb" comment="Grouped Options">
+    <column xsi:type="int" name="group_id" padding="10" unsigned="true" nullable="false" identity="true" comment="group_id"/>
+    <column xsi:type="int" name="is_active" padding="11" unsigned="false" nullable="false" identity="false" default="1" comment="is_active"/>
+    <column xsi:type="int" name="position" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="position"/>
+    <column xsi:type="text" name="title" nullable="false" comment="title"/>
+    <column xsi:type="varchar" name="code" nullable="false" length="255" comment="code"/>
+    <column xsi:type="int" name="swatch_type" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="swatch_type"/>
+    <column xsi:type="text" name="swatch_value" nullable="true" comment="swatch_value"/>
+    <column xsi:type="varchar" name="attribute_code" nullable="false" length="255" comment="attribute_code"/>
+    <column xsi:type="text" name="attribute_value_ids" nullable="false" comment="attribute_value_ids"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="group_id"/>
+    </constraint>
+    <index referenceId="MST_NAVIGATION_GROUPED_OPTION_ATTRIBUTE_CODE" indexType="btree">
+      <column name="attribute_code"/>
+    </index>
+  </table>
+</schema>

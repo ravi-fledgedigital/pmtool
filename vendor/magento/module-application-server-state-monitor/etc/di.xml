@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\ApplicationServer\App\HttpContext">
+        <plugin name="HttpContext-StateMonitor" type="Magento\ApplicationServerStateMonitor\Plugin\HttpContext" />
+    </type>
+    <type name="Magento\ApplicationServer\Console\ServerStartCommand">
+        <plugin name="ServerStartCommand-StateMonitor" type="Magento\ApplicationServerStateMonitor\Plugin\ServerStartCommand" />
+    </type>
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="aggregateOutputCommand" xsi:type="object">Magento\ApplicationServerStateMonitor\Console\StateMonitorAggregateOutputCommand</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\ApplicationServerStateMonitor\StateMonitor\AggregateOutput">
+        <arguments>
+            <argument name="outputs" xsi:type="array">
+                <item name="StateMonitor-Output-Json" xsi:type="object">Magento\ApplicationServerStateMonitor\StateMonitor\AggregateOutput\Json</item>
+                <item name="StateMonitor-Output-JUnit" xsi:type="object">Magento\ApplicationServerStateMonitor\StateMonitor\AggregateOutput\JUnit</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

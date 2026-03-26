@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @var $block \Mirasvit\LandingPage\Block\Landing\View
+ * @var $escaper \Magento\Framework\Escaper
+ */
+
+?>
+<?php if ($imgUrl = $block->getImageUrl()): ?>
+    <div class="category-image">
+        <img src="<?= $escaper->escapeUrl($imgUrl) ?>"
+             alt="<?= $escaper->escapeHtmlAttr($block->getLandingPage()->getName()) ?>"
+             title="<?= $escaper->escapeHtmlAttr($block->getLandingPage()->getName()) ?>"
+             class="image" />
+    </div>
+<?php endif; ?>

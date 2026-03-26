@@ -1,0 +1,92 @@
+<?php
+declare(strict_types=1);
+
+use Mirasvit\LayeredNavigation\Model\Config\ExtraFilterConfigProvider;
+use Mirasvit\Core\Service\CspService;
+
+/**
+ * @var $block \Mirasvit\LayeredNavigation\Block\Renderer\SearchRenderer
+ * @var $escaper \Magento\Framework\Escaper
+ */
+
+$attributeCode = $block->getAttributeCode();
+$nonce = CspService::getNonce();
+?>
+
+<div class="mst-nav__label mst-nav__search" data-mst-nav-filter="search" id="mst-nav__search">
+    <div class="mst-nav__search-field">
+        <label id="search-label-<?= $block->escapeHtmlAttr($attributeCode) ?>" for="mst-nav__search-filter" class="visually-hidden">
+            <?= $block->escapeHtml(__('Search within %1', $block->getFilter()->getName())) ?>
+        </label>
+        <input
+            type="text"
+            name="<?= $block->escapeHtmlAttr(ExtraFilterConfigProvider::SEARCH_FILTER_FRONT_PARAM) ?>"
+            placeholder="<?= $block->escapeHtmlAttr($block->getFilter()->getName()) ?>"
+            id="mst-nav__search-filter"
+            aria-labelledby="search-label-<?= $block->escapeHtmlAttr($attributeCode) ?>"
+            autocomplete="off" />
+        <a id="mst-nav__search-apply" href="" class="action search" data-element="filter" role="button" tabindex="0" aria-label="<?= $block->escapeHtmlAttr(__('Apply search filter')) ?>">
+            <span class="visually-hidden"><?= $block->escapeHtml(__('Apply')) ?></span>
+        </a>
+        <div class="mst-nav__search-suggestion" id="mst-nav__search-suggestion" aria-atomic="true" style="display: none" role="status" aria-live="polite"></div>
+    </div>
+
+    <ol class="items" role="list">
+        <?php foreach ($block->getAppliedSearchTerms() as $term): ?>
+            <li class="filter-current" role="listitem">
+                <div data-element="filter" class="mst-nav__state-filter item _checked _highlight">
+                    <span class="filter-value"><?= $block->escapeHtml($term['label']) ?></span>
+                    <a class="mst-nav__search-term action remove"
+                        href="<?= $block->escapeUrl($term['url']) ?>"
+                        aria-label="<?= $block->escapeHtmlAttr(__('Remove search filter: %1', $term['label'])) ?>">
+                    </a>
+                </div>
+            </li>
+        <?php endforeach; ?>
+    </ol>
+</div>
+
+<style>
+    .sidebar-main .filter-options .filter-options-item:first-child .filter-options-content {
+        display: block!important;
+    }
+
+    .sidebar-main .filter-options .filter-options-item:first-child .filter-options-title {
+        display: none!important;
+    }
+
+    .mst-nav__search-suggestion .filter-options-title {
+        display: block!important;
+    }
+
+    <?php if ($block->isHighlightEnabled()): ?>
+    .mst-nav__search .mst-nav__state-filter {
+        color: <?= /* @noEscape */ $block->getHighlightColor() ?>;
+    }
+    <?php endif; ?>
+
+    <?php if (!$block->isUseFulltext()): ?>
+    #mst-nav__search-apply {
+        display: none;
+    }
+    <?php endif; ?>
+</style>
+
+<script<?php if ($nonce): ?> nonce="<?= $block->escapeHtml($nonce) ?>"<?php endif; ?>>
+    window.mstSearchFilterFulltext = <?= $block->isUseFulltext() ? 'true' : 'false' ?>;
+    window.mstSearchFilterOptions  = <?= $block->isFilterOptions() ? 'true' : 'false' ?>;
+</script>
+
+<script<?php if ($nonce): ?> nonce="<?= $block->escapeHtml($nonce) ?>"<?php endif; ?> type="text/x-magento-init"><?= \Mirasvit\Core\Service\SerializeService::encode([
+                                        '.mst-nav__search' => [
+                                            'Mirasvit_LayeredNavigation/js/renderer/search-renderer' => [],
+                                        ],
+                                    ]) ?>
+</script>
+<script<?php if ($nonce): ?> nonce="<?= $block->escapeHtml($nonce) ?>"<?php endif; ?> type="text/x-magento-init"><?= \Mirasvit\Core\Service\SerializeService::encode([
+                                        '[data-mst-nav-filter=' . $attributeCode . ']' => [
+                                            'Mirasvit_LayeredNavigation/js/renderer/label-renderer' => [],
+                                        ],
+                                    ]) ?>
+</script>
+

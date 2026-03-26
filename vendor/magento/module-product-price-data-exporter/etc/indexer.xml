@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright 2024 Adobe
+ * All Rights Reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Indexer/etc/indexer.xsd">
+    <indexer
+        id="catalog_data_exporter_product_prices"
+        view_id="cde_product_prices_feed"
+        class="Magento\ProductPriceDataExporter\Model\Indexer\ProductPriceFeedIndexer"
+    >
+        <title translate="true">Product Prices Feed</title>
+        <description translate="true">Product price data exporter</description>
+        <dependencies>
+            <!--  to handle partial reindex when product price has been changed           -->
+            <indexer id="catalogrule_product" />
+            <!-- to handle full reindex when rule has been changed            -->
+            <indexer id="catalogrule_rule" />
+        </dependencies>
+    </indexer>
+</config>

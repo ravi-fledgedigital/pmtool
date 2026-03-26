@@ -1,0 +1,12 @@
+{
+    "cde_product_prices_feed": {
+        "constraint": {
+            "PRIMARY": true,
+            "CDE_PRODUCT_PRICES_FEED_FEED_ID":  true
+        },
+        "index": {
+            "CDE_PRODUCT_PRICES_FEED_SOURCE_ENTITY_ID_MODIFIED_AT": true,
+            "CDE_PRODUCT_PRICES_FEED_STATUS": true
+        }
+    }
+}

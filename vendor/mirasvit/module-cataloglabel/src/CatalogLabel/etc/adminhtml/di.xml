@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Mirasvit\Core\Block\Adminhtml\Menu">
+        <arguments>
+            <argument name="menu" xsi:type="array">
+                <item name="cataloglabel" xsi:type="object">Mirasvit\CatalogLabel\Block\Adminhtml\Menu</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Catalog\Model\ResourceModel\Product">
+        <plugin
+            name="reindexLabelAfterProductSave"
+            type="Mirasvit\CatalogLabel\Plugin\Backend\Product\ReindexLabelAfterProductSavePlugin"
+            sortOrder="1000"
+        />
+    </type>
+
+    <virtualType name="Mirasvit\CatalogLabel\ImageUploader" type="Magento\Catalog\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">cataloglabel/tmp</argument>
+            <argument name="basePath" xsi:type="string">cataloglabel</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+                <item name="svg" xsi:type="string">svg</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Mirasvit\CatalogLabel\Controller\Adminhtml\Label\ImageUploader">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Mirasvit\CatalogLabel\ImageUploader</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\MediaStorage\Model\File\Validator\NotProtectedExtension">
+        <plugin
+            name="Mirasvit_CatalogLabel::allow_svg_plugin"
+            type="Mirasvit\CatalogLabel\Plugin\AllowSvgPlugin"
+            sortOrder="1000"
+        />
+    </type>
+
+</config>

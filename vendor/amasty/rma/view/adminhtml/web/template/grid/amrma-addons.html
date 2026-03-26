@@ -1,0 +1,8 @@
+<div class="amrma-addons-container">
+    <!-- ko foreach: modulesData -->
+    <a class="amrma-link" target="_blank" data-bind="attr: {href: $data.url}, css: $data.class">
+        <span data-bind="text: $data.info"></span>
+        <strong class="amrma-name" data-bind="text: $data.name"></strong>
+    </a>
+    <!-- /ko -->
+</div>

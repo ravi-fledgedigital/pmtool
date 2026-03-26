@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/************************************************************************
+ *
+ * Copyright 2023 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ * ************************************************************************
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="sales">
+            <group id="multicoupon" translate="label" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Multicoupon Settings</label>
+                <field id="maximum_number_of_coupons_per_order" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" canRestore="1">
+                    <label>Maximum number of coupons per order</label>
+                    <validate>required-number validate-number</validate>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

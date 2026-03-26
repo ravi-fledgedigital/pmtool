@@ -1,0 +1,7 @@
+/.idea
+/_workdir
+/composer.lock
+/vendor
+/auth.json
+**/.DS_Store
+**/.phpunit.result.cache

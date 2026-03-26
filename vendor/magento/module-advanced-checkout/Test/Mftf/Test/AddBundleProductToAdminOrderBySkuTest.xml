@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AddBundleProductToAdminOrderBySkuTest">
+        <annotations>
+            <features value="AdvancedCheckout"/>
+            <stories value="Bundle products should be added to admin order by SKU which contains slashes"/>
+            <title value="Bundle products should be added to admin order by SKU which contains slashes"/>
+            <description value="Product must be added to admin order without causing any error, when bundled products are added by sku that contain slashes."/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="AC-8461"/>
+            <useCaseId value="ACP2E-1801"/>
+            <group value="AdvancedCheckout"/>
+        </annotations>
+
+        <before>
+            <!--Create customer-->
+            <createData entity="Simple_US_Customer" stepKey="createCustomer"/>
+
+            <!--Create category and simple product-->
+            <createData entity="SimpleSubCategory" stepKey="createCategory"/>
+            <createData entity="_defaultProduct" stepKey="createSimpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+
+            <!--Login to admin-->
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+
+            <!--Create bundle product and save it-->
+            <actionGroup ref="GoToSpecifiedCreateProductPageActionGroup" stepKey="createBundleProduct">
+                <argument name="productType" value="bundle"/>
+            </actionGroup>
+            <actionGroup ref="FillMainBundleProductFormActionGroup" stepKey="fillMainProductFields">
+                <argument name="product" value="BundleProductWithSlashSku"/>
+            </actionGroup>
+            <actionGroup ref="AddBundleOptionWithOneProductActionGroup" stepKey="addBundleOption">
+                <argument name="x" value="0"/>
+                <argument name="n" value="1"/>
+                <argument name="prodOneSku" value="$$createSimpleProduct.sku$$"/>
+                <argument name="prodTwoSku" value=""/>
+                <argument name="optionTitle" value="{{DropDownBundleOption.title}}"/>
+                <argument name="inputType" value="{{DropDownBundleOption.type}}"/>
+            </actionGroup>
+            <actionGroup ref="SaveProductFormActionGroup" stepKey="clickSaveButton"/>
+        </before>
+
+        <after>
+            <!--Delete customer-->
+            <actionGroup ref="StorefrontCustomerLogoutActionGroup" stepKey="logoutCustomer" />
+            <deleteData createDataKey="createCustomer" stepKey="deleteCustomer"/>
+
+            <!--Delete category-->
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+
+            <!--Delete simple product and bundle product data-->
+            <deleteData createDataKey="createSimpleProduct" stepKey="deleteSimpleProduct"/>
+            <actionGroup ref="DeleteProductBySkuActionGroup" stepKey="deleteBundleProductBySku">
+                <argument name="sku" value="{{BundleProductWithSlashSku.sku}}"/>
+            </actionGroup>
+
+            <!--Log out from admin-->
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logOut"/>
+        </after>
+
+        <!--Go on admin side and navigate to new order page for existing customer-->
+        <actionGroup ref="AdminNavigateToNewOrderPageExistingCustomerActionGroup" stepKey="createNewOrder">
+            <argument name="customer" value="Simple_US_Customer"/>
+        </actionGroup>
+
+        <!--Click on "Add products by SKU" button > Type SKU > And add it to order-->
+        <actionGroup ref="AdminAddProductToOrderBySKU" stepKey="addProductToOrderBySku">
+            <argument name="productSKU" value="{{BundleProductWithSlashSku.sku}}"/>
+            <argument name="productQty" value="1"/>
+            <argument name="productNumber" value="0"/>
+        </actionGroup>
+
+        <!--Click on "Configure" button-->
+        <click selector="{{AdminOrderFormItemsOrderedSection.configureButtonBySku}}" stepKey="clickConfigureButtonBySKUButton"/>
+
+        <!--Verify there are no JavaScript error in the current active window-->
+        <dontSeeJsError stepKey="dontSeeJsErrors"/>
+    </test>
+</tests>

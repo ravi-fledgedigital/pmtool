@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Store Locator for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/cron.xsd">
+    <group id="default">
+        <job name="amasty_storelocator_daily_cache_flush" instance="Amasty\Storelocator\Cron\FlushCacheBySchedule" method="execute">
+            <schedule>0 */1 * * *</schedule>
+        </job>
+    </group>
+</config>

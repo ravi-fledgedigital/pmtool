@@ -1,0 +1,64 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package RMA Base for Magento 2
+ */
+/**
+ * @var \Amasty\Rma\Block\Returns\History $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+
+if ($history = $block->getProceedData()): ?>
+    <div class="amrma-table-container">
+        <div class="table-wrapper returns-history">
+            <table class="data table table-returns-items history amrma-table" id="my-returns-table">
+                <caption class="table-caption"><?= $escaper->escapeHtml(__('Returns')) ?></caption>
+                <thead>
+                <tr>
+                    <th scope="col" class="col id"><?= $escaper->escapeHtml(__('Items')) ?></th>
+                    <th scope="col" class="col shipping"><?= $escaper->escapeHtml(__('Qty')) ?></th>
+                    <th scope="col" class="col id"><?= $escaper->escapeHtml(__('Id')) ?></th>
+                    <th scope="col" class="col date"><?= $escaper->escapeHtml(__('Date')) ?></th>
+                    <th scope="col" class="col total"><?= $escaper->escapeHtml(__('Order #')) ?></th>
+                    <th scope="col" class="col status"><?= $escaper->escapeHtml(__('Status')) ?></th>
+                    <th scope="col" class="col actions"></th>
+                </tr>
+                </thead>
+                <tbody class="amrma-tbody">
+                <?php foreach ($history as $item): ?>
+                    <tr class="amrma-row">
+                        <td data-th="<?= $escaper->escapeHtmlAttr(__('Item')) ?>" class="col item">
+                            <div class="amrma-image<?= ($block->isChatEnabled() && !empty($item['new_message']) ? ' new-message' : ''); ?>">
+                                <img src="<?= $escaper->escapeUrl($item['product_url'])?>"
+                                     alt="<?= $escaper->escapeHtmlAttr(__('Order ID:') . $item[\Magento\Sales\Api\Data\OrderInterface::INCREMENT_ID]) ?>"/>
+                            </div>
+                        </td>
+                        <td data-th="<?= $escaper->escapeHtmlAttr(__('Qty')) ?>" class="col qty"><?= (double)$item['qty']; ?></td>
+                        <td data-th="<?= $escaper->escapeHtmlAttr(__('Id')) ?>" class="col id"><?= $escaper->escapeHtml($item['request_id'])?></td>
+                        <td data-th="<?= $escaper->escapeHtmlAttr(__('Date')) ?>" class="col date"><?= $escaper->escapeHtml($block->formatDate($item['created_at'])) ?></td>
+                        <td data-th="<?= $escaper->escapeHtmlAttr(__('Order #')) ?>" class="col order"><?= $escaper->escapeHtml(str_pad($item[\Magento\Sales\Api\Data\OrderInterface::INCREMENT_ID], 9, '0', STR_PAD_LEFT)) ?></td>
+                        <td data-th="<?= $escaper->escapeHtmlAttr(__('Status')) ?>" class="col status">
+                        <span class="amrma-status -pending"<?= (!empty($item['status_color'])?' style="background-color: ' . $escaper->escapeHtmlAttr($item['status_color']) . '"':'') ?>>
+                            <?= $escaper->escapeHtml($item['status_label']) ?>
+                        </span>
+                        </td>
+                        <td class="col actions">
+                            <a href="<?= $escaper->escapeUrl($item['view_url']); ?>" class="action view" title="<?= $escaper->escapeHtmlAttr(__('View')) ?>">
+                                <?= $escaper->escapeHtml(__('View')) ?>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <?php if ($pager = $block->getPagerHtml()): ?>
+        <div class="toolbar">
+            <div class="amasty-rma-pager"><?= /** @noEscape */ $pager; ?></div>
+        </div>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty"><?= $escaper->escapeHtml(__('You have placed no return request.')) ?></div>
+<?php endif ?>

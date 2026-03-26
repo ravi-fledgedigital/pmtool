@@ -1,0 +1,36 @@
+<?php
+/** @var \Mirasvit\Scroll\Block\Scroll $block */
+
+use Mirasvit\Scroll\Model\Config\Source\ModeSource;
+use Mirasvit\Core\Service\CspService;
+
+$nonce = CspService::getNonce();
+?>
+<script<?php if ($nonce): ?> nonce="<?= $block->escapeHtml($nonce) ?>"<?php endif; ?>>
+    window.mstScrollEnabled = <?= $block->isEnabled() ? 'true' : 'false' ?>;
+</script>
+<?php
+if (!$block->isEnabled()) {
+    return;
+}
+$initConfig = $block->getInitConfig();
+if (!$initConfig) {
+    return;
+}
+?>
+<script<?php if ($nonce): ?> nonce="<?= $block->escapeHtml($nonce) ?>"<?php endif; ?> type="text/x-magento-init"><?= \Mirasvit\Core\Service\SerializeService::encode($initConfig) ?></script>
+
+<?php if ($block->getMode() !== ModeSource::MODE_BUTTON_DEFAULT): ?>    
+    <style>
+        .pages, .toolbar-amount {
+            display: none !important;
+        }
+    </style>
+<?php endif; ?>
+<noscript>
+    <style>
+        .pages, .toolbar-amount {
+            display: block !important;
+        }
+    </style>
+</noscript>

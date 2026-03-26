@@ -1,0 +1,270 @@
+{
+    "amasty_rma_item_condition": {
+        "column": {
+            "condition_id": true,
+            "title": true,
+            "status": true,
+            "position": true,
+            "is_deleted": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "amasty_rma_reason": {
+        "column": {
+            "reason_id": true,
+            "title": true,
+            "payer": true,
+            "status": true,
+            "position": true,
+            "is_deleted": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "amasty_rma_resolution": {
+        "column": {
+            "resolution_id": true,
+            "title": true,
+            "status": true,
+            "position": true,
+            "is_deleted": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "amasty_rma_status": {
+        "column": {
+            "status_id": true,
+            "title": true,
+            "is_enabled": true,
+            "is_initial": true,
+            "auto_event": true,
+            "state": true,
+            "grid": true,
+            "priority": true,
+            "color": true,
+            "is_deleted": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "amasty_rma_request": {
+        "column": {
+            "request_id": true,
+            "increment_id": true,
+            "order_id": true,
+            "store_id": true,
+            "created_at": true,
+            "modified_at": true,
+            "status": true,
+            "customer_id": true,
+            "customer_name": true,
+            "url_hash": true,
+            "manager_id": true,
+            "custom_fields": true,
+            "rating": true,
+            "rating_comment": true,
+            "note": true,
+            "shipping_label": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "amasty_rma_request_item": {
+        "column": {
+            "request_item_id": true,
+            "request_id": true,
+            "order_item_id": true,
+            "qty": true,
+            "request_qty": true,
+            "reason_id": true,
+            "condition_id": true,
+            "resolution_id": true,
+            "item_status": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "AMASTY_RMA_REQUEST_ITEM_REQUEST_ID_AMASTY_RMA_REQUEST_REQUEST_ID": true
+        }
+    },
+    "amasty_rma_tracking": {
+        "column": {
+            "tracking_id": true,
+            "request_id": true,
+            "tracking_code": true,
+            "tracking_number": true,
+            "is_customer": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "amasty_rma_message": {
+        "column": {
+            "message_id": true,
+            "request_id": true,
+            "created_at": true,
+            "name": true,
+            "message": true,
+            "customer_id": true,
+            "manager_id": true,
+            "is_system": true,
+            "is_manager": true,
+            "is_read": true,
+            "is_notified": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "amasty_rma_item_condition_store": {
+        "column": {
+            "condition_store_id": true,
+            "condition_id": true,
+            "store_id": true,
+            "label": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_2AE51875AF0CD885E7FF189617DF0590": true
+        }
+    },
+    "amasty_rma_reason_store": {
+        "column": {
+            "reason_store_id": true,
+            "reason_id": true,
+            "store_id": true,
+            "label": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "AMASTY_RMA_REASON_STORE_REASON_ID_AMASTY_RMA_REASON_REASON_ID": true
+        }
+    },
+    "amasty_rma_resolution_store": {
+        "column": {
+            "resolution_store_id": true,
+            "resolution_id": true,
+            "store_id": true,
+            "label": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_C21BC2C5A88ED9E15961FB0B07D80048": true
+        }
+    },
+    "amasty_rma_status_store": {
+        "column": {
+            "status_store_id": true,
+            "status_id": true,
+            "store_id": true,
+            "label": true,
+            "description": true,
+            "send_email_to_customer": true,
+            "customer_email_template": true,
+            "customer_custom_text": true,
+            "send_email_to_admin": true,
+            "admin_email_template": true,
+            "admin_custom_text": true,
+            "send_to_chat": true,
+            "chat_message": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "AMASTY_RMA_STATUS_STORE_STATUS_ID_AMASTY_RMA_STATUS_STATUS_ID": true
+        }
+    },
+    "amasty_rma_message_file": {
+        "column": {
+            "message_file_id": true,
+            "message_id": true,
+            "filepath": true,
+            "filename": true,
+            "url_hash": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "AMASTY_RMA_MESSAGE_FILE_MESSAGE_ID_AMASTY_RMA_MESSAGE_MESSAGE_ID": true
+        }
+    },
+    "amasty_rma_guest_create_request": {
+        "column": {
+            "create_id": true,
+            "secret_code": true,
+            "order_id": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "amasty_rma_return_rules": {
+        "column": {
+            "id": true,
+            "name": true,
+            "status": true,
+            "priority": true,
+            "default_resolution": true,
+            "conditions_serialized": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "amasty_rma_return_rules_websites": {
+        "column": {
+            "rule_website_id": true,
+            "website_id": true,
+            "rule_id": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "AMASTY_RMA_RETURN_RULES_WSS_WS_ID_STORE_WS_WS_ID": true,
+            "AMASTY_RMA_RETURN_RULES_WSS_RULE_ID_AMASTY_RMA_RETURN_RULES_ID": true
+        }
+    },
+    "amasty_rma_return_rules_customer_groups": {
+        "column": {
+            "rule_customer_group_id": true,
+            "customer_group_id": true,
+            "rule_id": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_6EEEF04D9F995F32BE4A474E341A55A6": true,
+            "FK_5B74433CD256510C87EAC89DE35FC059": true
+        }
+    },
+    "amasty_rma_return_rules_resolutions": {
+        "column": {
+            "rule_resolution_id": true,
+            "rule_id": true,
+            "resolution_id": true,
+            "value": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_F1EB7F075D2D853BC64A269BAF937D7E": true,
+            "FK_47F426414767D2E1306A79850D3A44EE": true
+        }
+    },
+    "amasty_rma_history": {
+        "column": {
+            "event_id": true,
+            "request_id": true,
+            "event_date": true,
+            "event_type": true,
+            "event_data": true,
+            "event_initiator": true,
+            "event_initiator_name": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

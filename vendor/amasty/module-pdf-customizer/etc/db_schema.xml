@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package PDF Customizer for Magento 2
+ */-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="amasty_pdf_template" resource="default" engine="innodb" comment="PDF Templates by Amasty">
+    <column xsi:type="int" name="template_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Template ID"/>
+    <column xsi:type="varchar" name="template_code" nullable="false" length="150" comment="Template Name"/>
+    <column xsi:type="text" name="template_text" nullable="false" comment="Template Content"/>
+    <column xsi:type="text" name="template_styles" nullable="true" comment="Template Styles"/>
+    <column xsi:type="timestamp" name="added_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Date of Template Creation"/>
+    <column xsi:type="timestamp" name="modified_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Date of Template Modification"/>
+    <column xsi:type="varchar" name="orig_template_code" nullable="true" length="200" comment="Original Template Code"/>
+    <column xsi:type="text" name="orig_template_variables" nullable="true" comment="Original Template Variables"/>
+    <column xsi:type="smallint" name="place_for_use" padding="6" unsigned="false" nullable="false" identity="false" default="0" comment="Template Type"/>
+    <column xsi:type="varchar" name="store_ids" nullable="false" length="255" default="" comment="Stores"/>
+    <column xsi:type="varchar" name="customer_group_ids" nullable="false" length="255" default="" comment="Stores"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="template_id"/>
+    </constraint>
+    <constraint xsi:type="unique" referenceId="AMASTY_PDF_TEMPLATE_TEMPLATE_CODE">
+      <column name="template_code"/>
+    </constraint>
+  </table>
+</schema>

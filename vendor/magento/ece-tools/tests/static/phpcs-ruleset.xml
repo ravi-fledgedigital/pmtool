@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<ruleset name="Magento">
+    <description>Custom Magento ECE Tools coding standard.</description>
+
+    <rule ref="PSR2"/>
+
+    <!-- Exclude underscore method naming for Codeception test files (framework requirement) -->
+    <rule ref="PSR2.Methods.MethodDeclaration.Underscore">
+        <exclude-pattern>*/Test/Functional/*</exclude-pattern>
+    </rule>
+
+    <rule ref="Generic.Functions.CallTimePassByReference"/>
+    <rule ref="Generic.PHP.DeprecatedFunctions"/>
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="120"/>
+            <property name="absoluteLineLimit" value="120"/>
+        </properties>
+    </rule>
+
+    <rule ref="Squiz.Commenting.DocCommentAlignment"/>
+    <rule ref="Squiz.Functions.GlobalFunction"/>
+    <rule ref="Squiz.WhiteSpace.LogicalOperatorSpacing"/>
+    <rule ref="Squiz.Commenting.VariableComment" />
+    <rule ref="Squiz.Commenting.ClassComment">
+        <exclude-pattern>Test</exclude-pattern>
+    </rule>
+
+    <exclude-pattern>_files</exclude-pattern>
+    <exclude-pattern>_file</exclude-pattern>
+</ruleset>

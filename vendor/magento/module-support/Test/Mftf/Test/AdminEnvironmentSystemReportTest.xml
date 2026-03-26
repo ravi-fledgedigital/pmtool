@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminEnvironmentSystemReportTest">
+        <annotations>
+            <features value="SystemReports"/>
+            <stories value="Generate Environment Reports Via Backend"/>
+            <title value="Admin create environment system report"/>
+            <description value="Admin create environment system report and verify environment info and mysql status is present inside the system report"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="AC-4339"/>
+            <group value="report"/>
+        </annotations>
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="LoginAsAdmin"/>
+        </before>
+        <after>
+            <actionGroup ref="AdminNavigateToSystemReportPageActionGroup" stepKey="adminNavigateToSystemReportPage"/>
+            <actionGroup ref="AdminDeleteAllSystemReportsActionGroup" stepKey="adminDeleteCreatedSystemReport"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+        <actionGroup ref="AdminNavigateToSystemReportPageActionGroup" stepKey="adminNavigateToSystemReportPage"/>
+        <actionGroup ref="AdminCreateSystemReportActionGroup" stepKey="adminCreateEnvironmentReportInSystemReport">
+            <argument name="groupField" value="Environment"/>
+        </actionGroup>
+        <actionGroup ref="AdminSelectCreatedReportActionGroup" stepKey="adminSelectCreatedReportInTheSystemReportGrid">
+            <argument name="reportGroup" value="Environment"/>
+        </actionGroup>
+        <actionGroup ref="AdminVerifyEnvironmentInfoMySQLStatusActionGroup" stepKey="adminVerifiesEnvironmentInfoAndMySQLStatusInTheCreatedEnvironmentSystemReport"/>
+    </test>
+</tests>

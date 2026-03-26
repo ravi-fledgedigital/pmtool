@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Product Tabs for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Amasty_CustomTabs::amcustomtabs"
+             title="Product Tabs"
+             module="Amasty_CustomTabs"
+             parent="Magento_Catalog::catalog"
+             sortOrder="150"
+             resource="Amasty_CustomTabs::amcustomtabs"/>
+        <add id="Amasty_CustomTabs::tabs"
+             title="Tab Management"
+             sortOrder="10"
+             module="Amasty_CustomTabs"
+             parent="Amasty_CustomTabs::amcustomtabs"
+             action="amcustomtabs/tabs/index"
+             resource="Amasty_CustomTabs::tabs"/>
+    </menu>
+</config>

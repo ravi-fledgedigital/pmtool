@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminConfigurationSystemReportTest">
+        <annotations>
+            <features value="SystemReports"/>
+            <stories value="Generate Configuration Reports Via Backend"/>
+            <title value="Admin create configuration system report"/>
+            <description value="This test verifies that admin should be able to create Configuration System report and verify the columns present in the generated reports"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="ACQE-5745"/>
+            <group value="report"/>
+        </annotations>
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="LoginAsAdmin"/>
+        </before>
+        <after>
+            <actionGroup ref="AdminNavigateToSystemReportPageActionGroup" stepKey="adminNavigateToSystemReportPage"/>
+            <actionGroup ref="AdminDeleteAllSystemReportsActionGroup" stepKey="adminDeleteCreatedSystemReport"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+        <actionGroup ref="AdminNavigateToSystemReportPageActionGroup" stepKey="adminNavigateToSystemReportPage"/>
+        <actionGroup ref="AdminCreateSystemReportActionGroup" stepKey="adminCreateConfigurationReportInSystemReport">
+            <argument name="groupField" value="Configuration"/>
+        </actionGroup>
+        <actionGroup ref="AdminSelectCreatedReportActionGroup" stepKey="adminSelectCreatedReportInTheSystemReportGrid">
+            <argument name="reportGroup" value="Configuration"/>
+        </actionGroup>
+        <actionGroup ref="AdminVerifyConfigurationInfoActionGroup" stepKey="adminVerifiesConfigurationInfoInTheCreatedConfigurationSystemReport"/>
+    </test>
+</tests>

@@ -1,0 +1,15 @@
+
+File "/var/www/html/app/code/Magento/Invitation/Test/Mftf/Test/AdminReportsConversionsNavigateMenuTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminMenuReports from module(s): magento/module-analytics
+
+File "/var/www/html/app/code/Magento/Invitation/Test/Mftf/Test/AdminReportsInvitationsNavigateMenuTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminMenuReports from module(s): magento/module-analytics
+
+File "/var/www/html/app/code/Magento/Invitation/Test/Mftf/Test/AdminReportsInvitedCustomersNavigateMenuTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminMenuReports from module(s): magento/module-analytics

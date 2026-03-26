@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminVerifyConfigurationInfoActionGroup">
+        <annotations>
+            <description>Admin verify Configuration information coloums is present in the created system report</description>
+        </annotations>
+        <waitForText selector="{{SystemReportSection.verifyText}}" userInput="Configuration" stepKey="systemReportContainsConfigurationInformation"/>
+        <waitForText selector="{{SystemReportSection.verifyText}}" userInput="Data from app/etc/env.php" stepKey="systemReportContainsData"/>
+        <waitForText selector="{{SystemReportSection.verifyText}}" userInput="Shipping Methods" stepKey="systemReportContainsShippingMethodsInfo"/>
+        <waitForText selector="{{SystemReportSection.verifyText}}" userInput="Payment Methods" stepKey="systemReportContainsPaymentMethodsInfo"/>
+        <waitForText selector="{{SystemReportSection.verifyText}}" userInput="Payments Functionality Matrix" stepKey="systemReportContainsPaymentsFunctionalityMatrixInfo"/>
+    </actionGroup>
+</actionGroups>

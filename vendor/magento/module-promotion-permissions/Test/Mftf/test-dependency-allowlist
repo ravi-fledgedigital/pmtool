@@ -1,0 +1,6 @@
+GoToTargetRulePage
+ClickAddNewTargetRule
+FillGeneralRuleInformation
+FillProductsToMatchInformation
+FillProductsToDisplayInformation
+SaveTargetRule

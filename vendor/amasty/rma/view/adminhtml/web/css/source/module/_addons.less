@@ -1,0 +1,91 @@
+//
+//  Amasty RMA
+//  Addons Style
+//  ____________________________________________
+
+//
+//  Variables
+//  --------------------------------------------
+
+@amrma-icon-reports__background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTAiIGN5PSIxMCIgcj0iMTAiIGZpbGw9IiMzNjMzMzAiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNNyA5SDV2Nmgyek0xMSA0SDl2MTFoMlY0ek0xNSA3aC0ydjhoMlY3eiIvPjwvc3ZnPg==');
+@amrma-icon-rules__background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTAiIGN5PSIxMCIgcj0iMTAiIGZpbGw9IiNGRkI4MDAiLz48cGF0aCBkPSJNMTMuOTIyIDguMjI4YS40NjMuNDYzIDAgMDAtLjM2My0uMTc4aC0yLjE5M2wxLjMyMS0zLjUxNmEuNDEuNDEgMCAwMC0uMDE0LS4zMDFsLS4wNDQtLjA2OWMtLjA3Mi0uMTEtLjIwMy0uMTY0LS4zNDgtLjE2NEg4Ljc5NmMtLjE5IDAtLjM2My4xMjMtLjQwNy4yNzRsLTIuMzY3IDYuMzM1YS40MS40MSAwIDAwLjAxNS4zbC4wNDMuMDdjLjA3My4xMDkuMjA0LjE2NC4zNDkuMTY0aDIuNTg1bC0uMzIgNC40NDZjMCAuMTkyLjEzLjM1Ni4zMi4zOTdMOS4xMyAxNmEuNDg1LjQ4NSAwIDAwLjM3Ny0uMTkybDQuNDU4LTcuMTU2YS40NDMuNDQzIDAgMDAtLjA0My0uNDI0eiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==');
+@amrma-icon-labels__background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTAiIGN5PSIxMCIgcj0iMTAiIGZpbGw9IiMxNzg3RTAiLz48cGF0aCBkPSJNMTAuMjQ5IDUuMDc1QS4yNDYuMjQ2IDAgMDAxMC4wNzUgNWEuMjQ1LjI0NSAwIDAwLS4xNzUuMDc1TDUuMDc1IDkuNzVjLS4xLjEtLjEuMjQ5IDAgLjM0OWw0LjY3NiA0LjgyNWMuMDUuMDUuMTEyLjA3NS4xNzQuMDc1YS4yNDYuMjQ2IDAgMDAuMTc1LS4wNzVsNC44MjUtNC42NzZjLjEtLjEuMS0uMjQ5IDAtLjM0OUwxMC4yNSA1LjA3NXpNMTAgOS41MDJBMS4wMyAxLjAzIDAgMDE4Ljk2OCA4LjQ3YzAtLjU3Mi40Ni0xLjAzMiAxLjAzMi0xLjAzMi41NzIgMCAxLjAzMi40NiAxLjAzMiAxLjAzMkExLjAzIDEuMDMgMCAwMTEwIDkuNTAyeiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==');
+@amrma-icon-link__background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTkuNjA0IDBhLjM4NS4zODUgMCAwMC0uMDQyLjAwNEg2LjUzNmEuMzg0LjM4NCAwIDEwMCAuNzY5aDIuMTQ4TDMuOTU3IDUuNDk5YS4zODUuMzg1IDAgMTAuNTQ0LjU0NGw0LjcyNi00LjcyNnYyLjE0N2EuMzg0LjM4NCAwIDEwLjc3IDBWLjQzN0EuMzg1LjM4NSAwIDAwOS42MDMgMHoiIGZpbGw9IiMzMzMiLz48cGF0aCBkPSJNNC4yMyAxLjU0MmMtLjk2IDAtMS42ODUtLjAwMi0yLjI2My4wNjQtLjU3OC4wNjUtMS4wNC4yMDItMS4zNzIuNTMzLS4zMy4zMzItLjQ2Ni43OTMtLjUzMSAxLjM3Qy0uMDAxIDQuMDg4IDAgNC44MTMgMCA1Ljc3MmMwIC45NTkgMCAxLjY4NC4wNjUgMi4yNjIuMDY2LjU3Ny4yMDYgMS4wNC41MzcgMS4zNy4zMzIuMzMuNzk0LjQ2OCAxLjM3LjUzMy41NzguMDY1IDEuMzAxLjA2NCAyLjI1Ny4wNjQuOTU2IDAgMS42OCAwIDIuMjU3LS4wNjUuNTc3LS4wNjYgMS4wNC0uMjA0IDEuMzcxLS41MzUuMzMxLS4zMzEuNDctLjc5My41MzUtMS4zNy4wNjctLjU3OC4wNjctMS4zMDIuMDY3LTIuMjZhLjM4NC4zODQgMCAxMC0uNzcgMGMwIC45NTctLjAwMyAxLjY3LS4wNiAyLjE3My0uMDU4LjUwMi0uMTY0Ljc2Mi0uMzE2LjkxMy0uMTUyLjE1Mi0uNDExLjI1OC0uOTE0LjMxNS0uNTAyLjA1Ny0xLjIxNC4wNi0yLjE3LjA2LS45NTUgMC0xLjY2OC0uMDAzLTIuMTctLjA2LS41MDItLjA1Ni0uNzYyLS4xNjEtLjkxNC0uMzEyLS4xNTItLjE1Mi0uMjU4LS40MTItLjMxNS0uOTE0Qy43NzIgNy40NDIuNzY5IDYuNzI5Ljc2OSA1Ljc3cy4wMDItMS42NzIuMDU5LTIuMTc1Yy4wNTYtLjUwMi4xNjEtLjc2Mi4zMTItLjkxMy4xNS0uMTUuNDEtLjI1Ni45MTMtLjMxMy41MDMtLjA1NyAxLjIxNy0uMDYgMi4xNzYtLjA2YS4zODQuMzg0IDAgMTAwLS43Njh6IiBmaWxsPSIjMzMzIi8+PC9zdmc+');
+@amrma-icon-link__hover__background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTkuNjA0IDBhLjM4NS4zODUgMCAwMC0uMDQyLjAwNEg2LjUzNmEuMzg0LjM4NCAwIDEwMCAuNzY5aDIuMTQ4TDMuOTU3IDUuNDk5YS4zODUuMzg1IDAgMTAuNTQ0LjU0NGw0LjcyNi00LjcyNnYyLjE0N2EuMzg0LjM4NCAwIDEwLjc3IDBWLjQzN0EuMzg1LjM4NSAwIDAwOS42MDMgMHoiIGZpbGw9IiMxNzg3RTAiLz48cGF0aCBkPSJNNC4yMyAxLjU0MmMtLjk2IDAtMS42ODUtLjAwMi0yLjI2My4wNjQtLjU3OC4wNjUtMS4wNC4yMDItMS4zNzIuNTMzLS4zMy4zMzItLjQ2Ni43OTMtLjUzMSAxLjM3Qy0uMDAxIDQuMDg4IDAgNC44MTMgMCA1Ljc3MmMwIC45NTkgMCAxLjY4NC4wNjUgMi4yNjIuMDY2LjU3Ny4yMDYgMS4wNC41MzcgMS4zNy4zMzIuMzMuNzk0LjQ2OCAxLjM3LjUzMy41NzguMDY1IDEuMzAxLjA2NCAyLjI1Ny4wNjQuOTU2IDAgMS42OCAwIDIuMjU3LS4wNjUuNTc3LS4wNjYgMS4wNC0uMjA0IDEuMzcxLS41MzUuMzMxLS4zMzEuNDctLjc5My41MzUtMS4zNy4wNjctLjU3OC4wNjctMS4zMDIuMDY3LTIuMjZhLjM4NC4zODQgMCAxMC0uNzcgMGMwIC45NTctLjAwMyAxLjY3LS4wNiAyLjE3My0uMDU4LjUwMi0uMTY0Ljc2Mi0uMzE2LjkxMy0uMTUyLjE1Mi0uNDExLjI1OC0uOTE0LjMxNS0uNTAyLjA1Ny0xLjIxNC4wNi0yLjE3LjA2LS45NTUgMC0xLjY2OC0uMDAzLTIuMTctLjA2LS41MDItLjA1Ni0uNzYyLS4xNjEtLjkxNC0uMzEyLS4xNTItLjE1Mi0uMjU4LS40MTItLjMxNS0uOTE0Qy43NzIgNy40NDIuNzY5IDYuNzI5Ljc2OSA1Ljc3cy4wMDItMS42NzIuMDU5LTIuMTc1Yy4wNTYtLjUwMi4xNjEtLjc2Mi4zMTItLjkxMy4xNS0uMTUuNDEtLjI1Ni45MTMtLjMxMy41MDMtLjA1NyAxLjIxNy0uMDYgMi4xNzYtLjA2YS4zODQuMzg0IDAgMTAwLS43Njh6IiBmaWxsPSIjMTc4N0UwIi8+PC9zdmc+');
+
+//
+//  Common
+//  --------------------------------------------
+
+& when (@media-common = true) {
+    .amrma-addons-container {
+        & {
+            display: flex;
+            margin-bottom: 50px;
+        }
+
+        > .amrma-link {
+            & {
+                position: relative;
+                display: block;
+                margin-right: 15px;
+                padding: 10px 30px 10px 45px;
+                background-color: #f4f8ff;
+                color: #333;
+                transition: background-color .3s ease-out;
+            }
+
+            &:hover {
+                background-color: #fff;
+                text-decoration: none;
+            }
+
+            &:before {
+                position: absolute;
+                top: 10px;
+                left: 15px;
+                width: 20px;
+                height: 20px;
+                content: '';
+            }
+
+            &:after {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                width: 10px;
+                height: 10px;
+                background: @amrma-icon-link__background no-repeat center;
+                content: '';
+            }
+        }
+
+        .amrma-name {
+            transition: color .3s ease-out;
+        }
+
+        > .amrma-link:hover .amrma-name {
+            color: #2c83c6;
+        }
+
+        > .amrma-link:hover:after {
+            background: @amrma-icon-link__hover__background no-repeat center;
+        }
+
+        > .amrma-link.-reports:before {
+            background: @amrma-icon-reports__background no-repeat center;
+        }
+
+        > .amrma-link.-rules:before {
+            background: @amrma-icon-rules__background no-repeat center;
+        }
+
+        > .amrma-link.-labels:before {
+            background: @amrma-icon-labels__background no-repeat center;
+        }
+    }
+
+    .amrma-requests-container {
+        padding: 0;
+    }
+}

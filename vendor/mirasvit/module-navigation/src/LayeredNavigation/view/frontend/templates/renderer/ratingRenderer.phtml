@@ -1,0 +1,60 @@
+<?php
+/**
+ * @var $block \Mirasvit\LayeredNavigation\Block\Renderer\RatingRenderer
+ * @var $escaper \Magento\Framework\Escaper
+ */
+$attributeCode     = $block->getAttributeCode();
+$isMultiselect = (int)$block->isMultiselectEnabled();
+$checkedItemsCount = 0;
+?>
+<div class="mst-nav__label mst-nav__rating" data-attribute-code="<?= $block->escapeHtmlAttr($attributeCode) ?>" data-is-multiselect="<?= $block->escapeHtmlAttr($isMultiselect) ?>" data-mst-nav-filter="<?= $block->escapeHtmlAttr($attributeCode) ?>">
+    <ol class="items" role="list">
+        <?php foreach ($block->getFilterItems() as $filterItem): ?>
+            <?php
+            $itemRating      = $filterItem->getValueString();
+            $numberOfResults = $filterItem->getData('count');
+            $isItemChecked   = $block->isFilterItemChecked($filterItem);
+            $url             = $isItemChecked ? $filterItem->getRemoveUrl() : $filterItem->getUrl();
+
+            if ($isItemChecked) {
+                $checkedItemsCount++;
+            }
+
+            $cssClass = [
+                'item',
+                'mst-nav__label-item',
+                $isItemChecked ? '_checked' : '',
+                $isItemChecked && $block->isHighlightEnabled() ? '_highlight' : '',
+            ];
+            ?>
+
+            <li class="<?= $block->escapeHtmlAttr(implode(' ', $cssClass)) ?>" data-element="filter" data-value="<?= $block->escapeHtmlAttr($filterItem->getValueString()) ?>" role="listitem">
+                <a href="<?= $escaper->escapeUrl($url) ?>"
+                   rel="<?= $block->escapeHtmlAttr($block->getRelAttributeValue()) ?>"
+                   aria-label="<?= $block->escapeHtmlAttr($isItemChecked ? __('Remove rating filter: %1 stars and up', $itemRating) : __('Filter by %1 stars and up', $itemRating)) ?>"
+                   tabindex="0"
+                >
+                    <span class="visually-hidden">
+                        <?= $block->escapeHtml($isItemChecked ? __('Selected: %1 stars and up', $itemRating) : __('Not selected: %1 stars and up', $itemRating)) ?>
+                    </span>
+                    <div class="rating-summary">
+                        <div class="rating-result" title="<?= $itemRating * 20 ?>%">
+                            <span style="width:<?= $block->escapeHtmlAttr($itemRating * 20) ?>%"><span><?= $block->escapeHtml($itemRating) ?></span></span>
+                        </div>
+                        <span><?= $block->escapeHtml(__(' & Up')) ?></span>
+                        <?= /* @noEscape */ $block->getCountElement($filterItem) ?>
+                    </div>
+                </a>
+            </li>
+        <?php endforeach ?>
+    </ol>
+</div>
+<script type="text/x-magento-init"><?= \Mirasvit\Core\Service\SerializeService::encode([
+        '[data-mst-nav-filter=' . $attributeCode . ']' => [
+            'Mirasvit_LayeredNavigation/js/renderer/label-renderer' => [],
+            'Mirasvit_LayeredNavigation/js/helper/checked-items' => [
+                'count'    => $checkedItemsCount,
+                'clearUrl' => $block->getAttributeClearUrl($attributeCode)
+            ],
+        ],
+    ]) ?></script>

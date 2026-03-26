@@ -1,0 +1,22 @@
+{
+    "mst_quick_navigation_sequence": {
+        "column": {
+            "sequence_id": true,
+            "store_id": true,
+            "category_id": true,
+            "sequence": true,
+            "length": true,
+            "popularity": true
+        },
+        "index": {
+            "MST_QUICK_NAVIGATION_SEQUENCE_STORE_ID": true,
+            "MST_QUICK_NAVIGATION_SEQUENCE_CATEGORY_ID": true,
+            "MST_QUICK_NAVIGATION_SEQUENCE_SEQUENCE": true,
+            "MST_QUICK_NAVIGATION_SEQUENCE_LENGTH": true,
+            "MST_QUICK_NAVIGATION_SEQUENCE_POPULARITY": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

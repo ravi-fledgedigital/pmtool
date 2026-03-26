@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminScheduleUpdateForSpecialPriceSetTest">
+        <annotations>
+            <stories value="Schedule Update On Special Price"/>
+            <features value="CatalogStaging"/>
+            <title value="Scheduling an update for the Special price displays on the original price"/>
+            <description value="Scheduling an update for the Special price displays on the original price"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="AC-9155"/>
+            <useCaseId value="ACP2E-1982"/>
+            <skip>
+                <issueId value="ACP2E-2901"/>
+            </skip>
+            <group value="CatalogStaging"/>
+        </annotations>
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <!-- Create new product -->
+            <comment userInput="Create new product" stepKey="createProduct"/>
+            <createData entity="_defaultCategory" stepKey="createCategory"/>
+            <createData entity="SimpleProduct" stepKey="createSimpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+        </before>
+        <after>
+            <!--Delete created product-->
+            <comment userInput="Delete created product" stepKey="deleteProduct"/>
+            <deleteData createDataKey="createSimpleProduct" stepKey="deleteSimpleProduct"/>
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+        <!--Click on "Schedule New Update" button and save the product-->
+        <amOnPage url="{{AdminProductEditPage.url($$createSimpleProduct.id$$)}}" stepKey="visitAdminProductPage2"/>
+        <waitForPageLoad stepKey="waitForProductEditPageLoad"/>
+        <generateDate date="+2 min" format="m/j/Y g:i A" stepKey="generateStartDate"/>
+        <generateDate date="+1 day" format="m/j/Y g:i A" stepKey="generateEndDate"/>
+        <click selector="{{AdminStagingSlideOutSection.scheduleNewUpdateBtn}}" stepKey="clickNewUpdate"/>
+        <waitForPageLoad stepKey="waitForUpdatePageLoad"/>
+        <actionGroup ref="FillScheduleUpdateHeaderForProductActionGroup" stepKey="fillScheduleUpdateHeader">
+            <argument name="staging" value="S5UpdateNameStaging"/>
+            <argument name="timeStart" value="{$generateStartDate}"/>
+            <argument name="timeEnd" value="{$generateEndDate}"/>
+        </actionGroup>
+        <!--Click on "Advanced Pricing Link"-->
+        <click selector="{{AdminProductScheduleUpdateSection.advancedPricing}}" stepKey="clickAdvancedPricingLinkInUpdate"/>
+        <waitForElementVisible selector="{{AdminProductFormAdvancedPricingSection.specialPrice}}" stepKey="waitSpecialPriceInUpdate"/>
+
+        <fillField selector="{{AdminProductFormAdvancedPricingSection.specialPrice}}" userInput="10.00" stepKey="fillSpecialPrice"/>
+        <click selector="{{AdminProductScheduleUpdateSection.doneButton}}" stepKey="clickDoneButton"/>
+        <!--Save Update and check the update appears in "Scheduled Changes" grid-->
+        <actionGroup ref="SaveScheduleUpdateForProductActionGroup" stepKey="saveScheduleUpdateForProduct">
+            <argument name="staging" value="S5UpdateNameStaging"/>
+        </actionGroup>
+        <actionGroup ref="SaveProductFormActionGroup" stepKey="saveProduct"/>
+        <wait time="120" stepKey="waitForUpdateStart"/>
+        <magentoCron groups="staging" stepKey="cronRun"/>
+        <magentoCron groups="staging" stepKey="cronRunTwice"/>
+        <magentoCron groups="index" stepKey="reindex"/>
+        <magentoCLI command="cache:flush" stepKey="cleanCache"/>
+        <waitForPageLoad stepKey="waitToCacheToFlush"/>
+
+        <!--Click View/Edit created update and open Advanced Pricing Popup-->
+        <amOnPage url="{{AdminProductEditPage.url($$createSimpleProduct.id$$)}}" stepKey="visitAdminProductPage3"/>
+        <waitForPageLoad time="60" stepKey="waitForProductPageLoading"/>
+        <click selector="{{AdminEntityStagingSection.nthViewEditButton('1')}}" stepKey="clickViewEdit"/>
+        <click selector="{{AdminProductScheduleUpdateSection.advancedPricing}}" stepKey="clickAdvancedPricingLinkInUpdate2"/>
+        <waitForPageLoad stepKey="waitForLoad"/>
+        <!--New special price value is displayed in "Advanced Pricing" section-->
+        <grabValueFrom selector="{{AdminProductFormAdvancedPricingSection.specialPrice}}" stepKey="grabSpecialPriceValue"/>
+        <assertEquals stepKey="assertToMakeSureThatProductSuccessfullyAdded">
+            <actualResult type="variable">$grabSpecialPriceValue</actualResult>
+            <expectedResult type="string">10.00</expectedResult>
+        </assertEquals>
+        <!--Open storefront product page and verify tier price is changed-->
+        <amOnPage url="{{StorefrontProductPage.url($$createSimpleProduct.custom_attributes[url_key]$$)}}" stepKey="goToProductPage2"/>
+        <waitForPageLoad stepKey="waitForProductPageLoad2"/>
+        <!-- Verify customer see product special price on the storefront page -->
+        <grabTextFrom selector="{{StorefrontProductInfoMainSection.specialPriceAmount}}" stepKey="specialPriceAmount"/>
+        <assertEquals stepKey="assertSpecialPriceTextOnProductPage">
+            <expectedResult type="string">$10.00</expectedResult>
+            <actualResult type="variable">specialPriceAmount</actualResult>
+        </assertEquals>
+        <!--Click on "Schedule New Update" button and save the product Again-->
+        <amOnPage url="{{AdminProductEditPage.url($$createSimpleProduct.id$$)}}" stepKey="visitAdminProductPageAgain"/>
+        <waitForPageLoad stepKey="waitForProductEditPageLoadAgain"/>
+        <generateDate date="+5 day" format="m/j/Y g:i A" stepKey="generateStartDate2"/>
+        <generateDate date="+7 day" format="m/j/Y g:i A" stepKey="generateEndDate2"/>
+        <click selector="{{AdminStagingSlideOutSection.scheduleNewUpdateBtn}}" stepKey="clickNewUpdateAgain"/>
+        <waitForPageLoad stepKey="waitForUpdatePageLoadAgain"/>
+        <actionGroup ref="FillScheduleUpdateHeaderForProductActionGroup" stepKey="fillScheduleUpdateHeaderAgain">
+            <argument name="staging" value="S18UpdateNameStaging"/>
+            <argument name="timeStart" value="{$generateStartDate2}"/>
+            <argument name="timeEnd" value="{$generateEndDate2}"/>
+        </actionGroup>
+        <!--Click on "Advanced Pricing Link" Again-->
+        <click selector="{{AdminProductScheduleUpdateSection.advancedPricing}}" stepKey="clickAdvancedPricingLinkInUpdateAgain"/>
+        <waitForElementVisible selector="{{AdminProductFormAdvancedPricingSection.specialPrice}}" stepKey="waitSpecialPriceInUpdateAgain"/>
+
+        <fillField selector="{{AdminProductFormAdvancedPricingSection.specialPrice}}" userInput="" stepKey="fillSpecialPriceAgain"/>
+        <click selector="{{AdminProductScheduleUpdateSection.doneButton}}" stepKey="clickDoneButtonAgain"/>
+        <scrollToTopOfPage stepKey="scrollToTopOfPage"/>
+        <click selector="{{AdminStagingSlideOutSection.save}}" stepKey="clickSave"/>
+        <!--Click View/Edit created update and open Advanced Pricing Popup-->
+        <amOnPage url="{{AdminProductEditPage.url($$createSimpleProduct.id$$)}}" stepKey="visitAdminProductPageForScheduleRemove"/>
+        <waitForPageLoad time="60" stepKey="waitForProductPageLoadingAgain"/>
+        <click selector="{{AdminEntityStagingSection.nthViewEditButton('2')}}" stepKey="clickViewEditAgain"/>
+        <click selector="{{AdminProductScheduleUpdateSection.advancedPricing}}" stepKey="clickAdvancedPricingLinkInUpdateForScheduleRemove"/>
+        <waitForPageLoad stepKey="waitForLoadAgain"/>
+        <!--Empty special price value is displayed in "Advanced Pricing" section-->
+        <grabValueFrom selector="{{AdminProductFormAdvancedPricingSection.specialPrice}}" stepKey="grabEmptySpecialPriceValue"/>
+        <assertEmpty stepKey="assertEmptySpecialValue">
+            <actualResult type="string">$grabEmptySpecialPriceValue</actualResult>
+        </assertEmpty>
+    </test>
+</tests>

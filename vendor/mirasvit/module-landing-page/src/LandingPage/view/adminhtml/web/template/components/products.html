@@ -1,0 +1,23 @@
+<div>
+    <!-- ko if: $row().products -->
+        <strong>All Products</strong>
+    <!-- /ko -->
+    <!-- ko if: $row().col_categories -->
+        <strong>Categories: </strong>
+        <span data-bind="text: $row().col_categories"></span>
+        <br>
+    <!-- /ko -->
+    <!-- ko if: $row().col_attributes -->
+        <strong>Filters: </strong>
+        <ul style="list-style-type:disc;padding-left: 20px !important;" data-bind="foreach: $row().col_attributes">
+            <li>
+                <strong><span data-bind="text: name"></span> : </strong>
+                <span data-bind="text: options"></span>
+            </li>
+        </ul>
+    <!-- /ko -->
+    <!-- ko if: $row().col_search_term -->
+        <strong>Search Term: </strong>
+        <span data-bind="text: $row().col_search_term"></span>
+    <!-- /ko -->
+</div>

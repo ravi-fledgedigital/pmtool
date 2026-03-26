@@ -1,0 +1,15 @@
+<?php
+/** @var \Mirasvit\CatalogLabel\Block\Adminhtml\Label\Edit\LabelVariableList $block */
+?>
+
+<div class="variablelist">
+    <h3><?= $block->escapeHtml(__('List of allowed product variables:')) ?></h3>
+    <dl>
+        <?php foreach ($block->getVariableList() as $code => $label): ?>
+        <div class="variable">
+            <dt>[<?= $block->escapeHtml($code) ?>]</dt>
+            <dd><?= $block->escapeHtml($label) ?></dd>
+        </div>
+        <?php endforeach; ?>
+    </dl>
+</div>

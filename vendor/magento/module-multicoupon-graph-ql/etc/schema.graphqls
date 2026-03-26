@@ -1,0 +1,27 @@
+# Copyright © Magento, Inc. All rights reserved.
+# See COPYING.txt for license details.
+
+type Mutation {
+    applyCouponsToCart(input: ApplyCouponsToCartInput @doc(description: "An input object that defines the coupon code to apply to the cart.")): ApplyCouponToCartOutput @resolver(class: "\\Magento\\MulticouponGraphQl\\Model\\Resolver\\ApplyCouponToCart") @doc(description:"Apply a pre-defined coupon code to the specified cart.")
+    removeCouponsFromCart(input: RemoveCouponsFromCartInput @doc(description: "An input object that defines which coupon code to remove from the cart.")): RemoveCouponFromCartOutput @resolver(class: "\\Magento\\MulticouponGraphQl\\Model\\Resolver\\RemoveCouponFromCart") @doc(description:"Remove a previously-applied coupon from the cart. The cart must contain at least one item in order to remove the coupon.")
+}
+
+input ApplyCouponsToCartInput @doc(description: "Apply coupons to the cart.") {
+    cart_id: String! @doc(description: "The unique ID of a `Cart` object.")
+    coupon_codes: [String!]! @doc(description: "An array of valid coupon codes.")
+    type: ApplyCouponsStrategy @doc(description: "`replace` to replace the existing coupon(s) or `append` to add the coupon to the coupon(s) list.")
+}
+
+input RemoveCouponsFromCartInput @doc(description: "Remove coupons from the cart.") {
+    cart_id: String! @doc(description: "The unique ID of a `Cart` object.")
+    coupon_codes: [String!]! @doc(description: "An array of coupon codes to be removed from the quote. If coupon_codes is empty all coupons will be removed from the quote.")
+}
+
+enum ApplyCouponsStrategy @doc(description: "The strategy to apply coupons to the cart.") {
+    APPEND @doc(description: "Append new coupons keeping the coupons that have been applied before.")
+    REPLACE @doc(description: "Remove all the coupons from the cart and apply only new provided coupons.")
+}
+
+type CustomerOrder {
+    applied_coupons: [AppliedCoupon!]! @resolver (class: "\\Magento\\MulticouponGraphQl\\Model\\Resolver\\Order\\Coupons")  @doc(description: "Coupons applied to the order.")
+}

@@ -1,0 +1,86 @@
+//
+//  Mixins
+//  _________________________
+
+.am-transition(@del: .3) {
+	transition: ~'@{del}s all ease-in';
+}
+
+.am-flex(
+	@horiz-pos: none,
+	@vert-pos: none,
+	@wrap: none
+) {
+	& {
+		display: flex;
+	}
+
+	& when not (@horiz-pos = none) {
+		justify-content: @horiz-pos;
+	}
+
+	& when not (@vert-pos = none) {
+		align-items: @vert-pos;
+	}
+
+	& when not (@wrap = none) {
+		flex-wrap: @wrap;
+	}
+}
+
+.am-scrollbar(
+	@direction: y,
+	@width: 4px,
+	@color: #aab0ba,
+	@shadow-color: #aaa
+) {
+	& {
+		border-radius: 4px;
+		overflow: hidden;
+		overflow-@{direction}: scroll;
+		scrollbar-color: @color #fff;
+		scrollbar-width: thin;
+	}
+
+	&::-webkit-scrollbar {
+		background: transparent;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		border-radius: 4px;
+		background: @color;
+		cursor: pointer;
+	}
+
+	::-webkit-scrollbar-track {
+		box-shadow: inset 0 0 5px @shadow-color;
+	}
+
+	& when not (@direction = x) {
+		&::-webkit-scrollbar {
+			width: @width;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			width: @width;
+		}
+
+		::-webkit-scrollbar-track {
+			width: @width;
+		}
+	}
+
+	& when not (@direction = y) {
+		&::-webkit-scrollbar {
+			height: @width;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			height: @width;
+		}
+
+		::-webkit-scrollbar-track {
+			height: @width;
+		}
+	}
+}

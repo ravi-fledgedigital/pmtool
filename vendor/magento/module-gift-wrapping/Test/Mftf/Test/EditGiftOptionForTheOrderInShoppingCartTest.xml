@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="EditGiftOptionForTheOrderInShoppingCartTest">
+        <annotations>
+            <features value="GiftWrapping"/>
+            <stories value="Gift wrapping order"/>
+            <title value="Edit Gift option for the order in Shopping Cart"/>
+            <description value="Edit Gift option for the order in Shopping Cart"/>
+            <testCaseId value="AC-5740"/>
+            <severity value="MAJOR"/>
+        </annotations>
+        <before>
+            <!--Create Category-->
+            <createData entity="SimpleSubCategory" stepKey="createCategory"/>
+
+            <!--Create Virtual Product-->
+            <createData entity="VirtualProduct" stepKey="createVirtualProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+
+            <!-- Create gift wrapping -->
+            <actionGroup ref="AdminGiftWrappingNewActionGroup" stepKey="createGiftWrapping">
+                <argument name="giftWrappingDesign" value="Test Design"/>
+                <argument name="giftWrappingWebsite" value="Main Website"/>
+                <argument name="giftWrappingPrice" value="20"/>
+            </actionGroup>
+            <actionGroup ref="AdminGiftWrappingNewActionGroup" stepKey="createGiftWrapping2">
+                <argument name="giftWrappingDesign" value="Test Design2"/>
+                <argument name="giftWrappingWebsite" value="Main Website"/>
+                <argument name="giftWrappingPrice" value="40"/>
+            </actionGroup>
+
+            <!-- Set the gift options config -->
+            <amOnPage url="{{AdminSystemConfigSalesGiftOptionsPage.url}}" stepKey="amOnAdminSystemConfigGiftOptionsSection"/>
+            <conditionalClick selector="{{AdminSalesConfigSection.giftOptions}}" dependentSelector="{{AdminSystemConfigGiftOptionSection.allowGiftWrappingForOrderLevel}}" visible="false" stepKey="clickSmallImage"/>
+            <uncheckOption selector="{{AdminSystemConfigGiftOptionSection.allowGiftMessagesOnOrderLevelCheckbox}}" stepKey="uncheckGiftWrappingOnOrderLevel"/>
+            <selectOption selector="{{AdminSystemConfigGiftOptionSection.allowGiftMessagesOnOrderLevel}}" userInput="Yes" stepKey="selectGiftWrappingOnOrderLevel"/>
+            <selectOption userInput="Yes" selector="{{AdminSystemConfigGiftOptionSection.allowGiftWrappingForOrderLevel}}" stepKey="selectAllowWrappingGiftOnOrderLevel"/>
+            <selectOption userInput="No" selector="{{AdminSystemConfigGiftOptionSection.allowGiftWrappingForOrderItems}}" stepKey="selectAllowWrappingGiftOnItemLevel"/>
+            <selectOption userInput="Yes" selector="{{AdminSystemConfigGiftOptionSection.allowGiftReceipt}}" stepKey="selectAllowGiftReceipt"/>
+            <selectOption userInput="Yes" selector="{{AdminSystemConfigGiftOptionSection.allowPrintedCard}}" stepKey="selectAllowPrintedCard"/>
+            <fillField userInput="10" selector="{{AdminSystemConfigGiftOptionSection.defaultPriceForPrintedCard}}" stepKey="setTheDefaultPrice"/>
+            <click selector="{{AdminMainActionsSection.save}}" stepKey="saveConfigButton"/>
+            <see selector="{{AdminMessagesSection.success}}" userInput="You saved the configuration." stepKey="seeConfigurationSuccessMessage"/>
+
+            <!-- Flush cache -->
+            <actionGroup ref="CliCacheFlushActionGroup" stepKey="flushCache">
+                <argument name="tags" value=""/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <actionGroup ref="AdminDeleteGiftWrappingActionGroup" stepKey="deleteGiftWrapping">
+                <argument name="giftWrappingDesign" value="Test Design"/>
+            </actionGroup>
+            <actionGroup ref="AdminDeleteGiftWrappingActionGroup" stepKey="deleteGiftWrapping2">
+                <argument name="giftWrappingDesign" value="Test Design2"/>
+            </actionGroup>
+            <deleteData createDataKey="createCategory" stepKey="deleteCreatedCategory"/>
+            <deleteData createDataKey="createVirtualProduct" stepKey="deleteVirtualProduct"/>
+            <deleteData createDataKey="createConfigProduct" stepKey="deleteConfigurableProduct"/>
+            <deleteData createDataKey="createFirstConfigChildProduct" stepKey="deleteConfigChildProduct1"/>
+            <deleteData createDataKey="createSecondConfigChildProduct" stepKey="deleteConfigChildProduct2"/>
+            <deleteData createDataKey="createConfigProductAttribute" stepKey="deleteConfigProductAttribute"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logoutOfApplication"/>
+        </after>
+
+        <!-- Step1 Search for the Created Virtual Product and Verify the product -->
+        <actionGroup ref="FilterAndSelectProductActionGroup" stepKey="openVirtualProductForEdit">
+            <argument name="productSku" value="$$createVirtualProduct.sku$$"/>
+        </actionGroup>
+
+        <!-- Step2 Create the configurable product -->
+        <createData entity="ApiConfigurableProduct" stepKey="createConfigProduct">
+            <requiredEntity createDataKey="createCategory"/>
+        </createData>
+
+        <!-- Step2.1 Make the configurable product have two options, that are children of the default attribute set -->
+        <createData entity="productAttributeWithTwoOptions" stepKey="createConfigProductAttribute"/>
+        <createData entity="productAttributeOption1" stepKey="createFirstConfigProductAttributeOption">
+            <requiredEntity createDataKey="createConfigProductAttribute"/>
+        </createData>
+        <createData entity="productAttributeOption2" stepKey="createSecondConfigProductAttributeOption">
+            <requiredEntity createDataKey="createConfigProductAttribute"/>
+        </createData>
+        <createData entity="AddToDefaultSet" stepKey="createConfigAddToAttributeSet">
+            <requiredEntity createDataKey="createConfigProductAttribute"/>
+        </createData>
+        <getData entity="ProductAttributeOptionGetter" index="1" stepKey="getFirstConfigAttributeOption">
+            <requiredEntity createDataKey="createConfigProductAttribute"/>
+        </getData>
+        <getData entity="ProductAttributeOptionGetter" index="2" stepKey="getSecondConfigAttributeOption">
+            <requiredEntity createDataKey="createConfigProductAttribute"/>
+        </getData>
+
+        <!-- Step2.2 Create the 2 children that will be a part of the configurable product -->
+        <createData entity="ApiSimpleOne" stepKey="createFirstConfigChildProduct">
+            <requiredEntity createDataKey="createConfigProductAttribute"/>
+            <requiredEntity createDataKey="getFirstConfigAttributeOption"/>
+        </createData>
+        <createData entity="ApiSimpleTwo" stepKey="createSecondConfigChildProduct">
+            <requiredEntity createDataKey="createConfigProductAttribute"/>
+            <requiredEntity createDataKey="getSecondConfigAttributeOption"/>
+        </createData>
+
+        <!-- Step2.3 Assign the two products to the configurable product -->
+        <createData entity="ConfigurableProductTwoOptions" stepKey="createConfigProductOption">
+            <requiredEntity createDataKey="createConfigProduct"/>
+            <requiredEntity createDataKey="createConfigProductAttribute"/>
+            <requiredEntity createDataKey="getFirstConfigAttributeOption"/>
+            <requiredEntity createDataKey="getSecondConfigAttributeOption"/>
+        </createData>
+        <createData entity="ConfigurableProductAddChild" stepKey="createFirstConfigProductAddChild">
+            <requiredEntity createDataKey="createConfigProduct"/>
+            <requiredEntity createDataKey="createFirstConfigChildProduct"/>
+        </createData>
+        <createData entity="ConfigurableProductAddChild" stepKey="createSecondConfigProductAddChild">
+            <requiredEntity createDataKey="createConfigProduct"/>
+            <requiredEntity createDataKey="createSecondConfigChildProduct"/>
+        </createData>
+
+        <!-- Step2.4 Save the configurable product -->
+        <actionGroup ref="SaveProductFormActionGroup" stepKey="saveConfigProduct"/>
+
+        <!-- Step3 Set the Allow Gift messages configuration -->
+        <actionGroup ref="ClearCacheActionGroup" stepKey="clearCache"/>
+
+        <!-- Step4.1 Add the virtual product to the cart on Storefront -->
+        <actionGroup ref="AddSimpleProductToCartActionGroup" stepKey="AddVirtualProductToCart">
+            <argument name="product" value="$$createVirtualProduct$$"/>
+        </actionGroup>
+
+       <!--Step4.2 Gift options is not available-->
+        <click selector="{{StorefrontMinicartSection.showCart}}" stepKey="clickShoppingCartButton"/>
+        <waitForPageLoad stepKey="waitForShoppingCartPullDownToLoad"/>
+        <click selector="{{StorefrontMinicartSection.viewAndEditCart}}" stepKey="clickViewAndEditCartButton"/>
+        <waitForPageLoad stepKey="waitForViewAndEditCartPageToLoad"/>
+        <dontSeeElement selector="{{StorefrontProductCartGiftOptionSection.viewGiftOptions('$$createVirtualProduct.name$$')}}" stepKey="DontSeeTheGiftOptionButtonForVirtualProduct"/>
+
+        <!-- Step4.2 Add Configurable Product to the cart -->
+        <actionGroup ref="StorefrontAddConfigurableProductToTheCartActionGroup" stepKey="addConfigurableProductToCart">
+            <argument name="urlKey" value="$$createConfigProduct.custom_attributes[url_key]$$" />
+            <argument name="productAttribute" value="$$createConfigProductAttribute.default_value$$"/>
+            <argument name="productOption" value="$$getFirstConfigAttributeOption.label$$"/>
+            <argument name="qty" value="1"/>
+        </actionGroup>
+
+        <!--Step5 Open the Shipping Cart-->
+        <actionGroup ref="StorefrontOpenCartFromMinicartActionGroup" stepKey="openCart"/>
+
+        <!-- Step5.1 Select gift wrapping on the order level by selecting available option and Apply it -->
+        <see selector="{{CheckoutCartGiftWrappingSection.cartGiftOptionAll('Gift options')}}" userInput="Gift options" stepKey="SeeGiftOptionPresentForOrder"/>
+        <click selector="{{CheckoutCartGiftWrappingSection.clickCartGiftOptions}}" stepKey="clickGiftOption"/>
+        <waitForElementVisible selector="{{CheckoutCartGiftWrappingSection.cartVisibleSmallImage}}" stepKey="waitVisibleImage"/>
+        <click selector="{{CheckoutCartGiftWrappingSection.giftTitleImage('Test Design')}}" stepKey="clickSmallImage"/>
+        <see selector="{{CheckoutCartGiftWrappingSection.giftWrappingName}}" userInput="Test Design" stepKey="seeGiftWrappingName"/>
+        <see selector="{{CheckoutCartGiftWrappingSection.giftWrappingReqularPrice}}" userInput="$20.00" stepKey="seeGiftWrappingReqularPrice"/>
+        <waitForElementVisible selector="{{CheckoutCartGiftWrappingSection.giftRemoveButton}}" stepKey="waitVisibleGiftRemoveButton"/>
+        <click selector="{{CheckoutCartGiftWrappingSection.clickImage}}" stepKey="clickImage"/>
+        <click selector="{{CheckoutCartGiftWrappingSection.clickButtonGiftUpdate}}" stepKey="clickButtonGiftUpdate"/>
+        <waitForPageLoad time="30" stepKey="waitForCartPageToLoad"/>
+<!--        <see selector="{{CheckoutCartSummarySection.subtotal}}" userInput="$111.50" stepKey="seeSubtotal"/>-->
+        <see selector="{{CheckoutCartGiftWrappingSection.giftWrappingOrderPrice}}" userInput="$20.00" stepKey="seeGiftWrapping"/>
+
+        <!-- Step5.2 Select gift wrapping on the order level by clicking on edit option and Apply it -->
+        <click selector="{{CheckoutCartGiftWrappingSection.giftEdit}}" stepKey="clickOnEdit"/>
+        <see selector="{{CheckoutCartGiftWrappingSection.giftWrappingName}}" userInput="Test Design" stepKey="seeAppliedGiftWrappingName"/>
+
+        <!-- Step5.3 Select another gift wrapping on the order level by selecting available option and Apply it -->
+        <waitForElementVisible selector="{{CheckoutCartGiftWrappingSection.cartVisibleSmallImage}}" stepKey="waitVisibleImageAgain"/>
+        <click selector="{{CheckoutCartGiftWrappingSection.giftTitleImage('Test Design2')}}" stepKey="clickSmallImageAgain"/>
+        <see selector="{{CheckoutCartGiftWrappingSection.giftWrappingName}}" userInput="Test Design2" stepKey="seeAnotherGiftWrappingName"/>
+        <see selector="{{CheckoutCartGiftWrappingSection.giftWrappingReqularPrice}}" userInput="$40.00" stepKey="seeAnotherGiftWrappingReqularPrice"/>
+        <waitForElementVisible selector="{{CheckoutCartGiftWrappingSection.giftRemoveButton}}" stepKey="waitVisibleGiftRemoveButtonAgain"/>
+        <click selector="{{CheckoutCartGiftWrappingSection.clickImage}}" stepKey="clickImageAgain"/>
+        <click selector="{{CheckoutCartGiftWrappingSection.clickButtonGiftUpdate}}" stepKey="clickButtonGiftUpdateForAnother"/>
+        <waitForPageLoad time="30" stepKey="waitForCartPageToLoadAgain"/>
+       <!-- <see selector="{{CheckoutCartSummarySection.subtotal}}" userInput="$111.50" stepKey="seeAnotherGiftWrappingSubtotal"/>-->
+        <see selector="{{CheckoutCartGiftWrappingSection.giftWrappingOrderPrice}}" userInput="$40.00" stepKey="seeAnotherGiftWrappingprice"/>
+
+        <!-- Step5.4 Select another gift wrapping on the order level by clicking on edit option and Apply it -->
+        <click selector="{{CheckoutCartGiftWrappingSection.giftEdit}}" stepKey="clickOnEditAgain"/>
+        <see selector="{{CheckoutCartGiftWrappingSection.giftWrappingName}}" userInput="Test Design2" stepKey="seeAppliedGiftWrappingNameAgain"/>
+
+        <!-- Step6 Select Gift Printed Card on the order level and update it -->
+        <checkOption selector="{{CheckoutCartGiftWrappingSection.giftPrintedCardCheckbox}}" stepKey="checkGiftPrintedCard"/>
+        <click selector="{{CheckoutCartGiftWrappingSection.clickButtonGiftUpdate}}" stepKey="clickButtonGiftUpdateToApplyPrintedCard"/>
+        <waitForPageLoad time="30" stepKey="waitForAppliedPrintedCardPageToLoad"/>
+        <see selector="{{CheckoutCartGiftWrappingSection.giftPrintedCardPrice}}" userInput="$10.00" stepKey="seeGiftPrintedCardPrice"/>
+
+        <!-- Step6 Select Gift Reciept And Message, Gift Receipt on the order level by clicking on edit option and Apply it-->
+        <click selector="{{CheckoutCartGiftWrappingSection.giftEdit}}" stepKey="clickOnEditForGiftRecieptAndMessage"/>
+        <see selector="{{CheckoutCartGiftWrappingSection.giftReceipt}}" userInput="Gift Receipt" stepKey="seeGiftReceipt"/>
+        <waitForElementVisible selector="{{CheckoutCartGiftWrappingSection.cartGiftMessage}}" stepKey="seeGiftMessageAll"/>
+        <fillField selector="{{CheckoutCartGiftWrappingSection.giftMessageTo}}" userInput="Magento" stepKey="fillFieldGiftMessageTo"/>
+        <fillField selector="{{CheckoutCartGiftWrappingSection.giftMessageFrom}}" userInput="Magento 2" stepKey="fillFieldGiftMessageFrom"/>
+        <fillField selector="{{CheckoutCartGiftWrappingSection.giftMessage}}" userInput="This is message for all order" stepKey="fillFieldGiftMessage"/>
+        <checkOption selector="{{CheckoutCartGiftWrappingSection.giftReceiptCheckbox}}" stepKey="checkGiftReceipt"/>
+        <click selector="{{CheckoutCartGiftWrappingSection.clickButtonGiftUpdate}}" stepKey="clickOnUpdateGiftRecieptAndMessage"/>
+        <waitForPageLoad time="30" stepKey="waitForGiftRecieptAndMessagePageToLoad"/>
+        <see selector="{{CheckoutCartGiftWrappingSection.giftReceiptResult}}" userInput="Gift receipt" stepKey="seeGiftReceiptResult"/>
+        <see selector="{{CheckoutCartGiftWrappingSection.giftMessageResult}}" userInput="This is message for all order" stepKey="seeGiftMessageResult"/>
+
+        <!--Step7 Clear all gift message fields and options and click Update, And verify Gift option is removed from order-->
+        <click selector="{{CheckoutCartGiftWrappingSection.giftEdit}}" stepKey="clickOnEditForClearTheGiftOption"/>
+        <click selector="{{CheckoutCartGiftWrappingSection.RemoveGiftWrapping}}" stepKey="removeGiftWrappingFromTheGiftOption"/>
+        <click selector="{{CheckoutCartGiftWrappingSection.unCheckboxGiftReceipt}}" stepKey="uncheckGiftReceipt"/>
+        <click selector="{{CheckoutCartGiftWrappingSection.unCheckboxPrintedCard}}" stepKey="uncheckGiftPrintedCard"/>
+        <clearField selector="{{StorefrontProductCartGiftOptionSection.fieldTo}}" stepKey="clearToField"/>
+        <clearField selector="{{StorefrontProductCartGiftOptionSection.fieldFrom}}" stepKey="clearFromField"/>
+        <clearField selector="{{StorefrontProductCartGiftOptionSection.message}}" stepKey="clearMessageField"/>
+        <click selector="{{StorefrontProductCartGiftOptionSection.update}}" stepKey="ClickTheUpdateButtonPostClearingGiftMessage"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForLoadingMaskToDisappearAfterClearingGiftsWrappingMessage"/>
+        <wait time="10" stepKey="waitForStoreFrontPageToLoadPostRemovingTheGiftsWrapping"/>
+        <waitForElementNotVisible selector="{{CheckoutCartGiftWrappingSection.giftReceiptResult}}" stepKey="DontSeeGiftReceipt"/>
+        <waitForElementNotVisible selector="{{CheckoutCartGiftWrappingSection.giftMessageResult}}" stepKey="DontSeeTheGiftOptionsMessage"/>
+        <waitForElementNotVisible selector="{{CheckoutCartGiftWrappingSection.giftPrintedCardPrice}}" stepKey="DontSeeTheGiftPreintedCardPrice"/>
+        <waitForElementNotVisible selector="{{CheckoutCartGiftWrappingSection.giftWrappingOrderPrice}}" stepKey="DontSeeGiftWrappingPrice"/>
+    </test>
+</tests>
+

@@ -1,0 +1,116 @@
+<?php
+/**
+ * @var $block \Mirasvit\LayeredNavigation\Block\Renderer\SliderRenderer
+ */
+
+$attributeCode = $block->getAttributeCode();
+$sliderData    = $block->getSliderData();
+
+if (!$sliderData) {
+    return;
+}
+
+$isMultiselect = (int)$block->isMultiselectEnabled();
+$unit = $block->renderFromToUnit();
+?>
+
+<div class="mst-nav__slider" data-attribute-code="<?= $block->escapeHtmlAttr($attributeCode) ?>" data-is-multiselect="<?= $block->escapeHtmlAttr($isMultiselect) ?>" data-mst-nav-filter="<?= $block->escapeHtmlAttr($attributeCode) ?>" role="region" aria-label="<?= $block->escapeHtmlAttr($block->getFilter()->getName()) ?> slider">
+    <?php if (!$block->isFromTo()): ?>
+        <div class="mst-nav__slider-text" data-element="text" aria-live="polite"></div>
+    <?php endif ?>
+
+    <?php if ($block->isSlider()): ?>
+        <div
+            class="mst-nav__slider-slider"
+            data-element="slider"
+            role="slider"
+            tabindex="0"
+            aria-valuemin="<?= $block->escapeHtmlAttr($sliderData['min']) ?>"
+            aria-valuemax="<?= $block->escapeHtmlAttr($sliderData['max']) ?>"
+            aria-valuenow="<?= $block->escapeHtmlAttr($sliderData['from']) ?>"
+            aria-label="<?= $block->escapeHtmlAttr(__('Price range slider')) ?>"></div>
+    <?php endif ?>
+
+    <?php if ($block->isFromTo()): ?>
+        <form class="mst-nav__slider-from-to" role="group" aria-labelledby="slider-fromto-label-<?= $block->escapeHtmlAttr($attributeCode) ?>">
+            <span id="slider-fromto-label-<?= $block->escapeHtmlAttr($attributeCode) ?>" class="visually-hidden"><?= $block->escapeHtml(__('Filter by %1 range', $block->getFilter()->getName())) ?></span>
+            <label for="form-nav-slider_from-<?= $block->escapeHtmlAttr($attributeCode) ?>" class="visually-hidden"><?= $block->escapeHtml(__('From %1', $block->getFilter()->getName())) ?></label>
+            <div class="mst-nav__slider-input-wrap <?= $block->escapeHtmlAttr($attributeCode) ?>">
+            <input type="number"
+                   id="form-nav-slider_from-<?= $block->escapeHtmlAttr($attributeCode) ?>"
+                   class="mst-nav__slider-from"
+                   data-element="from"
+                   aria-label="<?= $block->escapeHtmlAttr(__('From %1', $block->getFilter()->getName())) ?>"
+                   placeholder="<?= $block->escapeHtmlAttr(__('from')) ?>"
+                   min="<?= $block->escapeHtmlAttr($sliderData['min']) ?>"
+                   max="<?= $block->escapeHtmlAttr($sliderData['max']) ?>"
+                   step="<?= $block->escapeHtmlAttr($sliderData['step']) ?>"
+                   autocomplete="off"
+                   inputmode="decimal"
+                   required
+            >
+            </div>
+            <span class="mst-nav__slider-del" aria-hidden="true">—</span>
+            <label for="form-nav-slider_to-<?= $block->escapeHtmlAttr($attributeCode) ?>" class="visually-hidden"><?= $block->escapeHtml(__('To %1', $block->getFilter()->getName())) ?></label>
+            <div class="mst-nav__slider-input-wrap <?= $block->escapeHtmlAttr($attributeCode) ?>">
+            <input type="number"
+                   id="form-nav-slider_to-<?= $block->escapeHtmlAttr($attributeCode) ?>"
+                   class="mst-nav__slider-to"
+                   data-element="to"
+                   aria-label="<?= $block->escapeHtmlAttr(__('To %1', $block->getFilter()->getName())) ?>"
+                   placeholder="<?= $block->escapeHtmlAttr(__('to')) ?>"
+                   min="<?= $block->escapeHtmlAttr($sliderData['min']) ?>"
+                   max="<?= $block->escapeHtmlAttr($sliderData['max']) ?>"
+                   step="<?= $block->escapeHtmlAttr($sliderData['step']) ?>"
+                   autocomplete="off"
+                   inputmode="decimal"
+                   required
+            >
+            </div>
+            <button type="submit"
+                    data-element="submit"
+                    aria-label="<?= $block->escapeHtmlAttr(__('Apply %1 range filter', $block->getFilter()->getName())) ?>">
+                <?= $block->escapeHtml(__('OK')) ?>
+            </button>
+        </form>
+    <?php endif ?>
+</div>
+<script type="text/x-magento-init"><?= \Mirasvit\Core\Service\SerializeService::encode([
+        '[data-mst-nav-filter=' . $attributeCode . ']' => [
+            'Mirasvit_LayeredNavigation/js/renderer/slider-renderer' => [
+                'paramTemplate' => $block->getSliderParamTemplate(),
+                'urlTemplate'   => $sliderData['url'],
+                'min'           => $sliderData['min'],
+                'max'           => $sliderData['max'],
+                'from'          => (float)$sliderData['from'],
+                'to'            => (float)$sliderData['to'],
+                'valueTemplate' => $block->getValueTemplate(),
+                'separator'     => $block->getSeparator(),
+                'rate'          => $block->getRate(),
+                'step'          => $sliderData['step']
+            ],
+            'Mirasvit_LayeredNavigation/js/helper/tooltip'           => [
+                'tooltip' => $block->getTooltip(),
+            ],
+        ],
+    ]) ?></script>
+
+<?php if ($unit): ?>
+    <style>
+        .mst-nav__slider-input-wrap.<?= $block->escapeHtmlAttr($attributeCode) ?> input {
+            width: 9ch;
+            padding-right: 3.5ch;
+            box-sizing: border-box;
+        }
+
+        .mst-nav__slider-input-wrap.<?= $block->escapeHtmlAttr($attributeCode) ?>::after {
+            content: <?= /* @noEscape */ "'" . $unit . "'";?>;
+            position: absolute;
+            right: 0.5em;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: #718096;
+        }
+    </style>
+<?php endif ?>

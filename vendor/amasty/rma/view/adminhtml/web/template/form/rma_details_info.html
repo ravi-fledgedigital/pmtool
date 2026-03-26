@@ -1,0 +1,72 @@
+<div class="amrma-fieldset-wrapper"
+     css="$data.additionalClasses"
+     attr="'data-index': index"
+     data-role="content"
+     data-bind="visible: $data.visible === undefined ? true: $data.visible">
+    <div class="amrma-fieldset-wrapper-title">
+        <strong class="amrma-strong" css="'_loading': loading,
+                      '_error': error">
+            <span translate="label"></span>
+            <span class="admin__page-nav-item-messages" if="collapsible">
+                <span class="admin__page-nav-item-message _changed">
+                    <span class="admin__page-nav-item-message-icon"></span>
+                    <span class="admin__page-nav-item-message-tooltip"
+                          data-bind="i18n: 'Changes have been made to this section that have not been saved.'">
+                    </span>
+                </span>
+                <span class="admin__page-nav-item-message _error">
+                    <span class="admin__page-nav-item-message-icon"></span>
+                    <span class="admin__page-nav-item-message-tooltip"
+                          data-bind="i18n: 'This tab contains invalid data. Please resolve this before saving.'">
+                    </span>
+                </span>
+                <span class="admin__page-nav-item-message-loader">
+                    <span class="spinner">
+                       <span repeat="8"></span>
+                    </span>
+               </span>
+            </span>
+        </strong>
+    </div>
+
+    <div class="amrma-details-container">
+        <div class="amrma-details-block">
+            <div class="amrma-type _amrma-strong" data-bind="i18n: 'Order:'"></div>
+            <div class="amrma-details">
+                <a href="#" data-bind="text: $data.information.increment_id, attr: {href: $data.information.link}" target="_blank"></a>
+                <span data-bind="text:'(' + $data.information.status + ')'"></span>
+                <p class="_amrma-nomargin amrma-date" data-bind="text: $data.information.created"></p>
+            </div>
+        </div>
+
+        <div class="amrma-details-block">
+            <div class="amrma-type _amrma-strong" data-bind="i18n: 'Purchased From:'"></div>
+            <div class="amrma-details">
+                <p class="_amrma-nomargin" data-bind="text: $data.information.store.website"></p>
+                <p class="_amrma-nomargin" data-bind="text: $data.information.store.group"></p>
+                <p class="_amrma-nomargin" data-bind="text: $data.information.store.view"></p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="amrma-admin__fieldset-wrapper-content">
+        <field
+                class="amrma-admin__fieldset amrma-select-container"
+                each="data: elems, as: 'element'" render=""></field>
+
+        <div class="amrma-customer-link">
+            <p class="_amrma-nomargin">
+            <span class="_amrma-strong" data-bind="i18n: 'Customer’s Direct Link'"></span>
+            </p>
+            <input type="text" class="amrma-link" id="amrma_customer_direct_link" data-bind="value: $data.information.direct_link" style="width:100%">
+            <a href="#" class="amrma-copy" data-bind="i18n: 'Copy Link', attr:{title: $t('Copy Link')},
+                click: function () {
+                    document.getElementById('amrma_customer_direct_link').select();
+                    document.execCommand('copy');
+                }"></a> <!--//TODO-->
+        </div>
+    </div>
+
+
+</div>

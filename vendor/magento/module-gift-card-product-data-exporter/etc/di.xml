@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * ADOBE CONFIDENTIAL
+ *
+ * Copyright 2021 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\CatalogDataExporter\Model\Provider\Product\ProductOptions">
+        <arguments>
+            <argument name="optionProviderFactories" xsi:type="array">
+                <item name="giftCardOptionsFactory" xsi:type="object">Magento\GiftCardProductDataExporter\Model\Provider\Product\OptionsFactory</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\CatalogDataExporter\Model\Provider\Product\ProductShopperInputOptions">
+        <arguments>
+            <argument name="providerFactories" xsi:type="array">
+                <item name="giftCardShopperInputOptionsFactory" xsi:type="object">Magento\GiftCardProductDataExporter\Model\Provider\Product\ShopperInputOptionsFactory</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\CatalogDataExporter\Model\Provider\Product\Formatter\SystemEnumFormatter">
+        <arguments>
+            <argument name="systemEnums" xsi:type="array">
+                <item name="giftcardType" xsi:type="array">
+                    <item name="0" xsi:type="string">virtual</item>
+                    <item name="1" xsi:type="string">physical</item>
+                    <item name="2" xsi:type="string">combined</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="ProductEavAttributesProvider" type="Magento\CatalogDataExporter\Model\Provider\EavAttributes\EavAttributesProvider">
+        <arguments>
+            <argument name="queryBuilder" xsi:type="object">Magento\CatalogDataExporter\Model\Query\Eav\ProductAttributeQueryBuilder</argument>
+            <argument name="includeAttributes" xsi:type="array">
+                <item name="giftcard_type" xsi:type="string">giftcard_type</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="GiftCardEavAttributesProvider" type="Magento\CatalogDataExporter\Model\Provider\EavAttributes\EavAttributesProvider">
+        <arguments>
+            <argument name="queryBuilder" xsi:type="object">Magento\CatalogDataExporter\Model\Query\Eav\ProductAttributeQueryBuilder</argument>
+            <argument name="includeAttributes" xsi:type="array">
+                <item name="allow_open_amount" xsi:type="string">allow_open_amount</item>
+                <item name="giftcard_type" xsi:type="string">giftcard_type</item>
+                <item name="allow_message" xsi:type="string">allow_message</item>
+                <item name="use_config_allow_message" xsi:type="string">use_config_allow_message</item>
+                <item name="open_amount_min" xsi:type="string">open_amount_min</item>
+                <item name="open_amount_max" xsi:type="string">open_amount_max</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\GiftCardProductDataExporter\Model\Provider\Product\Options">
+        <arguments>
+            <argument name="options" xsi:type="array">
+                <item name="giftcard_amount" xsi:type="array">
+                    <item name="optionKey" xsi:type="const">\Magento\GiftCard\Model\Giftcard\Option::KEY_AMOUNT</item>
+                    <item name="label" xsi:type="string">Amount</item>
+                    <item name="renderType" xsi:type="string">giftcard_amount</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\GiftCardProductDataExporter\Model\Provider\Product\ShopperInputOptions">
+        <arguments>
+            <argument name="shopperInputOptions" xsi:type="array">
+                <item name="giftcard_sender_name" xsi:type="array">
+                    <item name="optionKey" xsi:type="const">\Magento\GiftCard\Model\Giftcard\Option::KEY_SENDER_NAME</item>
+                    <item name="label" xsi:type="string">Sender Name</item>
+                    <item name="renderType" xsi:type="string">text</item>
+                </item>
+                <item name="giftcard_recipient_name" xsi:type="array">
+                    <item name="optionKey" xsi:type="const">\Magento\GiftCard\Model\Giftcard\Option::KEY_RECIPIENT_NAME</item>
+                    <item name="label" xsi:type="string">Recipient Name</item>
+                    <item name="renderType" xsi:type="string">text</item>
+                </item>
+                <item name="giftcard_sender_email" xsi:type="array">
+                    <item name="optionKey" xsi:type="const">\Magento\GiftCard\Model\Giftcard\Option::KEY_SENDER_EMAIL</item>
+                    <item name="label" xsi:type="string">Sender Email</item>
+                    <item name="renderType" xsi:type="string">email</item>
+                </item>
+                <item name="giftcard_recipient_email" xsi:type="array">
+                    <item name="optionKey" xsi:type="const">\Magento\GiftCard\Model\Giftcard\Option::KEY_RECIPIENT_EMAIL</item>
+                    <item name="label" xsi:type="string">Recipient Email</item>
+                    <item name="renderType" xsi:type="string">email</item>
+                </item>
+                <item name="giftcard_message" xsi:type="array">
+                    <item name="optionKey" xsi:type="const">\Magento\GiftCard\Model\Giftcard\Option::KEY_MESSAGE</item>
+                    <item name="label" xsi:type="string">Message</item>
+                    <item name="renderType" xsi:type="string">text</item>
+                </item>
+                <item name="custom_giftcard_amount" xsi:type="array">
+                    <item name="optionKey" xsi:type="const">\Magento\GiftCard\Model\Giftcard\Option::KEY_CUSTOM_GIFTCARD_AMOUNT</item>
+                    <item name="label" xsi:type="string">Amount in</item>
+                    <item name="renderType" xsi:type="string">giftcard_open_amount</item>
+                </item>
+            </argument>
+        </arguments>
+        <arguments>
+            <argument name="eavAttributesProvider" xsi:type="object">GiftCardEavAttributesProvider</argument>
+        </arguments>
+    </type>
+    <type name="Magento\DataExporter\Export\Processor">
+        <plugin name="data_exporter_giftcard_as_attribute"
+                type="Magento\GiftCardProductDataExporter\Plugin\GiftCardAsAttribute"/>
+    </type>
+
+    <type name="Magento\CatalogDataExporter\Model\Query\ProductAttributeQuery">
+        <arguments>
+            <argument name="systemAttributes" xsi:type="array">
+                <item name="ac_giftcard" xsi:type="string">ac_giftcard</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Register system attribute "ac_downloadable" to avoid future collisions -->
+    <type name="Magento\CatalogDataExporter\Service\SystemAttributeRegistrar">
+        <arguments>
+            <argument name="configurationMap" xsi:type="array">
+                <item name="ac_giftcard" xsi:type="array">
+                    <item name="properties" xsi:type="array">
+                        <item name="label" xsi:type="string">AC Gift Card</item>
+                        <item name="visible_on_front" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="exporterOverrides" xsi:type="array">
+                        <item name="dataType" xsi:type="string">OBJECT</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="visibleInSearch" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

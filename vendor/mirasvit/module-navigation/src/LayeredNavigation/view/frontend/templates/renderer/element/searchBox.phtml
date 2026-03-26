@@ -1,0 +1,25 @@
+<?php
+/** @var \Mirasvit\LayeredNavigation\Block\Renderer\Element\SearchBoxElement $block */
+if (!$block->shouldRenderSearchBox()) {
+    return;
+}
+$filterAccessor = $block->getFilterAccessor();
+$inputId = 'searchbox-' . $filterAccessor;
+?>
+<label for="<?= $block->escapeHtmlAttr($inputId) ?>" class="visually-hidden">
+    <?= $block->escapeHtml(__('Search in filter options')) ?>
+</label>
+<input
+    type="text"
+    id="<?= $block->escapeHtmlAttr($inputId) ?>"
+    placeholder="<?= $block->escapeHtmlAttr(__('Search'))?>"
+    data-element="search"
+    autocomplete="off"
+    aria-label="<?= $block->escapeHtmlAttr(__('Search in filter options')) ?>"
+>
+
+<script type="text/x-magento-init"><?= \Mirasvit\Core\Service\SerializeService::encode([
+        '[data-mst-nav-filter=' . $filterAccessor . ']' => [
+            'Mirasvit_LayeredNavigation/js/renderer/element/search-box' => [],
+        ],
+    ]) ?></script>

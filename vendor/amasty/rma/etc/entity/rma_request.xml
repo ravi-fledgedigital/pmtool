@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package RMA Base for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="amasty_rma_request">
+        <name>Amasty RMA Request</name>
+        <group>Amasty RMA</group>
+        <collectionFactory class="Amasty\Rma\Model\Request\ResourceModel\CollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+            <fields>
+                <field name="store_id">
+                    <actions>
+                        <storeId2StoreCode/>
+                    </actions>
+                    <filter>
+                        <type>store</type>
+                    </filter>
+                </field>
+                <field name="status">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Amasty\Rma\Model\Status\OptionSource\Status</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="manager_id">
+                    <filter>
+                        <type>select</type>
+                        <options>
+                            <class>Amasty\Rma\Model\OptionSource\Manager</class>
+                        </options>
+                    </filter>
+                </field>
+                <field name="url_hash" />
+                <field name="custom_fields" />
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="sales_order_rma_request">
+        <parent_entity>sales_order</parent_entity>
+        <child_entity>amasty_rma_request</child_entity>
+        <sub_entity_field_name>amasty_rma_request</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">entity_id</argument>
+            <argument name="child_field_name" xsi:type="string">order_id</argument>
+        </arguments>
+    </relation>
+    <relation code="rma_request_sales_order">
+        <parent_entity>amasty_rma_request</parent_entity>
+        <child_entity>sales_order</child_entity>
+        <sub_entity_field_name>sales_order</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">order_id</argument>
+            <argument name="child_field_name" xsi:type="string">entity_id</argument>
+        </arguments>
+    </relation>
+</config>

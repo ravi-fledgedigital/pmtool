@@ -1,0 +1,224 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * ADOBE CONFIDENTIAL
+ *
+ * Copyright 2023 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Ui\Model\Export\MetadataProvider" type="Magento\CommerceBackendUix\Model\Export\MetadataProvider" />
+    <preference for="Magento\CommerceBackendUix\Api\MassActionFailedRequestRepositoryInterface" type="Magento\CommerceBackendUix\Model\MassActionFailedRequestRepository" />
+    <preference for="Magento\AdobeImsApi\Api\GetAccessTokenInterface" type="Magento\AdminAdobeIms\Model\GetAccessTokenSession" />
+    <preference for="Magento\CommerceBackendUix\Api\Data\LogInterface" type="Magento\CommerceBackendUix\Model\Logs\Log"/>
+    <preference for="Magento\CommerceBackendUix\Api\LogRepositoryInterface" type="Magento\CommerceBackendUix\Model\Logs\LogRepository"/>
+    <type name="Magento\CommerceBackendUix\Model\Extensions\ExtensionsFetcher">
+        <arguments>
+            <argument name="extensionFetchers" xsi:type="array">
+                <item name="appRegistryFetcher" xsi:type="object">Magento\CommerceBackendUix\Model\Extensions\AppRegistryFetcher</item>
+                <item name="extensionManagerFetcher" xsi:type="object">Magento\CommerceBackendUix\Model\Extensions\ExtensionManagerFetcher</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\CommerceBackendUix\Model\Cache\CacheInvalidator">
+        <arguments>
+            <argument name="cacheTypes" xsi:type="array">
+                <item name="adminUiSdkCache" xsi:type="string">admin_ui_sdk</item>
+                <item name="menuCache" xsi:type="string">block_html</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\CommerceBackendUix\Model\RegistrationsFetcher">
+        <arguments>
+            <argument name="parsers" xsi:type="array">
+                <item name="menuItems" xsi:type="object">Magento\CommerceBackendUix\Model\Parser\MenuParser</item>
+                <item name="massActions" xsi:type="object">Magento\CommerceBackendUix\Model\Parser\MassActionParser</item>
+                <item name="orderViewButtons" xsi:type="object">Magento\CommerceBackendUix\Model\Parser\OrderViewButtonParser</item>
+                <item name="gridColumns" xsi:type="object">Magento\CommerceBackendUix\Model\Parser\GridColumnParser</item>
+                <item name="bannerNotifications" xsi:type="object">Magento\CommerceBackendUix\Model\Parser\BannerNotificationParser</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\CommerceBackendUix\Model\Parser\GridColumnParser">
+        <arguments>
+            <argument name="gridTypes" xsi:type="array">
+                <item name="product" xsi:type="string">product</item>
+                <item name="order" xsi:type="string">order</item>
+                <item name="customer" xsi:type="string">customer</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\CommerceBackendUix\Model\Parser\MassActionParser">
+        <arguments>
+            <argument name="inputSanitizer" xsi:type="object">massActionInputSanitizer</argument>
+            <argument name="gridTypes" xsi:type="array">
+                <item name="product" xsi:type="string">product</item>
+                <item name="order" xsi:type="string">order</item>
+                <item name="customer" xsi:type="string">customer</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\CommerceBackendUix\Model\Parser\OrderViewButtonParser">
+        <arguments>
+            <argument name="inputSanitizer" xsi:type="object">orderViewButtonInputSanitizer</argument>
+        </arguments>
+    </type>
+    <type name="Magento\CommerceBackendUix\ViewModel\MassAction\MassActionConfigFactory">
+        <arguments>
+            <argument name="config" xsi:type="array">
+                <item name="product" xsi:type="object">Magento\CommerceBackendUix\ViewModel\MassAction\ProductMassActionConfig</item>
+                <item name="order" xsi:type="object">Magento\CommerceBackendUix\ViewModel\MassAction\OrderMassActionConfig</item>
+                <item name="customer" xsi:type="object">Magento\CommerceBackendUix\ViewModel\MassAction\CustomerMassActionConfig</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\CommerceBackendUix\Controller\Adminhtml\Redirect\Redirect">
+        <arguments>
+            <argument name="validUrls" xsi:type="array">
+                <item name="orderMassAction" xsi:type="string">sales/order</item>
+                <item name="productMassAction" xsi:type="string">catalog/product</item>
+                <item name="customerMassAction" xsi:type="string">customer/index</item>
+                <item name="orderViewButton" xsi:type="string">sales/order/view/order_id</item>
+            </argument>
+            <argument name="massActionTypeMap" xsi:type="array">
+                <item name="orderMassAction" xsi:type="string">order</item>
+                <item name="productMassAction" xsi:type="string">product</item>
+                <item name="customerMassAction" xsi:type="string">customer</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\CommerceBackendUix\ViewModel\MassAction\MassActions">
+        <arguments>
+            <argument name="massActions" xsi:type="array">
+                <item name="productMassAction" xsi:type="array">
+                    <item name="type" xsi:type="string">product</item>
+                    <item name="requestId" xsi:type="string">productActionId</item>
+                </item>
+                <item name="orderMassAction" xsi:type="array">
+                    <item name="type" xsi:type="string">order</item>
+                    <item name="requestId" xsi:type="string">orderActionId</item>
+                </item>
+                <item name="customerMassAction" xsi:type="array">
+                    <item name="type" xsi:type="string">customer</item>
+                    <item name="requestId" xsi:type="string">customerActionId</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Config\Model\Config\TypePool">
+        <arguments>
+            <argument name="sensitive" xsi:type="array">
+                <item name="admin_ui_sdk/local_testing/ims_token" xsi:type="string">1</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Catalog\Ui\Component\Product\MassAction">
+        <plugin name="admin_ui_sdk_product_massaction" type="Magento\CommerceBackendUix\Plugin\Ui\Catalog\Product\MassAction" sortOrder="1" />
+    </type>
+    <type name="Magento\Ui\Component\Listing\Columns">
+        <plugin name="admin_ui_sdk_custom_column" type="Magento\CommerceBackendUix\Plugin\Ui\Component\Listing\Columns" sortOrder="1" />
+    </type>
+    <type name="Magento\Ui\Component\MassAction">
+        <plugin name="admin_ui_sdk_order_massaction" type="Magento\CommerceBackendUix\Plugin\Ui\Component\MassAction" sortOrder="1" />
+    </type>
+    <type name="Magento\Backend\Model\Menu\Builder">
+        <plugin name="admin_ui_sdk_menu_builder" type="Magento\CommerceBackendUix\Plugin\Model\Menu\Builder" sortOrder="1" />
+    </type>
+    <type name="Magento\Config\Model\Config">
+        <plugin name="admin_ui_sdk_save_config_plugin" type="Magento\CommerceBackendUix\Plugin\Model\Config" />
+    </type>
+    <type name="Magento\CommerceBackendUix\Model\Sanitizer\MenuSanitizer">
+        <arguments>
+            <argument name="sanitizer" xsi:type="object">menuInputSanitizer</argument>
+        </arguments>
+    </type>
+    <type name="Magento\CommerceBackendUix\Model\Sanitizer\GridColumnSanitizer">
+        <arguments>
+            <argument name="sanitizer" xsi:type="object">gridColumnInputSanitizer</argument>
+        </arguments>
+    </type>
+    <type name="Magento\CommerceBackendUix\Model\Logs\LoggerHandler">
+        <arguments>
+            <argument name="logger" xsi:type="object">Magento\CommerceBackendUix\Model\CompositeLogger</argument>
+        </arguments>
+    </type>
+    <virtualType name="menuInputSanitizer" type="Magento\CommerceBackendUix\Model\Sanitizer\InputSanitizer">
+        <arguments>
+            <argument name="extensionPointNamespace" xsi:type="string">menu items</argument>
+            <argument name="requiredFields" xsi:type="array">
+                <item name="id" xsi:type="string">id</item>
+                <item name="title" xsi:type="string">title</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="massActionInputSanitizer" type="Magento\CommerceBackendUix\Model\Sanitizer\InputSanitizer">
+        <arguments>
+            <argument name="extensionPointNamespace" xsi:type="string">mass actions</argument>
+            <argument name="requiredFields" xsi:type="array">
+                <item name="actionId" xsi:type="string">actionId</item>
+                <item name="label" xsi:type="string">label</item>
+                <item name="path" xsi:type="string">path</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="gridColumnInputSanitizer" type="Magento\CommerceBackendUix\Model\Sanitizer\InputSanitizer">
+        <arguments>
+            <argument name="extensionPointNamespace" xsi:type="string">grid columns</argument>
+            <argument name="requiredFields" xsi:type="array">
+                <item name="columnId" xsi:type="string">columnId</item>
+                <item name="label" xsi:type="string">label</item>
+                <item name="type" xsi:type="string">type</item>
+                <item name="align" xsi:type="string">align</item>
+            </argument>
+            <argument name="allowedValuesByField" xsi:type="array">
+                <item name="type" xsi:type="array">
+                    <item name="0" xsi:type="string">boolean</item>
+                    <item name="1" xsi:type="string">date</item>
+                    <item name="2" xsi:type="string">float</item>
+                    <item name="3" xsi:type="string">integer</item>
+                    <item name="4" xsi:type="string">string</item>
+                </item>
+                <item name="align" xsi:type="array">
+                    <item name="0" xsi:type="string">left</item>
+                    <item name="1" xsi:type="string">right</item>
+                    <item name="2" xsi:type="string">center</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="orderViewButtonInputSanitizer" type="Magento\CommerceBackendUix\Model\Sanitizer\InputSanitizer">
+        <arguments>
+            <argument name="extensionPointNamespace" xsi:type="string">order view buttons</argument>
+            <argument name="requiredFields" xsi:type="array">
+                <item name="buttonId" xsi:type="string">buttonId</item>
+                <item name="label" xsi:type="string">label</item>
+                <item name="path" xsi:type="string">path</item>
+            </argument>
+            <argument name="allowedValuesByField" xsi:type="array">
+                <item name="level" xsi:type="array">
+                    <item name="0" xsi:type="string">-1</item>
+                    <item name="1" xsi:type="string">0</item>
+                    <item name="2" xsi:type="string">1</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Magento\CommerceBackendUix\Model\CompositeLogger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="adminUiSdkDatabase" xsi:type="object">Magento\CommerceBackendUix\Model\Logs\DatabaseHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

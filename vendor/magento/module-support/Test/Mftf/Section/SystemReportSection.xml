@@ -1,0 +1,30 @@
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="SystemReportSection">
+        <element name="newReport" type="button" selector="#add"/>
+        <element name="selectEnvironmentGroup" type="checkbox" selector=".admin__field-control select"/>
+        <element name="createbtn" type="button" selector="#save"/>
+        <element name="verifySystemReportSaved" type="text" selector="#messages"/>
+        <element name="clickSelectbtn" type="button" selector="//tr[@class='data-row']//div[@class='data-grid-cell-content' and text()='{{reportGroup}}']/parent::*/following-sibling::td//button[@class='action-select']"  parameterized="true"/>
+        <element name="clickViewbtn" type="button" selector="//a[@data-action='item-view']"/>
+        <element name="verifyText" type="text" selector=".accordion"/>
+        <element name="verifyCreateSystemReportText" type="text" selector=".messages"/>
+        <element name="createdReportInGrid" type="text" selector="//table[@class='data-grid data-grid-draggable']"/>
+        <element name="systemReport" type="text" selector=".page-title-wrapper"/>
+        <element name="sortReportsIdInGrid" type="button" selector="//th[contains(@class,'data-grid-th _sortable _draggable _{{sort}}')]" parameterized="true"/>
+        <element name="togglebtnInGrid" type="button" selector=".action-multicheck-toggle"/>
+        <element name="selectAll" type="button" selector="//div[@class='admin__data-grid-wrap']//th//ul[@class='action-menu']"/>
+        <element name="actionbtn" type="button" selector="//div[@class='admin__data-grid-header-row row row-gutter']//button[@class='action-select']"/>
+        <element name="deletebtn" type="button" selector="//div[@class='action-select-wrap _active']//ul[@class='action-menu _active']"/>
+        <element name="verifyDeleteText" type="text" selector="//aside[@class='modal-popup confirm _show']//div[@data-role='content']"/>
+        <element name="okbtn" type="button" selector="//button[@class='action-primary action-accept']"/>
+        <element name="verifyPostDeleteText" type="text" selector="//div[@data-ui-id='messages-message-success']"/>
+    </section>
+</sections>

@@ -1,0 +1,150 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/* @var \Magento\VersionsCms\Block\Adminhtml\Cms\Page\Edit\Tab\Hierarchy $block */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+
+$jsTreeExplore = $block->getCMSPageCategory();
+
+//create nodes array for hidden textbox
+$nodesArray = $block->getNodes();
+$jsonNodesData = $block->getPrefilledData();
+
+?>
+<label class="admin__field-label" for="tree-container">
+    <span><?= $block->escapeHtml(__('Parent page')) ?></span>
+</label>
+
+
+<div class="admin__field-control">
+    <input type="hidden" name="node_ids" id="node_ids" data-form-part="cms_page_form"
+           value="<?= $block->escapeHtmlAttr($block->getSelectedNodeIds()) ?>"/>
+    <input type="hidden" name="website_root" id="website_root" data-form-part="cms_page_form"
+           value="<?= $block->escapeHtmlAttr($block->getPage()->getWebsiteRoot()) ?>"/>
+    <input type="hidden" name="nodes_data" id="nodes_data"
+           value="<?= $block->escapeHtml($jsonNodesData) ?>" data-form-part="cms_page_form"/>
+    <input type="hidden" name="assign_to_root" id="assign_to_root" data-form-part="cms_page_form" value="">
+    <div id="tree-container" class="cms-tree tree x-tree"></div>
+    <div id="tree-div" class="tree-wrapper cms-tree tree x-tree">
+        <div class="tree-holder" id="category-tree">
+            <?= /* @noEscape */ $jsTreeExplore; ?>
+        </div>
+    </div>
+</div>
+<!--[if IE]>
+<script id="ie-deferred-loader" defer="defer" src="//:"></script>
+<![endif]-->
+<?php
+$nodesJson = $block->getNodesJson();
+$currentPageJson = $block->getCurrentPageJson();
+$isAssignedToWebsiteRoot = $block->getPage()->getWebsiteRoot() ? 1 : 0;
+$websiteRootMessage = $block->escapeJs(__('Website Root'));
+$scriptString = <<<script
+    require(['jquery',
+             'prototype',
+             'jquery/jstree/jquery.jstree'
+        ], function (jQuery) {
+            let increment = 0;
+
+            // Load Tree
+            jQuery('#category-tree').jstree({
+                'plugins': ["checkbox","conditionalselect"],
+                'checkbox': {
+                    three_state: false
+                },
+                "conditionalselect" : function (node, event) {
+                    return true;
+                }
+            });
+
+            // Open nodes after load
+             jQuery('#category-tree').on("ready.jstree", function (e, data) {
+                    jQuery("#category-tree").jstree('open_all');
+             });
+
+            // Checkbox checked
+            jQuery('#category-tree').on("select_node.jstree", function (e, data) {
+                let isCurrentPageClicked = false;
+
+                // Setting WebsiteRoot
+                if(data.node.id == 2) {
+                    $('assign_to_root').value = true;
+                    $('website_root').value = 1;
+                }
+
+                if(data.node.li_attr.page_id) {
+                   if(data.node.li_attr.page_id == {$currentPageJson}.id) {
+                        isCurrentPageClicked = true;
+                    }
+                }
+
+                // Return if current page is clicked
+                if (isCurrentPageClicked) {
+                    return false;
+                }
+
+                // Create new checked object
+                let newObject = {};
+                let keyId = '_' + increment;
+                newObject['node_id'] = keyId;
+                newObject['page_id'] = {$currentPageJson}.id;
+                newObject['parent_node_id'] = (data.node.id == 2) ? null : data.node.id;
+                newObject['label'] = {$currentPageJson}.label;
+                newObject['sort_order'] = 0;
+                newObject['current_page'] = true;
+
+                // Pushing the element at the end
+                arrValues  = JSON.parse(jQuery('#nodes_data').val());
+
+                // Page exist as true as it now contains new page nodes
+                if(data.node.id != 2) {
+                    arrValues[data.node.id]['page_exists'] = true;
+                }
+                arrValues[keyId] = newObject
+                increment++;
+
+                // Insert the new values to input
+                $('nodes_data').value = Object.toJSON(arrValues);
+            });
+
+            // Checkbox unchecked
+            jQuery('#category-tree').on("deselect_node.jstree", function (e, data) {
+
+                // Setting WebsiteRoot
+                if(data.node.id == 2) {
+                    $('assign_to_root').value = false;
+                    $('website_root').value = 0;
+                }
+                jsonData  = jQuery('#nodes_data').val(); //json format
+                const arr = JSON.parse(jsonData);        // object
+
+                var arrAfterNodeUnchecked = {};
+                for (var key in arr) {
+                    if (arr[key]['parent_node_id'] === data.node.id && arr[key]['current_page'] === true) {
+                        arr[arr[key]['parent_node_id']]['page_exists'] = false;
+                        continue;
+                    }
+                    // In case the current page lie on the root
+                    if (arr[key]['parent_node_id'] == null && arr[key]['current_page'] === true) {
+                        continue;
+                    }
+                    arrAfterNodeUnchecked[key] = arr[key];
+                }
+                  // Insert the new values to input
+                  $('nodes_data').value = Object.toJSON(arrAfterNodeUnchecked);
+            });
+
+            createJSTreeNodes = function(jsTree) {
+                jQuery(this).jstree().open_all(); // open all nodes so they are visible in dom
+                jQuery('#category-tree li').each(function (index,value) {
+                    var node = jQuery("#category-tree").jstree().get_node(this.id);
+                });
+                jQuery(this).jstree().close_all(); // close all again
+            };
+    });
+script;
+?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false); ?>

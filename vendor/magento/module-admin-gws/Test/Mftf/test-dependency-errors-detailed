@@ -1,0 +1,55 @@
+
+File "/var/www/html/app/code/Magento/AdminGws/Test/Mftf/Test/AdminAccessRestrictedToOneWebsiteLowStockReportsNavigateMenuTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminMenuReports from module(s): magento/module-analytics
+
+File "/var/www/html/app/code/Magento/AdminGws/Test/Mftf/Test/AdminCreateUserTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 newAdmin from module(s): magento/module-cms-staging
+
+File "/var/www/html/app/code/Magento/AdminGws/Test/Mftf/Test/AdminLoginAsCustomerFromRestrictedAdminTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 LoginAsCustomerConfigDataEnabled from module(s): magento/module-login-as-customer
+	 LoginAsCustomerStoreViewLogin from module(s): magento/module-login-as-customer
+	 AdminLoginAsCustomerLoginFromCustomerPageActionGroup from module(s): magento/module-login-as-customer
+	 StorefrontSignOutAndCloseTabActionGroup from module(s): magento/module-login-as-customer
+
+File "/var/www/html/app/code/Magento/AdminGws/Test/Mftf/Test/AdminNewReturnRequestByRestrictedAdminTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminReturnsPage from module(s): magento/module-rma
+	 AdminNewReturnOrderInformationSection from module(s): magento/module-rma
+	 AdminReturnChooseOrderPage from module(s): magento/module-rma
+	 AdminReturnInformationSection from module(s): magento/module-rma
+	 AdminReturnItemsSection from module(s): magento/module-rma
+	 SampleReturnItem from module(s): magento/module-rma
+	 AdminNewReturnMainActionsSection from module(s): magento/module-rma
+
+File "/var/www/html/app/code/Magento/AdminGws/Test/Mftf/Test/AdminReviewOrderWithOnlyReportsPermissionTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 newAdmin from module(s): magento/module-cms-staging
+
+File "/var/www/html/app/code/Magento/AdminGws/Test/Mftf/Test/IndexManagementLogsInAdminPanelTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminActionLogReportPage from module(s): magento/module-logging
+	 AdminActionLogReportGridSection from module(s): magento/module-logging
+
+File "/var/www/html/app/code/Magento/AdminGws/Test/Mftf/Test/RestrictedAdminCatalogOpenUpdateAttributesTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 newAdmin from module(s): magento/module-cms-staging
+
+File "/var/www/html/app/code/Magento/AdminGws/Test/Mftf/Test/RestrictedAdminCreateCMSBlockTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 testData from module(s): magento/module-cms-staging
+	 newAdmin from module(s): magento/module-cms-staging
+	 AdminCreateNewStore from module(s): magento/module-cms-staging
+	 goToBlocks from module(s): magento/module-cms-staging
+	 RestrictedAdminCreateCMSActionGroup from module(s): magento/module-cms-staging
+	 RestrictedAdminDeleteCMSActionGroup from module(s): magento/module-cms-staging

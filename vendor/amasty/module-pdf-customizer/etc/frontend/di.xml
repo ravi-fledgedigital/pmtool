@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package PDF Customizer for Magento 2
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Magento\Sales\Block\Order\Info\Buttons">
+        <plugin sortOrder="1" name="amastyPDFCustomButtons" type="Amasty\PDFCustom\Plugin\Sales\Block\Order\Info\ButtonsPlugin"/>
+    </type>
+    <type name="Magento\Sales\Block\Order\Invoice\Items">
+        <plugin sortOrder="1" name="amastyPDFCustomItems" type="Amasty\PDFCustom\Plugin\Sales\Block\Order\Invoice\ItemsPlugin"/>
+    </type>
+    <type name="Magento\Shipping\Block\Items">
+        <plugin sortOrder="1" name="amastyPDFCustomItems" type="Amasty\PDFCustom\Plugin\Shipping\Block\ItemsPlugin"/>
+    </type>
+    <type name="Magento\Sales\Block\Order\Creditmemo\Items">
+        <plugin sortOrder="1" name="amastyPDFCustomItems" type="Amasty\PDFCustom\Plugin\Sales\Block\Order\Creditmemo\ItemsPlugin"/>
+    </type>
+
+    <type name="Amasty\PDFCustom\Controller\Guest\Order">
+        <arguments>
+            <argument name="orderAuthorization" xsi:type="object">Magento\Sales\Controller\Guest\OrderViewAuthorization</argument>
+            <argument name="orderLoader" xsi:type="object">Magento\Sales\Controller\Guest\OrderLoader</argument>
+        </arguments>
+    </type>
+    <type name="Amasty\PDFCustom\Controller\Guest\Creditmemo">
+        <arguments>
+            <argument name="orderAuthorization" xsi:type="object">Magento\Sales\Controller\Guest\OrderViewAuthorization</argument>
+            <argument name="orderLoader" xsi:type="object">Magento\Sales\Controller\Guest\OrderLoader</argument>
+        </arguments>
+    </type>
+    <type name="Amasty\PDFCustom\Controller\Guest\Invoice">
+        <arguments>
+            <argument name="orderAuthorization" xsi:type="object">Magento\Sales\Controller\Guest\OrderViewAuthorization</argument>
+            <argument name="orderLoader" xsi:type="object">Magento\Sales\Controller\Guest\OrderLoader</argument>
+        </arguments>
+    </type>
+    <type name="Amasty\PDFCustom\Controller\Guest\Shipment">
+        <arguments>
+            <argument name="orderAuthorization" xsi:type="object">Magento\Sales\Controller\Guest\OrderViewAuthorization</argument>
+            <argument name="orderLoader" xsi:type="object">Magento\Sales\Controller\Guest\OrderLoader</argument>
+        </arguments>
+    </type>
+</config>

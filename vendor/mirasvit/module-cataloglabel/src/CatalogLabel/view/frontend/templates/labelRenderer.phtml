@@ -1,0 +1,22 @@
+<?php
+
+/** @var \Mirasvit\CatalogLabel\Block\Product\Label\Renderer $block */
+
+$placeholders = $block->getPlaceholders();
+
+if (!$placeholders || !$block->getProduct()) {
+    return '';
+}
+
+foreach ($placeholders as $placeholder) {
+    echo $block->getPlaceholderHtml($placeholder);
+}
+
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Mirasvit_CatalogLabel/js/label/product/view": {}
+        }
+    }
+</script>

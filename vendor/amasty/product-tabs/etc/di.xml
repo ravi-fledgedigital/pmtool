@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Product Tabs for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\CustomTabs\Api\Data\TabsInterface" type="Amasty\CustomTabs\Model\Tabs\Tabs" />
+    <preference for="Amasty\CustomTabs\Api\TabsRepositoryInterface" type="Amasty\CustomTabs\Model\Tabs\Repository" />
+
+    <type name="Amasty\CustomTabs\Model\Tabs\Tabs">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="rule_factory" xsi:type="object">Amasty\CustomTabs\Model\Tabs\RuleFactory</item>
+                <item name="amasty_serializer" xsi:type="object">Amasty\Base\Model\Serializer</item>
+                <item name="tab_processor" xsi:type="object">Amasty\CustomTabs\Model\Tabs\Indexer\TabProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\CustomTabs\Model\Tabs\Loader">
+        <arguments>
+            <argument name="readHandler" xsi:type="object">Amasty\CustomTabs\Model\Tabs\Loader\ReadHandler\Proxy</argument>
+            <argument name="saveHandler" xsi:type="object">Amasty\CustomTabs\Model\Tabs\Loader\SaveHandler\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\CustomTabs\Model\Tabs\Condition\SqlBuilder">
+        <arguments>
+            <argument name="conditionOperatorMap" xsi:type="array">
+                <item name="&lt;=&gt;" xsi:type="string">:field &lt;=&gt; ?</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

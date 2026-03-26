@@ -1,0 +1,23 @@
+<div class="amrma-chat-message" data-bind="css: {'-left': $data.left, '-right': !$data.left}, afterRender:moveToBottom">
+    <p class="amrma-username" data-bind="text: $data.username"></p>
+    <div class="amrma-message-block">
+        <!-- ko if: ($parent.isAdmin && $data.is_manager) || (!$parent.isAdmin && !$data.is_manager && !$data.is_system) -->
+        <div class="amrma-delete-container">
+            <span class="amrma-delete"
+                  role="button"
+                  data-bind="click: $data.deleteMessage, attr: { 'aria-label': $t('Delete message') }"
+                  tabindex="0"
+                  keyboard="{ 13: (e) => e.target.click() }"></span>
+        </div>
+        <!-- /ko -->
+        <p class="amrma-message" data-bind="text: $data.message"></p>
+        <!-- ko if: $data.files -->
+            <!-- ko foreach: $data.files -->
+            <div class="amrma-chat-file">
+                <a class="amrma-file" data-bind="text: filename, attr: {href: link}" target="_blank"></a>
+            </div>
+            <!-- /ko -->
+        <!-- /ko -->
+        <p class="amrma-date" data-bind="text: $data.created"></p>
+    </div>
+</div>

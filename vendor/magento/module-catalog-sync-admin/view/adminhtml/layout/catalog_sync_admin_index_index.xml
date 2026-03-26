@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+ -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Data Management Dashboard</title>
+    </head>
+    <body>
+        <referenceContainer name="page.main.actions">
+            <block class="Magento\Backend\Block\Store\Switcher" name="catalog_sync_admin.store_switcher">
+                <arguments>
+                    <argument name="switch_websites" xsi:type="string">0</argument>
+                    <argument name="switch_store_groups" xsi:type="string">0</argument>
+                    <argument name="switch_store_views" xsi:type="string">1</argument>
+                    <argument name="use_confirm" xsi:type="string">1</argument>
+                    <argument name="default_selection_name" xsi:type="string" translate="true">Select Store View</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block
+                    class="Magento\CatalogSyncAdmin\Block\Adminhtml\Index"
+                    name="catalog_sync_admin.admin_page"
+                    template="Magento_CatalogSyncAdmin::index.phtml"
+                    cacheable="false"
+            />
+        </referenceContainer>
+    </body>
+</page>

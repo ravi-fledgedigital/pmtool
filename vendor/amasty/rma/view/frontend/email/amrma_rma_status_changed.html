@@ -1,0 +1,27 @@
+<!--@subject RMA status changed  @-->
+<!--@vars
+{
+"var email_request":"Email Request Object",
+"var order":"Order Object",
+"var order.increment_id":"Order Id",
+"var custom_text|escape|nl2br":"Custom Text",
+"var email_request.getCustomerName()|escape":"Customer Name",
+"var email_request.getUrl()|escape":"RMA Request Url",
+"var email_request.getStatus()|escape":"RMA Request Status",
+"var email_request.getStatusColor()|escape":"RMA Request Status Color"
+}
+@-->
+
+{{template config_path="design/email/header_template"}}
+
+<div class="amrma-email-template">
+    <div class="amrma-email-container">
+        <p class="amrma-title">{{trans "Dear"}} <strong>{{var email_request.getCustomerName()|escape}}</strong>, {{trans "status of your"}}
+            <a href="{{var email_request.getUrl()|escape}}" title="{{trans 'RMA Request'}}">{{trans "RMA Request"}}</a> {{trans "has been changed"}}</p>
+        <p><strong>{{trans "Current status:"}}</strong> <span class="amrma-status" style="background: {{var email_request.getStatusColor()|escape}}">{{var email_request.getStatus()|escape}}</span></p>
+        <p class="_uppercase">{{trans "Note:"}}</p>
+        <p>{{var custom_text|escape|nl2br}}</p>
+    </div>
+</div>
+
+{{template config_path="design/email/footer_template"}}

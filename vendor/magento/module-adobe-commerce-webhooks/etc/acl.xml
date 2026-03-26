@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/************************************************************************
+ *
+ * ADOBE CONFIDENTIAL
+ * ___________________
+ *
+ * Copyright 2024 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ * ************************************************************************
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_AdobeCommerceWebhooks::webhooks" title="Webhooks" translate="title" sortOrder="120">
+                    <resource id="Magento_AdobeCommerceWebhooks::settings" title="Webhooks Digital Signature" translate="title" sortOrder="10">
+                        <resource id="Magento_AdobeCommerceWebhooks::digital_signature_settings" title="Webhooks Digital Signature Settings" translate="title" sortOrder="10" />
+                        <resource id="Magento_AdobeCommerceWebhooks::digital_signature_generate_keys" title="Webhooks Digital Signature Generate Keys" translate="title" sortOrder="20" />
+                    </resource>
+                    <resource id="Magento_AdobeCommerceWebhooks::menu" title="Webhooks Management" translate="title" sortOrder="20">
+                        <resource id="Magento_AdobeCommerceWebhooks::webhooks_log_grid" title="Webhooks Logs" translate="title" sortOrder="100" />
+                        <resource id="Magento_AdobeCommerceWebhooks::webhooks_list" title="Get list of Webhooks" translate="title" sortOrder="110" />
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

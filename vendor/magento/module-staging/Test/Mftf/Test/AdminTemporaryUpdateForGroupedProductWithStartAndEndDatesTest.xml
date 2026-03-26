@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminTemporaryUpdateForGroupedProductWithStartAndEndDatesTest">
+        <annotations>
+            <features value="Staging"/>
+            <stories value="Temporary Staging updates"/>
+            <title value="Temporary Update to grouped product with start and end date after existing update."/>
+            <description value="Verifying that scheduled temporary update to grouped product with name, description, start date as +7day and end date as +10day after existing update"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="AC-4017"/>
+        </annotations>
+        <before>
+            <!--Create Simple Product and Category-->
+            <createData entity="_defaultCategory" stepKey="createCategory"/>
+            <createData entity="ApiProductWithDescription" stepKey="createSimpleProductOne">
+                <requiredEntity createDataKey="createCategory"/>
+                <field key="price">5</field>
+            </createData>
+            <createData entity="ApiProductWithDescription" stepKey="createSimpleProductTwo">
+                <requiredEntity createDataKey="createCategory"/>
+                <field key="price">10</field>
+            </createData>
+            <!-- Create grouped product with two simple products -->
+            <createData entity="ApiGroupedProduct" stepKey="createGroupedProduct"/>
+            <createData entity="OneSimpleProductLink" stepKey="addFirstProductToLink">
+                <requiredEntity createDataKey="createGroupedProduct"/>
+                <requiredEntity createDataKey="createSimpleProductOne"/>
+            </createData>
+            <updateData entity="OneMoreSimpleProductLink" createDataKey="addFirstProductToLink" stepKey="addSecondProductTwo">
+                <requiredEntity createDataKey="createGroupedProduct"/>
+                <requiredEntity createDataKey="createSimpleProductTwo"/>
+            </updateData>
+            <!-- Login as admin -->
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+        </before>
+        <after>
+            <!-- Delete created data -->
+            <deleteData createDataKey="createSimpleProductOne" stepKey="deleteSimpleProductOne"/>
+            <deleteData createDataKey="createSimpleProductTwo" stepKey="deleteSimpleProductTwo"/>
+            <deleteData createDataKey="createGroupedProduct" stepKey="deleteGroupedProduct"/>
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <actionGroup ref="StagingDashboardClearFiltersActionGroup" stepKey="clearStagingFilters"/>
+            <actionGroup ref="AdminClearFiltersActionGroup" stepKey="clearProductFilters"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+        <!-- Open product page -->
+        <actionGroup ref="AdminProductPageOpenByIdActionGroup" stepKey="visitAdminProductPageForGroupedProduct">
+            <argument name="productId" value="$$createGroupedProduct.id$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminFillScheduleUpdateWithStartAndEndDateActionGroup" stepKey="createNewStagingUpdate">
+            <argument name="dateStart" value="+7 day"/>
+            <argument name="dateEnd" value="+10 day"/>
+            <argument name="name" value="UpdateName"/>
+            <argument name="description" value="updateDescription"/>
+        </actionGroup>
+        <dontSeeElement selector="{{AdminStagingSlideOutSection.save}}" stepKey="assertSlideOutPanelDisappeared"/>
+        <!-- Assert update details -->
+        <waitForText selector="{{AdminScheduledChangesSection.scheduleItemName}}" userInput="UpdateName" stepKey="assertScheduleUpdateName"/>
+        <waitForText selector="{{AdminScheduledChangesSection.scheduleItemDescription}}" userInput="updateDescription" stepKey="assertScheduleUpdateDescription"/>
+        <waitForElementVisible selector="{{AdminScheduledChangesSection.viewEditLink}}" stepKey="assertViewEditLink"/>
+        <waitForElementVisible selector="{{AdminScheduledChangesSection.previewLink}}" stepKey="assertPreviewLink"/>
+    </test>
+</tests>

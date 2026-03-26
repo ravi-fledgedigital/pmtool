@@ -1,0 +1,24 @@
+{
+    "name": "mirasvit/module-cataloglabel",
+    "description": "Product Labels",
+    "require": {
+        "magento/framework": "102.0.*|103.0.*",
+        "mirasvit/module-core": "dev-master|>=1.4.33"
+    },
+    "type": "magento2-module",
+    "version": "2.5.7",
+    "license": [
+      "proprietary"
+    ],
+    "conflict": {
+        "hyva-themes/magento2-mirasvit-catalog-label": "*"
+    },
+    "autoload": {
+        "files": [
+            "src/CatalogLabel/registration.php"
+        ],
+        "psr-4": {
+            "Mirasvit\\CatalogLabel\\": "src/CatalogLabel"
+        }
+    }
+}

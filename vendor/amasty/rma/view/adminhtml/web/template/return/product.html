@@ -1,0 +1,14 @@
+<div class="amrma-product-wrap">
+    <div class="amrma-img">
+        <!-- ko if: $data.image -->
+            <img src="" alt="" data-bind="attr: {src: $data.image, alt: $data.name}">
+        <!-- /ko -->
+    </div>
+    <div class="amrma-info">
+        <a href="#" data-bind="text: $data.name, attr: {href: $data.url}" target="_blank"></a>
+        <p class="amrma-item">
+            <span data-bind="i18n: 'SKU:'"></span>
+            <span data-bind="text: $data.sku"></span>
+        </p>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+# Copyright © Magento, Inc. All rights reserved.
+# See COPYING.txt for license details.
+
+type Commerce {
+    catalog: CommerceCatalog
+}
+
+type CommerceCatalog {
+    productCount(productCountRequest: ProductCountInput): ProductCountResponse!
+    @resolver(class: "Magento\\CatalogSyncAdminGraphQlServer\\Resolver\\Query\\ProductCount")
+}
+
+type Mutation {
+    forceResyncCatalog: ForceResyncResponse
+    @resolver(class: "Magento\\CatalogSyncAdminGraphQlServer\\Resolver\\Mutation\\ForceResyncCatalog")
+    @doc(description: "Initiate force re-sync of catalog data to SaaS services")
+}
+
+input ProductCountInput {
+    websiteCode: String
+    storeViewCode: String
+    filters: ProductCountFilters
+}
+
+input ProductCountFilters {
+    enabled: Boolean
+    visibility: [Visibility]
+}
+
+enum Visibility {
+  NOT_VISIBLE
+  CATALOG
+  SEARCH
+  BOTH
+}
+
+type ProductCountResponse {
+    count: Int!
+}
+
+type ForceResyncResponse {
+    message: String!
+}

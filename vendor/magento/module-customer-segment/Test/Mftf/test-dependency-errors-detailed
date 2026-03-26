@@ -1,0 +1,144 @@
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/AdminCreateCustomerInactiveSegmentWithAddressConditionsTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/AdminCreateCustomerSegmentByDateOfBirthTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/AdminCreateCustomerSegmentByFirstNameTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/AdminCreateCustomerSegmentByGenderTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/AdminCreateCustomerSegmentByGroupRetailerTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/AdminCreateCustomerSegmentByGroupTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/AdminCreateCustomerSegmentByLastNameTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/AdminCreateCustomerSegmentBySpecificGroupTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/AdminCreateCustomerSegmentConditionCombinationTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/AdminCreateCustomerSegmentConditionCustomerCreatedAtTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/AdminCreateCustomerSegmentEntityWithCustomerConditionsTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/AdminCreateCustomerSegmentNewsletterSubscriptionTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/AdminCreateCustomerSegmentNotSubscribedNewsletterTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/AdminCreateCustomerSegmentStoreCreditTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 UpdateCustomerStoreCreditBalanceAdminActionGroup from module(s): magento/module-customer-balance
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/AdminCreateCustomerSegmentWithConditionsCustomAttributeTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AttributeMultiSelectForSegment from module(s): magento/module-customer-custom-attributes
+	 AdminCreateAndEditCustomerAttributeActionGroup from module(s): magento/module-customer-custom-attributes
+	 AdminAddCustomerAttributeOptionsTwoMultipleActionGroup from module(s): magento/module-customer-custom-attributes
+	 AdminDeleteCustomerAttributeActionGroup from module(s): magento/module-customer-custom-attributes
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/AdminCreateCustomerSegmentWithMultipleAddressConditionsTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/AdminCreateCustomerSegmentWithOneAddressConditionTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/AdminCreateCustomerSegmentWithSeveralWebsitesTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/AdminCustomersReportsSegmentsNavigateMenuTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminMenuReports from module(s): magento/module-analytics
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/AdminFindCustomerByNumberOfOrdersTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/CustomerSegmentsWithoutRealTimeCheck/AdminCreateCustomerSegmentByGroupWithoutRealTimeCheckTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/CustomerSegmentsWithoutRealTimeCheck/AdminCreateCustomerSegmentConditionCombinationWithoutRealTimeCheckTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/CustomerSegmentsWithoutRealTimeCheck/AdminCreateCustomerSegmentEntityWithCustomerConditionsWithoutRealTimeCheckTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/CustomerSegmentsWithoutRealTimeCheck/AdminCreateCustomerSegmentNewsletterSubscriptionWithoutRealTimeCheckTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/CustomerSegmentsWithoutRealTimeCheck/AdminCreateCustomerSegmentWithConditionsCustomAttributeWithoutRealTimeCheckTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AttributeMultiSelectForSegment from module(s): magento/module-customer-custom-attributes
+	 AdminCreateAndEditCustomerAttributeActionGroup from module(s): magento/module-customer-custom-attributes
+	 AdminAddCustomerAttributeOptionsTwoMultipleActionGroup from module(s): magento/module-customer-custom-attributes
+	 AdminDeleteCustomerAttributeActionGroup from module(s): magento/module-customer-custom-attributes
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/CustomerSegmentsWithoutRealTimeCheck/AdminCreateCustomerSegmentWithMultipleAddressConditionsWithoutRealTimeCheckTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+
+File "/var/www/html/app/code/Magento/CustomerSegment/Test/Mftf/Test/CustomerSegmentsWithoutRealTimeCheck/AdminCreateCustomerSegmentWithSeveralWebsitesWithoutRealTimeCheckTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue

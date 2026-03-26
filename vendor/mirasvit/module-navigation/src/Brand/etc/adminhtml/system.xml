@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="brand" showInDefault="1" showInWebsite="1" showInStore="1" type="text" translate="label" sortOrder="442">
+            <label>Brand Pages</label>
+            <tab>mirasvit</tab>
+            <resource>Mirasvit_Brand::config_brand</resource>
+
+            <group id="general" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="1000" translate="label">
+                <label>General</label>
+                <field id="BrandAttribute" type="select" showInDefault="1" sortOrder="10" translate="label comment tooltip">
+                    <label>Brand Attribute</label>
+                    <source_model>Mirasvit\Brand\Model\Config\Source\BrandAttributeOptions</source_model>
+                    <comment><![CDATA[Select the attribute used to identify brands for the store.]]></comment>
+                    <tooltip><![CDATA[Choose the attribute in your product catalog that defines the brand (e.g., "Brand" or "Manufacturer").]]></tooltip>
+                </field>
+
+                <field id="BrandLinkPosition" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                    <label>Brands Link Position</label>
+                    <source_model>Mirasvit\Brand\Model\Config\Source\BrandsLinkPositionOptions</source_model>
+                    <comment><![CDATA[Choose where to display the brands link in the navigation menu.]]></comment>
+                </field>
+
+                <field id="menu_mode" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="45">
+                    <label>Brands Menu Mode</label>
+                    <source_model>Mirasvit\Brand\Model\Config\Source\MenuModeOptions</source_model>
+                    <comment><![CDATA[Choose the behavior for the brand link (all brands page link or brands modal toggler).]]></comment>
+                    <depends>
+                        <field id="BrandLinkPosition" separator="|">1|2</field>
+                    </depends>
+                </field>
+
+                <field id="BrandLinkLabel" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30">
+                    <label>Brand link label</label>
+                    <comment><![CDATA[Custom text for the brand link in navigation.]]></comment>
+                    <depends>
+                        <field id="BrandLinkPosition" separator="|">1|2</field>
+                    </depends>
+                </field>
+
+                <field id="show_products_in_page_form" translate="label comment" type="select" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="50">
+                    <label>Show Products in Edit Brand Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Display products assigned to a brand when editing the brand in the admin panel. If enabled, the brand edit page may be loaded slower.]]></comment>
+                </field>
+
+            </group>
+
+            <group id="all_brand_page" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="1000" translate="label comment">
+                <label>All Brands Page Settings</label>
+                <fieldset_css>mst_nav_group_config</fieldset_css>
+                <comment><![CDATA[Appearance and SEO settings that are applied to the page with all brands.]]></comment>
+                <group id="display" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
+                    <label>Display</label>
+                    <fieldset_css>mst_nav_sub_group_config</fieldset_css>
+                    <field id="isShowBrandLogo" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                        <label>Show Brand Logo</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>brand/all_brand_page/isShowBrandLogo</config_path>
+                        <comment><![CDATA[Display brand logos on the All Brands page.]]></comment>
+                    </field>
+
+                    <field id="brand_logo_width" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="13">
+                        <label>Brand Logo Width (px)</label>
+                        <config_path>brand/all_brand_page/brand_logo_width</config_path>
+                        <comment><![CDATA[Specify the value of the image "width" attribute, or leave blank to omit it.]]></comment>
+                        <depends>
+                            <field id="isShowBrandLogo">1</field>
+                        </depends>
+                    </field>
+
+                    <field id="brand_logo_height" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="13">
+                        <label>Brand Logo Height (px)</label>
+                        <config_path>brand/all_brand_page/brand_logo_height</config_path>
+                        <comment><![CDATA[Specify the value of the image "height" attribute, or leave blank to omit it.]]></comment>
+                        <depends>
+                            <field id="isShowBrandLogo">1</field>
+                        </depends>
+                    </field>
+
+                    <field id="isShowNotConfiguredBrands" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="15">
+                        <label>Show Not Configured Brands</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>brand/general/isShowNotConfiguredBrands</config_path>
+                        <comment><![CDATA[Display brands even if they don’t have all attributes set.]]></comment>
+                    </field>
+
+                    <field id="isShowBrandsWithoutProducts" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                        <label>Show Brands Without Products</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>brand/general/isShowBrandsWithoutProducts</config_path>
+                        <comment><![CDATA[Show brands even if they have no products associated.]]></comment>
+                    </field>
+
+                    <field id="show_page_title" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="25">
+                        <label>Display Page Title</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>brand/general/show_page_title</config_path>
+                        <comment><![CDATA[Enable this option to show the page title at the top of the All Brands page.]]></comment>
+                    </field>
+
+                    <field id="title" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30">
+                        <label>Page title</label>
+                        <config_path>brand/general/title</config_path>
+                        <comment><![CDATA[Enter a custom title to display at the top of the All Brands page. Leave empty to use the default title.]]></comment>
+                    </field>
+                </group>
+                
+                <group id="seo" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
+                    <label>SEO</label>
+                    <fieldset_css>mst_nav_sub_group_config</fieldset_css>
+                    <field id="AllBrandUrl" translate="label comment tooltip" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                        <label>URL</label>
+                        <config_path>brand/general/AllBrandUrl</config_path>
+                        <comment><![CDATA[Enter the URL for the main brand list page.]]></comment>
+                        <tooltip><![CDATA[Set the URL where customers can browse all brands.]]></tooltip>
+                    </field>
+
+                    <field id="MetaTitle" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30">
+                        <label>Meta Title</label>
+                        <config_path>brand/all_brand_page/MetaTitle</config_path>
+                        <comment><![CDATA[Set a custom meta title for SEO.]]></comment>
+                    </field>
+                    <field id="MetaKeyword" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="40">
+                        <label>Meta Keyword</label>
+                        <config_path>brand/all_brand_page/MetaKeyword</config_path>
+                        <comment><![CDATA[Set custom meta keywords for SEO.]]></comment>
+                    </field>
+                    <field id="MetaDescription" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="50">
+                        <label>Meta Description</label>
+                        <config_path>brand/all_brand_page/MetaDescription</config_path>
+                        <comment><![CDATA[Set a custom meta description for SEO.]]></comment>
+                    </field>
+                </group>
+            </group>
+
+            <group id="brand_page" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="1000" translate="label comment">
+                <label>Brand Page Settings</label>
+                <fieldset_css>mst_nav_group_config</fieldset_css>
+                <comment><![CDATA[Customization of the display and SEO settings for brand page.]]></comment>
+                <group id="display" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
+                    <label>Display</label>
+                    <fieldset_css>mst_nav_sub_group_config</fieldset_css>
+                    <field id="isShowBrandLogo" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                        <label>Show Brand Logo</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>brand/brand_page/isShowBrandLogo</config_path>
+                        <comment><![CDATA[Display brand logo on the Brand page.]]></comment>
+                    </field>
+
+                    <field id="isShowBrandDescription" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                        <label>Show Brand Description</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>brand/brand_page/isShowBrandDescription</config_path>
+                        <comment><![CDATA[Show brand description on the Brand page.]]></comment>
+                    </field>
+
+                    <field id="isShowAllCategories" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30">
+                        <label>Show all categories in filter</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>brand/general/isShowAllCategories</config_path>
+                        <comment><![CDATA[Allow users to filter by all available categories on the brand page.]]></comment>
+                    </field>
+                </group>
+
+                <group id="seo" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
+                    <label>SEO</label>
+                    <fieldset_css>mst_nav_sub_group_config</fieldset_css>
+                    <field id="FormatBrandUrl" translate="label comment tooltip" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30">
+                        <label>Brand page URL</label>
+                        <source_model>Mirasvit\Brand\Model\Config\Source\UrlFormatSource</source_model>
+                        <config_path>brand/general/FormatBrandUrl</config_path>
+                        <comment><![CDATA[Select between long or short URLs.]]></comment>
+                        <tooltip><![CDATA[Choose how the URLs for individual brand pages will be structured.]]></tooltip>
+                    </field>
+
+                    <field id="robots" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="40">
+                        <label>Robots Meta Header for Brand Pages</label>
+                        <source_model>Mirasvit\SeoNavigation\Model\Config\Source\MetaRobots</source_model>
+                        <config_path>brand/seo/robots</config_path>
+                        <comment><![CDATA[Control how search engines index brand pages.]]></comment>
+                    </field>
+
+                    <!-- url_suffix_category -->
+                    <field id="url_suffix_mode" translate="label comment tooltip" type="select" showInDefault="1" sortOrder="50" showInWebsite="1" showInStore="1">
+                        <label>Brand URL Suffix</label>
+                        <source_model>Mirasvit\Brand\Model\Config\Source\UrlSuffix</source_model>
+                        <comment><![CDATA[Add a suffix to the brand URLs for SEO (optional).]]></comment>
+                        <tooltip><![CDATA[This suffix will be added to the end of all brand URLs (e.g., ".html").]]></tooltip>
+                    </field>
+
+                    <!-- This field is needed for Use Category URL Suffix flag to be saved -->
+                    <!-- url_suffix -->
+                    <field id="custom_suffix" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="60">
+                        <label>Custom URL Suffix</label>
+                        <depends>
+                            <field id="url_suffix_mode">3</field>
+                        </depends>
+                        <comment><![CDATA[Use custom URL suffix for brands.]]></comment>
+                    </field>
+                </group>
+            </group>
+
+            <group id="brand_slider" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="1000" translate="label comment">
+                <label>Brand Slider Settings</label>
+                <fieldset_css>mst_nav_group_config</fieldset_css>
+                <comment><![CDATA[Configure display and advanced options for the brand slider.]]></comment>
+                <field id="WidgetCode" translate="label comment" type="textarea" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                    <label>WidgetCode</label>
+                    <comment><![CDATA[Add custom widget code to integrate the brand slider.]]></comment>
+                </field>
+                <field id="ItemsLimit" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                    <label>Items Limit</label>
+                    <config_path>brand/brand_slider/ItemsLimit</config_path>
+                    <comment><![CDATA[Limit the number of items in the slider (default: 4).]]></comment>
+                </field>
+                <field id="Order" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30">
+                    <label>Order By</label> 
+                    <source_model>Mirasvit\Brand\Model\Config\Source\BrandSliderOrder</source_model>
+                    <config_path>brand/brand_slider/Order</config_path>
+                    <comment><![CDATA[Choose how brands are ordered in the slider.]]></comment>
+                </field>
+                <field id="isShowTitle" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="40">
+                    <label>Show Title</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>brand/brand_slider/isShowTitle</config_path>
+                    <comment><![CDATA[Display a title above the slider.]]></comment>
+                </field>
+                <field id="TitleText" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="50">
+                    <label>Title Text</label>
+                    <config_path>brand/brand_slider/TitleText</config_path>
+                    <comment><![CDATA[Set custom title text for the slider.]]></comment>
+                    <depends>
+                        <field id="isShowTitle">1</field>
+                    </depends>
+                </field>
+
+                <group id="advancedSettings" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="60" translate="label">
+                    <label>Advanced Settings</label>
+
+                    <field id="TitleTextColor" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="60">
+                        <label>Title Text Color</label>
+                        <config_path>brand/brand_slider/TitleTextColor</config_path>
+                        <frontend_model>Mirasvit\Brand\Block\Adminhtml\ColorOptions\Color</frontend_model>
+                        <comment><![CDATA[Set the title text color (optional).]]></comment>
+                        <depends>
+                            <field id="isShowTitle">1</field>
+                        </depends>
+                    </field>
+                    <field id="TitleBackgroundColor" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="70">
+                        <label>Title Background Color</label>
+                        <config_path>brand/brand_slider/TitleBackgroundColor</config_path>
+                        <frontend_model>Mirasvit\Brand\Block\Adminhtml\ColorOptions\Color</frontend_model>
+                        <comment><![CDATA[Set the background color for the title (optional).]]></comment>
+                        <depends>
+                            <field id="isShowTitle">1</field>
+                        </depends>
+                    </field>
+                    <field id="isShowBrandLabel" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="80">
+                        <label>Show Brand Label</label>
+                        <config_path>brand/brand_slider/isShowBrandLabel</config_path>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment><![CDATA[Display brand labels in the slider.]]></comment>
+                    </field>
+                    <field id="BrandLabelColor" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="90">
+                        <label>Brand Label Color</label>
+                        <config_path>brand/brand_slider/BrandLabelColor</config_path>
+                        <frontend_model>Mirasvit\Brand\Block\Adminhtml\ColorOptions\Color</frontend_model>
+                        <comment><![CDATA[Set the brand label text color (optional).]]></comment>
+                        <depends>
+                            <field id="isShowBrandLabel">1</field>
+                        </depends>
+                    </field>
+                    <field id="isShowButton" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="100">
+                        <label>Show Navigation Buttons</label>
+                        <config_path>brand/brand_slider/isShowButton</config_path>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment><![CDATA[Display navigation buttons on the slider.]]></comment>
+                    </field>
+                    <field id="isShowPagination" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="110">
+                        <label>Show Pagination</label>
+                        <config_path>brand/brand_slider/isShowPagination</config_path>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment><![CDATA[Show pagination controls below the slider.]]></comment>
+                    </field>
+                    <field id="isAutoPlay" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="120">
+                        <label>Auto Play</label>
+                        <config_path>brand/brand_slider/isAutoPlay</config_path>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment><![CDATA[Enable automatic sliding between brands.]]></comment>
+                    </field>
+                    <field id="isAutoPlayLoop" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="130">
+                        <label>Auto Play Loop</label>
+                        <config_path>brand/brand_slider/isAutoPlayLoop</config_path>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment><![CDATA[Allow the slider to loop continuously.]]></comment>
+                        <depends>
+                            <field id="isAutoPlay">1</field>
+                        </depends>
+                    </field>
+                    <field id="AutoPlayInterval" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="140">
+                        <label>Auto Play Interval (ms)</label>
+                        <config_path>brand/brand_slider/AutoPlayInterval</config_path>
+                        <comment><![CDATA[Set the interval for auto-play in milliseconds (default: 4000).]]></comment>
+                        <depends>
+                            <field id="isAutoPlay">1</field>
+                        </depends>
+                    </field>
+                    <field id="PauseOnHover" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="150">
+                        <label>Pause on Hover</label>
+                        <config_path>brand/brand_slider/PauseOnHover</config_path>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment><![CDATA[Pause the slider when the user hovers over it.]]></comment>
+                        <depends>
+                            <field id="isAutoPlay">1</field>
+                        </depends>
+                    </field>
+                    <field id="SliderWidth" translate="label comment tooltip" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="160">
+                        <label>Slider Width (px)</label>
+                        <config_path>brand/brand_slider/SliderWidth</config_path>
+                        <comment><![CDATA[Set the slider width (optional).]]></comment>
+                        <tooltip><![CDATA[Slider Width]]></tooltip>
+                    </field>
+                    <field id="SliderImageWidth" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="170">
+                        <label>Slider Image Width (px)</label>
+                        <config_path>brand/brand_slider/SliderImageWidth</config_path>
+                        <comment><![CDATA[Set the width of the images inside the slider (optional).]]></comment>
+                    </field>
+                    <field id="SpacingBetweenImages" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="180">
+                        <label>Spacing Between Images (px)</label>
+                        <config_path>brand/brand_slider/SpacingBetweenImages</config_path>
+                        <comment><![CDATA[Set the spacing between slider images (default: 10px).]]></comment>
+                    </field>
+                    <field id="InactivePagingColor" translate="label comment tooltip" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="190">
+                        <label>Inactive Paging Color</label>
+                        <frontend_model>Mirasvit\Brand\Block\Adminhtml\ColorOptions\Color</frontend_model>
+                        <config_path>brand/brand_slider/InactivePagingColor</config_path>
+                        <comment><![CDATA[If the field is empty, will be applied default value.]]></comment>
+                        <tooltip><![CDATA[Inactive Paging Color]]></tooltip>
+                    </field>
+                    <field id="ActivePagingColor" translate="label comment tooltip" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="200">
+                        <label>Active Paging Color</label>
+                        <frontend_model>Mirasvit\Brand\Block\Adminhtml\ColorOptions\Color</frontend_model>
+                        <config_path>brand/brand_slider/ActivePagingColor</config_path>
+                        <comment><![CDATA[If the field is empty, will be applied default value.]]></comment>
+                        <tooltip><![CDATA[Active Paging Color]]></tooltip>
+                    </field>
+                    <field id="HoverPagingColor" translate="label comment tooltip" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="210">
+                        <label>Hover Paging Color</label>
+                        <frontend_model>Mirasvit\Brand\Block\Adminhtml\ColorOptions\Color</frontend_model>
+                        <config_path>brand/brand_slider/HoverPagingColor</config_path>
+                        <comment><![CDATA[If the field is empty, will be applied default value.]]></comment>
+                        <tooltip><![CDATA[Hover Paging Color]]></tooltip>
+                    </field>
+                    <field id="NavigationButtonsColor" translate="label comment tooltip" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="220">
+                        <label>Navigation Buttons Color</label>
+                        <frontend_model>Mirasvit\Brand\Block\Adminhtml\ColorOptions\Color</frontend_model>
+                        <config_path>brand/brand_slider/NavigationButtonsColor</config_path>
+                        <comment><![CDATA[If the field is empty, will be applied default value.]]></comment>
+                        <tooltip><![CDATA[Navigation Buttons Color]]></tooltip>
+                    </field>
+                </group>
+            </group>
+
+            <group id="productDisplaySettings" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="1000" translate="label comment">
+                <label>Product Display Settings</label>
+                <fieldset_css>mst_nav_group_config</fieldset_css>
+                <comment><![CDATA[Manage how brand information appears in product listings and individual product pages.]]></comment>
+                <group id="productList" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
+                    <label>Product List</label>
+                    <fieldset_css>mst_nav_sub_group_config</fieldset_css>
+                    <field id="isProductListBrandLogoEnabled" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                        <label>Display Brand Logo on Product List</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>brand/brand_logo/isProductListBrandLogoEnabled</config_path>
+                        <comment><![CDATA[Show the brand logo in the product listing page.]]></comment>
+                    </field>
+                    <field id="isProductListBrandNameEnabled" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="25">
+                        <label>Display Brand Name on Product List</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>brand/brand_logo/isProductListBrandNameEnabled</config_path>
+                        <comment><![CDATA[Show the brand name before the product name in the product listing.]]></comment>
+                    </field>
+                    <field id="ProductListBrandLogoImageWidth" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30">
+                        <label>Product List Brand Logo Width (px)</label>
+                        <config_path>brand/brand_logo/ProductListBrandLogoImageWidth</config_path>
+                        <comment><![CDATA[Set the width of the brand logo in the product list (default: 30px).]]></comment>
+                    </field>
+                    <field id="ProductListBrandLogoTooltip" translate="label comment" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="40">
+                        <label>Product List Brand Tooltip</label>
+                        <source_model>Mirasvit\Brand\Model\Config\Source\TooltipOptions</source_model>
+                        <config_path>brand/brand_logo/ProductListBrandLogoTooltip</config_path>
+                        <frontend_model>Mirasvit\Brand\Block\Adminhtml\Config\Source\TooltipSelect</frontend_model>
+                        <can_be_empty>1</can_be_empty>
+                        <comment><![CDATA[Show brand tooltip in product list.]]></comment>
+                    </field>
+                </group>
+
+                <group id="productPage" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
+                    <label>Product Page</label>
+                    <fieldset_css>mst_nav_sub_group_config</fieldset_css>
+                    <field id="isProductPageBrandLogoEnabled" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="110">
+                        <label>Display Brand Logo on Product Page</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>brand/brand_logo/isProductPageBrandLogoEnabled</config_path>
+                        <comment><![CDATA[Show the brand logo on individual product pages.]]></comment>
+                    </field>
+                    <field id="ProductPageBrandLogoDescription" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="120">
+                        <label>Display Description on Product Page</label>
+                        <config_path>brand/brand_logo/ProductPageBrandLogoDescription</config_path>
+                        <source_model>Mirasvit\Brand\Model\Config\Source\ProductPageBrandLogoDescription</source_model>
+                        <comment><![CDATA[Display the brand description on product pages.]]></comment>
+                    </field>
+                    <field id="ProductPageBrandLogoImageWidth" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="130">
+                        <label>Product Page Brand Logo Width (px)</label>
+                        <config_path>brand/brand_logo/ProductPageBrandLogoImageWidth</config_path>
+                        <comment><![CDATA[If the field is empty, will be applied default value 30px.]]></comment>
+                        <comment><![CDATA[Set the width of the brand logo on product pages (default: 30px).]]></comment>
+                    </field>
+                    <field id="ProductPageBrandLogoTooltip" translate="label comment" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="140">
+                        <label>Product Page Brand Tooltip</label>
+                        <config_path>brand/brand_logo/ProductPageBrandLogoTooltip</config_path>
+                        <source_model>Mirasvit\Brand\Model\Config\Source\TooltipOptions</source_model>
+                        <frontend_model>Mirasvit\Brand\Block\Adminhtml\Config\Source\TooltipSelect</frontend_model>
+                        <can_be_empty>1</can_be_empty>
+                        <comment><![CDATA[Show brand tooltip in product page.]]></comment>
+                    </field>
+
+                    <field id="isProductPageBrandNameLinkEnabled" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="150">
+                        <label>Display Brand Name Link Before Product Title</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>brand/brand_logo/isProductPageBrandNameLinkEnabled</config_path>
+                        <comment><![CDATA[Show brand name as a link before the product title on the product page.]]></comment>
+                    </field>
+
+                </group>
+
+                <group id="productListAndPage" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
+                    <label>Product List And Product Page</label>
+                    <fieldset_css>mst_nav_sub_group_config</fieldset_css>
+                    <field id="TooltipMaxImageWidth" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="210">
+                        <label>Tooltip Max Image Width</label>
+                        <config_path>brand/brand_logo/TooltipMaxImageWidth</config_path>
+                        <comment><![CDATA[Set the maximum width for the tooltip images.]]></comment>
+                    </field>
+                    
+                </group>
+            </group>
+            
+            <group id="more_products_from_brand" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="1000" translate="label">
+                <label>Related Products Section On Product Page</label>
+
+                <field id="isEnabled" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                    <label>More Products from Brand Enabled</label>
+                    <config_path>brand/more_products_from_brand/isEnabled</config_path>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enable or disable related products from the brand.]]></comment>
+                </field>
+
+                <field id="Title" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                    <label>Title</label>
+                    <config_path>brand/more_products_from_brand/Title</config_path>
+                    <comment><![CDATA[Set a custom title for the related products section.]]></comment>
+                </field>
+
+                <field id="ProductsLimit" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30">
+                    <label>Products Limit</label>
+                    <config_path>brand/more_products_from_brand/ProductsLimit</config_path>
+                    <comment><![CDATA[Limit the number of related products shown (default: 6).]]></comment>
+                </field>
+
+                <field id="min_brand_products_to_show" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="40">
+                    <label>Minimum Number of Brand Products</label>
+                    <config_path>brand/more_products_from_brand/min_brand_products_to_show</config_path>
+                    <comment><![CDATA[Minimum count of other brand products needed to display the block. Leave empty to ignore.]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

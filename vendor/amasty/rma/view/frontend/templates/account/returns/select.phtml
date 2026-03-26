@@ -1,0 +1,44 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package RMA Base for Magento 2
+ */
+/**
+ * @var \Amasty\Rma\Block\Returns\OrderList $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+
+if ($orders = $block->getOrders()): ?>
+    <div class="amreturns-order-select">
+        <div class="amreturns-title-container">
+            <span class="amreturns-select-title"><?= $escaper->escapeHtml(__('Create new return request')) ?></span>
+        </div>
+        <div class="amreturns-orders-container">
+            <select name="amreturns-orders-select" class="amreturn-select" id="amreturn-order" aria-label="<?= $escaper->escapeHtml(__('Select an order to proceed')) ?>">
+                <?php foreach ($orders as $order): ?>
+                    <option value="<?= $escaper->escapeHtml($order[\Magento\Sales\Api\Data\OrderInterface::ENTITY_ID]); ?>">
+                        <?= $escaper->escapeHtml(__('Order #') . $order[\Magento\Sales\Api\Data\OrderInterface::INCREMENT_ID]) ?> -
+                        <?= $escaper->escapeHtml($block->formatDate($order[\Magento\Sales\Api\Data\OrderInterface::CREATED_AT])); ?> -
+                        <?= $escaper->escapeHtml($block->formatPrice($order[\Magento\Sales\Api\Data\OrderInterface::GRAND_TOTAL])); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            <button class="btn amreturn-btn" data-amrma-js="return-btn" title="<?= $escaper->escapeHtmlAttr(__('Return')) ?>"
+                onclick="location.href='<?= $escaper->escapeUrl($block->getNewReturnUrl()); ?>order/' + document.getElementById('amreturn-order').value">
+                <?= $escaper->escapeHtml(__('Return')) ?>
+            </button>
+            <?php if ($block->isGuest()): ?>
+                <button class="btn amreturn-btn" data-amrma-js="return-btn" title="<?= $escaper->escapeHtmlAttr(__('Other Order Return')) ?>"
+                        onclick="location.href='<?= $escaper->escapeUrl($block->getLogoutUrl()); ?>'">
+                    <?= $escaper->escapeHtml(__('Logout')) ?>
+                </button>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php elseif ($block->isGuest()): ?>
+    <button class="btn amreturn-btn" data-amrma-js="return-btn" title="<?= $escaper->escapeHtmlAttr(__('Other Order Return')) ?>"
+            onclick="location.href='<?= $escaper->escapeUrl($block->getLogoutUrl()); ?>'">
+        <?= $escaper->escapeHtml(__('Other Order Return')) ?>
+    </button>
+<?php endif ?>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="VerifyThatCustomPriceForGiftWrappingCanBeSetForSpecificProductTest">
+        <annotations>
+            <features value="GiftWrapping"/>
+            <stories value="Gift options"/>
+            <title value="Verify that custom price for Gift Wrapping can be set for specific product"/>
+            <description value="CVerify that custom price for Gift Wrapping can be set for specific product"/>
+            <severity value="MINOR"/>
+            <testCaseId value="AC-4127"/>
+            <group value="giftWrapping"/>
+            <group value="cloud"/>
+        </annotations>
+
+        <before>
+            <!--  Simple1 product1 is created-->
+
+            <createData entity="SimpleProduct2" stepKey="createSimpleProduct1">
+                <field key="price">100.00</field>
+            </createData>
+            <createData entity="SimpleProduct2" stepKey="createSimpleProduct2">
+                <field key="price">70.00</field>
+            </createData>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin1"/>
+
+
+            <!-- Create Gift Wrapping -->
+
+            <actionGroup ref="AdminGiftWrappingNewActionGroup" stepKey="createGiftWrapping">
+                <argument name="giftWrappingDesign" value="Test Design"/>
+                <argument name="giftWrappingWebsite" value="Main Website"/>
+                <argument name="giftWrappingPrice" value="36.5"/>
+            </actionGroup>
+
+            <!-- Gift Options are configured -->
+
+            <amOnPage url="{{AdminSystemConfigSalesGiftOptionsPage.url}}" stepKey="amOnAdminSystemConfigGiftOptionsSection"/>
+            <waitForPageLoad time="30" stepKey="waitForPage1"/>
+            <uncheckOption selector="{{AdminSystemConfigGiftOptionSection.allowGiftMessagesOnOrderLevelCheckbox}}" stepKey="uncheckGiftMessagesOnOrderLevel"/>
+            <uncheckOption selector="{{AdminSystemConfigGiftOptionSection.allowGiftMessagesForOrderItemsCheckbox}}" stepKey="uncheckGiftMessagesForOrderItemsCheckbox"/>
+            <selectOption selector="{{AdminSystemConfigGiftOptionSection.allowGiftMessagesOnOrderLevel}}" userInput="No" stepKey="selectGiftMessagesOnOrderLevel"/>
+            <selectOption selector="{{AdminSystemConfigGiftOptionSection.allowGiftMessagesForOrderItems}}" userInput="No" stepKey="selectGiftMessagesForOrderItems"/>
+            <selectOption selector="{{AdminGiftWrappingGridSection.allowGiftWrappingOnOrderLevel}}" userInput="Yes" stepKey="selectGiftWrappingOnOrderLevel"/>
+            <selectOption selector="{{AdminGiftWrappingGridSection.allowGiftWrappingForOrderItems}}" userInput="Yes" stepKey="selectGiftWrappingForOrderItems"/>
+            <selectOption selector="{{AdminSystemConfigGiftOptionSection.allowPrintedCard}}" userInput="No" stepKey="selectPrintedCard"/>
+            <selectOption selector="{{AdminSystemConfigGiftOptionSection.allowGiftReceipt}}" userInput="No" stepKey="selectGiftReceipt"/>
+            <click selector="{{StoreConfigSection.Save}}" stepKey="saveConfigButton"/>
+
+            <amOnPage url="{{AdminProductEditPage.url($$createSimpleProduct2.id$$)}}" stepKey="goToEditProductPage"/>
+            <waitForPageLoad stepKey="waitForProductPageLoadAfterUpdate"/>
+
+            <conditionalClick selector="{{AdminProductGiftOptionsSection.giftOptions}}" dependentSelector="{{AdminProductGiftOptionsSection.isGiftOptionsTabClosed}}" visible="true" stepKey="clickIfContentTabCloses"/>
+            <scrollTo selector="{{AdminProductGiftOptionsSection.allowGiftWrapping}}" x="-200" y="-200" stepKey="scrollToAllowGiftWrapping"/>
+            <click selector="{{AdminProductGiftOptionsSection.enableallowGiftWrapping}}" stepKey="clickAllowGiftOption"/>
+            <fillField selector="{{AdminProductGiftOptionsSection.priceForGiftWrapping}}" userInput="66.66" stepKey="setPrice"/>
+            <click selector="{{AdminProductFormActionSection.saveButton}}" stepKey="clickToSaveProduct"/>
+        </before>
+
+        <after>
+            <deleteData createDataKey="createSimpleProduct1" stepKey="deleteProduct"/>
+            <deleteData createDataKey="createSimpleProduct2" stepKey="deleteProduct2"/>
+            <actionGroup ref="AdminDeleteGiftWrappingActionGroup" stepKey="deleteGiftWrapping">
+                <argument name="giftWrappingDesign" value="Test Design"/>
+            </actionGroup>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logoutAdminUserAfterTest"/>
+        </after>
+
+        <amOnPage url="{{StorefrontHomePage.url}}" stepKey="amOnHomePage"/>
+        <waitForPageLoad stepKey="homeWaitForPageLoad"/>
+
+        <amOnPage url="{{StorefrontHomePage.url}}$$createSimpleProduct1.custom_attributes[url_key]$$.html" stepKey="amOnProduct1Page"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad1"/>
+        <actionGroup ref="StorefrontAddProductToCartActionGroup" stepKey="addToCartFromStorefrontProductPage1">
+            <argument name="product" value="$$createSimpleProduct1$$"/>
+            <argument name="productCount" value="1"/>
+        </actionGroup>
+
+        <amOnPage url="{{StorefrontHomePage.url}}$$createSimpleProduct2.custom_attributes[url_key]$$.html" stepKey="amOnProduct2Page"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoad2"/>
+        <actionGroup ref="StorefrontAddProductToCartActionGroup" stepKey="addToCartFromStorefrontProductPage2">
+            <argument name="product" value="$$createSimpleProduct2$$"/>
+            <argument name="productCount" value="2"/>
+        </actionGroup>
+
+        <actionGroup ref="StorefrontCartPageOpenActionGroup" stepKey="goToCartPage"/>
+
+        <!-- Click Gift Options Simple Product1 -->
+
+        <click selector="{{CheckoutCartGiftWrappingSection.clickCartItemGiftOptions('$$createSimpleProduct1.name$$')}}" stepKey="clickGiftOptionItem"/>
+        <waitForElementVisible selector="{{CheckoutCartGiftWrappingSection.cartItemVisibleSmallImage}}" stepKey="waitVisibleImage"/>
+        <click selector="{{CheckoutCartGiftWrappingSection.cartItemVisibleSmallImage}}" stepKey="clickSmallImage"/>
+        <waitForPageLoad stepKey="waitForPageImage" />
+        <scrollTo selector="{{CheckoutCartGiftWrappingSection.giftWrappingReqularPrice}}" x="-200" y="-200" stepKey="scrollToseeGiftWrappingReqularPrice1"/>
+        <see selector="{{CheckoutCartGiftWrappingSection.giftWrappingReqularPrice}}" userInput="$36.50" stepKey="seeGiftWrappingReqularPrice"/>
+        <!--<waitForElementVisible selector="{{CheckoutCartGiftWrappingSection.cartItemGiftMessage}}" stepKey="seeGiftMessageItem"/>-->
+        <!--<scrollTo selector="{{CheckoutCartGiftWrappingSection.update}}" x="-200" y="-200" stepKey="scrollToUpdateButton1"/>-->
+        <click selector="{{CheckoutCartGiftWrappingSection.update}}" stepKey="clickUpdateButton1"/>
+        <waitForPageLoad stepKey="waitForPageLoadProduct1" />
+
+        <!-- Click Gift Options Simple Product2 -->
+        <scrollTo selector="{{CheckoutCartGiftWrappingSection.clickCartItemGiftOptions('$$createSimpleProduct2.name$$')}}" x="-200" y="-200" stepKey="scrollToProduct2"/>
+        <click selector="{{CheckoutCartGiftWrappingSection.clickCartItemGiftOptions('$$createSimpleProduct2.name$$')}}" stepKey="clickGiftOptionItem2"/>
+        <waitForElementVisible selector="{{CheckoutCartGiftWrappingSection.cartItemVisibleSmallImage}}" stepKey="waitVisibleImage2"/>
+        <click selector="{{CheckoutCartGiftWrappingSection.cartItemVisibleSmallImage}}" stepKey="clickSmallImage2"/>
+        <see selector="{{CheckoutCartGiftWrappingSection.giftWrappingReqularPrice}}" userInput="$66.66" stepKey="seeGiftWrappingReqularPrice2"/>
+        <!--<waitForElementVisible selector="{{CheckoutCartGiftWrappingSection.cartItemGiftMessage}}" stepKey="seeGiftMessageItem2"/>-->
+        <!--<scrollTo selector="{{CheckoutCartGiftWrappingSection.update}}" x="-200" y="-200" stepKey="scrollToUpdateButton2"/>-->
+        <click selector="{{CheckoutCartGiftWrappingSection.update}}" stepKey="clickUpdateButton2"/>
+        <waitForPageLoad stepKey="waitForPageLoadProduct2" />
+
+
+        <!-- Click Gift Options All Order level-->
+        <scrollTo selector="{{CheckoutCartGiftWrappingSection.cartGiftOptionAll('Gift options')}}" x="-200" y="-200" stepKey="scrollToOrderlevel"/>
+        <waitForElementVisible selector="{{CheckoutCartGiftWrappingSection.cartGiftOptionAll('Gift options')}}" stepKey="seeGiftOptionPresent4"/>
+        <click selector="{{CheckoutCartGiftWrappingSection.clickCartGiftOptions}}" stepKey="clickGiftOptionAll"/>
+        <waitForElementVisible selector="{{CheckoutCartGiftWrappingSection.cartVisibleSmallImage}}" stepKey="waitVisibleImage1"/>
+        <click selector="{{CheckoutCartGiftWrappingSection.cartVisibleSmallImage}}" stepKey="clickSmallImage1"/>
+        <see selector="{{CheckoutCartGiftWrappingSection.giftWrappingReqularPrice}}" userInput="$36.50" stepKey="seeGiftWrappingReqularPrice1"/>
+        <scrollTo selector="{{CheckoutCartGiftWrappingSection.update}}" x="-200" y="-200" stepKey="scrollToUpdateButton3"/>
+        <click selector="{{CheckoutCartGiftWrappingSection.update}}" stepKey="clickUpdateButtonOrderLevel"/>
+        <click selector="{{CheckoutCartGiftWrappingSection.clickButtonGiftUpdate}}" stepKey="clickButtonGiftUpdate"/>
+        <waitForPageLoad stepKey="waitForPageLoadOrderlevel" />
+        <see selector="{{CheckoutCartGiftWrappingSection.giftWrappingOrderPrice}}" userInput="$36.50" stepKey="seeGiftWrappingPrice2"/>
+        <see selector="{{CheckoutCartGiftWrappingSection.giftWrappingItemsPrice}}" userInput="$103.16" stepKey="seeGiftPreintedCardPrice"/>
+    </test>
+
+</tests>

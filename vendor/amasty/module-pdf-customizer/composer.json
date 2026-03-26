@@ -1,0 +1,26 @@
+{
+    "name": "amasty/module-pdf-customizer",
+    "description": "PDF Customizer by Amasty",
+    "require": {
+        "php": ">=7.3",
+        "amasty/base": ">=1.20.0",
+        "magento/module-email": "*",
+        "dompdf/dompdf": "*"
+    },
+    "suggest": {
+        "amasty/zend-pdf-patch": "Install Zend PDF patch if you have a problem with extension when using PHP 8.0+"
+    },
+    "type": "magento2-module",
+    "version": "1.6.0",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\PDFCustom\\": ""
+        }
+    }
+}

@@ -1,0 +1,66 @@
+<?php
+
+use Mirasvit\Core\Service\CspService;
+
+/**
+ * @var $block \Mirasvit\LayeredNavigation\Block\Ajax
+ */
+
+$nonce = CspService::getNonce();
+?>
+<?php if ($block->isAjaxEnabled()): ?>
+    <script<?php if ($nonce): ?> nonce="<?= $block->escapeHtml($nonce) ?>"<?php endif; ?> type="text/x-magento-init"><?= \Mirasvit\Core\Service\SerializeService::encode($block->getJsonConfig()) ?></script>
+<?php endif ?>
+<script<?php if ($nonce): ?> nonce="<?= $block->escapeHtml($nonce) ?>"<?php endif; ?>>
+    window.mstNavAjax = <?=$block->isAjaxEnabled() ? 'true' : 'false'?>;
+
+    window.mstInstantlyMode = <?=$block->isInstantMode() ? 'true' : 'false'?>;
+    window.mstNavConfirmationMode = <?=$block->isConfirmationMode() ? 'true' : 'false'?>;
+    window.mstSeoFilterEnabled = <?=$block->isSeoFilterEnabled() ? 'true' : 'false'?>;
+    window.mstRelAttributeValue = '<?= /* @noEscape */ $block->getRelAttributeValue()?>';
+    window.mstHighlightEnabled = <?=$block->isHighlightEnabled() ? 'true' : 'false'?>;
+    window.mstFriendlyClearUrl = '<?= /* @noEscape */ $block->getFriendlyClearUrl()?>';
+    window.mstNavConfirmOnMobile = <?=$block->isConfirmOnMobile() ? 'true' : 'false'?>;
+    window.mstNavModeSwitchBreakpoint = <?= /* @noEscape */ $block->getModeSwitchBreakpoint()?>;
+    window.mstScrollToTopBehaviour = <?=$block->escapeHtml($block->getScrollToTopBehaviour())?>;
+    window.mstStickySidebar = <?=$block->isStickySidebarEnabled() ? 'true' : 'false'?>;
+    window.mstCategoryFilterModeLink = <?=$block->isCategoryFilterModeLink() ? 'true' : 'false'?>;
+    window.mstPreCalculationEnabled = <?=$block->isPreCalculationEnabled() ? 'true' : 'false'?>;
+    window.mstIsShowClearButton = <?=$block->isShowClearButton() ? 'true' : 'false'?>;
+</script>
+
+<script<?php if ($nonce): ?> nonce="<?= $block->escapeHtml($nonce) ?>"<?php endif; ?>>
+    function handleFiltersNavPositions() {
+        var filtersConfig = <?= /* @noEscape */ json_encode($block->getFiltersNavPositions()) ?>;
+
+        document.querySelectorAll('.sidebar [data-mst-nav-filter]').forEach(function (filterOptions) {
+            var attributeCode = filterOptions.getAttribute('data-mst-nav-filter').replace(/A\d{6}A/, '');
+
+            if (filtersConfig.hasOwnProperty(attributeCode)) {
+                if (!filterOptions.closest('.filter-options-item')) {
+                    var optionsContent = filterOptions.closest('.filter-options-content');
+
+                    optionsContent.setAttribute('data-nav-position', filtersConfig[attributeCode]);
+                    optionsContent.previousElementSibling
+                        .setAttribute('data-nav-position', filtersConfig[attributeCode]);
+                } else {
+                    filterOptions.closest('.filter-options-item')
+                        .setAttribute('data-nav-position', filtersConfig[attributeCode]);
+                }
+            }
+        }.bind(this))
+    }
+
+    document.addEventListener('DOMContentLoaded', handleFiltersNavPositions);
+</script>
+
+<script<?php if ($nonce): ?> nonce="<?= $block->escapeHtml($nonce) ?>"<?php endif; ?>>
+    require(
+        ['jquery'],
+        function($) {
+            $(document).ready(function () {
+                $('.catalogsearch-result-index #m-navigation-replacer').replaceWith($('.mst-nav__horizontal-bar'));
+            });
+        }
+    );
+</script>

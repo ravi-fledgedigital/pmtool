@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Product Tabs for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Indexer/etc/indexer.xsd">
+    <indexer id="amasty_tabs_tab_product" view_id="amasty_tabs_tab_product" class="Amasty\CustomTabs\Model\Tabs\Indexer\TabIndexer" shared_index="amasty_tabs_tab">
+        <title translate="true">Amasty Tabs</title>
+        <description translate="true">Indexed tab/product association</description>
+    </indexer>
+    <indexer id="amasty_tabs_product_tab" view_id="amasty_tabs_product_tab" class="\Amasty\CustomTabs\Model\Tabs\Indexer\ProductIndexer" shared_index="amasty_tabs_tab">
+        <title translate="true">Amasty Tabs</title>
+        <description translate="true">Indexed product/tab association</description>
+    </indexer>
+</config>

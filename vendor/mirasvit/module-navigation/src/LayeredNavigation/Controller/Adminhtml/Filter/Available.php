@@ -1,0 +1,86 @@
+<?php
+/**
+ * Mirasvit
+ *
+ * This source file is subject to the Mirasvit Software License, which is available at https://mirasvit.com/license/.
+ * Do not edit or add to this file if you wish to upgrade the to newer versions in the future.
+ * If you wish to customize this module for your needs.
+ * Please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category  Mirasvit
+ * @package   mirasvit/module-navigation
+ * @version   2.9.34
+ * @copyright Copyright (C) 2026 Mirasvit (https://mirasvit.com/)
+ */
+
+
+
+declare(strict_types=1);
+
+namespace Mirasvit\LayeredNavigation\Controller\Adminhtml\Filter;
+
+use Magento\Backend\App\Action;
+use Magento\Backend\App\Action\Context;
+use Magento\Eav\Model\Entity\Attribute;
+use Magento\Framework\Controller\Result\JsonFactory;
+use Magento\Eav\Model\Entity\TypeFactory;
+
+class Available extends Action
+{
+    private JsonFactory $resultJsonFactory;
+    private TypeFactory $typeFactory;
+
+    public function __construct(
+        Context $context,
+        JsonFactory $resultJsonFactory,
+        TypeFactory $typeFactory
+    ) {
+        parent::__construct($context);
+        $this->resultJsonFactory = $resultJsonFactory;
+        $this->typeFactory = $typeFactory;
+    }
+
+    public function execute()
+    {
+        $result = $this->resultJsonFactory->create();
+
+        try {
+            $entityType = $this->typeFactory->create()->loadByCode('catalog_product');
+
+            $collection = $entityType->getAttributeCollection()
+                ->addFieldToFilter('frontend_input', ['in' => ['select', 'multiselect', 'boolean']])
+                ->addFieldToFilter('is_filterable', 0);
+
+            $html = '';
+
+            /** @var \Magento\Framework\View\LayoutInterface $layout */
+            $layout = $this->_view->getLayout();
+
+            foreach ($collection as $attribute) {
+                if (!$attribute->getIsUserDefined() || !$attribute->getFrontendLabel()) {
+                    continue;
+                }
+
+                $block = $layout->createBlock(\Mirasvit\LayeredNavigation\Block\Adminhtml\Filter\AttributeItem::class);
+                $block->setAttributeId($attribute->getAttributeId())
+                    ->setAttributeData([
+                        'id'    => (int)$attribute->getAttributeId(),
+                        'code'  => $attribute->getAttributeCode(),
+                        'label' => $attribute->getFrontendLabel(),
+                    ]);
+
+                $html .= $block->toHtml();
+            }
+
+            return $result->setData([
+                'success' => true,
+                'html'    => $html,
+            ]);
+        } catch (\Exception $e) {
+            return $result->setData([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ]);
+        }
+    }
+}

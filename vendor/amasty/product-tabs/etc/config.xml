@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Product Tabs for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <amcustomtabs>
+            <general>
+                <enabled>1</enabled>
+                <allow_default>1</allow_default>
+                <accordion_view>0</accordion_view>
+            </general>
+        </amcustomtabs>
+    </default>
+</config>

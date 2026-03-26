@@ -1,0 +1,77 @@
+<?php
+/************************************************************************
+ *
+ * ADOBE CONFIDENTIAL
+ * ___________________
+ *
+ * Copyright 2023 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ * ************************************************************************
+ */
+
+/** @var \Magento\AdobeCommerceOutOfProcessExtensibility\Model\Generator\ModuleBlock $block */
+/** @var string $interfaceShort */
+/** @var array $method */
+?>
+
+    /**
+     * Intercepts <?=$method['methodName'] ?> method and invokes after subscriptions if they are available
+     *
+     * @param <?=$interfaceShort ?> $subject
+     * @param mixed $result
+<?php foreach ($method['params'] as $param): ?>
+     * @param $<?=$param['name'] . PHP_EOL; ?>
+<?php endforeach; ?>
+     * @return mixed
+     * @throws Exception
+     */
+    public function <?=$method['pluginMethodName'] ?>(<?=$interfaceShort ?> $subject, $result<?=$block->renderParametersForMethod($method); ?>)
+    {
+        $arguments = get_defined_vars();
+<?php if ($interfaceShort === 'ManagerInterface'): ?>
+        if (in_array($eventName, $this->ignoredEvents)
+            || !$this->allowedChecker->isAllowed(Webhook::WEBHOOK_OBSERVER . '.' . $eventName)
+        ) {
+            return $result;
+        }
+        $webhook = $this->webhookList->get(Webhook::WEBHOOK_OBSERVER . '.' . $eventName, 'after');
+<?php else: ?>
+        $webhook = $this->webhookList->get(self::WEBHOOK_NAME, self::WEBHOOK_TYPE);
+<?php endif; ?>
+        if ($webhook === null) {
+            return $result;
+        }
+
+        foreach ($webhook->getBatches() as $webhookBatch) {
+            try {
+                $convertedData = $this->argumentDataConverter->convert($arguments);
+                $operations = $this->webhookBatchRunner->execute($webhookBatch, $convertedData);
+                foreach ($operations as $hookOperations) {
+                    foreach ($hookOperations as $operation) {
+                        $operation->execute($arguments);
+                    }
+                }
+            } catch (Exception $e) {
+                $this->logger->error(
+                    sprintf(
+                        'Failed to process webhook: "%s", Error: %s',
+                        $webhook->getName(),
+                        $e->getMessage()
+                    ),
+                    ['exception' => $e]
+                );
+                throw $e;
+            }
+        }
+
+        return $arguments['result'];
+    }

@@ -1,0 +1,5 @@
+
+File "/var/www/html/app/code/Magento/TargetRule/Test/Mftf/Test/StorefrontCheckRelatedProductsTargetRuleWithCustomerSegmentTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue

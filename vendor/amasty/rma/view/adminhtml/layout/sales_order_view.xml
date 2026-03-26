@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package RMA Base for Magento 2
+ */-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="sales_order_tabs">
+            <block class="Amasty\Rma\Block\Adminhtml\Order\Edit\Tab\Rma" name="amasty_rma">
+                <uiComponent name="amrma_sales_order_view_requests"/>
+            </block>
+
+            <action method="addTabAfter">
+                <argument name="name" xsi:type="string">amasty_rma_grid</argument>
+                <argument name="block" xsi:type="string">amasty_rma</argument>
+                <argument name="after" xsi:type="string">order_transactions</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

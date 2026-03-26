@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * ADOBE CONFIDENTIAL
+ *
+ * Copyright 2024 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">adminuisdk_log_grid.adminuisdk_log_grid_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>adminuisdk_log_columns</spinner>
+        <deps>
+            <dep>adminuisdk_log_grid.adminuisdk_log_grid_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="adminuisdk_log_grid_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Magento_CommerceBackendUix::adminuisdk_log_grid</aclResource>
+        <dataProvider
+        class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider"
+        name="adminuisdk_log_grid_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <columnsControls name="columns_controls" />
+        <filters name="listing_filters" />
+        <paging name="listing_paging" />
+    </listingToolbar>
+    <columns name="adminuisdk_log_columns">
+        <column name="id" sortOrder="10">
+            <settings>
+                <filter>textRange</filter>
+                <bodyTmpl>ui/grid/cells/text</bodyTmpl>
+                <label translate="true">Log record id</label>
+                <sortable>true</sortable>
+                <sorting>desc</sorting>
+            </settings>
+        </column>
+        <column name="level" sortOrder="20"  component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <options class="Magento\CommerceBackendUix\Model\Config\LogLevel"/>
+                <filter>select</filter>
+                <editor>
+                    <editorType>select</editorType>
+                </editor>
+                <bodyTmpl>ui/grid/cells/text</bodyTmpl>
+                <label translate="true">Log level</label>
+                <dataType>select</dataType>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+        <column name="message" sortOrder="30">
+            <settings>
+                <filter>text</filter>
+                <bodyTmpl>ui/grid/cells/text</bodyTmpl>
+                <label translate="true">Message</label>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+        <column name="timestamp" sortOrder="40">
+            <settings>
+                <filter>dateRange</filter>
+                <bodyTmpl>ui/grid/cells/text</bodyTmpl>
+                <label translate="true">Timestamp</label>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+    </columns>
+</listing>

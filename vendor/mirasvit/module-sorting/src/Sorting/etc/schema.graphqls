@@ -1,0 +1,52 @@
+input ProductAttributeSortInput
+{
+    mst_sort: MstSortCriteria
+    mst_pin: Boolean @doc(description: "#mst When = true, then products pinned to the category top are returned first")
+}
+
+input MstSortCriteria {
+    code: String
+    dir: SortEnum
+}
+
+interface ProductInterface {
+    pinned_category_ids: [Int] @resolver(class: "Mirasvit\\Sorting\\Model\\Resolver\\Product\\PinnedInCategories") @doc(description: "#mst Array of category IDs where the product is pinned to top")
+    pin_to_top: Boolean @resolver(class: "Mirasvit\\Sorting\\Model\\Resolver\\Product\\PinToTop") @doc(description: "#mst Indicates if the product is pinned to top in the current category")
+}
+
+interface CategoryInterface {
+    pinned_product_ids: [Int] @resolver(class: "Mirasvit\\Sorting\\Model\\Resolver\\Category\\PinnedProductIds") @doc(description: "#mst Array of product IDs pinned to top in the category")
+}
+
+type CategoryTree {
+    pinned_product_ids: [Int] @resolver(class: "Mirasvit\\Sorting\\Model\\Resolver\\Category\\PinnedProductIds") @doc(description: "#mst Array of product IDs pinned to top in the category")
+}
+
+type Mutation {
+    setPinnedCategories(input: SetPinnedCategoriesInput!): PinnedCategoriesOutput @resolver(class: "Mirasvit\\Sorting\\Model\\Resolver\\SetPinnedCategories") @doc(description: "#mst Set categories where the product should be pinned to top")
+    setPinnedProducts(input: SetPinnedProductsInput!): PinnedProductsOutput @resolver(class: "Mirasvit\\Sorting\\Model\\Resolver\\SetPinnedProducts") @doc(description: "#mst Set products that should be pinned to top in the category")
+}
+
+input SetPinnedCategoriesInput {
+    product_id: Int! @doc(description: "#mst Product ID")
+    category_ids: [Int!]! @doc(description: "#mst Array of category IDs where the product should be pinned")
+}
+
+input SetPinnedProductsInput {
+    category_id: Int! @doc(description: "#mst Category ID")
+    product_ids: [Int!]! @doc(description: "#mst Array of product IDs to pin in the category")
+}
+
+type PinnedCategoriesOutput {
+    success: Boolean! @doc(description: "#mst Indicates if operation was successful")
+    message: String @doc(description: "#mst Result message")
+    product_id: Int @doc(description: "#mst Product ID")
+    category_ids: [Int] @doc(description: "#mst Updated array of category IDs")
+}
+
+type PinnedProductsOutput {
+    success: Boolean! @doc(description: "#mst Indicates if operation was successful")
+    message: String @doc(description: "#mst Result message")
+    category_id: Int @doc(description: "#mst Category ID")
+    product_ids: [Int] @doc(description: "#mst Updated array of product IDs")
+}

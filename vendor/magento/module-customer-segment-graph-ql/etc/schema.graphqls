@@ -1,0 +1,6 @@
+# Copyright © Magento, Inc. All rights reserved.
+# See COPYING.txt for license details.
+
+input AttributeFilterInput {
+    is_used_for_customer_segment: Boolean @doc(description: "Whether a customer or customer address attribute is used for customer segment or not.")
+}

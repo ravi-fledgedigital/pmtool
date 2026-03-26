@@ -1,0 +1,15 @@
+
+File "/var/www/html/app/code/Magento/AwsS3CustomerCustomAttributes/Test/Mftf/Test/CustomerAwsS3AttributesAdminVerifyFileTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminVerifyCustomerCustomFileAttributeUploadTest from module(s): magento/module-customer-custom-attributes
+
+File "/var/www/html/app/code/Magento/AwsS3CustomerCustomAttributes/Test/Mftf/Test/StorefrontAwsS3CreateOrderWithFileUploadForCustomerTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 StorefrontCreateOrderWithFileUploadForCustomerTest from module(s): magento/module-customer-custom-attributes
+
+File "/var/www/html/app/code/Magento/AwsS3CustomerCustomAttributes/Test/Mftf/Test/StorefrontAwsS3RegisterCustomerWithCustomerImageAttributeTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 StorefrontRegisterCustomerWithCustomerImageAttributeTest from module(s): magento/module-customer-custom-attributes

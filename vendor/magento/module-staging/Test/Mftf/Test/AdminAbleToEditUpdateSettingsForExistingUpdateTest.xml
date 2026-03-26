@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminAbleToEditUpdateSettingsForExistingUpdateTest">
+        <annotations>
+            <features value="Staging"/>
+            <stories value="Staging updates"/>
+            <title value="Able to Edit Update settings from entity page when Update is a part of Staging Campaign"/>
+            <description value="Able to Edit Update settings from entity page when Update is a part of Staging Campaign"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="AC-4141"/>
+            <group value="staging"/>
+            <group value="cloud"/>
+        </annotations>
+        <before>
+            <!-- Login to Admin page -->
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+
+            <!-- create category, simple product(keeping price as 10) -->
+            <createData entity="SimpleSubCategory" stepKey="createCategory"/>
+            <createData entity="SimpleProduct" stepKey="createSimpleProduct">
+                <field key="price">10</field>
+                <field key="qty">100</field>
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+        </before>
+        <after>
+            <!-- delete created data -->
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <deleteData createDataKey="createSimpleProduct" stepKey="deleteProduct"/>
+            <actionGroup ref="StagingDashboardClearFiltersActionGroup" stepKey="clearStagingFilters"/>
+            <actionGroup ref="AdminClearFiltersActionGroup" stepKey="clearProductFilters"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+       <!-- Open created product and create new schedule-->
+        <actionGroup ref="AdminProductPageOpenByIdActionGroup" stepKey="openProductForEdit">
+            <argument name="productId" value="$createSimpleProduct.id$"/>
+        </actionGroup>
+
+        <!-- Block "Scheduled Changes"  with no inside content is presented on product view page -->
+        <dontSeeElement selector="{{AdminStagingSlideOutSection.contentBlock}}" stepKey="dontSeeContentInScheduledChanges"/>
+        <click selector="{{AdminStagingSlideOutSection.scheduleNewUpdateBtn}}" stepKey="clickScheduleNewUpdateButton"/>
+        <generateDate date="+5 minutes" timezone="America/Chicago" format="m/d/Y g:i A" stepKey="generateStartDate"/>
+        <generateDate date="+10 minutes" timezone="America/Chicago" format="m/d/Y g:i A" stepKey="generateEndDate"/>
+        <fillField selector="{{AdminStagingSlideOutSection.updateName}}" userInput="S5UpdateNameStaging" stepKey="fillName"/>
+        <fillField selector="{{AdminStagingSlideOutSection.updateDescription}}" userInput="S5UpdateDescription" stepKey="fillDescription"/>
+        <fillField selector="{{AdminStagingSlideOutSection.startDate}}" userInput="{$generateStartDate}}" stepKey="fillStartDate"/>
+        <fillField selector="{{AdminStagingSlideOutSection.endDate}}" userInput="{$generateEndDate}" stepKey="fillEndDate"/>
+        <fillField selector="{{AdminCatalogStagingSlideOutSection.productPrice}}" userInput="14" stepKey="fillProductPrice"/>
+
+        <!-- Open date picker and collect date and time in format that we need for assertions -->
+        <!-- Start date First Staging S5 -->
+        <click selector="{{AdminStagingSlideOutSection.datepickerStartDate}}" stepKey="clickDatePickerStartDay"/>
+        <grabTextFrom selector="{{AdminStagingSlideOutSection.datapickerTime}}" stepKey="grabStartTimeS5"/>
+        <grabTextFrom selector="{{AdminStagingSlideOutSection.datapickerCurrentDay}}" stepKey="grabStartCurrentDayS5"/>
+        <grabTextFrom selector="{{AdminStagingSlideOutSection.datapickerMonth}}" stepKey="grabStartMonthS5"/>
+        <grabValueFrom selector="{{AdminStagingSlideOutSection.datapickerYear}}" stepKey="grabStartYearS5"/>
+        <click selector="{{AdminStagingSlideOutSection.datepickerClose}}" stepKey="clickClose"/>
+
+        <!-- End date First Staging S5-->
+        <click selector="{{AdminStagingSlideOutSection.datepickerEndDate}}" stepKey="clickDatePickerEndDay"/>
+        <grabTextFrom selector="{{AdminStagingSlideOutSection.datapickerTime}}" stepKey="grabEndTimeS5"/>
+        <grabTextFrom selector="{{AdminStagingSlideOutSection.datapickerCurrentDay}}" stepKey="grabEndCurrentDayS5"/>
+        <grabTextFrom selector="{{AdminStagingSlideOutSection.datapickerMonth}}" stepKey="grabEndMonthS5"/>
+        <grabValueFrom selector="{{AdminStagingSlideOutSection.datapickerYear}}" stepKey="grabEndYearS5"/>
+        <click selector="{{AdminStagingSlideOutSection.datepickerClose}}" stepKey="clickCloseDatePicker"/>
+        <click selector="{{AdminStagingSlideOutSection.save}}" stepKey="clickSave"/>
+        <comment userInput="BIC workaround" stepKey="runIndexCronJobs"/>
+        <comment userInput="BIC workaround" stepKey="runIndexCronJobsSecondTime"/>
+        <actionGroup ref="CliIndexerReindexActionGroup" stepKey="performReindex">
+            <argument name="indices" value=""/>
+        </actionGroup>
+        <actionGroup ref="CliCacheFlushActionGroup" stepKey="cleanCache">
+            <argument name="tags" value=""/>
+        </actionGroup>
+
+        <!--  Go to Catalog-> Products-> filter  grid by 'simple' product name  and verify Schedule New Update button visibility-->
+        <actionGroup ref="SearchForProductOnBackendActionGroup" stepKey="searchForSimpleProduct">
+            <argument name="product" value="$$createSimpleProduct$$"/>
+        </actionGroup>
+        <seeElement selector="{{AdminProductGridSection.productGridNameProduct('$$createSimpleProduct.name$$')}}" stepKey="assertProductInGrid"/>
+        <amOnPage url="{{AdminProductEditPage.url($createSimpleProduct.id$)}}" stepKey="openProductEditPage"/>
+        <see selector="{{AdminStagingSlideOutSection.scheduleNewUpdateBtn}}" userInput="Schedule New Update" stepKey="checkScheduleNewUpdate"/>
+
+        <!-- assert staging details -->
+        <see selector="{{AdminScheduledChangesSection.scheduleItemName}}" userInput="s5UpdateName" stepKey="seeName"/>
+        <see selector="{{AdminScheduledChangesSection.scheduleItemDescription}}" userInput="s5updateDescription" stepKey="seeDescription"/>
+        <seeElement selector="{{AdminScheduledChangesSection.scheduleStartDate('{$grabStartMonthS5} {$grabStartCurrentDayS5}, {$grabStartYearS5}')}}" stepKey="seeStartDate"/>
+        <seeElement selector="{{AdminScheduledChangesSection.scheduleEndDate('{$grabEndMonthS5} {$grabEndCurrentDayS5}, {$grabEndYearS5}')}}" stepKey="seeEndDate"/>
+
+        <!-- update staging with new name -->
+        <click selector="{{AdminStagingSlideOutSection.viewEdit}}" stepKey="clickEditButton"/>
+        <wait time="30" stepKey="waitToLoadStagingPanel"/>
+        <clearField selector="{{AdminStagingSlideOutSection.updateName}}" stepKey="clearNameField"/>
+        <fillField selector="{{AdminStagingSlideOutSection.updateName}}" userInput="UpdatedStagingName" stepKey="fillNewUpdateName"/>
+        <click selector="{{AdminStagingSlideOutSection.save}}" stepKey="clickSaveAgain"/>
+        <wait time="30" stepKey="waitToLoadProductPage"/>
+
+        <!-- assert newly saved staging updated name -->
+        <see selector="{{AdminScheduledChangesSection.scheduleItemName}}" userInput="UpdatedStagingName" stepKey="seeNewUpdateName"/>
+    </test>
+</tests>

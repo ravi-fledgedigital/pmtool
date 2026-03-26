@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!--
+/************************************************************************
+ *
+ * ADOBE CONFIDENTIAL
+ * ___________________
+ *
+ * Copyright 2024 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ * ************************************************************************
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="webhooks_log" resource="default" engine="innodb" comment="Commerce Webhooks Logs">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true"
+                comment="ID for log record"/>
+        <column xsi:type="varchar" name="webhook_method" nullable="false" length="255"
+                comment="Method for associated webhook"/>
+        <column xsi:type="varchar" name="webhook_type" nullable="false" length="6"
+                comment="Type for associated webhook"/>
+        <column xsi:type="varchar" name="batch_name" nullable="false" length="255"
+                comment="Name of batch containing hook"/>
+        <column xsi:type="varchar" name="hook_name" nullable="false" length="255"
+                comment="Name for hook"/>
+        <column xsi:type="smallint" name="level" nullable="false" unsigned="true"
+                comment="Level of the log record"/>
+        <column xsi:type="varchar" name="request_id" nullable="false" length="32"
+                comment="Request Id"/>
+        <column xsi:type="text" name="message" nullable="false"
+                comment="Log message"/>
+        <column xsi:type="datetime" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Log created at"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <index referenceId="WEBHOOKS_LOG_WEBHOOK_METHOD_INDEX" indexType="btree">
+            <column name="webhook_method"/>
+        </index>
+    </table>
+</schema>

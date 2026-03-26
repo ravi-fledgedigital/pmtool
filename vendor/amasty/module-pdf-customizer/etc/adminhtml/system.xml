@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package PDF Customizer for Magento 2
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="ampdf" translate="label" type="text" sortOrder="160403" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>PDF Customizer</label>
+            <tab>amasty</tab>
+            <group id="amasty_information" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Information</label>
+                <frontend_model>Amasty\PDFCustom\Block\Adminhtml\System\Config\Information</frontend_model>
+            </group>
+            <resource>Amasty_PDFCustom::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <frontend_model>Amasty\PDFCustom\Block\Adminhtml\System\Config\EnablePDFCustom</frontend_model>
+                </field>
+                <field id="used_library" translate="label" type="select" sortOrder="15" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Library for PDF Customization</label>
+                    <backend_model>Amasty\PDFCustom\Model\Config\Backend\LibraryValidator</backend_model>
+                    <source_model>Amasty\PDFCustom\Model\Source\TypeLibraryForPDF</source_model>
+                    <frontend_model>AddMpdfLibrary</frontend_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                    <tooltip>For improved handling of non-Latin characters in PDFs, we suggest using the mPDF library. For other use cases, the dompdf library is recommended.</tooltip>
+                </field>
+            </group>
+            <group id="invoice" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Invoice</label>
+                <field id="email_attach" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Automatically Attach PDF Files to Sales Emails</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="link_type" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Link Type in Customer Account</label>
+                    <source_model>Amasty\PDFCustom\Model\Source\LinkTypeReplace</source_model>
+                </field>
+            </group>
+            <group id="shipment" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Shipment</label>
+                <field id="email_attach" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Automatically Attach PDF Files to Sales Emails</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="link_type" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Link Type in Customer Account</label>
+                    <source_model>Amasty\PDFCustom\Model\Source\LinkTypeReplace</source_model>
+                </field>
+            </group>
+            <group id="creditmemo" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Credit Memo</label>
+                <field id="email_attach" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Automatically Attach PDF Files to Sales Emails</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="link_type" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Link Type in Customer Account</label>
+                    <source_model>Amasty\PDFCustom\Model\Source\LinkTypeReplace</source_model>
+                </field>
+            </group>
+            <group id="order" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Order</label>
+                <field id="email_attach" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Automatically Attach PDF Files to Sales Emails</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="link_type" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Link Type in Customer Account</label>
+                    <source_model>Amasty\PDFCustom\Model\Source\LinkType</source_model>
+                </field>
+                <field id="link_label" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Link Label</label>
+                    <depends>
+                        <field id="link_type">2</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

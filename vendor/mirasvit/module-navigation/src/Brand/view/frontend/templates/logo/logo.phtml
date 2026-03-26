@@ -1,0 +1,65 @@
+<?php
+
+use Mirasvit\Core\Service\CspService;
+
+/* @var $block \Mirasvit\Brand\Block\Logo */
+?>
+<?php
+$brandUrl       = $block->getBrandUrl();
+$title          = $block->getBrandTitle();
+$logoImageUrl   = $block->getLogoImageUrl();
+$imageWidth     = $block->getImageWidth();
+$tooltipContent = $block->getTooltipContent();
+$isProductPage  = $block->isProductPage();
+$nonce          = CspService::getNonce();
+?>
+<div class="m-logo">
+    <a class="m-brand-tooltip" href="<?= $block->escapeUrl($brandUrl) ?>"
+       data-m-tooltip-content='<?= $block->escapeHtmlAttr($tooltipContent) ?>'
+    >
+        <img style="width: <?= $block->escapeHtmlAttr($imageWidth) ?>px;" title="<?= $block->escapeHtmlAttr($title) ?>" alt="<?= $block->escapeHtmlAttr($title) ?>" src="<?= $block->escapeUrl($logoImageUrl) ?>"/>
+    </a>
+    <?php if ($isProductPage): ?>
+        <span><?= /* @noEscape */ $block->getBrandDescription() ?></span>
+    <?php endif ?>
+</div>
+<script<?php if ($nonce): ?> nonce="<?= $block->escapeHtml($nonce) ?>"<?php endif; ?>>
+    require([
+        'jquery',
+        "mage/tooltip"
+    ], function ($) {
+        $('.m-brand-tooltip').tooltip({
+            position:     {
+                my:        "left-15 bottom-10",
+                at:        "center top",
+                collision: "flip flip",
+                using:     function (position, feedback) {
+                    $(this)
+                        .addClass(feedback.vertical)
+                        .css(position);
+                    const windowWidth = $(window).width();
+                    const elementWidth = feedback.target.left + feedback.element.width;
+                    if (feedback.horizontal == 'right'
+                        || (feedback.horizontal == 'left' && elementWidth > windowWidth)) {
+                        $('.m-brand-tooltip-container .ui-tooltip-content').append(
+                            '<style>' +
+                            '.m-brand-tooltip-container .ui-tooltip-content::before,' +
+                            '.m-brand-tooltip-container .ui-tooltip-content::after {' +
+                            'right: 5px !important;' +
+                            'left: auto !important;' +
+                            '}' +
+                            '</style>'
+                        );
+                    }
+                }
+            },
+            tooltipClass: "m-brand-tooltip-container",
+            content:      function () {
+                return $(this).attr('data-m-tooltip-content');
+            },
+            open: function (event, ui) {
+                $('.ui-helper-hidden-accessible').remove();
+            },
+            items: '.m-brand-tooltip',
+        });
+    });</script>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="cataloglabel" showInDefault="1" showInWebsite="0" showInStore="0" type="text" translate="label"
+                 sortOrder="100">
+            <label>Catalog Label</label>
+            <tab>mirasvit</tab>
+            <resource>Mirasvit_CatalogLabel::cataloglabel_config</resource>
+            <group id="general" showInDefault="1" sortOrder="10" translate="label">
+                <label>General Settings</label>
+
+                <field id="is_flush_cache_enabled" translate="label tooltip" type="select" sortOrder="10" showInDefault="1">
+                    <label>Flush dependent page cache after new product creation</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip><![CDATA[If enabled, the extension will regenerate rules and flush FPC cache for dependent pages for new products (once per hour)]]></tooltip>
+                </field>
+
+                <field id="apply_for_child" translate="label comment" type="select" sortOrder="15" showInDefault="1">
+                    <label>Apply labels for child products of configurable products</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[If enabled, the extension will assign labels for child products of configurable products.<br/>Labels will be updated after swatch option(s) are selected for configurable products.<br/>Products filtered by the swatch attribute will display labels for corresponding child products.<br/>Enabling this option will increase the reindex time of the Product Label Index.<br/><b>Reindex the Product Label Index after changing this setting.</b>]]></comment>
+                </field>
+
+                <field id="apply_for_parent" translate="label" type="select" sortOrder="15" showInDefault="1">
+                    <label>Apply labels for configurable products if one of the child products meets the conditions</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="discount_precision" translate="label tooltip" type="text" sortOrder="20" showInDefault="1">
+                    <label>Discount output precision</label>
+                    <tooltip><![CDATA[Number of digits displayed after the decimal point for product discount variable in labels]]></tooltip>
+                </field>
+
+                <field id="date_format" translate="label tooltip" type="text" sortOrder="30" showInDefault="1">
+                    <label>Date format</label>
+                    <tooltip><![CDATA[If not empty, will format attributes with "Date" and "Date and Time" catalog input types]]></tooltip>
+                </field>
+
+                <field id="ignore_pages" translate="label" type="textarea" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Exclude product labels on pages</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

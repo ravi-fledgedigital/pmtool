@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package RMA Base for Magento 2
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <include path="Amasty_Rma::entity/rma_request.xml"/>
+    <include path="Amasty_Rma::entity/rma_request_item.xml"/>
+    <include path="Amasty_Rma::entity/rma_status.xml"/>
+    <include path="Amasty_Rma::entity/rma_status_store.xml"/>
+    <include path="Amasty_Rma::entity/rma_reason.xml"/>
+    <include path="Amasty_Rma::entity/rma_reason_store.xml"/>
+    <include path="Amasty_Rma::entity/rma_item_condition.xml"/>
+    <include path="Amasty_Rma::entity/rma_item_condition_store.xml"/>
+    <include path="Amasty_Rma::entity/rma_resolution.xml"/>
+    <include path="Amasty_Rma::entity/rma_resolution_store.xml"/>
+    <include path="Amasty_Rma::entity/rma_tracking.xml"/>
+    <include path="Amasty_Rma::entity/rma_chat.xml"/>
+    <include path="Amasty_Rma::entity/rma_chat_file.xml"/>
+    <include path="Amasty_Rma::entity/rma_history.xml"/>
+</config>

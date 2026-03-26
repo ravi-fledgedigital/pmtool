@@ -1,0 +1,21 @@
+
+File "/var/www/html/app/code/Magento/AwsS3ScheduledImportExport/Test/Mftf/Test/AdminAwsS3ScheduleImportSimpleProductsWithImagesTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 ScheduleImportProduct_Simple from module(s): magento/module-scheduled-import-export
+	 RemoteStorageAwsS3ConfigData from module(s): magento/module-aws-s3
+	 CliCacheFlushActionGroup from module(s): magento/module-backend
+	 AdminFillScheduledImportFormActionGroup from module(s): magento/module-scheduled-import-export
+	 AdminScheduleImportSimpleProductsWithImagesTest from module(s): magento/module-scheduled-import-export
+
+File "/var/www/html/app/code/Magento/AwsS3ScheduledImportExport/Test/Mftf/Test/AdminAwsS3ScheduledExportProductsTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 ScheduleExport1 from module(s): magento/module-scheduled-import-export
+	 AdminFillScheduledExportFormActionGroup from module(s): magento/module-scheduled-import-export
+
+File "/var/www/html/app/code/Magento/AwsS3ScheduledImportExport/Test/Mftf/Test/AdminScheduledExportProductsTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 ScheduleExport1 from module(s): magento/module-scheduled-import-export
+	 AdminFillScheduledExportFormActionGroup from module(s): magento/module-scheduled-import-export

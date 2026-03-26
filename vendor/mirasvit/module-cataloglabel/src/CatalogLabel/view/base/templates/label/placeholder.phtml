@@ -1,0 +1,18 @@
+<?php
+/** @var \Mirasvit\CatalogLabel\Block\Product\Label\Placeholder $block */
+$displays = $block->getDisplays();
+
+if (!$block->isApplyLabelForChildProducts() && !count($displays)) {
+    return '';
+}
+?>
+
+<div class="<?= $block->escapeHtml($block->getClassList()) ?>" data-placeholder="<?= $block->escapeHtml($block->getPlaceholder()->getCode()) ?>">
+    <?php
+    if (count($displays)) {
+        foreach ($displays as $display) {
+            echo $block->getDisplayHtml($display);
+        }
+    }
+    ?>
+</div>

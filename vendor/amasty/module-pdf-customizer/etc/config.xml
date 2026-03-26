@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package PDF Customizer for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Store/etc/config.xsd">
+    <default>
+        <ampdf>
+            <general>
+                <enabled>0</enabled>
+                <used_library>dompdf</used_library>
+            </general>
+            <invoice>
+                <template>ampdf_invoice_template</template>
+                <email_attach>0</email_attach>
+            </invoice>
+            <order>
+                <template>ampdf_order_template</template>
+                <email_attach>0</email_attach>
+                <link_type>0</link_type>
+                <link_label>Download Order PDF</link_label>
+            </order>
+            <shipment>
+                <template>ampdf_shipment_template</template>
+                <email_attach>0</email_attach>
+            </shipment>
+            <creditmemo>
+                <template>ampdf_creditmemo_template</template>
+                <email_attach>0</email_attach>
+            </creditmemo>
+        </ampdf>
+    </default>
+</config>

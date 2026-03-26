@@ -1,0 +1,47 @@
+<td class="amrma-cell">
+    <input type="text" class="amrma-return-qty"
+           data-bind="value: $data.qty"/>
+</td>
+<td class="amrma-cell">
+    <div class="amrma-checkbox-container">
+        <input type="checkbox"
+               class="amrma-checkbox"
+               data-bind="value: 1, checked: $data.status == 1"/>
+        <label class="amrma-label amrma-item-radio" data-bind="click: $parent.checkStatus.bind($parent, $index(), 1)"></label>
+    </div>
+</td>
+<td class="amrma-cell">
+    <div class="amrma-checkbox-container">
+        <input type="checkbox"
+               class="amrma-checkbox"
+               data-bind="value: 2, checked: $data.status == 2"/>
+        <label class="amrma-label amrma-item-radio" data-bind="click: $parent.checkStatus.bind($parent, $index(), 2)"></label>
+    </div>
+</td>
+<td class="amrma-cell">
+    <div class="amrma-checkbox-container">
+        <input type="checkbox"
+               class="amrma-checkbox"
+               data-bind="value: 3, checked: $data.status == 3"/>
+        <label class="amrma-label amrma-item-radio" data-bind="click: $parent.checkStatus.bind($parent, $index(), 3)"></label>
+    </div>
+</td>
+<td class="amrma-cell">
+    <div class="amrma-checkbox-container">
+        <input type="checkbox"
+               class="amrma-checkbox"
+               data-bind="value: 4, checked: $data.status == 4"/>
+        <label class="amrma-label amrma-item-radio" data-bind="click: $parent.checkStatus.bind($parent, $index(), 4)"></label>
+    </div>
+</td>
+<td class="amrma-cell">
+    <!-- ko if: $index() == 0 -->
+    <a href="#"
+       data-bind="i18n: 'Split', attr: {title: 'Split'}, click: $parent.split.bind($parent, $index(), $element), visible: $data.qty > 1"
+       data-js="amrma-action-row"></a>
+    <!-- /ko -->
+    <!-- ko ifnot: $index() == 0 -->
+    <a href="#"
+       data-bind="i18n: 'Delete', attr: {title: 'Delete'}, click: $parent.delete.bind($parent, $index(), $element)" data-js="amrma-action-row"></a>
+    <!-- /ko -->
+</td>

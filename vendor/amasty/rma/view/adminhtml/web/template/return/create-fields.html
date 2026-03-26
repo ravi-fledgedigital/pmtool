@@ -1,0 +1,25 @@
+<!-- ko if: $data.is_returnable -->
+    <td  data-bind="text: $data.shipped_qty" class="amrma-cell"></td>
+    <td  data-bind="text: $data.refunded_qty" class="amrma-cell"></td>
+    <td class="amrma-cell">
+        <!-- ko if: $data.is_decimal -->
+        <input type="text" class="amrma-return-qty"
+               data-bind="value: $data.qty"/>
+        <!-- /ko -->
+        <!-- ko ifnot: $data.is_decimal -->
+        <select class="amrma-return-qty-select" data-bind="options: $parent.getNumericArray($data.request_qty), value: $data.qty">
+        </select>
+        <!-- /ko -->
+    </td>
+    <td class="amrma-cell">
+        <div class="amrma-checkbox-container">
+            <input type="checkbox"
+                   class="amrma-checkbox"
+                   data-bind="checked: $data.item_status, attr: {id: 'amrma-authorized-' + $data.order_item_id}"/>
+            <label class="amrma-label"  data-bind="attr: {for: 'amrma-authorized-' + $data.order_item_id}"></label>
+        </div>
+    </td>
+<!-- /ko -->
+<!-- ko ifnot: $data.is_returnable -->
+    <td colspan="4"></td>
+<!-- /ko -->

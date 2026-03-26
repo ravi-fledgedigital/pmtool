@@ -1,0 +1,23 @@
+parameters:
+    level: 5
+    paths:
+        - %currentWorkingDirectory%/Api
+        - %currentWorkingDirectory%/Block
+        - %currentWorkingDirectory%/Controller
+        - %currentWorkingDirectory%/Model
+    excludePaths:
+        - %currentWorkingDirectory%/test/*
+        - %currentWorkingDirectory%/view/*
+        - %currentWorkingDirectory%/vendor/*
+    treatPhpDocTypesAsCertain: false
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        -
+            identifier: class.notFound
+            path: %currentWorkingDirectory%/Controller/Adminhtml/Redirect/Success.php
+        -
+            identifier: class.notFound
+            path: %currentWorkingDirectory%/Model/Button/RequestCommand.php
+        -
+            identifier: class.notFound
+            path: %currentWorkingDirectory%/Model/MiddlemanService.php

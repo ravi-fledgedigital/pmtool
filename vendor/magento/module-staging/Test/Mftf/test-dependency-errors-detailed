@@ -1,0 +1,84 @@
+
+File "/var/www/html/app/code/Magento/Staging/Test/Mftf/Test/AdminAbleToEditUpdateSettingsForExistingUpdateTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminCatalogStagingSlideOutSection from module(s): magento/module-catalog-staging
+
+File "/var/www/html/app/code/Magento/Staging/Test/Mftf/Test/AdminChangeScheduledUpdateFromStagingDashboardTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminRemoveCatalogPriceRuleFromUpdateActionGroup from module(s): magento/module-catalog-rule-staging
+
+File "/var/www/html/app/code/Magento/Staging/Test/Mftf/Test/AdminCheckCMSBlockStagedOnWidgetTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminCreateNewBlockSection from module(s): magento/module-cms-staging
+	 AdminUpdateBlockSection from module(s): magento/module-cms-staging
+	 AdminCreateDisabledBlockActionGroup from module(s): magento/module-cms-staging
+	 AdminUpdateBlockActionGroup from module(s): magento/module-cms-staging
+
+File "/var/www/html/app/code/Magento/Staging/Test/Mftf/Test/AdminEditProductUpdateOnMultipleStoreViewsTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminCatalogStagingSlideOutSection from module(s): magento/module-catalog-staging
+
+File "/var/www/html/app/code/Magento/Staging/Test/Mftf/Test/AdminPermanentUpdateWithStartDateBeforeExistedRangeTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 SaveScheduleUpdateForProductActionGroup from module(s): magento/module-catalog-staging
+	 AdminChangeStagingUpdateProductPriceActionGroup from module(s): magento/module-catalog-staging
+	 GoToProductStagingPreview from module(s): magento/module-catalog-staging
+	 AdminVerifyStoreViewProductStagingPreviewNameAndPriceActionGroup from module(s): magento/module-catalog-staging
+	 FocusOnStagingPreviewIframe from module(s): magento/module-catalog-staging
+	 FocusOnHostPage from module(s): magento/module-catalog-staging
+	 AdminVerifyProductStagingPreviewNameAndPriceActionGroup from module(s): magento/module-catalog-staging
+
+File "/var/www/html/app/code/Magento/Staging/Test/Mftf/Test/AdminPermanentUpdateWithStartDateFarFromNowTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminCatalogStagingSlideOutSection from module(s): magento/module-catalog-staging
+
+File "/var/www/html/app/code/Magento/Staging/Test/Mftf/Test/AdminRollbackProductUpdateOnOneOfTwoStoreViewsTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminCatalogStagingSlideOutSection from module(s): magento/module-catalog-staging
+
+File "/var/www/html/app/code/Magento/Staging/Test/Mftf/Test/AdminTemporaryUpdateWithStartAndEndDateBiggerThanExistingUpdateTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminCatalogStagingSlideOutSection from module(s): magento/module-catalog-staging
+
+File "/var/www/html/app/code/Magento/Staging/Test/Mftf/Test/AdminTemporaryUpdateWithStartAndEndDatesAfterExistingUpdateTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminCatalogStagingSlideOutSection from module(s): magento/module-catalog-staging
+
+File "/var/www/html/app/code/Magento/Staging/Test/Mftf/Test/AdminTemporaryUpdateWithStartDateBiggerThanStartDateOfExistingUpdateTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminCatalogStagingSlideOutSection from module(s): magento/module-catalog-staging
+
+File "/var/www/html/app/code/Magento/Staging/Test/Mftf/Test/AdminTemporaryUpdateWithStartDateLessAndDateBiggerThanEndDateOfExistingUpdateTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminCatalogStagingSlideOutSection from module(s): magento/module-catalog-staging
+
+File "/var/www/html/app/code/Magento/Staging/Test/Mftf/Test/SortContentStagingDashboardColumnsTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 ApplyUpdatedRuleStagingByCron from module(s): magento/module-catalog-rule-staging
+
+File "/var/www/html/app/code/Magento/Staging/Test/Mftf/ActionGroup/AssignToExistingUpdateActionGroup/AssignToExistingUpdateActionGroup.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminCatalogStagingSlideOutSection from module(s): magento/module-catalog-staging
+
+File "/var/www/html/app/code/Magento/Staging/Test/Mftf/ActionGroup/FillScheduleUpdateActionGroup/FillScheduleUpdateActionGroup.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminCatalogStagingSlideOutSection from module(s): magento/module-catalog-staging
+
+File "/var/www/html/app/code/Magento/Staging/Test/Mftf/ActionGroup/ScheduleUpdateActionGroup/RemoveRuleActionGroup.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminCatalogSearchTermIndexSection from module(s): magento/module-catalog-search

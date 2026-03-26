@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="HierarchyPageSection">
+        <element name="addNode" type="button" selector="#new_node_button" timeout="30"/>
+        <element name="nodeTitle" type="input" selector="#node_label"/>
+        <element name="nodeUrlKey" type="input" selector="#node_identifier"/>
+        <element name="nodeSave" type="button" selector="#save" timeout="30"/>
+        <element name="nodeSaveMsg" type="text" selector="//div[contains(text(),'You have saved the hierarchy.')]" timeout="30"/>
+        <element name="nodeDelete" type="button" selector="#delete" timeout="30"/>
+        <element name="nodeDeleteConfirm" type="button" selector=".action-primary.action-accept" timeout="30"/>
+        <element name="nodeDeleteMsg" type="text" selector="//div[contains(text(),'You deleted the pages hierarchy from the selected scopes.')]" timeout="30"/>
+        <element name="expandNodeByTitle" type="text" selector="//li[@class='jstree-node cms_node jstree-leaf jstree-last']//a[contains(., '{{Title}}')]" parameterized="true"/>
+        <element name="rootNode" type="button" selector="//ul[@class='jstree-container-ul jstree-children']//li[contains(@class,'cms_node_root')]"/>
+        <element name="childNode" type="button" selector="//ul[@class='jstree-container-ul jstree-children']//li[{{node_no}}]//ul//li//a[contains(., '{{node_name}}')]" parameterized="true"/>
+        <element name="childNodelevel2" type="button" selector="//ul[@class='jstree-container-ul jstree-children']//li[{{node_no}}]//ul//li//a[contains(., '{{parentNode}}')]/..//ul//li//a[contains(., '{{childNode}}')]" parameterized="true"/>
+        <element name="pageCheckbox" type="checkbox" selector="//table[@id='cms_page_grid_table']//td[contains(text(),' {{args}} ')]/..//input[@type='checkbox']" parameterized="true"/>
+        <element name="addSelectedPagesToTree" type="button" selector="//button[@id='add_cms_pages']"/>
+        <element name="expandNodes" type="button" selector="//li[contains(@class,'jstree-closed') and contains(@class,'jstree-last')]//i[@class='jstree-icon jstree-ocl']"/>
+    </section>
+</sections>
+

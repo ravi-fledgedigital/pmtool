@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminEditProductDataInScopeOfUpdateForGroupedProductTest">
+        <annotations>
+            <stories value="Staging updates"/>
+            <title value="Edit The Update"/>
+            <description value="The purpose of this E2E scenario is to test if the product data could be edited which is in scope of Staging Update for Grouped Product"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="AC-4731"/>
+        </annotations>
+        <before>
+            <createData entity="_defaultCategory" stepKey="createCategory"/>
+            <createData entity="SimpleProduct" stepKey="createFirstProduct">
+                <requiredEntity createDataKey="createCategory"/>
+                <field key="name">simple1</field>
+                <field key="price">5</field>
+            </createData>
+            <createData entity="_defaultProduct" stepKey="createSecondProduct">
+                <requiredEntity createDataKey="createCategory"/>
+                <field key="name">simple2</field>
+                <field key="price">10</field>
+            </createData>
+            <!-- Create Grouped product -->
+            <createData entity="ApiGroupedProduct" stepKey="createGroupedProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <!-- open created product -->
+            <actionGroup ref="AdminProductPageOpenByIdActionGroup" stepKey="openProductForEdit">
+                <argument name="productId" value="$createGroupedProduct.id$"/>
+            </actionGroup>
+            <!-- add created simple products to the grouped product -->
+            <waitForElementVisible selector="{{AdminProductFormGroupedProductsSection.addProductsToGroup}}" stepKey="waitForAddProductsButtonToVisible"/>
+            <click selector="{{AdminProductFormGroupedProductsSection.addProductsToGroup}}" stepKey="clickAddProductsToGroup"/>
+            <waitForElementVisible selector="{{AdminAddProductsToGroupPanel.filters}}" stepKey="waitForGroupedProductModal" after="clickAddProductsToGroup"/>
+            <actionGroup ref="FilterProductGridBySkuActionGroup" stepKey="filterGroupedProductOptionsBySimple" after="waitForGroupedProductModal">
+                <argument name="product" value="$$createFirstProduct$$"/>
+            </actionGroup>
+            <checkOption selector="{{AdminAddProductsToGroupPanel.firstCheckbox}}" stepKey="checkSimpleProductFilterResult" after="filterGroupedProductOptionsBySimple"/>
+            <actionGroup ref="FilterProductGridBySkuActionGroup" stepKey="filterGroupedProductOptionsBySecondSimple">
+                <argument name="product" value="$$createSecondProduct$$"/>
+            </actionGroup>
+            <checkOption selector="{{AdminAddProductsToGroupPanel.firstCheckbox}}" stepKey="checkSecondSimpleProductFilterResult"/>
+            <waitForElementVisible selector="{{AdminAddProductsToGroupPanel.addSelectedProducts}}" stepKey="waitForaddSelectedButtonToVisible"/>
+            <click selector="{{AdminAddProductsToGroupPanel.addSelectedProducts}}" stepKey="clickAddSelectedGroupProducts"/>
+            <waitForLoadingMaskToDisappear stepKey="waitForProductsAssignedToGroupedProduct" after="clickAddSelectedGroupProducts"/>
+            <!-- set default quantity same value for both products -->
+            <actionGroup ref="FillDefaultQuantityForLinkedToGroupProductInGridActionGroup" stepKey="fillDefaultQtyForSimpleProduct">
+                <argument name="productName" value="$$createFirstProduct.name$$"/>
+                <argument name="qty" value="2"/>
+            </actionGroup>
+            <actionGroup ref="FillDefaultQuantityForLinkedToGroupProductInGridActionGroup" stepKey="fillDefaultQtyForSecondSimpleProduct">
+                <argument name="productName" value="$$createSecondProduct.name$$"/>
+                <argument name="qty" value="2"/>
+            </actionGroup>
+            <!-- save the product -->
+            <actionGroup ref="AdminFormSaveAndCloseActionGroup" stepKey="saveAndCloseCreatedGroupedProduct"/>
+        </before>
+        <after>
+            <!-- delete created data -->
+            <deleteData createDataKey="createFirstProduct" stepKey="deleteFirstProduct"/>
+            <deleteData createDataKey="createSecondProduct" stepKey="deleteSecondProduct"/>
+            <deleteData createDataKey="createGroupedProduct" stepKey="deleteGroupProduct"/>
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <actionGroup ref="StagingDashboardClearFiltersActionGroup" stepKey="clearStagingFilters"/>
+            <actionGroup ref="AdminClearFiltersActionGroup" stepKey="clearProductFilters"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+        <!-- open created product -->
+        <actionGroup ref="AdminProductPageOpenByIdActionGroup" stepKey="openProductForEdit">
+            <argument name="productId" value="$createGroupedProduct.id$"/>
+        </actionGroup>
+        <!-- Create first Schedule New Update -->
+        <actionGroup ref="navigateToStagingSlideout" stepKey="navigateToStagingSlideout"/>
+        <!-- Fill Schedule update fields -->
+        <generateDate date="+1 day" format="m/j/Y g:i A" stepKey="generateStartDate"/>
+        <waitForElementVisible selector="{{AdminStagingSlideOutSection.updateName}}" stepKey="waitForupdateNameFieldToVisible"/>
+        <fillField selector="{{AdminStagingSlideOutSection.updateName}}" userInput="s5UpdateName" stepKey="fillFirstScheduleUpdateName"/>
+        <waitForElementVisible selector="{{AdminStagingSlideOutSection.updateDescription}}" stepKey="waitForDescriptionFieldToVisible"/>
+        <fillField selector="{{AdminStagingSlideOutSection.updateDescription}}" userInput="s5updateDescription" stepKey="fillFirstScheduleDescription"/>
+        <waitForElementVisible selector="{{AdminStagingSlideOutSection.startDate}}" stepKey="waitForStartFieldToVisible"/>
+        <fillField selector="{{AdminStagingSlideOutSection.startDate}}" userInput="{$generateStartDate}}" stepKey="fillFirsteScheduleStartDate"/>
+        <!-- Fill out the field to be changed in the staging update -->
+        <waitForElementVisible selector="{{AdminStagingSlideOutSection.name}}" stepKey="waitFornameFieldToVisible"/>
+        <fillField selector="{{AdminStagingSlideOutSection.name}}" userInput="EDITED Grouped Product" stepKey="changeProductName"/>
+        <selectOption selector="{{AdminStagingSlideOutSection.visibility}}" userInput="Catalog" stepKey="selectVisibility"/>
+        <selectOption selector="{{AdminStagingSlideOutSection.countryOfManufacture}}" userInput="China" stepKey="selectCountry"/>
+        <scrollTo selector="{{AdminStagingSlideOutSection.removeProduct('simple1')}}" stepKey="scrollToProduct"/>
+        <waitForElementVisible selector="{{AdminStagingSlideOutSection.removeProduct('simple1')}}" stepKey="waitForRemoveButtonToVisible"/>
+        <click selector="{{AdminStagingSlideOutSection.removeProduct('simple1')}}" stepKey="removeProduct"/>
+        <waitForElementVisible selector="{{AdminStagingSlideOutSection.defaultQuantity('simple2')}}" stepKey="waitForDefaultQuantityFieldToVisible"/>
+        <fillField selector="{{AdminStagingSlideOutSection.defaultQuantity('simple2')}}" userInput="30" stepKey="addQty"/>
+        <!-- Save the update details -->
+        <actionGroup ref="SaveRuleStagingActionGroup" stepKey="saveSchedule"/>
+        <waitForElementVisible selector="{{AdminScheduledChangesSection.scheduleViewEdit('s5UpdateName')}}" stepKey="waitForUpdateViewAndEditButtonToVisible"/>
+        <click selector="{{AdminScheduledChangesSection.scheduleViewEdit('s5UpdateName')}}" stepKey="clickUpdateViewAndEdit"/>
+        <seeInField selector="{{AdminStagingSlideOutSection.name}}" userInput="EDITED Grouped Product" stepKey="assertProductName"/>
+        <seeInField selector="{{AdminStagingSlideOutSection.visibility}}" userInput="Catalog" stepKey="assertVisibility"/>
+        <seeInField selector="{{AdminStagingSlideOutSection.countryOfManufacture}}" userInput="China" stepKey="assertCountry"/>
+        <dontSee selector="{{AdminStagingSlideOutSection.removeProduct('simple1')}}" stepKey="assertProduct"/>
+        <seeInField selector="{{AdminStagingSlideOutSection.defaultQuantity('simple2')}}" userInput="30" stepKey="assertQty"/>
+        <waitForElementVisible selector="{{AdminStagingSlideOutSection.activeCloseButton}}" stepKey="waitForactiveCloseButtonToVisible"/>
+        <click selector="{{AdminStagingSlideOutSection.activeCloseButton}}" stepKey="closeView"/>
+        <!--Click preview button from modal-->
+        <waitForElementVisible selector="{{AdminStagingSlideOutSection.preview}}" stepKey="waitForPreviewButtonToVisible"/>
+        <click selector="{{AdminStagingSlideOutSection.preview}}" stepKey="clickPreviewLink"/>
+        <waitForPageLoad stepKey="waitForNewTabPageLoad"/>
+        <switchToNextTab stepKey="switchToNextTab"/>
+        <!-- Set focus on preview iframe -->
+        <executeJS function="document.querySelector('[data-role=\'preview-iframe\']').id = 'preview-iframe'" stepKey="setStagedPreviewFrameId"/>
+        <switchToIFrame userInput="preview-iframe" stepKey="switchToPreviewFrame"/>
+        <waitForText userInput="EDITED Grouped Product" selector="{{StorefrontProductInfoMainSection.productName}}" stepKey="seeProductName"/>
+        <waitForText userInput="simple2" selector="{{StorefrontProductInfoMainSection.groupedProductsAssociatedProductName('1')}}" stepKey="seeChildProduct"/>
+        <seeInField userInput="30" selector="{{StorefrontProductInfoMainSection.groupedProductsAssociatedProductQuantity('1')}}" stepKey="seeProductQuantity"/>
+    </test>
+</tests>

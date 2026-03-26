@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright 2024 Adobe
+ * All Rights Reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\CatalogInventoryDataExporter\Model\Query\MainProductQuery">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">catalog_product_entity</argument>
+        </arguments>
+    </type>
+    <type name="Magento\CatalogDataExporter\Model\Provider\Product\Buyable">
+        <plugin name="modified-buyable-value" type="Magento\CatalogInventoryDataExporter\Model\Plugin\Buyable"/>
+    </type>
+    <type name="Magento\InventoryApi\Api\SourceItemsSaveInterface">
+        <plugin name="exporter-reindex-feed-on-source-item-update" type="Magento\CatalogInventoryDataExporter\Model\Plugin\SourceItemUpdate" sortOrder="10"/>
+    </type>
+    <type name="Magento\InventoryIndexer\Model\ResourceModel\UpdateIsSalable">
+        <plugin name="exporter-reindex-feed-on-stock-status-update" type="Magento\CatalogInventoryDataExporter\Model\Plugin\StockStatusUpdater"/>
+    </type>
+    <type name="Magento\InventoryIndexer\Model\ResourceModel\UpdateLegacyStockStatus">
+        <plugin name="exporter-reindex-feed-on-legacy-stock-status-update" type="Magento\CatalogInventoryDataExporter\Model\Plugin\LegacyStockStatusUpdater"/>
+    </type>
+    <type name="Magento\CatalogDataExporter\Model\Provider\Products">
+        <plugin name="exporter-reindex-feed-reset-inventory-cache" type="Magento\CatalogInventoryDataExporter\Model\Plugin\ResetInventoryDataProviderCache"/>
+    </type>
+</config>

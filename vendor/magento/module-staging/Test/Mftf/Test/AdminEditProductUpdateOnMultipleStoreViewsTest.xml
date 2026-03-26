@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminEditProductUpdateOnMultipleStoreViewsTest">
+        <annotations>
+            <features value="Staging"/>
+            <stories value="Staging updates"/>
+            <title value="Edit Product Update on multiple Store Views"/>
+            <description value="Edit Product Update on multiple Store Views"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="AC-4590"/>
+            <group value="staging"/>
+        </annotations>
+
+        <before>
+            <!--Create Simple Product and Category-->
+            <createData entity="_defaultCategory" stepKey="createCategory"/>
+            <createData entity="SimpleProduct" stepKey="simpleProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+
+            <!-- Create  Store View -->
+            <actionGroup ref="AdminCreateStoreViewActionGroup" stepKey="createCustomStoreView"/>
+            <actionGroup ref="CliIndexerReindexActionGroup" stepKey="reindex">
+                <argument name="indices" value=""/>
+            </actionGroup>
+        </before>
+
+        <after>
+            <!-- delete created data -->
+            <deleteData createDataKey="simpleProduct" stepKey="deleteProduct"/>
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <actionGroup ref="AdminDeleteStoreViewActionGroup" stepKey="deleteStoreView"/>
+            <actionGroup ref="CliIndexerReindexActionGroup" stepKey="reindex">
+                <argument name="indices" value=""/>
+            </actionGroup>
+            <actionGroup ref="StagingDashboardClearFiltersActionGroup" stepKey="clearStagingFilters"/>
+            <actionGroup ref="AdminClearFiltersActionGroup" stepKey="clearProductFilters"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <!-- open created product -->
+        <actionGroup ref="AdminProductPageOpenByIdActionGroup" stepKey="openProductForEdit">
+            <argument name="productId" value="$simpleProduct.id$"/>
+        </actionGroup>
+
+        <!-- Create Schedule New Update -->
+        <conditionalClick selector="{{AdminStagingSlideOutSection.scheduleNewUpdateBtn}}" dependentSelector="{{AdminStagingSlideOutSection.updateName}}" visible="false" stepKey="clickNewUpdate"/>
+        <waitForPageLoad stepKey="waitForLoading"/>
+        <generateDate date="+1 day" format="m/d/Y g:i A" stepKey="generateStartDate"/>
+        <generateDate date="+10 day" format="m/d/Y g:i A" stepKey="generateEndDate"/>
+        <generateDate date="+2 day" format="m/d/Y g:i A" stepKey="generateAnotherStartDate"/>
+        <generateDate date="+11 day" format="m/d/Y g:i A" stepKey="generateAnotherEndDate"/>
+        <fillField selector="{{AdminStagingSlideOutSection.updateName}}" userInput="upd1" stepKey="fillUpdateName"/>
+        <fillField selector="{{AdminStagingSlideOutSection.startDate}}" userInput="{$generateStartDate}" stepKey="fillStartDate"/>
+        <fillField selector="{{AdminStagingSlideOutSection.endDate}}" userInput="{$generateEndDate}" stepKey="fillEndDate"/>
+        <fillField selector="{{AdminStagingSlideOutSection.name}}" userInput="Sp1 upd1" stepKey="fillNewProductName"/>
+        <click selector="{{AdminStagingSlideOutSection.save}}" stepKey="clickSave"/>
+        <actionGroup ref="AdminProductPageOpenByIdActionGroup" stepKey="openAgainProduct">
+            <argument name="productId" value="$simpleProduct.id$"/>
+        </actionGroup>
+        <actionGroup ref="AdminSwitchStoreViewActionGroup" stepKey="AdminSwitchCustomStoreView">
+            <argument name="storeView" value="customStore.name"/>
+        </actionGroup>
+        <click selector="{{AdminStagingSlideOutSection.viewEdit}}" stepKey="clickViewEdit"/>
+        <wait stepKey="waitForClick" time="10"/>
+        <fillField selector="{{AdminStagingSlideOutSection.startDate}}" userInput="{$generateAnotherStartDate}" stepKey="fillAgainStartDate"/>
+        <fillField selector="{{AdminStagingSlideOutSection.endDate}}" userInput="{$generateAnotherEndDate}" stepKey="fillAgainEndDate"/>
+        <uncheckOption selector="{{AdminCatalogStagingSlideOutSection.useDefaultName}}" stepKey="uncheckUseDefaultName"/>
+        <fillField selector="{{AdminStagingSlideOutSection.name}}" userInput="Sp1 upd2" stepKey="fillAgainProductName"/>
+        <click selector="{{AdminStagingSlideOutSection.datepickerStartDate}}" stepKey="clickStartDatePicker"/>
+        <grabValueFrom selector="{{AdminStagingSlideOutSection.datapickerTime}}" stepKey="grabTimePickerStartTime"/>
+        <grabTextFrom selector="{{AdminStagingSlideOutSection.datapickerCurrentDay}}" stepKey="grabStartCurrentDay"/>
+        <grabTextFrom selector="{{AdminStagingSlideOutSection.datapickerMonth}}" stepKey="grabStartMonth"/>
+        <grabValueFrom selector="{{AdminStagingSlideOutSection.datapickerYear}}" stepKey="grabStartYear"/>
+        <click selector="{{AdminStagingSlideOutSection.datepickerClose}}" stepKey="againClickClose"/>
+
+        <!-- grabbing date and doing assertion-->
+        <click selector="{{AdminStagingSlideOutSection.datepickerEndDate}}" stepKey="clickDatePickerEndDay"/>
+        <grabValueFrom selector="{{AdminStagingSlideOutSection.datapickerTime}}" stepKey="grabTimePickerEndTime"/>
+        <grabTextFrom selector="{{AdminStagingSlideOutSection.datapickerCurrentDay}}" stepKey="grabEndCurrentDay"/>
+        <grabTextFrom selector="{{AdminStagingSlideOutSection.datapickerMonth}}" stepKey="grabEndMonth"/>
+        <grabValueFrom selector="{{AdminStagingSlideOutSection.datapickerYear}}" stepKey="grabEndYear"/>
+        <click selector="{{AdminStagingSlideOutSection.datepickerClose}}" stepKey="clickCloseDatePicker"/>
+        <click selector="{{AdminStagingSlideOutSection.save}}" stepKey="clickSaveButton"/>
+        <actionGroup ref="AdminSwitchToAllStoreViewActionGroup" stepKey="switchAllStoreView"/>
+        <wait stepKey="waitForSwitchStoreView" time="10"/>
+        <seeElement selector="{{AdminScheduledChangesSection.scheduleStartDate('{$grabStartMonth} {$grabStartCurrentDay}, {$grabStartYear}')}}" stepKey="seeSecondScheduleStartDate"/>
+        <seeElement selector="{{AdminScheduledChangesSection.scheduleEndDate('{$grabEndMonth} {$grabEndCurrentDay}, {$grabEndYear}')}}" stepKey="seeSecondScheduleEndDate"/>
+        <click selector="{{AdminStagingSlideOutSection.viewEdit}}" stepKey="againClickOnViewEdit"/>
+        <wait stepKey="waitForPageLoading" time="10"/>
+        <seeElement selector="{{AdminStagingSlideOutSection.name('Sp1 upd1')}}" stepKey="assertProductName"/>
+        <click selector="{{AdminStagingSlideOutSection.cancel}}" stepKey="clickCancel"/>
+        <actionGroup ref="AdminSwitchStoreViewActionGroup" stepKey="againAdminSwitchCustomStoreView">
+            <argument name="storeView" value="_defaultStore.name"/>
+        </actionGroup>
+        <wait stepKey="againWaitForSwitchStoreView" time="10"/>
+        <seeElement selector="{{AdminScheduledChangesSection.scheduleStartDate('{$grabStartMonth} {$grabStartCurrentDay}, {$grabStartYear}')}}" stepKey="againSeeSecondScheduleStartDate"/>
+        <seeElement selector="{{AdminScheduledChangesSection.scheduleEndDate('{$grabEndMonth} {$grabEndCurrentDay}, {$grabEndYear}')}}" stepKey="againSeeSecondScheduleEndDate"/>
+        <click selector="{{AdminStagingSlideOutSection.viewEdit}}" stepKey="clickViewEditButton"/>
+        <wait stepKey="waitForOpenProductPage" time="10"/>
+        <seeElement selector="{{AdminStagingSlideOutSection.name('Sp1 upd1')}}" stepKey="againAsserProductName"/>
+        <click selector="{{AdminStagingSlideOutSection.previewModal}}" stepKey="clickPreview"/>
+        <waitForPageLoad time="30" stepKey="waitForNewTabPageLoad"/>
+        <switchToNextTab stepKey="switchToNewTab"/>
+        <waitForPageLoad time="30" stepKey="waitForPreview"/>
+
+        <!--Set frame id because switchToIFrame requires ID as parameter-->
+        <executeJS function="jQuery('[data-role=\'preview-iframe\']').attr('id', 'preview-iframe')" stepKey="setPreviewFrameId"/>
+        <switchToIFrame userInput="preview-iframe" stepKey="switchToPreviewFrame"/>
+        <waitForPageLoad time="30" stepKey="waitForIFrame"/>
+        <see userInput="Sp1 upd1" selector="{{StorefrontProductInfoMainSection.productName}}" stepKey="seeProductName"/>
+        <wait stepKey="waitForAssertion" time="10"/>
+        <switchToIFrame stepKey="switchBackFromPreview"/>
+        <click selector="{{AdminStagingPreviewSection.scopeBtn}}" stepKey="clickScopeBtn"/>
+        <selectOption userInput="{{customStore.code}}" selector="{{AdminStagingPreviewSection.storeView}}" stepKey="selectStoreView"/>
+        <click selector="{{AdminStagingPreviewSection.previewScopeBtn}}" stepKey="clickButtonPreview"/>
+        <waitForPageLoad time="30" stepKey="waitForPreviewLoad"/>
+        <executeJS function="jQuery('[data-role=\'preview-iframe\']').attr('id', 'preview-iframe')" stepKey="againSetPreviewFrameId"/>
+        <switchToIFrame userInput="preview-iframe" stepKey="againSwitchToPreviewFrame"/>
+        <wait stepKey="waitForRefreshPage" time="10"/>
+        <see userInput="Sp1 upd2" selector="{{StorefrontProductInfoMainSection.productName}}" stepKey="seeProductNameInCostumStoreView"/>
+    </test>
+</tests>

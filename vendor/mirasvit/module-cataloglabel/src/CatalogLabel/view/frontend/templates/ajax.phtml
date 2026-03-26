@@ -1,0 +1,8 @@
+<?php
+/** @var \Mirasvit\CatalogLabel\Block\Ajax $block */
+?>
+<script type="text/x-magento-init"><?= \Mirasvit\Core\Service\SerializeService::encode([
+        '*' => ['Mirasvit_CatalogLabel/js/label/ajax' => [
+            'requestUrl' => $block->getRequestUrl()
+        ]]
+    ]) ?></script>

@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package PDF Customizer for Magento 2
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Sales\Controller\Adminhtml\Order\Pdfdocs" type="Amasty\PDFCustom\Override\Sales\Controller\Pdfdocs"/>
+    <preference for="Magento\Sales\Controller\Adminhtml\Order\Pdfcreditmemos" type="Amasty\PDFCustom\Override\Sales\Controller\Pdfcreditmemos"/>
+    <preference for="Magento\Sales\Controller\Adminhtml\Order\Pdfinvoices" type="Amasty\PDFCustom\Override\Sales\Controller\Pdfinvoices"/>
+    <preference for="Magento\Sales\Controller\Adminhtml\Order\Pdfshipments" type="Amasty\PDFCustom\Override\Sales\Controller\Pdfshipments"/>
+    <preference for="Magento\Sales\Controller\Adminhtml\Creditmemo\Pdfcreditmemos" type="Amasty\PDFCustom\Override\Sales\Controller\Creditmemo\Pdfcreditmemos"/>
+    <preference for="Magento\Sales\Controller\Adminhtml\Invoice\Pdfinvoices" type="Amasty\PDFCustom\Override\Sales\Controller\Invoice\Pdfinvoices"/>
+    <preference for="Magento\Sales\Controller\Adminhtml\Shipment\Pdfshipments" type="Amasty\PDFCustom\Override\Sales\Controller\Shipment\Pdfshipments"/>
+    <type name="Magento\Sales\Model\Order\Email\SenderBuilder">
+        <arguments>
+            <argument name="transportBuilder" xsi:type="object">Amasty\PDFCustom\Model\UploadTransportBuilder</argument>
+        </arguments>
+    </type>
+    <type name="Amasty\PDFCustom\Model\Template">
+        <arguments>
+            <argument name="urlModel" xsi:type="object">Magento\Framework\Url</argument>
+            <argument name="variablesOptionRepository" xsi:type="object">Amasty\PDFCustom\Model\Template\VariablesOptionRepository\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Amasty\PDFCustom\Model\PdfProvider">
+        <arguments>
+            <argument name="invoicePdf" xsi:type="object">Amasty\PDFCustom\Model\Order\Pdf\Invoice\Proxy</argument>
+            <argument name="orderPdf" xsi:type="object">\Amasty\PDFCustom\Model\Order\Pdf\Order\Proxy</argument>
+            <argument name="shipmentPdf" xsi:type="object">\Amasty\PDFCustom\Model\Order\Pdf\Shipment\Proxy</argument>
+            <argument name="creditmemoPdf" xsi:type="object">\Amasty\PDFCustom\Model\Order\Pdf\Creditmemo\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Sales\Model\Order\Pdf\Invoice">
+        <plugin sortOrder="1" name="amastyPDFCustomInvoice" type="Amasty\PDFCustom\Plugin\Sales\Model\Order\Pdf\InvoicePlugin"/>
+    </type>
+    <type name="Magento\Sales\Model\Order\Pdf\Shipment">
+        <plugin sortOrder="1" name="amastyPDFCustomShipment" type="Amasty\PDFCustom\Plugin\Sales\Model\Order\Pdf\ShipmentPlugin"/>
+    </type>
+    <type name="Magento\Sales\Model\Order\Pdf\Creditmemo">
+        <plugin sortOrder="1" name="amastyPDFCustomCreditmemo" type="Amasty\PDFCustom\Plugin\Sales\Model\Order\Pdf\CreditmemoPlugin"/>
+    </type>
+    <type name="Magento\Framework\Filter\Template">
+        <arguments>
+            <argument name="directiveProcessors" xsi:type="array">
+                <item name="inline_css" sortOrder="390"
+                      xsi:type="object">Amasty\PDFCustom\Model\Filter\DirectiveProcessor\InlineCssDirective</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Amasty\Oaction\Model\Order\Pdf\OrderPackingSlip">
+        <plugin sortOrder="1" name="Amasty_PDFCustom::ApplyShipmentPdf" type="Amasty\PDFCustom\Plugin\Oaction\Model\Order\Pdf\OrderPackingSlip\PrintCustomOrderPdf"/>
+    </type>
+    <type name="Amasty\PDFCustom\Model\PdfLib\PdfLibProvider">
+        <arguments>
+            <argument name="pdfLibraries" xsi:type="array">
+                <item name="mpdf" xsi:type="object">Amasty\PDFCustom\Model\PdfLib\MpdfLibFactory</item>
+                <item name="dompdf" xsi:type="object">Amasty\PDFCustom\Model\PdfFactory</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

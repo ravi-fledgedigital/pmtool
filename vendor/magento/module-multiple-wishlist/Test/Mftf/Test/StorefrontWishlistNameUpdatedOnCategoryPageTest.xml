@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+  <test name="StorefrontWishlistNameUpdatedOnCategoryPageTest">
+    <annotations>
+      <stories value="Wishlist"/>
+      <title value="Wish list name updated successfully on a category page"/>
+      <description value="Wish list name updated successfully on a category page"/>
+      <severity value="MINOR"/>
+      <testCaseId value="AC-5619"/>
+      <group value="wishlist"/>
+    </annotations>
+    <before>
+      <!-- Multiple Wishlist Enabled -->
+      <magentoCLI command="config:set wishlist/general/multiple_enabled 1" stepKey="enableCustomerWishlist"/>
+        <actionGroup ref="CliCacheCleanActionGroup" stepKey="cleanCache">
+            <argument name="tags" value="config full_page block_html"/>
+        </actionGroup>
+      <!-- create category -->
+      <createData entity="SimpleSubCategory" stepKey="createCategory"/>
+      <!-- create product -->
+      <createData entity="SimpleProduct" stepKey="createProduct">
+        <requiredEntity createDataKey="createCategory"/>
+      </createData>
+      <!-- create simple customer -->
+      <createData entity="Simple_US_Customer" stepKey="createCustomer"/>
+      <!-- Login to Storefront -->
+      <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginToStorefrontAccount">
+        <argument name="Customer" value="$$createCustomer$$"/>
+      </actionGroup>
+      <actionGroup ref="CliIndexerReindexActionGroup" stepKey="reindex">
+        <argument name="indices" value=""/>
+      </actionGroup>
+    </before>
+    <after>
+      <!-- Multiple Wishlist Disabled -->
+      <magentoCLI command="config:set wishlist/general/multiple_enabled 0" stepKey="disableCustomerWishlist"/>
+      <!-- Delete Customer -->
+      <actionGroup ref="StorefrontCustomerLogoutActionGroup" stepKey="logoutCustomer" />
+            <deleteData createDataKey="createCustomer" stepKey="deleteCustomer"/>
+      <!-- Delete Category -->
+      <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+      <!-- Delete Product -->
+      <deleteData createDataKey="createProduct" stepKey="deleteProduct"/>
+    </after>
+    <!-- Navigate to created category -->
+    <actionGroup ref="StorefrontNavigateCategoryPageActionGroup" stepKey="goToCategoryPage">
+      <argument name="category" value="$createCategory$"/>
+    </actionGroup>
+    <!-- Check Product is present in assigned category -->
+    <actionGroup ref="StorefrontCheckCategorySimpleProductActionGroup" stepKey="checkCreatedProductPresent">
+      <argument name="product" value="$$createProduct$$"/>
+    </actionGroup>
+    <!--Create First Wish List - list1-->
+    <moveMouseOver selector="{{StorefrontCreateMultipleWishlistSection.productImage}}" stepKey="mouseHoverOnProductImage"/>
+    <click stepKey="clickAddToWishListItem" selector="{{StorefrontCreateMultipleWishlistSection.wishListItem}}"/>
+    <click stepKey="clickAddToWishListButton" selector="{{StorefrontCreateMultipleWishlistSection.addNewWishListItem}}"/>
+    <actionGroup ref="CreateNewWishListActionGroup" stepKey="createFirstWishListActionGroup">
+      <argument name="name" value="list1"/>
+    </actionGroup>
+    <!-- Change Wishlist name at first time -->
+    <actionGroup ref="StorefrontEditWishlistNameActionGroup" stepKey="changeWishlistName">
+      <argument name="wishlistName" value="list2"/>
+    </actionGroup>
+    <!-- Navigate to created category -->
+    <actionGroup ref="StorefrontNavigateCategoryPageActionGroup" stepKey="goToCategoryPageAgain">
+      <argument name="category" value="$createCategory$"/>
+    </actionGroup>
+    <!-- Assert the updated wishlist name -->
+    <moveMouseOver selector="{{StorefrontCreateMultipleWishlistSection.productImage}}" stepKey="mouseHoverOnProductImageAgain"/>
+    <click stepKey="clickAddToWishListItemAgain" selector="{{StorefrontCreateMultipleWishlistSection.wishListItem}}"/>
+    <waitForElementVisible selector="{{StorefrontCreateMultipleWishlistSection.wishListByName('list2')}}" stepKey="waitwishListItem"/>
+    <seeElement selector="{{StorefrontCreateMultipleWishlistSection.wishListByName('list2')}}" stepKey="assertWishlist1"/>
+
+  </test>
+</tests>

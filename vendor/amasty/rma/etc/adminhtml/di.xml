@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package RMA Base for Magento 2
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Sales\Block\Adminhtml\Order\View">
+        <plugin name="CreateRMAButtonOnOrderView" type="Amasty\Rma\Plugin\OrderView\CreateRmaButton"/>
+    </type>
+    <type name="Magento\Sales\Model\AdminOrder\Create">
+        <plugin name="Amasty_Rma::handle_session_request_id" type="Amasty\Rma\Plugin\AdminOrder\CreatePlugin"/>
+    </type>
+    <type name="Amasty\Rma\Model\Request\ResourceModel\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">amasty_rma_request</argument>
+            <argument name="resourceModel" xsi:type="string">Amasty\Rma\Model\Request\ResourceModel\Request</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="RmaSubscriptionFunctionalityPromo" type="Amasty\Base\Block\Adminhtml\System\Config\Form\Field\Promo\PromoField">
+        <arguments>
+            <argument name="moduleName" xsi:type="string">Amasty_RmaSubscriptionFunctionality</argument>
+            <argument name="promoConfig" xsi:type="array">
+                <item name="promoLink" xsi:type="string"><![CDATA[https://amasty.com/amcustomer/account/products/?utm_source=extension&utm_medium=backend&utm_campaign=subscribe_rma]]></item>
+                <item name="comment" xsi:type="string"><![CDATA[The functionality is available as part of an active product subscription or support subscription for the RMA extension. To upgrade and obtain functionality please follow the <a href='https://amasty.com/amcustomer/account/products/?utm_source=extension&utm_medium=backend&utm_campaign=subscribe_rma' target='_blank'>link</a>. Then you can find the 'amasty/module-rma-subscription-functionality' package for installation in composer suggest.]]></item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

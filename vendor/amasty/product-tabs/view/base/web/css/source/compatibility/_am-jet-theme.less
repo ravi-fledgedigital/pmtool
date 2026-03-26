@@ -1,0 +1,171 @@
+//
+//  JetTheme compatibility
+//  ____________________________________
+
+//
+//  Common
+//  ------------------------------------
+
+& when (@media-common = true) {
+    .amasty-jet-theme.am-tabs-view {
+        .product-items {
+            & {
+                align-items: inherit;
+            }
+
+            &.slick-slider {
+                display: block;
+            }
+        }
+
+        .product-item {
+            padding: 0;
+        }
+    }
+
+    .amasty-jet-theme.am-tabs-view .product.data.items.amtabs-accordion-view {
+        & {
+            border-top: 1px solid @amtheme__border__color;
+            border-bottom: none;
+        }
+
+        .amtheme-caret {
+            display: none;
+        }
+
+        > .item.title {
+            position: relative;
+        }
+
+        > .item.title > .switch {
+            & {
+                display: flex;
+                align-items: center;
+                padding: 0 30px 0 0;
+                max-width: 100%;
+                height: 50px;
+                border-bottom: 1px solid @amtheme__border__color;
+                background-color: transparent;
+            }
+
+            &:after {
+                display: none;
+            }
+        }
+
+        > .item.content {
+            padding: 25px 0;
+        }
+    }
+
+    .amasty-jet-theme.am-tabs-view .product.data.items .item.content > .am-custom-tab {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .accordion-container input[type='checkbox'] {
+        .am-visually-hidden-reset;
+
+        top: 0;
+        left: 0;
+        margin: 0;
+    }
+
+    .amasty-jet-theme.am-tabs-view .product.data.items > .item.content {
+        margin-top: 0;
+    }
+
+    .amasty-jet-theme.am-tabs-view.am-tabs-allow-default-edit {
+        &.amtheme-ismobile .amtheme-reviews-tab {
+            display: none;
+        }
+    }
+
+    .amasty-jet-theme.am-tabs-view .am-custom-tab {
+        .amtheme-reviews-aside .amtheme-heading > .amtheme-icon {
+            display: none;
+        }
+
+        .amtheme-reviews-aside .amtheme-title {
+            padding: 0;
+        }
+    }
+}
+
+//
+//  Mobile
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .amasty-jet-theme.am-tabs-view .product.data.items {
+        & {
+            border-top: 1px solid @amtheme__border__color;
+            border-bottom: none;
+        }
+
+        &:not(.amtabs-accordion-view) > .item.title > .switch {
+            &,
+            &:hover,
+            &:focus {
+                padding: 15px 0;
+            }
+        }
+
+        > .item.title {
+            margin-bottom: 0;
+        }
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .amasty-jet-theme.am-tabs-view .product.data.items:not(.amtabs-accordion-view) {
+        > .item.title {
+            height: 30px;
+        }
+
+        > .item.title > .switch {
+            padding: 5px 0;
+            height: 100%;
+            border: 1px solid transparent;
+        }
+
+        > .item.title.active > .switch {
+            &,
+            &:hover,
+            &:focus {
+                padding-bottom: 5px;
+            }
+        }
+
+        > .item.content {
+            margin-top: 50px;
+        }
+    }
+
+    .amasty-jet-theme.am-tabs-view .product.data.items {
+        > .item.content {
+            border-top: 0;
+        }
+    }
+
+    .amasty-jet-theme.am-tabs-view .product.data.items.amtabs-accordion-view {
+        .amtheme-item-title > .amtheme-icon {
+            position: absolute;
+            top: calc(~'50% - @{accordion-icon__width} / 2');
+            right: 0;
+            display: inline-block;
+            background-image: @accordion-icon__background;
+            background-position: center;
+            background-size: @accordion-icon__width;
+            background-repeat: no-repeat;
+        }
+
+        > .item.title.active .amtheme-icon {
+            transform: rotate(180deg);
+        }
+    }
+}

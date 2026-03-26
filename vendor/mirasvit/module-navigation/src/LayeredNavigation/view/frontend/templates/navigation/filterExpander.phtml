@@ -1,0 +1,19 @@
+<?php
+/** @var \Mirasvit\LayeredNavigation\Block\Navigation\FilterExpander $block */
+?>
+<script type="text/x-magento-init"><?= \Mirasvit\Core\Service\SerializeService::encode([
+        '.sidebar #narrow-by-list' => [
+            'accordion' => [
+                'multipleCollapsible' => true,
+                'active'              => $block->getOpenedFilterIndexes(),
+            ],
+        ],
+    ]) ?></script>
+
+<script type="text/x-magento-init"><?= \Mirasvit\Core\Service\SerializeService::encode([
+    '*' => [
+        'Mirasvit_LayeredNavigation/js/theme-compatibility' => [
+            'active' => $block->getOpenedFilterIndexes(),
+            ],
+    ],
+]) ?></script>

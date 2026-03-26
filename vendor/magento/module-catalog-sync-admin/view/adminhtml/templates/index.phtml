@@ -1,0 +1,23 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/** @var \Magento\CatalogSyncAdmin\Block\Adminhtml\Index $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+
+<div
+    data-graph-ql-url="<?= $escaper->escapeUrl($block->getGraphQlUrl()); ?>"
+    data-environment-id="<?= $escaper->escapeHtmlAttr($block->getEnvironmentId()); ?>"
+    data-website-code="<?= $escaper->escapeHtmlAttr($block->getWebsiteCode()); ?>"
+    data-store-code="<?= $escaper->escapeHtmlAttr($block->getStoreCode()); ?>"
+    data-store-view-code="<?= $escaper->escapeHtmlAttr($block->getStoreViewCode()); ?>"
+    data-enabled-modules="<?= $escaper->escapeHtmlAttr($block->getEnabledModules())?>"
+    id="root"
+></div>
+
+<link rel="stylesheet" href="<?= $escaper->escapeUrl($block->getFrontendCssUrl()) ?>" />
+<script type="module" src="<?= $escaper->escapeUrl($block->getFrontendUrl()) ?>"></script>

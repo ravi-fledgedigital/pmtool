@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="VerifyScheduledChangesSavedActionGroup">
+        <arguments>
+            <argument name="staging"/>
+            <argument name="startDate" type="string"/>
+            <argument name="endDate" type="string"/>
+        </arguments>
+        <waitForText selector="{{AdminScheduledChangesSection.scheduleDetails(staging.updateName)}}" userInput="{{staging.updateName}}" stepKey="seeUpdateName"/>
+        <waitForText selector="{{AdminScheduledChangesSection.scheduleDetails(staging.updateDescription)}}" userInput="{{staging.updateDescription}}" stepKey="seeUpdateDescription"/>
+        <grabAttributeFrom userInput="value" selector="{{AdminStagingSlideOutSection.startDate}}" stepKey="grabAttributeFromStartDate"/>
+        <assertEquals stepKey="assertThatStartDateIsSaved" after="grabAttributeFromStartDate">
+            <actualResult type="variable">$grabAttributeFromStartDate</actualResult>
+            <expectedResult type="string">{{startDate}}</expectedResult>
+        </assertEquals>
+        <grabAttributeFrom userInput="value" selector="{{AdminStagingSlideOutSection.endDate}}" stepKey="grabAttributeFromEndDate"/>
+        <assertEquals stepKey="assertThatEndDateIsSaved" after="grabAttributeFromEndDate">
+            <actualResult type="variable">$grabAttributeFromEndDate</actualResult>
+            <expectedResult type="string">{{endDate}}</expectedResult>
+        </assertEquals>
+    </actionGroup>
+</actionGroups>

@@ -1,0 +1,137 @@
+<?php
+
+/** @var \Mirasvit\LayeredNavigation\Block\Adminhtml\Filter\FiltersManager $block */
+?>
+
+<div class="admin__field mst-filters__add-wrapper">
+    <button class="action-primary mst-filters__add-button">
+        <?= $block->escapeHtml(__('Add Filters')) ?>
+    </button>
+</div>
+
+<div class="mst-admin__page-section">
+    <!-- Sidebar Filters -->
+    <div class="mst-admin__page-section-item">
+        <div class="admin__fieldset">
+            <h2><?= $block->escapeHtml(__('Sidebar')) ?></h2>
+            <ul id="mst-filter-list">
+                <?= /* @noEscape */ $block->renderFilterListHtml('sidebar') ?>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Content: Horizontal Filters + Form -->
+    <div class="mst-admin__page-section-item main-section">
+        <div id="layered-message-box"></div>
+        <!-- Horizontal Filters -->
+        <div class="admin__fieldset mst-filters__section--horizontal">
+            <h2><?= $block->escapeHtml(__('Horizontal bar')) ?></h2>
+            <ul id="mst_filters_manager-horizontal-list" class="mst-filters__list--horizontal">
+                <?= /* @noEscape */ $block->renderFilterListHtml('horizontal') ?>
+            </ul>
+        </div>
+
+        <!-- AJAX-loaded form -->
+        <div class="admin__fieldset admin__scope-old" id="attribute-edit-form">
+
+            <div id="attribute-edit-docs" class="mst-filters__docs">
+                <div class="mst-filters__docs-inner">
+                    <div class="mst-filters__docs-container">
+                        <h2><?= $block->escapeHtml(__('How it works')) ?></h2>
+                        <!-- Adding Filter Settings -->
+                        <div class="mst-filters__docs-section">
+                            <h3><?= $block->escapeHtml(__('Adding filters')) ?></h3>
+                            <ul>
+                                <li><?= /* @noEscape */ __('Click the %1 button.', '<button class="action-primary mst-filters__add-button">Add Filters</button>') ?></li>
+                                <li><?= $block->escapeHtml(__('Select an attribute you want to make filterable.')) ?></li>
+                                <li><?= /* @noEscape */ __('Choose a display location: <b>Sidebar</b>, <b>Horizontal Bar</b>, or <b>Both</b>.') ?></li>
+                                <li><?= $block->escapeHtml(__('Select the filter type:')) ?>
+                                    <ul>
+                                        <li><?= /* @noEscape */ __('<b>Filterable (with results)</b> – displays only options that return matching products.') ?></li>
+                                        <li><?= /* @noEscape */ __('<b>Filterable (no results)</b> – displays all options, even if some return no products.') ?></li>
+                                    </ul>
+                                </li>
+                                <li><?= /* @noEscape */ __('Click %1 button to confirm.', '<button disabled class="action-primary">Add Selected Filters</button>') ?></li>
+                            </ul>
+                            <div class="messages">
+                                <div class="message message-notice">
+                                    <?= /* @noEscape */ __('If <b>Both</b> is selected, the same settings apply to both filter sections.') ?>
+                                </div>
+                            </div>
+                            </p>
+                        </div>
+
+                        <!-- Adding Filter Settings -->
+                        <div class="mst-filters__docs-section">
+                            <h3><?= $block->escapeHtml(__('Editing filters')) ?></h3>
+                            <ul>
+                                <li><?= /* @noEscape */ __('Move mouse over the filter you\'d like to edit and click the %1 button.', '<span class="mst-filters__action-button--edit mst-action-secondary mst-filters__docs-button">Edit</span>') ?></li>
+                                <li><?= /* @noEscape */ __('Adjust <b>Appearence</b>, <b>Visibility</b>, and <b>Additional</b> settings.') ?></li>
+                                <li><?= /* @noEscape */ __('Click %1 button to save attribute settings.', '<button disabled class="action-primary">Save Configuration</button>') ?></li>
+                            </ul>
+                        </div>
+
+                        <!-- Managing Filter Positions -->
+                        <div class="mst-filters__docs-section">
+                            <h3><?= $block->escapeHtml(__('Managing filter positions')) ?></h3>
+                            <ul>
+                                <li><?= /* @noEscape */ __('Press and hold the %1 button in the filter to start adjusting its possition.', '<span class="filters__action-button--remdragve mst-action-secondary mst-filters__docs-button" title="Drag to reorder"></span>') ?></li>
+                                <li><?= $block->escapeHtml(__('Drag filters inside the section to change its position there.')) ?></li>
+                                <li><?= /* @noEscape */ __('Move filters between <b>Sidebar</b> and <b>Horizontal Bar</b> sections by dragging them across.') ?></li>
+                                <li><?= $block->escapeHtml(__('Changes are saved instantly after the filter is dropped — no additional actions needed.')) ?></li>
+                            </ul>
+                        </div>
+
+                        <!-- Removing Filters -->
+                        <div class="mst-filters__docs-section">
+                            <h3><?= $block->escapeHtml(__('Removing Filters')) ?></h3>
+                            <ul>
+                                <li><?= /* @noEscape */ __('Click the %1 icon on a filter.', '<span class="filters__action-button--remove mst-action-secondary mst-filters__docs-button">Remove</span>') ?></li>
+                                <li><?= /* @noEscape */ __('If the filter\'s position is set to <b>Both</b>, it will be removed only from the section where removal is triggered and will remain in another.') ?></li>
+                                <li><?= /* @noEscape */ __('If the filter exists in only one section, the <b>Use in Layered Navigation</b> setting is set to <b>No</b>, disabling it completely.') ?></li>
+                            </ul>
+                        </div>
+
+                        <!-- Tips & Troubleshooting -->
+                        <div class="mst-filters__docs-section">
+                            <h3><?= $block->escapeHtml(__('Tips & Troubleshooting')) ?></h3>
+                            <ul>
+                                <li><?= /* @noEscape */ __('Only attributes with catalog input types <b>Yes/No</b>, <b>Dropdown</b>, <b>Multiple select</b>, and <b>Price</b> can be used as filters. Make sure the attribute is enabled and assigned to an attribute set before adding it.') ?></li>
+                                <li><?= $block->escapeHtml(__('Custom filter settings are saved per attribute and control storefront display.')) ?></li>
+                                <li><?= /* @noEscape */ __('Filters can be dragged between <b>Sidebar</b> and <b>Horizontal</b> Bar at any time.') ?></li>
+                                <li><?= $block->escapeHtml(__('If filters do not appear, confirm that attributes are enabled and assigned to attribute sets.')) ?></li>
+                            </ul>
+
+                            <div class="messages">
+                                <div class="message message-notice">
+                                    <?= $block->escapeHtml(__('For detailed instructions on working with product attributes, see the official')) ?>
+                                    <a href="https://experienceleague.adobe.com/en/docs/commerce-admin/catalog/product-attributes/product-attributes-add"
+                                       target="_blank">
+                                        <?= $block->escapeHtml(__('Magento documentation')) ?>
+                                    </a>.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="add-filters-modal" style="display: none;">
+    <form id="add-filters-form">
+        <div id="add-filters-form-button" class="mst-filters__search-controls">
+            <input type="text" id="attribute-search" placeholder="<?= $block->escapeHtmlAttr(__('Search attributes...')) ?>"/>
+        </div>
+        <div id="mst-filters__available-list">
+            <!-- AJAX-loaded attributes go here -->
+        </div>
+    </form>
+</div>
+
+<script>
+    window.mstNavFilterReloadUrl = '<?= /* @noEscape */ $block->getUrl("layered_navigation/filter/reload") ?>';
+</script>
+
+

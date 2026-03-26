@@ -1,0 +1,61 @@
+<?php
+/**
+ * ADOBE CONFIDENTIAL
+ *
+ * Copyright 2024 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ */
+
+use Magento\Framework\Escaper;
+use Magento\CommerceBackendUix\Block\Adminhtml\System\Config\RefreshRegistrationsButton;
+
+/**
+ * @var Escaper $escaper
+ * @var RefreshRegistrationsButton $block
+ */
+
+?>
+<script>
+    require([
+        'jquery'
+    ], function ($) {
+        $('#refresh_registrations').click(function() {
+            const failureMessage = "Failed to refresh registrations.";
+
+            $.ajax({
+                url: '<?= $escaper->escapeUrl($block->getAjaxUrl()) ?>',
+                type: "GET",
+                dataType: "json",
+                success: function (result) {
+                    if (result.status === 200) {
+                        window.location.reload();
+                    } else {
+                        $('#message .message-text').text(failureMessage);
+                        $('#message').addClass('message message-error error').show();
+                    }
+                },
+                error: function () {
+                    $('#message .message-text').text(failureMessage);
+                    $('#message').addClass('message message-error error').show();
+                }
+            });
+        });
+    });
+</script>
+
+<?= $block->getButtonHtml() ?>
+
+<div id="button-info">
+    <div id="message" style="display: none;">
+        <div class="message-text"></div>
+    </div>
+</div>

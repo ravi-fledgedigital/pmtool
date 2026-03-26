@@ -1,0 +1,23 @@
+<?php
+declare(strict_types=1);
+/**
+ * @var $block \Mirasvit\LayeredNavigation\Block\StickySidebar
+ */
+?>
+
+<?php if ($block->isStickySidebar()): ?>
+<div data-mage-init='{"Mirasvit_LayeredNavigation/js/sticky": {}}'></div>
+
+<style>
+    .mst-sticky-sidebar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: #fff;
+        overflow-y: scroll;
+    }
+    .mst-sticky-sidebar::-webkit-scrollbar {
+        display: none;
+    }
+</style>
+<?php endif; ?>

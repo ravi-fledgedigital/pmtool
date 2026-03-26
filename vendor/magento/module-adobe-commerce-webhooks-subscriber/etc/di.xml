@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * ADOBE CONFIDENTIAL
+ *
+ * Copyright 2025 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\AdobeCommerceWebhooksSubscriber\Api\HookRepositoryInterface" type="Magento\AdobeCommerceWebhooksSubscriber\Model\HookRepository" />
+    <preference for="Magento\AdobeCommerceWebhooksSubscriber\Api\WebhookSubscriberInterface" type="Magento\AdobeCommerceWebhooksSubscriber\Model\WebhookSubscriber" />
+    <preference for="Magento\AdobeCommerceWebhooksSubscriber\Api\Data\HookInterface" type="Magento\AdobeCommerceWebhooksSubscriber\Model\Hook" />
+    <preference for="Magento\AdobeCommerceWebhooksSubscriber\Model\WebhookSubscriber\BatchOrderUpdaterInterface" type="Magento\AdobeCommerceWebhooksSubscriber\Model\WebhookSubscriber\BatchOrderUpdater" />
+    <type name="Magento\AdobeCommerceWebhooks\Model\Config\WebhookConfigurationSourcePool">
+        <arguments>
+            <argument name="configurationSources" xsi:type="array">
+                <item name="writableConfig" xsi:type="object">Magento\AdobeCommerceWebhooksSubscriber\Model\Config\DeploymentConfigurationSource</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\AdobeCommerceWebhooksSubscriber\Model\WebhookSubscriber">
+        <arguments>
+            <argument name="hookSubscribeValidator" xsi:type="object">beforeSubscribeHookValidator</argument>
+            <argument name="hookUnsubscribeValidator" xsi:type="object">beforeUnsubscribeHookValidator</argument>
+            <argument name="logger" xsi:type="object">Magento\AdobeCommerceWebhooks\Model\CompositeLogger</argument>
+        </arguments>
+    </type>
+    <virtualType name="unsubscribeHookRequiredFieldsValidator" type="Magento\AdobeCommerceWebhooksSubscriber\Model\Validator\HookRequiredFieldsValidator">
+        <arguments>
+            <argument name="requiredHookDataFields" xsi:type="array" />
+        </arguments>
+    </virtualType>
+    <virtualType name="beforeUnsubscribeHookValidator" type="Magento\AdobeCommerceWebhooksSubscriber\Model\Validator\CompositeHookValidator">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="hookRequiredFieldsValidator" xsi:type="object">unsubscribeHookRequiredFieldsValidator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="beforeSubscribeHookValidator" type="Magento\AdobeCommerceWebhooksSubscriber\Model\Validator\CompositeHookValidator">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="hookRequiredFieldsValidator" xsi:type="object">Magento\AdobeCommerceWebhooksSubscriber\Model\Validator\HookRequiredFieldsValidator</item>
+                <item name="hookRuleValidator" xsi:type="object">Magento\AdobeCommerceWebhooksSubscriber\Model\Validator\HookRuleValidator</item>
+                <item name="hookFieldValidator" xsi:type="object">Magento\AdobeCommerceWebhooksSubscriber\Model\Validator\HookFieldValidator</item>
+                <item name="hookHeaderValidator" xsi:type="object">Magento\AdobeCommerceWebhooksSubscriber\Model\Validator\HookHeaderValidator</item>
+                <item name="hookNonNegativeNumberValidator" xsi:type="object">Magento\AdobeCommerceWebhooksSubscriber\Model\Validator\HookNonNegativeNumberValidator</item>
+                <item name="developerConsoleOauthValidator" xsi:type="object">Magento\AdobeCommerceWebhooksSubscriber\Model\Validator\DeveloperConsoleOauthValidator</item>
+                <item name="hookAllowedMethodValidator" xsi:type="object">Magento\AdobeCommerceWebhooksSubscriber\Model\Validator\HookAllowedMethodValidator</item>
+                <item name="beforeSaveHookValidator" xsi:type="object">beforeSaveHookValidator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="beforeSaveHookValidator" type="Magento\AdobeCommerceWebhooksSubscriber\Model\Validator\CompositeHookValidator">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="hookMethodValidator" xsi:type="object">Magento\AdobeCommerceWebhooksSubscriber\Model\Validator\HookMethodValidator</item>
+                <item name="hookMethodTypeValidator" xsi:type="object">Magento\AdobeCommerceWebhooksSubscriber\Model\Validator\HookTypeValidator</item>
+                <item name="hookNameValidator" xsi:type="object">Magento\AdobeCommerceWebhooksSubscriber\Model\Validator\HookNameValidator</item>
+                <item name="hookBatchNameValidator" xsi:type="object">Magento\AdobeCommerceWebhooksSubscriber\Model\Validator\HookBatchNameValidator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

@@ -1,0 +1,20 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+
+<?php
+/** @var \Magento\DataServices\Block\Context $block */
+?>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "dataServicesDiscount": {
+                "isEnabled": <?= (int) $block->isEnabled() ?>
+            }
+        }
+    }
+</script>

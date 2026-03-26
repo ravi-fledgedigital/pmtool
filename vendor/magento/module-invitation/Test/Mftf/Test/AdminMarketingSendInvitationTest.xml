@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminMarketingSendInvitationTest">
+        <annotations>
+            <features value="Invitation"/>
+            <stories value="Admin Send Invitation"/>
+            <title value="Not able to send an invitation"/>
+            <description value="Send Invitation button should successfully post the request."/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="AC-7982"/>
+            <useCaseId value="ACP2E-1631"/>
+            <group value="invitation"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="LoginAsAdmin"/>
+        </before>
+
+        <after>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <!--Navigate tom Marketing > Investigation page-->
+        <actionGroup ref="AdminNavigateMenuActionGroup" stepKey="navigateToMarketingInvitationsPage">
+            <argument name="menuUiId" value="{{AdminMenuMarketing.dataUiId}}"/>
+            <argument name="submenuUiId" value="{{AdminMenuMarketingPrivateSalesInvitations.dataUiId}}"/>
+        </actionGroup>
+        <actionGroup ref="AdminAssertPageTitleActionGroup" stepKey="seePageTitle">
+            <argument name="title" value="{{AdminMenuMarketingPrivateSalesInvitations.pageTitle}}"/>
+        </actionGroup>
+
+        <!--Add invitation detail-->
+        <click selector="{{AdminMarketingInvitationSection.add}}" stepKey="clickAddInvitationButton"/>
+        <waitForPageLoad stepKey="waitForPageLoad"/>
+        <fillField selector="{{AdminMarketingInvitationSection.email}}" userInput="{{Simple_US_Customer.email}}" stepKey="fillInEmailField"/>
+        <fillField selector="{{AdminMarketingInvitationSection.message}}" userInput="TestMessage" stepKey="fillInMessageFields"/>
+        <selectOption selector="{{AdminMarketingInvitationSection.sendFrom}}" userInput="{{_defaultStore.name}}" stepKey="selectInviteeSendFrom"/>
+        <!--Select invitee group-->
+        <actionGroup ref="AdminMarketingInviteeCustomerGroupActionGroup" stepKey="selectCustomerInviteeGroup">
+            <argument name="inviteeGroup" value="{{GeneralCustomerGroup.code}}"/>
+        </actionGroup>
+        <!--Save invitation-->
+        <click selector="{{AdminMarketingInvitationSection.save}}" stepKey="clickSaveInvitationButton"/>
+        <waitForText selector="{{AdminMarketingInvitationSection.successMessage}}" userInput="We sent 1 invitation(s)." stepKey="seeSaveSuccessMessage"/>
+
+       <!--Filter recently created invitation from grid-->
+        <fillField selector="{{AdminMarketingInvitationSection.filterByEmailInput}}" userInput="{{Simple_US_Customer.email}}" stepKey="filterByName"/>
+        <click selector="{{AdminMarketingInvitationSection.searchButton}}" stepKey="doFilter"/>
+
+        <!--Go to invitation view page-->
+        <click selector="{{AdminMarketingInvitationSection.rowByIndex('1')}}" stepKey="goToViewInvitationPage"/>
+        <click selector="{{AdminMarketingInvitationSection.sendMessageToInvites}}" stepKey="clickSendInvitationButton"/>
+
+        <!--Send opened invitation-->
+        <waitForElementClickable selector="{{AdminMarketingInvitationSection.okButton}}" stepKey="waitForOkButtonClickable" after="clickSendInvitationButton" />
+        <click selector="{{AdminMarketingInvitationSection.okButton}}" stepKey="clickOkButton" after="waitForOkButtonClickable"/>
+        <waitForText selector="{{AdminMarketingInvitationSection.successMessage}}" userInput="You sent 1 of 1 invitation(s)." stepKey="seeSuccessMessage"/>
+    </test>
+</tests>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminCheckEditDataGiftOptionsForSimpleProductIfCreateNewUpdate">
+        <annotations>
+            <features value="StagingAndPreview"/>
+            <stories value="Update simple product if create new update"/>
+            <title value="Update simple product if create new update"/>
+            <description value="Update simple product if create new update"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="AC-4189"/>
+            <group value="staging and preview"/>
+            <group value="catalog_staging"/>
+        </annotations>
+        <before>
+            <!--Login to Admin Page-->
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <!-- Crete a simple product-->
+            <createData entity="SimpleProduct" stepKey="createSimpleProduct"/>
+        </before>
+        <after>
+            <!--Delete created entities-->
+            <deleteData createDataKey="createSimpleProduct" stepKey="deleteProduct"/>
+            <!-- Logout Admin -->
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logoutFromAdminPage"/>
+        </after>
+        <!--    Go to Products > Catalog-->
+        <actionGroup ref="AdminProductPageOpenByIdActionGroup" stepKey="goToProduct">
+            <argument name="productId" value="$$createSimpleProduct.id$$"/>
+        </actionGroup>
+        <!--        <waitForPageLoad stepKey="waitForProductPageLoad"/>-->
+        <!--        Click scheduleNewUpdateBtn -->
+        <click selector="{{AdminStagingSlideOutSection.scheduleNewUpdateBtn}}" stepKey="clickButtonSheduleNewUpdate"/>
+        <!--     Fill required fields for create new Update using Start date in future-->
+        <generateDate date="+1 day" format="m/j/Y g:i A" stepKey="generateStartDate"/>
+        <generateDate date="+3 day" format="m/j/Y g:i A" stepKey="generateEndDate"/>
+        <actionGroup ref="AdminFillScheduleUpdateWithoutSaving" stepKey="createNewStagingUpdate">
+            <argument name="staging" value="S5UpdateNameStaging"/>
+            <argument name="timeStart" value="{$generateStartDate}"/>
+            <argument name="timeEnd" value="{$generateEndDate}"/>
+            <argument name="productPrice" value="14"/>
+        </actionGroup>
+        <!--Allow Gift Message = Yes, Use Config Settings = No-->
+        <actionGroup ref="AllowGiftMessageForProductToScheduleNewUpdateActionGroup" stepKey="allowGiftMessageForProduct">
+            <argument name="allowGiftMsg" value="0"/>
+        </actionGroup>
+        <!--        Allow Gift Wrapping = No, Use Config Settings = No-->
+        <actionGroup ref="AllowGiftsWrappingForProductToScheduleNewUpdateActionGroup" stepKey="disAllowGiftWrapForProduct">
+            <argument name="allowGiftWrap" value="1"/>
+        </actionGroup>
+        <!--        Price for Gift Wrapping = 100-->
+      <waitForElementClickable selector="{{AdminProductGridSection.priceForGiftsWrapping}}" stepKey="waitForPriceForGiftWrapTextField"/>
+      <fillField selector="{{AdminProductGridSection.priceForGiftsWrapping}}" userInput="100" stepKey="fillPriceForGiftWrap"/>
+        <!--        Save the details-->
+      <waitForElementClickable selector="{{AdminStagingSlideOutSection.activeSaveButton}}" stepKey="waitForSaveButtonToAppear"/>
+      <click selector="{{AdminStagingSlideOutSection.activeSaveButton}}" stepKey="clickSaveButton"/>
+        <!--        <waitForPageLoad stepKey="waitForSave"/>-->
+        <waitForElementVisible selector="{{AdminScheduledChangesSection.scheduleViewEdit(S5UpdateNameStaging.updateName)}}" stepKey="waitForScheduleViewEditLinkVisible"/>
+        <click selector="{{AdminScheduledChangesSection.scheduleViewEdit(S5UpdateNameStaging.updateName)}}" stepKey="clickScheduleViewEditLink"/>
+        <waitForElementVisible selector="{{AdminStagingSlideOutSection.removeFromUpdate}}" stepKey="waitForRemoveFromUpdateButtonVisible"/>
+        <!--       Verify that scheduled changes are saved-->
+        <actionGroup ref="VerifyScheduledChangesSavedActionGroup" stepKey="assertScheduleChangesSavedForProduct">
+            <argument name="staging" value="S5UpdateNameStaging"/>
+            <argument name="startDate" value="{$generateStartDate}"/>
+            <argument name="endDate" value="{$generateEndDate}"/>
+        </actionGroup>
+        <!--Gift Options settings are saved-->
+        <actionGroup ref="AssertGiftMessageSettingsSavedForScheduledUpdateActionGroup" stepKey="seeGiftMessagesettingsSavedForScheduledUpdate">
+            <argument name="allowGiftMsg" value="1"/>
+        </actionGroup>
+        <actionGroup ref="AssertGiftWrappingSettingsSavedForScheduledUpdateActionGroup" stepKey="seeGiftWrappingSetingsSavedForScheduledUpdate">
+            <argument name="allowGiftWrap" value="0"/>
+        </actionGroup>
+    </test>
+</tests>

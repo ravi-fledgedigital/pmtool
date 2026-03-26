@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminFillScheduleUpdateWithStartAndEndDateActionGroup" >
+        <annotations>
+            <description>Assign start date and end date to schedule updates and assert the assigned dates.</description>
+        </annotations>
+        <arguments>
+            <argument name="dateStart" type="string"/>
+            <argument name="dateEnd" type="string"/>
+            <argument name="name" type="string"/>
+            <argument name="description" type="string"/>
+        </arguments>
+        <!-- Create Schedule New Update -->
+        <conditionalClick selector="{{AdminStagingSlideOutSection.scheduleNewUpdateBtn}}" dependentSelector="{{AdminStagingSlideOutSection.updateName}}" visible="false" stepKey="clickNewUpdate"/>
+        <waitForPageLoad stepKey="waitForSlideOutPanelToAppear"/>
+        <!-- Fill Schedule update fields -->
+        <generateDate date="{{dateStart}}" format="m/j/Y g:i A" stepKey="generateStartDate"/>
+        <generateDate date="{{dateEnd}}" format="m/j/Y g:i A" stepKey="generateEndDate"/>
+        <fillField selector="{{AdminStagingSlideOutSection.updateName}}" userInput="{{name}}" stepKey="fillScheduleUpdateName"/>
+        <fillField selector="{{AdminStagingSlideOutSection.updateDescription}}" userInput="{{description}}" stepKey="fillScheduleDescription"/>
+        <fillField selector="{{AdminStagingSlideOutSection.startDate}}" userInput="{$generateStartDate}}" stepKey="fillScheduleStartDate"/>
+        <fillField selector="{{AdminStagingSlideOutSection.endDate}}" userInput="{$generateEndDate}" stepKey="fillScheduleEndDate"/>
+        <!-- Open date picker and collect date and time in format that we need for assertions -->
+        <waitForElementClickable selector="{{AdminStagingSlideOutSection.datepickerStartDate}}"  stepKey="waitForDatePickerStartDayElementClickable" />
+        <click selector="{{AdminStagingSlideOutSection.datepickerStartDate}}" stepKey="clickDatePickerStartDay"/>
+        <grabTextFrom selector="{{AdminStagingSlideOutSection.datapickerCurrentDay}}" stepKey="grabStartCurrentDay"/>
+        <grabTextFrom selector="{{AdminStagingSlideOutSection.datapickerMonth}}" stepKey="grabStartMonth"/>
+        <grabValueFrom selector="{{AdminStagingSlideOutSection.datapickerYear}}" stepKey="grabStartYear"/>
+        <waitForElementClickable selector="{{AdminStagingSlideOutSection.datepickerClose}}"  stepKey="waitForClickCloseElementClickable" />
+        <click selector="{{AdminStagingSlideOutSection.datepickerClose}}" stepKey="clickClose"/>
+        <!-- End date First Staging -->
+        <waitForElementClickable selector="{{AdminStagingSlideOutSection.datepickerEndDate}}" stepKey="waitForDatePickerEndDayElementClickable" />
+        <click selector="{{AdminStagingSlideOutSection.datepickerEndDate}}" stepKey="clickDatePickerEndDay"/>
+        <grabTextFrom selector="{{AdminStagingSlideOutSection.datapickerCurrentDay}}" stepKey="grabEndCurrentDay"/>
+        <grabTextFrom selector="{{AdminStagingSlideOutSection.datapickerMonth}}" stepKey="grabEndMonth"/>
+        <grabValueFrom selector="{{AdminStagingSlideOutSection.datapickerYear}}" stepKey="grabEndYear"/>
+        <waitForElementClickable selector="{{AdminStagingSlideOutSection.datepickerClose}}" stepKey="waitForCloseDatePickerElementClickable" />
+        <click selector="{{AdminStagingSlideOutSection.datepickerClose}}" stepKey="clickCloseDatePicker"/>
+        <waitForElementClickable selector="{{AdminStagingSlideOutSection.save}}" stepKey="waitForClickSaveElementClickable" />
+        <click selector="{{AdminStagingSlideOutSection.save}}" stepKey="clickSave"/>
+        <!--  Assert start date and end date -->
+        <waitForElementVisible selector="{{AdminScheduledChangesSection.scheduleStartDate('{$grabStartMonth} {$grabStartCurrentDay}, {$grabStartYear}')}}" stepKey="assertScheduleStartDate"/>
+        <waitForElementVisible selector="{{AdminScheduledChangesSection.scheduleEndDate('{$grabEndMonth} {$grabEndCurrentDay}, {$grabEndYear}')}}" stepKey="assertScheduleEndDate"/>
+    </actionGroup>
+</actionGroups>

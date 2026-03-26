@@ -1,0 +1,29 @@
+<div class="amrma-fieldset-wrapper"
+     css="$data.additionalClasses"
+     attr="'data-index': index"
+     data-bind="visible: $data.visible === undefined ? true: $data.visible">
+    <div class="amrma-fieldset-title amrma-title">
+        <strong class="amrma-strong">
+            <span translate="label"/>
+        </strong>
+    </div>
+
+    <table class="amrma-return-table">
+        <col width="350">
+        <!-- ko ifnot: $parent.is_createForm -->
+        <col width="300">
+        <!-- /ko -->
+        <thead>
+            <tr>
+                <!-- ko foreach: $data.header -->
+                <th data-bind="text: $data" class="amrma-head"></th>
+                <!-- /ko -->
+            </tr>
+        </thead>
+        <tbody>
+            <!-- ko foreach: $data.elems() -->
+                <!--ko template: getTemplate()--><!-- /ko -->
+            <!-- /ko -->
+        </tbody>
+    </table>
+</div>

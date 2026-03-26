@@ -1,0 +1,30 @@
+Disabled,Disabled
+"Infinite Scroll","Infinite Scroll"
+"Load More Button","Load More Button"
+"Infinite Scroll + Load More Button","Infinite Scroll + Load More Button"
+"Load More Button + Infinite Scroll","Load More Button + Infinite Scroll"
+"Load More Button + Default Pagination","Load More Button + Default Pagination"
+"Ajax Pagination/Infinite Scroll","Ajax Pagination/Infinite Scroll"
+"Ajax Pagination Settings","Ajax Pagination Settings"
+"Allows to configure how products are loaded on the page.","Allows to configure how products are loaded on the page."
+"Pagination Mode","Pagination Mode"
+"Select Pagination Style","Select Pagination Style"
+"Choose how additional products are loaded on the page: automatically with Infinite Scroll or manually with a ""Load More"" button.","Choose how additional products are loaded on the page: automatically with Infinite Scroll or manually with a ""Load More"" button."
+"Pages limit for the first pagination mode type","Pages limit for the first pagination mode type"
+"The number of loaded pages after which the pagination mode will be changed.
+                            </br>This number doesn't include the initial page.
+                            </br>For example, if limit is set to 2 then the pagination mode will be changed after 3 pages will be displayed.","The number of loaded pages after which the pagination mode will be changed.
+                            </br>This number doesn't include the initial page.
+                            </br>For example, if limit is set to 2 then the pagination mode will be changed after 3 pages will be displayed."
+"Button Labels and Text","Button Labels and Text"
+"Label for ""Load Previous Page"" Button","Label for ""Load Previous Page"" Button"
+"Custom text for the button that loads the previous set of products in pagination.","Custom text for the button that loads the previous set of products in pagination."
+"Label for ""Load Next Page"" Button","Label for ""Load Next Page"" Button"
+"Custom text for the button that loads the next set of products in pagination. You can use %limit% as a placeholder for the number of items.","Custom text for the button that loads the next set of products in pagination. You can use %limit% as a placeholder for the number of items."
+"Product List Selector","Product List Selector"
+"CSS Selectors for Product List","CSS Selectors for Product List"
+"Specify CSS selectors for identifying the product list in various layouts. Separate multiple selectors with commas.","Specify CSS selectors for identifying the product list in various layouts. Separate multiple selectors with commas."
+"Progress Bar Display","Progress Bar Display"
+"Show Progress Bar During Loading","Show Progress Bar During Loading"
+"Enable a progress bar to indicate that more products are being loaded.","Enable a progress bar to indicate that more products are being loaded."
+"Progress Bar Label","Progress Bar Label"

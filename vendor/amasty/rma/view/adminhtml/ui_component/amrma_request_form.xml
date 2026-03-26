@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package RMA Base for Magento 2
+ */-->
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">amrma_request_form.amrma_request_form_data_source</item>
+            <item name="deps" xsi:type="string">amrma_request_form.amrma_request_form_data_source</item>
+        </item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">amrma_request_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">View Return Request</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">Amasty\Rma\Block\Adminhtml\Buttons\Request\BackButton</item>
+            <item name="history" xsi:type="string">Amasty\Rma\Block\Adminhtml\Buttons\Request\HistoryButton</item>
+            <item name="save" xsi:type="array">
+                <item name="name" xsi:type="string">save</item>
+                <item name="label" xsi:type="string" translate="true">Save</item>
+                <item name="class" xsi:type="string">save primary</item>
+            </item>
+            <item name="save_and_continue" xsi:type="array">
+                <item name="name" xsi:type="string">save_and_continue</item>
+                <item name="label" xsi:type="string" translate="true">Save and Continue Edit</item>
+                <item name="class" xsi:type="string">save_and_continue</item>
+            </item>
+            <item name="reorder" xsi:type="string">Amasty\Rma\Block\Adminhtml\Buttons\Request\ReorderButton</item>
+            <item name="order_creditmemo" xsi:type="string">Amasty\Rma\Block\Adminhtml\Buttons\Request\CreditMemoButton</item>
+        </item>
+    </argument>
+    <dataSource name="amrma_request_form.amrma_request_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Amasty\Rma\Model\Request\DataProvider\Form</argument>
+            <argument name="name" xsi:type="string">amrma_request_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">request_id</argument>
+            <argument name="requestFieldName" xsi:type="string">request_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="*/*/save"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+
+    <fieldset name="rma_return_order">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Items to Return</item>
+                <item name="additionalClasses" xsi:type="string">amrma-return-wrap</item>
+                <item name="template" xsi:type="string">Amasty_Rma/return/order</item>
+                <item name="component" xsi:type="string">Amasty_Rma/js/return/order</item>
+                <item name="children" xsi:type="array">
+                    <item name="messages" xsi:type="array">
+                        <item name="component" xsi:type="string">Magento_Ui/js/view/messages</item>
+                        <item name="displayArea" xsi:type="string">messages</item>
+                    </item>
+                </item>
+            </item>
+        </argument>
+    </fieldset>
+
+    <field name="last_message_id">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="visible" xsi:type="boolean">true</item>
+                <item name="dataType" xsi:type="string">text</item>
+                <item name="formElement" xsi:type="string">hidden</item>
+                <item name="source" xsi:type="string">last_message_id</item>
+            </item>
+        </argument>
+    </field>
+    <fieldset name="status_container">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">RMA Status</item>
+                <item name="additionalClasses" xsi:type="string">amrma-col2 amrma-col-status</item>
+                <item name="template" xsi:type="string">Amasty_Rma/form/fieldset</item>
+            </item>
+        </argument>
+
+        <field name="status">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Amasty\Rma\Model\Status\OptionSource\Status</item>
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="labelVisible" xsi:type="boolean">false</item>
+                    <item name="additionalClasses" xsi:type="string">_amrma-width80 amrma-status-select</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">status</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+
+    <fieldset name="chat_container">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Chat</item>
+                <item name="additionalClasses" xsi:type="string">amrma-col2 amrma-col-chat</item>
+                <item name="template" xsi:type="string">Amasty_Rma/form/fieldset</item>
+            </item>
+        </argument>
+
+        <field name="message">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="isAdmin" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">container</item>
+                    <item name="fetchUrl" xsi:type="url" path="amrma/chat/update"/>
+                    <item name="saveUrl" xsi:type="url" path="amrma/chat/save"/>
+                    <item name="deleteUrl" xsi:type="url" path="amrma/chat/deletetemp"/>
+                    <item name="deleteMessageUrl" xsi:type="url" path="amrma/chat/deletemessage"/>
+                    <item name="uploadUrl" xsi:type="url" path="amrma/chat/uploadtemp"/>
+                    <item name="imports" xsi:type="array">
+                        <item name="urlhash" xsi:type="string">${ $.provider }:data.url_hash</item>
+                    </item>
+                    <item name="component" xsi:type="string">Amasty_Rma/js/chat/view</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+
+    <fieldset name="rma_details">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="additionalClasses" xsi:type="string">amrma-col2 amrma-col-details</item>
+                <item name="template" xsi:type="string">Amasty_Rma/form/rma_details_fieldset</item>
+                <item name="imports" xsi:type="array">
+                    <item name="rating" xsi:type="string">${ $.provider }:data.rating</item>
+                </item>
+            </item>
+        </argument>
+        <fieldset name="rma_details_info">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">RMA Details</item>
+                    <item name="additionalClasses" xsi:type="string">amrma-details-info</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="information" xsi:type="string">${ $.provider }:data.information.order</item>
+                    </item>
+                    <item name="template" xsi:type="string">Amasty_Rma/form/rma_details_info</item>
+                </item>
+            </argument>
+            <field name="manager_id">
+                <argument name="data" xsi:type="array">
+                    <item name="options" xsi:type="object">Amasty\Rma\Model\OptionSource\Manager</item>
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">RMA Manager</item>
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="dataType" xsi:type="string">select</item>
+                        <item name="formElement" xsi:type="string">select</item>
+                        <item name="source" xsi:type="string">manager_id</item>
+                    </item>
+                </argument>
+            </field>
+        </fieldset>
+        <fieldset name="rma_details_customer_info">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Customer Information</item>
+                    <item name="additionalClasses" xsi:type="string">amrma-customer-info</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="information" xsi:type="string">${ $.provider }:data.information.customer</item>
+                    </item>
+                    <item name="template" xsi:type="string">Amasty_Rma/form/rma_details_customer_info</item>
+                </item>
+            </argument>
+        </fieldset>
+        <container name="custom_fields">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="string">amrma-custom-fields</item>
+                    <item name="template" xsi:type="string">Amasty_Rma/form/rma_view_custom_fields</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="custom_fields" xsi:type="string">${ $.provider }:data.custom_fields</item>
+                    </item>
+                </item>
+            </argument>
+        </container>
+        <container name="review">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="template" xsi:type="string">Amasty_Rma/form/rma_review</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="rating_comment" xsi:type="string">${ $.provider }:data.rating_comment</item>
+                    </item>
+                </item>
+            </argument>
+        </container>
+    </fieldset>
+
+    <fieldset name="tracking_details">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="additionalClasses" xsi:type="string">amrma-col2 amrma-col-tracking</item>
+                <item name="template" xsi:type="string">Amasty_Rma/form/rma_fieldset</item>
+            </item>
+        </argument>
+        <field name="tracking">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">container</item>
+                    <item name="removeUrl" xsi:type="url" path="amrma/trackingnumber/remove"/>
+                    <item name="saveUrl" xsi:type="url" path="amrma/trackingnumber/save"/>
+                    <item name="addAllowed" xsi:type="boolean">true</item>
+                    <item name="isAdmin" xsi:type="boolean">true</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="urlhash" xsi:type="string">${ $.provider }:data.url_hash</item>
+                        <item name="trackingNumbers" xsi:type="string">${ $.provider }:data.tracking_numbers</item>
+                    </item>
+                    <item name="component" xsi:type="string">Amasty_Rma/js/tracking-number/view</item>
+                </item>
+            </argument>
+        </field>
+
+        <fieldset name="note">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="string">amrma-note-container</item>
+                    <item name="template" xsi:type="string">Amasty_Rma/form/rma_fieldset</item>
+                </item>
+            </argument>
+            <field name="shipping_label">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="label" xsi:type="string" translate="true">Shipping Label</item>
+                        <item name="template" xsi:type="string">Amasty_Rma/form/rma_file_uploader</item>
+                        <item name="formElement" xsi:type="string">fileUploader</item>
+                        <item name="component" xsi:type="string">Amasty_Rma/js/form/element/file-uploader</item>
+                        <item name="previewTmpl" xsi:type="string">Amasty_Rma/form/element/shipping-label-preview</item>
+                        <item name="source" xsi:type="string">shipping_label</item>
+                        <item name="deleteUrl" xsi:type="url" path="amrma/request_shippinglabel/delete"/>
+                        <item name="additionalClasses" xsi:type="string">amrma-shipping-label</item>
+                        <item name="uploaderConfig" xsi:type="array">
+                            <item name="url" xsi:type="url" path="amrma/request_shippinglabel/upload"/>
+                        </item>
+                        <item name="imports" xsi:type="array">
+                            <item name="request_id" xsi:type="string">${ $.provider }:data.request_id</item>
+                        </item>
+                    </item>
+                </argument>
+            </field>
+            <field name="note">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="label" xsi:type="string" translate="true">Internal RMA Note</item>
+                        <item name="labelVisible" xsi:type="boolean">true</item>
+                        <item name="additionalClasses" xsi:type="string">amrma-note-block</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">textarea</item>
+                        <item name="source" xsi:type="string">note</item>
+                    </item>
+                </argument>
+            </field>
+        </fieldset>
+    </fieldset>
+    <container name="modal">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="componentType" xsi:type="string">modal</item>
+                <item name="modalClass" xsi:type="string">amrma-history-modal</item>
+                <item name="component" xsi:type="string">Magento_Ui/js/modal/modal-component</item>
+                <item name="options" xsi:type="array">
+                    <item name="type" xsi:type="string">popup</item>
+                    <item name="title" xsi:type="string" translate="true">Request Log</item>
+                </item>
+            </item>
+        </argument>
+        <container>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="componentType" xsi:type="string">container</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="historyData" xsi:type="string">${ $.provider }:data.history</item>
+                    </item>
+                    <item name="template" xsi:type="string">Amasty_Rma/form/rma_history_table</item>
+                </item>
+            </argument>
+        </container>
+    </container>
+</form>

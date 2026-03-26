@@ -1,0 +1,30 @@
+<?php
+/** @var \Mirasvit\LayeredNavigation\Block\Renderer\Element\SizeLimiterElement $block */
+
+$filterAccessor = $block->getFilterAccessor();
+?>
+<?php if ($block->isShowHideMode()): ?>
+    <li class="mst-nav__sizeLimiter" role="listitem">
+        <span data-element="sizeToggle"><?= $block->escapeHtml($block->getTextMore()) ?></span>
+    </li>
+
+    <script type="text/x-magento-init"><?= \Mirasvit\Core\Service\SerializeService::encode([
+            '[data-mst-nav-filter=' . $filterAccessor . ']' => [
+                'Mirasvit_LayeredNavigation/js/renderer/element/size-limiter' => [
+                    'limit'    => $block->getLinkLimit(),
+                    'textLess' => $block->getTextLess(),
+                    'textMore' => $block->getTextMore(),
+                ],
+            ],
+        ]) ?></script>
+
+<?php endif ?>
+
+<?php if ($block->isScrollMode()): ?>
+    <style>
+        [data-mst-nav-filter=<?=$block->escapeHtmlAttr($filterAccessor) ?>] {
+            max-height: <?=$block->escapeHtmlAttr($block->getScrollHeight()) ?>px;
+            overflow-x: hidden;
+        }
+    </style>
+<?php endif ?>

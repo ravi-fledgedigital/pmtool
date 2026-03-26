@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+<tests
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="VerifyUrlRewriteRecordBasedOnCmsPageHierarchyTest">
+        <annotations>
+            <features value="VersionsCmsUrlRewrite"/>
+            <stories value="CMS Pages"/>
+            <title value="Verify record in the marketing grid for CMS page with child node hierarchy"/>
+            <description value="Verify CMS page is redirected to defined hierarchy and can be found in URL Rewrite grid"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="AC-8293"/>
+            <useCaseId value="ACP2E-1644"/>
+            <group value="cms"/>
+            <group value="versionsCmsUrlRewrite"/>
+        </annotations>
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="login"/>
+            <!-- Create Cms Page -->
+            <createData entity="_defaultCmsPage" stepKey="createCmsPage"/>
+            <!-- Create Hierarchy Node -->
+            <actionGroup ref="AddNewNodeActionGroup" stepKey="createNode">
+                <argument name="NodeTitle" value="{{DefaultHierarchyNode.name}}"/>
+                <argument name="NodeUrlKey" value="{{DefaultHierarchyNode.urlKey}}"/>
+            </actionGroup>
+        </before>
+        <after>
+            <!-- Delete CMS Page -->
+            <actionGroup ref="AdminDeleteCMSPageByUrlKeyActionGroup" stepKey="deletePage">
+                <argument name="pageUrlKey" value="$$createCmsPage.identifier$$"/>
+            </actionGroup>
+            <conditionalClick selector="{{CmsPagesPageActionsSection.clearAllButton}}" dependentSelector="{{CmsPagesPageActionsSection.activeFilters}}" visible="true" stepKey="clickToResetFilter"/>
+            <waitForPageLoad stepKey="waitForPageLoadAfterClearFilters"/>
+            <!-- Delete Hierarchy -->
+            <actionGroup ref="DeleteCurrentHierarchyActionGroup" stepKey="deleteNode"/>
+            <actionGroup ref="AdminClearFiltersActionGroup" stepKey="clearFilters"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="adminLogout"/>
+        </after>
+        <!-- Open CMS Page and select root hierarchy -->
+        <actionGroup ref="AdminEditCMSPageHierarchyActionGroup" stepKey="AddRootHierarchyFromCMSPage">
+            <argument name="pageId" value="$$createCmsPage.id$$"/>
+            <argument name="selectHierarchyOpt" value="Website Root"/>
+        </actionGroup>
+        <!-- Open CMS Page and select created hierarchy -->
+        <actionGroup ref="AdminEditCMSPageHierarchyActionGroup" stepKey="AddHierarchyToCMSPage">
+            <argument name="pageId" value="$$createCmsPage.id$$"/>
+            <argument name="selectHierarchyOpt" value="{{DefaultHierarchyNode.name}}"/>
+        </actionGroup>
+        <!-- Open CMS Page and unselect root hierarchy (BIC)-->
+        <actionGroup ref="AdminEditCMSPageHierarchyActionGroup" stepKey="RemoveRootHierarchyFromCMSPage">
+            <argument name="pageId" value="$$createCmsPage.id$$"/>
+            <argument name="selectHierarchyOpt" value="Website Root"/>
+        </actionGroup>
+        <!-- Navigate to Storefront CMS Page -->
+        <actionGroup ref="NavigateToStorefrontForCreatedPageActionGroup" stepKey="navigateToPageOnStorefront">
+            <argument name="page" value="$$createCmsPage.identifier$$"/>
+        </actionGroup>
+        <!-- Assert CMS page data in Store Front -->
+        <actionGroup ref="AssertStoreFrontCMSPageActionGroup" stepKey="assertCMSPage">
+            <argument name="cmsTitle"  value="$$createCmsPage.title$$"/>
+            <argument name="cmsContent" value="$$createCmsPage.content$$"/>
+            <argument name="cmsContentHeading" value="$$createCmsPage.content_heading$$"/>
+        </actionGroup>
+        <actionGroup ref="AssertStorefrontBreadcrubmsAreShownActionGroup" stepKey="checkBreadcrubmsHierarchyNode">
+            <argument name="breadcrumbs" value="{{DefaultHierarchyNode.name}}"/>
+        </actionGroup>
+        <!-- Check url of CMS page redirected to created hierarchy in Store Front -->
+        <amOnPage url="$$createCmsPage.identifier$$" stepKey="navigateToCMSPageStoreFront"/>
+        <seeCurrentUrlEquals url="{{_ENV.MAGENTO_BASE_URL}}{{DefaultHierarchyNode.urlKey}}/$$createCmsPage.identifier$$" stepKey="seeSecureStoreCreditInfoURL"/>
+        <!-- Assert Redirect path, Target Path and Redirect type in grid -->
+        <actionGroup ref="AdminSearchByRequestPathActionGroup" stepKey="searchByRequestPath">
+            <argument name="redirectPath" value="$$createCmsPage.identifier$$" />
+            <argument name="redirectType" value="Permanent (301)" />
+            <argument name="targetPath" value="{{DefaultHierarchyNode.urlKey}}/$$createCmsPage.identifier$$"/>
+        </actionGroup>
+    </test>
+</tests>

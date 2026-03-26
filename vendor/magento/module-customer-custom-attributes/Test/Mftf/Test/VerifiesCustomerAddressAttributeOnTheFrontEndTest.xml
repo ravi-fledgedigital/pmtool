@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+  <test name="VerifiesCustomerAddressAttributeOnTheFrontEndTest">
+    <annotations>
+      <features value="CustomerCustomAttribute"/>
+      <stories value="Customer Address Custom Attributes"/>
+      <title value="Verify Customer Address attribute shows up on the Shipping address, Payment page and Ship to section on the frontEnd"/>
+      <description value="Test Verifies that once the Customer Address attribute is added, it shows up in the checkout summary Page on the storefront"/>
+      <severity value="MAJOR"/>
+      <testCaseId value="AC-3855"/>
+    </annotations>
+    <before>
+      <!-- Create category -->
+      <createData entity="SimpleSubCategory" stepKey="createCategory"/>
+      <!--Create Product-->
+      <createData entity="SimpleProduct2" stepKey="createProduct">
+        <requiredEntity createDataKey="createCategory"/>
+      </createData>
+      <createData entity="Simple_US_Customer" stepKey="createCustomer"/>
+      <!-- Log in to admin -->
+      <actionGroup ref="AdminLoginActionGroup" stepKey="adminLogin"/>
+      <actionGroup ref="AdminNavigateToCustomerAddressAttributesPageActionGroup" stepKey="goToCustomerAddressAttributesPage"/>
+      <actionGroup ref="AdminCreateCustomerNewAttribute" stepKey="adminCreateCustomerAddressDropdownAttribute">
+        <argument name="defaultLabel" value="{{AttributeTextField.frontend_label}}"/>
+        <argument name="attributeCode" value="{{AttributeTextField.attribute_code}}"/>
+        <argument name="inputType" value="{{AttributeTextField.frontend_input}}"/>
+        <argument name="sortOrder" value="60"/>
+      </actionGroup>
+    </before>
+    <after>
+      <!--Logout customer-->
+      <actionGroup ref="StorefrontCustomerLogoutActionGroup" stepKey="customerLogout"/>
+      <actionGroup ref="AdminDeleteCustomerAttribute" stepKey="adminDeleteFirstCustomerAttribute">
+        <argument name="defaultLabel" value="{{AttributeTextField.attribute_code}}"/>
+      </actionGroup>
+      <!-- Reindex and Clean Cache -->
+      <actionGroup ref="CliIndexerReindexActionGroup" stepKey="indexerReindex">
+        <argument name="indices" value=""/>
+      </actionGroup>
+      <actionGroup ref="CliCacheCleanActionGroup" stepKey="cleanCache">
+        <argument name="tags" value="full_page"/>
+      </actionGroup>
+      <deleteData createDataKey="createProduct" stepKey="deleteProduct"/>
+      <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+      <deleteData createDataKey="createCustomer" stepKey="deleteCustomer"/>
+    </after>
+    <!-- Login as customer -->
+    <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginToStorefrontAccount">
+      <argument name="Customer" value="$$createCustomer$$"/>
+    </actionGroup>
+    <actionGroup ref="StorefrontGoToCustomerAddressesPageActionGroup" stepKey="goToCustomerAddressBook"/>
+    <!-- Change billing address -->
+    <waitForElementVisible selector="{{StorefrontCustomerAddressesSection.editDefaultBillingAddress}}" stepKey="waitForEditButtonToAppear"/>
+    <click selector="{{StorefrontCustomerAddressesSection.editDefaultBillingAddress}}" stepKey="clickEditDefaultBillingAddress" />
+    <waitForElementVisible selector="{{AdminCustomerAccountAttributeSection.customerAttributeInput(AttributeTextField.attribute_code)}}" stepKey="waitForCustomerAttribute"/>
+    <fillField selector="{{AdminCustomerAccountAttributeSection.customerAttributeInput(AttributeTextField.attribute_code)}}" userInput="XYZ" stepKey="fillCustomAttribute"/>
+    <actionGroup ref="AdminSaveCustomerAddressActionGroup" stepKey="saveBillingAddress"/>
+    <actionGroup ref="OpenStoreFrontProductPageActionGroup" stepKey="goToProductPage">
+      <argument name="productUrlKey" value="$createProduct.custom_attributes[url_key]$"/>
+    </actionGroup>
+    <actionGroup ref="StorefrontAddProductToCartActionGroup" stepKey="addProductToCart">
+      <argument name="product" value="$$createProduct$$"/>
+      <argument name="productCount" value="1"/>
+    </actionGroup>
+    <!-- Go to Checkout-->
+    <actionGroup ref="StorefrontCartPageOpenActionGroup" stepKey="goToCheckoutPage"/>
+    <actionGroup ref="StorefrontClickProceedToCheckoutActionGroup" stepKey="goToCheckout"/>
+    <waitForText userInput="XYZ" stepKey="waitForText"/>
+    <actionGroup ref="CheckoutSelectFlatRateShippingMethodActionGroup" stepKey="selectFlatRate"/>
+    <actionGroup ref="StorefrontCheckoutClickNextOnShippingStepActionGroup" stepKey="goToReview"/>
+    <waitForText stepKey="seeAttributeInShippingAddress" selector="{{CheckoutPaymentSection.shipToInformation}}" userInput="XYZ"/>
+    <uncheckOption selector="{{CheckoutPaymentSection.billingAddressNotSameCheckbox}}" stepKey="unCheckSameBillingAndShippingAddress"/>
+    <waitForElement selector="{{CheckoutPaymentSection.billingAddressSelectShared}}" time="30" stepKey="waitForAddressField"/>
+    <selectOption selector="{{CheckoutPaymentSection.billingAddressSelectShared}}" userInput="New Address" stepKey="chooseNewAddress"/>
+    <waitForPageLoad stepKey="waitForNewAddressPageLoad"/>
+    <actionGroup ref="LoggedInCheckoutWithOneAddressFieldWithoutStateFieldActionGroup" stepKey="changeAddress">
+      <argument name="Address" value="UK_Not_Default_Address"/>
+      <argument name="classPrefix" value="[aria-hidden=false]"/>
+    </actionGroup>
+    <waitForElementVisible selector="{{CheckoutPaymentSection.customerAddressAttribute(AttributeTextField.frontend_label)}}" stepKey="waitForElementCustomerAddressFieldToVisible"/>
+    <fillField selector="{{CheckoutPaymentSection.customerAddressAttribute(AttributeTextField.frontend_label)}}" userInput="123" stepKey="FillNewAttributeValue"/>
+    <waitForElementVisible selector="{{CheckoutPaymentSection.addressAction('Update')}}" stepKey="waitForUpdateBillingAddressButton"/>
+    <click selector="{{CheckoutPaymentSection.addressAction('Update')}}" stepKey="clickUpdateBillingAddressButton"/>
+    <waitForPageLoad stepKey="waitForNewAddressUpdate"/>
+    <waitForText userInput="123" stepKey="waitForShippingText"/>
+  </test>
+</tests>

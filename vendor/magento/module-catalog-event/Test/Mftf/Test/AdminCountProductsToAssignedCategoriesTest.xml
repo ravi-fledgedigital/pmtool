@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+  <test name="AdminCountProductsToAssignedCategoriesTest">
+    <annotations>
+      <features value="Catalog"/>
+      <stories value="Menu Navigation"/>
+      <title value="Admin count products to assigned categories"/>
+      <description value="Admin count products to assigned categories"/>
+      <severity value="MAJOR"/>
+      <testCaseId value="AC-6742"/>
+        <group value="cloud"/>
+    </annotations>
+
+    <before>
+      <!-- Login as Admin -->
+      <actionGroup ref="AdminLoginActionGroup" stepKey="LoginAsAdmin"/>
+      <!-- Create 5 simple Products -->
+      <createData entity="ApiSimpleProduct" stepKey="simpleProduct1"/>
+      <createData entity="ApiSimpleProduct" stepKey="simpleProduct2"/>
+      <createData entity="ApiSimpleProduct" stepKey="simpleProduct3"/>
+      <createData entity="ApiSimpleProduct" stepKey="simpleProduct4"/>
+      <createData entity="ApiSimpleProduct" stepKey="simpleProduct5"/>
+      <!-- create category -->
+      <createData entity="SimpleSubCat" stepKey="simpleCategory"/>
+    </before>
+    <after>
+      <!-- Delete simple products -->
+      <deleteData createDataKey="simpleProduct1" stepKey="deleteSimpleProduct1"/>
+      <deleteData createDataKey="simpleProduct2" stepKey="deleteSimpleProduct2"/>
+      <deleteData createDataKey="simpleProduct3" stepKey="deleteSimpleProduct3"/>
+      <deleteData createDataKey="simpleProduct4" stepKey="deleteSimpleProduct4"/>
+      <deleteData createDataKey="simpleProduct5" stepKey="deleteSimpleProduct5"/>
+      <!-- Delete category -->
+      <deleteData createDataKey="simpleCategory" stepKey="deleteCategory"/>
+      <!-- Logout from Admin Panel -->
+      <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+    </after>
+
+      <!-- Open category Page -->
+      <actionGroup ref="AdminOpenCategoryPageActionGroup" stepKey="openAdminCategoryIndexPage"/>
+      <actionGroup ref="AdminExpandCategoryTreeActionGroup" stepKey="clickOnExpandTree"/>
+      <actionGroup ref="AdminCategoriesOpenCategoryActionGroup" stepKey="selectCreatedCategory">
+      <argument name="category" value="$$simpleCategory$$"/>
+
+
+      </actionGroup>
+      <click selector="{{AdminCategoryProductsSection.sectionHeader}}" stepKey="openProductsInCategorySection"/>
+      <!--Add product1 using search-->
+      <actionGroup ref="AdminProductsInCategoryStartAddingProductsActionGroup" stepKey="openAddProductsPopupForSearching"/>
+      <actionGroup ref="AdminProductsInCategoryAddProductBySearchActionGroup" stepKey="addProductToCurrentCategoryBySearchWithoutSaving">
+      <argument name="productSku" value="$simpleProduct1.sku$"/>
+      </actionGroup>
+      <conditionalClick selector="{{AdminCategoryAddProductsModalSection.clearAll}}" dependentSelector="{{AdminCategoryAddProductsModalSection.clearAll}}" visible="true" stepKey="clearAllFilters"/>
+      <actionGroup ref="AdminProductsInCategoryAddProductsModalSaveAndCloseActionGroup" stepKey="closeModalAfterSearch"/>
+
+      <!--Add product1 using search-->
+      <actionGroup ref="AdminProductsInCategoryStartAddingProductsActionGroup" stepKey="openAddProductsPopupForSearchingForProduct1"/>
+      <actionGroup ref="AdminProductsInCategoryAddProductBySearchActionGroup" stepKey="addProductToCurrentCategoryBySearchWithoutSavingForProduct1">
+      <argument name="productSku" value="$simpleProduct1.sku$"/>
+      </actionGroup>
+      <conditionalClick selector="{{AdminCategoryAddProductsModalSection.clearAll}}" dependentSelector="{{AdminCategoryAddProductsModalSection.clearAll}}" visible="true" stepKey="clearAllFiltersForProduct1"/>
+      <actionGroup ref="AdminProductsInCategoryAddProductsModalSaveAndCloseActionGroup" stepKey="closeModalAfterSearchForProduct1"/>
+      <!--Add product2 using search-->
+      <actionGroup ref="AdminProductsInCategoryStartAddingProductsActionGroup" stepKey="openAddProductsPopupForSearchingForProduct2"/>
+      <actionGroup ref="AdminProductsInCategoryAddProductBySearchActionGroup" stepKey="addProductToCurrentCategoryBySearchWithoutSavingForProduct2">
+      <argument name="productSku" value="$simpleProduct2.sku$"/>
+      </actionGroup>
+      <conditionalClick selector="{{AdminCategoryAddProductsModalSection.clearAll}}" dependentSelector="{{AdminCategoryAddProductsModalSection.clearAll}}" visible="true" stepKey="clearAllFiltersForProduct2"/>
+      <actionGroup ref="AdminProductsInCategoryAddProductsModalSaveAndCloseActionGroup" stepKey="closeModalAfterSearchForProduct2"/>
+      <!--Add product3 using search-->
+      <actionGroup ref="AdminProductsInCategoryStartAddingProductsActionGroup" stepKey="openAddProductsPopupForSearchingForProduct3"/>
+      <actionGroup ref="AdminProductsInCategoryAddProductBySearchActionGroup" stepKey="addProductToCurrentCategoryBySearchWithoutSaving3">
+      <argument name="productSku" value="$simpleProduct3.sku$"/>
+      </actionGroup>
+      <conditionalClick selector="{{AdminCategoryAddProductsModalSection.clearAll}}" dependentSelector="{{AdminCategoryAddProductsModalSection.clearAll}}" visible="true" stepKey="clearAllFilters3"/>
+      <actionGroup ref="AdminProductsInCategoryAddProductsModalSaveAndCloseActionGroup" stepKey="closeModalAfterSearch3"/>
+      <!--Add product4 using search-->
+      <actionGroup ref="AdminProductsInCategoryStartAddingProductsActionGroup" stepKey="openAddProductsPopupForSearching4"/>
+      <actionGroup ref="AdminProductsInCategoryAddProductBySearchActionGroup" stepKey="addProductToCurrentCategoryBySearchWithoutSaving4">
+      <argument name="productSku" value="$simpleProduct4.sku$"/>
+      </actionGroup>
+      <conditionalClick selector="{{AdminCategoryAddProductsModalSection.clearAll}}" dependentSelector="{{AdminCategoryAddProductsModalSection.clearAll}}" visible="true" stepKey="clearAllFilters4"/>
+      <actionGroup ref="AdminProductsInCategoryAddProductsModalSaveAndCloseActionGroup" stepKey="closeModalAfterSearch4"/>
+      <!--Add product5 using search-->
+      <actionGroup ref="AdminProductsInCategoryStartAddingProductsActionGroup" stepKey="openAddProductsPopupForSearching5"/>
+      <actionGroup ref="AdminProductsInCategoryAddProductBySearchActionGroup" stepKey="addProductToCurrentCategoryBySearchWithoutSaving5">
+      <argument name="productSku" value="$simpleProduct5.sku$"/>
+      </actionGroup>
+      <conditionalClick selector="{{AdminCategoryAddProductsModalSection.clearAll}}" dependentSelector="{{AdminCategoryAddProductsModalSection.clearAll}}" visible="true" stepKey="clearAllFilters5"/>
+      <actionGroup ref="AdminProductsInCategoryAddProductsModalSaveAndCloseActionGroup" stepKey="closeModalAfterSearch5"/>
+      <actionGroup ref="AdminSaveCategoryActionGroup" stepKey="saveSubCategory"/>
+      <actionGroup ref="AssertMessageInAdminPanelActionGroup" stepKey="seeSuccessMessage">
+      <argument name="message" value="You saved the category."/>
+      </actionGroup>
+
+      <!-- Assert that the category is present -->
+      <actionGroup ref="AdminExpandCategoryTreeActionGroup" stepKey="expandCategoryTree"/>
+      <actionGroup ref="AssertAdminCategoryIsListedInCategoriesTreeActionGroup" stepKey="seeRootCategory">
+      <argument name="categoryName" value="$$simpleCategory.name$$"/>
+      </actionGroup>
+      <!-- Asserting the count of Sub-Category and Default Category -->
+      <seeElement selector="{{AdminCategorySidebarTreeSection.subCategoryProductCount('5')}}" stepKey="seeSubcategoryProductCount"/>
+
+      <click selector="{{AdminCategorySidebarTreeSection.categoryInTree('Default Category')}}" stepKey="selectCategory"/>
+      <waitForPageLoad stepKey="waitForPageToLoad"/>
+
+      <!--Disable Anchor for category -->
+      <scrollTo selector="{{CategoryDisplaySettingsSection.DisplaySettingTab}}" x="0" y="-80" stepKey="scrollToDisplaySetting"/>
+      <click selector="{{CategoryDisplaySettingsSection.DisplaySettingTab}}" stepKey="selectDisplaySetting"/>
+      <click selector="{{CategoryDisplaySettingsSection.anchorLabel}}" stepKey="uncheckAnchor"/>
+      <click selector="{{AdminCategoryMainActionsSection.SaveButton}}" stepKey="saveSubCategoryAgain"/>
+      <!-- Asserting the count of Sub-Category and Default Category -->
+      <seeElement selector="{{AdminCategorySidebarTreeSection.defaultCategoryProductCount('0')}}" stepKey="seeDefaultCategoryProductCountZero"/>
+      <seeElement selector="{{AdminCategorySidebarTreeSection.subCategoryProductCount('5')}}" stepKey="seeSubcategoryProductCountAgain"/>
+  </test>
+</tests>

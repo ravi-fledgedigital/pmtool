@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">pagebuilder_product_recommendations_select_grid.pagebuilder_product_recommendations_select_grid_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>columns</spinner>
+        <deps>
+            <dep>pagebuilder_product_recommendations_select_grid.pagebuilder_product_recommendations_select_grid_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource>
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magento\PageBuilderProductRecommendations\Ui\Component\DataProvider</argument>
+            <argument name="name" xsi:type="string">pagebuilder_product_recommendations_select_grid_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">unitId</argument>
+            <argument name="requestFieldName" xsi:type="string">unitId</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">unitId_unitName</item>
+                    </item>
+                    <item name="params" xsi:type="array">
+                        <item name="store_id" xsi:type="string">${ $.store_id }</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <paging name="listing_paging">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="selectProvider" xsi:type="string">pagebuilder_product_recommendations_select_grid.columns.ids</item>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="namespace" xsi:type="string">current.paging</item>
+                    </item>
+                </item>
+            </argument>
+        </paging>
+    </listingToolbar>
+    <columns name="columns">
+        <settings>
+            <childDefaults>
+                <param name="clickAction" xsi:type="string">view</param>
+                <param name="actionField" xsi:type="string">actions</param>
+                <param name="controlVisibility" xsi:type="boolean">true</param>
+            </childDefaults>
+        </settings>
+        <column name="unitName" sortOrder="10">
+            <settings>
+                <label>Name</label>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+        <column name="typeId">
+            <settings>
+                <label>Recommendation Type</label>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+        <column name="displayNumber">
+            <settings>
+                <label>Number of Products</label>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+        <column name="createdAt">
+            <settings>
+                <label>Date Created</label>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+        <column name="unitStatus">
+            <settings>
+                <label>Status</label>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+        <selectionsColumn name="ids" component="Magento_PageBuilder/js/grid/cells/single-select">
+            <settings>
+                <indexField>unitId_unitName</indexField>
+                <preserveSelectionsOnFilter>true</preserveSelectionsOnFilter>
+            </settings>
+        </selectionsColumn>
+    </columns>
+</listing>

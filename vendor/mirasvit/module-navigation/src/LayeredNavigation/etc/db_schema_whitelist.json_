@@ -1,0 +1,43 @@
+{
+    "review_entity_summary": {
+        "index": {
+            "REVIEW_ENTITY_SUMMARY_ENTITY_TYPE_ENTITY_PK_VALUE_STORE_ID": true
+        }
+    },
+    "mst_navigation_attribute_config": {
+        "column": {
+            "config_id": true,
+            "mst_attribute_id": true,
+            "mst_is_slider": true,
+            "mst_attribute_code": true,
+            "mst_image_options": true,
+            "mst_filter_text": true,
+            "mst_is_whole_width_image": true,
+            "attribute_id": true,
+            "attribute_code": true,
+            "config": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "mst_navigation_grouped_option": {
+        "column": {
+            "group_id": true,
+            "is_active": true,
+            "position": true,
+            "title": true,
+            "code": true,
+            "swatch_type": true,
+            "swatch_value": true,
+            "attribute_code": true,
+            "attribute_value_ids": true
+        },
+        "index": {
+            "MST_NAVIGATION_GROUPED_OPTION_ATTRIBUTE_CODE": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

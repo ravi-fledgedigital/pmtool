@@ -1,0 +1,157 @@
+//
+//  Men Bottoms Grid Styles
+//  _________________________
+
+//
+//  Common
+//  --------------------------
+
+& when (@media-common = true) {
+	.amtab-grid-wrapper.-bottoms.-men {
+		.amtab-img {
+			margin: 0 auto 42px;
+		}
+
+		.amtab-step {
+			&:nth-child(1) {
+				& {
+					top: -8px;
+					right: 0;
+					max-width: 29vw;
+				}
+
+				.amtab-arrow {
+					display: none;
+				}
+
+				.amtab-arrow:after,
+				.amtab-arrow:before {
+					right: -2px;
+				}
+
+				.amtab-arrow:before {
+					transform: rotate(-145deg) translate(3px, 0px);
+				}
+
+				.amtab-arrow:after {
+					transform: rotate(145deg) translate(3px, 0px);
+				}
+			}
+
+			&:nth-child(2) {
+				& {
+					top: 16%;
+					left: 0;
+					max-width: 29vw;
+				}
+
+				.amtab-arrow {
+					left: 45px;
+					min-width: 50px;
+					max-width: 108px;
+					width: 20vw;
+				}
+
+				.amtab-arrow:after,
+				.amtab-arrow:before {
+					left: -4px;
+				}
+
+				.amtab-arrow:before {
+					transform: rotate(45deg) translate(3px, -1px);
+				}
+
+				.amtab-arrow:after {
+					transform: rotate(-45deg) translate(3px, 1px);
+				}
+			}
+
+			&:nth-child(3) {
+				& {
+					bottom: 0;
+					left: 0;
+					max-width: 100%;
+				}
+
+				.amtab-arrow {
+					left: 100%;
+					margin: 0 0 0 @amtab__indent;
+					min-width: 40px;
+					max-width: 124px;
+					width: 30vw;
+				}
+
+				.amtab-arrow:before {
+					transform: rotate(45deg) translate(1px, 1px);
+				}
+
+				.amtab-arrow:after {
+					transform: rotate(-45deg) translate(1px, -1px);
+				}
+			}
+		}
+	}
+}
+
+//
+//  Tablet
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+	.amtab-grid-wrapper.-bottoms.-men {
+		.amtab-img {
+			left: 16%;
+			margin: 0 auto @amtab__indent;
+		}
+
+		.amtab-step {
+			&:nth-child(1) {
+				& {
+					left: 58%;
+					max-width: 174px;
+				}
+
+				.amtab-arrow {
+					right: 100%;
+					display: block;
+					margin: 0 @amtab__indent 0 0;
+					max-width: 51px;
+					width: 5vw;
+				}
+			}
+
+			&:nth-child(2) {
+				top: 16%;
+				max-width: 174px;
+			}
+
+			&:nth-child(3) {
+				& {
+					right: -6px;
+					bottom: 100px;
+					left: auto;
+					max-width: 190px;
+				}
+
+				.amtab-arrow {
+					right: 100%;
+					left: auto;
+					margin: 0 @amtab__indent 0 0;
+				}
+
+				.amtab-arrow:after,
+				.amtab-arrow:before {
+					right: 0;
+				}
+
+				.amtab-arrow:before {
+					transform: rotate(145deg) translate(1px, -1px);
+				}
+
+				.amtab-arrow:after {
+					transform: rotate(-145deg) translate(1px, 1px);
+				}
+			}
+		}
+	}
+}

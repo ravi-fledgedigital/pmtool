@@ -1,0 +1,20 @@
+
+File "/var/www/html/app/code/Magento/GiftWrapping/Test/Mftf/Test/EditGiftOptionForTheItemInShoppingCartTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 StorefrontAddConfigurableProductToTheCartActionGroup from module(s): magento/module-configurable-product
+
+File "/var/www/html/app/code/Magento/GiftWrapping/Test/Mftf/Test/EditGiftOptionForTheOrderInShoppingCartTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 StorefrontAddConfigurableProductToTheCartActionGroup from module(s): magento/module-configurable-product
+
+File "/var/www/html/app/code/Magento/GiftWrapping/Test/Mftf/Test/StorefrontCheckoutWithGiftOptionsAndMultipleAddressesTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 StorefrontCheckoutWithMultipleAddressesTest from module(s): magento/module-multishipping
+
+File "/var/www/html/app/code/Magento/GiftWrapping/Test/Mftf/Test/StorefrontGiftWrappingWithMultishippingCheckoutWhenCartPageIsOpenedInAnotherTabTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 StorefrontProcessMultishippingCheckoutWhenCartPageIsOpenedInAnotherTabTest from module(s): magento/module-multishipping

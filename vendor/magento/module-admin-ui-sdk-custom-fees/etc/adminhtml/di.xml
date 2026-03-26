@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * ADOBE CONFIDENTIAL
+ *
+ * Copyright 2024 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\AdminUiSdkCustomFees\Model\CustomFeeParser">
+        <arguments>
+            <argument name="sanitizer" xsi:type="object">orderCustomFeeSanitizer</argument>
+        </arguments>
+    </type>
+    <type name="Magento\CommerceBackendUix\Model\RegistrationsFetcher">
+        <arguments>
+            <argument name="parsers" xsi:type="array">
+                <item name="customFees" xsi:type="object">Magento\AdminUiSdkCustomFees\Model\CustomFeeParser</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Ui\Component\Listing\Columns">
+        <plugin name="admin_ui_sdk_invoice_custom_column" type="Magento\AdminUiSdkCustomFees\Plugin\Ui\Component\Listing\Columns" sortOrder="1" />
+    </type>
+    <preference for="Magento\Ui\Model\Export\MetadataProvider"
+    type="Magento\AdminUiSdkCustomFees\Model\Export\MetadataProvider" />
+    <virtualType name="orderCustomFeeSanitizer" type="Magento\CommerceBackendUix\Model\Sanitizer\InputSanitizer">
+        <arguments>
+            <argument name="extensionPointNamespace" xsi:type="string">custom fees registrations</argument>
+            <argument name="requiredFields" xsi:type="array">
+                <item name="id" xsi:type="string">id</item>
+                <item name="label" xsi:type="string">label</item>
+                <item name="value" xsi:type="string">value</item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

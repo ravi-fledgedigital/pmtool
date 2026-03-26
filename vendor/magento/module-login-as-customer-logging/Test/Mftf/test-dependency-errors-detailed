@@ -1,0 +1,36 @@
+
+File "/var/www/html/app/code/Magento/LoginAsCustomerLogging/Test/Mftf/Test/AdminLoginAsCustomerAddToCartOperationWritesInLogTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 LoginAsCustomerConfigDataEnabled from module(s): magento/module-login-as-customer
+	 AdminLoginAsCustomerLoginFromCustomerPageActionGroup from module(s): magento/module-login-as-customer
+
+File "/var/www/html/app/code/Magento/LoginAsCustomerLogging/Test/Mftf/Test/AdminLoginAsCustomerAddToWishListOperationWritesInLogTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 LoginAsCustomerConfigDataEnabled from module(s): magento/module-login-as-customer
+	 AdminLoginAsCustomerLoginFromCustomerPageActionGroup from module(s): magento/module-login-as-customer
+
+File "/var/www/html/app/code/Magento/LoginAsCustomerLogging/Test/Mftf/Test/AdminLoginAsCustomerLogNotShownInMenuTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 LoginAsCustomerConfigDataEnabled from module(s): magento/module-login-as-customer
+	 AdminLoginAsCustomerLogAbsentInMenuActionGroup from module(s): magento/module-login-as-customer
+
+File "/var/www/html/app/code/Magento/LoginAsCustomerLogging/Test/Mftf/Test/AdminLoginAsCustomerLoggingReportTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 LoginAsCustomerConfigDataEnabled from module(s): magento/module-login-as-customer
+	 AdminLoginAsCustomerLoginFromCustomerPageActionGroup from module(s): magento/module-login-as-customer
+
+File "/var/www/html/app/code/Magento/LoginAsCustomerLogging/Test/Mftf/Test/AdminLoginAsCustomerPlaceOrderOperationWritesInLogTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 LoginAsCustomerConfigDataEnabled from module(s): magento/module-login-as-customer
+	 AdminLoginAsCustomerLoginFromCustomerPageActionGroup from module(s): magento/module-login-as-customer
+
+File "/var/www/html/app/code/Magento/LoginAsCustomerLogging/Test/Mftf/Test/AdminLoginAsCustomerUpdateAddressesOperationsWriteInLogTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 LoginAsCustomerConfigDataEnabled from module(s): magento/module-login-as-customer
+	 AdminLoginAsCustomerLoginFromCustomerPageActionGroup from module(s): magento/module-login-as-customer

@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * ADOBE CONFIDENTIAL
+ *
+ * Copyright 2024 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!--  Product Feed  -->
+    <virtualType name="Magento\SaaSCatalog\Cron\ProductSubmitFeed" type="Magento\SaaSCommon\Cron\SubmitFeed">
+        <arguments>
+            <argument name="feedMetadata" xsi:type="object">Magento\CatalogDataExporter\Model\Indexer\ProductFeedIndexMetadata</argument>
+            <argument name="feedSyncFlag" xsi:type="string">products-feed-version</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Magento\SaaSCatalog\Model\ProductResyncManager" type="Magento\SaaSCommon\Model\ResyncManager">
+        <arguments>
+            <argument name="feedIndexer" xsi:type="object">Magento\CatalogDataExporter\Model\Indexer\ProductFeedIndexer</argument>
+            <argument name="submitFeed" xsi:type="object">Magento\SaaSCatalog\Cron\ProductSubmitFeed</argument>
+            <argument name="feedInterface" xsi:type="object">Magento\CatalogDataExporter\Model\ProductFeed</argument>
+            <argument name="flagName" xsi:type="string">products-feed-version</argument>
+            <argument name="indexerName" xsi:type="string">catalog_data_exporter_products</argument>
+            <argument name="registryTableName" xsi:type="string">catalog_product_data_submitted_hash</argument>
+        </arguments>
+    </virtualType>
+
+    <!--  Product Metadata Feed  -->
+    <virtualType name="Magento\SaaSCatalog\Cron\ProductMetadataSubmitFeed" type="Magento\SaaSCommon\Cron\SubmitFeed">
+        <arguments>
+            <argument name="feedMetadata" xsi:type="object">Magento\CatalogDataExporter\Model\Indexer\ProductAttributeFeedIndexMetadata</argument>
+            <argument name="feedSyncFlag" xsi:type="string">product-attributes-feed-version</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Magento\SaaSCatalog\Model\AttributesResyncManager" type="Magento\SaaSCommon\Model\ResyncManager">
+        <arguments>
+            <argument name="feedIndexer" xsi:type="object">Magento\CatalogDataExporter\Model\Indexer\ProductAttributeFeedIndex</argument>
+            <argument name="submitFeed" xsi:type="object">Magento\SaaSCatalog\Cron\ProductMetadataSubmitFeed</argument>
+            <argument name="feedInterface" xsi:type="object">Magento\CatalogDataExporter\Model\ProductMetadataFeed</argument>
+            <argument name="flagName" xsi:type="string">product-attributes-feed-version</argument>
+            <argument name="indexerName" xsi:type="string">catalog_data_exporter_product_attributes</argument>
+            <argument name="registryTableName" xsi:type="string">catalog_product_attribute_data_submitted_hash</argument>
+        </arguments>
+    </virtualType>
+    <!--  Resync registration  -->
+    <type name="Magento\SaaSCommon\Model\ResyncManagerPool">
+        <arguments>
+            <argument name="classMap" xsi:type="array">
+                <item name="products" xsi:type="string">Magento\SaaSCatalog\Model\ProductResyncManager</item>
+                <item name="productAttributes" xsi:type="string">Magento\SaaSCatalog\Model\AttributesResyncManager</item>
+            </argument>
+            <argument name="feedNamesMapping" xsi:type="array">
+                <item name="productattributes" xsi:type="string">productAttributes</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

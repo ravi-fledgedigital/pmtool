@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+ /**
+  * Copyright 2023 Adobe
+  * All Rights Reserved.
+  */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <commerce_data_export>
+            <feeds>
+                <products>
+                    <thread_count>1</thread_count>
+                    <batch_size>100</batch_size>
+                </products>
+            </feeds>
+        </commerce_data_export>
+    </default>
+</config>

@@ -1,0 +1,21 @@
+{
+    "amasty_pdf_template": {
+        "column": {
+            "template_id": true,
+            "template_code": true,
+            "template_text": true,
+            "template_styles": true,
+            "added_at": true,
+            "modified_at": true,
+            "orig_template_code": true,
+            "orig_template_variables": true,
+            "place_for_use": true,
+            "store_ids": true,
+            "customer_group_ids": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "AMASTY_PDF_TEMPLATE_TEMPLATE_CODE": true
+        }
+    }
+}

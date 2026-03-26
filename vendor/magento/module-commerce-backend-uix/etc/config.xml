@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * ADOBE CONFIDENTIAL
+ *
+ * Copyright 2023 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <admin>
+            <admin_ui_sdk>
+                <registry_url>https://appregistry.adobe.io</registry_url>
+                <registry_url_stage>https://appregistry-stage.adobe.io</registry_url_stage>
+                <api_mesh_base_url>https://edge-graph.adobe.io/api/</api_mesh_base_url>
+                <api_mesh_base_url_stage>https://edge-sandbox-graph.adobe.io/api/</api_mesh_base_url_stage>
+                <extension_manager_url>https://aemx-mngr.adobe.io/v1/extensions?extensionPoints=commerce/backend-ui/1</extension_manager_url>
+                <extension_manager_url_stage>https://aemx-mngr-stage.adobe.io/v1/extensions?extensionPoints=commerce/backend-ui/1</extension_manager_url_stage>
+            </admin_ui_sdk>
+        </admin>
+        <admin_ui_sdk>
+            <local_testing>
+                <enable_testing>0</enable_testing>
+                <ims_token backend_model="Magento\Config\Model\Config\Backend\Encrypted"/>
+                <mock_admin_ims>1</mock_admin_ims>
+            </local_testing>
+            <database_logging>
+                <enable_database_logging>0</enable_database_logging>
+                <logs_level>300</logs_level>
+                <retention_period>1</retention_period>
+            </database_logging>
+        </admin_ui_sdk>
+    </default>
+</config>

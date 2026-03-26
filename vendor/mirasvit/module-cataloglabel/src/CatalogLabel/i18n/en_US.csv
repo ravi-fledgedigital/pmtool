@@ -1,0 +1,153 @@
+Conditions,Conditions
+"Conditions (leave blank for all products)","Conditions (leave blank for all products)"
+"These conditions applied for %1 product(s)","These conditions applied for %1 product(s)"
+"The ""%1"" index is set to ""Update by Schedule"". To apply label immediately press the ""Apply Label"" button after saving the label","The ""%1"" index is set to ""Update by Schedule"". To apply label immediately press the ""Apply Label"" button after saving the label"
+"Manage Labels","Manage Labels"
+"Manage Placeholders","Manage Placeholders"
+"Manage Templates","Manage Templates"
+"Product Labels","Product Labels"
+"New Label","New Label"
+"Label was successfully applied","Label was successfully applied"
+"Unable to find label to apply","Unable to find label to apply"
+"Label was successfully deleted","Label was successfully deleted"
+"Label ""%1""","Label ""%1"""
+"The label does not exist.","The label does not exist."
+"Please select label(s)","Please select label(s)"
+"Total of %1 record(s) were successfully deleted","Total of %1 record(s) were successfully deleted"
+"Total of %1 record(s) were successfully updated","Total of %1 record(s) were successfully updated"
+"Example text","Example text"
+"Label was successfully saved","Label was successfully saved"
+"The ""%1"" index is set to ""Update by Schedule"". To apply label immediately press the ""Apply Label"" button","The ""%1"" index is set to ""Update by Schedule"". To apply label immediately press the ""Apply Label"" button"
+"Unable to find label to save","Unable to find label to save"
+"New Placeholder","New Placeholder"
+"Placeholder was successfully deleted","Placeholder was successfully deleted"
+"Placeholder ""%1""","Placeholder ""%1"""
+"The placeholder does not exist.","The placeholder does not exist."
+"Please select placeholder(s)","Please select placeholder(s)"
+"Placeholder was successfully saved","Placeholder was successfully saved"
+"Unable to find a placeholder to save","Unable to find a placeholder to save"
+"Template was successfully deleted","Template was successfully deleted"
+"Can't duplicate template with ID %1. Template no longer exists","Can't duplicate template with ID %1. Template no longer exists"
+"Template was successfully duplicated","Template was successfully duplicated"
+"Unable to find a template to duplicate","Unable to find a template to duplicate"
+"This template no longer exists.","This template no longer exists."
+"Template ""%1""","Template ""%1"""
+"New Template","New Template"
+"Please select template(s)","Please select template(s)"
+"Template was successfully saved","Template was successfully saved"
+"Unable to find a template to save","Unable to find a template to save"
+"Value of the product attribute with the code ""attributeCode""","Value of the product attribute with the code ""attributeCode"""
+"Update the Product","Update the Product"
+"Rule price","Rule price"
+"To Fixed Value","To Fixed Value"
+"To Percentage","To Percentage"
+"By Fixed value","By Fixed value"
+"By Percentage","By Percentage"
+"Update product's %1 %2: %3","Update product's %1 %2: %3"
+"Conditions Combination","Conditions Combination"
+Product,Product
+"Product Attribute","Product Attribute"
+"Product Additional","Product Additional"
+"Open Chooser","Open Chooser"
+"Attribute Set","Attribute Set"
+Category,Category
+"Created (days ago)","Created (days ago)"
+"Percent Discount","Percent Discount"
+"Final Price","Final Price"
+"Is Salable","Is Salable"
+No,No
+Yes,Yes
+"Price - Final Price","Price - Final Price"
+Quantity,Quantity
+"Set as New","Set as New"
+"Stock Status","Stock Status"
+"Out Of Stock","Out Of Stock"
+"In Stock","In Stock"
+"Updated (days ago)","Updated (days ago)"
+Horizontal,Horizontal
+Vertical,Vertical
+"not configured","not configured"
+Manual,Manual
+Enabled,Enabled
+Disabled,Disabled
+"Placeholder is not set. Part of the label data won't be saved","Placeholder is not set. Part of the label data won't be saved"
+Back,Back
+Delete,Delete
+"Are you sure you want to do this?","Are you sure you want to do this?"
+"Save and Continue Edit","Save and Continue Edit"
+Save,Save
+"Apply Label","Apply Label"
+Design,Design
+Edit,Edit
+name,name
+"Example Text","Example Text"
+"Example Description","Example Description"
+Duplicate,Duplicate
+"List of allowed product variables:","List of allowed product variables:"
+"View %1","View %1"
+"Insert this code in the template file where labels should be displayed","Insert this code in the template file where labels should be displayed"
+where:,where:
+"&lt;code&gt;view_type&lt;/code&gt; - &lt;code&gt;'list'&lt;/code&gt; or &lt;code&gt;'view'&lt;/code&gt; depending on where the code is placed - the product listing page or product view page","&lt;code&gt;view_type&lt;/code&gt; - &lt;code&gt;'list'&lt;/code&gt; or &lt;code&gt;'view'&lt;/code&gt; depending on where the code is placed - the product listing page or product view page"
+"&lt;code&gt;$_product&lt;/code&gt; - Product model","&lt;code&gt;$_product&lt;/code&gt; - Product model"
+"We don't recognize or support this file extension type.","We don't recognize or support this file extension type."
+"Catalog Label","Catalog Label"
+"General Settings","General Settings"
+"Flush dependent page cache after new product creation","Flush dependent page cache after new product creation"
+"If enabled, the extension will regenerate rules and flush FPC cache for dependent pages for new products (once per hour)","If enabled, the extension will regenerate rules and flush FPC cache for dependent pages for new products (once per hour)"
+"Apply labels for child products of configurable products","Apply labels for child products of configurable products"
+"If enabled, the extension will assign labels for child products of configurable products.<br/>Labels will be updated after swatch option(s) are selected for configurable products.<br/>Products filtered by the swatch attribute will display labels for corresponding child products.<br/>Enabling this option will increase the reindex time of the Product Label Index.<br/><b>Reindex the Product Label Index after changing this setting.</b>","If enabled, the extension will assign labels for child products of configurable products.<br/>Labels will be updated after swatch option(s) are selected for configurable products.<br/>Products filtered by the swatch attribute will display labels for corresponding child products.<br/>Enabling this option will increase the reindex time of the Product Label Index.<br/><b>Reindex the Product Label Index after changing this setting.</b>"
+"Apply labels for configurable products if one of the child products meets the conditions","Apply labels for configurable products if one of the child products meets the conditions"
+"Discount output precision","Discount output precision"
+"Number of digits displayed after the decimal point for product discount variable in labels","Number of digits displayed after the decimal point for product discount variable in labels"
+"Date format","Date format"
+"If not empty, will format attributes with ""Date"" and ""Date and Time"" catalog input types","If not empty, will format attributes with ""Date"" and ""Date and Time"" catalog input types"
+"Exclude product labels on pages","Exclude product labels on pages"
+"Product label index","Product label index"
+"Rebuild your Product Label index","Rebuild your Product Label index"
+"General Information","General Information"
+General,General
+"Internal Name","Internal Name"
+Type,Type
+Attribute,Attribute
+"Is Active","Is Active"
+"Active From","Active From"
+"Active To","Active To"
+Appearance,Appearance
+"Changing the appearance mode will remove previously configured label views of this label","Changing the appearance mode will remove previously configured label views of this label"
+"Visible In","Visible In"
+"Customer Groups","Customer Groups"
+"Sort Order","Sort Order"
+"Reset Label","Reset Label"
+"If selected, all label view data for this view type will be deleted","If selected, all label view data for this view type will be deleted"
+Image,Image
+"Allowed file types: png, gif, jpg, jpeg, svg.","Allowed file types: png, gif, jpg, jpeg, svg."
+Title,Title
+"Variables can be used in this field","Variables can be used in this field"
+Description,Description
+URL,URL
+Placeholder,Placeholder
+Template,Template
+Styles,Styles
+Rule,Rule
+"Add Label","Add Label"
+"Change status","Change status"
+"Delete items","Delete items"
+"Are you sure you want to delete the selected items?","Are you sure you want to delete the selected items?"
+ID,ID
+"Product List Labels","Product List Labels"
+"Product View Labels","Product View Labels"
+Status,Status
+Identifier,Identifier
+"Limit of Labels","Limit of Labels"
+"Leave empty or set 0 to disable limitation","Leave empty or set 0 to disable limitation"
+"Labels Direction","Labels Direction"
+"For multiple labels in one placeholder","For multiple labels in one placeholder"
+Position,Position
+"Add Placeholder","Add Placeholder"
+"HTML Template","HTML Template"
+"Data for testing (will not be saved)","Data for testing (will not be saved)"
+"Label Title","Label Title"
+"Label Description","Label Description"
+"Label image URL","Label image URL"
+"Add Template","Add Template"
+Preview,Preview

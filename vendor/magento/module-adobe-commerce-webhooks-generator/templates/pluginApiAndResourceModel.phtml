@@ -1,0 +1,88 @@
+<?php
+/************************************************************************
+ *
+ * ADOBE CONFIDENTIAL
+ * ___________________
+ *
+ * Copyright 2023 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ * ************************************************************************
+ */
+
+/** @var \Magento\AdobeCommerceOutOfProcessExtensibility\Model\Generator\ModuleBlock $block */
+/** @var Magento\Framework\Escaper $escaper */
+/** @var string $namespace */
+/** @var string $name */
+/** @var string $interface */
+/** @var string $interfaceShort */
+/** @var string $webhookName */
+/** @var string $webhookType */
+/** @var array $renderedMethods */
+?>
+<?='<?php'; ?>
+
+# Generated code. DO NOT EDIT!
+
+/************************************************************************
+ *
+ * ADOBE CONFIDENTIAL
+ * ___________________
+ *
+ * Copyright 2024 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ * ************************************************************************
+ */
+declare(strict_types=1);
+
+namespace <?=$namespace ?>;
+
+use <?=$interface ?>;
+use Magento\AdobeCommerceWebhooks\Model\DataConverter\ArgumentDataConverterInterface;
+use Magento\AdobeCommerceWebhooks\Model\WebhookList;
+use Magento\AdobeCommerceWebhooks\Model\WebhookRunner\WebhookBatchRunnerInterface;
+use Psr\Log\LoggerInterface;
+use Exception;
+
+/**
+ * Auto generated plugin for @see \<?=$interface . PHP_EOL ?>
+ */
+class <?=$name . PHP_EOL ?>
+{
+    private const WEBHOOK_NAME = '<?=$escaper->escapeHtml($webhookName) ?>';
+    private const WEBHOOK_TYPE = '<?=$escaper->escapeHtml($webhookType) ?>';
+
+    /**
+     * @param LoggerInterface $logger
+     * @param WebhookList $webhookList
+     * @param ArgumentDataConverterInterface $argumentDataConverter
+     * @param WebhookBatchRunnerInterface $webhookBatchRunner
+     */
+    public function __construct(
+        private LoggerInterface $logger,
+        private WebhookList $webhookList,
+        private ArgumentDataConverterInterface $argumentDataConverter,
+        private WebhookBatchRunnerInterface $webhookBatchRunner,
+    ) {
+    }
+<?php foreach ($renderedMethods as $renderedMethod): ?>
+    <?=$renderedMethod ?>
+<?php endforeach; ?>
+}

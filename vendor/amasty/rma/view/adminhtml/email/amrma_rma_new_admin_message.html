@@ -1,0 +1,11 @@
+<!--@subject RMA you have new message from the customer  @-->
+<!--@vars
+{
+"var email_request":"Email Request Object",
+"var email_request.getOrderIncrement()|escape":"Order Id"
+}
+@-->
+
+<div>
+    <p>{{trans "Rma for order"}} <strong>#{{var email_request.getOrderIncrement()|escape}}</strong>, {{trans "the customer sent a new message"}}.</p>
+</div>

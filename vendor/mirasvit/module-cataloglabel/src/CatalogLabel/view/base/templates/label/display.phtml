@@ -1,0 +1,56 @@
+<?php
+/** @var \Mirasvit\CatalogLabel\Block\Product\Label\Display $block */
+
+if (!$display = $block->getDisplay()) {
+    return '';
+}
+
+$isProductList = $block->isProductList();
+?>
+
+<?php if ($display->getTemplate()): ?>
+    <?= $block->getDisplayHtml() ?>
+<?php else: ?>
+    <?php if ($display->getImagePath()): ?>
+        <?php if ($display->getUrl() || $display->getDescription()): ?>
+            <span style="<?= $display->getUrl() ? 'cursor: pointer;' : '' ?>"
+            onclick="window.location = '<?php echo $block->escapeUrl($display->getUrl() ? $display->getUrl() : '#') ?>'"
+            title="<?php echo $block->escapeHtml($block->getDisplayDescription()) ?>"
+            aria-label="<?php echo $block->escapeHtml($display->getUrl() ? __('View %1', $block->getDisplayTitle()) : $block->getDisplayDescription()) ?>"
+            <?php if ($display->getUrl()): ?>role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){this.click();}"<?php endif; ?>
+            <?= ($display->getUrl() && $isProductList)
+                ? "onfocus = 'mLabelLinkEnterFunction(this, this.parentNode.parentNode)'
+                   onblur  = 'mLabelLinkOutFunction(this, this.parentNode.parentNode)'" : ''?>>
+                <?php if ($display->getUrl() && $isProductList): ?>
+                    <script>
+                        function mLabelLinkEnterFunction(x, xparent) {
+                            var url = '<?php echo $block->escapeUrl($display->getUrl());?>';
+                            if (typeof url != 'undefined') {
+                                currentmLabelEnterCustomUrl = xparent.href;
+                                xparent.href = url;
+                            }
+                        }
+
+                        function mLabelLinkOutFunction(x, xparent) {
+                            if (currentmLabelEnterCustomUrl) {
+                                xparent.href = currentmLabelEnterCustomUrl;
+                            }
+                        }
+                    </script>
+                <?php endif; ?>
+        <?php endif; ?>
+        <div class="<?= $block->escapeHtml($block->getDisplayCssClasses()) ?>" style="background:url('<?php echo $block->escapeUrl($display->getImageUrl()) ?>'); background-repeat: no-repeat; <?php
+        echo $block->getImageSizeHtml() ?> display: flex; justify-content: center; align-items: center;">
+                    <span><?php echo $block->escapeHtml($block->getDisplayTitle()) ?></span>
+                </div>
+        <?php $block->setLabelPositionCount($block); ?>
+        <?php if ($display->getUrl() || $block->getDisplayDescription()): ?>
+            </span>
+        <?php endif; ?>
+    <?php else: ?>
+        <div class="<?= $block->escapeHtml($block->getDisplayCssClasses()) ?>"
+             style="display: flex; justify-content: center; align-items: center;">
+            <span><?= /* @noEscape */ $block->getDisplayTitle() ?></span>
+        </div>
+    <?php endif ?>
+<?php endif; ?>

@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package RMA Base for Magento 2
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Amasty_Rma::rma_management" title="RMA Management" module="Amasty_Rma" sortOrder="100" parent="Magento_Sales::sales" resource="Amasty_Rma::rma_management"/>
+        <add id="Amasty_Rma::manage"
+             title="Manage Requests"
+             module="Amasty_Rma"
+             sortOrder="30"
+             parent="Amasty_Rma::rma_management"
+             action="amrma/request/manage"
+             resource="Amasty_Rma::manage" />
+        <add id="Amasty_Rma::pending"
+             title="Customers` Pending Requests"
+             module="Amasty_Rma"
+             sortOrder="40"
+             parent="Amasty_Rma::rma_management"
+             action="amrma/request/pending"
+             resource="Amasty_Rma::pending" />
+        <add id="Amasty_Rma::archive"
+             title="Archived Requests"
+             module="Amasty_Rma"
+             sortOrder="50"
+             parent="Amasty_Rma::rma_management"
+             action="amrma/request/archive"
+             resource="Amasty_Rma::archive" />
+
+        <add id="Amasty_Rma::rma" title="RMA Settings" module="Amasty_Rma" sortOrder="101" parent="Magento_Sales::sales" resource="Amasty_Rma::rma"/>
+        <add id="Amasty_Rma::reason"
+             title="Return Reasons"
+             module="Amasty_Rma"
+             sortOrder="30"
+             parent="Amasty_Rma::rma"
+             action="amrma/reason"
+             resource="Amasty_Rma::reason" />
+        <add id="Amasty_Rma::condition"
+             title="Item Conditions"
+             module="Amasty_Rma"
+             sortOrder="40"
+             parent="Amasty_Rma::rma"
+             action="amrma/condition"
+             resource="Amasty_Rma::condition" />
+        <add id="Amasty_Rma::resolution"
+             title="Return Resolutions"
+             module="Amasty_Rma"
+             sortOrder="50"
+             parent="Amasty_Rma::rma"
+             action="amrma/resolution"
+             resource="Amasty_Rma::resolution" />
+        <add id="Amasty_Rma::status"
+             title="RMA Statuses"
+             module="Amasty_Rma"
+             sortOrder="60"
+             parent="Amasty_Rma::rma"
+             action="amrma/status"
+             resource="Amasty_Rma::status" />
+        <add id="Amasty_Rma::return_rules"
+             title="Return Rules"
+             module="Amasty_Rma"
+             sortOrder="70"
+             parent="Amasty_Rma::rma"
+             action="amrma/returnrules"
+             resource="Amasty_Rma::return_rules" />
+    </menu>
+</config>

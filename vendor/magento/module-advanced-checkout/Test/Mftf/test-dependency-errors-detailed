@@ -1,0 +1,12 @@
+
+File "/var/www/html/app/code/Magento/AdvancedCheckout/Test/Mftf/Test/AddProductBySkuWithEmptyQtyTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminProductFormGroupedProductsSection from module(s): magento/module-grouped-product
+	 AdminAddProductsToGroupPanel from module(s): magento/module-grouped-product
+
+File "/var/www/html/app/code/Magento/AdvancedCheckout/Test/Mftf/Test/AdminCreateOrderBySkuWithRestrictScopePermissionTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminCreateUserRoleWithScopeActionGroup from module(s): magento/module-admin-gws
+	 AdminDeleteUserRoleWithSpecifiedPermissionActionGroup from module(s): magento/module-admin-gws

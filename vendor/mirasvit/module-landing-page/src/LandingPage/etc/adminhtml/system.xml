@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="mst_landing_page" showInDefault="1" showInWebsite="1" showInStore="1"
+            type="text" translate="label" sortOrder="446">
+            <label>Landing Page</label>
+            <tab>mirasvit</tab>
+            <resource>Mirasvit_LandingPage::config_landing_page</resource>
+
+            <group id="seo" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="1000"
+                translate="label comment">
+                <label>SEO configuration</label>
+                <fieldset_css>mst_nav_group_config</fieldset_css>
+                <field id="url_suffix_mode" translate="label comment tooltip" type="select"
+                    showInDefault="1" sortOrder="10" showInWebsite="1" showInStore="1">
+                    <label>Landing page URL suffix</label>
+                    <source_model>Mirasvit\LandingPage\Model\Config\Source\UrlSuffix</source_model>
+                    <config_path>mst_landing_page/seo/url_suffix_mode</config_path>
+                    <comment><![CDATA[Add a suffix to the landing page URLs for SEO (optional).]]></comment>
+                    <tooltip><![CDATA[This suffix will be added to the end of all landing pages URLs (e.g., ".html").]]></tooltip>
+                </field>
+
+                <field id="custom_suffix" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                    <label>Custom URL suffix</label>
+                    <depends>
+                        <field id="url_suffix_mode">3</field>
+                    </depends>
+                    <comment><![CDATA[Use custom URL suffix for landing pages.]]></comment>
+                    <config_path>mst_landing_page/seo/custom_suffix</config_path>
+                </field>
+            </group>
+
+            <group id="related_pages" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="2000"
+                   translate="label">
+                <label>Related Landing Pages</label>
+                <fieldset_css>mst_nav_group_config</fieldset_css>
+
+                <field id="enabled" translate="label comment" type="select"
+                       showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                    <label>Enable Related Landing Pages</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>mst_landing_page/related_pages/enabled</config_path>
+                    <comment><![CDATA[Show "Related Searches" block on product, category, and landing pages. After enabling, run <strong>bin/magento indexer:reindex mst_landing_page_product</strong> to build the index.]]></comment>
+                </field>
+
+                <field id="max_links" translate="label comment" type="text"
+                       showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                    <label>Maximum Links</label>
+                    <validate>validate-digits validate-greater-than-zero</validate>
+                    <config_path>mst_landing_page/related_pages/max_links</config_path>
+                    <comment><![CDATA[Maximum number of related landing page links to display.]]></comment>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+
+                <field id="product_position" translate="label comment" type="text"
+                       showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30">
+                    <label>Product Page Position</label>
+                    <config_path>mst_landing_page/related_pages/product_position</config_path>
+                    <comment><![CDATA[Specify the container where the block will be placed on the product page. Syntax: <strong>container</strong> (append) or <strong>container/-</strong> (prepend). Example: <strong>content.aside</strong>, <strong>content/-</strong>. Leave empty to disable on product pages.]]></comment>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+
+                <field id="category_position" translate="label comment" type="text"
+                       showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="40">
+                    <label>Category Page Position</label>
+                    <config_path>mst_landing_page/related_pages/category_position</config_path>
+                    <comment><![CDATA[Specify the container where the block will be placed on the category page. Syntax: <strong>container</strong> (append) or <strong>container/-</strong> (prepend). Example: <strong>content</strong>, <strong>sidebar.main/-</strong>. Leave empty to disable on category pages.]]></comment>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+
+                <field id="landing_position" translate="label comment" type="text"
+                       showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="50">
+                    <label>Landing Page Position</label>
+                    <config_path>mst_landing_page/related_pages/landing_position</config_path>
+                    <comment><![CDATA[Specify the container where the block will be placed on the landing page. Syntax: <strong>container</strong> (append) or <strong>container/-</strong> (prepend). Example: <strong>content</strong>, <strong>content.aside/-</strong>. Leave empty to disable on landing pages.]]></comment>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+
+                <field id="block_title" translate="label comment" type="text"
+                       showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="60">
+                    <label>Block Title</label>
+                    <config_path>mst_landing_page/related_pages/block_title</config_path>
+                    <comment><![CDATA[Custom title for the block. Default: "Related Searches".]]></comment>
+                    <depends><field id="enabled">1</field></depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,56 @@
+<!-- ko if: $data.addAllowed || $data.trackingNumbers().length -->
+<div class="amrma-tracking-information">
+    <h2 class="amrma-title" data-bind="i18n: 'Tracking Information'"></h2>
+    <!-- ko if: $data.trackingNumbers().length -->
+        <div class="table-wrapper amrma-items-table">
+            <table class="data table table-returns-items amrma-table">
+                <caption class="table-caption" data-bind="i18n: 'Tracking Information'"></caption>
+                <thead class="amrma-thead">
+                <tr>
+                    <th scope="col" class="col amrma-col carrier" >
+                        <div class="amrma-th" data-bind="i18n: 'Carrier'"></div>
+                    </th>
+                    <th scope="col" class="col amrma-col id">
+                        <div class="amrma-th" data-bind="i18n: 'Tracking Number'"></div>
+                    </th>
+                    <th scope="col" class="col amrma-col remove">
+                        <div class="amrma-th" data-bind="i18n: 'Action'"></div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody class="amrma-tbody">
+                <!-- ko foreach: $data.trackingNumbers() -->
+                    <tr class="amrma-row">
+                        <td class="col amrma-col" data-bind="text: $parent.indexedCarriers[$data.code]"></td>
+                        <td class="col id amrma-col" data-bind="text: $data.number"></td>
+                        <td class="col remove amrma-col">
+                            <!-- ko if: $data.customer || $parent.isAdmin -->
+                            <a href="#" data-bind="click: $parent.removeTracking.bind($parent, $data.id)">Remove</a>
+                            <!-- /ko -->
+                        </td>
+
+                    </tr>
+                <!-- /ko -->
+                </tbody>
+            </table>
+        </div>
+    <!-- /ko -->
+
+    <!-- ko if: $data.addAllowed -->
+    <div class="amrma-tracking-add">
+        <div class="amrma-select-container">
+            <select id="amrma-carrier-select" class="admin__control-select" data-bind="value: carrier, attr: {'aria-label': $t('Carrier')}">
+                <option data-bind="text: 'Please Select'" value=""></option>
+                <!-- ko foreach: $data.carriers -->
+                    <option data-bind="text: $data.label, value: $data.code"></option>
+                <!-- /ko -->
+            </select>
+        </div>
+        <div class="amrma-input">
+            <input id="amrma-tracking-number-input" class="amrma-text" type="text" data-bind="value: value, attr: { 'aria-label': $t('Tracking Number') }">
+        </div>
+        <button class="btn amreturn-btn" data-bind="i18n: 'Add', click: addTracking"></button>
+    </div>
+    <!-- /ko -->
+</div>
+<!-- /ko -->

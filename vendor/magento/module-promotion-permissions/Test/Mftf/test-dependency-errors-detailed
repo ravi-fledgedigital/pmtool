@@ -1,0 +1,10 @@
+
+File "/var/www/html/app/code/Magento/PromotionPermissions/Test/Mftf/Test/RelatedProductsRuleTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 GoToTargetRulePage from module(s): magento/module-target-rule
+	 ClickAddNewTargetRule from module(s): magento/module-target-rule
+	 FillGeneralRuleInformation from module(s): magento/module-target-rule
+	 FillProductsToMatchInformation from module(s): magento/module-target-rule
+	 FillProductsToDisplayInformation from module(s): magento/module-target-rule
+	 SaveTargetRule from module(s): magento/module-target-rule

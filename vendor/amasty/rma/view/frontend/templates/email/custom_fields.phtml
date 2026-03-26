@@ -1,0 +1,19 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package RMA Base for Magento 2
+ */
+
+/**
+ * @var \Magento\Framework\Escaper $escaper
+ */
+$fields = $block->getCustomFields();
+?>
+<p style="text-transform: uppercase"><?= $escaper->escapeHtml(__('Extra Fields:')) ?></p>
+<?php
+if ($fields):
+    foreach ($fields as $field): ?>
+        <p><strong><?= $escaper->escapeHtml($field['label']); ?>:</strong> <?= $escaper->escapeHtml($field['value']); ?></p>
+    <?php endforeach;
+endif;?>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/************************************************************************
+ *
+ * Copyright 2024 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ * ************************************************************************
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminCreateOrderApplyMoreCouponCodesThanAllowedTest">
+        <annotations>
+            <stories value="Create Order with multiple coupon codes"/>
+            <title value="Create an order and try to apply more coupon codes than the allowed"/>
+            <description value="Create an order and try to apply more coupon codes than the allowed"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="LYNX-367"/>
+        </annotations>
+        <before>
+            <magentoCLI command="config:set sales/multicoupon/maximum_number_of_coupons_per_order 2" stepKey="EnablingMulticoupon"/>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="LoginAsAdmin"/>
+            <createData entity="Simple_US_Customer" stepKey="createCustomer"/>
+            <createData entity="SimpleProduct2" stepKey="createSimpleProduct">
+                <field key="price">100</field>
+            </createData>
+            <createData entity="SalesRuleSpecificCouponWithFixedDiscount" stepKey="createCartPriceRule"/>
+            <createData entity="SimpleSalesRuleCoupon" stepKey="createCouponForCartPriceRule">
+                <requiredEntity createDataKey="createCartPriceRule"/>
+            </createData>
+            <createData entity="SalesRuleSpecificCouponWithFixedDiscount" stepKey="createCartPriceRule2"/>
+            <createData entity="SimpleSalesRuleCoupon" stepKey="createCouponForCartPriceRule2">
+                <requiredEntity createDataKey="createCartPriceRule2"/>
+            </createData>
+            <createData entity="SalesRuleSpecificCouponWithFixedDiscount" stepKey="createCartPriceRule3"/>
+            <createData entity="SimpleSalesRuleCoupon" stepKey="createCouponForCartPriceRule3">
+                <requiredEntity createDataKey="createCartPriceRule3"/>
+            </createData>
+        </before>
+        <after>
+            <magentoCLI command="config:set sales/multicoupon/maximum_number_of_coupons_per_order 1" stepKey="DisablingMulticoupon"/>
+            <deleteData createDataKey="createCartPriceRule" stepKey="deleteCartPriceRule"/>
+            <deleteData createDataKey="createCartPriceRule2" stepKey="deleteCartPriceRule2"/>
+            <deleteData createDataKey="createCartPriceRule3" stepKey="deleteCartPriceRule3"/>
+            <deleteData createDataKey="createCustomer" stepKey="deleteCustomer"/>
+            <deleteData createDataKey="createSimpleProduct" stepKey="deleteSimpleProduct"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <!-- Create order for registered customer -->
+        <actionGroup ref="AdminNavigateToNewOrderPageExistingCustomerActionGroup" stepKey="goToCreateOrderPage">
+            <argument name="customer" value="$$createCustomer$$"/>
+        </actionGroup>
+
+        <!-- Add Simple product to order -->
+        <actionGroup ref="AddSimpleProductToOrderActionGroup" stepKey="addProductToOrder">
+            <argument name="product" value="$$createSimpleProduct$$"/>
+        </actionGroup>
+
+        <!-- Apply coupon codes to the order -->
+        <actionGroup ref="AdminApplyCouponToOrderActionGroup" stepKey="applyCoupon">
+            <argument name="couponCode" value="$$createCouponForCartPriceRule.code$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminApplyCouponToOrderActionGroup" stepKey="applyCoupon2">
+            <argument name="couponCode" value="$$createCouponForCartPriceRule2.code$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminAddToOrderCouponCodeActionGroup" stepKey="applyCoupon3">
+            <argument name="couponCode" value="$$createCouponForCartPriceRule3.code$$"/>
+        </actionGroup>
+        <see selector="{{AdminOrderFormMessagesSection.error}}" userInput="Maximum allowed number of applied coupons was exceeded." stepKey="seeErrorMessage"/>
+        <see selector="{{OrdersGridSection.discount($$createSimpleProduct.name$$)}}" userInput="-$20.00" stepKey="seeDiscountAmountAfterApplyCoupon2"/>
+    </test>
+</tests>

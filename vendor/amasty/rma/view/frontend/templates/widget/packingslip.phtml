@@ -1,0 +1,15 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package RMA Base for Magento 2
+ */
+/**
+ * @var \Amasty\Rma\Block\Widget\PackingSlipButton $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+?>
+
+<a class="am-print-shipping-label action primary" onclick="window.print()">
+    <?= $escaper->escapeHtml($block->getLabel()); ?>
+</a>

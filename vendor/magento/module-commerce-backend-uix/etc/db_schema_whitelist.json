@@ -1,0 +1,46 @@
+{
+    "admin_ui_sdk_mass_actions": {
+        "column": {
+            "id": true,
+            "label": true,
+            "type": true,
+            "ui_grid": true,
+            "confirm_title": true,
+            "confirm_message": true,
+            "action_id": true,
+            "extension_id": true,
+            "product_number_limit": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "ADMIN_UI_SDK_MASS_ACTIONS_ACTION_ID": true
+        }
+    },
+    "admin_ui_sdk_mass_actions_failed_request": {
+        "column": {
+            "id": true,
+            "request_id": true,
+            "action_id": true,
+            "grid_type": true,
+            "error_status": true,
+            "error_message": true,
+            "request_timestamp": true,
+            "selected_ids": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "ADMIN_UI_SDK_MASS_ACTIONS_FAILED_REQUEST_REQUEST_ID": true
+        }
+    },
+    "admin_ui_sdk_logs": {
+        "column": {
+            "id": true,
+            "message": true,
+            "level": true,
+            "timestamp": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

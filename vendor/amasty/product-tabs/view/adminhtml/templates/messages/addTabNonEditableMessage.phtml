@@ -1,0 +1,16 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Product Tabs for Magento 2
+ */
+// @codingStandardsIgnoreFile
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+
+<?= $block->escapeHtml(__(
+    'Please kindly keep in mind that the changes won\'t be applied to frontend.
+     To make your changes visible on frontend please set \'Allow Editing Default Magento Tabs\' to \'Yes\'
+     <a target="_blank" href="%1">here</a>.',
+    $block->getData('config_url')
+), ['a']);

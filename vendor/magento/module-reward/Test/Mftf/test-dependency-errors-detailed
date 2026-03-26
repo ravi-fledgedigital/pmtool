@@ -1,0 +1,15 @@
+
+File "/var/www/html/app/code/Magento/Reward/Test/Mftf/Test/OnePageCheckoutAsRegisteredUSCustomerUsingRewardPointsGiftCardCouponForAllCustomerGroupsTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminGiftCardAccountGridPage from module(s): magento/module-gift-card-account
+	 AdminGiftCardAccountInformationSection from module(s): magento/module-checkout-staging, magento/module-gift-card-account
+	 AddGiftCardToOrderFromCartActionGroup from module(s): magento/module-gift-card-account
+	 DeleteGiftCardAccountActionGroup from module(s): magento/module-gift-card-account
+
+File "/var/www/html/app/code/Magento/Reward/Test/Mftf/Test/StoreFrontCheckRemoveRewardPointsTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CheckingWithSingleAddressActionGroup from module(s): magento/module-multishipping
+	 StorefrontLeaveDefaultShippingMethodsAndGoToBillingInfoActionGroup from module(s): magento/module-multishipping
+	 SelectBillingInfoActionGroup from module(s): magento/module-multishipping

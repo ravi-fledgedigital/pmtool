@@ -1,0 +1,51 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package RMA Base for Magento 2
+ */
+/**
+ * @var \Amasty\Rma\Model\Request\Email\EmailRequestItem[] $items
+ * @var \Magento\Framework\Escaper $escaper
+ */
+
+$items = $block->getReturnItems();
+?>
+<table class="email-items">
+    <thead>
+        <tr>
+            <th class="item-info">
+                <?= $escaper->escapeHtml(__('SKU')); ?>
+            </th>
+            <th class="item-qty">
+                <?= $escaper->escapeHtml(__('Qty')); ?>
+            </th>
+            <th class="item-info">
+                <?= $escaper->escapeHtml(__('Reason')); ?>
+            </th>
+            <th class="item-info">
+                <?= $escaper->escapeHtml(__('Condition')); ?>
+            </th>
+            <th class="item-info">
+                <?= $escaper->escapeHtml(__('Resolution')); ?>
+            </th>
+            <th class="item-info">
+                <?= $escaper->escapeHtml(__('Status')); ?>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php if ($items):
+        foreach ($items as $item): ?>
+            <tr>
+                <td><?= $escaper->escapeHtml($item->getItemSku()); ?></td>
+                <td><?= $escaper->escapeHtml($item->getQty()); ?></td>
+                <td><?= $escaper->escapeHtml($item->getReason()); ?></td>
+                <td><?= $escaper->escapeHtml($item->getCondition()); ?></td>
+                <td><?= $escaper->escapeHtml($item->getResolution()); ?></td>
+                <td><?= $escaper->escapeHtml($item->getStatus()); ?></td>
+            </tr>
+        <?php endforeach;
+    endif;?>
+    </tbody>
+</table>

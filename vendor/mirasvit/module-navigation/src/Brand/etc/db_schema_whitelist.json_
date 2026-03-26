@@ -1,0 +1,67 @@
+{
+    "mst_brand_page": {
+        "column": {
+            "brand_page_id": true,
+            "attribute_option_id": true,
+            "attribute_id": true,
+            "is_active": true,
+            "url_key": true,
+            "logo": true,
+            "brand_title": true,
+            "brand_description": true,
+            "meta_title": true,
+            "meta_keyword": true,
+            "meta_description": true,
+            "seo_description": true,
+            "seo_position": true,
+            "robots": true,
+            "canonical": true,
+            "banner_alt": true,
+            "banner_title": true,
+            "banner": true,
+            "banner_position": true,
+            "is_show_in_brand_slider": true,
+            "slider_position": true,
+            "brand_short_description": true
+        },
+        "index": {
+            "MST_BRAND_PAGE_BRAND_TITLE": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "mst_brand_page_store": {
+        "column": {
+            "id": true,
+            "brand_page_id": true,
+            "store_id": true,
+            "url_key": true,
+            "brand_title": true,
+            "brand_description": true,
+            "brand_short_description": true,
+            "brand_display_mode": true,
+            "brand_cms_block": true,
+            "meta_title": true,
+            "meta_keyword": true,
+            "meta_description": true,
+            "seo_description": true,
+            "seo_position": true,
+            "robots": true,
+            "canonical": true,
+            "banner_alt": true,
+            "banner_title": true,
+            "banner": true,
+            "banner_position": true
+        },
+        "index": {
+            "MST_BRAND_PAGE_STORE_STORE_ID": true,
+            "MST_BRAND_PAGE_STORE_BRAND_PAGE_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "MST_BRAND_PAGE_STORE_STORE_ID_STORE_STORE_ID": true,
+            "MST_BRAND_PAGE_STORE_BRAND_PAGE_ID_MST_BRAND_PAGE_BRAND_PAGE_ID": true
+        }
+    }
+}

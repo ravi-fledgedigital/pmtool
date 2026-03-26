@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!--
+/************************************************************************
+ *
+ * Copyright 2023 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ * ************************************************************************
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Quote\Api\CartRepositoryInterface">
+        <plugin name="get_quote_coupon_codes"
+                type="Magento\Multicoupon\Plugin\Quote\Model\QuoteRepository\Get"/>
+        <plugin name="save_quote_coupon_codes"
+                type="Magento\Multicoupon\Plugin\Quote\Model\QuoteRepository\Save"/>
+    </type>
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin name="get_sales_order_coupon_codes"
+                type="Magento\Multicoupon\Plugin\SalesOrder\Model\SalesOrderRepository\Get"/>
+        <plugin name="get_list_sales_order_coupon_codes"
+                type="Magento\Multicoupon\Plugin\SalesOrder\Model\SalesOrderRepository\GetList"/>
+        <plugin name="save_sales_order_coupon_codes"
+                type="Magento\Multicoupon\Plugin\SalesOrder\Model\SalesOrderRepository\Save"/>
+    </type>
+    <type name="Magento\Quote\Model\Cart\CartTotalRepository">
+        <plugin name="get_quote_totals" type="Magento\Multicoupon\Plugin\Quote\Model\Cart\CartTotalRepository"/>
+        <plugin name="coupons_labels_plugin" type="Magento\Multicoupon\Plugin\Quote\Model\SalesRule\CartTotalRepository"/>
+    </type>
+    <preference for="Magento\Multicoupon\Api\Quote\AddCouponsInterface"
+                type="Magento\Multicoupon\Model\ResourceModel\Quote\AddCoupons"/>
+    <preference for="Magento\Multicoupon\Api\Quote\GetCouponsInterface"
+                type="Magento\Multicoupon\Model\ResourceModel\Quote\GetCoupons"/>
+    <preference for="Magento\Multicoupon\Api\Quote\RemoveAllCouponsInterface"
+                type="Magento\Multicoupon\Model\ResourceModel\Quote\RemoveAllCoupons"/>
+    <preference for="Magento\Multicoupon\Api\Quote\RemoveCouponsInterface"
+                type="Magento\Multicoupon\Model\ResourceModel\Quote\RemoveCoupons"/>
+    <preference for="Magento\Multicoupon\Api\Quote\ReplaceCouponsInterface"
+                type="Magento\Multicoupon\Model\Quote\ReplaceCoupons"/>
+    <preference for="Magento\Multicoupon\Api\SalesOrder\AddCouponsInterface"
+                type="Magento\Multicoupon\Model\ResourceModel\SalesOrder\AddCoupons"/>
+    <preference for="Magento\Multicoupon\Api\SalesOrder\GetCouponsInterface"
+                type="Magento\Multicoupon\Model\ResourceModel\SalesOrder\GetCoupons"/>
+    <preference for="Magento\Multicoupon\Api\SalesOrder\RemoveAllCouponsInterface"
+                type="Magento\Multicoupon\Model\ResourceModel\SalesOrder\RemoveAllCoupons"/>
+    <preference for="Magento\Multicoupon\Api\SalesOrder\RemoveCouponsInterface"
+                type="Magento\Multicoupon\Model\ResourceModel\SalesOrder\RemoveCoupons"/>
+    <preference for="Magento\Multicoupon\Api\SalesOrder\ReplaceCouponsInterface"
+                type="Magento\Multicoupon\Model\SalesOrder\ReplaceCoupons"/>
+    <preference for="Magento\Multicoupon\Api\CouponManagementInterface"
+                type="Magento\Multicoupon\Model\CouponManagement"/>
+    <type name="Magento\SalesRule\Model\Validator">
+        <plugin name="multicouponValidatorInit" type="Magento\Multicoupon\Plugin\SalesRule\ValidatorPlugin"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote">
+        <plugin name="multicouponQuoteMerge" type="Magento\Multicoupon\Plugin\Quote\MergePlugin"/>
+    </type>
+    <type name="Magento\SalesRule\Model\ValidateCoupon">
+        <plugin name="passCouponMatchingTheRule" type="Magento\Multicoupon\Plugin\SalesRule\ValidateCouponPlugin"/>
+    </type>
+    <type name="Magento\SalesRule\Model\Coupon\Quote\UpdateCouponUsages">
+        <plugin name="updateQuoteCouponUsages" type="Magento\Multicoupon\Plugin\SalesRule\UpdateCouponUsagesPlugin"/>
+    </type>
+    <type name="Magento\SalesRule\Model\Coupon\UpdateCouponUsages">
+        <plugin name="updateOrderCouponUsages" type="Magento\Multicoupon\Plugin\SalesOrder\UpdateCouponUsagesPlugin"/>
+    </type>
+    <type name="Magento\SalesRule\Model\Quote\GetCouponCodes">
+        <plugin name="getCouponCodesAddMultipleCoupons" type="Magento\Multicoupon\Plugin\SalesRule\GetCouponCodesPlugin"/>
+    </type>
+</config>

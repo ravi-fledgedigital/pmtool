@@ -1,0 +1,159 @@
+//
+//  Women Tops Grid Styles
+//  _________________________
+
+//
+//  Common
+//  --------------------------
+
+& when (@media-common = true) {
+	.amtab-grid-wrapper.-tops.-women {
+		.amtab-step {
+			&:nth-child(1) {
+				& {
+					top: 25px;
+					left: 0;
+					max-width: 38vw;
+				}
+
+				.amtab-arrow {
+					display: none;
+				}
+
+				.amtab-arrow:after,
+				.amtab-arrow:before {
+					right: -2px;
+				}
+
+				.amtab-arrow:before {
+					transform: rotate(-145deg) translate(3px, 0px);
+				}
+
+				.amtab-arrow:after {
+					transform: rotate(145deg) translate(3px, 0px);
+				}
+			}
+
+			&:nth-child(2) {
+				& {
+					top: 50%;
+					left: 0;
+				}
+
+				.amtab-arrow {
+					left: 50px;
+					min-width: 50px;
+					max-width: 150px;
+					width: 16vw;
+				}
+
+				.amtab-arrow:after,
+				.amtab-arrow:before {
+					left: -4px;
+				}
+
+				.amtab-arrow:before {
+					transform: rotate(45deg) translate(3px, -1px);
+				}
+
+				.amtab-arrow:after {
+					transform: rotate(-45deg) translate(3px, 1px);
+				}
+			}
+
+			&:nth-child(3) {
+				& {
+					bottom: 2px;
+					left: 0;
+					max-width: 300px;
+				}
+
+				.amtab-arrow {
+					left: 100%;
+					margin: 0 0 0 @amtab__indent;
+					width: 16vw;
+				}
+
+				.amtab-arrow:before {
+					transform: rotate(45deg) translate(1px, 1px);
+				}
+
+				.amtab-arrow:after {
+					transform: rotate(-45deg) translate(1px, -1px);
+				}
+			}
+		}
+	}
+}
+
+//
+//  Tablet
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+	.amtab-grid-wrapper.-tops.-women {
+		.amtab-img {
+			left: 12.5%;
+		}
+
+		.amtab-step {
+			&:nth-child(1) {
+				& {
+					top: 25.5%;
+					right: 24px;
+					left: auto;
+					max-width: 174px;
+				}
+
+				.amtab-arrow {
+					right: 100%;
+					display: block;
+					margin: 0 @amtab__indent 0 0;
+					width: 44px;
+				}
+			}
+
+			&:nth-child(2) {
+				& {
+					top: 46.4%;
+					left: 0;
+					max-width: 172px;
+				}
+
+				.amtab-arrow {
+					width: 12vw;
+				}
+			}
+
+			&:nth-child(3) {
+				& {
+					right: -6px;
+					bottom: 70px;
+					left: auto;
+					max-width: 176px;
+				}
+
+				.amtab-arrow {
+					right: 100%;
+					bottom: -48px;
+					left: auto;
+					margin: 0 @amtab__indent 0 0;
+					width: 50px;
+				}
+
+				.amtab-arrow:after,
+				.amtab-arrow:before {
+					right: 0;
+				}
+
+				.amtab-arrow:before {
+					transform: rotate(145deg) translate(1px, -1px);
+				}
+
+				.amtab-arrow:after {
+					transform: rotate(-145deg) translate(1px, 1px);
+				}
+			}
+		}
+	}
+}

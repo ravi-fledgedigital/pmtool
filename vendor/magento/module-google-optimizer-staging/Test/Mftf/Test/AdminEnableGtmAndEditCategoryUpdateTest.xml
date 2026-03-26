@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminEnableGtmAndEditCategoryUpdateTest">
+        <annotations>
+            <features value="GoogleOptimizerStaging"/>
+            <stories value="Category staging update with enabled GTM"/>
+            <title value="Create and Edit new Category Update with enabled GTM"/>
+            <description value="Create new Category Update, edit and save again with enabled GTM"/>
+            <severity value="MINOR"/>
+            <testCaseId value="AC-7745"/>
+            <useCaseId value="ACP2E-1501"/>
+            <group value="staging"/>
+            <group value="catalog_staging"/>
+            <group value="cloud"/>
+        </annotations>
+        <before>
+            <!--Enable Google Analytics and Content Experiments feature -->
+            <magentoCLI command="config:set {{EnableGoogleAnalyticsConfigData.path}} {{EnableGoogleAnalyticsConfigData.value}}" stepKey="enableGoogleAnalytics"/>
+            <magentoCLI command="config:set {{SetGtmAccountTypeConfigData.path}} {{SetGtmAccountTypeConfigData.value}}" stepKey="setGtmAccountType"/>
+            <magentoCLI command="config:set {{EnableGoogleAnalyticsExperimentsConfigData.path}} {{EnableGoogleAnalyticsExperimentsConfigData.value}}" stepKey="enableGoogleAnalyticsExperiments"/>
+            <!--Create two categories-->
+            <createData entity="_defaultCategory" stepKey="createCategory"/>
+            <!--Login to Admin Page-->
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+        </before>
+        <after>
+            <!--Delete created entities-->
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <!-- Logout Admin -->
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logoutFromAdminPage"/>
+            <!--Disable Google Analytics -->
+            <magentoCLI command="config:set {{DisableGoogleAnalyticsConfigData.path}} {{DisableGoogleAnalyticsConfigData.value}}" stepKey="disableGoogleAnalytics"/>
+            <magentoCLI command="config:set {{DisableGoogleAnalyticsExperimentsConfigData.path}} {{DisableGoogleAnalyticsExperimentsConfigData.value}}" stepKey="disableGoogleAnalyticsExperiments"/>
+        </after>
+
+        <!--Go to category admin page and check staging bocks-->
+        <actionGroup ref="GoToAdminCategoryPageByIdActionGroup" stepKey="goToCategoryPageOnAdmin">
+            <argument name="id" value="$createCategory.id$"/>
+        </actionGroup>
+        <seeElement selector="{{AdminStagingSlideOutSection.scheduledChanges}}" stepKey="seeBlockScheduledChanges"/>
+
+        <!--Create staging update for category-->
+        <actionGroup ref="navigateToStagingSlideout" stepKey="navigateToStagingSlideOut"/>
+        <actionGroup ref="AdminSaveScheduleUpdateWithoutAnyFilledFieldActionGroup" stepKey="clickSaveScheduleUpdateWithoutAnyFilledField"/>
+        <actionGroup ref="AdminFillPermanentUpdateAndCategoryNameActionGroup" stepKey="fillStagingUpdate">
+            <argument name="stage" value="UpdateDatePlusTwoMinutes"/>
+            <argument name="updateName" value="{{_defaultStaging.updateName}}"/>
+        </actionGroup>
+        <executeJS function="return Math.floor(new Date() / 1000);" stepKey="getStartingTime"/>
+        <actionGroup ref="SaveScheduleUpdateForProductActionGroup" stepKey="saveScheduleUpdateForCategory">
+            <argument name="staging" value="UpdateDatePlusTwoMinutes"/>
+        </actionGroup>
+
+        <!-- Edit the existing update -->
+        <actionGroup ref="GoToAdminCategoryPageByIdActionGroup" stepKey="goToCategoryPageOnAdminTwo">
+            <argument name="id" value="$createCategory.id$"/>
+        </actionGroup>
+        <click selector="{{AdminStagingSlideOutSection.viewEdit}}" stepKey="clickViewEdit"/>
+        <waitForPageLoad stepKey="waitForViewAndEditSlideOut"/>
+        <actionGroup ref="SaveScheduleUpdateForProductActionGroup" stepKey="saveScheduleUpdateForCategoryTwo">
+            <argument name="staging" value="UpdateDatePlusTwoMinutes"/>
+            <argument name="updateName" value="{{_defaultStaging.updateName}}"/>
+        </actionGroup>
+    </test>
+</tests>

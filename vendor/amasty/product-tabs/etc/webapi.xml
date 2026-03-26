@@ -1,0 +1,32 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/amasty_customTabs/tabs" method="POST">
+        <service class="Amasty\CustomTabs\Api\TabsRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Amasty_CustomTabs::tabs" />
+        </resources>
+    </route>
+    <route url="/V1/amasty_customTabs/tabs/:tabId" method="PUT">
+        <service class="Amasty\CustomTabs\Api\TabsRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Amasty_CustomTabs::tabs" />
+        </resources>
+    </route>
+    <route url="/V1/amasty_customTabs/tabs/:tabId" method="DELETE">
+        <service class="Amasty\CustomTabs\Api\TabsRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Amasty_CustomTabs::tabs" />
+        </resources>
+    </route>
+    <route url="/V1/amasty_customTabs/tabs" method="GET">
+        <service class="Amasty\CustomTabs\Api\TabsRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="Amasty_CustomTabs::tabs" />
+        </resources>
+    </route>
+    <route url="/V1/amasty_customTabs/tabs/all" method="GET">
+        <service class="Amasty\CustomTabs\Api\TabsRepositoryInterface" method="getList" />
+        <resources>
+            <resource ref="Amasty_CustomTabs::tabs" />
+        </resources>
+    </route>
+</routes>

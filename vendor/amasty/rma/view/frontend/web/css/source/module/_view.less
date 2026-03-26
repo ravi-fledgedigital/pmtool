@@ -1,0 +1,732 @@
+//
+//  Amasty RMA
+//  View/Edit RMA page
+//  ____________________________________________
+
+//
+//  Variables
+//  --------------------------------------------
+@amrma-icon__checked_status: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTUiIGN5PSIxNSIgcj0iMTQiIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzFFNzlDMiIgc3Ryb2tlLXdpZHRoPSIyIi8+PGNpcmNsZSBjeD0iMTUiIGN5PSIxNSIgcj0iOCIgZmlsbD0iIzFFNzlDMiIvPjwvc3ZnPg==');
+@amrma-icon__received_message: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTIiIGZpbGw9IiM0M0EwNDciLz48cGF0aCBkPSJNMTYuNzY0IDkuNTYxYS45MzEuOTMxIDAgMCAwLS4wOTItMS4zMjkuOTcuOTcgMCAwIDAtMS4zNTIuMDlsLTQuODEyIDUuNDIzLTEuODczLTEuODQxYS45Ny45NyAwIDAgMC0xLjM1NCAwIC45MzEuOTMxIDAgMCAwIDAgMS4zMzJsMi40NzcgMi40MzVjLjE0LjEzOC4zMTMuMjI0LjQ5NC4yNTlhLjk3Ljk3IDAgMCAwIDEuMDg1LS4yNTNsNS40MjctNi4xMTZ6IiBmaWxsPSIjZmZmIiBmaWx0ZXI9InVybCgjZmlsdGVyMF9kKSIvPjxkZWZzPjxmaWx0ZXIgaWQ9ImZpbHRlcjBfZCIgeD0iNiIgeT0iNyIgd2lkdGg9IjEyIiBoZWlnaHQ9IjEwIiBmaWx0ZXJVbml0cz0idXNlclNwYWNlT25Vc2UiIGNvbG9yLWludGVycG9sYXRpb24tZmlsdGVycz0ic1JHQiI+PGZlRmxvb2QgZmxvb2Qtb3BhY2l0eT0iMCIgcmVzdWx0PSJCYWNrZ3JvdW5kSW1hZ2VGaXgiLz48ZmVDb2xvck1hdHJpeCBpbj0iU291cmNlQWxwaGEiIHZhbHVlcz0iMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMTI3IDAiLz48ZmVPZmZzZXQvPjxmZUdhdXNzaWFuQmx1ciBzdGREZXZpYXRpb249Ii41Ii8+PGZlQ29sb3JNYXRyaXggdmFsdWVzPSIwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwLjIgMCIvPjxmZUJsZW5kIGluMj0iQmFja2dyb3VuZEltYWdlRml4IiByZXN1bHQ9ImVmZmVjdDFfZHJvcFNoYWRvdyIvPjxmZUJsZW5kIGluPSJTb3VyY2VHcmFwaGljIiBpbjI9ImVmZmVjdDFfZHJvcFNoYWRvdyIgcmVzdWx0PSJzaGFwZSIvPjwvZmlsdGVyPjwvZGVmcz48L3N2Zz4=');
+@amrma-icon__step_complete: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTAiIGN5PSIxMCIgcj0iMTAiIGZpbGw9IiMxRTc5QzIiLz48cGF0aCBkPSJNNiAxMGwzLjUgM0wxNCA3IiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz48L3N2Zz4=');
+@amrma-icon__failed_status: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMTAiIGN5PSIxMCIgcj0iMTAiIGZpbGw9IiNEODBGMzMiLz48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTE0LjA0IDcuMzczYTEgMSAwIDAgMC0xLjQxNC0xLjQxNEwxMCA4LjU4NSA3LjM3NCA1Ljk2QTEgMSAwIDEgMCA1Ljk2IDcuMzczTDguNTg2IDEwIDUuOTYgMTIuNjI2YTEgMSAwIDEgMCAxLjQxNCAxLjQxNEwxMCAxMS40MTRsMi42MjYgMi42MjZhMSAxIDAgMCAwIDEuNDE0LTEuNDE0bC0yLjYyNi0yLjYyNyAyLjYyNi0yLjYyNnoiIGZpbGw9IiNmZmYiLz48L3N2Zz4=');
+@amrma-icon__status_rejected: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUiIGhlaWdodD0iMTUiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSByPSI3LjUiIHRyYW5zZm9ybT0ibWF0cml4KDEgMCAwIC0xIDcuNSA3LjUpIiBmaWxsPSIjRDgwRjMzIi8+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMC4wNzEgOS45OTZhLjYwNi42MDYgMCAwIDEtLjg1NyAwTDcuNSA4LjI4MiA1Ljc4NiA5Ljk5NmEuNjA2LjYwNiAwIDAgMS0uODU3LS44NTdsMS43MTQtMS43MTRMNC45MjggNS43MWEuNjA2LjYwNiAwIDEgMSAuODU4LS44NTdMNy41IDYuNTY4bDEuNzE0LTEuNzE1YS42MDYuNjA2IDAgMCAxIC44NTcuODU3TDguMzU3IDcuNDI1bDEuNzE0IDEuNzE0YS42MDYuNjA2IDAgMCAxIDAgLjg1N3oiIGZpbGw9IiNmZmYiLz48L3N2Zz4=');
+@amrma-icon__status_resolved: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUiIGhlaWdodD0iMTUiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSByPSI3LjUiIHRyYW5zZm9ybT0ibWF0cml4KDEgMCAwIC0xIDcuNSA3LjUpIiBmaWxsPSIjNTFCNzU2Ii8+PHBhdGggZD0iTTQuNSA3LjE3OGwzIDIuNTcyIDMuNzUtNC4wNzIiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+PC9zdmc+');
+@amrma-icon__status_pending: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUiIGhlaWdodD0iMTUiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSByPSI3LjUiIHRyYW5zZm9ybT0ibWF0cml4KDEgMCAwIC0xIDcuNSA3LjUpIiBmaWxsPSIjMjE5NkYzIi8+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik04LjY3NCAzLjlsMy4xNTIgMy4yNGEuNTIuNTIgMCAwIDEgMCAuNzJMOC42NzQgMTEuMWEuNDg2LjQ4NiAwIDAgMS0uNyAwIC41Mi41MiAwIDAgMSAwLS43MmwyLjMwNi0yLjM3SDIuOTdWNi45OWg3LjMxTDcuOTc0IDQuNjJhLjUyLjUyIDAgMCAxIDAtLjcyLjQ4Ni40ODYgMCAwIDEgLjcgMHoiIGZpbGw9IiNmZmYiLz48L3N2Zz4=');
+@amrma-star__active__background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjYiIGhlaWdodD0iMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEzIDEuMjM2bDIuMTkyIDYuNzQ3YTIgMiAwIDAgMCAxLjkwMiAxLjM4Mmg3LjA5NGwtNS43MzkgNC4xN2EyIDIgMCAwIDAtLjcyNyAyLjIzNmwyLjE5MyA2Ljc0Ni01Ljc0LTQuMTdhMiAyIDAgMCAwLTIuMzUgMGwtNS43NCA0LjE3IDIuMTkyLTYuNzQ2YTIgMiAwIDAgMC0uNzI2LTIuMjM3bC01Ljc0LTQuMTdoNy4wOTVhMiAyIDAgMCAwIDEuOTAyLTEuMzgxTDEzIDEuMjM2eiIgZmlsbD0iI0ZGQzEwNyIgc3Ryb2tlPSIjRkZDMTA3IiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=');
+@amrma-star__background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjYiIGhlaWdodD0iMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEzIDEuMjM2bDIuMTkyIDYuNzQ3YTIgMiAwIDAgMCAxLjkwMiAxLjM4Mmg3LjA5NGwtNS43MzkgNC4xN2EyIDIgMCAwIDAtLjcyNyAyLjIzNmwyLjE5MyA2Ljc0Ni01Ljc0LTQuMTdhMiAyIDAgMCAwLTIuMzUgMGwtNS43NCA0LjE3IDIuMTkyLTYuNzQ2YTIgMiAwIDAgMC0uNzI2LTIuMjM3bC01Ljc0LTQuMTdoNy4wOTVhMiAyIDAgMCAwIDEuOTAyLTEuMzgxTDEzIDEuMjM2eiIgc3Ryb2tlPSIjRkZDMTA3IiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=');
+@amrma-print-shipping-label__color: #376cf1;
+@amrma-percent__border-color: #4b81bd;
+@amrma-step__complete__background-color: #1e79c2;
+@amrma-instructions__checked__background-color: #eaf1ff;
+@amrma-message__received__background-color: #e8f5e9;
+@amrma-message__color: #2e7d32;
+@amrma-status__color: #363636;
+@amrma-status__rejected__color: #d80f33;
+@amrma-status__pending__color: #2196f3;
+
+//
+//  Common
+//  ----------------------------------------------
+& when (@media-common = true) {
+    .amrma-return-number {
+        & {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .amrma-header {
+            margin-bottom: 5px;
+        }
+
+        .amrma-status {
+            align-self: baseline;
+        }
+    }
+
+    .amrma-header-block {
+        & {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .amrma-cancel {
+            align-self: center;
+        }
+    }
+
+    //  status bar styles start
+    .amrma-status-container {
+        & {
+            box-sizing: content-box;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .amrma-percent.-status-0 {
+            width: 0;
+        }
+
+        .amrma-percent.-status-1,
+        .amrma-percent.-status-2 {
+            width: 50%;
+        }
+
+        .amrma-percent.-status-3,
+        .amrma-percent.-status-4 {
+            width: 100%;
+        }
+
+        .amrma-progress {
+            border-bottom: 2px solid @color-gray76;
+            height: 42%;
+            position: absolute;
+            width: 100%;
+            z-index: -1;
+        }
+
+        .amrma-percent {
+            border-bottom: 2px solid @amrma-percent__border-color;
+            box-sizing: content-box;
+            height: 100%;
+            position: absolute;
+            width: 0;
+            z-index: 1;
+        }
+
+        .amrma-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .amrma-step.-authorized.-checked {
+            margin: 0 0 0 10%;
+        }
+
+        .amrma-step.-complete:before {
+            background: @amrma-step__complete__background-color;
+        }
+
+        .amrma-step.-checked {
+            & {
+                display: flex;
+                flex-basis: 60%;
+                margin-right: 10%;
+                text-align: center;
+            }
+
+            &:before {
+                background-color: @color-white;
+                background-image: @amrma-icon__checked_status;
+                background-position: left;
+                background-repeat: no-repeat;
+                border: none;
+                height: 30px;
+                top: -1px;
+                width: 30px;
+            }
+        }
+
+        .amrma-name {
+            display: none;
+        }
+
+        .amrma-step.-checked .amrma-name {
+            display: block;
+            position: relative;
+            top: 35px;
+            width: 100%;
+        }
+
+        .amrma-step.-failed:before {
+            height: 20px;
+            top: 3px;
+            width: 20px;
+            .lib-css(background, @amrma-icon__failed_status);
+        }
+
+        .amrma-step.-resolved,
+        .amrma-step.-pending {
+            .-checked .amrma-name {
+                max-width: 150px;
+            }
+        }
+
+        .amrma-step.-pending.-checked {
+            & {
+                text-align: left;
+            }
+
+            &:before {
+                background-position: right;
+                border-radius: inherit;
+                padding: 0 0 0 20px;
+            }
+        }
+
+        .amrma-step {
+            & {
+                height: 30px;
+                min-width: 15px;
+                position: relative;
+            }
+
+            &:before {
+                background: @color-gray76;
+                border-radius: 50%;
+                content: '';
+                height: 16px;
+                position: absolute;
+                top: 6px;
+                width: 16px;
+            }
+
+            &.-authorized.-checked:before,
+            &.-received.-checked:before {
+                left: ~'calc(50% - 15px)';
+            }
+        }
+
+        .amrma-step.-resolved.-checked {
+            & {
+                display: flex;
+                justify-content: flex-end;
+                margin: 0;
+                text-align: right;
+            }
+
+            &:before {
+                border-radius: inherit;
+                padding: 0 20px 0 0;
+                right: 0;
+
+                &.-received.-checked::before {
+                    left: 30%;
+                }
+            }
+        }
+    }
+
+    //  status bar end
+    .amrma-bank-details,
+    .amrma-return-instructions,
+    .amrma-header-block {
+        margin-bottom: 40px;
+    }
+
+    .sr-only,
+    input[type='checkbox'].amrma-instructions {
+        border-width: 0;
+        clip: rect(0, 0, 0, 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+    }
+
+    .amrma-instructions:focus + .amrma-instructions-title::before {
+        border-radius: 4px;
+        box-shadow: 0 0 3px 1px @color-blue3;
+        content: '';
+        height: 100%;
+        pointer-events: none;
+        position: absolute;
+        width: 100%;
+    }
+
+    .amrma-instruction-block {
+        & {
+            display: none;
+        }
+
+        .amrma-instructions:checked ~ & {
+            background: @amrma-instructions__checked__background-color;
+            border-radius: 1px 1px 2px 2px;
+            display: block;
+            padding: 20px 10px 15px;
+        }
+
+        .am-print-shipping-label.action {
+            background: @amrma-print-shipping-label__color;
+        }
+    }
+
+    .amrma-instructions-title {
+        & {
+            border-bottom: 2px solid @amrma-step__complete__background-color;
+            border-radius: 2px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .amrma-title {
+            margin-bottom: 15px;
+        }
+
+        .amrma-show {
+            & {
+                .lib-css(border, 2px solid @amrma-btn__color_blue);
+                border-radius: 50%;
+                box-sizing: border-box;
+                height: 30px;
+                position: relative;
+                width: 30px;
+            }
+
+            &:before {
+                .lib-css(border-left, 1px solid @amrma-btn__color_blue);
+                .lib-css(border-top, 1px solid @amrma-btn__color_blue);
+                content: '';
+                height: 10px;
+                left: 28%;
+                position: absolute;
+                top: 18%;
+                transform: rotate(225deg);
+                width: 10px;
+            }
+        }
+
+        .amrma-instructions:checked + & .amrma-show:before {
+            top: 38%;
+            transform: rotate(45deg);
+        }
+    }
+
+    .amrma-received-message {
+        & {
+            background: @amrma-message__received__background-color;
+            border-radius: 2px;
+            margin-bottom: 28px;
+            padding: 10px;
+            position: relative;
+        }
+
+        &:before {
+            content: '';
+            height: 24px;
+            position: absolute;
+            top: 7px;
+            width: 24px;
+            .lib-css(background, @amrma-icon__received_message);
+        }
+
+        .amrma-message {
+            color: @amrma-message__color;
+            margin: 0 0 0 45px;
+        }
+    }
+
+    .amrma-table-container {
+        & {
+            margin-bottom: 40px;
+        }
+
+        .amrma-title {
+            margin-bottom: 10px;
+        }
+    }
+
+    .amrma-items-table {
+        margin-top: 10px;
+    }
+
+    .amrma-table-container > .amrma-items-table > .amrma-table > .amrma-tbody > .amrma-row {
+        .col {
+            margin: 0;
+            padding: 5px 0;
+            position: static;
+        }
+
+        .col:first-child {
+            left: 5px;
+        }
+
+        .amrma-status {
+            & {
+                background: inherit;
+                color: @amrma-status__color;
+                font-size: 14px;
+                font-weight: 600;
+                padding: 0 0 0 20px;
+                position: relative;
+                text-transform: capitalize;
+            }
+
+            &:before {
+                background-position: left center;
+                background-repeat: no-repeat;
+                height: 20px;
+                left: 0;
+                position: absolute;
+                width: 20px;
+            }
+        }
+
+        .amrma-status.-rejected {
+            & {
+                color: @amrma-status__rejected__color;
+            }
+
+            &:before {
+                background-image: @amrma-icon__status_rejected;
+                content: '';
+            }
+        }
+
+        .amrma-status.-pending {
+            & {
+                color: @amrma-status__pending__color;
+            }
+
+            &:before {
+                background-image: @amrma-icon__status_pending;
+                content: '';
+            }
+        }
+
+        .amrma-status.-resolved::before {
+            background-image: @amrma-icon__status_resolved;
+            content: '';
+        }
+
+        .amrma-details {
+            & {
+                padding-top: 15px;
+            }
+
+            &:before {
+                content: none;
+            }
+        }
+
+        .details:before {
+            content: none;
+        }
+
+        .amrma-image {
+            & {
+                height: 100px;
+                padding: 0;
+                width: 100px;
+            }
+
+            &:after {
+                content: none;
+            }
+        }
+    }
+
+    .amrma-table-container .table-wrapper {
+        border-bottom: none;
+    }
+
+    .amrma-rating-block {
+        & {
+            align-items: center;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .amrma-title {
+            color: @color-gray-darken4;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 22px;
+        }
+    }
+
+    .amrma-feedback-container {
+        & {
+            border: 1px solid @color-gray80;
+            border-radius: 2px;
+            box-sizing: border-box;
+            display: flex;
+            margin: 20px;
+            padding: 10px;
+        }
+
+        .amrma-feedback {
+            border: none;
+            height: 40px;
+            margin-right: 10px;
+            width: 80%;
+        }
+    }
+
+    .amrma-stars-container {
+        & {
+            background: @color-white;
+            border: 2px solid rgba(23, 93, 224, .3);
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0, 62, 176, .1);
+            box-sizing: border-box;
+            margin: 20px auto;
+            max-width: 530px;
+            padding: 25px 15px 15px;
+        }
+
+        .rated-message {
+            text-align: center;
+        }
+
+        .amrma-stars-block {
+            @amreview-stars: 5;
+            .override-stars (@i) when (@i > 0) {
+                /* phpcs:ignore Magento2.Less.BracesFormatting.SpacingBeforeOpen,Magento2.Less.BracesFormatting.SpacingBeforeClose  */
+                .rating-@{i}:before {
+                    width: @i * 26px;
+                }
+                .override-stars(@i - 1);
+            }
+
+            .override-stars (@amreview-stars);
+        }
+    }
+
+    .amrma-stars-container .amrma-stars-block {
+        & {
+            height: 24px;
+            width: 130px;
+        }
+
+        &:before {
+            background: @amrma-star__background;
+            content: '';
+            height: 24px;
+            width: 130px;
+        }
+
+        .amrma-star:before {
+            background: @amrma-star__active__background;
+            content: '';
+            display: inline-block;
+            height: 24px;
+        }
+
+        .amrma-radio:focus-visible + .amrma-star {
+            box-shadow: 0 0 3px 1px @color-blue3;
+        }
+
+        & .amrma-radio:not(:checked) + .amrma-star:hover:before {
+            background: @amrma-star__active__background;
+            cursor: pointer;
+            opacity: 1;
+        }
+    }
+
+    .amrma-send {
+        & {
+            .lib-css(border, 1px solid @amrma-btn__color_blue);
+            border: none;
+            border-radius: 3px;
+            color: @color-white;
+            .lib-css(background, @amrma-btn__color_blue);
+            .lib-css(transition, background-color .4s, 1);
+            font-weight: bold;
+            margin-left: 10px;
+            padding: 12px 16px;
+        }
+
+        &:hover {
+            background: @amrma-status__pending__color;
+            border: none;
+            color: @color-white;
+        }
+
+        &:focus {
+            background: @amrma-status__pending__color;
+            border: none;
+            box-shadow: 0 0 3px 1px @color-blue3;
+            color: @color-white;
+        }
+    }
+
+    .amrma-return-select .amrma-select {
+        font-size: 16px;
+    }
+}
+
+//
+//  Mobile +
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__s) {
+    .amrma-select-container {
+        & {
+            flex-basis: 35%;
+        }
+
+        .amasty_rma-account-view & .admin__control-select {
+            height: 100%;
+        }
+    }
+
+    .amrma-return-number {
+        & {
+            flex-direction: row;
+        }
+
+        .amrma-header {
+            margin: 0;
+        }
+
+        .amrma-status {
+            align-self: auto;
+            margin: 0 10px;
+        }
+    }
+}
+
+//
+//  Tablet +
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    //  override magento table styles start
+    .amrma-table-container > .amrma-items-table > .amrma-table > .amrma-tbody > .amrma-row .col.amrma-details {
+        position: static;
+    }
+    //  override magento table styles end
+
+    .amrma-status-container {
+        & {
+            margin: 0 35px 50px;
+        }
+
+        .amrma-percent {
+            width: 68%;
+        }
+
+        .amrma-percent.-status-1 {
+            width: 34%;
+        }
+
+        .amrma-percent.-status-2 {
+            width: 68%;
+        }
+
+        .amrma-step.-complete:before {
+            background: @amrma-icon__step_complete;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 30px;
+            top: -1px;
+            width: 20px;
+        }
+
+        .amrma-step.-checked .amrma-name {
+            display: none;
+        }
+
+        .amrma-steps .amrma-step.-checked {
+            margin: 0;
+        }
+
+        .amrma-step.-pending.-checked {
+            & {
+                text-align: center;
+            }
+
+            &:before {
+                border-radius: 50%;
+                padding: 0;
+            }
+        }
+
+        .amrma-step.-checked {
+            & {
+                flex-basis: auto;
+                text-align: center;
+            }
+
+            &:before {
+                background: @amrma-step__complete__background-color;
+                color: @color-white;
+                content: attr(data-number);
+                line-height: 30px;
+                top: -1px;
+            }
+        }
+
+        .amrma-steps .amrma-step.-resolved.-checked {
+            & {
+                justify-content: inherit;
+                text-align: center;
+            }
+
+            &:before {
+                border-radius: 50%;
+                padding: 0;
+                right: auto;
+            }
+        }
+
+        .amrma-steps > .amrma-step.-checked,
+        .amrma-steps > .amrma-step {
+            &:after {
+                content: attr(data-label);
+                left: -38px;
+                min-width: 100px;
+                position: absolute;
+                text-align: center;
+                top: 30px;
+            }
+        }
+    }
+
+    .amasty-rma-pager {
+        .limiter {
+            float: right;
+        }
+    }
+
+    .amrma-return-select .amrma-select {
+        font-size: 14px;
+    }
+}
+
+@media print {
+    .nav-sections,
+    .page-footer,
+    .sidebar,
+    .page-title-wrapper,
+    .amrma-received-message,
+    .amrma-cancel,
+    .amrma-status,
+    .amrma-status-container,
+    .amrma-return-instructions,
+    .amrma-tracking-information,
+    .amrma-chat-title,
+    .amrma-chat-container {
+        display: none;
+    }
+
+    .page-wrapper .amrma-table-container .table-wrapper > .amrma-table .amrma-tbody > .amrma-row > .col {
+        & {
+            padding-left: 0 !important;
+        }
+
+        &:first-child {
+            position: relative;
+            top: 0;
+
+            .amrma-image {
+                margin-right: 0;
+                padding: 5px;
+            }
+        }
+
+        .amrma-status {
+            display: block;
+        }
+    }
+}

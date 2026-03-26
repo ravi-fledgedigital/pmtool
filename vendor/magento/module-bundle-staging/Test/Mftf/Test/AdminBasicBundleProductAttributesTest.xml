@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminBasicBundleProductAttributesTest">
+        <annotations>
+            <group value="staging"/>
+        </annotations>
+        <!--During set checking-->
+        <!--Date removal-->
+        <remove keyForRemoval="seeFirstDate"/>
+        <remove keyForRemoval="seeSecondDate"/>
+        <!--See RMA-->
+        <seeElement selector="{{AdminProductFormBundleSection.rmaUnchecked}}" stepKey="seeRmaUnchecked" after="seeDefaultCategory"/>
+        <comment userInput="BIC workaround" stepKey="seeRmaOn" after="seeRmaUnchecked"/>
+        <seeElement selector="{{AdminProductFormBundleSection.rmaOff}}" stepKey="seeRmaOff" after="seeRmaOn"/>
+
+        <!--During editing-->
+        <!--Date removal-->
+        <remove keyForRemoval="fillInFirstDate"/>
+        <remove keyForRemoval="fillInSecondDate"/>
+        <!--Set RMA-->
+        <click selector="{{AdminProductFormBundleSection.rmaToggle}}" stepKey="enableRmaToggle" before="clickOnRma"/>
+        <click selector="{{AdminProductFormBundleSection.rmaCheckbox}}" stepKey="clickOnRma" before="countryOfManufactureDropDown"/>
+
+        <!--During edit checking-->
+        <!--Date removal-->
+        <remove keyForRemoval="seeFirstDate2"/>
+        <remove keyForRemoval="seeSecondDate2"/>
+        <!--See RMA-->
+        <seeElement selector="{{AdminProductFormBundleSection.rmaChecked}}" stepKey="seeRmaChecked" after="seeDefaultCategory2"/>
+        <comment userInput="BIC workaround" stepKey="seeRmaDisable" after="seeRmaChecked"/>
+        <seeElement selector="{{AdminProductFormBundleSection.rmaOn}}" stepKey="seeRmaEnable" after="seeRmaDisable"/>
+    </test>
+</tests>

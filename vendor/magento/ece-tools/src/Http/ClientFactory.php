@@ -1,0 +1,42 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+declare(strict_types=1);
+
+namespace Magento\MagentoCloud\Http;
+
+use GuzzleHttp\Client;
+use Magento\MagentoCloud\App\ContainerInterface;
+
+/**
+ * Creates configured instances of Client.
+ *
+ */
+class ClientFactory
+{
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
+
+    /**
+     * @param ContainerInterface $container
+     */
+    public function __construct(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+
+    /**
+     * Creates a Client instance.
+     *
+     * @param array $config
+     * @return Client
+     */
+    public function create(array $config = []): Client
+    {
+        return $this->container->create(Client::class, ['config' => $config]);
+    }
+}

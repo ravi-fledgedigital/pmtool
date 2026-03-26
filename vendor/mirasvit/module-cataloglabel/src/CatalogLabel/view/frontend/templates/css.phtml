@@ -1,0 +1,13 @@
+<?php
+/** @var \Mirasvit\CatalogLabel\Block\CommonCss  $block */
+$css = $block->getCommonCss();
+
+if (!$css) {
+    return '';
+}
+?>
+
+<style>
+    /* Mirasvit Label Templates CSS */
+    <?= /* @noEscape */ $css ?>
+</style>

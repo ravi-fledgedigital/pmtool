@@ -1,0 +1,166 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Store Locator for Magento 2
+ */
+/**
+ * @var \Amasty\Storelocator\Block\View\Reviews $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Amasty\Storelocator\Model\Location $location
+ */
+$location = $block->getLocation();
+if ($location && $block->isReviewsEnabled()):
+    $locationReviews = $location->getLocationReviews();
+    $countOfRatings =  $locationReviews ? count($locationReviews) : 0;
+    $format = $location->getDateFormat() ? : \IntlDateFormatter::MEDIUM;
+    $locationAvgRating = ($location->getLocationAverageRating()) ? $location->getLocationAverageRating() : 0;
+    ?>
+    <div class="amlocator-block -separator"><hr class="hr"/></div>
+    <div class="amlocator-block -reviews amlocator-reviews-wrapper">
+        <div class="amlocator-collapse-title"
+             data-amlocator-js="collapse-trigger"
+             tabindex="0"
+             role="button"
+             aria-expanded="false"
+             aria-controls="amlocator-location-reviews">
+            <span><?= $escaper->escapeHtml(__('Reviews')); ?></span>
+            <span class="amlocator-arrow" data-amlocator-js="collapse-indicator" aria-hidden="true"></span>
+        </div>
+
+        <div class="amlocator-reviews-general">
+            <span class="amlocator-value"><?= (float)round($locationAvgRating/20, 1);?></span>
+            <div class="amlocator-wrapper">
+                <div class="amstars-rating-container -small"
+                     title="<?= (float)$locationAvgRating ?>%">
+                    <p class="amstars-stars" style="width:<?= (float)$locationAvgRating ?>%">
+                        <span class="hidden"><?= (float)$locationAvgRating ?>%</span>
+                    </p>
+                </div>
+                <span class="amlocator-count"><?= (int)$countOfRatings . $escaper->escapeHtml(__(' reviews'))?></span>
+            </div>
+            <button class="amlocator-button" title="<?= $escaper->escapeHtml(__('Write a review'))?>" data-amlocator-js="write-review">
+                <?= $escaper->escapeHtml(__('Write a review'))?>
+            </button>
+        </div>
+
+        <div class="amlocator-location-reviews" id="amlocator-location-reviews" data-amlocator-js="collapse-content">
+            <ol class="amlocator-items">
+                <?php if ($locationReviews):?>
+                    <?php foreach ($locationReviews as $review): ?>
+                        <li class="amlocator-location-review" data-amlocator-js="location-review">
+                            <div class="amlocator-wrapper">
+                                <p class="amlocator-name">
+                                    <?= $escaper->escapeHtml($review->getCustomerName())?>
+                                </p>
+                                <div class="amstars-rating-container -small"
+                                     title="<?= $escaper->escapeHtml($review->getRating()) ?>%">
+                                    <p class="amstars-stars"
+                                       style="width:<?= $escaper->escapeHtml($review->getRating()) ?>%">
+                                                <span class="hidden">
+                                                    <?= $escaper->escapeHtml($review->getRating()) ?>%
+                                                </span>
+                                    </p>
+                                </div>
+                                <p class="amlocator-message -collapsed" data-amlocator-js="review-message">
+                                    <?= $escaper->escapeHtml($review->getReviewText()) ?>
+                                </p>
+                                <div class="amlocator-footer">
+                                    <span class="amlocator-link -full" data-amlocator-js="toggle-review"><?= $escaper->escapeHtml(__('See full review')) ?></span>
+                                    <time class="amlocator-date"
+                                          datetime="
+                                          <?= $escaper->escapeHtml(
+                                              $block->formatDate($review->getPublishedAt(), $format)
+                                          ) ?>
+                                        ">
+                                        <?= $escaper->escapeHtml($block->formatDate($review->getPublishedAt(), $format)) ?>
+                                    </time>
+                                </div>
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                <?php endif;?>
+            </ol>
+        </div>
+    </div>
+
+    <div class="amlocator-review-popup-content" data-amlocator-js="amlocator-review-popup-content" style="display: none">
+        <?php if ($block->isCustomerAuthorized()): ?>
+            <div class="amlocator-header">
+                <span><?= $escaper->escapeHtml(__("You're reviewing:"))?></span>
+                <span class="amlocator-name"><?= $escaper->escapeHtml($block->getLocationName()); ?></span>
+            </div>
+            <div class="amlocator-form-wrapper">
+                <form class="amlocator-review-form review-form" id="amlocator-review-form" method="post"
+                      data-mage-init='{"mage/validation": {"errorClass": "mage-error"}}'>
+                    <fieldset class="fieldset review-fieldset"
+                              data-hasrequired="<?= $escaper->escapeHtml(__('* Required Fields')) ?>">
+                        <fieldset class="field required review-field-ratings">
+                            <span class="label"><span><?= $escaper->escapeHtml(__('Your Rating')) ?></span></span>
+                            <div class="control">
+                                <div class="nested" id="product-review-table">
+                                    <div class="field choice review-field-rating">
+                                        <div class="control review-control-vote">
+                                            <?php $countOfStars = 5;
+                                            for ($iterator = 1; $iterator <= $countOfStars; $iterator++): ?>
+                                                <input type="radio"
+                                                       name="location-rating"
+                                                       id="rating_<?= $escaper->escapeHtml($iterator) ?>"
+                                                       value="<?= $escaper->escapeHtml($iterator) ?>"
+                                                       class="radio"
+                                                       data-validate="{'amasty-rating-required':true}"/>
+                                                <label class="rating-<?= $escaper->escapeHtml($iterator) ?> rating-label"
+                                                       for="rating_<?= $escaper->escapeHtml($iterator) ?>"
+                                                       title="
+                                                       <?= $escaper->escapeHtml(
+                                                           __(
+                                                               '%1 %2',
+                                                               $iterator,
+                                                               $iterator > 1 ? __('stars') : __('star')
+                                                           )
+                                                       ) ?>
+                                                       ">
+                                                    <span>
+                                                        <?= $escaper->escapeHtml(
+                                                            __(
+                                                                '%1 %2',
+                                                                $iterator,
+                                                                $iterator > 1 ? __('stars') : __('star')
+                                                            )
+                                                        ) ?>
+                                                    </span>
+                                                </label>
+                                            <?php endfor; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="validate_rating" class="validate-rating" value="" />
+                            </div>
+                        </fieldset>
+                        <div class="field review-field-text required">
+                            <label for="review_field" class="label">
+                                <span><?= $escaper->escapeHtml(__('Review')) ?></span>
+                            </label>
+                            <div class="control">
+                                <textarea name="detail" id="review_field" cols="5" rows="3"
+                                          data-validate="{required:true}"></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <input type="hidden" name="review-location-id" value="<?= (int)$block->getLocationId() ?>"/>
+                    <div class="actions-toolbar review-form-actions">
+                        <div class="primary actions-primary">
+                            <button type="submit" class="action submit primary">
+                                <span><?= $escaper->escapeHtml(__('Submit Review')) ?></span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        <?php else: ?>
+            <div>
+                <?= $escaper->escapeHtml(__('Please %1 to leave a review.', $block->buildLoginLink()), ['a']) ?>
+            </div>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="StorefrontCreateMultipleWishlistSection">
+        <element name="productImage" type="file" selector="//*[@class='product-image-photo']"/>
+        <element name="wishListItem" type="button" selector="//button[@data-action='add-to-wishlist']/following-sibling::button"/>
+        <element name="wishListByName" type="button" selector="//span[contains(text(),'{{wishlistName}}')]" parameterized="true"/>
+        <element name="addNewWishListItem" type="button" selector="//span[contains(text(),'Create New Wish List')]"/>
+        <element name="addNewWishListLink" type="button" selector="#wishlist-create-button"/>
+        <element name="removeWishList" type="button" selector=".//*[@class='action remove']/span"/>
+        <element name="newWishList" type="button" selector=".//*[@class='item wishlist-add']//a"/>
+    </section>
+</sections>

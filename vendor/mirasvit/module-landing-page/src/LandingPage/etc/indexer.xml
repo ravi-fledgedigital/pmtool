@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Indexer/etc/indexer.xsd">
+    <indexer id="mst_landing_page_product"
+             view_id="mst_landing_page_product"
+             class="Mirasvit\LandingPage\Model\Indexer\LandingPageProduct">
+        <title translate="true">Landing Page Products</title>
+        <description translate="true">Index landing page to product associations</description>
+    </indexer>
+</config>

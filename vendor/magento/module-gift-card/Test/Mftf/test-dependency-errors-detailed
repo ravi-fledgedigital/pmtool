@@ -1,0 +1,84 @@
+
+File "/var/www/html/app/code/Magento/GiftCard/Test/Mftf/Test/AdminAddRemoveDefaultVideoGiftCardProductTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AddProductVideoActionGroup from module(s): magento/module-product-video
+	 AssertProductVideoAdminProductPageActionGroup from module(s): magento/module-product-video
+	 AssertProductVideoStorefrontProductPageActionGroup from module(s): magento/module-product-video
+	 AssertProductVideoNotInAdminProductPageActionGroup from module(s): magento/module-product-video
+	 AssertProductVideoNotInStorefrontProductPageActionGroup from module(s): magento/module-product-video
+	 AdminAddRemoveDefaultVideoSimpleProductTest from module(s): magento/module-product-video
+
+File "/var/www/html/app/code/Magento/GiftCard/Test/Mftf/Test/AdminCreateGiftCardProductOfCombinedTypeWithCustomOptionsTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 StorefrontCheckQuickSearchActionGroup from module(s): magento/module-catalog-search
+
+File "/var/www/html/app/code/Magento/GiftCard/Test/Mftf/Test/AdminCreateGiftCardProductOfCombinedTypeWithOpenAmountTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 StorefrontCheckQuickSearchActionGroup from module(s): magento/module-catalog-search
+
+File "/var/www/html/app/code/Magento/GiftCard/Test/Mftf/Test/AdminCreateGiftCardProductOfPhysicalTypeTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 StorefrontCheckQuickSearchActionGroup from module(s): magento/module-catalog-search
+	 StorefrontCheckSearchIsEmptyActionGroup from module(s): magento/module-catalog-search
+
+File "/var/www/html/app/code/Magento/GiftCard/Test/Mftf/Test/AdminCreateGiftCardProductOfVirtualTypeTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 StorefrontCheckQuickSearchActionGroup from module(s): magento/module-catalog-search
+
+File "/var/www/html/app/code/Magento/GiftCard/Test/Mftf/Test/AdminCreateGiftCardProductWithCustomLifeTimeTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 StorefrontCheckQuickSearchActionGroup from module(s): magento/module-catalog-search
+
+File "/var/www/html/app/code/Magento/GiftCard/Test/Mftf/Test/AdminCreateGiftCardWithRequiredFieldsOnlyTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 StorefrontCheckQuickSearchActionGroup from module(s): magento/module-catalog-search
+
+File "/var/www/html/app/code/Magento/GiftCard/Test/Mftf/Test/AdminMoneyRefundingGiftCardPartialRefundTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 StorefrontPaypalCheckoutSection from module(s): magento/module-paypal
+	 StorefrontPaypalFillCardDataActionGroup from module(s): magento/module-paypal
+
+File "/var/www/html/app/code/Magento/GiftCard/Test/Mftf/Test/SelectedAmountIsShownWhenMerchantEditsGiftCardFromShoppingCartTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 StorefrontCustomerOrderBySkuSection from module(s): magento/module-advanced-checkout
+
+File "/var/www/html/app/code/Magento/GiftCard/Test/Mftf/Test/StorefrontCustomerGiftCardProductAddToCardOrderBySkuTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 StorefrontCustomerOrderBySkuSection from module(s): magento/module-advanced-checkout
+	 FillProductSkuAndQtyActionGroup from module(s): magento/module-advanced-checkout
+
+File "/var/www/html/app/code/Magento/GiftCard/Test/Mftf/Test/StorefrontGiftCardProductAmountInPaypalBannerTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 ConfigPayPalExpressCheckoutActionGroup from module(s): magento/module-paypal
+	 AdminPayPalExpressCheckoutPayLaterEnableActionGroup from module(s): magento/module-paypal
+	 AdminPayPalExpressCheckoutDisableBillingAgreementActionGroup from module(s): magento/module-paypal
+	 AdminPayPalExpressCheckoutEnableBillingAgreementActionGroup from module(s): magento/module-paypal
+	 AdminPayPalExpressCheckoutPayLaterDisableActionGroup from module(s): magento/module-paypal
+	 AdminPayPalExpressCheckoutDisableActionGroup from module(s): magento/module-paypal
+
+File "/var/www/html/app/code/Magento/GiftCard/Test/Mftf/Test/StorefrontInstantPurchaseFunctionalityNegativeScenarioTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 StorefrontInstantPurchaseSection from module(s): magento/module-instant-purchase
+
+File "/var/www/html/app/code/Magento/GiftCard/Test/Mftf/Test/StorefrontInstantPurchaseFunctionalityTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 StorefrontInstantPurchaseSection from module(s): magento/module-instant-purchase
+
+File "/var/www/html/app/code/Magento/GiftCard/Test/Mftf/ActionGroup/CreateCardPriceRuleActionGroup.xml"
+contains entity references that violate dependency constraints:
+		
+	 CreateCardPriceRuleSection from module(s): magento/module-checkout-staging
+	 cardCode from module(s): magento/module-checkout-staging

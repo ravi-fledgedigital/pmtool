@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package RMA Base for Magento 2
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\App\RouterList">
+        <arguments>
+            <argument name="routerList" xsi:type="array">
+                <item name="amasty_rma" xsi:type="array">
+                    <item name="class" xsi:type="string">Amasty\Rma\Controller\Router</item>
+                    <item name="disable" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="string">23</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Amasty\Rma\ViewModel\Order\History\Grid">
+        <arguments>
+            <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Amasty\Rma\Plugin\DisplayRmaInfo\DisplayCart">
+        <arguments>
+            <argument name="productRepository" xsi:type="object">Magento\Catalog\Api\ProductRepositoryInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Catalog\Block\Product\View\Attributes">
+        <plugin name="showRmaInfoProductPage" type="Amasty\Rma\Plugin\DisplayRmaInfo\DisplayProductPage" />
+    </type>
+    <type name="Magento\Checkout\Block\Cart\Item\Renderer">
+        <plugin name="showRmaInfoCart" type="Amasty\Rma\Plugin\DisplayRmaInfo\DisplayCart" />
+    </type>
+</config>

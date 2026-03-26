@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    
+    <type name="Mirasvit\Core\Block\Adminhtml\Menu">
+        <arguments>
+            <argument name="menu" xsi:type="array">
+                <item name="layered_navigation" xsi:type="object">Mirasvit\LayeredNavigation\Block\Adminhtml\Menu</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Catalog\Model\ResourceModel\Eav\Attribute">
+        <plugin name="Mirasvit_LayeredNavigation::saveAttributeConfig" type="Mirasvit\LayeredNavigation\Plugin\Backend\SaveAttributeConfigPlugin" sortOrder="1000"/>
+    </type>
+
+    <type name="Magento\Catalog\Ui\DataProvider\CatalogEavValidationRules">
+        <plugin name="Mirasvit_LayeredNavigation::buildValidationRules" type="Mirasvit\LayeredNavigation\Plugin\Backend\BuildAttributeValidationRulesPlugin" sortOrder="1010"/>
+    </type>
+
+</config>

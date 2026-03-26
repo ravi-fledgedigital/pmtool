@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="mst_quick_navigation" showInDefault="1" showInWebsite="1" showInStore="1" type="text" translate="label" sortOrder="444">
+            <label>Quick Navigation Bar</label>
+            <tab>mirasvit</tab>
+            <resource>Mirasvit_QuickNavigation::system</resource>
+
+            <group id="general" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="1000" translate="label">
+                <label>Quick Navigation Bar</label>
+
+                <group id="general_settings" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="1000" translate="label">
+                    <label>General Settings</label>
+                    <fieldset_css>mst_nav_sub_group_config</fieldset_css>
+                    <field id="is_enabled" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                        <label>Enable Quick Navigation Bar</label>
+                        <comment><![CDATA[Activates the Quick Navigation Bar, allowing users faster access to frequently used filters.]]></comment>
+                        <config_path>mst_quick_navigation/general/is_enabled</config_path>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                </group>
+
+                <group id="threshold_limits" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="1000" translate="label">
+                    <label>Total Filter Count Threshold</label>
+                    <fieldset_css>mst_nav_sub_group_config</fieldset_css>
+                    <field id="total_threshold" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                        <label>Total Threshold</label>
+                        <config_path>mst_quick_navigation/general/total_threshold</config_path>
+                        <comment><![CDATA[Set the maximum number of filter options to display in the Quick Navigation Bar.]]></comment>
+                    </field>
+
+                    <field id="attribute_threshold" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                        <label>Threshold Per Attribute</label>
+                        <config_path>mst_quick_navigation/general/attribute_threshold</config_path>
+                        <comment><![CDATA[Define the maximum number of options displayed per attribute in the Quick Navigation Bar.]]></comment>
+                    </field>
+                </group>
+
+                <group id="filter_history_cleanup" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="1000" translate="label">
+                    <label>Filter History Cleanup</label>
+                    <fieldset_css>mst_nav_sub_group_config</fieldset_css>
+                    <field id="is_cleanup" translate="label comment" type="select" showInDefault="1" sortOrder="40">
+                        <label>Enable Cleanup for Filter History</label>
+                        <config_path>mst_quick_navigation/general/is_cleanup</config_path>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment><![CDATA[Automatically deletes rarely used filter combinations on a scheduled basis to optimize performance.]]></comment>
+                    </field>
+                </group>
+            </group>
+        </section>
+    </system>
+</config>

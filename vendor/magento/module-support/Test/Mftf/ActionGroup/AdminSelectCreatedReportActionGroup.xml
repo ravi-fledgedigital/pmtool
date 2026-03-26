@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminSelectCreatedReportActionGroup">
+        <annotations>
+            <description>Admin select created report under system report grid</description>
+        </annotations>
+        <arguments>
+            <argument name="reportGroup" type="string"/>
+        </arguments>
+        <conditionalClick selector="{{SystemReportSection.sortReportsIdInGrid('ascend')}}" dependentSelector="{{SystemReportSection.sortReportsIdInGrid('ascend')}}" visible="true" stepKey="adminClickOnIDSorterInGridToGetRecentlyCreatedReport"/>
+        <waitForElementVisible selector="{{SystemReportSection.clickSelectbtn(reportGroup)}}" stepKey="waitForSelectActionInSystemReport"/>
+        <click selector="{{SystemReportSection.clickSelectbtn(reportGroup)}}" stepKey="clickSelectActionInGridUnderActionInSystemReport"/>
+        <waitForElementVisible selector="{{SystemReportSection.clickViewbtn}}" stepKey="waitForViewBtnInTheDropdownToNavigateToEnvironmentReport"/>
+        <click selector="{{SystemReportSection.clickViewbtn}}" stepKey="clickViewBtnInTheDropdownToNavigateToEnvironmentReport"/>
+    </actionGroup>
+</actionGroups>

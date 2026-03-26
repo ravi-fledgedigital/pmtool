@@ -1,0 +1,29 @@
+<div class="amrma-requests-stat" afterRender = "$data.getGraphData">
+    <div class="amrma-total-requests">
+        <h3 class="amrma-title" data-bind="i18n: 'Total Requests'"></h3>
+        <div id="amrma-total-chart" class="amrma-total-container"></div>
+    </div>
+    <div class="amrma-admins-stat">
+        <h3 class="amrma-title" data-bind="i18n: 'Processed by admins'"></h3>
+        <div class="amrma-admins-counter">
+        <!-- ko foreach: $data.admins() -->
+            <!-- ko ifnot: $data.name == 'Unassigned' -->
+            <div class="amrma-admins-block">
+                <h3 class="amrma-counter" data-bind="text:total"></h3>
+                <span data-bind="text: $data.name"></span>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: $data.name == 'Unassigned' -->
+            <div class="amrma-admins-block -unassigned">
+                <h3 class="amrma-counter" data-bind="text: $data.total"></h3>
+                <span data-bind="i18n: 'Unassigned'"></span>
+            </div>
+            <!-- /ko -->
+        <!-- /ko -->
+        </div>
+    </div>
+    <div class="amrma-top-requests">
+        <h3 class="amrma-title" data-bind="i18n: 'Top Return Reasons'"></h3>
+        <div id="amrma-top-chart"></div>
+    </div>
+</div>

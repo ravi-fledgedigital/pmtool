@@ -1,0 +1,274 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="mst_cataloglabel_label" resource="default" engine="innodb" comment="mst_cataloglabel_label">
+    <column xsi:type="int" name="label_id" padding="11" unsigned="false" nullable="false" identity="true" comment="Label Id"/>
+    <column xsi:type="varchar" name="type" nullable="false" length="255" comment="Type"/>
+    <column xsi:type="int" name="attribute_id" padding="11" unsigned="false" nullable="true" identity="false" comment="Attribute Id"/>
+    <column xsi:type="int" name="placeholder_id" padding="11" unsigned="false" nullable="false" identity="false" comment="Placeholder Id"/>
+    <column xsi:type="varchar" name="name" nullable="true" length="255" comment="Name"/>
+    <column xsi:type="datetime" name="active_from" on_update="false" nullable="true" comment="Active From"/>
+    <column xsi:type="datetime" name="active_to" on_update="false" nullable="true" comment="Active To"/>
+    <column xsi:type="int" name="sort_order" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Sort Order"/>
+    <column xsi:type="int" name="is_active" padding="11" unsigned="false" nullable="true" identity="false" default="1" comment="Is Active"/>
+    <column xsi:type="datetime" name="created_at" on_update="false" nullable="false" comment="Created At"/>
+    <column xsi:type="datetime" name="updated_at" on_update="false" nullable="false" comment="Updated At"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="label_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="FK_9A601185F21CF7A63C4D12028764180B" table="mst_cataloglabel_label" column="placeholder_id" referenceTable="mst_cataloglabel_placeholder" referenceColumn="placeholder_id" onDelete="CASCADE"/>
+    <index referenceId="MST_CATALOGLABEL_LABEL_PLACEHOLDER_ID" indexType="btree">
+      <column name="placeholder_id"/>
+    </index>
+  </table>
+  <table name="mst_cataloglabel_label_attribute" resource="default" engine="innodb" comment="mst_cataloglabel_label_attribute">
+    <column xsi:type="int" name="attribute_id" padding="11" unsigned="false" nullable="false" identity="true" comment="Attribute Id"/>
+    <column xsi:type="int" name="label_id" padding="11" unsigned="false" nullable="false" identity="false" comment="Label Id"/>
+    <column xsi:type="int" name="display_id" padding="11" unsigned="false" nullable="false" identity="false" comment="Display Id"/>
+    <column xsi:type="int" name="option_id" padding="11" unsigned="false" nullable="true" identity="false" comment="Option Id"/>
+    <column xsi:type="text" name="option_text" nullable="true" comment="Option Text"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="attribute_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="MST_CATLBL_LBL_ATTR_LBL_ID_MST_CATLBL_LBL_LBL_ID" table="mst_cataloglabel_label_attribute" column="label_id" referenceTable="mst_cataloglabel_label" referenceColumn="label_id" onDelete="CASCADE"/>
+    <index referenceId="MST_CATALOGLABEL_LABEL_ATTRIBUTE_LABEL_ID" indexType="btree">
+      <column name="label_id"/>
+    </index>
+  </table>
+  <table name="mst_cataloglabel_label_customer_group" resource="default" engine="innodb" comment="mst_cataloglabel_label_customer_group">
+    <column xsi:type="int" name="id" padding="11" unsigned="false" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="int" name="label_id" padding="11" unsigned="false" nullable="false" identity="false" comment="Label Id"/>
+    <column xsi:type="smallint" name="customer_group_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Customer Group Id"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="MST_CATLBL_LBL_CSTR_GROUP_LBL_ID_MST_CATLBL_LBL_LBL_ID" table="mst_cataloglabel_label_customer_group" column="label_id" referenceTable="mst_cataloglabel_label" referenceColumn="label_id" onDelete="CASCADE"/>
+    <index referenceId="MST_CATALOGLABEL_LABEL_CUSTOMER_GROUP_CUSTOMER_GROUP_ID" indexType="btree">
+      <column name="customer_group_id"/>
+    </index>
+    <index referenceId="MST_CATALOGLABEL_LABEL_CUSTOMER_GROUP_LABEL_ID" indexType="btree">
+      <column name="label_id"/>
+    </index>
+  </table>
+  <table name="mst_cataloglabel_label_display" resource="default" engine="innodb" comment="mst_cataloglabel_label_display">
+    <column xsi:type="int" name="display_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Display Id"/>
+    <column xsi:type="varchar" name="list_image" nullable="true" length="255" comment="List Image"/>
+    <column xsi:type="varchar" name="list_title" nullable="true" length="255" comment="List Title"/>
+    <column xsi:type="text" name="list_description" nullable="true" comment="List Description"/>
+    <column xsi:type="varchar" name="list_position" nullable="true" length="255" comment="List Position"/>
+    <column xsi:type="varchar" name="view_image" nullable="true" length="255" comment="View Image"/>
+    <column xsi:type="varchar" name="view_title" nullable="true" length="255" comment="View Title"/>
+    <column xsi:type="text" name="view_description" nullable="true" comment="View Description"/>
+    <column xsi:type="varchar" name="view_position" nullable="true" length="255" comment="View Position"/>
+    <column xsi:type="text" name="list_url" nullable="true" comment="List Url"/>
+    <column xsi:type="text" name="view_url" nullable="true" comment="View Url"/>
+    <column xsi:type="varchar" name="view_style" nullable="true" length="255" comment="View Style"/>
+    <column xsi:type="varchar" name="list_style" nullable="true" length="255" comment="List Style"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="display_id"/>
+    </constraint>
+  </table>
+  <table name="mst_cataloglabel_label_rule" resource="default" engine="innodb" comment="mst_cataloglabel_label_rule">
+    <column xsi:type="int" name="rule_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Rule Id"/>
+    <column xsi:type="int" name="label_id" padding="11" unsigned="false" nullable="false" identity="false" comment="Label Id"/>
+    <column xsi:type="int" name="display_id" padding="11" unsigned="false" nullable="false" identity="false" comment="Display Id"/>
+    <column xsi:type="text" name="conditions_serialized" nullable="false" comment="Conditions Serialized"/>
+    <column xsi:type="text" name="actions_serialized" nullable="false" comment="Actions Serialized"/>
+    <column xsi:type="int" name="stop_rules_processing" padding="11" unsigned="false" nullable="false" identity="false" default="1" comment="Stop Rules Processing"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="rule_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="MST_CATLBL_LBL_RULE_LBL_ID_MST_CATLBL_LBL_LBL_ID" table="mst_cataloglabel_label_rule" column="label_id" referenceTable="mst_cataloglabel_label" referenceColumn="label_id" onDelete="CASCADE"/>
+    <index referenceId="MST_CATALOGLABEL_LABEL_RULE_LABEL_ID" indexType="btree">
+      <column name="label_id"/>
+    </index>
+  </table>
+  <table name="mst_cataloglabel_label_store" resource="default" engine="innodb" comment="mst_cataloglabel_label_store">
+    <column xsi:type="int" name="id" padding="11" unsigned="false" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="int" name="label_id" padding="11" unsigned="false" nullable="false" identity="false" comment="Label Id"/>
+    <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Store Id"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="MST_CATALOGLABEL_LABEL_STORE_STORE_ID_STORE_STORE_ID" table="mst_cataloglabel_label_store" column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+    <constraint xsi:type="foreign" referenceId="MST_CATLBL_LBL_STORE_LBL_ID_MST_CATLBL_LBL_LBL_ID" table="mst_cataloglabel_label_store" column="label_id" referenceTable="mst_cataloglabel_label" referenceColumn="label_id" onDelete="CASCADE"/>
+    <index referenceId="MST_CATALOGLABEL_LABEL_STORE_STORE_ID" indexType="btree">
+      <column name="store_id"/>
+    </index>
+    <index referenceId="MST_CATALOGLABEL_LABEL_STORE_LABEL_ID" indexType="btree">
+      <column name="label_id"/>
+    </index>
+  </table>
+  <table name="mst_cataloglabel_placeholder" resource="default" engine="innodb" comment="mst_cataloglabel_placeholder">
+    <column xsi:type="int" name="placeholder_id" padding="11" unsigned="false" nullable="false" identity="true" comment="Placeholder Id"/>
+    <column xsi:type="varchar" name="name" nullable="true" length="255" comment="Name"/>
+    <column xsi:type="varchar" name="code" nullable="true" length="255" comment="Code"/>
+    <column xsi:type="int" name="is_active" padding="11" unsigned="false" nullable="true" identity="false" default="1" comment="Is Active"/>
+    <column xsi:type="int" name="is_positioned" padding="11" unsigned="false" nullable="true" identity="false" default="0" comment="Is Positioned"/>
+    <column xsi:type="varchar" name="output_type" nullable="true" length="255" comment="Output Type"/>
+    <column xsi:type="varchar" name="image_type" nullable="true" length="255" comment="Image Type"/>
+    <column xsi:type="smallint" name="is_auto_for_list" padding="6" unsigned="false" nullable="false" identity="false" default="1" comment="Is Auto For List"/>
+    <column xsi:type="smallint" name="is_auto_for_view" padding="6" unsigned="false" nullable="false" identity="false" default="1" comment="Is Auto For View"/>
+    <column xsi:type="datetime" name="created_at" on_update="false" nullable="false" comment="Created At"/>
+    <column xsi:type="datetime" name="updated_at" on_update="false" nullable="false" comment="Updated At"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="placeholder_id"/>
+    </constraint>
+  </table>
+  <table name="mst_cataloglabel_new_product" resource="default" engine="innodb" comment="mst_cataloglabel_new_product">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="int" name="product_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Product Id"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="mst_cataloglabel_label_rule_product" resource="default" engine="innodb" comment="mst_cataloglabel_label_rule_product">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="int" name="rule_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Rule Id"/>
+    <column xsi:type="int" name="product_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Product Id"/>
+    <column xsi:type="int" name="store_id" padding="10" unsigned="false" nullable="false" identity="false" comment="Store Id"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+    <index referenceId="MST_CATALOGLABEL_LABEL_RULE_RULE_ID_PRODUCT_ID_STORE_ID" indexType="btree">
+      <column name="rule_id"/>
+      <column name="product_id"/>
+      <column name="store_id"/>
+    </index>
+    <index referenceId="MST_CATALOGLABEL_LABEL_RULE_PRODUCT_RULE_ID" indexType="btree">
+      <column name="rule_id"/>
+    </index>
+    <index referenceId="MST_CATALOGLABEL_LABEL_RULE_PRODUCT_PRODUCT_ID" indexType="btree">
+      <column name="product_id"/>
+    </index>
+  </table>
+  <table name="mst_cataloglabel_index" resource="default" engine="innodb" comment="mst_cataloglabel_index">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="int" name="product_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Product Id"/>
+    <column xsi:type="int" name="label_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Label Id"/>
+    <column xsi:type="int" name="store_id" padding="10" unsigned="false" nullable="false" identity="false" comment="Store Id"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+    <index referenceId="MST_CATALOGLABEL_INDEX_PRODUCT_ID_STORE_ID" indexType="btree">
+      <column name="product_id"/>
+      <column name="store_id"/>
+    </index>
+  </table>
+
+    <!-- new tables -->
+    <table name="mst_productlabel_label" resource="default" engine="innodb" comment="mst_productlabel_label">
+        <column xsi:type="int" name="label_id" padding="11" unsigned="false" nullable="false" identity="true" comment="Label Id"/>
+        <column xsi:type="varchar" name="type" nullable="false" length="255" comment="Type"/>
+        <column xsi:type="int" name="attribute_id" padding="11" unsigned="false" nullable="true" identity="false" comment="Attribute Id"/>
+        <column xsi:type="varchar" name="name" nullable="true" length="255" comment="Name"/>
+        <column xsi:type="datetime" name="active_from" on_update="false" nullable="true" comment="Active From"/>
+        <column xsi:type="datetime" name="active_to" on_update="false" nullable="true" comment="Active To"/>
+        <column xsi:type="int" name="sort_order" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Sort Order"/>
+        <column xsi:type="int" name="is_active" padding="11" unsigned="false" nullable="true" identity="false" default="1" comment="Is Active"/>
+        <column xsi:type="varchar" name="appearence" nullable="false" length="255" default="list,view" comment="Labels configuration mode"/>
+        <column xsi:type="varchar" name="store_ids" nullable="true" length="255" comment="Stores"/>
+        <column xsi:type="varchar" name="customer_group_ids" nullable="true" length="255" comment="Customer Groups"/>
+        <column xsi:type="text" name="conditions_serialized" nullable="true" comment="Conditions Serialized"/>
+        <column xsi:type="datetime" name="created_at" on_update="false" default="CURRENT_TIMESTAMP" nullable="false" comment="Created At"/>
+        <column xsi:type="datetime" name="updated_at" on_update="true" default="CURRENT_TIMESTAMP" nullable="false" comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="label_id"/>
+        </constraint>
+    </table>
+    <table name="mst_productlabel_label_display" resource="default" engine="innodb" comment="mst_productglabel_label_display">
+        <column xsi:type="int" name="display_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Display Id"/>
+        <column xsi:type="varchar" name="type" nullable="false" length="255" default="list" comment="Type"/>
+        <column xsi:type="int" name="label_id" padding="11" unsigned="false" nullable="false" identity="false" comment="Label Id"/>
+        <column xsi:type="int" name="placeholder_id" padding="11" unsigned="false" nullable="true" identity="false" comment="Placeholder Id"/>
+        <column xsi:type="int" name="template_id" padding="11" unsigned="false" nullable="true" identity="false" comment="Template Id"/>
+        <column xsi:type="int" name="attribute_option_id" padding="11" unsigned="false" nullable="true" identity="false" comment="Attribute Option Id"/>
+        <column xsi:type="varchar" name="title" nullable="true" length="255" comment="Title"/>
+        <column xsi:type="text" name="description" nullable="true" comment="Description"/>
+        <column xsi:type="varchar" name="image_path" nullable="true" length="255" comment="Image Path"/>
+        <column xsi:type="text" name="url" nullable="true" comment="Url"/>
+        <column xsi:type="text" name="style" nullable="true" comment="Style"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="display_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="FK_79AAFED18B520483E5ABAB4AB16B72A54B184BAA" table="mst_productlabel_label_display" column="label_id" referenceTable="mst_productlabel_label" referenceColumn="label_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="FK_EFD48423A05F16598E499E3328EB8DD8AC79B1CF" table="mst_productlabel_label_display" column="placeholder_id" referenceTable="mst_productlabel_placeholder" referenceColumn="placeholder_id" onDelete="SET NULL"/>
+        <constraint xsi:type="foreign" referenceId="FK_65256BECA96A3BD174D0BE89A3601354D074C968" table="mst_productlabel_label_display" column="template_id" referenceTable="mst_productlabel_template" referenceColumn="template_id" onDelete="SET NULL"/>
+        <index referenceId="MST_PRODUCTLABEL_LABEL_PLACEHOLDER_ID" indexType="btree">
+            <column name="placeholder_id"/>
+        </index>
+        <index referenceId="MST_PRODUCTLABEL_LABEL_TYPE" indexType="btree">
+            <column name="type"/>
+        </index>
+        <index referenceId="MST_PRODUCTLABEL_LABEL_PLACEHOLDER_ID_TYPE" indexType="btree">
+            <column name="placeholder_id"/>
+            <column name="type"/>
+        </index>
+    </table>
+    <table name="mst_productlabel_placeholder" resource="default" engine="innodb" comment="mst_productlabel_placeholder">
+        <column xsi:type="int" name="placeholder_id" padding="11" unsigned="false" nullable="false" identity="true" comment="Placeholder Id"/>
+        <column xsi:type="varchar" name="name" nullable="true" length="255" comment="Name"/>
+        <column xsi:type="varchar" name="code" nullable="true" length="255" comment="Code"/>
+        <column xsi:type="int" name="is_active" padding="11" unsigned="false" nullable="true" identity="false" default="1" comment="Is Active"/>
+        <column xsi:type="varchar" name="position" nullable="true" length="255" comment="Position"/>
+        <column xsi:type="varchar" name="labels_direction" nullable="false" default="horizontal" length="255" comment="Labels Direction"/>
+        <column xsi:type="int" name="labels_limit" padding="11" unsigned="false" nullable="false" default="0" comment="Labels Limit"/>
+        <column xsi:type="datetime" name="created_at" on_update="false" default="CURRENT_TIMESTAMP" nullable="false" comment="Created At"/>
+        <column xsi:type="datetime" name="updated_at" on_update="true" default="CURRENT_TIMESTAMP" nullable="false" comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="placeholder_id"/>
+        </constraint>
+    </table>
+    <table name="mst_productlabel_template" resource="default" engine="innodb" comment="mst_productlabel_template">
+        <column xsi:type="int" name="template_id" padding="11" unsigned="false" nullable="false" identity="true" comment="Placeholder Id"/>
+        <column xsi:type="varchar" name="name" nullable="true" length="255" comment="Name"/>
+        <column xsi:type="varchar" name="code" nullable="true" length="255" comment="Code"/>
+        <column xsi:type="text" name="html_template" nullable="true" comment="HTML Template"/>
+        <column xsi:type="text" name="style" nullable="true" comment="Style"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="template_id"/>
+        </constraint>
+    </table>
+    <table name="mst_productlabel_new_product" resource="default" engine="innodb" comment="mst_productlabel_new_product">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+        <column xsi:type="int" name="product_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Product Id"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+    <table name="mst_productlabel_label_rule_product" resource="default" engine="innodb" comment="mst_productlabel_label_rule_product">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+        <column xsi:type="int" name="label_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Rule Id"/>
+        <column xsi:type="int" name="product_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Product Id"/>
+        <column xsi:type="int" name="store_id" padding="10" unsigned="false" nullable="false" identity="false" comment="Store Id"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <index referenceId="MST_PRODUCTLABEL_LABEL_RULE_RULE_ID_PRODUCT_ID_STORE_ID" indexType="btree">
+            <column name="label_id"/>
+            <column name="product_id"/>
+            <column name="store_id"/>
+        </index>
+        <index referenceId="MST_PRODUCTLABEL_LABEL_RULE_PRODUCT_RULE_ID" indexType="btree">
+            <column name="label_id"/>
+        </index>
+        <index referenceId="MST_PRODUCTLABEL_LABEL_RULE_PRODUCT_PRODUCT_ID" indexType="btree">
+            <column name="product_id"/>
+        </index>
+    </table>
+    <table name="mst_productlabel_index" resource="default" engine="innodb" comment="mst_productlabel_index">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+        <column xsi:type="int" name="product_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Product Id"/>
+        <column xsi:type="int" name="label_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Label Id"/>
+        <column xsi:type="int" name="store_id" padding="10" unsigned="false" nullable="false" identity="false" comment="Store Id"/>
+        <column xsi:type="int" name="sort_order" padding="10" unsigned="false" nullable="false" identity="false" comment="Sort Order"/>
+        <column xsi:type="varchar" name="display_ids" nullable="false" length="255" comment="Display Ids"/>
+        <column xsi:type="varchar" name="customer_groups" nullable="false" length="255" comment="Customer Group Ids"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <index referenceId="MST_PRODUCTLABEL_INDEX_PRODUCT_ID_STORE_ID" indexType="btree">
+            <column name="product_id"/>
+            <column name="store_id"/>
+        </index>
+    </table>
+</schema>

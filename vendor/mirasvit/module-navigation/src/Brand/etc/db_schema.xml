@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="mst_brand_page" resource="default" engine="innodb" comment="mst_brand_page">
+    <column xsi:type="int" name="brand_page_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Brand Page Id"/>
+    <column xsi:type="int" name="attribute_option_id" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Brand Option Id"/>
+    <column xsi:type="int" name="attribute_id" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Brand Id"/>
+    <column xsi:type="int" name="is_active" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Brand Id"/>
+    <column xsi:type="varchar" name="url_key" nullable="true" length="255" comment="Url Key"/>
+    <column xsi:type="varchar" name="logo" nullable="true" length="255" comment="Logo"/>
+    <column xsi:type="text" name="brand_title" nullable="true" comment="Brand title"/>
+    <column xsi:type="text" name="brand_description" nullable="true" comment="Brand description"/>
+    <column xsi:type="varchar" name="meta_title" nullable="true" length="255" comment="Meta title"/>
+    <column xsi:type="varchar" name="meta_keyword" nullable="true" length="255" comment="Keyword"/>
+    <column xsi:type="varchar" name="meta_description" nullable="true" length="255" comment="Meta description"/>
+    <column xsi:type="text" name="seo_description" nullable="true" comment="SEO description"/>
+    <column xsi:type="varchar" name="seo_position" nullable="true" length="255" comment="SEO description position"/>
+    <column xsi:type="varchar" name="robots" nullable="true" length="255" comment="Robots"/>
+    <column xsi:type="varchar" name="canonical" nullable="true" length="255" comment="Canonical"/>
+    <column xsi:type="varchar" name="banner_alt" nullable="true" length="255" comment="Banner Alt"/>
+    <column xsi:type="varchar" name="banner_title" nullable="true" length="255" comment="Banner Title"/>
+    <column xsi:type="varchar" name="banner" nullable="true" length="255" comment="Banner"/>
+    <column xsi:type="varchar" name="banner_position" nullable="true" length="255" comment="Banner position"/>
+    <column xsi:type="int" name="is_show_in_brand_slider" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Show in Brand Slider"/>
+    <column xsi:type="int" name="slider_position" padding="11" unsigned="false" nullable="false" identity="false" default="10" comment="Slider Position"/>
+    <column xsi:type="text" name="brand_short_description" nullable="true" comment="Brand Short Description"/>
+    <column xsi:type="varchar" name="store_ids" nullable="true" length="255" comment="Stores"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="brand_page_id"/>
+    </constraint>
+    <index referenceId="MST_BRAND_PAGE_BRAND_TITLE" indexType="fulltext">
+      <column name="brand_title"/>
+    </index>
+  </table>
+  <table name="mst_brand_page_store" resource="default" engine="innodb" comment="mst_brand_page_store">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="int" name="brand_page_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Brand Page Id"/>
+    <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Store Id"/>
+    <column xsi:type="varchar" name="url_key" nullable="true" length="255" comment="Url Key"/>
+    <column xsi:type="text" name="brand_title" nullable="true" comment="Brand title"/>
+    <column xsi:type="text" name="brand_description" nullable="true" comment="Brand description"/>
+    <column xsi:type="text" name="brand_short_description" nullable="true" comment="Brand Short Description"/>
+    <column xsi:type="varchar" name="brand_display_mode" nullable="true" length="255" comment="Display Mode"/>
+    <column xsi:type="varchar" name="brand_cms_block" nullable="true" length="255" comment="CMS Block"/>
+    <column xsi:type="varchar" name="meta_title" nullable="true" length="255" comment="Meta title"/>
+    <column xsi:type="varchar" name="meta_keyword" nullable="true" length="255" comment="Keyword"/>
+    <column xsi:type="varchar" name="meta_description" nullable="true" length="255" comment="Meta description"/>
+    <column xsi:type="text" name="seo_description" nullable="true" comment="SEO description"/>
+    <column xsi:type="varchar" name="seo_position" nullable="true" length="255" comment="SEO description position"/>
+    <column xsi:type="varchar" name="robots" nullable="true" length="255" comment="Robots"/>
+    <column xsi:type="varchar" name="canonical" nullable="true" length="255" comment="Canonical"/>
+    <column xsi:type="varchar" name="banner_alt" nullable="true" length="255" comment="Banner Alt"/>
+    <column xsi:type="varchar" name="banner_title" nullable="true" length="255" comment="Banner Title"/>
+    <column xsi:type="varchar" name="banner" nullable="true" length="255" comment="Banner"/>
+    <column xsi:type="varchar" name="banner_position" nullable="true" length="255" comment="Banner position"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="MST_BRAND_PAGE_STORE_STORE_ID_STORE_STORE_ID" table="mst_brand_page_store" column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+    <constraint xsi:type="foreign" referenceId="MST_BRAND_PAGE_STORE_BRAND_PAGE_ID_MST_BRAND_PAGE_BRAND_PAGE_ID" table="mst_brand_page_store" column="brand_page_id" referenceTable="mst_brand_page" referenceColumn="brand_page_id" onDelete="CASCADE"/>
+    <index referenceId="MST_BRAND_PAGE_STORE_STORE_ID" indexType="btree">
+      <column name="store_id"/>
+    </index>
+    <index referenceId="MST_BRAND_PAGE_STORE_BRAND_PAGE_ID" indexType="btree">
+      <column name="brand_page_id"/>
+    </index>
+  </table>
+</schema>

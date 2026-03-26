@@ -1,0 +1,19 @@
+
+<span class="admin__field-value"
+      data-bind="
+        attr: {
+            name: inputName,
+            id: uid
+    }">
+    <strong data-bind="i18n: 'Insert this code in the template file where labels should be displayed'"></strong>
+    <pre>
+        <code data-bind="html: value">
+        </code>
+    </pre>
+    <span class="hint" data-bind="i18n: 'where:'"></span>
+        <ul>
+            <li data-bind="html: $t('&lt;code&gt;view_type&lt;/code&gt; - &lt;code&gt;\'list\'&lt;/code&gt; or &lt;code&gt;\'view\'&lt;/code&gt; depending on where the code is placed - the product listing page or product view page')"></li>
+            <li data-bind="html: $t('&lt;code&gt;$_product&lt;/code&gt; - Product model')"></li>
+        </ul>
+</span>
+

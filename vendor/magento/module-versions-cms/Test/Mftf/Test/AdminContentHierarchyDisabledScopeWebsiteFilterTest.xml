@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminContentHierarchyDisabledScopeWebsiteFilterTest">
+        <annotations>
+            <features value="VersionsCms"/>
+            <stories value="CMS pages hierarchy table should be able to filter after Save"/>
+            <title value="Scope website filter is disabled in Admin content hierarchy"/>
+            <description value="Check the Scope website level filter is disabled in Admin content hierarchy"/>
+            <severity value="AVERAGE"/>
+            <useCaseId value="ACP2E-1665"/>
+            <testCaseId value="AC-8225"/>
+        </annotations>
+        <before>
+            <magentoCLI command="config:set cms/hierarchy/enabled 1" stepKey="setEnablehierarchyToYes"/>
+            <!--Login as admin-->
+            <actionGroup ref="AdminLoginActionGroup" stepKey="LoginAsAdmin"/>
+        </before>
+        <after>
+            <!--Logout as admin-->
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+        <!--Verify websites options are disabled in Scope filter-->
+        <amOnPage url="{{HierarchyAddNodePage.url}}" stepKey="amOnHierarchyPage"/>
+        <waitForPageLoad stepKey="waitForHierarchyPageLoad"/>
+        <click selector="{{AdminMainActionsSection.storeViewDropdown}}" stepKey="expandAllStoreView"/>
+        <seeElement selector="{{AdminMainActionsSection.checkWebsiteDisabled}}" stepKey="assertDisabledWebsites"/>
+   </test>
+</tests>

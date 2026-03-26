@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminLaterScheduledUpdatesRemainAfterPriorUpdateSavedTest">
+    <annotations>
+        <features value="Staging"/>
+        <stories value="Staging updates"/>
+        <title value="Assert later Scheduled Updates are still present after prior Scheduled Update was re-saved"/>
+        <description value="The test asserts that if an entity has multiple Scheduled Updates then later Scheduled Updates are still present after prior Scheduled Update was re-saved"/>
+        <severity value="AVERAGE"/>
+        <testCaseId value="AC-9087"/>
+        <group value="staging"/>
+    </annotations>
+
+    <before>
+        <createData entity="_defaultCategory" stepKey="createCategory"/>
+    </before>
+
+    <after>
+        <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+        <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+    </after>
+
+    <!-- Login as Admin -->
+    <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+    <actionGroup ref="AdminOpenCategoryPageActionGroup" stepKey="openCategoryPage"/>
+
+    <!-- Open the Category in Category Tree in Admin -->
+    <actionGroup ref="AdminCategoriesOpenCategoryActionGroup" stepKey="openCategory">
+        <argument name="category" value="$$createCategory$$"/>
+    </actionGroup>
+
+    <!-- Create three Scheduled Updates without End Date -->
+    <actionGroup ref="ScheduleNewUpdateWithoutEndDateActionGroup" stepKey="createScheduleUpdate">
+        <argument name="staging" value="S5UpdateNameStaging"/>
+        <argument name="timeStart" value="+1 day"/>
+    </actionGroup>
+    <actionGroup ref="ScheduleNewUpdateWithoutEndDateActionGroup" stepKey="createScheduleUpdate2">
+        <argument name="staging" value="S8UpdateNameStaging"/>
+        <argument name="timeStart" value="+3 day"/>
+    </actionGroup>
+    <actionGroup ref="ScheduleNewUpdateWithoutEndDateActionGroup" stepKey="createScheduleUpdate3">
+        <argument name="staging" value="S18UpdateNameStaging"/>
+        <argument name="timeStart" value="+6 day"/>
+    </actionGroup>
+
+    <!-- Re-save the first Scheduled Update, changes to the Scheduled Update can be made, but are not necessary -->
+    <actionGroup ref="AdminScheduledUpdateEditActionGroup" stepKey="editScheduleUpdateWithoutEnd">
+        <argument name="staging" value="S5UpdateNameStaging"/>
+    </actionGroup>
+    <actionGroup ref="saveStagingDashboardSlideOutUpdateForm" stepKey="saveProduct"/>
+
+    <!-- Assert that the re-saved Scheduled Update is present -->
+    <see userInput="{{S5UpdateNameStaging.updateName}}" selector=".data-grid-cell-content" stepKey="LookingForNewBundleItemPresence"/>
+
+    <!-- Assert that the later Scheduled Updates are still present -->
+    <see userInput="{{S8UpdateNameStaging.updateName}}" selector=".data-grid-cell-content" stepKey="LookingForNewBundleItemPresence1"/>
+    <see userInput="{{S18UpdateNameStaging.updateName}}" selector=".data-grid-cell-content" stepKey="LookingForNewBundleItemPresence2"/>
+  </test>
+</tests>

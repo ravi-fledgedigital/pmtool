@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Product Tabs for Magento 2
+ */-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="amasty_customtabs_tabs" resource="default" engine="innodb" comment="Amasty Product tabs table">
+        <column xsi:type="int" name="tab_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Tab Id"/>
+        <column xsi:type="smallint" name="sort_order" padding="5" unsigned="true" nullable="true" identity="false" comment="Sort order"/>
+        <column xsi:type="varchar" name="tab_title" nullable="false" length="255" comment="Tab title"/>
+        <column xsi:type="varchar" name="tab_name" nullable="false" length="255" comment="Tab name"/>
+        <column xsi:type="text" name="content" nullable="true" comment="Content"/>
+        <column xsi:type="varchar" name="customer_groups" nullable="false" length="255" comment="Customer Groups"/>
+        <column xsi:type="boolean" name="status" nullable="false" comment="Status"/>
+        <column xsi:type="boolean" name="is_active" nullable="false" comment="Is active"/>
+        <column xsi:type="boolean" name="related_enabled" nullable="false" comment="Is RELATED ENABLED"/>
+        <column xsi:type="boolean" name="upsell_enabled" nullable="false" comment="Is UPSELL ENABLED"/>
+        <column xsi:type="boolean" name="crosssell_enabled" nullable="false" comment="Is CROSSSELL ENABLED"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+        <column xsi:type="mediumtext" name="conditions_serialized" nullable="true" comment="Conditions Serialized"/>
+        <column xsi:type="smallint" name="type" padding="5" unsigned="true" nullable="false" identity="false" default="0" comment="Tab type"/>
+        <column xsi:type="varchar" name="name_in_layout" nullable="true" length="50" comment="Name in Layout (for defualt tabs)"/>
+        <column xsi:type="varchar" name="module_name" nullable="true" length="50" comment="Module name for default and 3rd patry extensions"/>
+        <column xsi:type="varchar" name="anchor" nullable="true" length="255" default="" comment="Anchor"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="tab_id"/>
+        </constraint>
+    </table>
+    <table name="amasty_customtabs_tabs_store" resource="default" engine="innodb" comment="Amasty Product Tabs store relation table">
+        <column xsi:type="int" name="tab_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Tab Id"/>
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Store Id"/>
+        <constraint xsi:type="foreign" referenceId="FK_A82362BD6A14A684B5DED8E4A8864CB2" table="amasty_customtabs_tabs_store" column="tab_id" referenceTable="amasty_customtabs_tabs" referenceColumn="tab_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="AMASTY_CUSTOMTABS_TABS_STORE_STORE_ID_STORE_STORE_ID" table="amasty_customtabs_tabs_store" column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+        <constraint xsi:type="unique" referenceId="AMASTY_CUSTOMTABS_TABS_STORE_TAB_ID_STORE_ID">
+            <column name="tab_id"/>
+            <column name="store_id"/>
+        </constraint>
+    </table>
+    <table name="amasty_customtabs_tabs_content" resource="default" engine="innodb" comment="Amasty Custom Tabs Content">
+        <column xsi:type="int" name="tab_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Tab Id"/>
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Store Id"/>
+        <column xsi:type="varchar" name="tab_title" nullable="true" length="255" comment="Tab title"/>
+        <column xsi:type="varchar" name="tab_name" nullable="true" length="255" comment="Tab name"/>
+        <column xsi:type="text" name="content" nullable="true" comment="Content"/>
+        <column xsi:type="boolean" name="status" nullable="true" comment="Status"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="tab_id"/>
+            <column name="store_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="AMASTY_CUSTOMTABS_TABS_CONTENT_TAB_ID_AMASTY_CUSTOMTABS_TAB_ID" table="amasty_customtabs_tabs_content" column="tab_id" referenceTable="amasty_customtabs_tabs" referenceColumn="tab_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="AMASTY_CUSTOMTABS_TABS_CONTENT_STORE_ID_STORE_STORE_ID" table="amasty_customtabs_tabs_content" column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+    </table>
+    <table name="amasty_customtabs_tabs_rule_index" resource="default" engine="innodb" comment="Amasty Custom Tabs Rule Index Table">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+        <column xsi:type="int" name="tab_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Tab ID"/>
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Store ID"/>
+        <column xsi:type="int" name="product_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Product ID"/>
+        <constraint xsi:type="foreign" referenceId="AMASTY_CUSTOMTABS_TABS_RULE_IDX_PRD_ID_CAT_PRD_ENTT_ENTT_ID" table="amasty_customtabs_tabs_rule_index" column="product_id" referenceTable="catalog_product_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="FK_F2014F1E3982889993C19C03ABF62DA7" table="amasty_customtabs_tabs_rule_index" column="tab_id" referenceTable="amasty_customtabs_tabs" referenceColumn="tab_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="AMASTY_CUSTOMTABS_TABS_RULE_INDEX_STORE_ID_STORE_STORE_ID" table="amasty_customtabs_tabs_rule_index" column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+        <index referenceId="AMASTY_CUSTOMTABS_TABS_RULE_INDEX_TAB_ID_STORE_ID" indexType="btree">
+            <column name="tab_id"/>
+            <column name="store_id"/>
+        </index>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+</schema>

@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * ADOBE CONFIDENTIAL
+ *
+ * Copyright 2024 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!--  Product Overrides feed -->
+    <virtualType name="Magento\SaaSCatalog\Cron\ProductOverrideSubmitFeed" type="Magento\SaaSCommon\Cron\SubmitFeed">
+        <arguments>
+            <argument name="feedMetadata" xsi:type="object">Magento\ProductOverrideDataExporter\Model\Indexer\ProductOverridesFeedIndexMetadata</argument>
+            <argument name="feedSyncFlag" xsi:type="string">product-overrides-feed-version</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Magento\SaaSCatalog\Model\ProductOverridesResyncManager" type="Magento\SaaSCommon\Model\ResyncManager">
+        <arguments>
+            <argument name="feedIndexer" xsi:type="object">Magento\ProductOverrideDataExporter\Model\Indexer\ProductOverrideFeedIndexer</argument>
+            <argument name="submitFeed" xsi:type="object">Magento\SaaSCatalog\Cron\ProductOverrideSubmitFeed</argument>
+            <argument name="feedInterface" xsi:type="object">Magento\ProductOverrideDataExporter\Model\ProductOverridesFeed</argument>
+            <argument name="flagName" xsi:type="string">product-overrides-feed-version</argument>
+            <argument name="indexerName" xsi:type="string">catalog_data_exporter_product_overrides</argument>
+            <argument name="registryTableName" xsi:type="string">catalog_product_override_data_submitted_hash</argument>
+        </arguments>
+    </virtualType>
+    <!--  Resync registration  -->
+    <type name="Magento\SaaSCommon\Model\ResyncManagerPool">
+        <arguments>
+            <argument name="classMap" xsi:type="array">
+                <item name="productOverrides" xsi:type="string">Magento\SaaSCatalog\Model\ProductOverridesResyncManager</item>
+            </argument>
+            <argument name="feedNamesMapping" xsi:type="array">
+                <item name="productoverrides" xsi:type="string">productOverrides</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

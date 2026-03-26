@@ -1,0 +1,125 @@
+//
+//  Base Styles
+//  _________________________
+
+//
+//  Common
+//  --------------------------
+
+& when (@media-common = true) {
+    .am-tabs-view {
+        .product-items {
+            .am-flex(center, center, wrap);
+        }
+
+        .product-item {
+            padding: @amtab__indent__l;
+        }
+
+        .block.crosssell {
+            padding: 0;
+            width: 100%;
+        }
+
+        .product.data.items {
+            > .item.title > .switch {
+                overflow: hidden;
+                padding: 0 @amtab__indent;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            > .item.title.active > .switch {
+                &,
+                &:focus,
+                &:hover {
+                    cursor: default;
+                    padding-bottom: 1px;
+                }
+            }
+
+            > .item.content {
+                margin-top: @amtab__indent;
+                padding: @amtab__indent @amtab__indent 30px;
+            }
+        }
+    }
+
+    .am-tabs-view .product.data.items {
+        /* phpcs:ignore Magento2.Less.AvoidId.IdSelectorUsage */
+        > #reviews,
+        > .data.item.content {
+            display: none;
+        }
+
+        > .data.item.title.active + .data.item.content {
+            display: flex !important;
+            flex-direction: column;
+        }
+    }
+}
+
+//
+//  Tablet +
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .amtabs-accordion-view {
+        .product.data.items > .item.title {
+            float: none;
+            width: 100%;
+        }
+    }
+}
+
+//
+//  Tablet
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .am-tabs-view .product.data.items > .item.content {
+        margin-top: 41px;
+        padding: 35px;
+    }
+
+    .amtabs-accordion-view.product.data.items {
+        & {
+            border-bottom: 1px solid @color-gray80;
+        }
+
+        > .item.content {
+            border-bottom: 0;
+            float: none;
+            margin: 0;
+            padding: @amtab__indent__xl;
+        }
+
+        > .item.title {
+            & {
+                float: none;
+                width: 100%;
+            }
+
+            &.active .switch:after {
+                transform: rotate(180deg);
+            }
+
+            .switch {
+                & {
+                    background-color: @color-white;
+                    color: @color-gray20;
+                    font-weight: 600;
+                    padding: (@amtab__indent / 2) @amtab__indent__xl;
+                }
+
+                &:after {
+                    .am-flex(center, center);
+                    .am-transition(.1);
+                    bottom: 0;
+                    content: @icon-down;
+                    top: 0;
+                }
+            }
+        }
+    }
+}

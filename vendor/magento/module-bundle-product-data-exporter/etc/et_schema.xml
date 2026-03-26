@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright 2023 Adobe
+ * All Rights Reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_DataExporter:etc/et_schema.xsd">
+    <record name="ProductOptionValue">
+        <field name="priceType" type="String" />
+    </record>
+    <record name="Product">
+        <field name="type" type="String"
+               provider="Magento\BundleProductDataExporter\Model\Provider\Product\Type">
+        </field>
+    </record>
+</config>

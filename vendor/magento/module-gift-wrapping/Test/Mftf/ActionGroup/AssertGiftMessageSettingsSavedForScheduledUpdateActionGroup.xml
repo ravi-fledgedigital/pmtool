@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AssertGiftMessageSettingsSavedForScheduledUpdateActionGroup">
+        <annotations>
+            <description>Assert that gift option settings are saved for a product after scheduled update</description>
+        </annotations>
+        <arguments>
+            <argument name="allowGiftMsg" type="string"/>
+        </arguments>
+        <conditionalClick selector="{{AdminProductGridSection.productCollapsibleColumnsScheduleUpdate('closed','Gift Options')}}" dependentSelector="{{AdminProductGridSection.productCollapsibleColumnsScheduleUpdate('closed','Gift Options')}}" visible="true" stepKey="expandGiftOptions"/>
+        <scrollTo selector="{{AdminProductGridSection.allowGiftMessageCheckbox}}" x="-200" y="-200" stepKey="scrollToUncheckUseConfigSettings"/>
+        <dontSeeCheckboxIsChecked selector="{{AdminProductGridSection.allowGiftMessageCheckbox}}" stepKey="seeUseConfigSettingsIsUnchecked"/>
+        <grabAttributeFrom userInput="value" selector="{{AdminProductGridSection.allowGiftMessageToggleVerify(allowGiftMsg)}}" stepKey="grabAttributeAllowGiftMsgToggle"/>
+        <assertEquals stepKey="assertThatGiftMsgSetToYes" after="grabAttributeAllowGiftMsgToggle">
+            <actualResult type="variable">$grabAttributeAllowGiftMsgToggle</actualResult>
+            <expectedResult type="string">{{allowGiftMsg}}</expectedResult>
+        </assertEquals>
+    </actionGroup>
+</actionGroups>

@@ -1,0 +1,14 @@
+
+File "/var/www/html/app/code/Magento/GiftCardStaging/Test/Mftf/Test/AdminShouldBeAbleToCreateSingleFutureUpdateWithEndDateFromGiftCardPageTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 StagingDashboardClearFiltersActionGroup from module(s): magento/module-staging
+	 FillScheduleUpdateRemovePriceActionGroup from module(s): magento/module-staging
+	 StagingDashboardSearchUpdateActionGroup from module(s): magento/module-staging
+
+File "/var/www/html/app/code/Magento/GiftCardStaging/Test/Mftf/Test/AdminShouldBeAbleToCreateSingleFutureUpdateWithNoEndDateFromGiftCardPageTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 StagingDashboardClearFiltersActionGroup from module(s): magento/module-staging
+	 FillScheduleUpdateRemovePriceActionGroup from module(s): magento/module-staging
+	 StagingDashboardSearchUpdateActionGroup from module(s): magento/module-staging

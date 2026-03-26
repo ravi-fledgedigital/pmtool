@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminDeleteAllSystemReportsActionGroup">
+        <annotations>
+            <description>Admin delete all reports under the system reports</description>
+        </annotations>
+        <comment userInput="BIC workaround" stepKey="adminNavigateToSystemReport"/>
+        <comment userInput="BIC workaround" stepKey="waitForPageLoadToViewSystemReportPage"/>
+        <waitForElementClickable selector="{{SystemReportSection.togglebtnInGrid}}" stepKey="waitForTogglebtnInTheReportGrid" />
+        <click selector="{{SystemReportSection.togglebtnInGrid}}" stepKey="clickOnTogglebtnInTheReportGrid"/>
+        <click selector="{{SystemReportSection.selectAll}}" stepKey="clickOnSelectAllOptionToSelectAllReports"/>
+        <waitForElementClickable selector="{{SystemReportSection.actionbtn}}" stepKey="waitForActionInTheReport" />
+        <click selector="{{SystemReportSection.actionbtn}}" stepKey="clickOnActionButtonOnTheReportPage"/>
+        <click selector="{{SystemReportSection.deletebtn}}" stepKey="clickOnDeleteToDeleteAllTheSystemReport"/>
+        <waitForText selector="{{SystemReportSection.verifyDeleteText}}" userInput="Are you sure you want to delete selected item(s)?" stepKey="adminVerifyDeleteReportConfirmationTextVisible"/>
+        <click selector="{{SystemReportSection.okbtn}}" stepKey="clickOnOkbtnToDeleteAllReportsInTheSystemReports"/>
+        <waitForText selector="{{SystemReportSection.verifyPostDeleteText}}" userInput="record(s) have been deleted." stepKey="adminVerifyReportsHaveBeenDeletedSuccessfully"/>
+    </actionGroup>
+</actionGroups>

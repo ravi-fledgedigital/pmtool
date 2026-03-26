@@ -1,0 +1,12 @@
+<?php
+declare(strict_types=1);
+
+/** @var \Mirasvit\Brand\Block\Brand\Content $block */
+
+?>
+
+<?php if ($block->shouldDisplayCmsBlock()) :?>
+    <div class="category-cms">
+        <?= $block->getCmsBlockHtml() ?>
+    </div>
+<?php endif; ?>

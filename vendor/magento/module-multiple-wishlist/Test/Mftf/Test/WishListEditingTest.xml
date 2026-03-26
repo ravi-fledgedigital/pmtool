@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="WishListEditingTest">
+        <annotations>
+            <stories value="MultipleWishList"/>
+            <title value="Wish List editing"/>
+            <description value="Wish List editing"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="AC-4087"/>
+            <group value="wishlist"/>
+        </annotations>
+        <before>
+            <createData entity="Simple_US_Customer" stepKey="createCustomer"/>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <actionGroup ref="EnableCustomerMultipleWishlistOption" stepKey="enableCustomerWishlist"/>
+            <magentoCLI stepKey="flushCache" command="cache:flush"/>
+        </before>
+        <after>
+            <actionGroup ref="AdminDisableMultipleWishlistActionGroup" stepKey="disableMultipleWishlist"/>
+            <deleteData createDataKey="createCustomer" stepKey="deleteCustomer"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logoutOfAdmin"/>
+        </after>
+
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginToStorefrontAccount">
+            <argument name="Customer" value="$createCustomer$"/>
+        </actionGroup>
+        <waitForElementClickable selector="{{StorefrontCustomerSidebarSection.sidebarCurrentTab('My Wish List')}}" stepKey="waitForAddToCart"/>
+        <click selector="{{StorefrontCustomerSidebarSection.sidebarCurrentTab('My Wish List')}}" stepKey="waitForMyWishListToBecomeClickable"/>
+        <waitForElementVisible selector="{{StorefrontCreateMultipleWishlistSection.newWishList}}" stepKey="waitForCreateNewWishListLink"/>
+        <moveMouseOver selector="{{StorefrontCreateMultipleWishlistSection.addNewWishListItem}}" stepKey="moveMouseOverOnCreateNewWishlist" />
+        <moveMouseOver selector="{{StorefrontCreateMultipleWishlistSection.addNewWishListItem}}" stepKey="moveMouseOverAgainOnCreateNewWishlist" />
+        <click selector="{{StorefrontCreateMultipleWishlistSection.addNewWishListItem}}" stepKey="clickWishList"/>
+        <actionGroup ref="CreateNewWishListActionGroup" stepKey="createFirstWishListActionGroup">
+            <argument name="name" value="list'2"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontEditWishlistNameActionGroup" stepKey="changeWishlistName">
+            <argument name="wishlistName" value="List"/>
+        </actionGroup>
+        <grabTextFrom selector="{{StorefrontMultipleWishlistManagementSection.wishlistTitle}}" stepKey="grabSuceessMessage"/>
+        <click selector="{{StorefrontCreateMultipleWishlistSection.removeWishList}}" stepKey="clickRemoveWishList"/>
+        <waitForElementClickable selector="{{StorefrontMultipleWishlistManagementSection.okButton}}" stepKey="waitForOKButtomToBeClickable"/>
+        <click selector="{{StorefrontMultipleWishlistManagementSection.okButton}}" stepKey="clickOk"/>
+        <waitForPageLoad time="30" stepKey="waitForPageLoaded"/>
+        <waitForText selector="{{StorefrontMultipleWishlistManagementSection.successMessage}}" userInput="Wish List &quot;$grabSuceessMessage&quot; has been deleted." stepKey="seeInMiniCart"/>
+    </test>
+</tests>

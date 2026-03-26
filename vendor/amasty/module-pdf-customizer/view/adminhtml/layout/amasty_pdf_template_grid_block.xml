@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package PDF Customizer for Magento 2
+ */-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="amasty.pdf.template.container">
+            <block class="Magento\Backend\Block\Widget\Grid" name="amasty.pdf.template.grid" as="grid">
+                <arguments>
+                    <argument name="id" xsi:type="string">systemEmailTemplateGrid</argument>
+                    <argument name="dataSource" xsi:type="object">Amasty\PDFCustom\Model\ResourceModel\Template\Collection</argument>
+                    <argument name="use_ajax" xsi:type="string">1</argument>
+                    <argument name="save_parameters_in_session" xsi:type="string">1</argument>
+                    <argument name="grid_url" xsi:type="url" path="amasty_pdf/template/grid">
+                        <param name="_current">1</param>
+                    </argument>
+                </arguments>
+                <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" name="amasty.pdf.template.grid.columnSet" as="grid.columnSet">
+                    <arguments>
+                        <argument name="rowUrl" xsi:type="array">
+                            <item name="path" xsi:type="string">amasty_pdf/template/edit</item>
+                            <item name="extraParamsTemplate" xsi:type="array">
+                                <item name="id" xsi:type="string">getId</item>
+                            </item>
+                        </argument>
+                        <argument name="empty_text" xsi:type="string" translate="true">No Templates Found</argument>
+                    </arguments>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" name="amasty.pdf.template.grid.columnSet.template_id" as="template_id">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">ID</argument>
+                            <argument name="index" xsi:type="string">template_id</argument>
+                            <argument name="column_css_class" xsi:type="string">col-id</argument>
+                            <argument name="header_css_class" xsi:type="string">col-id</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" name="amasty.pdf.template.grid.columnSet.code" as="code">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Template</argument>
+                            <argument name="index" xsi:type="string">template_code</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" name="amasty.pdf.template.grid.columnSet.added_at" as="added_at">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Added</argument>
+                            <argument name="index" xsi:type="string">added_at</argument>
+                            <argument name="gmtoffset" xsi:type="string">1</argument>
+                            <argument name="type" xsi:type="string">datetime</argument>
+                            <argument name="column_css_class" xsi:type="string">col-date</argument>
+                            <argument name="header_css_class" xsi:type="string">col-date</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" name="amasty.pdf.template.grid.columnSet.modified_at" as="modified_at">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Updated</argument>
+                            <argument name="index" xsi:type="string">modified_at</argument>
+                            <argument name="gmtoffset" xsi:type="string">1</argument>
+                            <argument name="type" xsi:type="string">datetime</argument>
+                            <argument name="column_css_class" xsi:type="string">col-date</argument>
+                            <argument name="header_css_class" xsi:type="string">col-date</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" name="amasty.pdf.template.grid.columnSet.preview_action" as="preview_action">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Action</argument>
+                            <argument name="index" xsi:type="string">template_id</argument>
+                            <argument name="sortable" xsi:type="string">0</argument>
+                            <argument name="filter" xsi:type="string">0</argument>
+                            <argument name="type" xsi:type="string">action</argument>
+                            <argument name="width" xsi:type="string">50</argument>
+                            <argument name="actions" xsi:type="array">
+                                <item name="view_action" xsi:type="array">
+                                    <item name="caption" xsi:type="string" translate="true">Preview</item>
+                                    <item name="url" xsi:type="array">
+                                        <item name="base" xsi:type="string">*/*/previewpdf</item>
+                                    </item>
+                                    <item name="field" xsi:type="string">template_id</item>
+                                </item>
+                            </argument>
+                        </arguments>
+                    </block>
+                </block>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

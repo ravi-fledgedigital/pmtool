@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminCreateSystemReportActionGroup">
+        <annotations>
+            <description>Admin create System Report</description>
+        </annotations>
+        <arguments>
+            <argument name="groupField" type="string"/>
+        </arguments>
+        <comment userInput="BIC workaround" stepKey="adminNavigateToSystemReport"/>
+        <comment userInput="BIC workaround" stepKey="waitForPageLoadToViewSystemReportPage"/>
+        <waitForElementClickable selector="{{SystemReportSection.newReport}}" stepKey="waitForNewReportBtn" />
+        <click selector="{{SystemReportSection.newReport}}" stepKey="clickOnNewReportBtn"/>
+        <waitForPageLoad stepKey="waitForPageLoadToViewCreateSystemReport"/>
+        <waitForText selector="{{SystemReportSection.verifyCreateSystemReportText}}" userInput="After you make your selections, click the &quot;Create&quot; button. Then stand by while the System Report is generated. This may take a few minutes. You will receive a notification once this step is completed." stepKey="adminVerifyCreateSystemReportPage"/>
+        <comment userInput="BIC workaround" stepKey="adminSelectEnvironmentGroupUnderGroupsDropdown"/>
+        <selectOption selector="{{SystemReportSection.selectEnvironmentGroup}}" userInput="{{groupField}}" stepKey="adminSelectGroupUnderGroupFieldDropdown"/>
+        <click selector="{{SystemReportSection.createbtn}}" stepKey="clickOnCreatebtnToCreateEnvironmentReport"/>
+        <waitForPageLoad stepKey="waitForPageLoadToSaveEnvironmentSystemReport"/>
+        <waitForText selector="{{SystemReportSection.systemReport}}" userInput="System Reports" stepKey="adminVerifyUserRedirectedToTheSystemReportsPage"/>
+        <waitForText selector="{{SystemReportSection.verifySystemReportSaved}}" userInput="The system report has been generated." stepKey="adminVerifySystemReportGeneratedTextIsVisible"/>
+        <waitForText selector="{{SystemReportSection.createdReportInGrid}}" userInput="{{groupField}}" stepKey="adminVerifyCreatedSystemReportIsInTheSystemReportGrid"/>
+    </actionGroup>
+</actionGroups>

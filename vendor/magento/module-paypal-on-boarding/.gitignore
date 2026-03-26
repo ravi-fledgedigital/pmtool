@@ -1,0 +1,5 @@
+.DS_Store
+/vendor
+/composer.lock
+/auth.json
+.phpunit.result.cache

@@ -1,0 +1,239 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package RMA Base for Magento 2
+ */-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="amasty_rma_item_condition" resource="default" engine="innodb" comment="Amasty RMA Item Conditions Table">
+    <column xsi:type="int" name="condition_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Condition_id"/>
+    <column xsi:type="varchar" name="title" nullable="false" length="255" default="" comment="Title"/>
+    <column xsi:type="smallint" name="status" padding="6" unsigned="false" nullable="false" identity="false" default="0" comment="Status"/>
+    <column xsi:type="smallint" name="position" padding="6" unsigned="false" nullable="false" identity="false" default="0" comment="Position"/>
+    <column xsi:type="boolean" name="is_deleted" nullable="false" comment="Is_deleted"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="condition_id"/>
+    </constraint>
+  </table>
+  <table name="amasty_rma_reason" resource="default" engine="innodb" comment="Amasty RMA Return Reasons Table">
+    <column xsi:type="int" name="reason_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Reason_id"/>
+    <column xsi:type="varchar" name="title" nullable="false" length="255" default="" comment="Title"/>
+    <column xsi:type="smallint" name="payer" padding="6" unsigned="false" nullable="false" identity="false" default="0" comment="Payer"/>
+    <column xsi:type="smallint" name="status" padding="6" unsigned="false" nullable="false" identity="false" default="0" comment="Status"/>
+    <column xsi:type="smallint" name="position" padding="6" unsigned="false" nullable="false" identity="false" default="0" comment="Position"/>
+    <column xsi:type="boolean" name="is_deleted" nullable="false" comment="Is_deleted"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="reason_id"/>
+    </constraint>
+  </table>
+  <table name="amasty_rma_resolution" resource="default" engine="innodb" comment="Amasty RMA Resolutions Table">
+    <column xsi:type="int" name="resolution_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Resolution_id"/>
+    <column xsi:type="varchar" name="title" nullable="false" length="255" default="" comment="Title"/>
+    <column xsi:type="smallint" name="status" padding="6" unsigned="false" nullable="false" identity="false" default="0" comment="Status"/>
+    <column xsi:type="smallint" name="position" padding="6" unsigned="false" nullable="false" identity="false" default="0" comment="Position"/>
+    <column xsi:type="boolean" name="is_deleted" nullable="false" comment="Is_deleted"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="resolution_id"/>
+    </constraint>
+  </table>
+  <table name="amasty_rma_status" resource="default" engine="innodb" comment="Amasty RMA Status Table">
+    <column xsi:type="int" name="status_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Status_id"/>
+    <column xsi:type="varchar" name="title" nullable="false" length="255" default="" comment="Title"/>
+    <column xsi:type="boolean" name="is_enabled" nullable="false" default="true" comment="Is_enabled"/>
+    <column xsi:type="boolean" name="is_initial" nullable="false" comment="Is_initial"/>
+    <column xsi:type="smallint" name="auto_event" padding="6" unsigned="false" nullable="true" identity="false" default="0" comment="Auto_event"/>
+    <column xsi:type="smallint" name="state" padding="6" unsigned="false" nullable="false" identity="false" default="0" comment="State"/>
+    <column xsi:type="smallint" name="grid" padding="6" unsigned="false" nullable="false" identity="false" default="0" comment="Grid"/>
+    <column xsi:type="int" name="priority" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Priority"/>
+    <column xsi:type="varchar" name="color" nullable="false" length="255" default="0" comment="Color"/>
+    <column xsi:type="boolean" name="is_deleted" nullable="false" comment="Is_deleted"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="status_id"/>
+    </constraint>
+  </table>
+  <table name="amasty_rma_request" resource="default" engine="innodb" comment="Amasty RMA Request Table">
+    <column xsi:type="int" name="request_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Request_id"/>
+    <column xsi:type="varchar" name="increment_id" nullable="true" length="50" comment="Rma Increment ID"/>
+    <column xsi:type="int" name="order_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Order_id"/>
+    <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Store_id"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created_at"/>
+    <column xsi:type="timestamp" name="modified_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Modified_at"/>
+    <column xsi:type="int" name="status" padding="10" unsigned="true" nullable="false" identity="false" comment="Status"/>
+    <column xsi:type="int" name="customer_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Customer_id"/>
+    <column xsi:type="text" name="customer_name" nullable="false" comment="Customer_name"/>
+    <column xsi:type="varchar" name="url_hash" nullable="false" length="255" comment="Url_hash"/>
+    <column xsi:type="int" name="manager_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Manager_id"/>
+    <column xsi:type="text" name="custom_fields" nullable="false" comment="Custom_fields"/>
+    <column xsi:type="smallint" name="rating" padding="5" unsigned="true" nullable="false" identity="false" comment="Rating"/>
+    <column xsi:type="text" name="rating_comment" nullable="true" comment="Rating_comment"/>
+    <column xsi:type="text" name="note" nullable="true" comment="Note"/>
+    <column xsi:type="varchar" name="shipping_label" nullable="true" length="255" comment="Shipping_label"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="request_id"/>
+    </constraint>
+  </table>
+  <table name="amasty_rma_request_item" resource="default" engine="innodb" comment="Amasty RMA Request Items Table">
+    <column xsi:type="int" name="request_item_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Request_item_id"/>
+    <column xsi:type="int" name="request_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Request_id"/>
+    <column xsi:type="int" name="order_item_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Order_item_id"/>
+    <column xsi:type="decimal" name="qty" scale="4" precision="12" unsigned="false" nullable="true" default="0" comment="Qty"/>
+    <column xsi:type="decimal" name="request_qty" scale="4" precision="12" unsigned="false" nullable="true" default="0" comment="Request_qty"/>
+    <column xsi:type="int" name="reason_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Reason_id"/>
+    <column xsi:type="int" name="condition_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Condition_id"/>
+    <column xsi:type="int" name="resolution_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Resolution_id"/>
+    <column xsi:type="smallint" name="item_status" padding="6" unsigned="false" nullable="false" identity="false" default="0" comment="Item_status"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="request_item_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="AMASTY_RMA_REQUEST_ITEM_REQUEST_ID_AMASTY_RMA_REQUEST_REQUEST_ID" table="amasty_rma_request_item" column="request_id" referenceTable="amasty_rma_request" referenceColumn="request_id" onDelete="CASCADE"/>
+  </table>
+  <table name="amasty_rma_tracking" resource="default" engine="innodb" comment="Amasty RMA Tracking Number Table">
+    <column xsi:type="int" name="tracking_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Tracking_id"/>
+    <column xsi:type="int" name="request_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Request_id"/>
+    <column xsi:type="varchar" name="tracking_code" nullable="false" length="255" comment="Tracking_code"/>
+    <column xsi:type="varchar" name="tracking_number" nullable="false" length="255" comment="Tracking_number"/>
+    <column xsi:type="boolean" name="is_customer" nullable="false" default="true" comment="Is_customer"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="tracking_id"/>
+    </constraint>
+  </table>
+  <table name="amasty_rma_message" resource="default" engine="innodb" comment="Amasty RMA Message Table">
+    <column xsi:type="int" name="message_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Message_id"/>
+    <column xsi:type="int" name="request_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Request_id"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created_at"/>
+    <column xsi:type="varchar" name="name" nullable="false" length="255" default="" comment="Name"/>
+    <column xsi:type="text" name="message" nullable="false" comment="Message"/>
+    <column xsi:type="int" name="customer_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Customer_id"/>
+    <column xsi:type="int" name="manager_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Manager_id"/>
+    <column xsi:type="boolean" name="is_system" default="0" nullable="false" comment="Is_system"/>
+    <column xsi:type="boolean" name="is_manager" default="0" nullable="false" comment="Is_manager"/>
+    <column xsi:type="boolean" name="is_read" default="0" nullable="false" comment="Is_read"/>
+    <column xsi:type="boolean" name="is_notified" default="0" nullable="false" comment="Is Notified"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="message_id"/>
+    </constraint>
+  </table>
+  <table name="amasty_rma_item_condition_store" resource="default" engine="innodb" comment="Amasty RMA Item Condition Stores Table">
+    <column xsi:type="int" name="condition_store_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Condition_store_id"/>
+    <column xsi:type="int" name="condition_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Condition_id"/>
+    <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Store_id"/>
+    <column xsi:type="varchar" name="label" nullable="false" length="255" default="" comment="Label"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="condition_store_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="FK_2AE51875AF0CD885E7FF189617DF0590" table="amasty_rma_item_condition_store" column="condition_id" referenceTable="amasty_rma_item_condition" referenceColumn="condition_id" onDelete="CASCADE"/>
+  </table>
+  <table name="amasty_rma_reason_store" resource="default" engine="innodb" comment="Amasty RMA Reason Stores Table">
+    <column xsi:type="int" name="reason_store_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Reason_store_id"/>
+    <column xsi:type="int" name="reason_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Reason_id"/>
+    <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Store_id"/>
+    <column xsi:type="varchar" name="label" nullable="false" length="255" default="" comment="Label"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="reason_store_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="AMASTY_RMA_REASON_STORE_REASON_ID_AMASTY_RMA_REASON_REASON_ID" table="amasty_rma_reason_store" column="reason_id" referenceTable="amasty_rma_reason" referenceColumn="reason_id" onDelete="CASCADE"/>
+  </table>
+  <table name="amasty_rma_resolution_store" resource="default" engine="innodb" comment="Amasty RMA Resolutions Stores Table">
+    <column xsi:type="int" name="resolution_store_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Resolution_store_id"/>
+    <column xsi:type="int" name="resolution_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Resolution_id"/>
+    <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Store_id"/>
+    <column xsi:type="varchar" name="label" nullable="false" length="255" default="" comment="Label"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="resolution_store_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="FK_C21BC2C5A88ED9E15961FB0B07D80048" table="amasty_rma_resolution_store" column="resolution_id" referenceTable="amasty_rma_resolution" referenceColumn="resolution_id" onDelete="CASCADE"/>
+  </table>
+  <table name="amasty_rma_status_store" resource="default" engine="innodb" comment="Amasty RMA Status Stores Table">
+    <column xsi:type="int" name="status_store_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Status_store_id"/>
+    <column xsi:type="int" name="status_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Status_id"/>
+    <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Store_id"/>
+    <column xsi:type="varchar" name="label" nullable="false" length="255" default="" comment="Label"/>
+    <column xsi:type="text" name="description" nullable="false" comment="Description"/>
+    <column xsi:type="boolean" name="send_email_to_customer" nullable="false" comment="Send_email_to_customer"/>
+    <column xsi:type="int" name="customer_email_template" padding="10" unsigned="true" nullable="false" identity="false" comment="Customer_email_template"/>
+    <column xsi:type="text" name="customer_custom_text" nullable="false" comment="Customer_custom_text"/>
+    <column xsi:type="boolean" name="send_email_to_admin" nullable="false" comment="Send_email_to_admin"/>
+    <column xsi:type="int" name="admin_email_template" padding="10" unsigned="true" nullable="false" identity="false" comment="Admin_email_template"/>
+    <column xsi:type="text" name="admin_custom_text" nullable="false" comment="Admin_custom_text"/>
+    <column xsi:type="boolean" name="send_to_chat" nullable="false" comment="Send_to_chat"/>
+    <column xsi:type="text" name="chat_message" nullable="false" comment="Chat_message"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="status_store_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="AMASTY_RMA_STATUS_STORE_STATUS_ID_AMASTY_RMA_STATUS_STATUS_ID" table="amasty_rma_status_store" column="status_id" referenceTable="amasty_rma_status" referenceColumn="status_id" onDelete="CASCADE"/>
+  </table>
+  <table name="amasty_rma_message_file" resource="default" engine="innodb" comment="Amasty RMA Message File Table">
+    <column xsi:type="int" name="message_file_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Message_file_id"/>
+    <column xsi:type="int" name="message_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Message_id"/>
+    <column xsi:type="varchar" name="filepath" nullable="false" length="255" default="" comment="Filepath"/>
+    <column xsi:type="varchar" name="filename" nullable="false" length="255" default="" comment="Filename"/>
+    <column xsi:type="varchar" name="url_hash" nullable="false" length="32" default="" comment="Url_hash"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="message_file_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="AMASTY_RMA_MESSAGE_FILE_MESSAGE_ID_AMASTY_RMA_MESSAGE_MESSAGE_ID" table="amasty_rma_message_file" column="message_id" referenceTable="amasty_rma_message" referenceColumn="message_id" onDelete="CASCADE"/>
+  </table>
+  <table name="amasty_rma_guest_create_request" resource="default" engine="innodb" comment="Amasty RMA Guest Create Request Table">
+    <column xsi:type="int" name="create_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Create_id"/>
+    <column xsi:type="varchar" name="secret_code" nullable="false" length="32" comment="Secret_code"/>
+    <column xsi:type="int" name="order_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Order_id"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="create_id"/>
+    </constraint>
+  </table>
+  <table name="amasty_rma_return_rules" resource="default" engine="innodb" comment="Amasty Rma return rules table">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="ID"/>
+    <column xsi:type="varchar" name="name" nullable="false" length="225" comment="Return Rule Name"/>
+    <column xsi:type="boolean" name="status" nullable="false" comment="Status"/>
+    <column xsi:type="int" name="priority" padding="11" unsigned="false" nullable="false" identity="false" comment="Priority of rule"/>
+    <column xsi:type="int" name="default_resolution" padding="11" unsigned="false" nullable="true" identity="false" comment="Default resolution period"/>
+    <column xsi:type="text" name="conditions_serialized" nullable="false" comment="Serialized Conditions"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="amasty_rma_return_rules_websites" resource="default" engine="innodb" comment="Amasty Rma return rules websites table">
+    <column xsi:type="int" name="rule_website_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+    <column xsi:type="smallint" name="website_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Website ID"/>
+    <column xsi:type="int" name="rule_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Rule ID"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="rule_website_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="AMASTY_RMA_RETURN_RULES_WSS_WS_ID_STORE_WS_WS_ID" table="amasty_rma_return_rules_websites" column="website_id" referenceTable="store_website" referenceColumn="website_id" onDelete="CASCADE"/>
+    <constraint xsi:type="foreign" referenceId="AMASTY_RMA_RETURN_RULES_WSS_RULE_ID_AMASTY_RMA_RETURN_RULES_ID" table="amasty_rma_return_rules_websites" column="rule_id" referenceTable="amasty_rma_return_rules" referenceColumn="id" onDelete="CASCADE"/>
+  </table>
+  <table name="amasty_rma_return_rules_customer_groups" resource="default" engine="innodb" comment="Amasty Rma return rules customer groups table">
+    <column xsi:type="int" name="rule_customer_group_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+    <column xsi:type="int" name="customer_group_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Customer Group ID"/>
+    <column xsi:type="int" name="rule_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Rule ID"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="rule_customer_group_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="FK_6EEEF04D9F995F32BE4A474E341A55A6" table="amasty_rma_return_rules_customer_groups" column="customer_group_id" referenceTable="customer_group" referenceColumn="customer_group_id" onDelete="CASCADE"/>
+    <constraint xsi:type="foreign" referenceId="FK_5B74433CD256510C87EAC89DE35FC059" table="amasty_rma_return_rules_customer_groups" column="rule_id" referenceTable="amasty_rma_return_rules" referenceColumn="id" onDelete="CASCADE"/>
+  </table>
+  <table name="amasty_rma_return_rules_resolutions" resource="default" engine="innodb" comment="Amasty Rma return rules resolutions table">
+    <column xsi:type="int" name="rule_resolution_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+    <column xsi:type="int" name="rule_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Rule ID"/>
+    <column xsi:type="int" name="resolution_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Resolution ID"/>
+    <column xsi:type="int" name="value" padding="10" unsigned="true" nullable="true" identity="false" comment="Resolution Value"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="rule_resolution_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="FK_F1EB7F075D2D853BC64A269BAF937D7E" table="amasty_rma_return_rules_resolutions" column="resolution_id" referenceTable="amasty_rma_resolution" referenceColumn="resolution_id" onDelete="CASCADE"/>
+    <constraint xsi:type="foreign" referenceId="FK_47F426414767D2E1306A79850D3A44EE" table="amasty_rma_return_rules_resolutions" column="rule_id" referenceTable="amasty_rma_return_rules" referenceColumn="id" onDelete="CASCADE"/>
+  </table>
+  <table name="amasty_rma_history" resource="default" engine="innodb" comment="Amasty RMA History Table">
+    <column xsi:type="int" name="event_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Event_id"/>
+    <column xsi:type="int" name="request_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Request_id"/>
+    <column xsi:type="timestamp" name="event_date" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Event_date"/>
+    <column xsi:type="smallint" name="event_type" padding="6" unsigned="false" nullable="false" identity="false" default="0" comment="Event_type"/>
+    <column xsi:type="text" name="event_data" nullable="false" comment="Event_data"/>
+    <column xsi:type="smallint" name="event_initiator" padding="5" unsigned="true" nullable="false" identity="false" default="0" comment="Event_initiator"/>
+    <column xsi:type="varchar" name="event_initiator_name" nullable="false" length="255" default="" comment="Event_initiator_name"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="event_id"/>
+    </constraint>
+  </table>
+</schema>

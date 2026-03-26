@@ -1,0 +1,61 @@
+<?php
+/************************************************************************
+ *
+ * Copyright 2024 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ * ************************************************************************
+ */
+?>
+<?php
+/**
+ * @see \Magento\AdvancedCheckout\Block\Adminhtml\Manage\Form\Coupon
+ *
+ * @var \Magento\AdvancedCheckout\Block\Adminhtml\Manage\Form\Coupon $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ */
+?>
+<div id="coupon_container" class="order-coupons">
+    <div class="admin__field field-apply-coupon-code">
+        <label class="admin__field-label"><span><?= $escaper->escapeHtml(__('Apply Coupon Code')) ?></span></label>
+        <div class="admin__field-control">
+            <input type="text" class="admin__control-text" id="coupon_code" name="ccode"/>
+            <?= $block->getApplyButtonHtml() ?>
+        </div>
+
+        <?php if ($block->getQuote()->getExtensionAttributes()->getCouponCodes()): ?>
+            <?php foreach ($block->getQuote()->getExtensionAttributes()->getCouponCodes() as $code): ?>
+            <p id="cc_info_<?= $escaper->escapeHtml($code) ?>" class="added-coupon-code">
+                <span><?= $escaper->escapeHtml($code) ?></span>
+                <a href="#"
+                   title="<?= $escaper->escapeHtml(__('Remove Coupon Code')) ?>"
+                   class="action-remove">
+                    <span><?= $escaper->escapeHtml(__('Remove')) ?></span>
+                </a>
+                <?php // phpstan:ignore "Undefined variable" ?>
+                <?= /* @noEscape */
+                $secureRenderer->renderEventListenerAsTag(
+                    'onclick',
+                    'checkoutObj.removeCoupon("' . $code . '"); return false;',
+                    '#cc_info_' . $code . ' .action-remove'
+                );
+                ?>
+            </p>
+            <?php endforeach; ?>
+        <?php endif; ?>
+        <?php if ($block->getCouponErrorMessage()): ?>
+            <p id="cc_info" class="added-coupon-code-fail">
+                <strong><?= $escaper->escapeHtml($block->getCouponErrorMessage()) ?></strong>
+            </p>
+        <?php endif; ?>
+    </div>
+</div>

@@ -1,0 +1,82 @@
+[
+  {
+    "sku": "AdvancedPricingSimple 1",
+    "tier_price_website": "All Websites [USD]",
+    "tier_price_customer_group": "ALL GROUPS",
+    "tier_price_qty": 10,
+    "tier_price": 290,
+    "tier_price_value_type": "Fixed"
+  },
+  {
+    "sku": "AdvancedPricingSimple 1",
+    "tier_price_website": "All Websites [USD]",
+    "tier_price_customer_group": "General",
+    "tier_price_qty": 12,
+    "tier_price": 270,
+    "tier_price_value_type": "Fixed"
+  },
+  {
+    "sku": "AdvancedPricingSimple 1",
+    "tier_price_website": "All Websites [USD]",
+    "tier_price_customer_group": "NOT LOGGED IN",
+    "tier_price_qty": 11,
+    "tier_price": 280,
+    "tier_price_value_type": "Fixed"
+  },
+  {
+    "sku": "AdvancedPricingSimple 1",
+    "tier_price_website": "All Websites [USD]",
+    "tier_price_customer_group": "Retailer",
+    "tier_price_qty": 14,
+    "tier_price": 10,
+    "tier_price_value_type": "Discount"
+  },
+  {
+    "sku": "AdvancedPricingSimple 1",
+    "tier_price_website": "All Websites [USD]",
+    "tier_price_customer_group": "Wholesale",
+    "tier_price_qty": 13,
+    "tier_price": 260,
+    "tier_price_value_type": "Fixed"
+  },
+  {
+    "sku": "AdvancedPricingSimple 2",
+    "tier_price_website": "All Websites [USD]",
+    "tier_price_customer_group": "ALL GROUPS",
+    "tier_price_qty": 10,
+    "tier_price": 590,
+    "tier_price_value_type": "Fixed"
+  },
+  {
+    "sku": "AdvancedPricingSimple 2",
+    "tier_price_website": "All Websites [USD]",
+    "tier_price_customer_group": "General",
+    "tier_price_qty": 12,
+    "tier_price": 570,
+    "tier_price_value_type": "Fixed"
+  },
+  {
+    "sku": "AdvancedPricingSimple 2",
+    "tier_price_website": "All Websites [USD]",
+    "tier_price_customer_group": "NOT LOGGED IN",
+    "tier_price_qty": 11,
+    "tier_price": 580,
+    "tier_price_value_type": "Fixed"
+  },
+  {
+    "sku": "AdvancedPricingSimple 2",
+    "tier_price_website": "All Websites [USD]",
+    "tier_price_customer_group": "Retailer",
+    "tier_price_qty": 14,
+    "tier_price": 10,
+    "tier_price_value_type": "Discount"
+  },
+  {
+    "sku": "AdvancedPricingSimple 2",
+    "tier_price_website": "All Websites [USD]",
+    "tier_price_customer_group": "Wholesale",
+    "tier_price_qty": 13,
+    "tier_price": 560,
+    "tier_price_value_type": "Fixed"
+  }
+]

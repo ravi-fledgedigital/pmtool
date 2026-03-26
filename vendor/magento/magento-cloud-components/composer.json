@@ -1,0 +1,54 @@
+{
+  "name": "magento/magento-cloud-components",
+  "description": "Cloud Components Module for Magento 2.x",
+  "type": "magento2-module",
+  "version": "1.1.4",
+  "require": {
+    "php": "^8.0",
+    "ext-json": "*",
+    "colinmollenhour/cache-backend-redis": "^1.14.2",
+    "colinmollenhour/credis": "^1.6.0 || ^1.13"
+  },
+  "suggest": {
+    "magento/framework": "*",
+    "magento/module-store": "*",
+    "magento/module-url-rewrite": "*"
+  },
+  "require-dev": {
+    "codeception/codeception": "^5.1",
+    "codeception/module-asserts": "^3.0",
+    "codeception/module-db": "^3.0",
+    "codeception/module-phpbrowser": "^3.0",
+    "codeception/module-rest": "^3.0",
+    "consolidation/robo": "^3.0 || ^4.0 || ^5.0",
+    "phpmd/phpmd": "@stable",
+    "phpstan/phpstan": "~1.2.0 || ^2.0",
+    "phpunit/phpunit": "^10.0 || ^12.0",
+    "squizlabs/php_codesniffer": "^3.7"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "scripts": {
+    "test": [
+      "@phpstan",
+      "@phpcs",
+      "@phpmd",
+      "@phpunit"
+    ],
+    "phpstan": "phpstan analyse -c tests/static/phpstan.neon",
+    "phpcs": "phpcs ./ --standard=tests/static/phpcs-ruleset.xml -p -n",
+    "phpmd": "phpmd Console xml tests/static/phpmd-ruleset.xml",
+    "phpunit": "phpunit --configuration Test/Unit",
+    "pre-install-cmd": "@install_suggested",
+    "pre-update-cmd": "@install_suggested",
+    "install_suggested": "composer config repositories.magento composer https://repo.magento.com/ && composer require \"magento/framework:*\" --no-update && composer require \"magento/module-store:*\" --no-update && composer require \"magento/module-url-rewrite:*\" --no-update"
+  },
+  "autoload": {
+    "files": [ "registration.php" ],
+    "psr-4": {
+      "Magento\\CloudComponents\\": "",
+      "Magento\\CloudComponents\\Test\\Functional\\": "tests/functional/"
+    }
+  }
+}

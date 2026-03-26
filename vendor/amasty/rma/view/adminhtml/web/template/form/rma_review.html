@@ -1,0 +1,9 @@
+<div class="amrma-review-container">
+    <!-- ko if: $data.rating_comment -->
+    <p class="_amrma-strong" data-bind="i18n: 'Comment:'"></p>
+    <p data-bind="text: $data.rating_comment"></p>
+    <!-- /ko -->
+    <!-- ko ifnot: $data.rating_comment -->
+    <strong data-bind="i18n: 'No comment'"></strong>
+    <!-- /ko -->
+</div>

@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Magento\DataExporter\Model\Indexer\FeedIndexProcessorCreateUpdate">
+        <plugin name="mstNavLivesearchExtraFiltersAttributesExporter"
+                type="Mirasvit\LayeredNavigationLiveSearch\Plugin\LiveSearch\AddExtraFiltersAttributesMetadataPlugin"/>
+    </type>
+
+    <type name="Magento\SaaSCommon\Model\ExportFeed">
+        <plugin name="mstNavLivesearchExtraFiltersProductsExporter"
+                type="Mirasvit\LayeredNavigationLiveSearch\Plugin\LiveSearch\AddExtraFiltersProductsMetadataPlugin"/>
+    </type>
+
+    <type name="Mirasvit\LayeredNavigationLiveSearch\Plugin\LiveSearch\AddExtraFiltersProductsMetadataPlugin">
+        <arguments>
+            <argument name="additionalFilters" xsi:type="array">
+                <item name="mst_new" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\NewFilter</item>
+                <item name="mst_on_sale" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\OnSaleFilter</item>
+                <item name="mst_stock" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\StockFilter</item>
+                <item name="mst_rating" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\RatingFilter</item>
+                <item name="search" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\SearchFilter</item>
+            </argument>
+            <argument name="dataMappers" xsi:type="array">
+                <item name="mst_new" xsi:type="string">Mirasvit\LayeredNavigation\Model\DataMapper\NewDataMapper</item>
+                <item name="mst_on_sale" xsi:type="string">Mirasvit\LayeredNavigation\Model\DataMapper\OnSaleDataMapper</item>
+                <item name="mst_stock" xsi:type="string">Mirasvit\LayeredNavigation\Model\DataMapper\StockDataMapper</item>
+                <item name="mst_rating" xsi:type="string">Mirasvit\LayeredNavigation\Model\DataMapper\RatingDataMapper</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Mirasvit\LayeredNavigationLiveSearch\Plugin\LiveSearch\AddExtraFiltersAttributesMetadataPlugin">
+        <arguments>
+            <argument name="additionalFilters" xsi:type="array">
+                <item name="mst_new" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\NewFilter</item>
+                <item name="mst_on_sale" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\OnSaleFilter</item>
+                <item name="mst_stock" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\StockFilter</item>
+                <item name="mst_rating" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\RatingFilter</item>
+                <item name="search" xsi:type="string">Mirasvit\LayeredNavigation\Model\Layer\Filter\SearchFilter</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\LiveSearchAdapter\Model\AttributeMetadata">
+        <plugin name="mstNavLivesearchExtraFiltersMetadata"
+                type="Mirasvit\LayeredNavigationLiveSearch\Plugin\LiveSearch\ModifyAttributeMetadataPlugin"/>
+    </type>
+
+    <!-- frontend preferences -->
+    <preference for="Magento\LiveSearchAdapter\Model\Aggregation\AttributeBucketHandler"
+                type="Mirasvit\LayeredNavigationLiveSearch\Model\Aggregation\AttributeBucketHandler"/>
+
+    <type name="Magento\LiveSearchAdapter\Model\QueryArgumentProcessor\FilterQueryArgumentProcessor">
+        <plugin name="Mirasvit_LayeredNavigation::ModifyFilterQuery"
+                type="Mirasvit\LayeredNavigationLiveSearch\Plugin\LiveSearch\ModifyFilterQueryPlugin"/>
+    </type>
+</config>

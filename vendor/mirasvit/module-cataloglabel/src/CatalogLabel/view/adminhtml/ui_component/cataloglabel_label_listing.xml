@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">cataloglabel_label_listing.cataloglabel_label_listing_data_source</item>
+        </item>
+    </argument>
+
+    <settings>
+        <buttons>
+            <button name="add">
+                <url path="*/*/add"/>
+                <class>primary</class>
+                <label translate="true">Add Label</label>
+            </button>
+        </buttons>
+        <spinner>columns</spinner>
+        <deps>
+            <dep>cataloglabel_label_listing.cataloglabel_label_listing_data_source</dep>
+        </deps>
+    </settings>
+
+    <dataSource name="cataloglabel_label_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">label_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+
+        <dataProvider class="Mirasvit\CatalogLabel\Ui\Label\Listing\DataProvider" name="cataloglabel_label_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>label_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+
+        <bookmark name="bookmarks"/>
+        <filters name="listing_filters"/>
+        <massaction name="listing_massaction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
+                    <item name="selectProvider" xsi:type="string">cataloglabel_label_listing.cataloglabel_label_listing.columns.ids</item>
+                    <item name="displayArea" xsi:type="string">bottom</item>
+                    <item name="indexField" xsi:type="string">label_id</item>
+                </item>
+            </argument>
+            <action name="is_active">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">is_active</item>
+                        <item name="label" xsi:type="string" translate="true">Change status</item>
+                    </item>
+                </argument>
+                <argument name="actions" xsi:type="array">
+                    <item name="0" xsi:type="array">
+                        <item name="type" xsi:type="string">enable</item>
+                        <item name="label" xsi:type="string" translate="true">Enabled</item>
+                        <item name="url" xsi:type="url" path="cataloglabel/label/massStatus">
+                            <param name="status">1</param>
+                        </item>
+                    </item>
+                    <item name="1" xsi:type="array">
+                        <item name="type" xsi:type="string">disable</item>
+                        <item name="label" xsi:type="string" translate="true">Disabled</item>
+                        <item name="url" xsi:type="url" path="cataloglabel/label/massStatus">
+                            <param name="status">0</param>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+            <action name="delete">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">delete</item>
+                        <item name="label" xsi:type="string" translate="true">Delete</item>
+                        <item name="url" xsi:type="url" path="cataloglabel/label/massDelete"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Delete items</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you want to delete the selected items?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+        </massaction>
+        <columnsControls name="columns_controls"/>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+
+    <columns name="columns">
+        <settings>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">cataloglabel_label_listing.cataloglabel_label_listing.columns.actions</item>
+                    <item name="target" xsi:type="string">applyAction</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">edit</item>
+                        <item name="1" xsi:type="string">${ $.$data.rowIndex }</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
+
+        <selectionsColumn name="ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="indexField" xsi:type="string">label_id</item>
+                </item>
+            </argument>
+        </selectionsColumn>
+
+        <column name="label_id" sortOrder="10">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+
+        <column name="name" sortOrder="12">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Title</label>
+            </settings>
+        </column>
+
+        <column name="type" sortOrder="14" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <label translate="true">Type</label>
+                <options class="Mirasvit\CatalogLabel\Model\System\Config\Source\LabelType"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
+            </settings>
+        </column>
+
+        <column name="preview_list" sortOrder="16">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Product List Labels</item>
+                    <item name="bodyTmpl" xsi:type="string">Mirasvit_CatalogLabel/label/grid/preview-list</item>
+                    <item name="sortable" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </column>
+
+        <column name="preview_view" sortOrder="18">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Product View Labels</item>
+                    <item name="bodyTmpl" xsi:type="string">Mirasvit_CatalogLabel/label/grid/preview-view</item>
+                    <item name="sortable" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </column>
+
+        <column name="is_active" sortOrder="20" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <label translate="true">Status</label>
+                <options class="Mirasvit\CatalogLabel\Model\System\Config\Source\StatusSource"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <bodyTmpl>Mirasvit_CatalogLabel/label/grid/status</bodyTmpl>
+            </settings>
+        </column>
+
+        <column name="active_from" sortOrder="22" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <label translate="true">Active From</label>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <visible>false</visible>
+            </settings>
+        </column>
+
+        <column name="active_to" sortOrder="24" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <label translate="true">Active To</label>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <visible>false</visible>
+            </settings>
+        </column>
+
+        <actionsColumn name="actions" sortOrder="100" class="Mirasvit\CatalogLabel\Ui\Label\Listing\Column\ActionsColumn">
+            <settings>
+                <indexField>label_id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

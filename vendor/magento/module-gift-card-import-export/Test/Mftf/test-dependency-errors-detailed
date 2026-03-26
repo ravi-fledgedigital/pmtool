@@ -1,0 +1,6 @@
+
+File "/var/www/html/app/code/Magento/GiftCardImportExport/Test/Mftf/Test/AdminExportGiftCardTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminExportMessageConsumerData from module(s): magento/module-message-queue
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue

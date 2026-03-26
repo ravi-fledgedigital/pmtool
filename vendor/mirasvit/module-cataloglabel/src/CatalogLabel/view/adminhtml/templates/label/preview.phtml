@@ -1,0 +1,25 @@
+<?php
+    $display = $block->getDisplay();
+?>
+
+<?php if ($display->getImage()): ?>
+    <div
+        class="cataloglabel cataloglabel-product-top-label cataloglabel-<?php echo $block->escapeHtml($block->getPlaceholderCode()); ?>
+    cataloglabel-<?php echo $block->escapeHtml($display->getType()); ?> position-<?php echo $block->escapeHtml($display->getPosition()); ?>"
+        style="background:url('<?php echo $block->escapeUrl($display->getImageUrl()) ?>');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain; <?php echo $block->escapeHtml($display->getStyle()); ?>"
+    >
+        <span><?php echo $block->escapeHtml($display->getTitle()) ?></span>
+    </div>
+<?php elseif ($display->getTitle()): ?>
+    <div class="cataloglabel cataloglabel-product-top-label
+                cataloglabel-<?php echo $block->escapeHtml($display->getType());?>
+                position-<?php echo $block->escapeHtml($display->getPosition());?>"
+         style="<?php echo $block->escapeHtml($display->getStyle())?>" >
+
+        <span><?php echo $block->escapeHtml($display->getTitle())?></span>
+    </div>
+<?php endif ?>
+

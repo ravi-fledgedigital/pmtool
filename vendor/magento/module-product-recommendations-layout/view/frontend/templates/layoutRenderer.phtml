@@ -1,0 +1,38 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+
+<?php
+/* @var $block \Magento\ProductRecommendationsLayout\Block\Renderer */
+$pagePlacement = $block->getData('pagePlacement');
+$placeholderUrl = $block->getPlaceholderUrl('image');
+$currencyConfiguration = $block->getCurrencyConfiguration();
+$isAlternateEnvironmentEnabled = $block->isAlternateEnvironmentEnabled();
+$priceFormat = $block->getPriceFormat();
+?>
+
+<div data-bind="scope:'product_recommendations_<?= /* @noEscape */ $pagePlacement; ?>'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+
+<script type="text/x-magento-init">
+        {
+            "*": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "product_recommendations_<?= /* @noEscape */ $pagePlacement; ?>": {
+                            "component": "Magento_ProductRecommendationsLayout/js/layoutRenderer",
+                            "pagePlacement": "<?= /* @noEscape */ $pagePlacement; ?>",
+                            "placeholderUrl": "<?= /* @noEscape */ $placeholderUrl; ?>",
+                            "priceFormat": <?= /* @noEscape */ $priceFormat; ?>,
+                            "currencyConfiguration": <?= /* @noEscape */ $currencyConfiguration; ?>,
+                            "isAlternateEnvironmentEnabled": <?= /* @noEscape */ json_encode($isAlternateEnvironmentEnabled); ?>
+                        }
+                    }
+                }
+            }
+        }
+</script>

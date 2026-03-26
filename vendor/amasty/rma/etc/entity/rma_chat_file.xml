@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package RMA Base for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="amasty_rma_chat_file">
+        <name>Amasty RMA Chat File</name>
+        <group>Amasty RMA</group>
+        <collectionFactory class="Amasty\Rma\Model\Chat\ResourceModel\MessageFileCollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+        </fieldsConfig>
+    </entity>
+    <relation code="rma_chat_file">
+        <parent_entity>amasty_rma_chat</parent_entity>
+        <child_entity>amasty_rma_chat_file</child_entity>
+        <sub_entity_field_name>amasty_rma_chat_file</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">message_id</argument>
+            <argument name="child_field_name" xsi:type="string">message_id</argument>
+        </arguments>
+    </relation>
+    <relation code="rma_file_chat">
+        <parent_entity>amasty_rma_chat_file</parent_entity>
+        <child_entity>amasty_rma_chat</child_entity>
+        <sub_entity_field_name>amasty_rma_chat</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">message_id</argument>
+            <argument name="child_field_name" xsi:type="string">message_id</argument>
+        </arguments>
+    </relation>
+</config>

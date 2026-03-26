@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!-- add new products ids in table for cache flushing -->
+    <event name="catalog_block_product_list_collection">
+        <observer name="cataloglabel_getLoadedProductCollection" instance="\Mirasvit\CatalogLabel\Observer\GetLoadedProductCollectionObserver"/>
+    </event>
+</config>

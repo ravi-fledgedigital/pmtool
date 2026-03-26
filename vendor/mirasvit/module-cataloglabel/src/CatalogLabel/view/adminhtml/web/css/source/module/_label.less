@@ -1,0 +1,347 @@
+.cataloglabel-label-edit {
+    [data-index="style"] {
+        .CodeMirror {
+            &._error {
+                border: 1px solid red;
+            }
+        }
+    }
+
+    .side-col {
+        position:  relative;
+        display:   flex;
+        flex-flow: column-reverse;
+
+        .variablelist {
+            display:    none;
+            margin-top: 2rem;
+            border:     1px solid #e3e3e3;
+            padding:    10px;
+
+            h3 {
+                border-bottom: 1px solid #e3e3e3;
+                padding:       1rem 0;
+                margin-bottom: 1rem;
+            }
+
+            .variable {
+                margin-bottom: 8px;
+
+                dt {
+                    display: inline;
+                    font-weight: 600;
+
+                    &:after {
+                        content: "-";
+                        padding: 0 5px;
+                        color:   #999999;
+                    }
+                }
+
+                dd {
+                    display:     inline;
+                    margin-left: 0;
+                    color:       #666666;
+                }
+            }
+        }
+    }
+
+    .main-col {
+        [data-index="conditions"]>.fieldset-wrapper-title,
+        [data-index="general"]>.fieldset-wrapper-title,
+        [data-index="display"]>.fieldset-wrapper-title {
+            display: none;
+        }
+
+        [data-index="conditions"] {
+            fieldset {
+                padding-top: 0;
+
+                &#rule_conditions_fieldset {
+                    padding: 1rem 0;
+
+                    .legend span {
+                        color:   #555;
+                        padding: 9px 18px 8px;
+                    }
+
+                    .rule-tree-wrapper {
+                        padding-left: 2rem;
+                    }
+                }
+            }
+
+            #rule_info_fieldset, #rule_notice_fieldset {
+                border: none;
+
+                label {
+                    width: 100%
+                }
+            }
+
+            #rule_notice_fieldset {
+                background: #fffbbb;
+                border: none;
+                border-radius: 0;
+                color: #333333;
+                font-size: 1.4rem;
+                margin: 0 0 1px;
+                padding: 1.8rem 4rem 1.8rem 5.5rem;
+                position: relative;
+                text-shadow: none;
+                word-wrap: break-word;
+
+                &::before {
+                    color:       #007bdb;
+                    content:     "\e61a";
+                    font-family: "Admin Icons";
+                    font-size:   1.9rem;
+                    font-style:  normal;
+                    font-weight: 400;
+                    height:      auto;
+                    left:        1.9rem;
+                    line-height: inherit;
+                    position:    absolute;
+                    speak:       none;
+                    text-shadow: none;
+                    top:         50%;
+                    margin-top: -1.25rem;
+                    width: auto;
+                }
+
+                label {
+                    span {
+                        font-weight: normal!important;
+                        text-align: left!important;
+                    }
+                }
+            }
+        }
+
+        .gallery_wrapper {
+            margin-top: 3rem;
+        }
+
+        [data-index="display"] {
+            .marker {
+                margin-left: 1rem;
+                font-weight: 500;
+                color:       #666;
+
+                span {
+                    margin-right: 1rem;
+                }
+            }
+
+            [data-index="display_data"] {
+                border: none;
+            }
+
+            fieldset {
+                padding: 0;
+
+                [data-index="list"],
+                [data-index="both"],
+                [data-index="view"] {
+                    border:        none;
+                    margin-bottom: 3rem;
+                    padding:       1rem;
+
+                    [data-index="delete"] {
+                        position:   absolute;
+                        left:       calc(~'(100%) * 0.5 - 30px');
+                        margin-top: 1.2rem;
+                        z-index:    1;
+
+                        .admin__field-tooltip {
+                            position: absolute;
+                            right:    40px;
+                        }
+                    }
+
+                    .fieldset-wrapper-title {
+                        background:    none;
+                        border-bottom: 1px solid #cac3b4;
+                        margin-bottom: 3rem;
+
+                        strong {
+                            font-size:   1.7rem;
+                            font-weight: 600;
+                            font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+                        }
+                    }
+
+                    .admin__field-label {
+                        width: 100px;
+                    }
+
+                    fieldset[data-index="placeholder_id"] > div.admin__field-control {
+                        position:            relative;
+                        display:             flex;
+                        flex-wrap:           wrap;
+                        width:               240px;
+                        justify-content:     space-around;
+                        background-image:    url("@{baseDir}Magento_Catalog/images/product/placeholder/image.jpg");
+                        background-size:     contain;
+                        background-repeat-y: no-repeat;
+
+                        div.admin__field-option {
+                            width:       75px;
+                            height:      75px;
+                            padding-top: 0;
+                            margin:      2px;
+                            position:    relative;
+
+                            input {
+                                position: absolute;
+                                top:      0;
+                                left:     0;
+                            }
+
+                            .admin__control-radio + label {
+                                width:        75px;
+                                height:       75px;
+                                padding-left: 0;
+                                display:      flex;
+                                align-items:  center;
+                                hyphens:      auto;
+                                color:        #666;
+
+                                &:before {
+                                    width:         75px;
+                                    height:        75px;
+                                    border-radius: 10px;
+                                    background:    none!important;
+                                    position:      absolute;
+                                    margin:        0;
+                                    top:           0;
+                                    left:          0;
+                                }
+
+                                &:after {
+                                    width:            75px;
+                                    height:           75px;
+                                    border-radius:    10px;
+                                    background-color: rgba(4, 152, 17, .3);
+                                    border:           2px solid rgb(4, 152, 17);
+                                    position:         absolute;
+                                    margin:           0;
+                                    top:              0;
+                                    left:             0;
+                                }
+
+                                span {
+                                    width:      100%;
+                                    text-align: center;
+                                    display:    block;
+                                }
+                            }
+
+                            .admin__control-radio[disabled] + label:before {
+                                background: repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05) 10px, rgba(0, 0, 0, 0.1) 10px, rgba(0, 0, 0, 0.1) 20px)!important;
+                            }
+
+                            &:nth-child(n+10) {
+                                //width: 100%;
+                                position: absolute;
+                                left:     100%;
+                                width:    120px;
+
+                                .admin__control-radio + label,
+                                .admin__control-radio + label:before,
+                                .admin__control-radio + label:after {
+                                    width: 100%
+                                }
+                            }
+
+                            &:nth-child(n+11) {
+                                margin-left: 127px;
+                            }
+
+                            &:nth-child(n+12) {
+                                margin-left: 3px;
+                                margin-top:  81px;
+                            }
+
+                            &:nth-child(n+13) {
+                                margin-left: 127px;
+                                margin-top:  81px;
+                            }
+
+                            &:nth-child(n+14) {
+                                margin-left: 3px;
+                                margin-top:  160px;
+                            }
+
+                            &:nth-child(n+15) {
+                                margin-left: 127px;
+                                margin-top:  160px;
+                            }
+
+                            &:nth-child(n+16) {
+                                margin-left: 0;
+                                margin-top:  3px;
+                                position:    relative;
+                                width:       100%;
+                                left:        0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        fieldset[data-index="template_id"] {
+            .admin__field-control {
+                display:   flex;
+                flex-wrap: wrap;
+
+                .admin__field-option {
+                    padding-top: 0!important;
+                    margin:      3px;
+
+                    input {
+                        position: absolute;
+                    }
+
+                    label {
+                        display:         flex;
+                        justify-content: center;
+                        align-items:     center;
+                        width:           100px;
+                        height:          100px;
+                        padding:         0!important;
+                        margin:          2px;
+                        position:        relative;
+                        overflow:        hidden;
+
+                        &:before {
+                            position:      absolute;
+                            top:           0;
+                            left:          0;
+                            width:         100%;
+                            height:        100%;
+                            background:    none;
+                            z-index:       400;
+                            margin:        0;
+                            border-radius: 5px;
+                        }
+
+                        &:after {
+                            background-color: rgba(4, 152, 17, .3);
+                            border-radius:    5px;
+                            height:           100%;
+                            left:             0;
+                            position:         absolute;
+                            top:              0;
+                            width:            100%;
+                            border:           2px solid rgb(4, 152, 17);
+                            z-index:          401;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

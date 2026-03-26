@@ -1,0 +1,84 @@
+.mst-cataloglabel-preview {
+    position:   relative !important;
+    height:     90px;
+    min-width:  250px;
+    overflow-x: auto;
+
+    .mst-cataloglabel-preview__label {
+        position:         absolute;
+        left:             0;
+        width:            80px!important;
+        height:           80px!important;
+        display:          flex;
+        align-items:      center;
+        justify-content:  center;
+        box-shadow:       2px 2px 4px #ccc;
+        background-color: #fff;
+        padding:          5px;
+        border:           1px solid #ddd;
+        overflow:         hidden;
+
+        & > *:first-child {
+            position: absolute!important;
+        }
+
+        &:hover {
+            z-index: 901!important;
+        }
+
+        .cataloglabel {
+            position:        relative;
+            display:         flex;
+            align-items:     center;
+            justify-content: center;
+            overflow-y:      hidden;
+
+            & > span {
+                white-space: pre-wrap;
+                white-space: -moz-pre-wrap;
+                white-space: -pre-wrap;
+                white-space: -o-pre-wrap;
+                word-wrap:   break-word;
+                display:     block;
+                width:       100%;
+                padding:     0 10px;
+                margin:      auto;
+                text-align:  center;
+                z-index:     10;
+            }
+        }
+    }
+}
+
+.cataloglabel__status-wrapper {
+    text-align: center;
+
+    .status {
+        display:        inline-block;
+        white-space:    nowrap;
+        font-size:      11px;
+        border-radius:  2px;
+        padding:        3px 10px;
+        color:          #333333;
+        font-weight:    bold;
+        text-transform: capitalize;
+        min-width:      15rem;
+
+        &.enabled {
+            background: #d0e5a9;
+        }
+        &.disabled {
+            background: #d6d6d6;
+        }
+    }
+}
+
+// action column overflow fix
+.cataloglabel-label-index,
+.cataloglabel-placeholder-index,
+.cataloglabel-template-index {
+    .admin__data-grid-wrap {
+        overflow-x: unset;
+    }
+}
+

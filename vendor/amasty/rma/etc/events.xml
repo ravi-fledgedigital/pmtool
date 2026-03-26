@@ -1,0 +1,65 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="amasty_customer_rma_new_message">
+        <observer name="amrma_new_message" instance="Amasty\Rma\Observer\Rma\AutoStatusChange" />
+        <observer name="amrma_new_message_history" instance="Amasty\Rma\Observer\Rma\History" />
+    </event>
+    <event name="amasty_customer_added_tracking_number_rma">
+        <observer name="amrma_new_tracking" instance="Amasty\Rma\Observer\Rma\AutoStatusChange" />
+        <observer name="amrma_new_tracking_history" instance="Amasty\Rma\Observer\Rma\History" />
+    </event>
+    <event name="amasty_customer_rated_rma">
+        <observer name="amrma_rated" instance="Amasty\Rma\Observer\Rma\AutoStatusChange" />
+    </event>
+    <event name="amasty_customer_rma_canceled">
+        <observer name="amrma_canceled" instance="Amasty\Rma\Observer\Rma\AutoStatusChange" />
+        <observer name="amrma_canceled_history" instance="Amasty\Rma\Observer\Rma\History" />
+    </event>
+    <event name="amasty_rma_status_changed">
+        <observer name="amrma_status_changed" instance="Amasty\Rma\Observer\Rma\StatusChanged" />
+    </event>
+    <event name="amasty_customer_rma_created">
+        <observer name="amrma_rma_created" instance="Amasty\Rma\Observer\Rma\RmaCreated" />
+        <observer name="amasty_customer_rma_created_history" instance="Amasty\Rma\Observer\Rma\History" />
+    </event>
+
+    <event name="amasty_manager_rma_created">
+        <observer name="amrma_rma_created" instance="Amasty\Rma\Observer\Rma\RmaCreated" />
+        <observer name="amasty_manager_rma_created_history" instance="Amasty\Rma\Observer\Rma\History" />
+    </event>
+    <event name="amasty_manager_added_tracking_number_rma">
+        <observer name="amrma_new_tracking_history" instance="Amasty\Rma\Observer\Rma\History" />
+    </event>
+    <event name="amasty_manager_deleted_tracking_number_rma">
+        <observer name="amrma_deleted_tracking_history" instance="Amasty\Rma\Observer\Rma\History" />
+    </event>
+    <event name="amasty_customer_deleted_tracking_number_rma">
+        <observer name="amrma_deleted_tracking_history" instance="Amasty\Rma\Observer\Rma\History" />
+    </event>
+    <event name="amasty_manager_added_shipping_label_rma">
+        <observer name="amrma_added_shipping_label_history" instance="Amasty\Rma\Observer\Rma\History" />
+    </event>
+    <event name="amasty_manager_deleted_shipping_label_rma">
+        <observer name="amrma_deleted_shipping_label_history" instance="Amasty\Rma\Observer\Rma\History" />
+    </event>
+    <event name="amasty_manager_rma_new_message">
+        <observer name="amasty_manager_rma_new_message_history" instance="Amasty\Rma\Observer\Rma\History" />
+    </event>
+    <event name="amasty_manager_rma_deleted_message">
+        <observer name="amasty_manager_rma_deleted_message_history" instance="Amasty\Rma\Observer\Rma\History" />
+    </event>
+    <event name="amasty_customer_rma_deleted_message">
+        <observer name="amasty_customer_rma_deleted_message_history" instance="Amasty\Rma\Observer\Rma\History" />
+    </event>
+    <event name="amasty_rma_status_automatically_changed">
+        <observer name="amasty_rma_status_automatically_changed_history" instance="Amasty\Rma\Observer\Rma\History" />
+    </event>
+    <event name="amasty_manager_rma_saved">
+        <observer name="amasty_manager_rma_saved_history" instance="Amasty\Rma\Observer\Rma\History" />
+    </event>
+    <event name="amasty_rma_system_status_changed">
+        <observer name="amasty_rma_system_status_changed_history" instance="Amasty\Rma\Observer\Rma\History" />
+    </event>
+    <event name="amasty_rma_system_manager_changed">
+        <observer name="amasty_rma_system_manager_changed_history" instance="Amasty\Rma\Observer\Rma\History" />
+    </event>
+</config>

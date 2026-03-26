@@ -1,0 +1,56 @@
+<li role="listitem" class="condition-node">
+    <div class="expand" aria-hidden="true" data-bind="click: function() { nod.expanded(!nod.expanded()) },
+        visible: nod.sortBy() == 'ranking_factor',
+        css: { _expanded: nod.expanded() }"></div>
+
+    <div class="general">
+        <div class="switcher" role="group" aria-label="Sort by type">
+            <!-- ko foreach: {data: element.sortBySource, as: 'source' } -->
+            <div role="button" tabindex="0" data-bind="text: source.label,
+                      css: { _active: nod.sortBy() == source.value },
+                      click: function() { nod.sortBy(source.value) }" aria-pressed="false"
+                aria-pressed.bind="nod.sortBy() == source.value"></div>
+            <!-- /ko -->
+        </div>
+
+        <select id="sorting_attribute_select" aria-label="Select attribute" data-bind="options: element.sortByAttributeSource,
+                       optionsText: 'label',
+                       optionsValue: 'value',
+                       value: nod.attribute,
+                       visible: nod.sortBy() == 'attribute'" class="admin__control-select"></select>
+
+        <select id="sorting_ranking_factor_select" aria-label="Select ranking factor" data-bind="options: element.sortByRankingFactorSource,
+                       optionsText: 'label',
+                       optionsValue: 'value',
+                       value: nod.rankingFactor,
+                       visible: nod.sortBy() == 'ranking_factor'" class="admin__control-select"></select>
+
+        <div class="switcher" role="group" aria-label="Sort direction">
+            <div role="button" tabindex="0" data-bind="css: { _active: nod.direction() == 'asc' },
+                      click: function() { nod.direction('asc') }" aria-pressed.bind="nod.direction() == 'asc'"
+                class="_active">
+                ASC <span aria-hidden="true">A-Z, 0-9</span>
+            </div>
+            <div role="button" tabindex="0" data-bind="css: { _active: nod.direction() == 'desc' },
+                      click: function() { nod.direction('desc') }" aria-pressed.bind="nod.direction() == 'desc'">
+                DESC <span aria-hidden="true">Z-A, 9-0</span>
+            </div>
+        </div>
+
+        <button type="button" aria-label="Remove sorting condition"
+            data-bind="click: function() { element.removeNode(nod) }" class="action-delete"></button>
+    </div>
+
+    <div class="advance" data-bind="visible: nod.expanded()" style="display:none;">
+        <fieldset class="admin__fieldset" data-bind="visible: nod.sortBy() == 'ranking_factor'">
+            <legend class="hidden">Weight</legend>
+            <div class="admin__field">
+                <label for="weight_input" class="hidden">Weight</label>
+                <div class="admin__field-control">
+                    <input id="weight_input" aria-label="Weight" data-bind="value: nod.weight"
+                        class="admin__control-text" placeholder="50" type="number" />
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</li>

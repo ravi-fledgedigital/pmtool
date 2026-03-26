@@ -1,0 +1,68 @@
+{
+    "amasty_customtabs_tabs": {
+        "column": {
+            "tab_id": true,
+            "sort_order": true,
+            "tab_title": true,
+            "tab_name": true,
+            "content": true,
+            "customer_groups": true,
+            "status": true,
+            "is_active": true,
+            "related_enabled": true,
+            "upsell_enabled": true,
+            "crosssell_enabled": true,
+            "created_at": true,
+            "updated_at": true,
+            "conditions_serialized": true,
+            "type": true,
+            "name_in_layout": true,
+            "module_name": true,
+            "anchor": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "amasty_customtabs_tabs_store": {
+        "column": {
+            "tab_id": true,
+            "store_id": true
+        },
+        "constraint": {
+            "FK_A82362BD6A14A684B5DED8E4A8864CB2": true,
+            "AMASTY_CUSTOMTABS_TABS_STORE_STORE_ID_STORE_STORE_ID": true,
+            "AMASTY_CUSTOMTABS_TABS_STORE_TAB_ID_STORE_ID": true
+        }
+    },
+    "amasty_customtabs_tabs_rule_index": {
+        "column": {
+            "tab_id": true,
+            "store_id": true,
+            "product_id": true
+        },
+        "index": {
+            "AMASTY_CUSTOMTABS_TABS_RULE_INDEX_TAB_ID_STORE_ID": true
+        },
+        "constraint": {
+            "FK_F95292B0ED69E68F7D377BB2C05363CD": true,
+            "FK_219E670A5538D3E226C2F398A585C5BA": true,
+            "FK_BCCB40E3F4665687AB920107A71356D1": true
+        }
+    },
+    "amasty_customtabs_tabs_content": {
+        "column": {
+            "tab_id": true,
+            "store_id": true,
+            "tab_title": true,
+            "tab_name": true,
+            "content": true,
+            "status": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "AMASTY_CUSTOMTABS_TABS_CONTENT_TAB_ID_AMASTY_CUSTOMTABS_TAB_ID": true,
+            "AMASTY_CUSTOMTABS_TABS_CONTENT_STORE_ID_STORE_STORE_ID": true
+        }
+    }
+}

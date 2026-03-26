@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <catalog_sync_admin>
+            <show_menu_item>0</show_menu_item>
+            <frontend_url>https://data-management-external.magento-ds.com/v1/main.js</frontend_url>
+            <frontend_css_url>https://data-management-external.magento-ds.com/v1/main.css</frontend_css_url>
+            <admin_api_path>catalogfeed</admin_api_path>
+            <content_security_policy/>
+        </catalog_sync_admin>
+    </default>
+</config>

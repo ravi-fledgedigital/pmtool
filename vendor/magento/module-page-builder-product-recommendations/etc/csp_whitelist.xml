@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp:etc/csp_whitelist.xsd">
+    <policies>
+        <policy id="script-src">
+            <values>
+                <value id="pb_recommendations_sdk" type="host">*.adobe.io</value>
+            </values>
+        </policy>
+        <policy id="connect-src">
+            <values>
+                <value id="pb_recommendations_api_gateway" type="host">api.magento.com</value>
+                <value id="pb_recommendations_adobe_io" type="host">commerce.adobe.io</value>
+            </values>
+        </policy>
+    </policies>
+</csp_whitelist>

@@ -1,0 +1,93 @@
+<div class="mst_sorting-formula_description" role="region" aria-labelledby="formula-description-title">
+    <p id="formula-description-title" class="title strong">Description:</p>
+    <p>
+        The factor of the type formula calculates the sorting score based on the formula.
+        The syntax of the formula is the same as the syntax of spreadsheet formulas.
+        The formula should return a numeric result. Non-numeric results will be considered as NULL.
+        The formula <strong>should</strong> always start with "=".
+    </p>
+
+    <p class="title strong" id="allowed-variable-types-title">Allowed variable types:</p>
+    <ul aria-labelledby="allowed-variable-types-title">
+        <li>
+            <p>
+                <strong>{product_[attribute_code]}</strong> - product attributes variable like
+                <strong>{product_price}</strong>, <strong>{product_color}</strong>.
+                Almost any attribute can be used in the formula.
+            </p>
+            <p>
+                Attributes of types <strong>gallery</strong> and <strong>media_image</strong>
+                are <strong>not allowed</strong>.
+            </p>
+
+            <p class="strong title">Most common product attributes' variables:</p>
+            <ul>
+                <li><strong>{product_price}</strong></li>
+                <li><strong>{product_cost}</strong></li>
+                <li><strong>{product_size}</strong></li>
+                <li><strong>{product_color}</strong></li>
+                <li><strong>{product_material}</strong></li>
+                <li><strong>{product_brand}</strong></li>
+            </ul>
+        </li>
+
+        <li>
+            <p>
+                <strong>{factor_[id]}</strong> - ranking factor variables.
+                You can use scores calculated in other factors in the factor of the type formula.
+                The only restriction is - factor of the type formula can <strong>NOT</strong> be used in
+                another factor of the type formula.
+            </p>
+        </li>
+    </ul>
+
+    <p class="title strong" id="examples-title">Examples:</p>
+    <ul aria-labelledby="examples-title">
+        <li>
+            <p class="strong">Simple formula:</p>
+            <code>={product_cost} / {product_weight}</code>
+            <p class="small">This formula calculates the unit cost for each product</p>
+        </li>
+
+        <li>
+            <p class="strong">Formula with the condition:</p>
+            <code>=IF({product_cost} > 50, 100, 0)</code>
+        </li>
+
+        <li>
+            <p class="strong">Formula with the attribute of the type <i>select</i>:</p>
+            <code>=IF({product_brand} = "Adidas", 100, 0)</code>
+        </li>
+
+        <li>
+            <p class="strong">Formula with the attribute of the type <i>multiselect</i>:</p>
+            <code>=IF(ISNUMBER(FIND("Gym", {product_activity})), 10, 1)</code>
+            <p class="small">
+                When using attributes of the type <strong>multiselect</strong> the construction
+                <code>ISNUMBER(FIND([needle], [variable]))</code>
+                should be used.
+                The part <code>FIND([needle], [variable])</code> is responsible for searching needle in the variable's
+                value.<br>
+                If the needle is not found the <code>FIND()</code> function returns <strong>#VALUE!</strong> which makes
+                the <code>IF()</code> function return the same.<br>
+                The <strong>#VALUE!</strong> value will be considered as NULL.<br>
+                For making it work as expected the <code>FIND()</code> function should be wrapped in
+                <code>ISNUMBER()</code> function.<br>
+                In this case, the whole formula will return correct results.
+            </p>
+        </li>
+        <li>
+            <p class="strong">Formula with a condition returning NULL:</p>
+            <code>=IF({factor_[id]} > 0, 1, "")</code>
+            <p class="small">
+                Factors based on global attributes (for example: Date factor) are indexed only for the admin store. 
+                Store specific indexes for such a factor as NULL. When the formula factor uses another factor, 
+                it does not know whether that factor is based on the global attribute or not. 
+                To ensure the formula factor uses values from another factor properly, 
+                you can handle NULL values in it by conditionally returning the empty string, 
+                which will be considered as NULL
+            </p>
+        </li>
+
+    </ul>
+</div>

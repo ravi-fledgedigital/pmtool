@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * ADOBE CONFIDENTIAL
+ *
+ * Copyright 2024 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="AdminUiSdkSettingsSection">
+        <element name="adminUiSdkGeneralConfigurationTab" selector="#admin_ui_sdk_general_config-head" timeout="30" type="button"/>
+        <element name="adminUiSdkGeneralConfigurationTabOpen" selector="#admin_ui_sdk_general_config-head.open" timeout="30" type="button"/>
+        <element name="adminUiSdkEnable" selector="#admin_ui_sdk_general_config_enable_admin_ui_sdk" timeout="30" type="button"/>
+    </section>
+</sections>

@@ -1,0 +1,350 @@
+//
+//  Amasty RMA
+//  View/Edit RMA page
+//  ____________________________________________
+//
+//  Variables
+//  --------------------------------------------
+@amrma-icon__upload-file: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTMwIiBoZWlnaHQ9IjEyNSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTcuNjIgODguOTI0bC03Ljk5NC01OC45Yy0uNjUzLTQuNDA2IDIuNDQ3LTguMzIyIDYuODUzLTguOTc0bDg0LjUxNi0xMS41ODRoMS4xNDJjMy45MTYgMCA3LjM0MiAyLjkzNiA3LjgzMSA2Ljg1MmwuNjUzIDQuODk1aDkuNjI2bC0uODE1LTYuMDM3Yy0uNjUzLTQuNTY4LTIuOTM3LTguNjQ3LTYuNjktMTEuNTg0LTMuNzUzLTIuNzc0LTguMzIxLTQuMDgtMTIuODktMy40MjdMMTUuMTc0IDExLjU4N0M1LjU0NyAxMi44OTItMS4xNDMgMjEuNzAyLjE2MyAzMS4zMjlsNy45OTQgNTguOWMxLjE0MyA4LjY0NyA4LjY0OCAxNS4wMTEgMTcuMjk1IDE1LjAxMWguMzI3di05LjYyN2MtMy45MTYuMzI2LTcuNTA2LTIuNjEtOC4xNTgtNi42OXoiIGZpbGw9IiNENEUxRkEiIGZpbGwtb3BhY2l0eT0iLjUiLz48cGF0aCBkPSJNNzYuODQ3IDYwLjUzNGE5LjQ2MyA5LjQ2MyAwIDEgMS0xOC45MjYgMCA5LjQ2MyA5LjQ2MyAwIDAgMSAxOC45MjYgMHoiIGZpbGw9IiNENEUxRkEiIGZpbGwtb3BhY2l0eT0iLjUiLz48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTUyLjIxIDMwLjAyM0gxMzB2OS40NjNINTIuMjFjLTQuNDA1IDAtNy45OTUgMy41OS03LjgzMSA3Ljk5NXY1NC44MjJsMTUuODI2LTE3LjQ1OGMzLjkxNi00LjQwNiAxMC43NjgtNC40MDYgMTQuNjg0IDBsNy44MzIgOC42NDcgMjEuNTM3LTI0Ljk2M2ExMC41NCAxMC41NCAwIDAgMSAxNS45ODkgMEwxMzAgNzkuNjc1djQ0LjY1NEg1Mi4yMWMtOS42MjYgMC0xNy40NTgtNy44MzItMTcuNDU4LTE3LjQ1OHYtNTkuMzljMC05LjYyNiA3LjgzMi0xNy40NTggMTcuNDU4LTE3LjQ1OHoiIGZpbGw9IiNENEUxRkEiIGZpbGwtb3BhY2l0eT0iLjUiLz48L3N2Zz4=');
+@amrma-line__color: #ebeef5;
+@amrma-star__active__background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjYiIGhlaWdodD0iMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEzIDEuMjM2bDIuMTkyIDYuNzQ3YTIgMiAwIDAgMCAxLjkwMiAxLjM4Mmg3LjA5NGwtNS43MzkgNC4xN2EyIDIgMCAwIDAtLjcyNyAyLjIzNmwyLjE5MyA2Ljc0Ni01Ljc0LTQuMTdhMiAyIDAgMCAwLTIuMzUgMGwtNS43NCA0LjE3IDIuMTkyLTYuNzQ2YTIgMiAwIDAgMC0uNzI2LTIuMjM3bC01Ljc0LTQuMTdoNy4wOTVhMiAyIDAgMCAwIDEuOTAyLTEuMzgxTDEzIDEuMjM2eiIgZmlsbD0iI0ZGQzEwNyIgc3Ryb2tlPSIjRkZDMTA3IiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=');
+@amrma-star__background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjYiIGhlaWdodD0iMjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEzIDEuMjM2bDIuMTkyIDYuNzQ3YTIgMiAwIDAgMCAxLjkwMiAxLjM4Mmg3LjA5NGwtNS43MzkgNC4xN2EyIDIgMCAwIDAtLjcyNyAyLjIzNmwyLjE5MyA2Ljc0Ni01Ljc0LTQuMTdhMiAyIDAgMCAwLTIuMzUgMGwtNS43NCA0LjE3IDIuMTkyLTYuNzQ2YTIgMiAwIDAgMC0uNzI2LTIuMjM3bC01Ljc0LTQuMTdoNy4wOTVhMiAyIDAgMCAwIDEuOTAyLTEuMzgxTDEzIDEuMjM2eiIgc3Ryb2tlPSIjRkZDMTA3IiBzdHJva2Utd2lkdGg9IjIiLz48L3N2Zz4=');
+@amrma-small-star__background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMTkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEwIDIuMjZsMi4wNDIgNC4xMzcuMjMzLjQ3Mi41Mi4wNzYgNC41NjcuNjYzLTMuMzA1IDMuMjIxLS4zNzYuMzY3LjA4OS41MTguNzggNC41NDgtNC4wODUtMi4xNDdMMTAgMTMuODdsLS40NjUuMjQ1LTQuMDg1IDIuMTQ3Ljc4LTQuNTQ4LjA5LS41MTgtLjM3Ny0uMzY3LTMuMzA1LTMuMjIgNC41NjctLjY2NC41Mi0uMDc2LjIzMy0uNDcyTDEwIDIuMjZ6IiBzdHJva2U9IiNGRkMwMDAiIHN0cm9rZS13aWR0aD0iMiIvPjwvc3ZnPg==');
+@amrma-star__active__background__small: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMTkiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEwIDBsMi45MzkgNS45NTUgNi41NzIuOTU1LTQuNzU2IDQuNjM1IDEuMTIzIDYuNTQ1TDEwIDE1bC01Ljg3OCAzLjA5IDEuMTIzLTYuNTQ1TC40ODkgNi45MWw2LjU3Mi0uOTU1TDEwIDB6IiBmaWxsPSIjRkZDMDAwIi8+PC9zdmc+');
+
+//
+//  Common
+//  --------------------------------------------
+& when (@media-common = true) {
+    .amrma-request-create {
+        .amrma-tab,
+        .amrma-radio {
+            display: none;
+        }
+    }
+
+    .amrma-col-chat .amrma-fieldset-wrapper-title {
+        padding: 20px 20px 0;
+    }
+
+    .amrma-col-tracking,
+    .amrma-note-container {
+        & {
+            width: 49%;
+            float: left;
+        }
+
+        .admin__control-textarea {
+            resize: none;
+        }
+    }
+
+    .amrma-col-details {
+        min-height: 260px;
+    }
+
+    .amrma-review-container {
+        margin-top: 25px;
+    }
+
+    .amrma-request-view {
+        .amrma-rma,
+        .amrma-bank,
+        .amrma-rating,
+        .amrma-information,
+        .amrma-details-info,
+        .amrma-customer-info,
+        .amrma-custom-fields,
+        .amrma-review-container,
+        .amrma-col-details .amrma-fieldset-wrapper-title {
+            display: none;
+        }
+
+        .amrma-rating:checked ~ .amrma-fieldset .amrma-review-container,
+        .amrma-bank:checked ~ .amrma-fieldset .amrma-custom-fields {
+            display: block;
+        }
+
+        .amrma-information:checked ~ .amrma-fieldset .amrma-customer-info,
+        .amrma-rma:checked ~ .amrma-fieldset .amrma-details-info {
+            display: flex;
+            padding: 0;
+            width: 100%;
+        }
+
+        .amrma-radio:checked + .amrma-tab {
+            border-bottom: 2px solid #007bdb;
+            color: #41362f;
+        }
+
+        .amrma-tab {
+            & {
+                display: inline-block;
+                padding: 20px 15px;
+                cursor: pointer;
+                color: #777;
+                font-weight: 600;
+                transition: color .3s;
+            }
+
+            &:hover {
+                color: #41362f;
+            }
+        }
+
+        .amrma-customer-data {
+            padding: 30px 0 10px;
+            width: 50%;
+        }
+
+        .amrma-customer-address {
+            margin: 0;
+            padding: 30px 0 10px 20px;
+            width: 50%;
+            border-left: 1px solid #ebeef5;
+        }
+
+        .amrma-customer-information {
+            display: flex;
+        }
+
+        .amrma-col-details.amrma-fieldset-wrapper {
+            padding: 0;
+        }
+
+        .amrma-col-tracking,
+        .amrma-col-details {
+            margin-bottom: 20px;
+        }
+
+        .amrma-col-status {
+            float: left;
+            margin-bottom: 20px;
+        }
+
+        .amrma-col-chat {
+            margin: 0 0 600px 0;
+            padding: 0;
+        }
+
+        .amrma-note-container {
+            padding: 0 20px;
+            width: 100%;
+            border-top: 1px solid @amrma-line__color;
+            border-radius: 0 0 10px 10px;
+        }
+    }
+
+    .amrma-request-view .amrma-fieldset-container {
+        & {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 0;
+            border-radius: 10px;
+            background: #fbfbfc;
+        }
+
+        .amrma-fieldset {
+            flex-basis: 100%;
+            margin: 0;
+            padding: 0 20px;
+            border-top: 1px solid #ebeef5;
+            border-radius: 0 0 10px 10px;
+            background: #fff;
+        }
+    }
+
+    .amrma-request-view .amrma-details-info {
+        & {
+            flex-direction: row;
+            width: auto;
+        }
+
+        .amrma-fieldset-wrapper-title {
+            display: none;
+        }
+
+        .amrma-details-container {
+            padding: 30px 0 0;
+            width: 50%;
+            border-right: 1px solid @amrma-line__color;
+        }
+
+        .amrma-admin__fieldset-wrapper-content {
+            padding: 25px 0 0 20px;
+            width: 50%;
+        }
+    }
+
+    .amrma-request-view .amrma-details-info .amrma-customer-link {
+        & {
+            padding: 20px 0;
+        }
+
+        .amrma-link {
+            box-sizing: border-box;
+            margin: 10px 0;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 1px;
+            background: #f5f5f5;
+        }
+    }
+
+    .amrma-request-view .amrma-custom-fields {
+        & {
+            padding:10px;
+        }
+
+        .amrma-field {
+            margin-bottom: 10px;
+        }
+    }
+
+    .amrma-shipping-label {
+        & {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding: 10px 0 20px;
+            width: 50%;
+            border-right: 1px solid @amrma-line__color;
+        }
+
+        &:after {
+            position: absolute;
+            bottom: 20px;
+            right: 0;
+            width: 130px;
+            height: 124px;
+            content: '';
+            background: @amrma-icon__upload-file;
+            background-repeat: no-repeat;
+        }
+
+        .amrma-btn {
+            padding: 6px 51px;
+            border-radius: 2px;
+            background: #828282;
+            color: #fff;
+        }
+
+        .admin__field-label {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .amrma-label {
+            font-size: 17px;
+        }
+    }
+
+    .file-uploader-area {
+        margin-top: 20px;
+    }
+
+    .amrma-note-container .amrma-admin__fieldset {
+        display: flex;
+    }
+
+    .amrma-note-container .amrma-note-block {
+        & {
+            margin: 0;
+            padding: 10px 0 20px 20px;
+            width: 50%;
+        }
+
+        .admin__field-label {
+            margin-bottom: 15px;
+            font-size: 17px;
+            text-align: left;
+        }
+    }
+
+    .amrma-col-tracking .amrma-tracking-information {
+        padding: 20px;
+    }
+
+    .amrma-col-tracking .amrma-fieldset-wrapper-title {
+        display: none;
+    }
+
+    .amrma-col-tracking {
+        padding: 0;
+    }
+
+    .amrma-rated-container {
+        margin-bottom: 10px;
+    }
+
+    .amrma-rated-rating {
+        & {
+            margin: 10px 0;
+            width: 130px;
+            height: 24px;
+            background: @amrma-star__background;
+        }
+
+        .amrma-star {
+            & {
+                display: inline-block;
+                height: 24px;
+                background: @amrma-star__active__background;
+            }
+
+            @amreview-stars: 5;
+
+            .override-stars (@i) when (@i > 0) {
+                &.amrma-star-@{i} {
+                    width: @i*26px;
+                }
+                .override-stars(@i - 1);
+            }
+
+            .override-stars (@amreview-stars);
+        }
+    }
+
+    .amrma-rated-rating.-admin {
+        & {
+            position: relative;
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            width: 100px;
+            height: 18px;
+            background: @amrma-small-star__background;
+            background-repeat-y: no-repeat;
+            background-position-y: bottom;
+        }
+
+        .amrma-star {
+            & {
+                height: 18px;
+                background: @amrma-star__active__background__small;
+            }
+
+            @amreview-stars: 5;
+
+            .override-stars (@i) when (@i > 0) {
+                &.amrma-star-@{i} {
+                    width: @i*20px;
+                }
+                .override-stars(@i - 1);
+            }
+
+            .override-stars (@amreview-stars);
+        }
+    }
+}
+
+//
+//  Desktop +
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+    .amrma-request-view .amrma-tab {
+        padding: 20px 32px;
+    }
+}

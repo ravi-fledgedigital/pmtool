@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="SelectedAmountIsShownWhenMerchantEditsGiftCardFromShoppingCartTest">
+        <annotations>
+            <stories value="GiftCard"/>
+            <title value="Selected amount is shown when Merchant edits Gift Card from Shopping Cart"/>
+            <description value="Selected amount is shown when Merchant edits Gift Card from Shopping Cart"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="AC-5353"/>
+            <group value="GiftCard"/>
+        </annotations>
+
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="logIn"/>
+        </before>
+
+        <after>
+            <deleteData createDataKey="createGiftCardWithOpenAmount" stepKey="deleteCreatedGiftCard"/>
+            <deleteData createDataKey="createPreReqCategory" stepKey="deleteCategory"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logOut"/>
+        </after>
+
+        <createData entity="_defaultCategory" stepKey="createPreReqCategory"/>
+        <createData entity="VirtualGiftCardOpenAmount10_20" stepKey="createGiftCardWithOpenAmount">
+            <requiredEntity createDataKey="createPreReqCategory"/>
+        </createData>
+
+        <!-- Go to the storefront and verify the gift card -->
+        <amOnPage url="{{StorefrontProductPage.url($$createGiftCardWithOpenAmount.custom_attributes[url_key]$$)}}" stepKey="goToGiftCardDetailProductPageOnStorefront"/>
+        <waitForPageLoad stepKey="wait2"/>
+        <fillField selector="{{StorefrontProductInfoMainSection.customGiftcardAmount}}" userInput="15" stepKey="fillAmountField"/>
+        <fillField selector="{{StorefrontProductInfoMainSection.giftCardSenderName}}" userInput="John Doe" stepKey="fillSenderNameField"/>
+        <fillField selector="{{StorefrontProductInfoMainSection.giftCardSenderEmail}}" userInput="john.doe@example.com" stepKey="fillSenderEmailField"/>
+        <fillField selector="{{StorefrontProductInfoMainSection.giftCardRecipientName}}" userInput="Jan Jansen" stepKey="fillRecipientNameField"/>
+        <fillField selector="{{StorefrontProductInfoMainSection.giftCardRecipientEmail}}" userInput="jan.jansen@example.com" stepKey="fillRecipientEmailField"/>
+
+        <click selector="{{StorefrontProductActionSection.addToCart}}" stepKey="clickOnAddToCart1"/>
+        <waitForPageLoad stepKey="waitForPageLoad9"/>
+        <waitForElementVisible selector="{{StorefrontMessagesSection.success}}" stepKey="waitForSuccessMessage"/>
+
+        <scrollTo selector="{{StorefrontMinicartSection.showCart}}" stepKey="scrollToMiniCart"/>
+        <conditionalClick selector="{{StorefrontMinicartSection.showCart}}" dependentSelector="{{StorefrontMinicartSection.miniCartOpened}}" visible="false" stepKey="openMiniCart"/>
+        <waitForElementVisible selector="{{StorefrontMinicartSection.viewAndEditCart}}" stepKey="waitForViewAndEditCartVisible"/>
+        <click selector="{{StorefrontMinicartSection.viewAndEditCart}}" stepKey="viewAndEditCart"/>
+        <waitForPageLoad stepKey="waitForPageToLoad"/>
+
+        <see selector="{{CheckoutCartProductSection.checkoutCartProductPrice}}" userInput="$15.00" stepKey="assertPrice"/>
+        <click stepKey="clickEdit" selector="{{CheckoutCartProductSection.nthEditButton('1')}}"/>
+        <waitForPageLoad stepKey="waitForStorefront2"/>
+        <scrollTo selector="{{StorefrontCustomerOrderBySkuSection.senderName}}" stepKey="scrollToSenderName"/>
+        <grabValueFrom selector="{{StorefrontCustomerOrderBySkuSection.senderName}}" stepKey="grabSenderName"/>
+        <grabValueFrom selector="{{StorefrontProductInfoMainSection.giftCardSenderEmail}}" stepKey="grabSenderEmail"/>
+        <grabValueFrom selector="{{StorefrontProductInfoMainSection.giftCardRecipientName}}" stepKey="grabRecipientName"/>
+        <grabValueFrom selector="{{StorefrontProductInfoMainSection.giftCardRecipientEmail}}" stepKey="grabRecipientEmail"/>
+        <assertStringContainsString stepKey="assertSenderName">
+            <actualResult type="string">$grabSenderName</actualResult>
+            <expectedResult type="string">John Doe</expectedResult>
+        </assertStringContainsString>
+        <assertStringContainsString stepKey="assertSenderEmail">
+            <actualResult type="string">$grabSenderEmail</actualResult>
+            <expectedResult type="string">john.doe@example.com</expectedResult>
+        </assertStringContainsString>
+        <assertStringContainsString stepKey="assertRecipientName">
+            <actualResult type="string">$grabRecipientName</actualResult>
+            <expectedResult type="string">Jan Jansen</expectedResult>
+        </assertStringContainsString>
+        <assertStringContainsString stepKey="assertRecipientEmail">
+            <actualResult type="string">$grabRecipientEmail</actualResult>
+            <expectedResult type="string">jan.jansen@example.com</expectedResult>
+        </assertStringContainsString>
+    </test>
+</tests>

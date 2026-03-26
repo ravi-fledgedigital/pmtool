@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/************************************************************************
+ *
+ * ADOBE CONFIDENTIAL
+ * ___________________
+ *
+ * Copyright 2023 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ * ************************************************************************
+ */
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="config">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="method" type="methodDeclaration" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="uniqueMethodName">
+            <xs:annotation>
+                <xs:documentation>
+                    Combination of method name and type must be unique.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:selector xpath="method" />
+            <xs:field xpath="@name" />
+            <xs:field xpath="@type" />
+        </xs:unique>
+    </xs:element>
+
+    <xs:complexType name="methodDeclaration">
+        <xs:annotation>
+            <xs:documentation>
+                Method declaration.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="hooks" type="hooksType" minOccurs="1" maxOccurs="1">
+                <xs:unique name="uniqueBatchName">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Batch name must be unique within a method
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:selector xpath="batch" />
+                    <xs:field xpath="@name" />
+                </xs:unique>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="name" type="methodName" use="required" />
+        <xs:attribute name="type" type="methodType" use="required" />
+    </xs:complexType>
+
+    <xs:complexType name="hooksType">
+        <xs:sequence>
+            <xs:element name="batch" type="batchType" minOccurs="1" maxOccurs="unbounded">
+                <xs:unique name="uniqueHookName">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Hook name must be unique within a batch
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:selector xpath="hook" />
+                    <xs:field xpath="@name" />
+                </xs:unique>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="batchType">
+        <xs:sequence>
+            <xs:element name="hook" type="hookType" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="name" type="batchName" use="required" />
+        <xs:attribute name="order" type="batchOrder" use="optional" />
+    </xs:complexType>
+    <xs:simpleType name="batchName">
+        <xs:annotation>
+            <xs:documentation>
+                Batch name can contain only [a-zA-Z0-9_].
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-zA-Z0-9_]+" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="batchOrder">
+        <xs:annotation>
+            <xs:documentation>
+                Webhook batch order.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:integer" />
+    </xs:simpleType>
+
+    <xs:complexType name="hookType">
+        <xs:annotation>
+            <xs:documentation>
+                Hook declaration.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="developerConsoleOauth" type="developerConsoleOauthType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="headers" type="headersType" minOccurs="0" maxOccurs="1" />
+            <xs:element name="fields" type="fieldsType" minOccurs="0" maxOccurs="1">
+                <xs:unique name="uniqueFieldName">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Individual field names must be unique within a fields element.
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:selector xpath="field" />
+                    <xs:field xpath="@name" />
+                </xs:unique>
+            </xs:element>
+            <xs:element name="rules" type="rulesType" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+        <xs:attribute name="name" type="hookName" use="required" />
+        <xs:attribute name="url" type="hookUrl" use="required" />
+        <xs:attribute name="priority" type="hookPriority" use="optional" />
+        <xs:attribute name="required" type="hookRequired" use="optional" />
+        <xs:attribute name="softTimeout" type="hookSoftTimeout" use="optional" />
+        <xs:attribute name="timeout" type="hookTimeout" use="optional" />
+        <xs:attribute name="method" type="hookMethod" use="optional" />
+        <xs:attribute name="remove" type="hookRemove" use="optional" />
+        <xs:attribute name="fallbackErrorMessage" type="hookFallbackErrorMessage" use="optional" />
+        <xs:attribute name="ttl" type="hookTtl" use="optional" />
+        <xs:attribute name="sslVerification" type="sslVerification" use="optional" />
+        <xs:attribute name="sslCertificatePath" type="sslCertificatePath" use="optional" />
+    </xs:complexType>
+
+    <xs:complexType name="developerConsoleOauthType">
+        <xs:sequence>
+            <xs:element name="clientId" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="clientSecret" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="orgId" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="rulesType">
+        <xs:sequence>
+            <xs:element name="rule" type="ruleType" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ruleType">
+        <xs:annotation>
+            <xs:documentation>
+                Rule declaration.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="field" type="xs:string" use="required" />
+                <xs:attribute name="operator" type="xs:string" use="required" />
+                <xs:attribute name="value" type="xs:string" use="optional" />
+                <xs:attribute name="remove" type="xs:boolean" use="optional" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="fieldsType">
+        <xs:sequence>
+            <xs:element name="field" type="fieldType" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="fieldType">
+        <xs:annotation>
+            <xs:documentation>
+                Webhook field declaration.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="name" type="fieldName" use="required" />
+                <xs:attribute name="source" type="fieldSource" use="optional" />
+                <xs:attribute name="converter" type="fieldConverter" use="optional" />
+                <xs:attribute name="remove" type="fieldRemove" use="optional" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="fieldName">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+    <xs:simpleType name="fieldSource">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+    <xs:simpleType name="fieldConverter">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+    <xs:simpleType name="fieldRemove">
+        <xs:restriction base="xs:boolean"/>
+    </xs:simpleType>
+
+    <xs:complexType name="headersType">
+        <xs:sequence>
+            <xs:element name="header" type="headerType" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="headerType">
+        <xs:annotation>
+            <xs:documentation>
+                Webhook header declaration.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="name" type="headerName" use="optional" />
+                <xs:attribute name="resolver" type="headerResolver" use="optional" />
+                <xs:attribute name="remove" type="headerRemove" use="optional" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:simpleType name="headerName">
+        <xs:annotation>
+            <xs:documentation>
+                Webhook header name can contain only [a-zA-Z0-9_-.].
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-zA-Z0-9_\-\.]+" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="headerResolver">
+        <xs:annotation>
+            <xs:documentation>
+                Webhook header resolver can contain only [a-zA-Z0-9_\].
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-zA-Z0-9_\\]+" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="headerRemove">
+        <xs:restriction base="xs:boolean"/>
+    </xs:simpleType>
+    <xs:simpleType name="methodName">
+        <xs:annotation>
+            <xs:documentation>
+                Method name can contain only [a-zA-Z0-9_.].
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-zA-Z0-9_\.]+" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="methodType">
+        <xs:annotation>
+            <xs:documentation>
+                Method type can be one of before, around or after.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="before" />
+            <xs:enumeration value="around" />
+            <xs:enumeration value="after" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="hookName">
+        <xs:annotation>
+            <xs:documentation>
+                Hook name can contain only [a-zA-Z0-9_].
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-zA-Z0-9_]+" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="hookFallbackErrorMessage">
+        <xs:annotation>
+            <xs:documentation>
+                Fallback error message used to display in UI in case of failed hook execution
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string" />
+    </xs:simpleType>
+    <xs:simpleType name="hookUrl">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+    <xs:simpleType name="hookPriority">
+        <xs:restriction base="xs:integer"/>
+    </xs:simpleType>
+    <xs:simpleType name="hookRequired">
+        <xs:restriction base="xs:boolean"/>
+    </xs:simpleType>
+    <xs:simpleType name="hookSoftTimeout">
+        <xs:annotation>
+            <xs:documentation>
+                A soft timeout limit (in milliseconds) for a hook's request. Requests exceeding this limit will be logged.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:integer"/>
+    </xs:simpleType>
+    <xs:simpleType name="hookTimeout">
+        <xs:annotation>
+            <xs:documentation>
+                A hard timeout limit (in milliseconds) for a hook's request. Requests exceeding this limit will be aborted.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:integer"/>
+    </xs:simpleType>
+    <xs:simpleType name="hookMethod">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+    <xs:simpleType name="hookRemove">
+        <xs:restriction base="xs:boolean"/>
+    </xs:simpleType>
+    <xs:simpleType name="hookTtl">
+        <xs:annotation>
+            <xs:documentation>
+                A cache ttl (in seconds) for hook requests with the same url, body, and headers.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+    <xs:simpleType name="sslVerification">
+        <xs:annotation>
+            <xs:documentation>
+                A flag to enable or disable SSL verification. Enabled by default.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:boolean"/>
+    </xs:simpleType>
+    <xs:simpleType name="sslCertificatePath">
+        <xs:annotation>
+            <xs:documentation>
+                A path to a custom SSL certificate file to use for SSL verification.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+</xs:schema>

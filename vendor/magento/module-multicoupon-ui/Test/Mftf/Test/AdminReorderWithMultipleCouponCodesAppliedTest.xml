@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminReorderWithMultipleCouponCodesAppliedTest">
+        <annotations>
+            <stories value="Reorder with multiple coupon codes"/>
+            <title value="Reorder with multiple fixed-amount discount coupon codes applied to verify that reorder maintains the multiple coupon codes"/>
+            <description value="Reorder with multiple fixed-amount discount coupon codes applied to verify that reorder maintains the multiple coupon codes"/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="LYNX-369"/>
+        </annotations>
+        <before>
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+            <createData entity="FlatRateShippingMethodDefault" stepKey="setDefaultFlatRateShippingMethod"/>
+            <createData entity="ApiCategory" stepKey="category"/>
+            <createData entity="SimpleProduct2" stepKey="createSimpleProduct">
+                <field key="price">80</field>
+            </createData>
+            <createData entity="Simple_US_Customer" stepKey="createCustomer"/>
+            <createData entity="SalesRuleSpecificCouponWithFixedAmountDiscount" stepKey="createCartPriceRule"/>
+            <createData entity="SimpleSalesRuleCoupon" stepKey="createCouponForCartPriceRule">
+                <requiredEntity createDataKey="createCartPriceRule"/>
+            </createData>
+            <createData entity="SalesRuleSpecificCouponWithFixedAmountDiscount" stepKey="createCartPriceRule2"/>
+            <createData entity="SimpleSalesRuleCoupon" stepKey="createCouponForCartPriceRule2">
+                <requiredEntity createDataKey="createCartPriceRule2"/>
+            </createData>
+            <magentoCLI command="config:set sales/multicoupon/maximum_number_of_coupons_per_order 2" stepKey="EnablingMulticoupon"/>
+        </before>
+        <after>
+            <magentoCLI command="config:set sales/multicoupon/maximum_number_of_coupons_per_order 1" stepKey="DisablingMulticoupon"/>
+            <deleteData createDataKey="createSimpleProduct" stepKey="deleteSimpleProduct"/>
+            <deleteData createDataKey="createCartPriceRule" stepKey="deleteCartPriceRule"/>
+            <deleteData createDataKey="createCartPriceRule2" stepKey="deleteCartPriceRule2"/>
+            <deleteData createDataKey="category" stepKey="deleteCategory"/>
+            <deleteData createDataKey="createCustomer" stepKey="deleteCustomer"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="adminLogout"/>
+        </after>
+
+        <!-- Create order for registered customer -->
+        <actionGroup ref="AdminNavigateToNewOrderPageExistingCustomerActionGroup" stepKey="goToCreateOrderPage">
+            <argument name="customer" value="$$createCustomer$$"/>
+        </actionGroup>
+
+        <!-- Add Simple product to order -->
+        <actionGroup ref="AddSimpleProductToOrderActionGroup" stepKey="addSimpleProductToTheOrder">
+            <argument name="product" value="$$createSimpleProduct$$"/>
+        </actionGroup>
+
+        <!-- Apply coupon codes to the order -->
+        <actionGroup ref="AdminApplyCouponToOrderActionGroup" stepKey="applyCoupon">
+            <argument name="couponCode" value="$$createCouponForCartPriceRule.code$$"/>
+        </actionGroup>
+        <actionGroup ref="AdminApplyCouponToOrderActionGroup" stepKey="applyCoupon2">
+            <argument name="couponCode" value="$$createCouponForCartPriceRule2.code$$"/>
+        </actionGroup>
+
+        <!-- Select FlatRate shipping method and submit the order -->
+        <actionGroup ref="AdminSelectFlatRateShippingMethodActionGroup" stepKey="selectFlatRateShippingMethod"/>
+        <actionGroup ref="AdminOrderClickSubmitOrderActionGroup" stepKey="submitOrder" />
+
+        <!-- Verify order information -->
+        <actionGroup ref="VerifyCreatedOrderInformationActionGroup" stepKey="verifyCreatedOrderInformation"/>
+        <grabTextFrom selector="|Order # (\d+)|" stepKey="orderNumber"/>
+        <grabFromCurrentUrl regex="~/order_id/(\d+)/~" stepKey="orderId"/>
+
+        <!-- Verify the discounts were applied -->
+        <see selector="{{AdminOrderTotalSection.discount}}" userInput="-$20.00" stepKey="seeDiscountAmount"/>
+
+        <!-- Reorder created order -->
+        <actionGroup ref="AdminStartReorderFromOrderPageActionGroup" stepKey="startReorder"/>
+
+        <!-- See coupon codes are applied -->
+        <see selector="{{AdminOrderFormItemsSection.couponCodeApplied($$createCouponForCartPriceRule.code$$)}}" userInput="$$createCouponForCartPriceRule.code$$" stepKey="seeCouponApplied"/>
+        <see selector="{{AdminOrderFormItemsSection.couponCodeApplied($$createCouponForCartPriceRule2.code$$)}}" userInput="$$createCouponForCartPriceRule2.code$$" stepKey="seeCoupon2Applied"/>
+
+        <!-- Submit the order -->
+        <actionGroup ref="AdminSubmitOrderActionGroup" stepKey="submitOrderReordered"/>
+
+        <!-- Verify the discounts were applied in the reorder -->
+        <see selector="{{AdminOrderTotalSection.discount}}" userInput="-$20.00" stepKey="seeDiscountAmountReorder"/>
+    </test>
+</tests>

@@ -1,0 +1,30 @@
+<?php
+/**
+ * Copyright 2020 Adobe
+ * All Rights Reserved.
+ */
+
+/** @var \Magento\ProductRecommendationsAdmin\Block\Adminhtml\Index $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+
+<div
+    data-api-key="<?= $escaper->escapeHtmlAttr($block->getApiKey()); ?>"
+    data-is-api-key-set="<?= $escaper->escapeHtmlAttr(json_encode($block->isApiKeySet())); ?>"
+    data-environment-id="<?= $escaper->escapeHtmlAttr($block->getEnvironmentId()); ?>"
+    data-environment-name="<?= $escaper->escapeHtmlAttr($block->getEnvironmentName()); ?>"
+    data-environment-type="<?= $escaper->escapeHtmlAttr($block->getEnvironmentType()); ?>"
+    data-alternate-environment="<?= $escaper->escapeHtmlAttr($block->getAlternateEnvironmentId()); ?>"
+    data-is-alternate-environment-enabled="<?= $escaper->escapeHtmlAttr(json_encode($block->isAlternateEnvironmentEnabled())); ?>"
+    data-store-view-code="<?= $escaper->escapeHtmlAttr($block->getStoreViewCode()); ?>"
+    data-website-code="<?= $escaper->escapeHtmlAttr($block->getWebsiteCode()); ?>"
+    data-magento-middleware-url="<?= $escaper->escapeUrl($block->getUrl('product_recommendations/index/middleware')); ?>"
+    data-magento-preview-url="<?= $escaper->escapeUrl($block->getUrl('product_recommendations/index/preview')); ?>"
+    data-config-page-url="<?= $escaper->escapeUrl($block->getUrl('services_id/index/index')); ?>"
+    data-store-currency-code="<?= $escaper->escapeHtmlAttr($block->getCurrentCurrencyCode()); ?>"
+    data-prex-version="<?= $escaper->escapeHtmlAttr($block->getModuleVersion()); ?>"
+    data-is-ims-enabled="<?= $escaper->escapeHtmlAttr(json_encode($block->isImsEnabled())); ?>"
+    id="root"
+></div>
+
+<script src="<?= $escaper->escapeUrl($block->getFrontendUrl()) ?>"></script>

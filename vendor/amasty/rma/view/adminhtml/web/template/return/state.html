@@ -1,0 +1,60 @@
+<!-- ko if: $data.is_returnable -->
+<td class="amrma-cell amrma-reason-control">
+    <select class="admin__control-select amrma-select"
+            data-bind="options: $parents[1].reasons,
+                optionsText: function (item) {
+                    return item.label;
+                },
+                optionsValue: function (item) {
+                    return item.value;
+                },
+                value: $data.reason_id,
+                attr: {disabled: $data.is_expired ? 'disabled' : false}">
+    </select>
+</td>
+<td class="amrma-cell amrma-reason-control">
+    <select class="admin__control-select amrma-select"
+            data-bind="options: $parents[1].conditions,
+                optionsText: function (item) {
+                    return item.label;
+                },
+                optionsValue: function (item) {
+                    return item.value;
+                },
+                value: $data.condition_id,
+                attr: {disabled: $data.is_expired ? 'disabled' : false}">
+    </select>
+</td>
+<td class="amrma-cell amrma-reason-control">
+    <select class="admin__control-select amrma-select"
+            data-bind="options: $parents[1].resolutions,
+                optionsText: function (item) {
+                    return item.label;
+                },
+                optionsValue: function (item) {
+                    return item.value;
+                },
+                value: $data.resolution_id,
+                attr: {disabled: $data.is_expired ? 'disabled' : false}">
+    </select>
+</td>
+<td class="amrma-cell">
+    <span data-bind="text: $parent.whoPays($data.reason_id())"></span>
+</td>
+<!-- /ko -->
+
+<!-- ko ifnot: $data.is_returnable -->
+<td colspan="4" class="amrma-cell amrma-reason-control">
+    <p class="amrma-expired">
+        <!-- ko if: $data.no_returnable_reason == 3 -->
+            <span data-bind="text: 'This product wasn\'t shipped.'"></span>
+        <!-- /ko -->
+        <!-- ko if: $data.no_returnable_reason != 3 -->
+            <span data-bind="text: 'This product is already returned. Existing Return(s):'"></span>
+            <!-- ko foreach: $data.previous_requests -->
+            <a data-bind="attr: {href: $data.url}, text: $data.label" target="_blank"></a>
+            <!-- /ko -->
+        <!-- /ko -->
+    </p>
+</td>
+<!-- /ko -->

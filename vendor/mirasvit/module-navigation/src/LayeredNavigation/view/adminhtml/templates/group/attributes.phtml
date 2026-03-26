@@ -1,0 +1,71 @@
+<?php
+declare(strict_types=1);
+
+/** @var \Mirasvit\LayeredNavigation\Block\Adminhtml\Group\Attributes $block */
+
+?>
+<fieldset class="admin__fieldset fieldset fieldset__groups">
+    <div class="admin__field attribute_code required">
+        <div class="admin__field-label">
+            <label class="label" for="attribute_code"><span><?php echo $block->escapeHtml(__('Attribute')) ?></span></label>
+        </div>
+        <div class="admin__field-control">
+            <select
+                name="attribute_code"
+                id="attribute_code"
+                title="<?php echo $block->escapeHtmlAttr(__('Option Name')) ?>"
+                class="admin__control-select"
+                data-validate="{required:true}"
+                data-form-part="layered_navigation_group_form"
+            >
+                <option value="0">Select Attribute</option>
+                <?php foreach ($block->getAttributes() as $attribute): ?>
+                    <option
+                        value="<?= $block->escapeHtmlAttr($attribute['value']) ?>"
+                        <?= $block->getCurrentAttributeCode() == $attribute['value'] ? 'selected' : '' ?>
+                    ><?= $block->escapeHtml($attribute['label']) ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+    </div>
+    <div class="admin__field frame_option required" id="attribute_options" <?= $block->getCurrentAttributeCode() ? '' : 'hidden' ?>>
+        <div class="admin__field-label">
+            <label class="label" for="frame_option">
+                <span><?php echo $block->escapeHtml(__('Options')) ?></span>
+            </label>
+        </div>
+        <div class="admin__field-control" id="frame_option">
+
+        </div>
+    </div>
+</fieldset>
+
+<script>
+    jQuery(document).ready(updateOptions);
+
+    jQuery(document).on('change', '#attribute_code', updateOptions);
+
+    function updateOptions() {
+        var currGroup = <?= /* @noEscape */ $block->getCurrentGroup() ? $block->getCurrentGroup()->getId() : 0 ?>;
+        var param = 'code=' + jQuery('#attribute_code').val() + '&group_id=' + currGroup;
+
+        jQuery.ajax({
+            showLoader: false,
+            url: '<?= /* @noEscape */ $block->getOptionsUpdateUrl() ?>',
+            data: param,
+            type: "GET",
+            dataType: 'json'
+        }).done(function (data) {
+            jQuery('#frame_option').empty();
+
+            if (!data.value) {
+                jQuery('#attribute_options').hide();
+            } else {
+                jQuery('#attribute_options').show();
+                jQuery('#frame_option').append(data.value);
+            }
+        });
+    }
+</script>
+
+

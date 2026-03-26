@@ -1,0 +1,103 @@
+//
+// Compatibility with Amasty Jet Theme
+// ______________________________________________
+
+//
+//  Variables
+//  --------------------------------------------
+
+@icon-star-empty: '\e625';
+
+//
+//  Common
+//  ----------------------------------------------
+
+& when (@media-common = true) {
+    .amasty-jet-theme {
+        .amrma-checkbox-container {
+            .amrma-label:before,
+            .amrma-label:after,
+            .amrma-label-container:after,
+            .amrma-label-container:before,
+            .amrma-instructions-title:after,
+            .amrma-instructions-title:before {
+                content: none;
+            }
+
+            .amrma-label {
+                padding: 0;
+                min-height: 13px;
+            }
+        }
+
+        .amrma-return-instructions {
+            .amrma-instructions-title:after,
+            .amrma-instructions-title:before {
+                content: none;
+            }
+        }
+
+        .amrma-rating-block .amrma-stars-block .amrma-star {
+            &:after {
+                margin: 0;
+                border-radius: 0;
+                content: none;
+                font-size: 0;
+            }
+
+            &:before {
+                margin: 0;
+                height: 24px;
+                border: none;
+                border-radius: 0;
+                font-size: 0;
+            }
+        }
+
+        .table-wrapper .table:not(.cart):not(.totals):not(.table-comparison) > tbody > tr td[data-th]:before,
+        .table-wrapper .table:not(.cart):not(.totals):not(.table-comparison) > tbody > tr th[data-th]:before {
+            width: 40%;
+        }
+
+        .amrma-items-table .amrma-row {
+            position: relative;
+        }
+
+        .review-control-vote .amrma-star {
+            position: absolute;
+            display: block;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .amrma-rating-block .review-control-vote {
+            & {
+                .lib-rating-vote();
+            }
+
+            &:before {
+                height: 24px;
+                font-size: 0;
+            }
+        }
+    }
+
+    .amrma-status-container .amrma-step:after {
+        font-size: 1.4rem;
+    }
+
+    .amrma-return-instructions .amrma-instructions-title {
+        & {
+            display: flex;
+            padding-left: 0;
+        }
+
+        .amrma-title {
+            margin-top: 0;
+        }
+    }
+
+    .amrma-return-number .amrma-status {
+        padding: 2px 10px 1px;
+    }
+}

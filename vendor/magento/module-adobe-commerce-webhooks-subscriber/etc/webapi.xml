@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * ADOBE CONFIDENTIAL
+ *
+ * Copyright 2025 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/webhooks/subscribe" method="POST">
+        <service class="Magento\AdobeCommerceWebhooksSubscriber\Api\WebhookSubscriberInterface" method="subscribe" />
+        <resources>
+            <resource ref="Magento_AdobeCommerceWebhooksSubscriber::webhooks_subscribe" />
+        </resources>
+    </route>
+    <route url="/V1/webhooks/unsubscribe" method="POST">
+        <service class="Magento\AdobeCommerceWebhooksSubscriber\Api\WebhookSubscriberInterface" method="unsubscribe" />
+        <resources>
+            <resource ref="Magento_AdobeCommerceWebhooksSubscriber::webhooks_unsubscribe" />
+        </resources>
+    </route>
+</routes>

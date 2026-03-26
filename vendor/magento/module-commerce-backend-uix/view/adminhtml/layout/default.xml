@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * ADOBE CONFIDENTIAL
+ *
+ * Copyright 2023 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.menu">
+            <block
+                class="Magento\Framework\View\Element\Text"
+                name="adminuisdk.placeholder"
+                ifconfig="admin_ui_sdk/general_config/enable_admin_ui_sdk"
+                aclResource="Magento_CommerceBackendUix::admin"
+            >
+                <action method="setText">
+                    <argument name="text" xsi:type="string">
+                        <![CDATA[
+                            <nav id="uix-menu-placeholder"
+                                class="admin__menu"
+                            />
+                        ]]>
+                    </argument>
+                </action>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="js">
+            <block
+                name="uix-js"
+                class="Magento\Backend\Block\Template"
+                ifconfig="admin_ui_sdk/general_config/enable_admin_ui_sdk"
+                template="Magento_CommerceBackendUix::js.phtml"
+                after="-"
+                aclResource="Magento_CommerceBackendUix::admin"
+            >
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Magento\CommerceBackendUix\ViewModel\Config</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

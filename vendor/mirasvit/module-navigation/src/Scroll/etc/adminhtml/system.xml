@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="mst_scroll" showInDefault="1" showInWebsite="1" showInStore="1" type="text" translate="label" sortOrder="443">
+            <label>Ajax Pagination/Infinite Scroll</label>
+            <tab>mirasvit</tab>
+            <resource>Mirasvit_Scroll::mst_scroll</resource>
+
+            <group id="general" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10" translate="label comment">
+                <label>Ajax Pagination Settings</label>
+                <fieldset_css>mst_nav_group_config</fieldset_css>
+                <comment><![CDATA[Allows to configure how products are loaded on the page.]]></comment>
+                <group id="pagination_mode" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20" translate="label">
+                    <label>Pagination Mode</label>
+                    <fieldset_css>mst_nav_sub_group_config</fieldset_css>
+                    <field id="mode" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10" canRestore="1">
+                        <label>Select Pagination Style</label>
+                        <source_model>Mirasvit\Scroll\Model\Config\Source\ModeSource</source_model>
+                        <config_path>mst_scroll/general/mode</config_path>
+                        <comment><![CDATA[Choose how additional products are loaded on the page: automatically with Infinite Scroll or manually with a "Load More" button.]]></comment>
+                    </field>
+
+                    <field id="page_limit" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="35">
+                        <label>Pages limit for the first pagination mode type</label>
+                        <depends>
+                            <field id="mode" separator="|">infinite_button|button_infinite</field>
+                        </depends>
+                        <validate>validate-not-negative-number</validate>
+                        <config_path>mst_scroll/general/page_limit</config_path>
+                        <comment>
+                            The number of loaded pages after which the pagination mode will be changed.
+                            &lt;/br&gt;This number doesn't include the initial page.
+                            &lt;/br&gt;For example, if limit is set to 2 then the pagination mode will be changed after 3 pages will be displayed.
+                        </comment>
+                    </field>
+                </group>
+                
+                <group id="button_labels" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20" translate="label">
+                    <label>Button Labels and Text</label>
+                    <fieldset_css>mst_nav_sub_group_config</fieldset_css>
+                    <field id="prev_text" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20" canRestore="1">
+                        <label>Label for "Load Previous Page" Button</label>
+                        <comment><![CDATA[Custom text for the button that loads the previous set of products in pagination.]]></comment>
+                        <config_path>mst_scroll/general/prev_text</config_path>
+                        <depends>
+                            <field id="mode" separator="|">button|infinite_button|button_infinite</field>
+                        </depends>
+                    </field>
+
+                    <field id="next_text" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30" canRestore="1">
+                        <label>Label for "Load Next Page" Button</label>
+                        <comment><![CDATA[Custom text for the button that loads the next set of products in pagination. You can use %limit% as a placeholder for the number of items.]]></comment>
+                        <config_path>mst_scroll/general/next_text</config_path>
+                        <depends>
+                            <field id="mode" separator="|">button|infinite_button|button_infinite</field>
+                        </depends>
+                    </field>
+                </group>
+
+                <group id="product_list_selector" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20" translate="label">
+                    <label>Product List Selector</label>
+                    <fieldset_css>mst_nav_sub_group_config</fieldset_css>
+                    <field id="product_list_selector" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="40" canRestore="1">
+                        <label>CSS Selectors for Product List</label>
+                        <comment><![CDATA[Specify CSS selectors for identifying the product list in various layouts. Separate multiple selectors with commas.]]></comment>
+                        <config_path>mst_scroll/general/product_list_selector</config_path>
+                        <depends>
+                            <field id="mode" separator="|">infinite|button|infinite_button|button_infinite</field>
+                        </depends>
+                    </field>
+                </group>
+
+                <group id="progress_bar" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20" translate="label">
+                    <label>Progress Bar Display</label>
+                    <fieldset_css>mst_nav_sub_group_config</fieldset_css>
+                    <field id="progress_bar_enabled" translate="label comment" type="select" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="50" canRestore="1">
+                        <label>Show Progress Bar During Loading</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment><![CDATA[Enable a progress bar to indicate that more products are being loaded.]]></comment>
+                        <config_path>mst_scroll/general/progress_bar_enabled</config_path>
+                        <depends>
+                            <field id="mode" separator="|">infinite|button|infinite_button|button_infinite</field>
+                        </depends>
+                    </field>
+
+                    <field id="progress_bar_label" translate="label" type="text" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="55" canRestore="1">
+                        <label>Progress Bar Label</label>
+                        <config_path>mst_scroll/general/progress_bar_label</config_path>
+                        <depends>
+                            <field id="mode" separator="|">infinite|button|infinite_button|button_infinite</field>
+                            <field id="progress_bar_enabled">1</field>
+                        </depends>
+                    </field>
+                </group>
+                
+            </group>
+        </section>
+    </system>
+</config>

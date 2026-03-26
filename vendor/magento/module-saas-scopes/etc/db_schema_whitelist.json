@@ -1,0 +1,12 @@
+{
+    "scopes_website_data_submitted_hash": {
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "scopes_customergroup_data_submitted_hash": {
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

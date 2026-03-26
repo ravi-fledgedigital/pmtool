@@ -1,0 +1,38 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+declare(strict_types=1);
+
+namespace Magento\CloudDocker\Test\Functional\Acceptance;
+
+use CliTester;
+use Robo\Exception\TaskException;
+
+/**
+ * Generic developer mode tests to validate configuration and
+ * functionality within the Magento Cloud Docker environment.
+ */
+class DeveloperCest extends AbstractCest
+{
+    /**
+     * Tests that php settings contains configuration from php.dev.ini
+     *
+     * @param CliTester $I
+     * @return void
+     * @throws TaskException
+     */
+    public function testDevPhpIni(CliTester $I): void
+    {
+        $I->generateDockerCompose('--mode=developer');
+        $I->replaceImagesWithCustom();
+        $I->startEnvironment();
+
+        $I->runDockerComposeCommand('run deploy php -i | grep opcache.validate_timestamps');
+        $I->seeInOutput('=> On');
+
+        $I->runDockerComposeCommand('run fpm php -i | grep opcache.validate_timestamps');
+        $I->seeInOutput('=> On');
+    }
+}

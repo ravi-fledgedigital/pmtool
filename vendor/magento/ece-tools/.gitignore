@@ -1,0 +1,13 @@
+.DS_Store
+/.idea
+/vendor
+/composer.phar
+/composer.lock
+/sandbox
+/docker-compose.yml
+/auth.json
+/codeception.yml
+/_workdir
+/_workdir_cache
+/*.code-workspace
+**/.phpunit.result.cache

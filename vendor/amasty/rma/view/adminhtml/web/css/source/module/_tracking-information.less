@@ -1,0 +1,108 @@
+
+//
+//  Common
+//  ----------------------------------------------
+& when (@media-common = true) {
+    .amrma-tracking-information .amrma-col {
+        border-bottom: 5px solid #fff;
+    }
+
+    .amrma-thead .amrma-col .amrma-th {
+        margin-bottom: 10px;
+        padding: 11px 10px;
+        border-bottom: 1px solid #ebeef5;
+    }
+
+    .amrma-items-table .amrma-thead .amrma-col {
+        padding: 0;
+        border-top: none;
+    }
+
+    .amrma-tracking-information .amrma-tbody .amrma-row:first-child .amrma-col {
+        padding-top: 15px;
+    }
+
+    .amrma-tracking-add {
+        & {
+            display: flex;
+            flex-direction: column;
+            margin-top: 5px;
+            padding: 0 10px;
+            border-radius: 1px;
+            background: #fbfbfc;
+        }
+
+        .amrma-input {
+            margin: 10px 0;
+        }
+
+        .amreturn-btn {
+            margin-left: 0;
+        }
+
+        .amrma-label {
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .amrma-text {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 6px 10px;
+            border: 1px solid #ccc;
+            border-radius: 1px;
+        }
+    }
+
+    .amrma-items-table {
+        .amrma-table {
+            width: 100%;
+        }
+
+        .amrma-row {
+            background: #fbfbfc;
+        }
+
+        .amrma-col {
+            padding: 11px 10px;
+            text-align: left;
+        }
+
+        .table-caption {
+            display: none;
+        }
+    }
+}
+
+//
+//  Mobile +
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__s) {
+    .amrma-tracking-add {
+        & {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .amrma-input {
+            flex-basis: 45%;
+            margin: 5px 20px;
+        }
+
+        .amreturn-btn {
+            margin: 5px 0;
+            padding: 7px 36px;
+            border: none;
+        }
+
+        .amrma-label {
+            display: none;
+        }
+    }
+
+    .amrma-select-container {
+        flex-basis: 35%;
+        margin: 5px 0;
+    }
+}

@@ -1,0 +1,20 @@
+<?php
+$displays = $block->getDisplays();
+?>
+<div class="cataloglabel cataloglabel-product-list cataloglabel-<?php echo $block->escapeHtml($block->getPlaceholderCode()) ?>">
+<?php foreach ($displays as $display): ?>
+    <?php if ($display->getImage()): ?>
+        <?php if ($display->getUrl()): ?>
+            <a href="<?php echo $block->escapeUrl($display->getUrl()) ?>" aria-label="<?php echo $block->escapeHtml(__('View %1', $display->getTitle())) ?>">
+        <?php endif ?>
+                <img src="<?php echo $block->escapeUrl($block->helper('core/image')->init($display, 'list_image', 'cataloglabel')
+                    ->resize($block->getWidth(), $block->getHeight())) ?>" data-toggle="tooltip"
+                     data-original-title="<?php echo $block->escapeHtml($display->getTitle()) ?>"
+                     data-original-description="<?php echo $block->escapeHtml($display->getDescription()) ?>"
+                     alt="<?php echo $block->escapeHtml($display->getTitle()) ?>">
+        <?php if ($display->getUrl()): ?>
+            </a>
+        <?php endif ?>
+    <?php endif ?>
+<?php endforeach ?>
+</div>

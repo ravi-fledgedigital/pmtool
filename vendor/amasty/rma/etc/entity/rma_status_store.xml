@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package RMA Base for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:amasty:module:Amasty_ExportCore:etc/am_export.xsd">
+    <entity code="amasty_rma_status_store">
+        <name>Amasty RMA Status Store</name>
+        <isHidden>true</isHidden>
+        <collectionFactory class="Amasty\Rma\Model\Status\ResourceModel\StatusStoreCollectionFactory"/>
+        <fieldsConfig>
+            <fieldsClass class="Amasty\ExportCore\Export\FieldsClass\Describe"/>
+            <fields>
+                <field name="store_id">
+                    <actions>
+                        <storeId2StoreCode/>
+                    </actions>
+                    <filter>
+                        <type>store</type>
+                    </filter>
+                </field>
+                <field name="send_email_to_customer">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+                <field name="send_email_to_admin">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+                <field name="send_to_chat">
+                    <filter>
+                        <type>toggle</type>
+                    </filter>
+                </field>
+            </fields>
+        </fieldsConfig>
+    </entity>
+    <relation code="rma_request_status_store">
+        <parent_entity>amasty_rma_status</parent_entity>
+        <child_entity>amasty_rma_status_store</child_entity>
+        <sub_entity_field_name>amasty_rma_status_store</sub_entity_field_name>
+        <type>one_to_many</type>
+        <arguments>
+            <argument name="parent_field_name" xsi:type="string">status_id</argument>
+            <argument name="child_field_name" xsi:type="string">status_id</argument>
+        </arguments>
+    </relation>
+</config>

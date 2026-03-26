@@ -1,0 +1,125 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * ADOBE CONFIDENTIAL
+ *
+ * Copyright 2023 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="adobe_services" translate="label" sortOrder="1000">
+            <label>Adobe Services</label>
+        </tab>
+        <section id="admin_ui_sdk" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="140">
+            <label>Admin UI SDK</label>
+            <tab>adobe_services</tab>
+            <resource>Magento_CommerceBackendUix::admin</resource>
+            <group id="general_config" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General configuration</label>
+                <field id="enable_admin_ui_sdk" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Admin UI SDK</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable the AdobeAdminIms module to use the Admin UI SDK.</comment>
+                </field>
+                <field id="refresh_registrations" translate="label" type="button" sortOrder="20" showInDefault="1">
+                    <frontend_model>Magento\CommerceBackendUix\Block\Adminhtml\System\Config\RefreshRegistrationsButton</frontend_model>
+                    <depends>
+                        <field id="admin_ui_sdk/general_config/enable_admin_ui_sdk">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="database_logging" translate="label" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Database logging configuration</label>
+                <field id="enable_database_logging" translate="label comment" type="select" sortOrder="10" showInDefault="1" canRestore="1">
+                    <label>Enable logs</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="logs_level" translate="label" type="select" sortOrder="20" showInDefault="1" canRestore="1">
+                    <label>Minimum logs level</label>
+                    <source_model>Magento\CommerceBackendUix\Model\Config\LogLevel</source_model>
+                    <depends>
+                        <field id="admin_ui_sdk/database_logging/enable_database_logging">1</field>
+                    </depends>
+                </field>
+                <field id="retention_period" translate="label" type="text" sortOrder="30" showInDefault="1" canRestore="1">
+                    <label>Log retention period (in days)</label>
+                    <validate>validate-digits</validate>
+                    <depends>
+                        <field id="enable_database_logging">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="local_testing" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Testing</label>
+                <depends>
+                    <field id="admin_ui_sdk/general_config/enable_admin_ui_sdk">1</field>
+                </depends>
+                <field id="enable_testing" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable testing</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="testing_mode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Testing mode</label>
+                    <source_model>Magento\CommerceBackendUix\Model\Config\TestingMode</source_model>
+                    <tooltip>When you enable the local testing option, all calls are automatically redirected to the local server, instead of connecting to Adobe's App Registry. When you enable the Sandbox option, only Production workspace registrations that match the chosen statuses will be retrieved from Adobe's App Registry.</tooltip>
+                    <depends>
+                        <field id="enable_testing">1</field>
+                    </depends>
+                </field>
+                <field id="app_status" translate="label comment" type="multiselect" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>App status</label>
+                    <source_model>Magento\CommerceBackendUix\Model\Config\AppStatus</source_model>
+                    <can_be_empty>1</can_be_empty>
+                    <comment>Select all the app statuses you wish to load for sandbox testing from your organization.</comment>
+                    <depends>
+                        <field id="enable_testing">1</field>
+                        <field id="testing_mode">Sandbox</field>
+                    </depends>
+                </field>
+                <field id="server_base_url" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Local Server Base URL</label>
+                    <depends>
+                        <field id="enable_testing">1</field>
+                        <field id="testing_mode">Local testing</field>
+                    </depends>
+                </field>
+                <field id="mock_admin_ims" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Mock AdobeAdminIms Module</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable_testing">1</field>
+                        <field id="testing_mode">Local testing</field>
+                    </depends>
+                </field>
+                <field id="ims_token" translate="label comment" type="obscure" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Mock IMS Token</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <depends>
+                        <field id="enable_testing">1</field>
+                        <field id="testing_mode">Local testing</field>
+                        <field id="mock_admin_ims">1</field>
+                    </depends>
+                </field>
+                <field id="ims_org_id" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Mock IMS Org ID</label>
+                    <depends>
+                        <field id="enable_testing">1</field>
+                        <field id="testing_mode">Local testing</field>
+                        <field id="mock_admin_ims">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

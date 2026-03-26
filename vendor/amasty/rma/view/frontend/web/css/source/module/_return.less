@@ -1,0 +1,783 @@
+//
+//  Amasty RMA
+//  Create RMA page
+//  ____________________________________________
+
+//
+//  Variables
+//  --------------------------------------------
+@amrma_icon__mail: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUiIGhlaWdodD0iMTUiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iNy41IiBjeT0iNy41IiByPSI3LjUiIGZpbGw9IiNEODFCNjAiLz48cGF0aCBkPSJNOS43OSA3LjM4NGwzLjEyMSAzLjE3NWEuODEuODEgMCAwIDAgLjA4OS0uMzU1VjQuNzlhLjc2My43NjMgMCAwIDAtLjA1NS0uMjc4TDkuNzg5IDcuMzg0ek04LjAyNiA4LjI3OWw0LjU3OS00LjE3QS43ODcuNzg3IDAgMCAwIDEyLjIwNiA0aC05LjQxYS43NzMuNzczIDAgMCAwLS4zOTguMTA5bDQuNTc4IDQuMTdhLjc3NS43NzUgMCAwIDAgMS4wNSAweiIgZmlsbD0iI2ZmZiIvPjxwYXRoIGQ9Ik0xMi41MjkgMTAuOTI5TDkuMzk5IDcuNzRsLTEuMDIxLjkzMWExLjI5MyAxLjI5MyAwIDAgMS0xLjc1IDBsLTEuMDA2LS45MTctMy4xNSAzLjE3NWMuMS4wNDUuMjEuMDcxLjMyNC4wNzFoOS40MDhhLjc0Ny43NDcgMCAwIDAgLjMyNS0uMDcxek0yLjA1NSA0LjUxMkEuODIzLjgyMyAwIDAgMCAyIDQuNzl2NS40MTRjMCAuMTI3LjAzNy4yNS4wODkuMzU4bDMuMTMyLTMuMTY0LTMuMTY2LTIuODg2eiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==');
+@amrma-icon__checkbox: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTMiIGhlaWdodD0iMTMiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEzIiBoZWlnaHQ9IjEzIiByeD0iMyIgZmlsbD0iIzE5NzlDMyIvPjxwYXRoIGQ9Ik0zLjI1IDYuNWwyLjYgMi42IDMuOS00LjU1IiBzdHJva2U9IiNmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==');
+@amrma-icon__attach_file: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTciIGhlaWdodD0iMTYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zLjM5NiAxNmEzLjMzMiAzLjMzMiAwIDAgMS0yLjM5My0xLjAzNUEzLjU2NSAzLjU2NSAwIDAgMSAwIDEyLjQ5MmEzLjMxOCAzLjMxOCAwIDAgMSAuOTIyLTIuMzE4bC4xNC0uMTQ3TDkuNTU4IDEuMjVBNC4wNzkgNC4wNzkgMCAwIDEgMTIuNTExIDBjMS4xMzYtLjAwMSAyLjI4Ny40NjMgMy4xNjUgMS4zN0E0LjcwNyA0LjcwNyAwIDAgMSAxNyA0LjYzNmE0LjM2NCA0LjM2NCAwIDAgMS0xLjIxIDMuMDVsLTcuMTMyIDcuMzctLjUzMS41NDgtMS4wNi0xLjA5N0wxNC43MyA2LjU5Yy41MTMtLjUzLjc2OC0xLjIyNi43Ny0xLjk1M2EzLjEzIDMuMTMgMCAwIDAtLjg4Ni0yLjE3MSAyLjkzMiAyLjkzMiAwIDAgMC0yLjEwMy0uOTE1IDIuNTk5IDIuNTk5IDAgMCAwLTEuODkuNzk1TDEuOTg0IDExLjI3Yy0uMzIyLjMzMi0uNDguNzYzLS40ODIgMS4yMjIgMCAuNDg1LjE4My45ODYuNTYyIDEuMzc3LjM3OS4zOS44NjIuNTggMS4zMzIuNThhMS42MzUgMS42MzUgMCAwIDAgMS4xODQtLjQ5Nmw2LjUxNC02LjczYS42NTUuNjU1IDAgMCAwIC4xODItLjQ3LjguOCAwIDAgMC0uMjI5LS41NTYuNzQ1Ljc0NSAwIDAgMC0uNTM4LS4yMzYuNjIuNjIgMCAwIDAtLjQ1My4xODhsLTUuNTQgNS43MjQtMS4wNjItMS4wOTYgNS41NC01LjcyNGMuNDE2LS40MzIuOTctLjY0NiAxLjUxNS0uNjQ0LjU3OCAwIDEuMTYuMjM2IDEuNi42OTEuNDQuNDU2LjY3IDEuMDU2LjY3IDEuNjU0IDAgLjU2LS4yMDcgMS4xMzQtLjYyMyAxLjU2NEw1LjY0IDE1LjA0OUEzLjEwNCAzLjEwNCAwIDAgMSAzLjQwMiAxNmgtLjAwNnoiIGZpbGw9IiMxOTc5QzMiLz48L3N2Zz4=');
+@amrma-icon__attach_file_big: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjkiIGhlaWdodD0iMjciIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik01Ljc5MyAyN2MtMS40Ny4wMDItMi45NTMtLjU5Mi00LjA4My0xLjc0N0E1Ljk4MiA1Ljk4MiAwIDAgMSAwIDIxLjA4MWE1LjU2OCA1LjU2OCAwIDAgMSAxLjU3My0zLjkxMmwuMjQtLjI0OEwxNi4zMDQgMi4xMDlBNi45OTYgNi45OTYgMCAwIDEgMjEuMzQyIDBjMS45MzgtLjAwMiAzLjkwMi43OCA1LjM5OSAyLjMxQTcuODk4IDcuODk4IDAgMCAxIDI5IDcuODI1Yy4wMDMgMS44NjgtLjY4MyAzLjczOC0yLjA2NCA1LjE0OUwxNC43NyAyNS40MDlsLS45MDYuOTI1LTEuODEtMS44NTFMMjUuMTI4IDExLjEyYy44NzYtLjg5NSAxLjMxMS0yLjA3IDEuMzEzLTMuMjk3IDAtMS4yOTYtLjUtMi42My0xLjUxLTMuNjYzLTEuMDEzLTEuMDM1LTIuMzE2LTEuNTQzLTMuNTg4LTEuNTQ0YTQuNDU3IDQuNDU3IDAgMCAwLTMuMjI0IDEuMzQzTDMuMzg0IDE5LjAxOGMtLjU0OS41Ni0uODIgMS4yODctLjgyMiAyLjA2My4wMDIuODE4LjMxMyAxLjY2My45NiAyLjMyMy42NDUuNjU3IDEuNDcuOTc4IDIuMjcxLjk4YTIuODA0IDIuODA0IDAgMCAwIDIuMDItLjgzOWwxMS4xMTItMTEuMzU3Yy4yMDgtLjIxMy4zMS0uNDgyLjMxMS0uNzkxIDAtLjMyNi0uMTI0LS42NjYtLjM5MS0uOTRhMS4yNzggMS4yNzggMCAwIDAtLjkxOC0uMzk4IDEuMDYzIDEuMDYzIDAgMCAwLS43NzMuMzE4bC05LjQ1IDkuNjU4LTEuODEyLTEuODQ4IDkuNDUyLTkuNjZhMy41OCAzLjU4IDAgMCAxIDIuNTgzLTEuMDg2Yy45ODYgMCAxLjk3OC4zOTcgMi43MyAxLjE2NmEzLjk5OSAzLjk5OSAwIDAgMSAxLjE0MSAyLjc5IDMuNzcxIDMuNzcxIDAgMCAxLTEuMDYxIDIuNjRMOS42MiAyNS4zOTRBNS4zMjMgNS4zMjMgMCAwIDEgNS44MDMgMjdoLS4wMSIgZmlsbD0iIzE5NzlDMyIvPjwvc3ZnPg==');
+@amrma-status__pending__color:#0b78d0;
+@amrma-amreturn-btn__color: #2196f3;
+@amrma-return-policy__border-color: #ffcdd2;
+@amrm-status__authorized__color: #3f51b5;
+@amrm-status__received__color: #9c27b0;
+@amrm-status__resolved__color: #4caf50;
+@amrm-status__rejected__color: #c33d3c;
+@amrma-message__background-color: #eaf1ff;
+@amrma-text-link__color: #004a75;
+@amrma-message-container__failed__background-color: #ffebee;
+
+//
+//  Common
+//  ----------------------------------------------
+& when (@media-common = true) {
+    .amreturns-order-select {
+        & {
+            align-items: flex-start;
+            border: 2px solid rgba(23, 93, 224, .3);
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0, 62, 176, .1);
+            box-sizing: border-box;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: end;
+            padding: 0;
+        }
+
+        .amreturn-btn {
+            box-shadow: none;
+
+            &:focus {
+                background: @color-blue1;
+                border: 1px solid @color-blue1;
+                border-radius: 4px;
+                box-shadow: 0 0 3px 1px @color-blue3;
+                color: @color-white;
+            }
+        }
+
+        .amreturn-select {
+            font-size: 16px;
+        }
+    }
+
+    .amreturns-title-container {
+        flex: inherit;
+        flex-basis: 100%;
+        margin: 20px 0 5px 20px;
+    }
+
+    .amreturns-orders-container {
+        & {
+            display: flex;
+            flex: 1 1 100%;
+            flex-direction: column;
+            margin: 0 20px 20px;
+        }
+
+        .amreturn-btn {
+            margin-left: 0;
+            margin-top: 10px;
+        }
+    }
+
+    .amreturns-select-title {
+        color: @color-gray20;
+        font-weight: bold;
+        line-height: 19px;
+    }
+
+    .amreturn-btn {
+        & {
+            background: @color-blue1;
+            border: 1px solid @color-blue1;
+            color: @color-white;
+            margin-left: 10px;
+            padding: 7px 21px;
+            transition: background-color .4s;
+        }
+
+        &:hover {
+            background: @amrma-amreturn-btn__color;
+            border: 1px solid @amrma-amreturn-btn__color;
+            color: @color-white;
+        }
+    }
+
+    .account .table-wrapper {
+        border-top: none;
+        margin-top: 25px;
+    }
+
+    .returns-history > .amrma-table .amrma-tbody > .amrma-row {
+        & {
+            position: relative;
+        }
+
+        .amrma-image {
+            & {
+                height: 80px;
+                margin: 0;
+                padding: 0;
+                width: 80px;
+            }
+
+            &.new-message:after {
+                background-image: @amrma_icon__mail;
+                content: '';
+                height: 15px;
+                left: 0;
+                position: absolute;
+                top: 40%;
+                width: 15px;
+            }
+        }
+    }
+
+    .amrma-table-container .table-wrapper > .amrma-table {
+        //  override magento table styles start
+        .amrma-tbody > .amrma-row > .col {
+            &:not(:first-child),
+            &:not(:last-child) {
+                padding: 0 0 0 125px;
+            }
+
+            &.qty {
+                padding-top: 15px;
+            }
+        }
+
+        .amrma-tbody > .amrma-row > .col:not(:first-child) {
+            padding-left: 125px;
+        }
+
+        .amrma-tbody > .amrma-row > .col:last-child {
+            padding-top: 20px;
+        }
+
+        .amrma-tbody > .amrma-row > .col {
+            & {
+                border-top: none;
+            }
+
+            &:first-child {
+                left: 25px;
+                padding: 0;
+                position: absolute;
+                top: 20px;
+
+                &:before {
+                    content: none;
+                }
+            }
+        }
+    }
+
+    .amrma-status {
+        & {
+            border-radius: 4px;
+            color: @color-white;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 0 10px 1px;
+            text-transform: uppercase;
+        }
+
+        &.-authorized {
+            background:@amrm-status__authorized__color;
+        }
+
+        &.-cancelled {
+            background: @color-gray62;
+        }
+
+        &.-pending {
+            background: @amrma-status__pending__color;
+        }
+
+        &.-received {
+            background: @amrm-status__received__color;
+        }
+
+        &.-resolved {
+            background: @amrm-status__resolved__color;
+        }
+
+        &.-rejected {
+            background: @amrm-status__rejected__color;
+        }
+    }
+
+
+    .table-wrapper .table-returns-items {
+        .amrma-tbody > .amrma-row > .col {
+            border-top: 1px solid @color-gray82;
+            padding: 10px;
+            vertical-align: middle;
+        }
+
+        .amrma-tbody > .amrma-row > .col {
+            &:first-child {
+                padding-left: 25px;
+                position: relative;
+            }
+        }
+    }
+
+    //  new return page styles
+    .amrma-customer-information {
+        & {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 40px;
+        }
+
+        .amrma-customer-name {
+            margin-bottom: 20px;
+        }
+    }
+
+    .amrma-product-information {
+        & {
+            align-self: baseline;
+        }
+
+        &:focus-within .amrma-showmore {
+            border-radius: 4px;
+            box-shadow: 0 0 3px 1px @color-blue3;
+            display: inline-block;
+        }
+
+        .amrma-checkbox:checked ~ .amrma-moreinfo {
+            display: block;
+        }
+
+        .amrma-checkbox:checked + .amrma-showmore:before {
+            top: 9px;
+            transform: rotate(315deg);
+        }
+
+        .amrma-moreinfo {
+            & {
+                display: none;
+                margin-top: 4px;
+            }
+
+            .amrma-info {
+                margin-bottom: 0;
+            }
+        }
+
+        .amrma-showmore {
+            & {
+                cursor: pointer;
+                padding-right: 20px;
+                position: relative;
+            }
+
+            &:before {
+                border-right: 1px solid @color-gray20;
+                border-top: 1px solid @color-gray20;
+                content: '';
+                height: 9px;
+                position: absolute;
+                right: 0;
+                top: 2px;
+                transform: rotate(135deg);
+                width: 9px;
+            }
+        }
+    }
+
+    .amrma-product {
+        display: flex;
+    }
+
+    .amrma-product-item {
+        border-bottom: 1px solid @color-gray82;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 15px 0;
+    }
+
+    .amrma-image {
+        display: block;
+        height: 100px;
+        margin-right: 20px;
+        padding-left: 33px;
+        width: 100px;
+
+        img {
+            max-height: 100%;
+            max-width: 100%;
+        }
+    }
+
+    .amrma-checkbox {
+        border-width: 0;
+        clip: rect(0, 0, 0, 0);
+        height: 1px;
+        margin: -1px !important;
+        overflow: hidden;
+        padding: 0;
+        position: absolute !important;
+        white-space: nowrap;
+        width: 1px;
+    }
+
+    .amrma-customer-name,
+    .amrma-customer-address {
+        flex-basis: 50%;
+    }
+
+    .amrma-title {
+        font-size: 22px;
+        font-weight: normal;
+        line-height: 30px;
+    }
+
+    label.amrma-title {
+        font-size: 22px;
+        font-weight: normal;
+        line-height: 30px;
+    }
+
+    .amrma-checkbox-container {
+        & {
+            position: relative;
+        }
+        &:focus-within .amrma-label,
+        &:focus-within .amrma-label-container {
+            border-radius: 4px;
+            box-shadow: 0 0 3px 1px @color-blue3;
+            display: inline-block;
+        }
+
+        .amrma-label {
+            background: @color-white;
+            border: 1px solid @color-gray80;
+            border-radius: 3px;
+            box-sizing: border-box;
+            cursor: pointer;
+            height: 13px;
+            position: absolute;
+            top: 44px;
+            width: 13px;
+        }
+
+        &.-policy .amrma-label {
+            top: 4px;
+        }
+
+        .amrma-image {
+            cursor: pointer;
+        }
+
+        .amrma-checkbox:checked + .amrma-label,
+        .amrma-checkbox:checked + .amrma-label-container .amrma-label {
+            background-image: @amrma-icon__checkbox;
+            border: none;
+        }
+    }
+
+    .amrma-products-table {
+        margin-bottom: 40px;
+    }
+
+    //  return qty form
+    .amrma-product-message {
+        align-self: baseline;
+        margin: 15px 0 0;
+        width: 100%;
+    }
+
+    .amrma-message-container {
+        &.-failed {
+            border: 2px solid @amrma-return-policy__border-color;
+            box-shadow: 0 4px 8px rgba(0, 62, 176, .1);
+        }
+
+        &.-failed .amrma-message:not(.amrma-shipping-payer) {
+            background: @amrma-message-container__failed__background-color;
+        }
+
+        &.-options {
+            background: none;
+            border: 2px solid rgba(23, 93, 224, .4);
+            border-radius: 2px;
+            box-shadow: 0 4px 8px rgba(0, 62, 176, .1);
+            box-sizing: border-box;
+        }
+
+        &.-gray {
+            background: none;
+            border: 2px solid @color-gray80;
+            box-sizing: border-box;
+            padding: 15px;
+        }
+
+        .amrma-message {
+            background: @amrma-message__background-color;
+            border-radius: 2px;
+            margin: 10px 20px 0;
+            padding: 5px 10px;
+        }
+    }
+
+    .amrma-message-container.-options,
+    .amrma-message-container.-gray {
+        margin-left: 33px;
+    }
+
+    .amrma-return-select {
+        & {
+            margin: 0 20px;
+        }
+
+        &:last-child {
+            margin-bottom: 20px;
+        }
+
+        .amrma-title {
+            margin-bottom: 10px;
+        }
+    }
+
+    .amrma-return-qty {
+        & {
+            align-items: center;
+            display: flex;
+            margin: 20px 0 0 20px;
+        }
+
+        .amrma-label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .amrma-select {
+            flex-basis: 20%;
+            font-size: 16px;
+        }
+
+        .amrma-total {
+            margin-left: 5px;
+        }
+    }
+
+    .amrma-message-container {
+        & {
+            background: @amrma-message__background-color;
+            border-radius: 2px;
+            margin: 10px 20px 20px;
+            padding-bottom: 20px;
+        }
+    }
+
+    //  return qty form stop
+
+    //  Bank details styles
+    .amrma-input-block {
+        & {
+            margin-bottom: 20px;
+            max-width: 620px;
+        }
+
+        .amrma-title {
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 19px;
+        }
+
+        .amrma-field {
+            font-size: 16px;
+        }
+    }
+
+    .amrma-chat-send .amrma-textarea,
+    .amrma-comment-block .amrma-comment {
+        font-size: 16px;
+    }
+
+    //  Bank details styles stop
+
+    //  comment styles
+    .amrma-return-message {
+        background: @color-white-smoke;
+        border-radius: 2px;
+        margin-bottom: 10px;
+    }
+
+    .amrma-img-text {
+        background: @color-white-smoke;
+        border-radius: 2px;
+        margin-bottom: 10px;
+        padding: 5px 10px;
+    }
+
+    .amrma-attach:focus-visible + .amrma-label {
+        border-radius: 4px;
+        box-shadow: 0 0 3px 1px @color-blue3;
+    }
+
+    .amrma-add-attach-file {
+        &:focus-within > .amrma-label {
+            border-radius: 4px;
+            box-shadow: 0 0 3px 1px @color-blue3;
+        }
+    }
+
+    .amrma-attach-file {
+        & {
+            margin-top: 10px;
+        }
+
+        .amrma-chat-send & {
+            height: 33px;
+            margin: 0;
+            width: 29px;
+        }
+
+        .amrma-file {
+            color: @color-blue1;
+            margin: 5px 0;
+            padding-left: 20px;
+        }
+
+        .amrma-label {
+            & {
+                color: @color-blue1;
+                cursor: pointer;
+                font-size: 16px;
+                font-weight: bold;
+                padding-left: 20px;
+                position: relative;
+                transition: color .3s ease;
+            }
+
+            &:hover {
+                color: @amrma-amreturn-btn__color;
+                text-decoration: underline;
+            }
+
+            &:before {
+                background-image: @amrma-icon__attach_file;
+                content: '';
+                height: 16px;
+                left: 0;
+                position: absolute;
+                top: 4px;
+                width: 17px;
+            }
+
+            &:focus {
+                border-radius: 4px;
+                padding: 2px 18px;
+            }
+        }
+
+        .amrma-chat-send & .amrma-label:before {
+            background-image: @amrma-icon__attach_file_big;
+            height: 27px;
+            left: 5px;
+            top: 0;
+            width: 29px;
+        }
+    }
+
+    .amrma-return-policy {
+        & {
+            display: inline-block;
+            margin-top: 30px;
+        }
+
+        &.-border {
+            border: 2px solid @amrma-return-policy__border-color;
+            box-shadow: 0 4px 8px rgba(0, 62, 176, .1);
+            padding: 5px;
+        }
+
+        .amrma-text {
+            margin-left: 15px;
+            padding-left: 20px;
+        }
+
+        .amrma-text-link {
+            color: @amrma-text-link__color;
+            text-decoration: underline;
+        }
+    }
+
+    .amrma-btns-block {
+        & {
+            margin-top: 15px;
+        }
+
+        .amreturn-btn {
+            box-shadow: none;
+            height: auto;
+            line-height: 16px;
+            margin: 0 20px 0 0;
+            padding: 11px 15px;
+        }
+        .amreturn-btn:focus {
+            background: @color-blue1;
+            border: 1px solid @color-blue1;
+            border-radius: 4px;
+            box-shadow: 0 0 3px 1px @color-blue3;
+            color: @color-white;
+        }
+    }
+
+    .amrma-link-cancel {
+        color: @color-blue1;
+        font-weight: bold;
+    }
+
+    .amrma-chat-file.-newreturn {
+        & {
+            align-items: center;
+            display: flex;
+            margin: 0;
+        }
+
+        &:before {
+            top: 7px;
+        }
+
+        .amrma-file {
+            padding: 0;
+        }
+
+        .amrma-delete {
+            margin-left: 10px;
+            padding: 0;
+        }
+    }
+}
+
+//
+//  Mobile +
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__s) {
+    //  new return order styles
+    .amrma-product-item {
+        flex-direction: row;
+    }
+
+    .amrma-product-message {
+        margin-left: 15px;
+        width: 360px;
+    }
+
+    .amrma-message-container.-options,
+    .amrma-message-container.-gray {
+        margin: 0;
+    }
+
+    .amreturns-orders-container {
+        & {
+            flex-direction: row;
+        }
+
+        .amreturn-btn {
+            margin-left: 10px;
+            margin-top: 0;
+        }
+
+        .amreturn-select {
+            margin-bottom: 0;
+            width: 85%;
+        }
+    }
+
+    .returns-history > .amrma-table .amrma-tbody > .amrma-row .amrma-image {
+        & {
+            height: 50px;
+            width: 50px;
+        }
+
+        &:after {
+            left: 0;
+        }
+    }
+
+    //  override magento table styles start
+    .amrma-table-container .table-wrapper > .amrma-table {
+        .amrma-tbody > .amrma-row > .col {
+            &:not(:first-child):not(:last-child) {
+                padding: 10px;
+            }
+
+            &:not(:first-child) {
+                padding: 10px;
+            }
+
+            &.qty {
+                padding-top: 10px;
+            }
+        }
+
+        .amrma-tbody > .amrma-row > .col {
+            & {
+                border-top: 1px solid @color-gray82;
+            }
+
+            &:first-child {
+                left: auto;
+                padding: 10px 10px 10px 25px;
+                position: relative;
+                top: auto;
+            }
+        }
+    }
+    //  override magento table styles end
+}
+
+//
+//  Tablet +
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .amreturns-order-select {
+        & {
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 0;
+        }
+
+        .amreturn-select {
+            font-size: 14px;
+        }
+    }
+
+    .amreturns-orders-container {
+        & {
+            flex: 1 1 73%;
+            margin: 0;
+        }
+
+        .amreturn-btn {
+            margin: 0 20px 0 10px;
+        }
+    }
+
+    .amreturns-title-container {
+        flex: 0 0 20%;
+        margin: 0 15px 0 20px;
+    }
+
+    //  new return styles
+    .amrma-customer-information {
+        & {
+            flex-direction: row;
+        }
+
+        .amrma-customer-name {
+            margin: 0;
+        }
+    }
+
+    .amrma-chat-send .amrma-textarea,
+    .amrma-comment-block .amrma-comment,
+    .amrma-input-block .amrma-field,
+    .amrma-return-qty .amrma-select {
+        font-size: 14px;
+    }
+}

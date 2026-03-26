@@ -1,0 +1,15 @@
+
+File "/var/www/html/app/code/Magento/PageBuilderAdminGwsAdminUi/Test/Mftf/Test/AdminPageBuilderProductsCarouselTest/AdminPageBuilderProductsCarouselDisplayProductCountForRestrictedAdminTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 newAdmin from module(s): magento/module-cms-staging
+	 adminRole from module(s): magento/module-user
+	 EditPanelForm from module(s): magento/module-page-builder
+	 AdminCreateRoleActionGroup from module(s): magento/module-two-factor-auth, magento/module-user
+	 AdminCreateUserActionGroup from module(s): magento/module-user
+	 AdminLogoutActionGroup from module(s): magento/module-backend
+	 AdminLoginActionGroup from module(s): magento/module-admin-analytics, magento/module-backend, magento/module-two-factor-auth
+	 AdminDeleteCustomUserActionGroup from module(s): magento/module-user
+	 AdminDeleteUserRoleActionGroup from module(s): magento/module-user
+	 validateProductTotals from module(s): magento/module-page-builder
+	 AdminPageBuilderProductsGridValidateAppearanceTest from module(s): magento/module-page-builder

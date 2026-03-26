@@ -1,0 +1,5 @@
+
+File "/var/www/html/app/code/Magento/QuoteStaging/Test/Mftf/Test/StorefrontCheckThatQuoteItemPriceUpdatedAfterStagingUpdateTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 ApplyUpdatedRuleStagingByCron from module(s): magento/module-catalog-rule-staging

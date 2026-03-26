@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!-- add new products ids in table for cache flushing -->
+    <event name="controller_action_catalog_product_save_entity_after">
+        <observer name="cataloglabel_new_products_ids" instance="\Mirasvit\CatalogLabel\Observer\NewProductsObserver"/>
+    </event>
+</config>

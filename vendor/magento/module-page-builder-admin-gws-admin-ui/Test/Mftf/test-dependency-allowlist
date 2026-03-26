@@ -1,0 +1,11 @@
+newAdmin
+adminRole
+EditPanelForm
+AdminCreateRoleActionGroup
+AdminCreateUserActionGroup
+AdminLogoutActionGroup
+AdminLoginActionGroup
+AdminDeleteCustomUserActionGroup
+AdminDeleteUserRoleActionGroup
+validateProductTotals
+AdminPageBuilderProductsGridValidateAppearanceTest

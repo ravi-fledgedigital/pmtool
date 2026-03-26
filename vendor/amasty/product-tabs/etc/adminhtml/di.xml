@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Product Tabs for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\Message\MessageConfigurationsPool">
+        <arguments>
+            <argument name="configurationsMap" xsi:type="array">
+                <item name="addTabNonEditableMessage" xsi:type="array">
+                    <item name="renderer" xsi:type="const">\Magento\Framework\View\Element\Message\Renderer\BlockRenderer::CODE</item>
+                    <item name="data" xsi:type="array">
+                        <item name="template" xsi:type="string">Amasty_CustomTabs::messages/addTabNonEditableMessage.phtml</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Amasty\CustomTabs\Model\Store\Ui\Component\Listing\Column\Store" type="Magento\Store\Ui\Component\Listing\Column\Store">
+        <arguments>
+            <argument name="storeKey" xsi:type="string">stores</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Cms\Model\Wysiwyg\Config">
+        <plugin name="Amasty_CustomTabs::add_attribute_button" type="Amasty\CustomTabs\Plugin\Cms\Model\Wysiwyg\ConfigPlugin" />
+    </type>
+    <type name="Amasty\CustomTabs\Controller\Adminhtml\Tabs\Ui\Render">
+        <plugin name="Amasty_CustomTabs::load-default-tabs" type="Amasty\CustomTabs\Plugin\Mui\Tabs\Render" />
+    </type>
+
+    <type name="Amasty\CustomTabs\Model\Tabs\DataProvider\Form">
+        <arguments>
+            <argument name="fieldsByStore" xsi:type="const">Amasty\CustomTabs\Api\Data\TabsInterface::FIELDS_BY_STORE</argument>
+        </arguments>
+    </type>
+</config>

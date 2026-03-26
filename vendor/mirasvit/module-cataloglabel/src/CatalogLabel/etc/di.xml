@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Catalog\Block\Product\ImageBuilder" type="Mirasvit\CatalogLabel\Block\Product\ImageBuilder" />
+    <preference for="Magento\Catalog\Block\Product\Image" type="Mirasvit\CatalogLabel\Block\Product\Image" />
+
+    <!--DATA-->
+    <preference for="Mirasvit\CatalogLabel\Api\Data\NewProductsInterface"
+                type="Mirasvit\CatalogLabel\Model\NewProducts" />
+    <preference for="Mirasvit\CatalogLabel\Api\Data\LabelInterface"
+                type="Mirasvit\CatalogLabel\Model\Label" />
+    <preference for="Mirasvit\CatalogLabel\Api\Data\LabelDisplay"
+                type="Mirasvit\CatalogLabel\Model\Label\Display" />
+    <preference for="Mirasvit\CatalogLabel\Api\Data\PlaceholderInterface"
+                type="Mirasvit\CatalogLabel\Model\Placeholder" />
+    <preference for="Mirasvit\CatalogLabel\Api\Data\TemplateInterface"
+                type="Mirasvit\CatalogLabel\Model\Template" />
+
+    <!--COMMAND-->
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="EmulateCronCommand" xsi:type="object">Mirasvit\CatalogLabel\Console\Command\EmulateCronCommand</item>
+                <item name="IndexerCommand" xsi:type="object">Mirasvit\CatalogLabel\Console\Command\IndexerCommand</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!--Entity Manager-->
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Mirasvit\CatalogLabel\Api\Data\NewProductsInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="const">Mirasvit\CatalogLabel\Api\Data\NewProductsInterface::TABLE_NAME</item>
+                    <item name="identifierField" xsi:type="const">Mirasvit\CatalogLabel\Api\Data\NewProductsInterface::ID</item>
+                </item>
+                <item name="Mirasvit\CatalogLabel\Api\Data\TemplateInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="const">Mirasvit\CatalogLabel\Api\Data\TemplateInterface::TABLE_NAME</item>
+                    <item name="identifierField" xsi:type="const">Mirasvit\CatalogLabel\Api\Data\TemplateInterface::ID</item>
+                </item>
+                <item name="Mirasvit\CatalogLabel\Api\Data\PlaceholderInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="const">Mirasvit\CatalogLabel\Api\Data\PlaceholderInterface::TABLE_NAME</item>
+                    <item name="identifierField" xsi:type="const">Mirasvit\CatalogLabel\Api\Data\PlaceholderInterface::ID</item>
+                </item>
+                <item name="Mirasvit\CatalogLabel\Api\Data\LabelInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="const">Mirasvit\CatalogLabel\Api\Data\LabelInterface::TABLE_NAME</item>
+                    <item name="identifierField" xsi:type="const">Mirasvit\CatalogLabel\Api\Data\LabelInterface::ID</item>
+                </item>
+                <item name="Mirasvit\CatalogLabel\Api\Data\DisplayInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="const">Mirasvit\CatalogLabel\Api\Data\DisplayInterface::TABLE_NAME</item>
+                    <item name="identifierField" xsi:type="const">Mirasvit\CatalogLabel\Api\Data\DisplayInterface::ID</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\HydratorPool">
+        <arguments>
+            <argument name="hydrators" xsi:type="array">
+                <item name="Mirasvit\CatalogLabel\Api\Data\NewProductsInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+                <item name="Mirasvit\CatalogLabel\Api\Data\TemplateInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+                <item name="Mirasvit\CatalogLabel\Api\Data\PlaceholderInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+                <item name="Mirasvit\CatalogLabel\Api\Data\LabelInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+                <item name="Mirasvit\CatalogLabel\Api\Data\DisplayInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!--UI-->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="cataloglabel_placeholder_listing_data_source" xsi:type="string">Mirasvit\CatalogLabel\Model\ResourceModel\Placeholder\Grid</item>
+                <item name="cataloglabel_label_listing_data_source" xsi:type="string">Mirasvit\CatalogLabel\Model\ResourceModel\Label\Grid</item>
+                <item name="cataloglabel_label_form_data_source" xsi:type="string">Mirasvit\CatalogLabel\Model\ResourceModel\Label\Grid</item>
+                <item name="cataloglabel_template_listing_data_source" xsi:type="string">Mirasvit\CatalogLabel\Model\ResourceModel\Template\Grid</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Extra Product Rules -->
+    <type name="Mirasvit\CatalogLabel\Model\Label\Rule\Condition\Product">
+        <arguments>
+            <argument name="extraRulesPool" xsi:type="array">
+                <item name="qty" xsi:type="object">Mirasvit\CatalogLabel\Model\Label\Rule\Condition\Product\Qty</item>
+                <item name="created_at" xsi:type="object">Mirasvit\CatalogLabel\Model\Label\Rule\Condition\Product\CreatedDate</item>
+                <item name="updated_at" xsi:type="object">Mirasvit\CatalogLabel\Model\Label\Rule\Condition\Product\UpdatedDate</item>
+                <item name="set_as_new" xsi:type="object">Mirasvit\CatalogLabel\Model\Label\Rule\Condition\Product\SetAsNew</item>
+                <item name="is_salable" xsi:type="object">Mirasvit\CatalogLabel\Model\Label\Rule\Condition\Product\IsSalable</item>
+                <item name="stock_status" xsi:type="object">Mirasvit\CatalogLabel\Model\Label\Rule\Condition\Product\StockStatus</item>
+                <item name="final_price" xsi:type="object">Mirasvit\CatalogLabel\Model\Label\Rule\Condition\Product\FinalPrice</item>
+                <item name="price_diff" xsi:type="object">Mirasvit\CatalogLabel\Model\Label\Rule\Condition\Product\PriceDiff</item>
+                <item name="percent_discount" xsi:type="object">Mirasvit\CatalogLabel\Model\Label\Rule\Condition\Product\DiscountPercent</item>
+                <item name="attribute_set_id" xsi:type="object">Mirasvit\CatalogLabel\Model\Label\Rule\Condition\Product\AttributeSetId</item>
+                <item name="category_ids" xsi:type="object">Mirasvit\CatalogLabel\Model\Label\Rule\Condition\Product\Category</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

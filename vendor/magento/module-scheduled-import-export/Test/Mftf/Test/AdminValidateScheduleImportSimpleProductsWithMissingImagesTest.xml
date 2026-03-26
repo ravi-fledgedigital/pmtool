@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminValidateScheduleImportSimpleProductsWithMissingImagesTest">
+        <annotations>
+            <features value="ScheduledImportExport"/>
+            <stories value="Scheduled import successfully runs despite errors in system.log file"/>
+            <title value="Validate scheduled import error message that the missing image in directory."/>
+            <description value="Validate scheduled import error message that the missing image in directory."/>
+            <severity value="AVERAGE"/>
+            <testCaseId value="AC-8078"/>
+            <useCaseId value="ACP2E-1620"/>
+            <group value="scheduledImportExport"/>
+        </annotations>
+
+        <before>
+            <!-- Login as Admin -->
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+        </before>
+
+        <after>
+            <deleteData url="/V1/products/{{ScheduleImportProduct_Simple.urlKey}}" stepKey="deleteImportedProduct"/>
+            <actionGroup ref="AdminNavigateToScheduledImportsExportsPageActionGroup" stepKey="navigateToScheduledImportsExportsPage"/>
+            <actionGroup ref="AdminDeleteAllScheduledImportsExportsActionGroup" stepKey="deleteScheduledImport"/>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logoutFromAdmin"/>
+        </after>
+
+        <!-- Create Scheduled Import for Simple Product -->
+        <actionGroup ref="AdminNavigateToNewScheduledImportPageActionGroup" stepKey="navigateToNewScheduledImportPage"/>
+        <actionGroup ref="AdminFillScheduledImportFormActionGroup" stepKey="fillScheduledImportForm">
+            <argument name="name" value="{{ScheduleImportProduct_Simple.importName}}"/>
+            <argument name="fileDirectory" value="dev/tests/acceptance/tests/_data"/>
+            <argument name="fileName" value="{{ScheduleImportProduct_Simple.fileName}}"/>
+        </actionGroup>
+        <actionGroup ref="AdminClickSaveScheduledImportExportActionGroup" stepKey="clickSave"/>
+        <actionGroup ref="AdminFilterLegacyGridActionGroup" stepKey="filterGrid">
+            <argument name="field" value="{{AdminLegacyDataGridFilterSection.inputFieldByNameAttr('name')}}"/>
+            <argument name="value" value="{{ScheduleImportProduct_Simple.importName}}"/>
+        </actionGroup>
+        <actionGroup ref="AdminAssertSavedScheduledImportExportActionGroup" stepKey="verifyScheduledImportRow">
+            <argument name="name" value="{{ScheduleImportProduct_Simple.importName}}"/>
+            <argument name="lastOutcome" value="Pending"/>
+        </actionGroup>
+        <!-- Run Scheduled Import for Simple Product -->
+        <actionGroup ref="AdminRunSavedScheduledImportExportActionGroup" stepKey="runImport"/>
+        <see selector="{{AdminScheduledImportsExportsSection.importErrorList}}" userInput="1. Imported resource (image: magento-logo.png) at row 0 could not be downloaded from external resource due to timeout or access permissions in row(s): 1" stepKey="seeImageMissingError"/>
+        <actionGroup ref="AdminAssertSavedScheduledImportExportActionGroup" stepKey="verifyScheduledImportRowWithFailedStatus">
+            <argument name="name" value="{{ScheduleImportProduct_Simple.importName}}"/>
+            <argument name="lastOutcome" value="Failed"/>
+        </actionGroup>
+    </test>
+</tests>

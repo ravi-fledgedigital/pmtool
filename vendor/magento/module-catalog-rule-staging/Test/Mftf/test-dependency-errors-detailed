@@ -1,0 +1,12 @@
+
+File "/var/www/html/app/code/Magento/CatalogRuleStaging/Test/Mftf/Test/AdminDisplayingCartAndCatalogPriceRulesGridsTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 RestrictedAdminRole from module(s): magento/module-admin-gws
+	 newAdmin from module(s): magento/module-cms-staging
+	 AdminCreateUserRoleWithMultipleWebsiteScopeActionGroup from module(s): magento/module-admin-gws
+
+File "/var/www/html/app/code/Magento/CatalogRuleStaging/Test/Mftf/ActionGroup/AdminCreateCatalogRuleStagingUpdateWithActiveNoActionGroup.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminUpdateBlockSection from module(s): magento/module-cms-staging

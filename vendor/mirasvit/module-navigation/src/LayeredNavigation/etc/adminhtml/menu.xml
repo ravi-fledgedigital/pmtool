@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Mirasvit_LayeredNavigation::navigation" title="Layered Navigation" module="Mirasvit_LayeredNavigation" sortOrder="90" resource="Mirasvit_LayeredNavigation::navigation" parent="Magento_Backend::content"/>
+        <add id="Mirasvit_LayeredNavigation::layered_navigation_group" title="Grouped Options" module="Mirasvit_LayeredNavigation" sortOrder="110" action="layered_navigation/group" resource="Mirasvit_LayeredNavigation::layered_navigation_group" parent="Mirasvit_LayeredNavigation::navigation"/>
+        <add id="Mirasvit_LayeredNavigation::layered_navigation_filters_manager" title="Filters Manager" module="Mirasvit_LayeredNavigation" sortOrder="120" action="layered_navigation/filter/index" resource="Mirasvit_LayeredNavigation::layered_navigation_filters_manager" parent="Mirasvit_LayeredNavigation::navigation"/>
+        <add id="Mirasvit_LayeredNavigation::configuration" title="Navigation Settings" module="Mirasvit_LayeredNavigation" sortOrder="130" action="adminhtml/system_config/edit/section/mst_nav" resource="Mirasvit_LayeredNavigation::config_layerednavigation" parent="Mirasvit_LayeredNavigation::navigation"/>
+    </menu>
+</config>

@@ -1,0 +1,29 @@
+{
+    "name": "magento/module-saas-scopes",
+    "description": "Magento 2 SaaS Scopes Exporter module exports necessary scoping data to Magento cloud services that rely on it",
+    "type": "magento2-module",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "version": "103.4.20",
+    "require": {
+        "php": ">=8.1.0",
+        "magento/framework": ">=103.0.4",
+        "magento/module-data-exporter": "^103.3.4",
+        "magento/module-scopes-data-exporter": "^103.3.4",
+        "magento/module-saas-common": "self.version"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Magento\\SaaSScopes\\": ""
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~6.5.0"
+    }
+}
+

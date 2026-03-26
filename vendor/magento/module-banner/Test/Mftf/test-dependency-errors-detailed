@@ -1,0 +1,30 @@
+
+File "/var/www/html/app/code/Magento/Banner/Test/Mftf/Test/AdminAddImageToWYSIWYGBannerTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliMediaGalleryEnhancedEnableActionGroup from module(s): magento/module-media-gallery-ui
+
+File "/var/www/html/app/code/Magento/Banner/Test/Mftf/Test/AdminAddNestedBannerWithImageTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliMediaGalleryEnhancedEnableActionGroup from module(s): magento/module-media-gallery-ui
+
+File "/var/www/html/app/code/Magento/Banner/Test/Mftf/Test/AdminApplyBannerToDifferentAdminRoleTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminCreateUserRoleActionGroup from module(s): magento/module-admin-gws
+
+File "/var/www/html/app/code/Magento/Banner/Test/Mftf/Test/CartPriceRuleWithRelatedBannerIsPersistedUnderLongTermCookieTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CustomerSegmentForNoorders from module(s): magento/module-customer-segment
+	 AdminCustomerSegmentConsumerData from module(s): magento/module-customer-segment
+	 CliMediaGalleryEnhancedEnableActionGroup from module(s): magento/module-media-gallery-ui
+	 CreateCustomerSegmentActionGroup from module(s): magento/module-customer-segment
+	 FindAndOpenCustomerSegmentActionGroup from module(s): magento/module-customer-segment
+	 SetSubscribedConditionActionGroup from module(s): magento/module-customer-segment
+	 SetCustomerGroupConditionActionGroup from module(s): magento/module-customer-segment
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue
+	 FindAndDeleteCustomerSegmentActionGroup from module(s): magento/module-customer-segment
+	 StorefrontAssertPersistentCustomerWelcomeMessageActionGroup from module(s): magento/module-persistent
+	 StorefrontAssertPersistentCustomerWelcomeMessageNotPresentActionGroup from module(s): magento/module-persistent

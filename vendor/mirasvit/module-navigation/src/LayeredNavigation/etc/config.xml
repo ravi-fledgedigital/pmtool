@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mst_nav>
+            <general>
+                <is_ajax_enabled>0</is_ajax_enabled>
+                <is_show_nested_categories>0</is_show_nested_categories>
+                <filter_pre_calculation>0</filter_pre_calculation>
+                <is_multiselect_enabled>0</is_multiselect_enabled>
+                <filter_item_display_mode>checkbox</filter_item_display_mode>
+                <is_open_filter>0</is_open_filter>
+                <open_filter_limit>3</open_filter_limit>
+                <hide_unuseful_option>0</hide_unuseful_option>
+                <show_clear_button>1</show_clear_button>
+                <scroll_to_top>1</scroll_to_top>
+                <sticky_sidebar>0</sticky_sidebar>
+            </general>
+
+            <size_limiter>
+                <display_mode/>
+                <link_limit>10</link_limit>
+                <text_less>less...</text_less>
+                <text_more>more...</text_more>
+                <alphabetical_limit>5</alphabetical_limit>
+            </size_limiter>
+
+            <highlight>
+                <is_enabled>0</is_enabled>
+                <color>#ff5501</color>
+            </highlight>
+
+            <product_price>
+                <include_tax>0</include_tax>
+            </product_price>
+
+            <extra_filter>
+                <new>
+                    <is_enabled>0</is_enabled>
+                    <label>New</label>
+                    <position>100</position>
+                </new>
+                <sale>
+                    <is_enabled>0</is_enabled>
+                    <label>Sale</label>
+                    <position>100</position>
+                </sale>
+                <stock>
+                    <is_enabled>0</is_enabled>
+                    <label>Stock</label>
+                    <label_in>In Stock</label_in>
+                    <label_out>Out of Stock</label_out>
+                    <position>100</position>
+                </stock>
+                <rating>
+                    <is_enabled>0</is_enabled>
+                    <label>Rating</label>
+                    <position>100</position>
+                </rating>
+                <search>
+                    <is_enabled>0</is_enabled>
+                    <label>Search within results</label>
+                    <position>100</position>
+                    <is_fulltext>1</is_fulltext>
+                    <is_filter_options>1</is_filter_options>
+                </search>
+            </extra_filter>
+
+            <state_bar>
+                <group_mode>separate</group_mode>
+            </state_bar>
+
+            <product_attribute_linking>
+                <use_brand_page>0</use_brand_page>
+            </product_attribute_linking>
+
+            <seo>
+                <rel>follow</rel>
+            </seo>
+        </mst_nav>
+    </default>
+</config>

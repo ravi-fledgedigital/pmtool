@@ -1,0 +1,18 @@
+<table class="amrma-history-table">
+    <thead>
+        <tr>
+            <th data-bind="i18n: 'Date'" class="amrma-head"></th>
+            <th data-bind="i18n: 'Сhanges'" class="amrma-head"></th>
+            <th data-bind="i18n: 'Who changed'" class="amrma-head"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <!--  ko foreach: $data.historyData  -->
+        <tr class="amrma-row">
+            <td class="amrma-column -date" data-bind="text: event_date"></td>
+            <td class="amrma-column -changes" data-bind="text: message"></td>
+            <td class="amrma-column -name" data-bind="text: event_initiator_name"></td>
+        </tr>
+        <!-- /ko -->
+    </tbody>
+</table>

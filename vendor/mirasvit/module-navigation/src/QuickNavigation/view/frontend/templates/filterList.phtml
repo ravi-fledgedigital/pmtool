@@ -1,0 +1,54 @@
+<?php
+/** @var \Mirasvit\QuickNavigation\Block\FilterList $block */
+$list = $block->getFilterItems();
+if (count($list) === 0) {
+    return;
+}
+
+?>
+
+<div class="mst-quick-nav__filterList" data-element="quick-navigation">
+    <a data-element="prev" class="mst-quick-nav__filterList-prev">
+        <span><?= $block->escapeHtml(__('Previous')) ?></span>
+    </a>
+
+    <div class="mst-quick-nav__filterList-container" data-element="container">
+        <?php $lastName = ''; ?>
+        <?php foreach ($list as $idx => $filterItem):
+            $isSelected = $block->isSelected($filterItem);
+
+            if ($filterItem->getData('count') == 0 && !$isSelected) {
+                continue;
+            }
+
+            $name = $filterItem->getFilter()->getName();
+            ?>
+            <div class="mst-quick-nav__filterList-block">
+                <?php if ($isSelected): ?>
+                    <a href="<?= $block->escapeUrl($filterItem->getRemoveUrl()) ?>" class="mst-quick-nav__item _checked" data-element="filter" data-mode="instant">
+                        <label><?= /* @noEscape */ $block->getFilterItemLabel($filterItem) ?></label>
+                    </a>
+                <?php else: ?>
+                    <?php if ($lastName != $name): ?>
+                        <strong class="mst-quick-nav__item mst-quick-nav__attribute"><?= $block->escapeHtml($name) ?></strong>
+                    <?php endif ?>
+                    <a href="<?= $block->escapeUrl($filterItem->getUrl()) ?>" class="mst-quick-nav__item" data-element="filter" data-mode="instant">
+                        <label><?= /* @noEscape */ $block->getFilterItemLabel($filterItem) ?></label> <span class="count">(<?= $block->escapeHtml($filterItem->getData('count')) ?>)</span>
+                    </a>
+                    <?php $lastName = $name; ?>
+                <?php endif ?>
+            </div>
+        <?php endforeach ?>
+    </div>
+
+    <a data-element="next" class="mst-quick-nav__filterList-next">
+        <span><?= $block->escapeHtml(__('Next')) ?></span>
+    </a>
+</div>
+<script type="text/x-magento-init"><?= \Mirasvit\Core\Service\SerializeService::encode([
+    '[data-element = quick-navigation]' => [
+            'Mirasvit_LayeredNavigation/js/renderer/label-renderer' => [],
+            'Mirasvit_QuickNavigation/js/filter-list'               => [],
+    ],
+]) ?>
+</script>

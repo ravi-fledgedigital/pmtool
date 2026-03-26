@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package RMA Base for Magento 2
+ */-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Amasty\Rma\Block\Returns\OrderList" cacheable="false" name="amasty.reports.order.select" template="Amasty_Rma::account/returns/select.phtml"/>
+            <block class="Amasty\Rma\Block\Returns\History" name="amasty.reports.order.history" template="Amasty_Rma::account/returns/index.phtml">
+                <block class="Magento\Theme\Block\Html\Pager" name="amasty_rma_pager"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="CustomerRegistrationFormWithMultiselectAttributeTest">
+        <annotations>
+            <features value="CustomerCustomAttributes"/>
+            <stories value="Customer Custom Multiselect Attribute"/>
+            <title value="Customer registration form with multiselect attribute test"/>
+            <description value="Check the Customer registration form with multiselect attribute rendered successfully"/>
+            <severity value="AVERAGE"/>
+            <useCaseId value="ACP2E-1717"/>
+            <testCaseId value="AC-8143"/>
+        </annotations>
+        <before>
+            <!--Login as admin-->
+            <actionGroup ref="AdminLoginActionGroup" stepKey="LoginAsAdmin"/>
+        </before>
+        <after>
+            <actionGroup ref="AdminDeleteCustomerCustomAttributeActionGroup" stepKey="delete">
+                <argument name="attributeLabel" value="{{AttributeMultiSelect.frontend_label}}"/>
+            </actionGroup>
+            <!--Logout as admin-->
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logOut"/>
+        </after>
+        <amOnPage url="{{CustomerAttributesPage.url}}" stepKey="navigateToCustomerAddress"/>
+        <waitForPageLoad stepKey="waitForCustomerAttributePageLoaded"/>
+
+        <!-- Create customer multiple select attribute -->
+        <actionGroup ref="AdminCreateCustomerAttributeWithOptions" stepKey="createMultiSelectAttribute">
+            <argument name="customerAttribute" value="AttributeMultiSelect"/>
+            <argument name="defaultLabel" value="{{AttributeMultiSelect.frontend_label}}"/>
+            <argument name="attributeCode" value="{{AttributeMultiSelect.attribute_code}}"/>
+            <argument name="inputType" value="{{AttributeMultiSelect.frontend_input}}"/>
+            <argument name="sortOrder" value="{{AttributeMultiSelect.sort_order}}"/>
+            <argument name="option1" value="{{AttributeMultiSelect.option1}}"/>
+            <argument name="option2" value="{{AttributeMultiSelect.option2}}"/>
+            <argument name="formToUse" value="Customer Registration"/>
+            <argument name="message" value="You saved the customer attribute."/>
+        </actionGroup>
+
+        <!-- Open created customer attribute -->
+        <actionGroup ref="FilterCustomerAttributesByAttributeCodeAndDefaultLabelActionGroup"
+                     stepKey="findCreatedAttribute">
+            <argument name="defaultLabel" value="{{AttributeMultiSelect.frontend_label}}"/>
+            <argument name="attributeCode" value="{{AttributeMultiSelect.attribute_code}}"/>
+        </actionGroup>
+        <click selector="{{AdminCustomerAttributeSection.firstAttribute}}" stepKey="clickFirstRow"/>
+
+        <!-- Change data according to dataset -->
+        <selectOption selector="{{CustomerAccountSection.valuesRequired}}" userInput="Yes" stepKey="setValuesRequired"/>
+        <click selector="{{AttributeEditSection.saveAttribute}}" stepKey="saveAttribute"/>
+        <waitForPageLoad stepKey="WaitForAttributeSaved"/>
+
+        <!-- Assert customer custom attribute success save message -->
+        <see selector="{{AdminMessagesSection.success}}" userInput="You saved the customer attribute."
+             stepKey="verifyAttributeCreated"/>
+
+        <!-- Open customer registration page on storefront -->
+        <amOnPage url="{{StorefrontCustomerCreatePage.url}}" stepKey="amOnCustomerAccountCreationPage"/>
+        <waitForPageLoad stepKey="waitForPageLoaded"/>
+        <seeElement selector="//select[contains(@id,'test_multiple_select')]"
+                    stepKey="assertCustomerCustomMultiselectAttribute"/>
+    </test>
+</tests>

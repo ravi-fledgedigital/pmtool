@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\GraphQl\Model\Query\Logger\LoggerPool">
+        <arguments>
+            <argument name="loggers" xsi:type="array">
+                <item name="StateMonitor-GraphQlLogger" xsi:type="object">Magento\ApplicationServerStateMonitorGraphQl\StateMonitor\GraphQlLogger</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\ApplicationServerStateMonitor\StateMonitor\StateMonitor">
+        <arguments>
+            <argument name="requestNames" xsi:type="array">
+                <item name="StateMonitor-GraphQl-RequestName" xsi:type="object">Magento\ApplicationServerStateMonitorGraphQl\StateMonitor\GraphQlLogger</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

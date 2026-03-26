@@ -1,0 +1,29 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package RMA Base for Magento 2
+ */
+/**
+ * @var \Magento\Backend\Block\Template $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Amasty\Rma\ViewModel\Order\History\Grid $viewModel
+ */
+
+$viewModel = $block->getViewModel();
+?>
+<script type="text/x-magento-init">
+        {
+            "*": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "return-links": {
+                            "component": "Amasty_Rma/js/order/history/links",
+                            "orderRelation": "<?= $escaper->escapeHtml($viewModel->getReturnableOrderIds()); ?>",
+                            "newReturnUrl": "<?= $escaper->escapeHtml($viewModel->getNewReturnUrl()); ?>"
+                        }
+                    }
+                }
+            }
+        }
+</script>

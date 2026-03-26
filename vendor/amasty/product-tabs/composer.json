@@ -1,0 +1,21 @@
+{
+    "name": "amasty/product-tabs",
+    "description": "Custom Product Tabs by Amasty",
+    "require": {
+        "php": ">=8.1.0",
+        "amasty/base": ">=1.21.1"
+    },
+    "type": "magento2-module",
+    "version": "1.5.0",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\CustomTabs\\": ""
+        }
+    }
+}

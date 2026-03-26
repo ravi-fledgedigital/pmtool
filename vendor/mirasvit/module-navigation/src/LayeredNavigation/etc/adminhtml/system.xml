@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="mst_nav" showInDefault="1" showInWebsite="1" showInStore="1" type="text" translate="label" sortOrder="440">
+            <label>Layered Navigation Filters</label>
+            <tab>mirasvit</tab>
+            <resource>Mirasvit_LayeredNavigation::config_layerednavigation</resource>
+
+            <group id="general" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10" translate="label">
+                <label>General Settings</label>
+
+                <field id="is_ajax_enabled" translate="label comment" type="select" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="10">
+                    <label>Enable AJAX Filtering</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enables AJAX for smooth filter application without page reloads.]]></comment>
+                </field>
+
+                <field id="filter_applying_mode" translate="label comment" type="select" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="12">
+                    <label>Filter Application Mode</label>
+                    <source_model>Mirasvit\LayeredNavigation\Model\Config\Source\FilterApplyingModeSource</source_model>
+                    <comment><![CDATA[Choose how filters are applied: instantly on selection or manually by button click.]]></comment>
+                    <depends>
+                        <field id="is_ajax_enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="filter_pre_calculation" translate="label comment" type="select" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="13">
+                    <label>Options counts precalculation</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="is_ajax_enabled">1</field>
+                        <field id="filter_applying_mode">by_button_click</field>
+                    </depends>
+                    <comment><![CDATA[Filters options counts are precalculated on filter selection in by_button_click mode. Used for filters in main sidebar]]></comment>
+                </field>
+
+                <field id="scroll_to_top" translate="label comment" type="select" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="13">
+                    <label>Scroll behaviour after filtering</label>
+                    <source_model>Mirasvit\LayeredNavigation\Model\Config\Source\ScrollToTopSource</source_model>
+                    <comment><![CDATA[
+                    Defines where the page should be scrolled to after applying filter. <br/>
+                    Option "Stay on last selected filter" applicable for filters in multiselect mode and only in instant ajax mode. Otherwise it uses the "Scroll to page top" behaviour. For horizontal filters the behaviour is also "Scroll to page top"
+                    ]]></comment>
+                    <depends>
+                        <field id="is_ajax_enabled">1</field>
+                    </depends>
+                </field>
+
+                <group id="mobile_settings" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20" translate="label">
+                    <label>Mobile Settings</label>
+                    <field id="confirm_on_mobile" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="14">
+                        <label>Apply Filters by Button Click on Mobile</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>mst_nav/general/confirm_on_mobile</config_path>
+                        <comment><![CDATA[Overrides instant filtering for mobile devices, requiring users to tap a button to apply filters.]]></comment>
+                    </field>
+                    <depends>
+                        <field id="is_ajax_enabled">1</field>
+                        <field id="filter_applying_mode">instantly</field>
+                    </depends>
+                </group>
+
+                <field id="mode_switch_breakpoint" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="16">
+                    <label>Screen width breakpoint (px)</label>
+                    <depends>
+                        <field id="is_ajax_enabled">1</field>
+                        <field id="filter_applying_mode">instantly</field>
+                        <field id="confirm_on_mobile">1</field>
+                    </depends>
+                    <config_path>mst_nav/general/mode_switch_breakpoint</config_path>
+                    <comment>
+                        If empty the extension will use 768px as a breakpoint
+                    </comment>
+                </field>
+
+                <field id="is_multiselect_enabled" translate="label comment" type="select" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="14">
+                    <label>Enable Multiselect</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Allows users to select multiple options in each filter category.]]></comment>
+                </field>
+
+                <field id="sticky_sidebar" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="15">
+                    <label>Enable Sticky Sidebar</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Keeps the sidebar in a fixed position while scrolling.]]></comment>
+                </field>
+            </group>
+
+            <group id="styling" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20" translate="label comment">
+                <label>Appearance Settings</label>
+                <fieldset_css>mst_nav_group_config</fieldset_css>
+                <comment><![CDATA[Customize the appearance and functionality of filter options.]]></comment>
+                <group id="filter_appearance" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
+                    <label>Filter Appearance</label>
+
+                    <field id="is_open_filter" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                        <label>Show Expanded Filters by Default</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>mst_nav/general/is_open_filter</config_path>
+                        <comment><![CDATA[Displays filters in an expanded view by default.]]></comment>
+                    </field>
+
+                    <field id="open_filter_limit" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                        <label>Limit for Default Expanded Filters</label>
+                        <config_path>mst_nav/general/open_filter_limit</config_path>
+                        <depends>
+                            <field id="is_open_filter">1</field>
+                        </depends>
+                        <validate>validate-not-negative-number</validate>
+                        <comment><![CDATA[Set the number of filters expanded by default; leave empty for all to be open.]]></comment>
+                    </field>
+
+                    <field id="hide_unuseful_option" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30">
+                        <label>Hide Inactive Filter Options</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>mst_nav/general/hide_unuseful_option</config_path>
+                        <comment><![CDATA[Hide filter options with no available products.]]></comment>
+                    </field>
+
+                    <field id="show_clear_button" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="35">
+                        <label>Show Clear Options Button</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>mst_nav/general/show_clear_button</config_path>
+                        <comment><![CDATA[Display clear button with selected options count for applied filters.]]></comment>
+                    </field>
+
+                    <field id="filter_item_display_mode" translate="label comment tooltip" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="5">
+                        <label>Filter Selection Display Style</label>
+                        <config_path>mst_nav/general/filter_item_display_mode</config_path>
+                        <source_model>Mirasvit\LayeredNavigation\Model\Config\Source\FilterItemDisplayModeSource</source_model>
+                        <tooltip><![CDATA[Option will not be applied if images added for multiselect attributes]]></tooltip>
+                        <comment><![CDATA[Choose how filter options appear: as checkboxes, circles, etc.]]></comment>
+                    </field>
+
+                    <field id="display_options_background_color" translate="label comment tooltip" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="40">
+                        <label>Selection Background Color</label>
+                        <config_path>mst_nav/general/display_options_background_color</config_path>
+                        <frontend_model>Mirasvit\LayeredNavigation\Block\Adminhtml\ColorOptions\Color</frontend_model>
+                        <tooltip><![CDATA[For example: #337ab7, #5cb85c, #5bc0de, #f0ad4e, #d9534f etc.]]></tooltip>
+                        <comment><![CDATA[Set the background color for selected checkboxes or circles. Defaults to white if left empty.]]></comment>
+                        <depends>
+                            <field id="filter_item_display_mode" separator="|">checkbox|circle</field>
+                        </depends>
+                    </field>
+
+                    <field id="display_options_border_color" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="50">
+                        <label>Selection Border Color</label>
+                        <config_path>mst_nav/general/display_options_border_color</config_path>
+                        <frontend_model>Mirasvit\LayeredNavigation\Block\Adminhtml\ColorOptions\Color</frontend_model>
+                        <comment><![CDATA[Specify the border color for checkboxes or circles. Defaults to #ccc if left empty.]]></comment>
+                        <depends>
+                            <field id="filter_item_display_mode" separator="|">checkbox|circle</field>
+                        </depends>
+                    </field>
+
+                    <field id="display_options_checked_label_color" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="60">
+                        <label>Selection Mark Color</label>
+                        <config_path>mst_nav/general/display_options_checked_color</config_path>
+                        <frontend_model>Mirasvit\LayeredNavigation\Block\Adminhtml\ColorOptions\Color</frontend_model>
+                        <comment><![CDATA[Set the color of the checkmark or selection mark. Defaults to #555555 if left empty.]]></comment>
+                        <depends>
+                            <field id="filter_item_display_mode" separator="|">checkbox|circle</field>
+                        </depends>
+                    </field>
+                </group>
+
+                <group id="filter_options_appearance" showInDefault="1" showInWebsite="1" showInStore="1" translate="label comment">
+                    <label>Filter Options Appearance</label>
+                    <comment><![CDATA[Customize the appearance and functionality of filter options.]]></comment>
+                    <field id="display_mode" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                        <label>Limit the number of displayed filter options</label>
+                        <comment><![CDATA[Allows users to limit the number of shown filter options.]]></comment>
+                        <source_model>Mirasvit\LayeredNavigation\Model\Config\Source\SizeLimiterDisplayModeSource</source_model>
+                        <config_path>mst_nav/size_limiter/display_mode</config_path>
+                    </field>
+
+                    <field id="scroll_height" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                        <label>Height of scroll box (px)</label>
+                        <comment><![CDATA[Set the height of the scrolled box.]]></comment>
+                        <config_path>mst_nav/size_limiter/scroll_height</config_path>
+                        <validate>integer validate-greater-than-zero</validate>
+                        <depends>
+                            <field id="display_mode">scroll</field>
+                        </depends>
+                    </field>
+
+                    <field id="link_limit" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30">
+                        <label>Filter Option Count Threshold</label>
+                        <config_path>mst_nav/size_limiter/link_limit</config_path>
+                        <validate>integer validate-greater-than-zero</validate>
+                        <comment><![CDATA[If enabled, features such as "Show Search Box" or "Show More / Show Less" toggle will use this value to determine when to activate.]]></comment>
+                    </field>
+
+                    <field id="alphabetical_limit" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="40">
+                        <label>Show Alphabetical Index if Filter Options Exceed</label>
+                        <config_path>mst_nav/size_limiter/alphabetical_limit</config_path>
+                        <validate>integer validate-greater-than-zero</validate>
+                        <comment><![CDATA[Display an alphabetical index if the number of filter options is higher than this limit. Leave empty to always show the index.]]></comment>
+                    </field>
+
+                    <field id="text_less" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="50">
+                        <label>Label for "Show Less"</label>
+                        <config_path>mst_nav/size_limiter/text_less</config_path>
+                        <depends>
+                            <field id="display_mode">show-hide</field>
+                        </depends>
+                        <comment><![CDATA[Custom text for the "show less" option when hiding excess filter options.]]></comment>
+                    </field>
+
+                    <field id="text_more" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="60">
+                        <label>Label for "Show More"</label>
+                        <comment><![CDATA[Custom text for the "show more" option when displaying additional filter options.]]></comment>
+                        <config_path>mst_nav/size_limiter/text_more</config_path>
+                        <depends>
+                            <field id="display_mode">show-hide</field>
+                        </depends>
+                    </field>
+                </group>
+
+                <group id="link_highlighting" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
+                    <label>Link Highlighting</label>
+                    <field id="is_enabled" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="80">
+                        <label>Enable Link Highlighting</label>
+                        <config_path>mst_nav/highlight/is_enabled</config_path>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment><![CDATA[Highlights active links in filters.]]></comment>
+                    </field>
+
+                    <field id="color" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="90">
+                        <label>Highlight Color</label>
+                        <config_path>mst_nav/highlight/color</config_path>
+                        <frontend_model>Mirasvit\LayeredNavigation\Block\Adminhtml\ColorOptions\Color</frontend_model>
+                        <comment><![CDATA[Color for highlighting active links. Defaults to #ff5501 if left empty.]]></comment>
+                        <depends>
+                            <field id="is_enabled">1</field>
+                        </depends>
+                    </field>
+
+                    <field id="additional_css" translate="label comment" type="textarea" sortOrder="100" showInDefault="1"
+                           showInWebsite="1" showInStore="1">
+                        <label>Custom CSS</label>
+                        <config_path>mst_nav/styling/additional_css</config_path>
+                        <comment><![CDATA[Add additional CSS for custom styling.]]></comment>
+                    </field>
+                </group>
+
+                <group id="price_slider_styling" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
+                    <label>Price Slider Styling</label>
+                    <field id="slider_main_color" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="40">
+                        <label>Primary Slider Color</label>
+                        <frontend_model>Mirasvit\LayeredNavigation\Block\Adminhtml\ColorOptions\Color</frontend_model>
+                        <comment><![CDATA[Main color for range sliders, such as price filters.]]></comment>
+                        <config_path>mst_nav/styling/slider_main_color</config_path>
+                    </field>
+
+                    <field id="slider_secondary_color" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="50">
+                        <label>Secondary Slider Color</label>
+                        <frontend_model>Mirasvit\LayeredNavigation\Block\Adminhtml\ColorOptions\Color</frontend_model>
+                        <comment><![CDATA[Color for the slider track.]]></comment>
+                        <config_path>mst_nav/styling/slider_secondary_color</config_path>
+                    </field>
+                </group>
+            </group>
+
+            <group id="product_price" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30" translate="label comment">
+                <label>Product Price Settings</label>
+                <fieldset_css>mst_nav_group_config</fieldset_css>
+                <comment><![CDATA[Customize product price filering]]></comment>
+
+                <field id="include_tax" translate="label comment" type="select" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10">
+                    <label>Use price including tax</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>mst_nav/product_price/include_tax</config_path>
+                    <comment><![CDATA[Enabling this option may reduce filtering speed.]]></comment>
+                </field>
+            </group>
+
+            <group id="extra_filter" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="40" translate="label comment">
+                <label>Additional filters</label>
+                <fieldset_css>mst_nav_group_config</fieldset_css>
+                <comment><![CDATA[Enabling and customization of additional filters.]]></comment>
+                <group id="category" showInDefault="1" showInWebsite="0" showInStore="0" translate="label">
+                    <label>Category filter</label>
+
+                    <field id="is_enabled" translate="label comment" type="select" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="10" canRestore="1">
+                        <label>Enable Category Filtering</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>catalog/layered_navigation/display_category</config_path>
+                        <comment><![CDATA[Enables category-based filtering for easier navigation.]]></comment>
+                    </field>
+
+                    <field id="is_show_nested_categories" translate="label comment" type="select" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="15">
+                        <label>Show Nested Categories</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>mst_nav/general/is_show_nested_categories</config_path>
+                        <comment><![CDATA[Display subcategories within the main categories.]]></comment>
+                        <depends>
+                            <field id="is_enabled">1</field>
+                        </depends>
+                    </field>
+
+                    <field id="is_nested_collapsible" translate="label comment" type="select" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="15">
+                        <label>Collapsible Subcategories</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment><![CDATA[Allows subcategories to be collapsible for a cleaner layout.]]></comment>
+                        <depends>
+                            <field id="is_enabled">1</field>
+                            <field id="is_show_nested_categories">1</field>
+                        </depends>
+                    </field>
+
+                    <field id="mode" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                        <label>Category Filter Mode</label>
+                        <comment><![CDATA[Toggle between filtered URLs and category-based links in the category filter.]]></comment>
+                        <source_model>Mirasvit\LayeredNavigation\Model\Config\Source\CategoryFilterDisplayModeSource</source_model>
+                    </field>
+
+                    <field id="sort_by" translate="label comment" type="select" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="15">
+                        <label>Sort Options by</label>
+                        <source_model>Mirasvit\LayeredNavigation\Model\Config\Source\AttributeOptionSortBySource</source_model>
+                        <depends>
+                            <field id="is_enabled">1</field>
+                            <field id="is_show_nested_categories">0</field>
+                        </depends>
+                        <comment><![CDATA[Define sort order for categories in category filter.]]></comment>
+                    </field>
+
+                    <field id="alphabetical_index" translate="label comment" type="select" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="15">
+                        <label>Use Alphabetical Index</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment><![CDATA[Use Alphabetical Index.]]></comment>
+                        <depends>
+                            <field id="is_enabled">1</field>
+                            <field id="is_show_nested_categories">0</field>
+                        </depends>
+                    </field>
+                </group>
+
+                <group id="new" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
+                    <label>New Products</label>
+
+                    <field id="is_enabled" translate="label tooltip" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                        <label>Enabled</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <tooltip><![CDATA[To show new products filter date should be set in "CATALOG > Products > {Edit Product} > Autosettings > Set Product as New From"]]></tooltip>
+                    </field>
+
+                    <field id="label" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                        <label>Label</label>
+                        <depends>
+                            <field id="is_enabled">1</field>
+                        </depends>
+                    </field>
+
+                    <field id="position" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30">
+                        <label>Position</label>
+                        <depends>
+                            <field id="is_enabled">1</field>
+                        </depends>
+                    </field>
+                </group>
+
+                <group id="sale" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
+                    <label>On Sale</label>
+
+                    <field id="is_enabled" translate="label tooltip" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                        <label>Enabled</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <tooltip>
+                            <![CDATA[It shows products with discount configured in "MARKETING > Catalog Price Rule" and products with configured "Special Price" in "CATALOG > Products > {Edit Product} > Advanced Pricing"]]></tooltip>
+                    </field>
+
+                    <field id="label" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                        <label>Label</label>
+                        <depends>
+                            <field id="is_enabled">1</field>
+                        </depends>
+                    </field>
+
+                    <field id="position" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30">
+                        <label>Position</label>
+                        <depends>
+                            <field id="is_enabled">1</field>
+                        </depends>
+                    </field>
+                    <field id="hide_no_option" translate="label tooltip" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="40">
+                        <label>Hide "No" Option</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <tooltip>
+                            <![CDATA[If enabled, only the "Yes" option will be displayed in the On Sale filter. Useful for focusing only on discounted products.]]>
+                        </tooltip>
+                        <depends>
+                            <field id="is_enabled">1</field>
+                        </depends>
+                    </field>
+                </group>
+
+                <group id="stock" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
+                    <label>Stock</label>
+
+                    <field id="is_enabled" translate="label tooltip" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                        <label>Enabled</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <tooltip>
+                            <![CDATA[To show out of stock products should be set to "Yes" following configuration "STORES > Configuration > Catalog > Inventory > Stock Options > Display Out of Stock Products"]]></tooltip>
+                    </field>
+
+                    <field id="label" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                        <label>Label</label>
+                        <depends>
+                            <field id="is_enabled">1</field>
+                        </depends>
+                    </field>
+
+                    <field id="label_in" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30">
+                        <label>In Stock Filter Label</label>
+                        <depends>
+                            <field id="is_enabled">1</field>
+                        </depends>
+                    </field>
+
+                    <field id="label_out" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="40">
+                        <label>Out of Stock Filter Label</label>
+                        <depends>
+                            <field id="is_enabled">1</field>
+                        </depends>
+                    </field>
+
+                    <field id="position" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="250">
+                        <label>Position</label>
+                        <depends>
+                            <field id="is_enabled">1</field>
+                        </depends>
+                    </field>
+                </group>
+
+                <group id="rating" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
+                    <label>Rating</label>
+
+                    <field id="is_enabled" translate="label tooltip" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                        <label>Enabled</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <tooltip><![CDATA[Rating filter]]></tooltip>
+                    </field>
+
+                    <field id="label" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                        <label>Label</label>
+                        <depends>
+                            <field id="is_enabled">1</field>
+                        </depends>
+                    </field>
+
+                    <field id="position" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30">
+                        <label>Position</label>
+                        <depends>
+                            <field id="is_enabled">1</field>
+                        </depends>
+                    </field>
+                </group>
+
+                <group id="search" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
+                    <label>Search Filter</label>
+
+                    <field id="is_enabled" translate="label tooltip" type="select" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10">
+                        <label>Enabled</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <tooltip><![CDATA[Search filter]]></tooltip>
+                    </field>
+
+                    <field id="label" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                        <label>Label</label>
+                        <depends>
+                            <field id="is_enabled">1</field>
+                        </depends>
+                    </field>
+
+                    <field id="is_fulltext" translate="label tooltip" type="select" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30">
+                        <label>Fulltext Search</label>
+                        <depends>
+                            <field id="is_enabled">1</field>
+                        </depends>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <tooltip><![CDATA[If enabled, the search field will work as a fulltext search inside the category page]]></tooltip>
+                    </field>
+
+                    <field id="is_filter_options" translate="label tooltip" type="select" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="40">
+                        <label>Search by Attribute Options</label>
+                        <depends>
+                            <field id="is_enabled">1</field>
+                        </depends>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <tooltip><![CDATA[If enabled, a popup block will be added with attributes and options that match the search query]]></tooltip>
+                    </field>
+                </group>
+            </group>
+
+            <group id="horizontal_filters" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="50" translate="label comment">
+                <label>Horizontal Filters</label>
+                <fieldset_css>mst_nav_group_config</fieldset_css>
+                <comment><![CDATA[Сustomize the display and functionality of horizontal filter panels.]]></comment>
+                <group id="horizontal_display" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10" translate="label">
+                    <label>Filter Display for Horizontal Panels</label>
+                    <fieldset_css>mst_nav_sub_group_config</fieldset_css>
+
+                    <field id="horizontal_filters_hide" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                        <label>Hide Horizontal Filters on Small Screens</label>
+                        <config_path>mst_nav/horizontal_bar/horizontal_filters_hide</config_path>
+                        <comment><![CDATA[Hide horizontal filters on screens smaller than specified width.]]></comment>
+                    </field>
+                </group>
+
+                <group id="state_bar" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20" translate="label">
+                    <label>Clear Filter Block</label>
+                    <fieldset_css>mst_nav_sub_group_config</fieldset_css>
+                    <field id="position" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                        <label>Clear Filter Position</label>
+                        <source_model>Mirasvit\LayeredNavigation\Model\Config\Source\StateBarPositionSource</source_model>
+                        <config_path>mst_nav/state_bar/position</config_path>
+                        <comment><![CDATA[Position of the filter clear button.]]></comment>
+                    </field>
+
+                    <field id="group_mode" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                        <label>Group Selected Options by Attribute</label>
+                        <source_model>Mirasvit\LayeredNavigation\Model\Config\Source\StateBarFilterGroupModeSource</source_model>
+                        <config_path>mst_nav/state_bar/group_mode</config_path>
+                        <comment><![CDATA[Group selected filters under attribute name (e.g., "Color: Red, Blue").]]></comment>
+                    </field>
+                </group>
+            </group>
+
+            <group id="seo" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="60" translate="label comment">
+                <label>SEO Settings</label>
+                <fieldset_css>mst_nav_group_config</fieldset_css>
+                <comment><![CDATA[Customize SEO of filtered pages to improve visibility and indexing by search engines.]]></comment>
+                <group id="seo_configuration" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10" translate="label">
+                    <label>SEO Configuration</label>
+                    <fieldset_css>mst_nav_sub_group_config</fieldset_css>
+                    <field id="robots" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                        <label>Meta Header for Filtered Pages</label>
+                        <source_model>Mirasvit\SeoNavigation\Model\Config\Source\MetaRobots</source_model>
+                        <config_path>mst_nav/seo/robots</config_path>
+                        <comment><![CDATA[Set meta header behavior for filtered pages to improve SEO.]]></comment>
+                    </field>
+
+                    <field id="canonical" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                        <label>Canonical Links for Filtered Pages</label>
+                        <source_model>Mirasvit\SeoNavigation\Model\Config\Source\Canonical</source_model>
+                        <config_path>mst_nav/seo/canonical</config_path>
+                        <comment><![CDATA[Set canonical link behavior for filtered pages.]]></comment>
+                    </field>
+
+                    <field id="rel" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30">
+                        <label>Rel Attribute for Filter Links</label>
+                        <source_model>Mirasvit\LayeredNavigation\Model\Config\Source\LinkRelSource</source_model>
+                        <config_path>mst_nav/seo/rel</config_path>
+                        <comment><![CDATA[Set rel attribute (e.g., follow/nofollow) for filter links.]]></comment>
+                    </field>
+
+                    <field id="rel_multiple" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30">
+                        <label>Active Filters Nofollow Threshold</label>
+                        <config_path>mst_nav/seo/rel_multiple</config_path>
+                        <validate>validate-not-negative-number</validate>
+                        <comment><![CDATA[Set the threshold of applied filters to set rel=nofollow for filter links; leave empty to set rel attribute based only on "Rel Attribute for Filter Links" setting.]]></comment>
+                    </field>
+                </group>
+            </group>
+
+            <group id="product_attribute_linking" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="100" translate="label comment">
+                <label>Product Attribute Links</label>
+                <fieldset_css>mst_nav_group_config</fieldset_css>
+                <comment><![CDATA[Set clickable filter links for product attributes on the product page.]]></comment>
+                <group id="dynamic_product_links" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10" translate="label">
+                    <label>Dynamic Links for Product Attributes</label>
+                    <fieldset_css>mst_nav_sub_group_config</fieldset_css>
+                    <field id="is_enabled" translate="label comment" type="select" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10">
+                        <label>Enable Dynamic Attribute Links on the product page</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <config_path>mst_nav/product_attribute_linking/is_enabled</config_path>
+                        <comment><![CDATA[Creates clickable filter links for product attributes on the product page.]]></comment>
+                    </field>
+                    <field id="target" translate="label" type="select" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10">
+                        <label>Target</label>
+                        <source_model>Mirasvit\LayeredNavigation\Model\Config\Source\LinkTargetSource</source_model>
+                        <depends>
+                            <field id="is_enabled">1</field>
+                        </depends>
+                        <config_path>mst_nav/product_attribute_linking/target</config_path>
+                    </field>
+                    <field id="attributes" translate="label comment" type="multiselect" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10">
+                        <label>Attributes</label>
+                        <can_be_empty>1</can_be_empty>
+                        <source_model>Mirasvit\LayeredNavigation\Model\Config\Source\LinkAttributesSource</source_model>
+                        <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                        <depends>
+                            <field id="is_enabled">1</field>
+                        </depends>
+                        <config_path>mst_nav/product_attribute_linking/attributes</config_path>
+                        <comment><![CDATA[Choose attributes to be enabled for attribute linking.]]></comment>
+                    </field>
+                    <field id="use_brand_page" translate="label comment" type="select" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10">
+                        <label>Integrate with Brands</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <depends>
+                            <field id="is_enabled">1</field>
+                        </depends>
+                        <config_path>mst_nav/product_attribute_linking/use_brand_page</config_path>
+                        <comment><![CDATA[If enabled, the extension will use the brand page link for brands in the layered navigation instead of the default layered navigation URL.]]></comment>
+                    </field>
+                    <frontend_model>Mirasvit\LayeredNavigation\Block\Adminhtml\Config\ProductAttributeLinking</frontend_model>
+                </group>
+            </group>
+        </section>
+    </system>
+</config>

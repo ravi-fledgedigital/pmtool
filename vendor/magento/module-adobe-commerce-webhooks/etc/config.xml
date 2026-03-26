@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/************************************************************************
+ *
+ * ADOBE CONFIDENTIAL
+ * ___________________
+ *
+ * Copyright 2024 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ * ************************************************************************
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <commerce_webhooks>
+            <digital_signature>
+                <enabled>0</enabled>
+                <public_key></public_key>
+                <private_key></private_key>
+            </digital_signature>
+            <db_log>
+                <db_log_enabled>0</db_log_enabled>
+                <db_log_full_message>0</db_log_full_message>
+                <retention_period>1</retention_period>
+                <level>300</level>
+            </db_log>
+        </commerce_webhooks>
+    </default>
+</config>

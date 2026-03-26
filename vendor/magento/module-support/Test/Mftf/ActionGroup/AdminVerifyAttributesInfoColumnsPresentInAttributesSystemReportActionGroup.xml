@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminVerifyAttributesInfoColumnsPresentInAttributesSystemReportActionGroup">
+        <annotations>
+            <description>Admin verify Attributes information status is present after creating Attributes system report.</description>
+        </annotations>
+        <waitForText selector="{{SystemReportSection.verifyText}}" userInput="User Defined Eav Attributes"  stepKey="attributesSystemReportContainUserDefinedEavAttributes"/>
+        <waitForText selector="{{SystemReportSection.verifyText}}" userInput="New Eav Attributes"  stepKey="attributesSystemReportContainNewEavAttributes"/>
+        <waitForText selector="{{SystemReportSection.verifyText}}" userInput="Entity Types"  stepKey="attributesSystemReportContainEntityTypes"/>
+        <waitForText selector="{{SystemReportSection.verifyText}}" userInput="All Eav Attributes"  stepKey="attributesSystemReportContainAllEavAttributes"/>
+        <waitForText selector="{{SystemReportSection.verifyText}}" userInput="Category Eav Attribute"  stepKey="attributesSystemReportContainCategoryEavAttribute"/>
+        <waitForText selector="{{SystemReportSection.verifyText}}" userInput="Product Eav Attributes"  stepKey="attributesSystemReportContainProductEavAttributes"/>
+        <waitForText selector="{{SystemReportSection.verifyText}}" userInput="Customer Eav Attributes"  stepKey="attributesSystemReportContainCustomerEavAttributes"/>
+        <waitForText selector="{{SystemReportSection.verifyText}}" userInput="Customer Address Eav Attributes"  stepKey="attributesSystemReportContainCustomerAddressEavAttributes"/>
+        <waitForText selector="{{SystemReportSection.verifyText}}" userInput="Rma Item Eav Attributes"  stepKey="attributesSystemReportContainRmaItemEavAttributes"/>
+    </actionGroup>
+</actionGroups>

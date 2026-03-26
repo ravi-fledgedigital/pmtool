@@ -1,0 +1,54 @@
+<div class="amrma-fieldset-wrapper"
+     css="$data.additionalClasses"
+     attr="'data-index': index"
+     data-bind="visible: $data.visible === undefined ? true: $data.visible">
+    <div class="amrma-fieldset-wrapper-title">
+        <strong class="amrma-strong" css="'_loading': loading,
+                      '_error': error">
+            <span translate="label"/>
+            <span class="admin__page-nav-item-messages" if="collapsible">
+                <span class="admin__page-nav-item-message _changed">
+                    <span class="admin__page-nav-item-message-icon"></span>
+                    <span class="admin__page-nav-item-message-tooltip"
+                          data-bind="i18n: 'Changes have been made to this section that have not been saved.'">
+                    </span>
+                </span>
+                <span class="admin__page-nav-item-message _error">
+                    <span class="admin__page-nav-item-message-icon"></span>
+                    <span class="admin__page-nav-item-message-tooltip"
+                          data-bind="i18n: 'This tab contains invalid data. Please resolve this before saving.'">
+                    </span>
+                </span>
+                <span class="admin__page-nav-item-message-loader">
+                    <span class="spinner">
+                       <span repeat="8"/>
+                    </span>
+               </span>
+            </span>
+        </strong>
+    </div>
+
+    <div class="amrma-customer-information">
+       <div class="amrma-customer-data">
+           <p class="_amrma-nomargin">
+               <span class="_amrma-strong" data-bind="i18n: 'Name:'"> </span>
+               <span class="amrma-name" data-bind="text: $data.information.name"></span>
+           </p>
+           <p class="_amrma-nomargin">
+               <span class="_amrma-strong" data-bind="i18n: 'Email:'"> </span>
+               <span class="amrma-email" data-bind="text: $data.information.email"></span>
+           </p>
+           <p class="_amrma-nomargin">
+               <span class="_amrma-strong" data-bind="i18n: 'Group:'"> </span>
+               <span class="amrma-group" data-bind="text: $data.information.customer_group"></span>
+           </p>
+       </div>
+
+        <div class="amrma-customer-address">
+            <p class="_amrma-nomargin">
+                <span class="_amrma-strong" data-bind="i18n: 'Address'"></span>
+            </p>
+            <p data-bind="html: $data.information.address"></p>
+        </div>
+    </div>
+</div>

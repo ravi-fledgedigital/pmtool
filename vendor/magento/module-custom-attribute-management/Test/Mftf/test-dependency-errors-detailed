@@ -1,0 +1,12 @@
+
+File "/var/www/html/app/code/Magento/CustomAttributeManagement/Test/Mftf/Test/StorefrontAssertCalendarButtonNearDateFieldCustomerAttributeTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AttributeDateData from module(s): magento/module-customer-custom-attributes
+	 AdminCreateCustomerCustomAttribute from module(s): magento/module-customer-custom-attributes
+	 AdminDeleteCustomerCustomAttributeActionGroup from module(s): magento/module-customer-custom-attributes
+
+File "/var/www/html/app/code/Magento/CustomAttributeManagement/Test/Mftf/ActionGroup/StorefrontAssertCalendarButtonNearDateFieldActionGroup.xml"
+contains entity references that violate dependency constraints:
+		
+	 StorefrontCustomerCustomAttributeSection from module(s): magento/module-customer-custom-attributes

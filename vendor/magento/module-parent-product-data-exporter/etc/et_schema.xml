@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright 2022 Adobe
+ * All Rights Reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_DataExporter:etc/et_schema.xsd">
+    <record name="Product">
+        <field name="parents" type="ParentProduct" repeated="true"
+               provider="Magento\ParentProductDataExporter\Model\Provider\Parents"
+        >
+            <using field="productId" />
+            <using field="storeViewCode" />
+        </field>
+    </record>
+    <record name="ParentProduct">
+        <field name="sku" type="String"/>
+        <field name="productType" type="String"/>
+    </record>
+</config>

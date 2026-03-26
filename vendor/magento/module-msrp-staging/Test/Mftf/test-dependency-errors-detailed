@@ -1,0 +1,12 @@
+
+File "/var/www/html/app/code/Magento/MsrpStaging/Test/Mftf/Test/AdminProductScheduledUpdateMinimumAdvertisedPriceSecondWebsiteTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminFillPermanentUpdateActionGroup from module(s): magento/module-catalog-staging
+	 SaveScheduleUpdateForProductActionGroup from module(s): magento/module-catalog-staging
+	 ApplyUpdatedRuleStagingByCron from module(s): magento/module-catalog-rule-staging
+
+File "/var/www/html/app/code/Magento/MsrpStaging/Test/Mftf/ActionGroup/AdminProductScheduledUpdateFillMinimumAdvertisedPriceActionGroup.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminProductScheduleUpdateSection from module(s): magento/module-staging

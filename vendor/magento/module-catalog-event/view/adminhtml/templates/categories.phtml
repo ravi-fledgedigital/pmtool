@@ -1,0 +1,94 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * Categories tree for catalogevent
+ *
+ * @see \Magento\CatalogEvent\Block\Adminhtml\Edit\Category
+ *
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ */
+$spinnerId = 'category-tree-spinner';
+$jsTreeExplore = $block->getEventCategory();
+?>
+<fieldset class="admin__fieldset">
+    <legend class="admin__legend"><span><?= $block->escapeHtml(__('Select Category'))?></span></legend>
+    <br />
+    <div id="tree-div" class="tree"></div>
+    <?= /* @noEscape */
+    $secureRenderer->renderStyleAsTag(
+        'width:auto;',
+        '#tree-div'
+    );
+    ?>
+</fieldset>
+
+<?php if ($block->getRoot()): ?>
+    <?= /* @noEscape */
+    $secureRenderer->renderTag(
+        'style',
+        [],
+        '.em { font-style: italic; }',
+        true
+    );
+    ?>
+    <div class="admin__data-grid-loading-mask" data-role="spinner"
+         data-ui-id="<?= $block->escapeHtmlAttr($spinnerId) ?>">
+        <div class="spinner">
+            <span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span>
+        </div>
+    </div>
+    <!--[if IE]>
+    <script id="ie-deferred-loader" defer="defer" src="//:"></script>
+    <![endif]-->
+
+    <?php
+    $escapedSpinnerId = $block->escapeJs($spinnerId);
+    $escapedCurrentUrl = $block->escapeJs($block->getCurrentUrl());
+    $escapedLoadTreeUrl = $block->escapeJs($block->getLoadTreeUrl());
+    $treeArray = $block->getTreeArray(null, true);
+    ?>
+
+    <div id="tree-div" class="tree-wrapper x-tree">
+        <div class="tree-holder" id="category-tree">
+            <?= /* @noEscape */ $jsTreeExplore; ?>
+        </div>
+    </div>
+
+    <?php $scriptString = <<<script
+    require([
+        'jquery',
+        'jquery/jstree/jquery.jstree'
+    ], function($){
+
+     $('#category-tree').jstree({});
+
+     $('#category-tree').on("changed.jstree", function (e, data) {
+
+        if(data.node) {
+            var categoryname = data.node.text;
+            var search = "Default Category";
+            if(categoryname.indexOf(search) != -1) {
+                return false;
+            }
+            var id = data.node.id;
+            window.location = '{$escapedCurrentUrl}' + 'category_id/' + id;
+        }
+    });
+
+    var spinnerId = '{$escapedSpinnerId}';
+    $('[data-ui-id='+ spinnerId +']').hide();
+
+    //<![CDATA[
+    if ((typeof FORM_KEY) == 'undefined') {
+        FORM_KEY = '';
+    }
+    });
+script;
+    ?>
+    <?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false); ?>
+<?php endif; ?>

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="mst_quick_navigation_sequence" resource="default" engine="innodb" comment="mst_quick_navigation_sequence">
+    <column xsi:type="int" name="sequence_id" padding="10" unsigned="true" nullable="false" identity="true" comment="sequence_id"/>
+    <column xsi:type="int" name="store_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="store_id"/>
+    <column xsi:type="int" name="category_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="category_id"/>
+    <column xsi:type="varchar" name="sequence" nullable="true" onCreate="migrateDataFrom(sequence)" length="255"/>
+    <column xsi:type="int" name="length" padding="10" unsigned="true" nullable="false" identity="false" default="1" comment="length"/>
+    <column xsi:type="int" name="popularity" padding="10" unsigned="true" nullable="false" identity="false" default="1" comment="popularity"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="created_at"/>
+    <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="updated_at"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="sequence_id"/>
+    </constraint>
+    <index referenceId="MST_QUICK_NAVIGATION_SEQUENCE_STORE_ID" indexType="btree">
+      <column name="store_id"/>
+    </index>
+    <index referenceId="MST_QUICK_NAVIGATION_SEQUENCE_CATEGORY_ID" indexType="btree">
+      <column name="category_id"/>
+    </index>
+<!--    <index referenceId="MST_QUICK_NAVIGATION_SEQUENCE_SEQUENCE" indexType="btree">-->
+<!--      <column name="sequence"/>-->
+<!--    </index>-->
+    <index referenceId="MST_QUICK_NAVIGATION_SEQUENCE_LENGTH" indexType="btree">
+      <column name="length"/>
+    </index>
+    <index referenceId="MST_QUICK_NAVIGATION_SEQUENCE_POPULARITY" indexType="btree">
+      <column name="popularity"/>
+    </index>
+    <index referenceId="MST_QUICK_NAVIGATION_SEQUENCE_STORE_ID_CATEGORY_ID_SEQUENCE" indexType="btree">
+      <column name="store_id"/>
+      <column name="category_id"/>
+      <column name="sequence"/>
+    </index>
+    <index referenceId="MST_QUICK_NAVIGATION_SEQUENCE_STORE_ID_CATEGORY_ID_POPULARITY" indexType="btree">
+      <column name="store_id"/>
+      <column name="category_id"/>
+      <column name="popularity"/>
+    </index>
+  </table>
+</schema>

@@ -1,0 +1,47 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Store Locator for Magento 2
+ */
+
+use Amasty\Storelocator\Block\View\Attributes;
+use Magento\Framework\Escaper;
+
+/** @var Attributes $block */
+/** @var Escaper $escaper */
+?>
+<div class="amlocator-block -grey -attributes amlocator-attributes-wrapper" data-amlocator-js="location-attributes">
+    <div class="amlocator-collapse-title"
+         role="button"
+         tabindex="0"
+         aria-expanded="false"
+         aria-controls="amlocator-attributes-container"
+         data-amlocator-js="collapse-trigger">
+        <span><?= $escaper->escapeHtml(__('Additional Information')); ?></span>
+        <span class="amlocator-arrow" data-amlocator-js="collapse-indicator" aria-hidden="true"></span>
+    </div>
+    <div class="amlocator-attributes-container" id="amlocator-attributes-container" data-amlocator-js="collapse-content">
+        <?php foreach ($block->getLocationAttributes() as $attribute): ?>
+            <div class="amlocator-location-attribute">
+                <span class="amlocator-label">
+                    <strong><?= $escaper->escapeHtml($attribute['frontend_label']) ?>:</strong>
+                </span>
+                <div class="amlocator-values">
+                    <?php if (isset($attribute['option_title']) && is_array($attribute['option_title'])): ?>
+                        <?php foreach ($attribute['option_title'] as $optionTitle): ?>
+                            <span class="amlocator-value -<?= $escaper->escapeHtmlAttr($attribute['frontend_input']) ?>">
+                                <?= $escaper->escapeHtml($optionTitle) ?>
+                            </span>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <span class="amlocator-value -<?= $escaper->escapeHtmlAttr($attribute['frontend_input']) ?>">
+                            <?= $escaper->escapeHtml(isset($attribute['option_title']) ? $attribute['option_title'] : '')?>
+                        </span>
+                    <?php endif; ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
+        <div style="clear: both"></div>
+    </div>
+</div>

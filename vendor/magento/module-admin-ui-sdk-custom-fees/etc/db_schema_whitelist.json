@@ -1,0 +1,28 @@
+{
+    "admin_ui_sdk_custom_fees": {
+        "column": {
+            "entity_id": true,
+            "order_id": true,
+            "custom_fee_code": true,
+            "custom_fee_label": true,
+            "custom_fee_amount": true,
+            "base_custom_fee_amount": true,
+            "custom_fee_amount_invoiced": true,
+            "base_custom_fee_amount_invoiced": true,
+            "custom_fee_amount_refunded": true,
+            "base_custom_fee_amount_refunded": true,
+            "apply_fee_on_last_invoice": true,
+            "invoice_id": true,
+            "apply_fee_on_last_creditmemo": true,
+            "creditmemo_id": true
+        },
+        "index": {
+            "ADMIN_UI_SDK_CUSTOM_FEES_ORDER_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "ADMIN_UI_SDK_CUSTOM_FEES_ORDER_ID_CUSTOM_FEE_CODE": true,
+            "ADMIN_UI_SDK_CUSTOM_FEES_ORDER_ID_SALES_ORDER_ENTITY_ID": true
+        }
+    }
+}

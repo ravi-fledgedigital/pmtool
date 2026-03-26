@@ -1,0 +1,262 @@
+<?xml version="1.0"?>
+<!--
+/************************************************************************
+ *
+ * ADOBE CONFIDENTIAL
+ * ___________________
+ *
+ * Copyright 2023 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ * ************************************************************************
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\AdobeCommerceWebhooks\Model\DataConverter\ArgumentDataConverterInterface" type="Magento\AdobeCommerceWebhooks\Model\DataConverter\ArgumentDataConverter" />
+    <preference for="Magento\AdobeCommerceWebhooks\Model\WebhookRunner\WebhookBatchRunnerInterface" type="Magento\AdobeCommerceWebhooks\Model\WebhookRunner\WebhookBatchRunner" />
+    <preference for="Magento\AdobeCommerceWebhooks\Model\WebhookRunner\Response\BatchResponseConverterInterface" type="Magento\AdobeCommerceWebhooks\Model\WebhookRunner\Response\BatchResponseConverter" />
+    <preference for="Magento\AdobeCommerceWebhooks\Model\Config\VariablesResolverInterface" type="Magento\AdobeCommerceWebhooks\Model\Config\VariablesResolver" />
+    <preference for="Magento\AdobeCommerceWebhooks\Model\Filter\FieldProcessorInterface" type="Magento\AdobeCommerceWebhooks\Model\Filter\FieldProcessor" />
+    <preference for="Magento\AdobeCommerceWebhooks\Model\WebhookInfo\ArgumentCollectorInterface" type="Magento\AdobeCommerceWebhooks\Model\WebhookInfo\ArgumentCollector" />
+    <preference for="Magento\AdobeCommerceWebhooks\Model\Cache\KeyGeneratorInterface" type="Magento\AdobeCommerceWebhooks\Model\Cache\ResponseKeyGenerator" />
+    <preference for="Magento\AdobeCommerceWebhooks\Model\Rule\RuleCheckerInterface" type="Magento\AdobeCommerceWebhooks\Model\Rule\RuleChecker" />
+    <preference for="Magento\AdobeCommerceWebhooks\Model\WebhookRunner\Request\SensitiveDataSanitizerInterface" type="Magento\AdobeCommerceWebhooks\Model\WebhookRunner\Request\SensitiveDataSanitizer" />
+    <preference for="Magento\AdobeCommerceWebhooks\Model\Signature\DigitalSignatureInterface" type="Magento\AdobeCommerceWebhooks\Model\Signature\DigitalSignature" />
+    <preference for="Magento\AdobeCommerceWebhooks\Model\Webhook\HookHeader\HookHeaderResolverInterface" type="Magento\AdobeCommerceWebhooks\Model\Webhook\HookHeader\HookHeaderResolverComposite" />
+    <preference for="Magento\AdobeCommerceWebhooks\Model\Validator\WebhookAllowedValidatorInterface" type="Magento\AdobeCommerceWebhooks\Model\Validator\WebhookAllowedValidator" />
+    <preference for="Magento\AdobeCommerceWebhooks\Model\Webhook\AllowList\AllowedListInterface" type="Magento\AdobeCommerceWebhooks\Model\Webhook\AllowList\AllowedList" />
+    <preference for="Magento\AdobeCommerceWebhooks\Model\Webhook\AllowList\AllowedCheckerInterface" type="Magento\AdobeCommerceWebhooks\Model\Webhook\AllowList\AllowedChecker" />
+    <preference for="Magento\AdobeCommerceWebhooks\Api\Data\WebhookLogInterface" type="Magento\AdobeCommerceWebhooks\Model\WebhookLog" />
+    <preference for="Magento\AdobeCommerceWebhooks\Api\Data\WebhookDataInterface" type="Magento\AdobeCommerceWebhooks\Model\Data\WebhookData" />
+    <preference for="Magento\AdobeCommerceWebhooks\Api\Data\HookRuleInterface" type="Magento\AdobeCommerceWebhooks\Model\Data\HookRule" />
+    <preference for="Magento\AdobeCommerceWebhooks\Api\Data\HookFieldInterface" type="Magento\AdobeCommerceWebhooks\Model\Data\HookField" />
+    <preference for="Magento\AdobeCommerceWebhooks\Api\Data\HookHeaderInterface" type="Magento\AdobeCommerceWebhooks\Model\Data\HookHeader" />
+    <preference for="Magento\AdobeCommerceWebhooks\Api\WebhookLogRepositoryInterface" type="Magento\AdobeCommerceWebhooks\Model\WebhookLogRepository" />
+    <preference for="Magento\AdobeCommerceWebhooks\Api\WebhookSubscriptionListInterface" type="Magento\AdobeCommerceWebhooks\Model\WebhookSubscriptionList" />
+    <preference for="Magento\AdobeCommerceWebhooks\Model\WebhookInfo\PredefinedWebhookInfoInterface" type="Magento\AdobeCommerceWebhooks\Model\WebhookInfo\PredefinedWebhookInfoComposite"/>
+    <preference for="Magento\AdobeCommerceWebhooks\Api\Data\DeveloperConsoleOauthInterface" type="Magento\AdobeCommerceWebhooks\Model\Data\DeveloperConsoleOauth" />
+    <preference for="Magento\AdobeCommerceWebhooks\Model\Ims\CredentialsInterface" type="Magento\AdobeCommerceWebhooks\Model\Ims\Credentials"/>
+    <type name="Magento\AdobeCommerceWebhooks\Model\WebhookRunner\Response\OperationFactory">
+        <arguments>
+            <argument name="operations" xsi:type="array">
+                <item name="exception" xsi:type="array">
+                    <item name="class" xsi:type="string">Magento\AdobeCommerceWebhooks\Model\WebhookRunner\Response\Operation\Exception</item>
+                </item>
+                <item name="success" xsi:type="array">
+                    <item name="class" xsi:type="string">Magento\AdobeCommerceWebhooks\Model\WebhookRunner\Response\Operation\Success</item>
+                </item>
+                <item name="add" xsi:type="array">
+                    <item name="class" xsi:type="string">Magento\AdobeCommerceWebhooks\Model\WebhookRunner\Response\Operation\Add</item>
+                    <item name="requiredFields" xsi:type="array">
+                        <item name="path" xsi:type="string">path</item>
+                        <item name="value" xsi:type="string">value</item>
+                    </item>
+                </item>
+                <item name="replace" xsi:type="array">
+                    <item name="class" xsi:type="string">Magento\AdobeCommerceWebhooks\Model\WebhookRunner\Response\Operation\Replace</item>
+                    <item name="requiredFields" xsi:type="array">
+                        <item name="path" xsi:type="string">path</item>
+                        <item name="value" xsi:type="string">value</item>
+                    </item>
+                </item>
+                <item name="remove" xsi:type="array">
+                    <item name="class" xsi:type="string">Magento\AdobeCommerceWebhooks\Model\WebhookRunner\Response\Operation\Remove</item>
+                    <item name="requiredFields" xsi:type="array">
+                        <item name="path" xsi:type="string">path</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\AdobeCommerceWebhooks\Model\Config\WebhookConfigurationSourcePool">
+        <arguments>
+            <argument name="configurationSources" xsi:type="array">
+                <item name="xml" xsi:type="object">Magento\AdobeCommerceWebhooks\Model\Config\WebhookXmlConfigurationSource</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="webhooksInfoCommand" xsi:type="object">Magento\AdobeCommerceWebhooks\Console\Command\WebhooksInfoCommand</item>
+                <item name="webhooksListCommand" xsi:type="object">Magento\AdobeCommerceWebhooks\Console\Command\WebhooksListCommand</item>
+                <item name="webhooksListAllCommand" xsi:type="object">Magento\AdobeCommerceWebhooks\Console\Command\WebhooksListAllCommand</item>
+                <item name="webhooksDevRunCommand" xsi:type="object">Magento\AdobeCommerceWebhooks\Console\Command\WebhooksDevRunCommand</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\AdobeCommerceOutOfProcessExtensibility\Model\Collector\IgnoredModulesList">
+        <arguments>
+            <argument name="ignoredModules" xsi:type="array">
+                <item name="webhooksModule" xsi:type="string">Magento_AdobeCommerceWebhooks</item>
+                <item name="webhooksModuleGenerator" xsi:type="string">Magento_AdobeCommerceWebhooksGenerator</item>
+                <item name="webhooksModuleGenerated" xsi:type="string">Magento_AdobeCommerceWebhookPlugins</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\AdobeCommerceWebhooks\Model\WebhookInfo\ArgumentCollector">
+        <arguments>
+            <argument name="aggregatedEventList" xsi:type="object">webhookAggregatedList</argument>
+        </arguments>
+    </type>
+    <type name="Magento\AdobeCommerceWebhooks\Model\HookHeader\Resolver\DeveloperConsoleOauthResolver">
+        <arguments>
+            <argument name="logger" xsi:type="object">Magento\AdobeCommerceWebhooks\Model\CompositeLogger</argument>
+        </arguments>
+    </type>
+    <virtualType name="webhooksObserverCollector" type="Magento\AdobeCommerceOutOfProcessExtensibility\Model\Collector\ObserverEventsCollector">
+        <arguments>
+            <argument name="includeBeforeEvents" xsi:type="boolean">true</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="webhookAggregatedList" type="Magento\AdobeCommerceOutOfProcessExtensibility\Model\Collector\AggregatedEventList">
+        <arguments>
+            <argument name="eventCollector" xsi:type="object">webhooksCompositeCollector</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="webhooksCompositeCollector" type="Magento\AdobeCommerceOutOfProcessExtensibility\Model\Collector\CompositeCollector">
+        <arguments>
+            <argument name="collectors" xsi:type="array">
+                <item name="apiServiceCollector" xsi:type="object">Magento\AdobeCommerceOutOfProcessExtensibility\Model\Collector\ApiServiceCollector</item>
+                <item name="resourceModelCollector" xsi:type="object">Magento\AdobeCommerceOutOfProcessExtensibility\Model\Collector\ResourceModelCollector</item>
+                <item name="observerEventsCollector" xsi:type="object">webhooksObserverCollector</item>
+            </argument>
+            <argument name="cachePrefix" xsi:type="string">composite_webhooks_collector</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\AdobeCommerceWebhooks\Console\Command\WebhooksListAllCommand">
+        <arguments>
+            <argument name="collector" xsi:type="object">webhooksCompositeCollector</argument>
+        </arguments>
+    </type>
+    <type name="Magento\AdobeCommerceWebhooks\Model\Rule\OperatorFactory">
+        <arguments>
+            <argument name="operators" xsi:type="array">
+                <item name="lessThan" xsi:type="object">Magento\AdobeCommerceWebhooks\Model\Rule\Operator\LessThanOperator</item>
+                <item name="greaterThan" xsi:type="object">Magento\AdobeCommerceWebhooks\Model\Rule\Operator\GreaterThanOperator</item>
+                <item name="regex" xsi:type="object">Magento\AdobeCommerceWebhooks\Model\Rule\Operator\RegexOperator</item>
+                <item name="in" xsi:type="object">Magento\AdobeCommerceWebhooks\Model\Rule\Operator\InOperator</item>
+                <item name="equal" xsi:type="object">Magento\AdobeCommerceWebhooks\Model\Rule\Operator\EqualOperator</item>
+                <item name="notEqual" xsi:type="object">Magento\AdobeCommerceWebhooks\Model\Rule\Operator\NotEqualOperator</item>
+                <item name="isEmpty" xsi:type="object">Magento\AdobeCommerceWebhooks\Model\Rule\Operator\IsEmptyOperator</item>
+                <item name="notEmpty" xsi:type="object">Magento\AdobeCommerceWebhooks\Model\Rule\Operator\NotEmptyOperator</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\AdobeCommerceWebhooks\Model\Validator\WebhookAllowedValidator">
+        <arguments>
+            <argument name="disallowedWebhookExpressions" xsi:type="array">
+                <item name="framework" xsi:type="string">/plugin\.magento\.framework\./i</item>
+                <item name="outOfProcessExtensibility" xsi:type="string">/plugin\.magento\.adobe_commerce_out_of_process_extensibility.*/i</item>
+                <item name="commerceWebhooks" xsi:type="string">/plugin\.magento\.adobe_commerce_webhooks.*/i</item>
+                <item name="commerceEvents" xsi:type="string">/plugin\.magento\.adobe_commerce_events.*/i</item>
+                <item name="twoFactorAuth" xsi:type="string">/plugin\.magento\.two_factor_auth.*/i</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\AdobeCommerceWebhooks\Model\WebhookRunner\Request\SensitiveDataSanitizer">
+        <arguments>
+            <argument name="regexFields" xsi:type="array">
+                <item name="password" xsi:type="string">/password/i</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="\Magento\AdobeCommerceWebhooks\Model\Webhook\HookHeader\HookHeaderResolverComposite">
+        <arguments>
+            <argument name="resolvers" xsi:type="array">
+                <item name="digitalSignature" xsi:type="object">Magento\AdobeCommerceWebhooks\Model\Webhook\HookHeader\Resolver\DigitalSignatureResolver</item>
+                <item name="hookHeaders" xsi:type="object">Magento\AdobeCommerceWebhooks\Model\Webhook\HookHeader\Resolver\HookHeaderResolver</item>
+                <item name="developerConsoleOauth" xsi:type="object">Magento\AdobeCommerceWebhooks\Model\HookHeader\Resolver\DeveloperConsoleOauthResolver</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\AdobeCommerceWebhooks\Model\Filter\Converter\HookFieldConverter">
+        <arguments>
+            <argument name="logger" xsi:type="object">Magento\AdobeCommerceWebhooks\Model\CompositeLogger</argument>
+        </arguments>
+    </type>
+    <type name="Magento\AdobeCommerceWebhooks\Model\WebhookRunner\Response\Operation\Remove">
+        <arguments>
+            <argument name="logger" xsi:type="object">Magento\AdobeCommerceWebhooks\Model\CompositeLogger</argument>
+        </arguments>
+    </type>
+    <type name="Magento\AdobeCommerceWebhooks\Model\WebhookRunner\Response\Operation\Add">
+        <arguments>
+            <argument name="logger" xsi:type="object">Magento\AdobeCommerceWebhooks\Model\CompositeLogger</argument>
+        </arguments>
+    </type>
+    <type name="Magento\AdobeCommerceWebhooks\Model\WebhookRunner\Response\Operation\Replace">
+        <arguments>
+            <argument name="logger" xsi:type="object">Magento\AdobeCommerceWebhooks\Model\CompositeLogger</argument>
+        </arguments>
+    </type>
+    <type name="Magento\AdobeCommerceWebhooks\Model\Filter\ContextRetriever">
+        <arguments>
+            <argument name="logger" xsi:type="object">Magento\AdobeCommerceWebhooks\Model\CompositeLogger</argument>
+        </arguments>
+    </type>
+    <type name="Magento\AdobeCommerceWebhooks\Model\WebhookRunner\WebhookBatchRunner">
+        <arguments>
+            <argument name="logger" xsi:type="object">Magento\AdobeCommerceWebhooks\Model\CompositeLogger</argument>
+        </arguments>
+    </type>
+    <type name="Magento\AdobeCommerceWebhooks\Model\WebhookRunner\Response\BatchResponseConverter">
+        <arguments>
+            <argument name="logger" xsi:type="object">Magento\AdobeCommerceWebhooks\Model\CompositeLogger</argument>
+        </arguments>
+    </type>
+    <type name="Magento\AdobeCommerceWebhooks\Model\Cache\HookResponseCache">
+        <arguments>
+            <argument name="logger" xsi:type="object">Magento\AdobeCommerceWebhooks\Model\CompositeLogger</argument>
+        </arguments>
+    </type>
+    <virtualType name="Magento\AdobeCommerceWebhooks\Model\CompositeLogger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="webhooksDatabase" xsi:type="object">Magento\AdobeCommerceWebhooks\Model\Logger\DatabaseHandler</item>
+            </argument>
+            <argument name="processors" xsi:type="array">
+                <item name="requestIdProcesser" xsi:type="object">Magento\AdobeCommerceOutOfProcessExtensibility\Model\Logger\RequestIdProcessor</item>
+                <item name="destinationFilter" xsi:type="object">Magento\AdobeCommerceOutOfProcessExtensibility\Model\Logger\DestinationFilterProcessor</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="webhooks_log_grid_data_source" xsi:type="string">Magento\AdobeCommerceWebhooks\Ui\Component\WebhookLog\DataProvider\SearchResult</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\AdobeCommerceWebhooks\Model\WebhookInfo\PredefinedWebhookInfoComposite">
+        <arguments>
+            <argument name="predefinedWebhookInfoList" xsi:type="array">
+                <item name="webhooksPredefinedInfo" sortOrder="100" xsi:type="object">Magento\AdobeCommerceWebhooks\Model\WebhookInfo\WebhooksPredefinedInfo</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Magento\AdobeCommerceWebhooks\Ui\Component\WebhookLog\DataProvider\SearchResult" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">webhooks_log</argument>
+            <argument name="resourceModel" xsi:type="string">Magento\AdobeCommerceWebhooks\Model\ResourceModel\WebhookLog</argument>
+            <argument name="identifierName" xsi:type="string">id</argument>
+        </arguments>
+    </virtualType>
+    <!-- Override the checkout session context for webhooks to resolve quotes without relying on session state.
+        This fixes context_checkout_session.get_quote for guest users in stateless contexts (GraphQL/REST). -->
+    <type name="Magento\AdobeCommerceOutOfProcessExtensibility\Model\Context\ContextPool">
+        <arguments>
+            <argument name="contexts" xsi:type="array">
+                <item name="context_checkout_session" xsi:type="string">Magento\AdobeCommerceWebhooks\Model\Context\CheckoutSessionContext</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

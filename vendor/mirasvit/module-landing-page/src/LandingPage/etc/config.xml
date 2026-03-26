@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mst_landing_page>
+            <related_pages>
+                <enabled>0</enabled>
+                <max_links>10</max_links>
+                <product_position>content.aside</product_position>
+                <category_position>content</category_position>
+                <landing_position>content</landing_position>
+                <block_title>Related Searches</block_title>
+            </related_pages>
+        </mst_landing_page>
+    </default>
+</config>

@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!--
+/************************************************************************
+ *
+ * Copyright 2023 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ * ************************************************************************
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="quote_coupons" resource="default" engine="innodb" comment="Coupon codes applied to quote">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"
+            comment="Coupon entity ID"/>
+        <column xsi:type="int" name="quote_id" unsigned="true" nullable="false" identity="false"
+            comment="Quote entity ID"/>
+        <column xsi:type="varchar" name="coupon_code" nullable="false" length="24" comment="Coupon code"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="COUPON_QUOTE_ID_QUOTE_QUOTE_ID" table="quote_coupons"
+            column="quote_id" referenceTable="quote" referenceColumn="entity_id" onDelete="CASCADE" />
+        <constraint xsi:type="unique" referenceId="COUPON_ENTITY_ID_QUOTE_ID">
+            <column name="quote_id"/>
+            <column name="coupon_code"/>
+        </constraint>
+        <index referenceId="QUOTE_COUPONS_COUPON_ID" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+    </table>
+
+    <table name="sales_order_coupons" resource="default" engine="innodb" comment="Coupon codes applied to sales order">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true"
+            comment="Coupon entity ID"/>
+        <column xsi:type="int" name="sales_order_id" unsigned="true" nullable="false" identity="false"
+            comment="Sales order ID"/>
+        <column xsi:type="varchar" name="coupon_code" nullable="false" length="24" comment="Coupon code"/>
+        <column xsi:type="decimal" name="coupon_discount" scale="6" precision="20" unsigned="false" nullable="false"
+                comment="Coupon Discount"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="COUPON_SALES_ORDER_ID_SALES_ORDER_ID" table="sales_order_coupons"
+            column="sales_order_id" referenceTable="sales_order" referenceColumn="entity_id" onDelete="CASCADE" />
+        <constraint xsi:type="unique" referenceId="COUPON_ENTITY_ID_SALES_ORDER_ID">
+            <column name="sales_order_id"/>
+            <column name="coupon_code"/>
+        </constraint>
+        <index referenceId="SALES_ORDER_COUPONS_COUPON_ID" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+    </table>
+</schema>

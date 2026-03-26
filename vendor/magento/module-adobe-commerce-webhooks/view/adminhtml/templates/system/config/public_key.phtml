@@ -1,0 +1,73 @@
+<?php
+/************************************************************************
+ *
+ * ADOBE CONFIDENTIAL
+ * ___________________
+ *
+ * Copyright 2024 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ * ************************************************************************
+ */
+use Magento\Framework\Escaper;
+use Magento\AdobeCommerceWebhooks\Block\Adminhtml\System\Config\PublicKey;
+
+/** @var Escaper $escaper */
+/** @var PublicKey $block */
+?>
+<script>
+    require([
+        'jquery',
+    ], function ($) {
+        $('#copy_webhook_public_key').click(function () {
+            const btn = $(this);
+            const textarea = btn.parent().find('textarea');
+
+            function markCopied() {
+                const btnText = btn.text();
+                btn.text('Copied').prop('disabled', true);
+                setTimeout(function () {
+                    btn.text(btnText).prop('disabled', false);
+                }, 5000);
+            }
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(textarea.val()).then(function () {
+                    markCopied();
+                }, function (err) {
+                    console.error('Failed to copy: ', err);
+                });
+            } else {
+                const tempInput = $('<textarea>');
+                $('body').append(tempInput);
+                tempInput.val(textarea.val()).select();
+
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                    markCopied();
+                } catch (err) {
+                    console.error('Failed to copy: ', err);
+                }
+
+                tempInput.remove();
+            }
+        });
+    });
+</script>
+<div>
+    <textarea class="textarea"
+              disabled="disabled" rows="9"><?= $escaper->escapeHtml($block->getPublicKey()) ?></textarea>
+    <?php if (!empty($block->getPublicKey())): ?>
+        <button id="copy_webhook_public_key">Copy public key</button>
+        <p class="note"><span>Copy this public key to use it in signature verification on the endpoint side.</span></p>
+    <?php endif; ?>
+</div>

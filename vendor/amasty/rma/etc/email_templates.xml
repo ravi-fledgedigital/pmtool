@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package RMA Base for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="amrma_email_empty_frontend"
+              label="Amasty RMA empty frontend template"
+              module="Amasty_Rma"
+              file="amrma_rma_status_changed.html"
+              type="html"
+              area="frontend"/>
+    <template id="amrma_email_empty_backend"
+              label="Amasty RMA empty admin template"
+              module="Amasty_Rma"
+              file="amrma_rma_status_changed_admin.html"
+              type="html"
+              area="adminhtml"/>
+    <template id="amrma_email_user_template"
+              label="Amasty RMA creation customer notification template"
+              module="Amasty_Rma"
+              file="amrma_rma_creation_customer.html"
+              type="html"
+              area="frontend"/>
+    <template id="amrma_email_new_message_template"
+              label="Amasty RMA Manager Sent New Message"
+              module="Amasty_Rma"
+              file="amrma_rma_new_message.html"
+              type="html"
+              area="frontend"/>
+    <template id="amrma_email_admin_template"
+              label="Amasty RMA creation admin notification template"
+              module="Amasty_Rma"
+              file="amrma_rma_creation_admin.html"
+              type="html"
+              area="frontend"/>
+    <template id="amrma_email_new_message_admin_template"
+              label="Amasty RMA Customer Sent New Message"
+              module="Amasty_Rma"
+              file="amrma_rma_new_admin_message.html"
+              type="html"
+              area="adminhtml"/>
+</config>

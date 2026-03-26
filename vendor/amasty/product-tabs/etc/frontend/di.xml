@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Product Tabs for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Block\Product\View\Details">
+        <plugin name="Amasty_CustomTabs::add_module_tabs" type="Amasty\CustomTabs\Plugin\Catalog\Block\Product\View\DetailsPlugin" />
+    </type>
+
+    <type name="Magento\Catalog\Block\Product\View\Description">
+        <plugin name="Amasty_CustomTabs::add_module_tabs_m22x" type="Amasty\CustomTabs\Plugin\Catalog\Block\Product\View\DetailsPlugin" />
+    </type>
+
+    <type name="Magento\TargetRule\Block\Checkout\Cart\Crosssell">
+        <plugin name="Amasty_CustomTabs::fix_tab_crosssell" type="Amasty\CustomTabs\Plugin\TargetRule\Block\Checkout\Cart\CrosssellPlugin" />
+    </type>
+
+    <!-- use plugin around because construction disabled="true"  failed on magento 2.1 -->
+    <type name="Amasty\Faq\Plugin\TabPosition">
+        <plugin name="Amasty_CustomTabs::disable_ProductViewTabPosition" type="Amasty\CustomTabs\Plugin\Faq\Plugin\TabPositionPlugin" />
+    </type>
+
+    <type name="Magento\Catalog\Helper\Product\View">
+        <plugin name="Amasty_CustomTabs::AddBodyClass"  type="Amasty\CustomTabs\Plugin\Catalog\Helper\Product\View\AddBodyClass" />
+    </type>
+</config>

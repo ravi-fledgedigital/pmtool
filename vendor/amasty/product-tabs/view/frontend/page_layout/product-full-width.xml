@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Product Tabs for Magento 2
+ */-->
+
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+    <referenceContainer name="content">
+        <block class="Magento\Catalog\Block\Product\View\Details" name="product.info.details" after="product.info.media"
+               template="Magento_Catalog::product/view/details.phtml">
+            <referenceBlock name="product.attributes" remove="false"/>
+        </block>
+    </referenceContainer>
+
+    <move element="product.info.details" destination="content"/>
+    <move element="product.info.description" destination="product.info.details"/>
+    <move element="product.reviews.wrapper" destination="product.info.details"/>
+    <move element="product.attributes.wrapper" destination="product.info.details"/>
+</layout>

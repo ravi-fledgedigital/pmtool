@@ -1,0 +1,5 @@
+
+File "/var/www/html/app/code/Magento/BannerPageBuilder/Test/Mftf/Test/PageBuilderContentTypeDynamicBlockRenderContentTypesTest/DynamicBlockImageIsRightAlignedTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 CliMediaGalleryEnhancedEnableActionGroup from module(s): magento/module-media-gallery-ui

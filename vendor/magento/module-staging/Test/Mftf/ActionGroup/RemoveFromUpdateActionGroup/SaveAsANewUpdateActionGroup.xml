@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="SaveAsANewUpdateActionGroup" extends="RemoveFromUpdateActionGroup">
+        <arguments>
+            <argument name="stage"/>
+        </arguments>
+        <!-- Create the staging update -->
+        <generateDate date="{{stage.startDate}}" timezone="America/Chicago" format="m/d/Y g:i A" stepKey="generateStartDate"/>
+        <waitForElementClickable selector="{{AdminRemoveFromUpdateSection.saveAsANewUpdate}}" stepKey="waitForStagingNameElementVisible"/>
+        <click selector="{{AdminRemoveFromUpdateSection.saveAsANewUpdate}}" stepKey="clickMoveToAnotherUpdate"/>
+        <waitForElementVisible selector="{{AdminRemoveFromUpdateSection.stagingName}}" stepKey="waitForElementStagingName"/>
+        <fillField selector="{{AdminRemoveFromUpdateSection.stagingName}}" userInput="{{stage.updateName}}" stepKey="fillStagingName"/>
+        <fillField selector="{{AdminRemoveFromUpdateSection.stagingDescription}}" userInput="{{stage.updateDescription}}" stepKey="fillUpdateDescription"/>
+        <fillField selector="{{AdminRemoveFromUpdateSection.stagingStartDate}}" userInput="{$generateStartDate}" stepKey="fillStagingStartDate"/>
+        <waitForElementClickable selector="{{AdminRemoveFromUpdateSection.done}}" stepKey="waitForStagingClickElementVisible"/>
+        <click selector="{{AdminRemoveFromUpdateSection.done}}" stepKey="clickDone"/>
+        <dontSeeElement selector="{{AdminRemoveFromUpdateSection.stagingModal}}" stepKey="stagingModalHideAfterClickButton"/>
+    </actionGroup>
+</actionGroups>

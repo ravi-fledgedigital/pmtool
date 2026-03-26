@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="mst_landing_page" resource="default" engine="innodb" comment="Landing Page">
+        <column xsi:type="bigint" name="page_id" unsigned="true" nullable="false" identity="true" comment="Page ID"/>
+        <column xsi:type="text" name="name" nullable="true" comment="Name"/>
+        <column xsi:type="varchar" name="store_ids" nullable="false" length="255" comment="Store IDs"/>
+        <column xsi:type="boolean" name="is_active" nullable="false" default="false" comment="Status"/>
+        <column xsi:type="boolean" name="redirect" nullable="false" default="false" comment="Redirect"/>
+        <column xsi:type="text" name="url_key" nullable="true" comment="URL Key"/>
+        <column xsi:type="text" name="page_title" nullable="true" comment="Page Title"/>
+        <column xsi:type="text" name="meta_title" nullable="true" comment="Meta Title"/>
+        <column xsi:type="text" name="meta_description" nullable="true" comment="Meta Description"/>
+        <column xsi:type="text" name="meta_tags" nullable="true" comment="Meta Tags"/>
+        <column xsi:type="text" name="description" nullable="true" comment="Description"/>
+        <column xsi:type="int" name="top_block" nullable="true" comment="Top CMS Block"/>
+        <column xsi:type="int" name="bottom_block" nullable="true" comment="Bottom CMS Block"/>
+        <column xsi:type="text" name="layout_update" nullable="true" comment="Layout Update Xml"/>
+        <column xsi:type="text" name="categories" nullable="true" comment="Categories"/>
+        <column xsi:type="text" name="search_term" nullable="true" comment="Categories"/>
+        <column xsi:type="varchar" name="image" nullable="true" length="255" comment="Image"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="page_id"/>
+        </constraint>
+    </table>
+    <table name="mst_landing_page_store" resource="default" engine="innodb" comment="Page settings for stores">
+        <column xsi:type="bigint" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Page ID"/>
+        <column xsi:type="bigint" name="page_id" unsigned="true" nullable="false" comment="Page ID"/>
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Store Id"/>
+        <column xsi:type="text" name="name" nullable="true" comment="Name"/>
+        <column xsi:type="boolean" name="is_active" nullable="true" default="false" comment="Status"/>
+        <column xsi:type="boolean" name="redirect" nullable="true" default="false" comment="Redirect"/>
+        <column xsi:type="text" name="url_key" nullable="true" comment="URL Key"/>
+        <column xsi:type="text" name="page_title" nullable="true" comment="Page Title"/>
+        <column xsi:type="text" name="meta_title" nullable="true" comment="Meta Title"/>
+        <column xsi:type="text" name="meta_description" nullable="true" comment="Meta Description"/>
+        <column xsi:type="text" name="meta_tags" nullable="true" comment="Meta Tags"/>
+        <column xsi:type="text" name="description" nullable="true" comment="Description"/>
+        <column xsi:type="int" name="top_block" nullable="true" comment="Top CMS Block"/>
+        <column xsi:type="int" name="bottom_block" nullable="true" comment="Bottom CMS Block"/>
+        <column xsi:type="text" name="layout_update" nullable="true" comment="Layout Update Xml"/>
+        <column xsi:type="text" name="search_term" nullable="true" comment="Categories"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="MST_LANDING_PAGE_STORE_STORE_ID_STORE_STORE_ID"
+                    table="mst_landing_page_store" column="store_id"
+                    referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="MST_LANDING_PAGE_STORE_PAGE_ID_MST_LANDING_PAGE_PAGE_ID"
+                    table="mst_landing_page_store" column="page_id"
+                    referenceTable="mst_landing_page" referenceColumn="page_id" onDelete="CASCADE"/>
+        <index referenceId="MST_LANDING_PAGE_STORE_STORE_ID" indexType="btree">
+            <column name="store_id"/>
+        </index>
+        <index referenceId="MST_LANDING_PAGE_STORE_PAGE_ID" indexType="btree">
+            <column name="page_id"/>
+        </index>
+    </table>
+    <table name="mst_landing_page_filter" resource="default" engine="innodb" comment="Landing Page Filters">
+        <column xsi:type="bigint" name="filter_id" unsigned="true" nullable="false" identity="true" comment="Filter ID"/>
+        <column xsi:type="bigint" name="page_id" unsigned="true" nullable="false" identity="false" comment="Page ID"/>
+        <column xsi:type="smallint" name="attribute_id" unsigned="true" nullable="false" identity="false"
+                default="0" comment="Attribute ID"/>
+        <column xsi:type="text" name="attribute_code" nullable="true" comment="Attribute Code"/>
+        <column xsi:type="text" name="option_ids" nullable="true" comment="Option IDs"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="filter_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="MST_LANDING_PAGE_FILTER_ATTRIBUTE_ID_EAV_ATTRIBUTE_ATTRIBUTE_ID"
+                    table="mst_landing_page_filter" column="attribute_id" referenceTable="eav_attribute"
+                    referenceColumn="attribute_id" onDelete="CASCADE"/>
+    </table>
+    <table name="mst_landing_page_product_index" resource="default" engine="innodb"
+           comment="Landing Page Product Index">
+        <column xsi:type="bigint" name="id" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="bigint" name="page_id" unsigned="true" nullable="false" comment="Landing Page ID"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="false" comment="Product ID"/>
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false"
+                comment="Store ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="MST_LANDING_PAGE_PRODUCT_IDX_PAGE_PRODUCT_STORE">
+            <column name="page_id"/>
+            <column name="product_id"/>
+            <column name="store_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="MST_LANDING_PAGE_PRODUCT_IDX_PAGE_ID"
+                    table="mst_landing_page_product_index" column="page_id"
+                    referenceTable="mst_landing_page" referenceColumn="page_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="MST_LANDING_PAGE_PRODUCT_IDX_STORE_ID"
+                    table="mst_landing_page_product_index" column="store_id"
+                    referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+        <index referenceId="MST_LANDING_PAGE_PRODUCT_IDX_PRODUCT_ID" indexType="btree">
+            <column name="product_id"/>
+        </index>
+        <index referenceId="MST_LANDING_PAGE_PRODUCT_IDX_PAGE_ID" indexType="btree">
+            <column name="page_id"/>
+        </index>
+    </table>
+</schema>

@@ -1,0 +1,6 @@
+
+File "/var/www/html/app/code/Magento/SalesRuleStaging/Test/Mftf/Test/AdminCartPriceRuleForAutoTypeUsesPerCouponTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 AdminCodeGeneratorMessageConsumerData from module(s): magento/module-message-queue
+	 CliConsumerStartActionGroup from module(s): magento/module-message-queue

@@ -1,0 +1,31 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+
+<?php
+/** @var \Magento\DataServices\Block\Context $block */
+/** @var \Magento\DataServices\ViewModel\CustomerAddressProvider $viewModel */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+$viewModel = $block->getViewModel();
+$userAction = $viewModel->getUserAction();
+$pageAction = $userAction ? $userAction : $block->getData('step_name');
+?>
+
+<?php
+$scriptString = <<<script
+    require(['magentoStorefrontEvents'], function (magentoStorefrontEvents) {
+        if(!magentoStorefrontEvents) return;
+
+        magentoStorefrontEvents.context.setPage({
+            pageType: "{$block->getData('page_type')}"
+        });
+        magentoStorefrontEvents.context.setContext("pageExtended", {
+            action: "{$pageAction}"
+        });
+    });
+script;
+?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>

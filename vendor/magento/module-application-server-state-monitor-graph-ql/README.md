@@ -1,0 +1,3 @@
+# ApplicationServerStateMonitorGraphQl module
+
+GraphQl support for ApplicationServerStateMonitor

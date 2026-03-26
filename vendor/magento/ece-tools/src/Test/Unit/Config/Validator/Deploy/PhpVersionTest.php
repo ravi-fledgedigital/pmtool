@@ -1,0 +1,253 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+declare(strict_types=1);
+
+namespace Magento\MagentoCloud\Test\Unit\Config\Validator\Deploy;
+
+use Composer\Composer;
+use Composer\Package\Link;
+use Composer\Package\Locker;
+use Composer\Package\PackageInterface;
+use Composer\Package\Version\VersionParser;
+use Composer\Repository\LockArrayRepository;
+use Composer\Semver\Constraint\ConstraintInterface;
+use Magento\MagentoCloud\Config\GlobalSection;
+use Magento\MagentoCloud\Config\Validator;
+use Magento\MagentoCloud\Config\Validator\Deploy\PhpVersion;
+use Magento\MagentoCloud\Config\Validator\Result\Error;
+use Magento\MagentoCloud\Config\Validator\Result\Success;
+use Magento\MagentoCloud\Package\MagentoVersion;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
+
+/**
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ */
+#[AllowMockObjectsWithoutExpectations]
+class PhpVersionTest extends TestCase
+{
+    /**
+     * @var Validator\ResultFactory|MockObject
+     */
+    private $resultFactoryMock;
+
+    /**
+     * @var Composer|MockObject
+     */
+    private $composerMock;
+
+    /**
+     * @var VersionParser|MockObject
+     */
+    private $versionParserMock;
+
+    /**
+     * @var MagentoVersion|MockObject
+     */
+    private $magentoVersionMock;
+
+    /**
+     * @var LoggerInterface|MockObject
+     */
+    private $loggerMock;
+
+    /**
+     * @var ConstraintInterface|MockObject
+     */
+    private $composerConstraintMock;
+
+    /**
+     * @var ConstraintInterface|MockObject
+     */
+    private $phpConstraintMock;
+
+    /**
+     * @var GlobalSection|MockObject
+     */
+    private $globalSectionMock;
+
+    /**
+     * @var PhpVersion
+     */
+    private $phpVersion;
+
+    /**
+     * @inheritdoc
+     */
+    protected function setUp(): void
+    {
+        $this->resultFactoryMock = $this->createMock(Validator\ResultFactory::class);
+        $this->composerMock = $this->createMock(Composer::class);
+        $this->versionParserMock = $this->createMock(VersionParser::class);
+        $this->magentoVersionMock = $this->createMock(MagentoVersion::class);
+        $this->loggerMock = $this->createMock(LoggerInterface::class);
+        $this->globalSectionMock = $this->createMock(GlobalSection::class);
+
+        $this->phpVersion = new PhpVersion(
+            $this->composerMock,
+            $this->resultFactoryMock,
+            $this->versionParserMock,
+            $this->magentoVersionMock,
+            $this->loggerMock,
+            $this->globalSectionMock
+        );
+    }
+
+    /**
+     * Test validate method.
+     *
+     * @param bool $matchesResult
+     * @param string $calledMethod
+     * @param string $resultClass
+     * @return void
+     * @dataProvider validateDataProvider
+     */
+    #[DataProvider('validateDataProvider')]
+    public function testValidateSuccess(bool $matchesResult, string $calledMethod, string $resultClass): void
+    {
+        $this->setUpComposerMocks();
+        $resultMock = $this->createStub($resultClass);
+        $this->versionParserMock->expects(self::exactly(2))
+            ->method('parseConstraints')
+            ->willReturnMap([
+                ['~7.2.0', $this->composerConstraintMock],
+                [preg_replace('#^([^~+-]+).*$#', '$1', PHP_VERSION), $this->phpConstraintMock]
+            ]);
+        $this->composerConstraintMock->expects(self::once())
+            ->method('matches')
+            ->with($this->phpConstraintMock)
+            ->willReturn($matchesResult);
+        $this->resultFactoryMock->expects(self::once())
+            ->method($calledMethod)
+            ->willReturn($resultMock);
+
+        self::assertSame($resultMock, $this->phpVersion->validate());
+    }
+
+    /**
+     * Data provider for validate method.
+     *
+     * @return array
+     */
+    public static function validateDataProvider(): array
+    {
+        return [
+            [
+                'matchesResult' => false,
+                'calledMethod'  => 'error',
+                'resultClass'   => Error::class
+            ],
+            [
+                'matchesResult' => true,
+                'calledMethod'  => 'success',
+                'resultClass'   => Success::class
+            ],
+        ];
+    }
+
+    /**
+     * Test validate method.
+     *
+     * @return void
+     */
+    public function testValidateException(): void
+    {
+        $this->setUpComposerMocks();
+        $resultMock = $this->createStub(Success::class);
+        $this->versionParserMock->method('parseConstraints')
+            ->willThrowException(new \Exception('some error'));
+        $this->resultFactoryMock->expects(self::once())
+            ->method('success')
+            ->willReturn($resultMock);
+        $this->loggerMock->expects(self::once())
+            ->method('warning')
+            ->with('Can\'t validate version of PHP: some error');
+
+        self::assertSame($resultMock, $this->phpVersion->validate());
+    }
+
+    /**
+     * Test validate method.
+     *
+     * @return void
+     */
+    public function testValidationSuccessInstallFromGit(): void
+    {
+        $this->globalSectionMock->expects(self::once())
+            ->method('get')
+            ->with(GlobalSection::VAR_DEPLOYED_MAGENTO_VERSION_FROM_GIT)
+            ->willReturn('2.2');
+        $this->versionParserMock->expects(self::never())
+            ->method('parseConstraints');
+        $this->composerMock->expects(self::never())
+            ->method('getLocker');
+
+        self::assertInstanceOf(Success::class, $this->phpVersion->validate());
+    }
+
+    /**
+     * Test validate method.
+     *
+     * @return void
+     */
+    public function testValidationSuccessInstallFromComposerVersion(): void
+    {
+        $this->globalSectionMock->expects(self::once())
+            ->method('get')
+            ->with(GlobalSection::VAR_DEPLOYED_MAGENTO_VERSION_FROM_GIT)
+            ->willReturn(null);
+
+        $repoMock = $this->createStub(LockArrayRepository::class);
+        $lockerMock = $this->createMock(Locker::class);
+        $repoMock->method('findPackage')
+            ->with('magento/magento2-base', '*')
+            ->willReturn(null);
+        $lockerMock->expects(self::once())
+            ->method('getLockedRepository')
+            ->willReturn($repoMock);
+        $this->composerMock->method('getLocker')
+            ->willReturn($lockerMock);
+
+        self::assertInstanceOf(Success::class, $this->phpVersion->validate());
+    }
+
+    /**
+     * Configure composer mocks
+     *
+     * @return void
+     */
+    private function setUpComposerMocks(): void
+    {
+        $constraintMock = $this->createMock(ConstraintInterface::class);
+        $linkMock = $this->createMock(Link::class);
+        $packageMock = $this->createMock(PackageInterface::class);
+        $repoMock = $this->createStub(LockArrayRepository::class);
+        $lockerMock = $this->createMock(Locker::class);
+        $this->composerConstraintMock = $this->createMock(ConstraintInterface::class);
+        $this->phpConstraintMock = $this->createMock(ConstraintInterface::class);
+
+        $constraintMock->expects(self::once())
+            ->method('getPrettyString')
+            ->willReturn('~7.1.13|~7.2.0');
+        $linkMock->expects(self::once())
+            ->method('getConstraint')
+            ->willReturn($constraintMock);
+        $packageMock->expects(self::once())
+            ->method('getRequires')
+            ->willReturn(['php' => $linkMock]);
+        $repoMock->method('findPackage')
+            ->with('magento/magento2-base', '*')
+            ->willReturn($packageMock);
+        $lockerMock->expects(self::once())
+            ->method('getLockedRepository')
+            ->willReturn($repoMock);
+        $this->composerMock->method('getLocker')
+            ->willReturn($lockerMock);
+    }
+}

@@ -1,0 +1,100 @@
+<?php
+/**
+ * Copyright 2023 Adobe
+ * All Rights Reserved.
+ */
+
+declare(strict_types=1);
+
+namespace Magento\CatalogDataExporter\Plugin\Index;
+
+use Magento\CatalogDataExporter\Model\Indexer\IndexInvalidationManager;
+use Magento\Config\Model\Config;
+use Magento\DataExporter\Model\Logging\CommerceDataExportLoggerInterface;
+use Magento\Framework\App\Config\ScopeConfigInterface;
+
+/**
+ * Class InvalidateOnConfigChange
+ *
+ * Invalidates indexes on configuration change
+ */
+class InvalidateOnConfigChange
+{
+    private IndexInvalidationManager $invalidationManager;
+    private ScopeConfigInterface $scopeConfig;
+    private string $invalidationEvent;
+    private array $configValues;
+    private CommerceDataExportLoggerInterface $logger;
+
+    /**
+     * @param IndexInvalidationManager $invalidationManager
+     * @param ScopeConfigInterface $scopeConfig
+     * @param CommerceDataExportLoggerInterface $logger
+     * @param string $invalidationEvent
+     * @param array $configValues
+     */
+    public function __construct(
+        IndexInvalidationManager $invalidationManager,
+        ScopeConfigInterface  $scopeConfig,
+        CommerceDataExportLoggerInterface $logger,
+        string $invalidationEvent = 'config_changed',
+        array $configValues = []
+    ) {
+        $this->invalidationManager = $invalidationManager;
+        $this->scopeConfig = $scopeConfig;
+        $this->invalidationEvent = $invalidationEvent;
+        $this->configValues = $configValues;
+        $this->logger = $logger;
+    }
+
+    /**
+     * Invalidate indexer if relevant config value is changed (around plugin)
+     *
+     * @param Config $subject
+     * @param callable $proceed
+     * @return mixed
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
+    public function aroundSave(Config $subject, callable $proceed)
+    {
+        try {
+            $check = [];
+            $savedSection = $subject->getSection();
+            foreach ($this->configValues as $searchValue) {
+                $path = explode('/', (string) $searchValue);
+                $section = $path[0];
+                $group = $path[1];
+                $field = $path[2];
+                if ($savedSection == $section) {
+                    if (isset($subject['groups'][$group]['fields'][$field])) {
+                        $check[$searchValue] = $this->scopeConfig->getValue($searchValue);
+                    }
+                }
+            }
+        } catch (\Throwable $e) {
+            $this->logger->error(
+                'Data Exporter exception has occurred: ' . $e->getMessage(),
+                ['exception' => $e]
+            );
+        }
+        
+        $result = $proceed();
+        
+        try {
+            foreach ($check as $path => $beforeValue) {
+                if ($beforeValue != $this->scopeConfig->getValue($path)) {
+                    $this->invalidationManager->invalidate($this->invalidationEvent);
+                    break;
+                }
+            }
+        } catch (\Throwable $e) {
+            $this->logger->error(
+                'Data Exporter exception has occurred: ' . $e->getMessage(),
+                ['exception' => $e]
+            );
+        }
+        
+        return $result;
+    }
+}

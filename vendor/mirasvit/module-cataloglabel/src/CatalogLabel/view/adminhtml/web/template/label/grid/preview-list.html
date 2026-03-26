@@ -1,0 +1,8 @@
+<div class="mst-cataloglabel-preview" data-bind="foreach: $row().preview_list">
+    <!-- ko if: html.length > 0 && $index() < 5 -->
+    <div
+        class="mst-cataloglabel-preview__label"
+        data-bind="html: html"
+    ></div>
+    <!-- /ko -->
+</div>

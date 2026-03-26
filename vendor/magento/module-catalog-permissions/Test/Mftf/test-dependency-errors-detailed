@@ -1,0 +1,12 @@
+
+File "/var/www/html/app/code/Magento/CatalogPermissions/Test/Mftf/Test/StorefrontApplyCategoryPermissionsToChildCategoryTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 StorefrontCatalogSearchMainSection from module(s): magento/module-catalog-search
+	 StorefrontCheckQuickSearchStringActionGroup from module(s): magento/module-catalog-search
+
+File "/var/www/html/app/code/Magento/CatalogPermissions/Test/Mftf/Test/StorefrontApplyCategoryPermissionsToProductListWidgetTest.xml"
+contains entity references that violate dependency constraints:
+		
+	 InsertWidgetSection from module(s): magento/module-catalog-widget
+	 AdminFillCatalogProductsListWidgetCategoryActionGroup from module(s): magento/module-catalog-widget

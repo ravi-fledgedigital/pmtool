@@ -1,0 +1,52 @@
+<?php
+/************************************************************************
+ *
+ * ADOBE CONFIDENTIAL
+ * ___________________
+ *
+ * Copyright 2024 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ * ************************************************************************
+ */
+declare(strict_types=1);
+
+namespace Magento\AdobeCommerceWebhooks\Model\Webhook\AllowList;
+
+/**
+ * @inheritDoc
+ */
+class AllowedChecker implements AllowedCheckerInterface
+{
+    /**
+     * @param AllowedListInterface $allowedList
+     */
+    public function __construct(private readonly AllowedListInterface $allowedList)
+    {
+    }
+
+    /**
+     * Checks if webhook is allowed to be executed.
+     *
+     * Returns true if the allowed list is empty.
+     *
+     * @param string $webhookMethodName
+     * @return bool
+     */
+    public function isAllowed(string $webhookMethodName): bool
+    {
+        if (empty($this->allowedList->getList())) {
+            return true;
+        }
+
+        return in_array($webhookMethodName, $this->allowedList->getList());
+    }
+}

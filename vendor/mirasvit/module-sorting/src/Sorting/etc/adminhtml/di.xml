@@ -1,0 +1,45 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Model\Category\Attribute\Source\Sortby">
+        <plugin name="Mirasvit_Sorting::addSortingCriteriaToSortBy" type="Mirasvit\Sorting\Plugin\Backend\AddSortingCriteriaToSortByPlugin"/>
+    </type>
+
+    <type name="Magento\Catalog\Block\Adminhtml\Category\Tab\Product">
+        <plugin name="mstSortingAddPinToTopFieldToCollection" type="Mirasvit\Sorting\Plugin\Backend\AddPinToTopFieldToCollectionPlugin"/>
+    </type>
+
+    <type name="Magento\Catalog\Model\Config\Source\ListSort">
+        <plugin name="Mirasvit_Sorting::addSortingCriteriaToSortBy" type="Mirasvit\Sorting\Plugin\Backend\AddSortingCriteriaToSortByPlugin"/>
+    </type>
+
+    <type name="Magento\Catalog\Block\Adminhtml\Category\AssignProducts">
+        <plugin name="mstSortingAddPinnedProductsJson" type="Mirasvit\Sorting\Plugin\Backend\AddCategoryPinnedProductsPlugin"/>
+    </type>
+
+    <type name="Mirasvit\Merchandiser\Block\Adminhtml\Merchandiser">
+        <plugin name="mstSortingAddPinnedProductsToMerchandiser" type="Mirasvit\Sorting\Plugin\Backend\AddPinnedProductsToMerchandiserPlugin"/>
+    </type>
+
+    <type name="Mirasvit\Core\Block\Adminhtml\Menu">
+        <arguments>
+            <argument name="menu" xsi:type="array">
+                <item name="sorting" xsi:type="object">Mirasvit\Sorting\Block\Adminhtml\Menu</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\PageBuilder\Model\Catalog\Sorting\Options">
+        <plugin name="mstSortingReplacePageBuilderOptions" type="Mirasvit\Sorting\Plugin\Backend\AddSortingCriteriaToSortByPlugin"/>
+    </type>
+
+    <virtualType name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="pinned-categories" xsi:type="array">
+                    <item name="class" xsi:type="string">Mirasvit\Sorting\Ui\Product\Form\Modifier\PinnedInCategories</item>
+                    <item name="sortOrder" xsi:type="number">100</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+</config>

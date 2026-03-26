@@ -1,0 +1,20 @@
+{
+    "name": "amasty/module-lib-fancybox",
+    "description": "Lib Fancybox by Amasty",
+    "require": {
+        "php": ">=7.4",
+        "amasty/base": ">=1.21.1"
+    },
+    "homepage": "https://amasty.com/",
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": "proprietary",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\LibFancybox\\": ""
+        }
+    }
+}

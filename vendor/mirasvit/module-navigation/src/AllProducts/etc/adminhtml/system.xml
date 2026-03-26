@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="mst_all_products" showInDefault="1" showInWebsite="1" showInStore="1" type="text" translate="label" sortOrder="445">
+            <label>All Products Page</label>
+            <tab>mirasvit</tab>
+            <resource>Mirasvit_AllProducts::config_all_products</resource>
+
+            <group id="general" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="1000" translate="label">
+                <label>General Settings</label>
+
+                <field id="is_enabled" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                    <label>Enable All Products Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>mst_all_products/general/is_enabled</config_path>
+                    <comment><![CDATA[Activates a dedicated "All Products" page displaying the entire catalog.]]></comment>
+                </field>
+
+                <field id="url_key" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                    <label>All Products URL</label>
+                    <config_path>mst_all_products/general/url_key</config_path>
+                    <comment><![CDATA[Specify the URL path for the All Products page (e.g., /all).]]></comment>
+                </field>
+
+                <field id="title" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30">
+                    <label>Page Title</label>
+                    <config_path>mst_all_products/general/title</config_path>
+                    <comment><![CDATA[Set the title displayed at the top of the All Products page.]]></comment>
+                </field>
+
+                <field id="is_show_all_categories" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="70">
+                    <label>Show All Categories in Filter</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>mst_all_products/general/is_show_all_categories</config_path>
+                    <comment><![CDATA[Display all product categories in the sidebar filter, allowing users to narrow down results.]]></comment>
+                </field>
+            </group>
+
+            <group id="seo" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="1000" translate="label comment">
+                <label>SEO Configuration</label>
+                <fieldset_css>mst_nav_group_config</fieldset_css>
+                <comment><![CDATA[Customize SEO of all products page to improve indexing by search engines.]]></comment>
+                <field id="meta_title" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                    <label>Meta Title</label>
+                    <config_path>mst_all_products/general/meta_title</config_path>
+                    <comment><![CDATA[Define a meta title for SEO purposes, displayed in search engine results.]]></comment>
+                </field>
+
+                <field id="meta_description" translate="label comment" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+                    <label>Meta Description</label>
+                    <config_path>mst_all_products/general/meta_description</config_path>
+                    <comment><![CDATA[Provide a meta description for SEO, giving a brief overview of the page’s content.]]></comment>
+                </field>
+                <field id="robots" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="30">
+                    <label>Robots Meta Header for All Products Page</label>
+                    <source_model>Mirasvit\SeoNavigation\Model\Config\Source\MetaRobots</source_model>
+                    <comment><![CDATA[Choose the robots meta tag for the All Products page to control search engine indexing.]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
