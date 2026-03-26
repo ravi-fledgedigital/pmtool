@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">crm_receipt_form.admincrm_receipt_listing_data_source</item>
+        </item>
+        <item name="label" translate="true" xsi:type="string">Order Information</item>
+        <item name="reverseMetadataMerge" xsi:type="boolean">true</item>
+    </argument>
+
+    <settings>
+        <buttons>
+                <button class="Magento\Customer\Block\Adminhtml\Edit\BackButton" name="back"/>
+        </buttons>        
+        <layout>
+            <navContainerName>left</navContainerName>
+            <type>tabs</type>
+        </layout>
+        <deps>
+            <dep>crm_receipt_form.admincrm_receipt_listing_data_source</dep>
+        </deps>
+    </settings>
+
+    <dataSource name="admincrm_receipt_listing_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="admincrm_receipt_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <htmlContent name="crm_receipt_information">
+        <block class="Cpss\Crm\Block\Adminhtml\Receipt\View\Tab\Info" name="cpss.crm.receipt.info">
+            <arguments>
+                <argument name="sort_order" xsi:type="number">10</argument>
+                <argument name="tab_label" xsi:type="string" translate="true">Information</argument>
+            </arguments>
+            <block class="Cpss\Crm\Block\Adminhtml\Receipt\View\Content\Info" name="cpss.crm.receipt.content.info" template="Cpss_Crm::receipt/view/content/info.phtml" />
+            <block class="Cpss\Crm\Block\Adminhtml\Receipt\View\Content\Info" name="cpss.crm.receipt.content.info.items" template="Cpss_Crm::receipt/view/content/items.phtml"/>
+            <block class="Cpss\Crm\Block\Adminhtml\Receipt\View\Content\Info" name="cpss.crm.receipt.content.info.totals" template="Cpss_Crm::receipt/view/content/totals.phtml"/>
+        </block>
+    </htmlContent>
+</form>

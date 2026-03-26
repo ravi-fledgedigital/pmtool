@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Controller\ResultInterface">
+        <plugin name="result-messages" type="Magento\Theme\Controller\Result\MessagePlugin" disabled="true"/>
+        <plugin name="result-messages-override" type="OnitsukaTiger\Customer\Controller\Result\MessagePlugin" />
+    </type>
+</config>

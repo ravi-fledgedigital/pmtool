@@ -1,0 +1,49 @@
+<?php
+/**
+* @author OnitsukaTiger Team
+* @copyright Copyright (c) 2022 OnitsukaTiger (https://www.onitsukatiger.com)
+* @package Custom Checkout Fields for Magento 2
+*/
+?>
+<?php
+/**
+ * @var \OnitsukaTiger\OrderAttribute\Block\Adminhtml\Order\View\Attributes $block
+ */
+$orderAttributeData = $block->getOrderAttributesData();
+?>
+
+<section class="admin__page-section order-view-account-information">
+    <div class="admin__page-section-title">
+        <span class="title"><?= /** @noEscape */ __('Additional Information') ?></span>
+        <div class="actions"><?= /** @noEscape */ $block->getOrderAttributeEditLink(); ?></div>
+    </div>
+    <div class="admin__page-section-content">
+        <div class="admin__page-section-item order-information">
+            <div class="admin__page-section-item-content">
+                <table class="admin__table-secondary order-information-table">
+                    <?php if (!empty($orderAttributeData)): ?>
+                        <?php foreach ($orderAttributeData as $data): ?>
+                            <tr>
+                                <th><?= $block->escapeHtml($data['label']); ?></th>
+                                <td>
+                                    <?php if (is_array($data['value'])): ?>
+                                        <a class="file-link" target="_blank" href="<?= /** @noEscape */ $data['value']['url'] ?? '' ?>">
+                                            <?= /** @noEscape */ $data['value']['name'] ?? ''; ?>
+                                        </a>
+                                    <?php else: ?>
+                                        <strong><?= $block->escapeHtml($data['value']); ?></strong>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <td><?= $block->escapeHtml(__('No attributes for this order')); ?></td>
+                        </tr>
+                    <?php endif; ?>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

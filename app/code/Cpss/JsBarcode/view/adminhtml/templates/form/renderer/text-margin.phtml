@@ -1,0 +1,35 @@
+<?php
+    $element = $block->getElement();
+    $form = $element->getForm();
+    /** @var \Magento\Config\Block\System\Config\Form $parentForm */
+    $parentForm = $form->getParent();
+    $textMarginConfigVal = $parentForm->getConfigValue('barcode_section/barcode_group/textmargin');
+?>
+
+<div>
+    <div id="textMarginSlider"></div>
+    <input type="hidden" 
+        id="barcode_section_barcode_group_textmargin" 
+        name="<?= $block->getFieldName() ?>"
+        value="<?= $textMarginConfigVal ?>">
+</div>
+
+<script type="text/javascript">
+    require(['jquery', 'jquery/ui'], function($){
+        $("#textMarginSlider").slider({
+            range: "min",
+            min: 8,
+            max: 36,
+            value: "<?= $textMarginConfigVal ?>",
+            slide: function( event, ui ) {
+                $(this).find('.ui-slider-handle').text(ui.value);
+                $("#barcode_section_barcode_group_textmargin").val(ui.value);
+            },
+            create: function(event, ui) {
+                var v=$(this).slider('value');
+                $(this).find('.ui-slider-handle').text(v);
+                $("#barcode_section_barcode_group_textmargin").val(v);
+            }
+        });
+    });
+</script>

@@ -1,0 +1,28 @@
+<?php /* @var $this  \Magento\Framework\View\TemplateEngine\Php */ ?>
+<?php /* @var $block \Seoulwebdesign\Kpostcode\Block\PostCode */ ?>
+<script type="text/x-magento-init">
+    {
+        ".form-address-edit": {
+            "postcodecusaddress": {
+               "isEnable": "<?php echo $this->helper("Seoulwebdesign\Kpostcode\Helper\Data")->isEnable() ?>",
+               "postCodeIcoStr":"<img src=\"<?php echo $block->getViewFileUrl('Seoulwebdesign_Kpostcode::images/postcode-ico.png'); ?>\"/>",
+               "languages":"<?php echo $block->getLanguages(); ?>",
+               "version": "<?php echo $this->helper("Seoulwebdesign\Kpostcode\Helper\Data")->getSelectedVersion() ?>",
+               "mode": "<?php echo $this->helper("Seoulwebdesign\Kpostcode\Helper\Data")->getSelectedMode() ?>",
+               "showJibun": "<?php echo $this->helper("Seoulwebdesign\Kpostcode\Helper\Data")->getShowJibun() ?>"
+            }
+        }
+    }
+
+</script>
+<script>
+    window.kPostCodeConfig = {
+        isEnable: '<?php echo $this->helper("Seoulwebdesign\Kpostcode\Helper\Data")->isEnable() ?>',
+        language: '<?php echo $block->getLanguages(); ?>',
+        postCodeIcoStr: '<?php echo $block->getViewFileUrl('Seoulwebdesign_Kpostcode::images/postcode-ico.png'); ?>',
+        popupTitle: '<?php echo $this->helper("Seoulwebdesign\Kpostcode\Helper\Data")->getPopupTitle() ?>',
+        version: '<?php echo $this->helper("Seoulwebdesign\Kpostcode\Helper\Data")->getSelectedVersion() ?>',
+        mode: '<?php echo $this->helper("Seoulwebdesign\Kpostcode\Helper\Data")->getSelectedMode() ?>',
+        showJibun: '<?php echo $this->helper("Seoulwebdesign\Kpostcode\Helper\Data")->getShowJibun() ?>'
+    }
+</script>

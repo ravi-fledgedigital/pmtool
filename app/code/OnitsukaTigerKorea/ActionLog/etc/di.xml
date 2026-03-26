@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!-- phpcs:ignoreFile -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Ui\Model\Export\ConvertToCsv" type="OnitsukaTigerKorea\ActionLog\Model\Export\ConvertToCsv" />
+    <preference for="Magento\Ui\Model\Export\ConvertToXml" type="OnitsukaTigerKorea\ActionLog\Model\Export\ConvertToXml" />
+    <preference for="Magento\Ui\Controller\Adminhtml\Export\GridToCsv" type="OnitsukaTigerKorea\ActionLog\Controller\Adminhtml\Export\GridToCsv" />
+    <preference for="Magento\Ui\Controller\Adminhtml\Export\GridToXml" type="OnitsukaTigerKorea\ActionLog\Controller\Adminhtml\Export\GridToXml" />
+    <preference for="Amasty\AdminActionsLog\Block\Adminhtml\Buttons\Grid\ClearLogging" type="OnitsukaTigerKorea\ActionLog\Preference\Block\Adminhtml\Buttons\Grid\ClearLogging" />
+    <virtualType name="OnitsukaTigerKorea\ActionLog\Model\ResourceModel\VisitHistoryDetail\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">amasty_audit_visit_details</argument>
+            <argument name="resourceModel" xsi:type="string">Amasty\AdminActionsLog\Model\VisitHistoryEntry\ResourceModel\VisitHistoryDetail</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="pageviewhistory_listing_data_source" xsi:type="string">OnitsukaTigerKorea\ActionLog\Model\ResourceModel\VisitHistoryDetail\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <plugin name="onitsuka_extended_orders_grid_add_data_to_orders_grid"
+                type="OnitsukaTigerKorea\ActionLog\Plugin\AddDataToPageViewGrid"
+                sortOrder="10"
+                disabled="false"/>
+    </type>
+</config>

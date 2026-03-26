@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_creditmemo_save_after">
+        <observer name="cpss_after_save_creditmemo" instance="Cpss\Pos\Observer\CpssCreditmemoAfter" />
+    </event>
+
+    <!--<event name="sales_order_shipment_save_after">
+        <observer name="cpss_sales_order_shipment_save_after" instance="Cpss\Pos\Observer\CpssSalesOrderAfterSave" />
+    </event>-->
+
+    <event name="sales_order_shipment_ship_save_after">
+        <observer name="cpss_sales_order_shipment_ship_save_after" instance="Cpss\Pos\Observer\CpssSalesOrderAfterSave" />
+    </event>
+
+    <event name="netsuite_update_order_status_shipped">
+        <observer name="cpss_sales_order_netsuite_shipment_ship_save_after" instance="Cpss\Pos\Observer\CpssSalesOrderAfterSave" />
+    </event>
+
+    <!--<event name="sales_order_invoice_save_after">
+        <observer name="cpss_sales_order_invoice_save_after" instance="Cpss\Pos\Observer\CpssSalesOrderAfterSave" />
+    </event>-->
+</config>

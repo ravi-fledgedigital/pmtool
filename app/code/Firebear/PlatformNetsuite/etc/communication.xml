@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright: Copyright © 2019 Firebear Studio. All rights reserved.
+ * @author   : Firebear Studio <fbeardev@gmail.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Communication/etc/communication.xsd">
+    <topic name="netsuite.customer.update" request="Magento\Customer\Api\Data\CustomerInterface">
+        <handler name="netsuite.customer.update.handler" type="Firebear\PlatformNetsuite\Model\Customer\UpdateConsumer" method="processMessage" />
+    </topic>
+    <topic name="netsuite.customer.address.update" request="Magento\Customer\Api\Data\AddressInterface">
+        <handler name="netsuite.customer.address.update.handler" type="Firebear\PlatformNetsuite\Model\Customer\Address\UpdateConsumer" method="processMessage" />
+    </topic>
+</config>

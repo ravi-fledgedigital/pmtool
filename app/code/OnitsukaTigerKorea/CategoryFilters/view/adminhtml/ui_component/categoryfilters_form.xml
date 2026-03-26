@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Created By: MageDelight Pvt. Ltd.
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+   <argument name="data" xsi:type="array">
+      <item name="js_config" xsi:type="array">
+         <item name="provider" xsi:type="string">categoryfilters_form.categoryfilters_form_data_source</item>
+         <item name="deps" xsi:type="string">categoryfilters_form.categoryfilters_form_data_source</item>
+      </item>
+      <item name="label" xsi:type="string" translate="true">Category Information</item>
+      <item name="config" xsi:type="array">
+         <item name="dataScope" xsi:type="string">data</item>
+         <item name="namespace" xsi:type="string">categoryfilters_form</item>
+      </item>
+      <item name="spinner" xsi:type="string">general_information</item>
+      <item name="buttons" xsi:type="array">
+      <item name="back" xsi:type="string">OnitsukaTigerKorea\CategoryFilters\Block\Adminhtml\Index\Edit\Button\Back</item>
+         <item name="save" xsi:type="string">OnitsukaTigerKorea\CategoryFilters\Block\Adminhtml\Index\Edit\Button\Save</item>
+      </item>
+      <item name="template" xsi:type="string">templates/form/collapsible</item>
+   </argument>
+   <dataSource name="categoryfilters_form_data_source">
+      <argument name="dataProvider" xsi:type="configurableObject">
+         <argument name="class" xsi:type="string">OnitsukaTigerKorea\CategoryFilters\Model\DataProvider</argument>
+         <argument name="name" xsi:type="string">categoryfilters_form_data_source</argument>
+         <argument name="primaryFieldName" xsi:type="string">filter_id</argument>
+         <argument name="requestFieldName" xsi:type="string">filter_id</argument>
+         <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+               <item name="submit_url" xsi:type="url" path="*/*/save" />
+            </item>
+         </argument>
+      </argument>
+      <argument name="data" xsi:type="array">
+         <item name="js_config" xsi:type="array">
+            <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+         </item>
+      </argument>
+   </dataSource>
+   <fieldset name="general_information">
+      <argument name="data" xsi:type="array">
+         <item name="config" xsi:type="array">
+            <item name="collapsible" xsi:type="boolean">false</item>
+            <item name="label" xsi:type="string" translate="true">Category Information</item>
+            <item name="sortOrder" xsi:type="number">20</item>
+         </item>
+      </argument>
+      <field name="category_id">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">OnitsukaTigerKorea\CategoryFilters\Ui\Component\Product\Form\Categories\Options</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Category</item>
+                    <item name="componentType" xsi:type="string">field</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Catalog/js/components/new-category</item>
+                    <item name="elementTmpl" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                    <item name="dataScope" xsi:type="string">category_id</item>
+                    <item name="filterOptions" xsi:type="boolean">true</item>
+                    <item name="showCheckbox" xsi:type="boolean">false</item>
+                    <item name="disableLabel" xsi:type="boolean">true</item>
+                    <item name="multiple" xsi:type="boolean">false</item>
+                    <item name="levelsVisibility" xsi:type="number">1</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="required" xsi:type="boolean">true</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="listens" xsi:type="array">
+                        <item name="${ $.namespace }.${ $.namespace }:responseData" xsi:type="string">setParsed</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="status">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="sortOrder" xsi:type="number">10</item>
+                            <item name="dataType" xsi:type="string">boolean</item>
+                            <item name="formElement" xsi:type="string">checkbox</item>
+                            <item name="prefer" xsi:type="string">toggle</item>
+                            <item name="label" xsi:type="string" translate="true">Status</item>
+                            <item name="valueMap" xsi:type="array">
+                                <item name="true" xsi:type="number">1</item>
+                                <item name="false" xsi:type="number">0</item>
+                            </item>
+                            <item name="valuesForOptions" xsi:type="array">
+                                <item name="boolean" xsi:type="string">boolean</item>
+                            </item>
+                            <item name="default" xsi:type="number">1</item>
+                            <item name="dataScope" xsi:type="string">status</item>
+                        </item>
+                    </argument>
+                </field>
+   </fieldset>
+   <fieldset name="add_category_name_daynamic">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Add Filter Category</item>
+                <item name="sortOrder" xsi:type="number">100</item>
+            </item>
+        </argument>
+        <dynamicRows name="dynamic_row">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/dynamic-rows/dynamic-rows</item>
+                    <item name="template" xsi:type="string">ui/dynamic-rows/templates/default</item>
+                    <item name="componentType" xsi:type="string">dynamicRows</item>
+                    <item name="recordTemplate" xsi:type="string">record</item>
+                    <item name="deleteButtonLabel" xsi:type="string">Remove</item>
+                    <item name="addButtonLabel" xsi:type="string">Add New </item>
+                    <item name="deleteProperty" xsi:type="boolean">false</item>
+                    <item name="defaultRecord" xsi:type="boolean">true</item>
+                    <item name="dndConfig" xsi:type="array">
+                        <item name="enabled" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+            <container name="record">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Record label goes here</item>
+                        <item name="component" xsi:type="string" translate="true">Magento_Ui/js/dynamic-rows/record</item>
+                        <item name="isTemplate" xsi:type="boolean">true</item>
+                        <item name="is_collection" xsi:type="boolean">true</item>
+                        <item name="showFallbackReset" xsi:type="boolean">false</item>
+                    </item>
+                </argument>
+                <field name="category_id">
+                  <argument name="data" xsi:type="array">
+                     <item name="options" xsi:type="object">OnitsukaTigerKorea\CategoryFilters\Ui\Component\Product\Form\Categories\Options</item>
+                     <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Redirect Category</item>
+                        <item name="componentType" xsi:type="string">field</item>
+                        <item name="formElement" xsi:type="string">select</item>
+                        <item name="component" xsi:type="string">Magento_Catalog/js/components/new-category</item>
+                        <item name="elementTmpl" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                        <item name="dataScope" xsi:type="string">category_id</item>
+                        <item name="filterOptions" xsi:type="boolean">true</item>
+                        <item name="showCheckbox" xsi:type="boolean">false</item>
+                        <item name="disableLabel" xsi:type="boolean">true</item>
+                        <item name="multiple" xsi:type="boolean">false</item>
+                        <item name="levelsVisibility" xsi:type="number">1</item>
+                        <item name="sortOrder" xsi:type="number">30</item>
+                        <item name="required" xsi:type="boolean">true</item>
+                        <item name="validation" xsi:type="array">
+                              <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                        <item name="listens" xsi:type="array">
+                              <item name="${ $.namespace }.${ $.namespace }:responseData" xsi:type="string">setParsed</item>
+                        </item>
+                     </item>
+                  </argument>
+               </field>
+                <field name="category_name">
+                   <argument name="data" xsi:type="array">
+                       <item name="config" xsi:type="array">
+                           <item name="dataType" xsi:type="string">text</item>
+                           <item name="label" xsi:type="string" translate="true">Category name</item>
+                           <item name="formElement" xsi:type="string">input</item>
+                           <item name="source" xsi:type="string">category_name</item>
+                           <item name="dataScope" xsi:type="string">category_name</item>
+                           <item name="sortOrder" xsi:type="string">20</item>
+                           <item name="validation" xsi:type="array">
+                               <item name="required-entry" xsi:type="boolean">true</item>
+                           </item>
+                       </item>
+                   </argument>
+                </field>
+                <actionDelete>
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="componentType" xsi:type="string">actionDelete</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="fit" xsi:type="boolean">false</item>
+                            <item name="label" xsi:type="string">Actions</item>
+                            <item name="sortOrder" xsi:type="string">40</item>
+                            <item name="additionalClasses" xsi:type="string">data-grid-actions-cell</item>
+                            <item name="template" xsi:type="string">Magento_Backend/dynamic-rows/cells/action-delete</item>
+                        </item>
+                    </argument>
+                </actionDelete>
+            </container>
+        </dynamicRows>
+    </fieldset>
+</form>

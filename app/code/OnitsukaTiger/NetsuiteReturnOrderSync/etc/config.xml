@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <rma_netsuite>
+            <rma_sync>
+                <enabled>1</enabled>
+            </rma_sync>
+            <rma_algorithm>
+                <enabled>1</enabled>
+            </rma_algorithm>
+        </rma_netsuite>
+    </default>
+</config>

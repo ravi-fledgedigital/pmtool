@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="general">
+        <field name="lastname" sortOrder="30" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <visible>true</visible>
+                <label translate="true">Last Name</label>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+            </settings>
+        </field>
+    </fieldset>
+</form>

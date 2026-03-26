@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="catalog_categories_entity_media_gallery" resource="default" engine="innodb" comment="Catalog Category Media Table">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="smallint" name="category_id" padding="5" unsigned="true" nullable="false"
+                identity="false" default="0" comment="Category ID"/>
+        <column xsi:type="varchar" name="value" nullable="false" length="255" default="simple" comment="Image Path File"/>
+        <column xsi:type="smallint" name="position" padding="6" unsigned="false" nullable="false" identity="false"
+                default="0" comment="Position"/>
+        <column xsi:type="smallint" name="store" padding="6" unsigned="false" nullable="false" identity="false"
+                default="0" comment="Store"/>
+        <column xsi:type="varchar" name="link" length="255" nullable="false" default="simple"
+                comment="Link Redirect"/>
+        <column xsi:type="varchar" name="alt_text" nullable="false" default="simple"
+                comment="Alt Text"/>
+        <column xsi:type="smallint" name="disabled" padding="5" unsigned="true" nullable="false"
+                identity="false" default="0" comment="Status"/>
+        <index referenceId="CATALOG_CATEGORIES_MEDIA_GALLERY" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+    </table>
+</schema>

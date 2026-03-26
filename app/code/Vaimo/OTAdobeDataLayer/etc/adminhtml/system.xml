@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="adobe_launch" translate="label" sortOrder="200" showInDefault="1" showInWebsite="0" showInStore="1">
+            <class>separator-top</class>
+            <label>Adobe Launch</label>
+            <tab>aep</tab>
+            <resource>Vaimo_OTAdobeDataLayer::config</resource>
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="1">
+                <label>General Configuration</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Enable Data Layer</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Full page cache clean required after changing this setting</comment>
+                </field>
+                <field id="launch_embed_code" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Adobe Launch Embed Code</label>
+                    <comment><![CDATA[To find out how to get embed code check <a href="https://experienceleague.adobe.com/docs/platform-learn/implement-in-websites/configure-tags/add-embed-code.html?lang=en" target="_blank">this manual</a>.]]></comment>
+                </field>
+                <field id="site_language" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Site Langauge</label>
+                    <comment><![CDATA[Enter the Site Langauge e.g., sg_en]]></comment>
+                </field>
+            </group>
+            <group id="user_info" translate="label" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="1">
+                <label>User Info</label>
+                <field id="logged_in_site" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Site Name</label>
+                    <comment><![CDATA[Value for <b><i>userInfo.loggedInSite</i></b> property]]></comment>
+                </field>
+                <field id="logged_in_region" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Region</label>
+                    <comment><![CDATA[Value for <b><i>userInfo.loggedInRegion</i></b> property]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

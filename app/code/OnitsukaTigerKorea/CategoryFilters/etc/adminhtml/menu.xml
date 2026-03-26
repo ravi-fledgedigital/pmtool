@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+      <add id="OnitsukaTigerKorea_CategoryFilters::categoryfilters" title="Category Filters Menu" translate="title" module="OnitsukaTigerKorea_CategoryFilters"  parent="Magento_Catalog::catalog" sortOrder="50" dependsOnModule="OnitsukaTigerKorea_CategoryFilters" resource="OnitsukaTigerKorea_CategoryFilters::categoryfilters"/>
+      <add id="OnitsukaTigerKorea_CategoryFilters::category_filters_listing" title="Category Filters List" translate="title" module="OnitsukaTigerKorea_CategoryFilters" parent="OnitsukaTigerKorea_CategoryFilters::categoryfilters" sortOrder="10" dependsOnModule="OnitsukaTigerKorea_CategoryFilters" action="categoryfilters/categoryfilters/index" resource="OnitsukaTigerKorea_CategoryFilters::categoryfilters"/>
+    </menu>
+</config>

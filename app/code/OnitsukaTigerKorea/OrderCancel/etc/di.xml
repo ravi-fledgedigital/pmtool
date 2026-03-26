@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="OnitsukaTigerKorea\OrderCancel\Api\ReasonRepositoryInterface" type="OnitsukaTigerKorea\OrderCancel\Model\Reason\Repository"/>
+    <preference for="OnitsukaTigerKorea\OrderCancel\Api\Data\ReasonInterface" type="OnitsukaTigerKorea\OrderCancel\Model\Reason\Reason"/>
+    <preference for="OnitsukaTigerKorea\OrderCancel\Api\Data\ReasonStoreInterface" type="OnitsukaTigerKorea\OrderCancel\Model\Reason\ReasonStore"/>
+</config>

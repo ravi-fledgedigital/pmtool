@@ -1,0 +1,95 @@
+<?php
+/** phpcs:ignoreFile */
+
+/** @var \OnitsukaTiger\Customer\Block\Widget\AdvertisementAgreement $block */
+?>
+
+<div class="field choice agreement newsletter">
+    <input type="checkbox" name="advertisement_agreement" title="" value="1" id="advertisement_agreement" class="checkbox">
+    <label for="advertisement_agreement" class="label">
+        <?= __("(선택) 광고성 정보의 수신에 동의합니다. (이메일)")?>
+        <!--<a id="click-open-create-account-popup-advertisement-agreement" href="javascript:void(0)"><?php /*= __("(이메일)")*/?></a>-->
+    </label>
+</div>
+
+<div id="create-account-popup-modal-advertisement-agreement" style="display:none;">
+    <?= $this->getLayout()
+        ->createBlock('Magento\Cms\Block\Block')
+        ->setBlockId('create_account_advertisement_agreement')
+        ->toHtml();
+    ?>
+</div>
+
+<!--
+<div id="tooltip-message" class="tooltip-message">
+    <span id="tooltip-close" class="tooltip-close">✖</span>
+    <?= $this->getLayout()
+    ->createBlock('Magento\Cms\Block\Block')
+    ->setBlockId('create-account-mkt-consent')
+    ->toHtml();
+?>
+</div>
+<script>
+    require(['jquery'], function ($) {
+        $(document).ready(function () {
+            $('#tooltip-trigger').on('click', function (e) {
+                e.preventDefault();
+
+                const $tooltip = $('#tooltip-message');
+                const offset = $(this).offset();
+                $tooltip.css({
+                    top: offset.top + $(this).outerHeight() + 10 + 'px',
+                    left: offset.left + 'px'
+                });
+                $tooltip.fadeIn();
+            });
+            $('#tooltip-close').on('click', function () {
+                $('#tooltip-message').fadeOut();
+            });
+        });
+    });
+</script>
+-->
+
+<!--<div class="field choice subscribe_kakao newsletter">
+    <input type="checkbox" name="subscribe_kakao" title="" value="1" id="subscribe_kakao" class="checkbox">
+    <label for="subscribe_kakao" class="label">
+        <?php /*= __("(선택) 정보성 메시지 수신에 동의합니다. (카카오 알림톡)")*/?>
+    </label>
+</div>-->
+<div id="create-account-popup-modal-kakao" style="display:none;">
+    <?= $this->getLayout()
+        ->createBlock('Magento\Cms\Block\Block')
+        ->setBlockId('kakao_create_account')
+        ->toHtml();
+    ?>
+</div>
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/modal'
+    ], function($, modal) {
+        var options = {
+            type: 'popup',
+            responsive: true,
+            innerScroll: true,
+            modalClass: 'create-account-popup-custome',
+            title: '',
+            buttons: [{
+                text: $.mage.__('Continue'),
+                class: '',
+                click: function () {
+                    this.closeModal();
+                }
+            }],
+            opened: function($Event) {
+                $(".modal-footer").hide();
+            }
+        };
+
+        var popupkakao = modal(options, $('#create-account-popup-modal-advertisement-agreement'));
+        $("#click-open-create-account-popup-advertisement-agreement").on('click', function() {
+            $("#create-account-popup-modal-advertisement-agreement").modal("openModal");
+        });
+    });
+</script>

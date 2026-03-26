@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="\Magento\Customer\Controller\Address\Index">
+        <plugin name="address.customer.view" type="OnitsukaTiger\Customer\Plugin\Controller\Address\Index" />
+    </type>
+    <type name="\Magento\Customer\Controller\Address\FormPost">
+        <plugin name="address.customer.post" type="OnitsukaTiger\Customer\Plugin\Controller\Address\FormPost" />
+    </type>
+    <type name="\Magento\Customer\Controller\Account\LoginPost">
+        <plugin name="account.login.post" type="OnitsukaTiger\Customer\Plugin\Controller\Account\LoginPost" />
+    </type>
+    <type name="\Magento\Customer\Controller\Account\CreatePost">
+        <plugin name="account.login.post" type="OnitsukaTiger\Customer\Plugin\Controller\Account\CreatePost" />
+    </type>
+    <type name="\Magento\Customer\Controller\Address\Delete">
+        <plugin name="address.customer.post" type="OnitsukaTiger\Customer\Plugin\Controller\Address\Delete" />
+    </type>
+    <type name="Magento\Customer\Model\EmailNotification">
+        <plugin name="stop_welcome_email" sortOrder="1"
+                type="OnitsukaTiger\Customer\Plugin\EmailNotification" />
+    </type>
+    <type name="Magento\Newsletter\Model\Subscriber">
+        <plugin name="stop_subscriber_email" sortOrder="1"
+                type="OnitsukaTiger\Customer\Plugin\Model\Subscriber" />
+    </type>
+    <type name="Magento\Customer\Model\AccountManagement">
+        <plugin name="notify_customer_reset_password" sortOrder="1"
+                type="OnitsukaTiger\Customer\Plugin\Model\AccountManagement" />
+    </type>
+    <type name="Magento\Customer\Model\Address\AbstractAddress">
+        <plugin name="customer_address_security" sortOrder="1"
+                type="OnitsukaTiger\Customer\Plugin\Model\Address\AbstractAddress" />
+    </type>
+    <!-- <type name="\Magento\Quote\Model\Quote">
+        <plugin name="Amasty_CustomerAttributes::Quote" disabled="true" />
+    </type> -->
+    <preference for="Magento\Customer\Block\Widget\Dob" type="OnitsukaTiger\Customer\Block\Widget\Dob" />
+    <preference for="Magento\Customer\Model\Metadata\Form\Date" type="OnitsukaTiger\Customer\Model\Metadata\Form\Date" />
+    <type name="Magento\Newsletter\Model\Subscriber">
+        <plugin name="subscriber-set-isSubscribed"
+                type="OnitsukaTiger\Customer\Plugin\Model\AfterSubscriber" />
+    </type>
+    <preference for="\Magento\Customer\Controller\Account\CreatePost" type="OnitsukaTiger\Customer\Controller\Account\CreatePost" />
+</config>

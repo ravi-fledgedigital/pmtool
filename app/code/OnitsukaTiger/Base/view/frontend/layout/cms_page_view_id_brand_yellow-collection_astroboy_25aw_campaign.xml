@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <html>
+            <attribute name="prefix" value="og: http://ogp.me/ns#"/>
+        </html>
+    <body>
+        <referenceContainer name="head.additional">
+            <block class="OnitsukaTiger\Base\Block\Html\OgMeta" name="custom.og.image" template="OnitsukaTiger_Base::html/og-image.phtml" before="-" />
+        </referenceContainer>
+    </body>
+</page>

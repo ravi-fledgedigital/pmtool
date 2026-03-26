@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <amrma>
+            <general>
+                <date_expriry>14</date_expriry>
+                <status_expiry>complete</status_expiry>
+                <admin_canceled_status>17</admin_canceled_status>
+                <is_show_admin_canceled_status>0</is_show_admin_canceled_status>
+                <is_show_frontend_canceled_status>0</is_show_frontend_canceled_status>
+                <is_show_history_of_rma>0</is_show_history_of_rma>
+                <is_show_history_of_memo>0</is_show_history_of_memo>
+            </general>
+        </amrma>
+    </default>
+</config>

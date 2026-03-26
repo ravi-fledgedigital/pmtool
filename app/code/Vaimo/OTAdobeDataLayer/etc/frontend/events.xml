@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="customer_login">
+        <observer name="customer_login_observer" instance="Vaimo\OTAdobeDataLayer\Observer\CustomerLogin" />
+    </event>
+    <event name="customer_register_success">
+        <observer name="customer_register_succes" instance="Vaimo\OTAdobeDataLayer\Observer\RegisterSuccess" />
+    </event>
+    <event name="checkout_cart_add_product_complete">
+        <observer name="add_to_cart_product_add_after" instance="Vaimo\OTAdobeDataLayer\Observer\AddToCartProductAfter" />
+    </event>
+
+    <event name="sales_quote_remove_item">
+        <observer name="adobe_quote_remove_item" instance="Vaimo\OTAdobeDataLayer\Observer\SalesQuoteRemoveItemObserver" />
+    </event>
+    <event name="wishlist_product_add_after">
+        <observer name="adobe_wishlist_product_add_after" instance="Vaimo\OTAdobeDataLayer\Observer\WishListProductAddAfter" />
+    </event>
+</config>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\Rma\Model\Status\DataProvider\Form" type="OnitsukaTiger\Rma\Model\Status\DataProvider\Form" />
+    <preference for="Amasty\Rma\Observer\Rma\StatusChanged"
+                type="OnitsukaTiger\Rma\Observer\Rma\StatusChanged" />
+    <preference for="Amasty\Rma\Observer\Rma\RmaCreated"
+                type="OnitsukaTiger\Rma\Observer\Rma\RmaCreated" />
+
+    <preference for="Amasty\Rma\Block\Adminhtml\Buttons\Request\CreditMemoButton" type="OnitsukaTiger\Rma\Block\Adminhtml\Buttons\Request\CreditMemoButton" />
+    <preference for="Magento\Sales\Block\Adminhtml\Order\Creditmemo\Create\Items" type="OnitsukaTiger\Rma\Block\Adminhtml\Order\Creditmemo\Create\Items" />
+    <type name="Magento\Sales\Model\Order\Creditmemo">
+        <plugin name="onitsukaTiger_plugin_order_creditmemo" type="OnitsukaTiger\Rma\Plugin\Model\Order\CreditMemoPlugin" sortOrder="99" disabled="false"/>
+    </type>
+    <type name="Amasty\Rma\Model\Request\DataProvider\Form">
+        <plugin name="onitsukaTiger_plugin_change_timestamp" type="OnitsukaTiger\Rma\Plugin\Request\DataProvider\Form" sortOrder="100" disabled="false"/>
+    </type>
+    <type name="Amasty\Rma\Model\Request\DataProvider\Form">
+        <plugin name="add_returnable_qty_item" type="OnitsukaTiger\Rma\Plugin\Request\DataProvider\AddReturnableQty" disabled="false"/>
+    </type>
+    <preference for="Amasty\Rma\Controller\Adminhtml\Request\Save" type="OnitsukaTiger\Rma\Controller\Adminhtml\Request\Save" />
+    <preference for="Amasty\Rma\Controller\Account\Cancel" type="OnitsukaTiger\Rma\Controller\Account\Cancel" />
+</config>

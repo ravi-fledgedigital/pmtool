@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/consumer.xsd">
+    <consumer name="OnitsukatigerNetsuiteProduct"
+              queue="onitsukatiger_netsuite_product"
+              connection="db"
+              handler="OnitsukaTiger\NetSuite\Model\Handler\Product::process"/>
+    <consumer name="OnitsukatigerNetsuiteCacnel"
+              queue="onitsukatiger_netsuite_cancel"
+              connection="db"
+              handler="OnitsukaTiger\NetSuite\Model\Handler\Shipment::cancel"/>
+    <consumer name="onitsukatiger.price.update.queue"
+              queue="onitsukatiger.price.update.queue"
+              handler="OnitsukaTiger\NetSuite\Model\Consumer::process"/>
+</config>

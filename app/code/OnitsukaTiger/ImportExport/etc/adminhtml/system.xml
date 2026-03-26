@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright: Copyright © 2019 Firebear Studio. All rights reserved.
+ * @author   : Firebear Studio <fbeardev@gmail.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="firebear_importexport">
+            <group id="onedrive" translate="label" type="text" sortOrder="50" showInDefault="1">
+                <field id="redirect_uri" translate="label" type="text" sortOrder="20" showInDefault="1">
+                    <label>Redirect Uri</label>
+                    <comment>Ex:mystore.com/import/onedrive/signincallback</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

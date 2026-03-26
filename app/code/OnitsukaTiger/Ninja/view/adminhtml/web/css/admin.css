@@ -1,0 +1,5 @@
+.admin__menu .level-0.item-onitsukatiger-ninja > a:before {
+    content: '\e643';
+    font-size: 1.9rem;
+    padding-top: 0.3rem;
+}

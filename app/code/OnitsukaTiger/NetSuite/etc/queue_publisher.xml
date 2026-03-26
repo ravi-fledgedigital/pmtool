@@ -1,0 +1,11 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/publisher.xsd">
+    <publisher topic="onitsukatiger.netsuite.product">
+        <connection name="db" exchange="onitsukatiger-netsuite-product-exchange" />
+    </publisher>
+    <publisher topic="onitsukatiger.netsuite.cancel">
+        <connection name="db" exchange="onitsukatiger-netsuite-cancel-exchange" />
+    </publisher>
+    <publisher topic="onitsukatiger.price.update.queue">
+        <connection name="amqp" exchange="onitsukatiger.price.update.queue.exchange"/>
+    </publisher>
+</config>

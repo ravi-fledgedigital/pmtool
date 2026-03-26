@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="aep_cart_abandoned_products">
+        <job instance="Vaimo\AepBase\Cron\AbandonedCarts" method="execute" name="aep_cart_abandoned_products">
+            <schedule>0 */2 * * *</schedule>
+        </job>
+    </group>
+</config>

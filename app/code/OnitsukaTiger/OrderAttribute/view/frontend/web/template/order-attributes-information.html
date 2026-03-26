@@ -1,0 +1,15 @@
+<!-- ko if: (isVisible()) -->
+<div class="ship-via">
+    <table class="table-totals">
+        <caption class="table-caption" data-bind="i18n: 'Additional Info'"></caption>
+        <tbody>
+        <!-- ko foreach: getOrderAttributes() -->
+        <tr>
+            <td width="50%"><span class="value" data-bind="text: label"></span>:&nbsp;</td>
+            <td><span class="value" data-bind="text: value"></span></td>
+        </tr>
+        <!-- /ko -->
+        </tbody>
+    </table>
+</div>
+<!--/ko-->

@@ -1,0 +1,8 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/queue.xsd">
+    <broker topic="download_restock_data" exchange="magento-db" type="db">
+        <queue name="download_restock_data"
+               consumer="download_restock_data"
+               consumerInstance="Magento\Framework\MessageQueue\Consumer"
+               handler="OnitsukaTiger\RestockReports\Model\RestockData::process"/>
+    </broker>
+</config>

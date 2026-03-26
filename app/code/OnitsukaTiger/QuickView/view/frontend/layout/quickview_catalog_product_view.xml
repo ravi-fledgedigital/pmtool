@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="empty"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+      <body>
+          <referenceBlock name="copyright" remove="true"/>
+          <referenceContainer name="product.info.price">
+              <block class="Magento\Catalog\Block\Product\View" name="product.info.price.final" as="product-price-final" template="Magento_Catalog::product/view/price-details.phtml"/>
+          </referenceContainer>
+          <move element="product.price.final" destination="product.info.price.final"/>
+      </body>
+</page>

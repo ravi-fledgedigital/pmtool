@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../app/code/Magento/Webapi/etc/webapi.xsd">
+    <route url="/V1/cegid/product/ean_code" method="POST">
+        <service class="OnitsukaTiger\Cegid\Api\CegidInterface" method="productEanCode"/>
+        <resources>
+            <resource ref="OnitsukaTiger_Cegid::manage"/>
+        </resources>
+    </route>
+    <route url="/V1/cegid/order/invoice" method="GET">
+        <service class="OnitsukaTiger\Cegid\Api\CegidInterface" method="getInvoicePdf"/>
+        <resources>
+            <resource ref="OnitsukaTiger_Cegid::manage"/>
+        </resources>
+    </route>
+    <route url="/V1/cegid/order/awb" method="GET">
+        <service class="OnitsukaTiger\Cegid\Api\CegidInterface" method="getAWBFilePdf"/>
+        <resources>
+            <resource ref="OnitsukaTiger_Cegid::manage"/>
+        </resources>
+    </route>
+</routes>

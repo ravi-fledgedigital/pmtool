@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <aep_product_file_export>
+            <adobe_experience_platform>
+                <folder_path>/incoming/AEP</folder_path>
+                <filename>ftp_aep_product_data_</filename>
+                <scheduler_enabled>0</scheduler_enabled>
+                <cron_scheduler>0 1 * * *</cron_scheduler>
+            </adobe_experience_platform>
+            <adobe_campaign>
+                <folder_path>/incoming/ACC</folder_path>
+                <filename>ftp_acc_product_data_</filename>
+                <scheduler_enabled>0</scheduler_enabled>
+                <cron_scheduler>0 2 * * *</cron_scheduler>
+            </adobe_campaign>
+        </aep_product_file_export>
+    </default>
+</config>

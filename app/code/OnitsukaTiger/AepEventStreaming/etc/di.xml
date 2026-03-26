@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Vaimo\AepEventStreaming\Model\Request\GetToken">
+        <plugin name="OnitsukaTiger_AepEventStreaming::update_token_details"
+                type="OnitsukaTiger\AepEventStreaming\Plugin\Model\Request\GetToken" sortOrder="10"/>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="updateCustomerOrderDetails" xsi:type="object">OnitsukaTiger\AepEventStreaming\Console\UpdateCustomerOrderDetails</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

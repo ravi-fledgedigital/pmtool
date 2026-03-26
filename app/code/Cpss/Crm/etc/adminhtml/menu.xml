@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Cpss_Crm::cpssmenu" title="CPSS Menu" translate="title" module="Cpss_Crm" sortOrder="10" resource="Cpss_Crm::main"/>
+        <add id="Cpss_Crm::RealStoreManagment" title="Real store management" module="Cpss_Crm" sortOrder="20" resource="Cpss_Crm::RealStoreManagment" parent="Cpss_Crm::cpssmenu" action="admincrm/realstore/index"/>
+        <add id="Cpss_Crm::ShopReceipt" title="Real Store Order" module="Cpss_Crm" sortOrder="10" parent="Magento_Sales::sales" action="admincrm/receipt/index" resource="Cpss_Crm::ShopReceipt" />
+    </menu>
+</config>

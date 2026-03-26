@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<!-- phpcs:ignoreFile -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    <extension_attributes for="Magento\Customer\Api\Data\CustomerInterface">
+        <attribute code="is_kakaopay" type="string"/>
+    </extension_attributes>
+    <extension_attributes for="Magento\Customer\Api\Data\CustomerInterface">
+        <attribute code="is_kakaopay_register" type="string"/>
+    </extension_attributes>
+    <extension_attributes for="Magento\Customer\Api\Data\CustomerInterface">
+        <attribute code="is_kakao_login" type="string"/>
+    </extension_attributes>
+</config>

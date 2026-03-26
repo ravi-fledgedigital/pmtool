@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="customer">
+        <field name="aep_shoe_fav_size" formElement="input">
+            <settings>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="aep_cloths_favorite_size" formElement="input">
+            <settings>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="aep_accessories_favorite_size" formElement="input">
+            <settings>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="aep_total_coupon_count" formElement="input">
+            <settings>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="aep_total_order_amt" formElement="input">
+            <settings>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="aep_total_order_cnt" formElement="input">
+            <settings>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="aep_whishlist_products" formElement="input">
+            <settings>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="aep_wishlist_modified_datetime" formElement="input">
+            <settings>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="aep_cart_abandoned_products" formElement="input">
+            <settings>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="aep_cart_modified_datetime" formElement="input">
+            <settings>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="aep_last_order_date" formElement="input">
+            <settings>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="aep_lifetime_value_amt" formElement="input">
+            <settings>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="aep_first_order_date" formElement="input">
+            <settings>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="aep_total_return_order_amt" formElement="input">
+            <settings>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+        <field name="aep_total_return_order_cnt" formElement="input">
+            <settings>
+                <disabled>true</disabled>
+            </settings>
+        </field>
+    </fieldset>
+</form>

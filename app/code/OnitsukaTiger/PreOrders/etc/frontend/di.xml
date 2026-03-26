@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Checkout\Block\Cart\Additional\Info">
+        <plugin name="add_pre_order_labels_to_cart" type="OnitsukaTiger\PreOrders\Plugin\Checkout\Block\Cart\Additional\Info"/>
+    </type>
+     <type name="Magento\Checkout\CustomerData\DefaultItem">
+        <plugin name="add_pre_order_labels_to_minicart" type="OnitsukaTiger\PreOrders\Plugin\Checkout\CustomerData\DefaultItem"/>
+    </type>
+    <type name="Magento\Framework\Pricing\Render\Amount">
+        <plugin name="add_pre_order_note_to_composite_products" type="OnitsukaTiger\PreOrders\Plugin\Framework\Pricing\Render\Amount"/>
+    </type>
+    <type name="Magento\Catalog\Block\Product\View\AbstractView">
+        <plugin name="change_status_label_on_product_page" type="OnitsukaTiger\PreOrders\Plugin\Catalog\Block\Product\View\AbstractView"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote">
+        <plugin name="get_quote_items_before_add_to_cart" type="OnitsukaTiger\PreOrders\Plugin\Checkout\Model\Quote"/>
+    </type>
+    <preference for="Magento\Checkout\Controller\Cart\Add" type="OnitsukaTiger\PreOrders\Preference\Controller\Cart\Add" />
+    <preference for="Magento\ConfigurableProduct\Model\Product\Type\Configurable" type="OnitsukaTiger\PreOrders\Preference\Model\Product\Type\Configurable" />
+</config>

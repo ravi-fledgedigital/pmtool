@@ -1,0 +1,21 @@
+{
+    "seoulwebdesign_kakaosync_access_token": {
+        "column": {
+            "access_token_id": true,
+            "customer_id": true,
+            "kakao_customer_id": true,
+            "token_type": true,
+            "access_token": true,
+            "expires_in": true,
+            "refresh_token": true,
+            "refresh_token_expires_in": true,
+            "scope": true,
+            "id_token": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "SEOULWEBDESIGN_KAKAOSYNC_ACCESS_TOKEN_CUSTOMER_ID": true,
+            "SEOULWEBDESIGN_KAKAOSYNC_ACCESS_TOKEN_KAKAO_CUSTOMER_ID": true
+        }
+    }
+}

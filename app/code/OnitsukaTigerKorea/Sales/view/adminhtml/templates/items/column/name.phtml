@@ -1,0 +1,68 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<?php
+/* @var $block \Magento\Sales\Block\Adminhtml\Items\Column\Name */
+?>
+<?php
+/**
+ * @var $helperSales \OnitsukaTiger\Sales\Helper\Data;
+ */
+    $helperSales = $this->helper(\OnitsukaTiger\Sales\Helper\Data::class);
+?>
+<?php
+/**
+ * @var $helperProductSkuWMS \OnitsukaTigerKorea\Sales\Helper\Data;
+ */
+$helperProductSkuWMS = $this->helper(\OnitsukaTigerKorea\Sales\Helper\Data::class);
+?>
+
+<?php if ($_item = $block->getItem()) : ?>
+<?php
+    $_itemUrl = $helperSales->getProductUrlFromSku($_item);
+?>
+    <div id="order_item_<?= (int) $_item->getId() ?>_title"
+         class="product-title">
+        <a href="<?= $_itemUrl ?>" target="_blank"><?= $block->escapeHtml($_item->getName()) ?></a>
+    </div>
+    <div class="product-sku-block">
+        <span><?= $block->escapeHtml(__('SKU'))?>:</span> <a href="<?= $_itemUrl  ?>" target="_blank">
+            <?= /* @noEscape */ implode('<br />', $this->helper(\Magento\Catalog\Helper\Data::class)->splitSku($block->escapeHtml($block->getSku()))) ?></a>
+    </div>
+
+    <?php if ($block->getOrderOptions()) : ?>
+        <dl class="item-options">
+            <?php foreach ($block->getOrderOptions() as $_option) : ?>
+
+                    <dt><?= $block->escapeHtml($_option['label']) ?>:</dt>
+                    <dd>
+                        <?php if (isset($_option['custom_view']) && $_option['custom_view']) : ?>
+                            <?= /* @noEscape */ $block->getCustomizedOptionValue($_option) ?>
+                        <?php else : ?>
+                            <?php $_option = $block->getFormattedOption($_option['value']); ?>
+                            <?php $dots = 'dots' . uniqid(); ?>
+                            <?php $id = 'id' . uniqid(); ?>
+                            <?= $block->escapeHtml($_option['value'], ['a', 'br']) ?><?php if (isset($_option['remainder']) && $_option['remainder']) : ?><span id="<?= /* @noEscape */ $dots; ?>"> ...</span><span id="<?= /* @noEscape */ $id; ?>"><?= $block->escapeHtml($_option['remainder'], ['a']) ?></span>
+                                <script>
+                                    require(['prototype'], function() {
+                                        $('<?= /* @noEscape */ $id; ?>').hide();
+                                        $('<?= /* @noEscape */ $id; ?>').up().observe('mouseover', function(){$('<?= /* @noEscape */ $id; ?>').show();});
+                                        $('<?= /* @noEscape */ $id; ?>').up().observe('mouseover', function(){$('<?= /* @noEscape */ $dots; ?>').hide();});
+                                        $('<?= /* @noEscape */ $id; ?>').up().observe('mouseout',  function(){$('<?= /* @noEscape */ $id; ?>').hide();});
+                                        $('<?= /* @noEscape */ $id; ?>').up().observe('mouseout',  function(){$('<?= /* @noEscape */ $dots; ?>').show();});
+                                    });
+                                </script>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </dd>
+            <?php endforeach; ?>
+        </dl>
+    <?php endif; ?>
+    <?= $block->escapeHtml($_item->getDescription()) ?>
+<?php endif; ?>
+

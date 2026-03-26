@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="\Magento\Catalog\Helper\Product\View">
+        <plugin name="product.design.view" type="OnitsukaTiger\Catalog\Plugin\Helper\Product\View" />
+    </type>
+    <type name="\Magento\Swatches\Helper\Data">
+        <plugin name="product.swatches.new.images" type="OnitsukaTiger\Catalog\Plugin\Helper\Data" />
+    </type>
+    <type name="OnitsukaTiger\Catalog\Controller\Adminhtml\Category\Bannerimage\Upload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Magento\Catalog\CategoryImageUpload</argument>
+        </arguments>
+    </type>
+    <type name="OnitsukaTiger\Catalog\Controller\Adminhtml\Category\Mobilebannerimage\Upload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Magento\Catalog\CategoryImageUpload</argument>
+        </arguments>
+    </type>
+    <virtualType name="Magento\Catalog\CategoryImageUpload" type="Magento\Catalog\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">catalog/tmp/category</argument>
+            <argument name="basePath" xsi:type="string">catalog/category</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <preference for="Magento\Catalog\Model\Category\DataProvider" type="OnitsukaTiger\Catalog\Model\Category\DataProvider" />
+    <type name="\Magento\Framework\View\Page\Config\Renderer">
+        <plugin name="meta.title.override" type="OnitsukaTiger\Catalog\Plugin\Page\Config\Renderer" />
+    </type>
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="update_configurable_product" xsi:type="object">OnitsukaTiger\Catalog\Console\Command\UpdateConfigurableProductVisible</item>
+            </argument>
+        </arguments>
+    </type>
+    <!--<type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="update_use_default_value_of_kr_category" xsi:type="object">OnitsukaTiger\Catalog\Console\Command\UpdateUseDefaultValueOfKrCategory</item>
+            </argument>
+        </arguments>
+    </type>-->
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="catalog:product:images:cleanup" xsi:type="object">
+                    OnitsukaTiger\Catalog\Console\Command\ProductImagesCleanUp
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <preference for="Magento\CatalogImportExport\Model\Import\Product\Validator" type="OnitsukaTiger\Catalog\Model\Import\Product\Validator" />
+    <preference for="Magento\Catalog\Ui\Component\Listing\Columns\Thumbnail" type="OnitsukaTiger\Catalog\Ui\Component\Listing\Columns\Thumbnail" />
+    <type name="Magento\MediaStorage\Model\File\Validator\NotProtectedExtension">
+        <plugin sortOrder="1" name="allowedExtensions" type="OnitsukaTiger\Catalog\Plugin\Uploader\UploaderPlugin"/>
+    </type>
+    <preference for="Magento\Catalog\Model\Category\Attribute\Backend\Image" type="OnitsukaTiger\Catalog\Model\Category\Attribute\Backend\Image"/>
+
+    <type name="Magento\Checkout\Model\DefaultConfigProvider">
+        <plugin name="add-attribute-color-summary" type="OnitsukaTiger\Catalog\Plugin\Checkout\Summary\ConfigProviderPlugin" />
+    </type>
+
+    <type name="Magento\Checkout\CustomerData\AbstractItem">
+        <plugin name="minicart-product-color-attribute" type="OnitsukaTiger\Catalog\Plugin\Checkout\CustomerData\DefaultItem" />
+    </type>
+
+    <preference for="Magento\CustomerGraphQl\Model\Context\AddUserInfoToContext" type="OnitsukaTiger\Catalog\Magento\CustomerGraphQl\Model\Context\AddUserInfoToContext"/>
+    <preference for="Magento\CustomerGraphQl\Plugin\ClearCustomerSessionAfterRequest" type="OnitsukaTiger\Catalog\Magento\CustomerGraphQl\Plugin\ClearCustomerSessionAfterRequest"/>
+    <preference for="Amasty\CustomTabs\Model\Tabs\Rule" type="OnitsukaTiger\Catalog\Model\Tabs\Rule"/>
+    <preference for="Magento\Catalog\Model\Product\Url" type="OnitsukaTiger\Catalog\Magento\Catalog\Model\Product\Url"/>
+    <preference for="Vaimo\OTScene7Integration\Model\Scene7ImageAssetProvider" type="OnitsukaTiger\Catalog\Model\Scene7ImageAssetProvider"/>
+    <type name="Magento\CatalogWidget\Block\Product\ProductsList">
+        <plugin name="fledge_sort_catalogwidget"
+                type="OnitsukaTiger\Catalog\Plugin\AfterCreateCollection" sortOrder="1"/>
+    </type>
+</config>

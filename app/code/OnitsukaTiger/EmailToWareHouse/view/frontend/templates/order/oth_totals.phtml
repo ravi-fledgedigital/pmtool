@@ -1,0 +1,31 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @var $block \Magento\Sales\Block\Order\Totals
+ * @see \Magento\Sales\Block\Order\Totals
+ */
+$invoice = $block->getInvoice();
+$order = $invoice->getOrder();
+$subtotalIncludeTax = $order->formatPrice($invoice->getSubtotalInclTax());
+
+$taxInfo = $this->helper(\Magento\Tax\Helper\Data::class)->getCalculatedTaxes($invoice);
+?>
+<div class="col-10 text-right">
+    <?php if ($taxInfo) : ?>
+        <?php foreach ($taxInfo as $tax) : ?>
+            <?php
+            $taxPercent = round((float) $tax['percent'], 2);
+            ?>
+            <?= $block->escapeHtml(__('จํานวนเงินทั้งสิ้น (รวมภาษีมูลคาเพิ่ม ' . $taxPercent . '%):')) ?>
+        <?php endforeach; ?>
+    <?php else : ?>
+        <?= $block->escapeHtml(__('จํานวนเงินทั้งสิ้น (รวมภาษีมูลคาเพิ่ม 0%):')) ?>
+    <?php endif; ?>
+</div>
+<div class="col-2 text-right">
+    <?= /* @noEscape */ $subtotalIncludeTax ?>
+</div>

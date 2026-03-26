@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_order">
+        <column xsi:type="varchar" name="order_shipment_number_increment" nullable="true" comment="Order Shipment Number Increment" />
+    </table>
+    <table name="sales_shipment">
+        <column xsi:type="varchar" name="shipment_number" nullable="true" comment="Shipment Number" />
+    </table>
+    <table name="inventory_source">
+        <column xsi:type="boolean" name="is_shipping_from_store" nullable="false" comment="Is Shipping From Store" default="0"/>
+        <column xsi:type="boolean" name="show_acl" nullable="false" comment="Checkbox in config acl" />
+        <column xsi:type="text" name="exclude_skus_from_inventory_sync" nullable="true"/>
+    </table>
+</schema>

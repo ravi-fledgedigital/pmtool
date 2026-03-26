@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <plugin name="join_shipment_source_table_with_sales_shipment_grid"
+                type="OnitsukaTiger\NetSuiteStoreShipping\Plugin\Sales\Shipment\UiComponent\DataProvider\CollectionFactory" sortOrder="10" />
+    </type>
+    <preference for="Magento\Shipping\Block\Adminhtml\View" type="OnitsukaTiger\NetSuiteStoreShipping\Block\Adminhtml\View" />
+    <preference for="Magento\Shipping\Controller\Adminhtml\Order\Shipment\AddComment" type="OnitsukaTiger\NetSuiteStoreShipping\Controller\Adminhtml\Shipment\AdminAddComment"/>
+    <type name="Magento\Backend\Model\Menu\Builder">
+        <plugin name="create_menu_shipping_from_store" type="OnitsukaTiger\NetSuiteStoreShipping\Plugin\BackendMenu\Builder" />
+    </type>
+</config>

@@ -1,0 +1,8 @@
+<?php $biteshipOrderId = $block->getOrder()->getData('biteship_order_id'); ?>
+
+<?php if ($biteshipOrderId): ?>
+    <tr>
+        <th><?= $escaper->escapeHtml(__('Biteship Order Id')) ?></th>
+        <td><span id="biteship_order_id"><?= $escaper->escapeHtml($biteshipOrderId) ?></span></td>
+    </tr>
+<?php endif; ?>

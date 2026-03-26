@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package    OnitsukaTiger_DiscountLimit
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="OnitsukaTiger_DiscountLimit::menu_section" title="Discount Limiter" module="OnitsukaTiger_DiscountLimit" sortOrder="20" parent="Magento_Backend::marketing" resource="OnitsukaTiger_DiscountLimit::menu_section"/>
+        <add id="OnitsukaTiger_DiscountLimit::menu_config" title="Manage Settings" module="OnitsukaTiger_DiscountLimit" sortOrder="20" parent="OnitsukaTiger_DiscountLimit::menu_section" action="adminhtml/system_config/edit/section/onitsukatiger_discountlimit" resource="OnitsukaTiger_DiscountLimit::menu_config" />
+    </menu>
+</config>

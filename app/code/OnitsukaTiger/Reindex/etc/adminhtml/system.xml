@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="product_ot" translate="label" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Product</label>
+            <tab>catalog</tab>
+            <resource>OnitsukaTiger_Reindex::config</resource>
+            <group id="reindex" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Reindex</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="import" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="2" translate="label comment" type="OnitsukaTiger\Reindex\Block\Adminhtml\Form\Field\Import">
+                    <label>Import</label>
+                    <comment>import the file to change the product sku you want (Xml)</comment>
+                    <backend_model>OnitsukaTiger\Reindex\Model\Config\Source\Xml</backend_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="export" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="3" translate="label" type="OnitsukaTiger\Reindex\Block\Adminhtml\Form\Field\Export">
+                    <label>Export</label>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="run" translate="label comment" type="button" sortOrder="4" showInDefault="1" showInWebsite="1">
+                    <frontend_model>OnitsukaTiger\Reindex\Block\Adminhtml\System\Config\Reindex</frontend_model>
+                    <comment>Please check the output file before clicking the button.</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

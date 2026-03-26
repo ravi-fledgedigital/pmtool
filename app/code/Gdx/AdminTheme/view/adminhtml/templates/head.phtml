@@ -1,0 +1,11 @@
+<?php if($this->helper('\Gdx\AdminTheme\Helper\Data')->getTestLabelText()) { ?>
+<style>
+    .env-label {
+        background-color: <?php echo $this->helper('\Gdx\AdminTheme\Helper\Data')->getTestLabelColor();?>;
+        color: <?php echo $this->helper('\Gdx\AdminTheme\Helper\Data')->getTestLabelTextColor();?>;
+    }
+</style>
+<div class="env-label">
+    <?php echo $this->helper('\Gdx\AdminTheme\Helper\Data')->getTestLabelText();?>
+</div>
+<?php } // end if ?>

@@ -1,0 +1,24 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \WeltPixel\GA4\Block\XPixel\Common */
+
+/** @var \WeltPixel\GA4\Helper\XPixelTracking $xPixelHelper */
+$xPixelHelper = $this->helper('WeltPixel\GA4\Helper\XPixelTracking');
+$cspNonceProvider = $xPixelHelper->getCspNonceProvider();
+$xPixelTrackingCode = $block->getXPixelTrackingCodeSnippet();
+
+?>
+<?php if ($block->isXPixelTrackingEnabled()) : ?>
+    <?php
+    $pattern = '/<\s*script[^>]*>/';
+    $replacement = '<script ${1}> if (window.ga4AllowServices) {';
+
+    $xPixelTrackingCode =  str_replace('</script>', '} </script>', preg_replace($pattern, $replacement, $xPixelTrackingCode));
+
+    if ($cspNonceProvider) {
+        $xPixelTrackingCode = str_replace('<script', '<script nonce="' . $cspNonceProvider->generateNonce() . '" ', $xPixelTrackingCode);
+    }
+
+    /* @noEscape */ echo $xPixelTrackingCode;
+    ?>
+<?php endif; ?>

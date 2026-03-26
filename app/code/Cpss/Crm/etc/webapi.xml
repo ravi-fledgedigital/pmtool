@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/loginShop" method="POST">
+        <service class="Cpss\Crm\Api\Shop\LoginInterface" method="loginShop"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/getShopOrderHistory" method="GET">
+        <service class="Cpss\Crm\Api\Shop\OrderHistoryInterface" method="getOrderHistory"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/registerShopReceipt" method="POST">
+		<service class="Cpss\Crm\Api\Shop\RegisterReceiptInterface" method="execute"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+	<route url="/V1/deleteShopReceipt" method="DELETE">
+		<service class="Cpss\Crm\Api\Shop\DeleteReceiptInterface" method="execute"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+
+    <!-- POINTS -->
+    <route url="/V1/point/set/:point" method="POST">
+        <service class="Cpss\Crm\Api\Checkout\PointInterface" method="set"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route url="/V1/point/remove/:point" method="POST">
+        <service class="Cpss\Crm\Api\Checkout\PointInterface" method="remove"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route url="/V1/point/getEarnedPoints/" method="GET">
+        <service class="Cpss\Crm\Api\Checkout\PointInterface" method="getEarnedPoints"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/registerMember" method="POST">
+        <service class="Cpss\Crm\Api\Btoc\RegisterInterface" method="registerMember"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/loginMember" method="POST">
+        <service class="Cpss\Crm\Api\Btoc\LoginInterface" method="loginMember"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/getMemberInfo" method="GET">
+        <service class="Cpss\Crm\Api\Btoc\InfoInterface" method="getMemberInfo"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/checkToken" method="GET">
+        <service class="Cpss\Crm\Api\Btoc\TokenInterface" method="checkToken"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/deleteMember" method="DELETE">
+        <service class="Cpss\Crm\Api\Btoc\DeleteInterface" method="deleteMember"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/updateMemberInfo" method="POST">
+        <service class="Cpss\Crm\Api\Btoc\UpdateInterface" method="updateMember"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/getMemberOrderHistory/" method="GET">
+        <service class="Cpss\Crm\Api\Btoc\OrderHistoryInterface" method="getMemberOrderHistory"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+</routes>

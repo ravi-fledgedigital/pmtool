@@ -1,0 +1,14 @@
+<?php $klaviyoKey = $this->getPublicApiKey(); ?>
+<?php if ( $this->isKlaviyoEnabled() && $klaviyoKey ): ?>
+    <?php $escapedKey = $block->escapeHtml($klaviyoKey); $klaviyoSrc = 'https://static.klaviyo.com/onsite/js/'. $escapedKey . '/klaviyo.js'?>
+    <script type="application/javascript" async
+            src=<?php echo $klaviyoSrc ?> ></script>
+
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "KlaviyoCustomerData": {}
+            }
+        }
+    </script>
+<?php endif; ?>

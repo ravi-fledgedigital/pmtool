@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <tesco>
+            <email>
+                <send_email>send_email_email_template</send_email>
+            </email>
+        </tesco>
+        <payment>
+
+            <omise>
+                <sandbox_status>0</sandbox_status>
+                <model>OmiseAdapter</model>
+                <generate_invoice_at_order_status>pending_payment</generate_invoice_at_order_status>
+                <webhook_status>1</webhook_status>
+                <dynamic_webhooks>0</dynamic_webhooks>
+            </omise>
+
+            <omise_cc>
+                <active>0</active>
+                <title>Credit / Debit Card</title>
+                <model>OmiseCcAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_authorize>1</can_authorize>
+                <can_capture>1</can_capture>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>authorize</payment_action>
+                <secure_form>no</secure_form>
+                <card_form_theme>light</card_form_theme>
+                <card_form_theme_config></card_form_theme_config>
+            </omise_cc>
+
+            <omise_offsite_internetbanking>
+                <active>0</active>
+                <title>Internet Banking</title>
+                <model>OmiseInternetbankingAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>1</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <payment_action>authorize_capture</payment_action>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+            </omise_offsite_internetbanking>
+
+            <omise_offsite_alipay>
+                <active>0</active>
+                <title>Alipay</title>
+                <model>OmiseAlipayAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>1</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>authorize_capture</payment_action>
+            </omise_offsite_alipay>
+
+            <omise_offline_paynow>
+                <active>0</active>
+                <title>PayNow QR Payment</title>
+                <model>OmisePaynowAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>0</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <payment_action>order</payment_action>
+            </omise_offline_paynow>
+
+            <omise_offline_promptpay>
+                <active>0</active>
+                <title>PromptPay</title>
+                <model>OmisePromptpayAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>0</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>order</payment_action>
+            </omise_offline_promptpay>
+
+            <omise_offsite_installment>
+                <active>0</active>
+                <title>Installment</title>
+                <model>OmiseInstallmentAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>1</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>authorize_capture</payment_action>
+            </omise_offsite_installment>
+
+            <omise_offsite_truemoney>
+                <active>0</active>
+                <title>True Money</title>
+                <model>OmiseTruemoneyAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>1</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>authorize_capture</payment_action>
+            </omise_offsite_truemoney>
+
+
+            <omise_offsite_fpx>
+                <active>0</active>
+                <title>Online Banking (FPX)</title>
+                <model>OmiseFPXAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>0</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>order</payment_action>
+            </omise_offsite_fpx>
+
+            <omise_offline_conveniencestore>
+                <active>0</active>
+                <title>Convenience Store</title>
+                <model>OmiseConveniencestoreAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>0</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>order</payment_action>
+            </omise_offline_conveniencestore>
+
+            <omise_offline_tesco>
+                <active>0</active>
+                <title>Lotus's Bill Payment</title>
+                <model>OmiseTescoAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>0</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>order</payment_action>
+            </omise_offline_tesco>
+
+            <omise_offsite_alipaycn>
+                <active>0</active>
+                <title>Alipay (Alipay+ Partner)</title>
+                <model>OmiseAlipayCnAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>1</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>authorize_capture</payment_action>
+            </omise_offsite_alipaycn>
+
+            <omise_offsite_alipayhk>
+                <active>0</active>
+                <title>AlipayHK (Alipay+ Partner)</title>
+                <model>OmiseAlipayHkAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>1</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>authorize_capture</payment_action>
+            </omise_offsite_alipayhk>
+
+            <omise_offsite_dana>
+                <active>0</active>
+                <title>DANA (Alipay+ Partner)</title>
+                <model>OmiseDanaAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>1</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>authorize_capture</payment_action>
+            </omise_offsite_dana>
+
+            <omise_offsite_gcash>
+                <active>0</active>
+                <title>GCash (Alipay+ Partner)</title>
+                <model>OmiseGcashAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>1</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>authorize_capture</payment_action>
+            </omise_offsite_gcash>
+
+            <omise_offsite_kakaopay>
+                <active>0</active>
+                <title>Kakao Pay (Alipay+ Partner)</title>
+                <model>OmiseKakaopayAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>1</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>authorize_capture</payment_action>
+            </omise_offsite_kakaopay>
+
+            <omise_offsite_touchngo>
+                <active>0</active>
+                <title>Touch`n Go eWallet</title>
+                <model>OmiseTouchngoAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>1</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>authorize_capture</payment_action>
+            </omise_offsite_touchngo>
+
+            <omise_offsite_mobilebanking>
+                <active>0</active>
+                <title>Mobile Banking</title>
+                <model>OmiseMobilebankingAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>1</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>authorize_capture</payment_action>
+            </omise_offsite_mobilebanking>
+
+            <omise_offsite_rabbitlinepay>
+                <active>0</active>
+                <title>Rabbit LINE Pay</title>
+                <model>OmiseRabbitlinepayAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_authorize>1</can_authorize>
+                <can_capture>1</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>authorize_capture</payment_action>
+            </omise_offsite_rabbitlinepay>
+
+            <omise_offsite_ocbc_digital>
+                <active>0</active>
+                <title>OCBC Digital</title>
+                <model>OmiseOcbcDigitalAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>1</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>authorize_capture</payment_action>
+            </omise_offsite_ocbc_digital>
+
+            <omise_offsite_grabpay>
+                <active>0</active>
+                <title>GrabPay</title>
+                <model>OmiseGrabpayAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>1</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>authorize_capture</payment_action>
+            </omise_offsite_grabpay>
+
+            <omise_cc_googlepay>
+                <active>0</active>
+                <title>Google Pay</title>
+                <merchant_id></merchant_id>
+                <request_billing_address>0</request_billing_address>
+                <request_phone_number>0</request_phone_number>
+                <model>OmiseCcGooglePayAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>1</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>authorize_capture</payment_action>
+            </omise_cc_googlepay>
+
+            <omise_offsite_boost>
+                <active>0</active>
+                <title>Boost</title>
+                <model>OmiseBoostAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>1</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>authorize_capture</payment_action>
+            </omise_offsite_boost>
+
+            <omise_offsite_duitnowobw>
+                <active>0</active>
+                <title>DuitNow Online Banking/Wallets</title>
+                <model>OmiseDuitnowOBWAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>1</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>authorize_capture</payment_action>
+            </omise_offsite_duitnowobw>
+
+            <omise_offsite_duitnowqr>
+                <active>0</active>
+                <title>DuitNow QR</title>
+                <model>OmiseDuitnowQRAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>1</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>authorize_capture</payment_action>
+            </omise_offsite_duitnowqr>
+
+            <omise_offsite_maybankqr>
+                <active>0</active>
+                <title>Maybank QRPay</title>
+                <model>OmiseMaybankQRAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>1</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>authorize_capture</payment_action>
+            </omise_offsite_maybankqr>
+
+            <omise_offsite_shopeepay>
+                <active>0</active>
+                <title>ShopeePay</title>
+                <model>OmiseShopeepayAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>1</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>authorize_capture</payment_action>
+            </omise_offsite_shopeepay>
+
+            <omise_offsite_atome>
+                <active>0</active>
+                <title>Atome</title>
+                <model>OmiseAtomeAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>1</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>authorize_capture</payment_action>
+            </omise_offsite_atome>
+
+            <omise_offsite_paypay>
+                <active>0</active>
+                <title>PayPay</title>
+                <model>OmisePayPayAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>1</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>authorize_capture</payment_action>
+            </omise_offsite_paypay>
+
+            <omise_offsite_wechat_pay>
+                <active>0</active>
+                <title>WeChat Pay</title>
+                <model>OmiseWeChatPayAdapter</model>
+                <is_gateway>1</is_gateway>
+                <can_initialize>1</can_initialize>
+                <can_use_checkout>1</can_use_checkout>
+                <can_capture>1</can_capture>
+                <can_review_payment>1</can_review_payment>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <payment_action>authorize_capture</payment_action>
+            </omise_offsite_wechat_pay>
+        </payment>
+    </default>
+</config>

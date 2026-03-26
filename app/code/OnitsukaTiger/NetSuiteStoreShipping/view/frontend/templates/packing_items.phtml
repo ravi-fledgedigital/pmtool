@@ -1,0 +1,51 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Sales\Model\Order\Shipment $shipment */
+$shipment = $block->getShipment();
+/** @var \Magento\Sales\Model\Order $order */
+$order   = $block->getOrder();
+?>
+
+<?php if ($shipment && $order) : ?>
+    <table class="table text-center">
+        <thead>
+        <tr>
+            <th scope="col">
+                <?= $block->escapeHtml(__('No')) ?>
+            </th>
+            <th scope="col">
+                <?= $block->escapeHtml(__('Product No')) ?>
+            </th>
+            <th scope="col">
+                <?= $block->escapeHtml(__('Barcode')) ?>
+            </th>
+            <th scope="col">
+                <?= $block->escapeHtml(__('Item Description')) ?>
+            </th>
+            <th scope="col">
+                <?= $block->escapeHtml(__('Quantity')) ?>
+            </th>
+            <th scope="col">
+                <?= $block->escapeHtml(__('Unit Price')) ?>
+            </th>
+            <th scope="col">
+                <?= $block->escapeHtml(__('Discount')) ?>
+            </th>
+            <th scope="col">
+                <?= $block->escapeHtml(__('Subtotal')) ?>
+            </th>
+        </tr>
+        </thead>
+        <?php foreach ($shipment->getAllItems() as $item) : ?>
+            <?php if (!$item->getOrderItem()->getParentItem()) : ?>
+                <tbody>
+                    <?= $block->getItemHtml($item) ?>
+                </tbody>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </table>
+<?php endif; ?>

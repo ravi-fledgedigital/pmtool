@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="biteship_update_order_status_shipped">
+        <observer name="send_email_after_biteship_response" instance="OnitsukaTiger\OrderEmails\Observer\SendEmailsShipped" />
+    </event>
+    <event name="biteship_update_order_status_delivered">
+        <observer name="send_email_after_biteship_delivered" instance="OnitsukaTiger\OrderEmails\Observer\SendEmailsDelivered" />
+    </event>
+</config>

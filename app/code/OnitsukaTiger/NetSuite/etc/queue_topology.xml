@@ -1,0 +1,11 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/topology.xsd">
+    <exchange name="onitsukatiger-netsuite-product-exchange" type="topic" connection="db">
+        <binding id="OnitsukatigerNetsuiteProduct" topic="onitsukatiger.netsuite.product" destinationType="queue" destination="onitsukatiger_netsuite_product"/>
+    </exchange>
+    <exchange name="onitsukatiger-netsuite-cancel-exchange" type="topic" connection="db">
+        <binding id="OnitsukatigerNetsuiteCancel" topic="onitsukatiger.netsuite.cancel" destinationType="queue" destination="onitsukatiger_netsuite_cancel"/>
+    </exchange>
+    <exchange name="onitsukatiger.price.update.queue.exchange" type="topic" connection="amqp">
+        <binding id="onitsukatiger_price_update_binding" topic="onitsukatiger.price.update.queue" destinationType="queue" destination="onitsukatiger.price.update.queue"/>
+    </exchange>
+</config>

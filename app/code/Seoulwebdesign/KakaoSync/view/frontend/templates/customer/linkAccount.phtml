@@ -1,0 +1,120 @@
+<?php
+/** @var \Seoulwebdesign\KakaoSync\Block\Customer\LinkAccount $block */
+/** @var \Magento\Framework\Escaper $escaper */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+$formData = $block->getFormData();
+?>
+<form class="form create account form-create-account"
+      action="<?= $escaper->escapeUrl($block->getUrl('kakaosync/customer/linkaccountpost')) ?>"
+      method="post"
+      id="form-validate"
+      enctype="multipart/form-data">
+<?= /* @noEscape */ $block->getBlockHtml('formkey') ?>
+    <fieldset class="fieldset create info">
+        <legend class="legend"><span><?= $escaper->escapeHtml(__('Personal Information')) ?></span></legend><br>
+        <input type="hidden" name="kid" value="<?= $escaper->escapeUrl($formData->getKid()) ?>"/>
+
+        <div class="field required">
+            <label for="email_address" class="label"><span><?= $escaper->escapeHtml(__('Email')) ?></span></label>
+            <div class="control">
+                <input type="email"
+                       name="email"
+                       autocomplete="email"
+                       id="email_address"
+                       value="<?= $escaper->escapeHtmlAttr($formData->getEmail()) ?>"
+                       title="<?= $escaper->escapeHtmlAttr(__('Email')) ?>"
+                       class="input-text"
+                       data-mage-init='{"mage/trim-input":{}}'
+                       data-validate="{required:true, 'validate-email':true}">
+            </div>
+        </div>
+
+        <div class="field password required">
+            <label for="password" class="label"><span><?= $escaper->escapeHtml(__('Password')) ?></span></label>
+            <div class="control">
+                <input type="password" name="password" id="password"
+                       title="<?= $escaper->escapeHtmlAttr(__('Password')) ?>"
+                       class="input-text"
+                       data-password-min-length="<?=
+                        $escaper->escapeHtmlAttr($block->getRegisterFromBlock()->getMinimumPasswordLength()) ?>"
+                       data-password-min-character-sets="<?=
+                        $escaper->escapeHtmlAttr($block->getRegisterFromBlock()->getRequiredCharacterClassesNumber()) ?>"
+                       data-validate="{required:true, 'validate-customer-password':true}"
+                       autocomplete="off">
+                <div id="password-strength-meter-container" data-role="password-strength-meter" aria-live="polite">
+                    <div id="password-strength-meter" class="password-strength-meter">
+                        <?= $escaper->escapeHtml(__('Password Strength')) ?>:
+                        <span id="password-strength-meter-label" data-role="password-strength-meter-label">
+                            <?= $escaper->escapeHtml(__('No Password')) ?>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="field confirmation required">
+            <label for="password-confirmation" class="label">
+                <span><?= $escaper->escapeHtml(__('Confirm Password')) ?></span>
+            </label>
+            <div class="control">
+                <input type="password"
+                       name="password_confirmation"
+                       title="<?= $escaper->escapeHtmlAttr(__('Confirm Password')) ?>"
+                       id="password-confirmation"
+                       class="input-text"
+                       data-validate="{required:true, equalTo:'#password'}"
+                       autocomplete="off">
+            </div>
+        </div>
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit"
+                    class="action submit primary"
+                    title="<?= $escaper->escapeHtmlAttr(__('Link the Account')) ?>"
+                    id="send2">
+                <span><?= $escaper->escapeHtml(__('Link the Account')) ?></span>
+            </button>
+        </div>
+    </div>
+</form>
+<?php
+
+$scriptString = <<<script
+require([
+    'jquery',
+    'mage/mage'
+], function($){
+
+    var dataForm = $('#form-validate');
+
+    dataForm.mage('validation', {
+script;
+$scriptString .= <<<script
+    }).find('input:text').attr('autocomplete', 'off');
+});
+script;
+?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
+<script type="text/x-magento-init">
+    {
+        ".field.password": {
+            "passwordStrengthIndicator": {
+                "formSelector": "form.form-create-account"
+            }
+        },
+        "*": {
+            "Magento_Customer/js/block-submit-on-send": {
+                "formId": "form-validate"
+            },
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "showPassword": {
+                        "component": "Magento_Customer/js/show-password",
+                        "passwordSelector": "#password,#password-confirmation"
+                    }
+                }
+            }
+        }
+    }
+</script>

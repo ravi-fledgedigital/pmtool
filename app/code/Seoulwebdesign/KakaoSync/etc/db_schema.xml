@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table name="seoulwebdesign_kakaosync_access_token" resource="default" engine="innodb" comment="seoulwebdesign_kakaosync_access_token Table">
+		<column xsi:type="int" name="access_token_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="access_token_id"/>
+		</constraint>
+        <column name="customer_id" nullable="true" xsi:type="int" comment="customer_id" padding="11"/>
+        <column name="kakao_customer_id" nullable="true" xsi:type="bigint" comment="kakao_customer_id"/>
+		<column name="token_type" nullable="false" xsi:type="varchar" comment="token_type" length="255"/>
+		<column name="access_token" nullable="false" xsi:type="varchar" comment="access_token" length="255"/>
+		<column name="expires_in" nullable="false" xsi:type="int" comment="expires_in" identity="false"/>
+		<column name="refresh_token" nullable="false" xsi:type="varchar" comment="refresh_token" length="255"/>
+		<column name="refresh_token_expires_in" nullable="false" xsi:type="int" comment="refresh_token_expires_in" identity="false"/>
+		<column name="scope" nullable="false" xsi:type="varchar" comment="scope" length="255"/>
+		<column name="id_token" nullable="false" xsi:type="text" comment="id_token"/>
+	</table>
+</schema>

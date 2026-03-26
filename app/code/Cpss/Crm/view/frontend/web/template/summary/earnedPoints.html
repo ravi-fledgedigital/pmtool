@@ -1,0 +1,17 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- ko if: isDisplayed() -->
+<tr class="totals point">
+    <th class="mark" scope="row">
+        <span class="title" data-bind="text: getTitle()"></span>
+    </th>
+    <td class="amount">
+        <span class="price" data-bind="text: getValue(), attr: {'data-th': getTitle()}"></span>
+        <span data-bind="i18n: 'points'"></span>
+    </td>
+</tr>
+<!-- /ko -->

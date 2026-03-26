@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Email/etc/email_templates.xsd">
+    <template id="sendEmailWareHouse_general_template" label="Email to WareHouse Template" file="email_to_warehouse_template.html" type="html" module="OnitsukaTiger_EmailToWareHouse" area="frontend"/>
+</config>

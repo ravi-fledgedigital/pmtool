@@ -1,0 +1,7 @@
+type Query {
+    othercoloroptionswatch(styleCode:String!,productSku:String!,storeId:String!): OtherColorOptionOutput @resolver(class: "OnitsukaTiger\\Catalog\\Model\\Resolver\\OtherColorOptionResolver") @doc(description: "The Color Swatch option list")
+}
+
+type OtherColorOptionOutput {
+    othercolordetail: String
+}

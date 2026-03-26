@@ -1,0 +1,39 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @var \OnitsukaTiger\Shipment\Block\Adminhtml\View\Info $block
+ */
+$shipment = $block->getShipment();
+
+/** @var \OnitsukaTiger\Sales\Helper\Data $helper */
+$helper = $this->helper(\OnitsukaTiger\Sales\Helper\Data::class);
+$trackDetail = $helper->getTrackDetail($shipment);
+?>
+
+<section class="admin__page-section order-view-account-information">
+    <div class="admin__page-section-title">
+        <span class="title"><?= $block->escapeHtml(__('Shipment Information')) ?></span>
+    </div>
+    <div class="admin__page-section-content">
+        <div class="admin__page-section-item order-information">
+            <?php /* Shipment Information */ ?>
+            <div class="admin__page-section-item-title">
+                <span class="title">
+                    <?= $block->escapeHtml(__('Shipment # %1', $shipment->getIncrementId())) ?>
+                </span>
+            </div>
+            <div class="admin__page-section-item-content">
+                <table class="admin__table-secondary order-information-table">
+                    <tr>
+                        <th><?= $block->escapeHtml(__('Shipment Status')) ?></th>
+                        <td><?= $block->escapeHtml($trackDetail['shipment_status']) ?></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

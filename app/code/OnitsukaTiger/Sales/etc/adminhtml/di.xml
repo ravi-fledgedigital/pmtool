@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Sales\Block\Adminhtml\Order\View\Tab\History" type="OnitsukaTiger\Sales\Block\Adminhtml\Order\View\Tab\History" />
+    <type name="Amasty\AdminActionsLog\Block\Adminhtml\ActionsLog\Edit\Tab\View">
+        <plugin name="onitsukaTiger_plugin_actionlog" type="OnitsukaTiger\Sales\Block\Adminhtml\ActionsLog\Edit\Tab\View" sortOrder="100" disabled="false"/>
+    </type>
+</config>

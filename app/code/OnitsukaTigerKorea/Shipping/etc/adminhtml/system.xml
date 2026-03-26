@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="korean_address">
+            <group id="sales" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="cancel_partially_order" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable Cancel Partially Order</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[Select <b>Yes</b> to enable use to cancel items partially.<br />
+                        . Enable or disable the module depending on the website (SG, TH, MY, KR)]]>
+                    </comment>
+                </field>
+                <field id="auto_creditmemo" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Auto Create CreditMemo</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="*/*/cancel_partially_order">1</field>
+                    </depends>
+                    <comment>
+                        <![CDATA[Select <b>Yes</b> to auto create credit memo with items has been cancel partially.<b>Default is Disabled</b><br />]]>
+                    </comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

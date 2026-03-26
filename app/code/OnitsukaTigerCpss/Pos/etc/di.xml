@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Cpss\Pos\Observer\CpssCancelOrder" type="OnitsukaTigerCpss\Pos\Observer\CpssCancelOrder"/>
+    <preference for="Cpss\Pos\Observer\CpssCreditmemoAfter" type="OnitsukaTigerCpss\Pos\Observer\CpssCreditmemoAfter"/>
+    <preference for="Cpss\Pos\Observer\CpssSalesOrderAfterSave" type="OnitsukaTigerCpss\Pos\Observer\CpssSalesOrderAfterSave"/>
+    <preference for="Cpss\Pos\Cron\UpdatePosData" type="OnitsukaTigerCpss\Pos\Cron\UpdatePosData"/>
+    <preference for="Cpss\Pos\Cron\GetGivenPoint" type="OnitsukaTigerCpss\Pos\Cron\GetGivenPoint"/>
+    <preference for="Cpss\Pos\Helper\CreateCsv" type="OnitsukaTigerCpss\Pos\Helper\CreateCsv"/>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="cpssUpdatePosData" xsi:type="object">OnitsukaTigerCpss\Pos\Console\UpdatePosdata</item>
+                <item name="cpssSftpPosFileUpload" xsi:type="object">OnitsukaTigerCpss\Pos\Console\SftpPosDataFileUpload</item>
+                <item name="cpssPosDataCsv" xsi:type="object">OnitsukaTigerCpss\Pos\Console\CreatePosDataCsv</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

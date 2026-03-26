@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="onitsukatiger" translate="label" sortOrder="200">
+            <label>OnitsukaTiger</label>
+        </tab>
+        <section id="rma_netsuite" translate="label" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>RMA to NetSuite</label>
+            <tab>onitsukatiger</tab>
+            <resource>OnitsukaTiger_NetSuite::netsuite_config</resource>
+            <group id="rma_sync" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>RMA sync to Netsuite</label>
+                <field id="enabled" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Select <strong>Yes</strong> to enable the module.]]></comment>
+                </field>
+                <field id="date_release" translate="label comment" sortOrder="20" type="date" showInDefault="1"  showInWebsite="1" showInStore="1">
+                    <label>Day release Site</label>
+                    <frontend_model>OnitsukaTiger\NetsuiteReturnOrderSync\Block\Adminhtml\DateTime</frontend_model>
+                    <comment><![CDATA[Date time <i>format</i><b> yyyy-MM-dd HH:mm:ss</b> release Website Thailand 2nd]]></comment>
+                </field>
+            </group>
+            <group id="rma_algorithm" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>RMA Algorithm</label>
+                <field id="enabled" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Select <strong>Yes</strong> to enable the module.]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

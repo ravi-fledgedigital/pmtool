@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="OnitsukaTiger\Ninja\Api\CallbackInterface" type="OnitsukaTiger\Ninja\Model\Callback" />
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="onitsukatiger_ninja_order_listing_data_source" xsi:type="string">OnitsukaTiger\Ninja\Model\ResourceModel\Order\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="OnitsukaTiger\Ninja\Model\ResourceModel\Order\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">ninja_order</argument>
+            <argument name="resourceModel" xsi:type="string">OnitsukaTiger\Ninja\Model\ResourceModel\Order</argument>
+        </arguments>
+    </virtualType>
+</config>

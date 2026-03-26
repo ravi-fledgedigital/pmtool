@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_real_store_order" resource="default" engine="innodb" comment="CRM Shop Receipt">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" padding="10" identity="true" comment="Entity Id"/>
+        <column xsi:type="varchar" name="purchase_id" nullable="true" length="64" comment="Purchase Id"/>
+        <column xsi:type="varchar" name="shop_id" nullable="true" length="10" comment="Shop ID"/>
+        <column xsi:type="varchar" name="pos_terminal_no" nullable="false" length="8" comment="Terminal No"/>
+        <column xsi:type="varchar" name="receipt_no" nullable="false" length="16" comment="Receipt No"/>
+        <column xsi:type="tinyint" name="transaction_type" nullable="true" default="1" comment="Transaction Type"/>
+        <column xsi:type="datetime" name="purchase_date" nullable="true" comment="Purchase datetime"/>
+        <column xsi:type="datetime" name="return_date" nullable="true" comment="Return/Cancel datetime"/>
+        <column xsi:type="decimal" scale="2" precision="16" name="total_amount" nullable="true" default="0" comment="Total Amount"/>
+        <column xsi:type="decimal" scale="2" precision="16" name="discount_amount" nullable="true" default="0" comment="Discount Amount"/>
+        <column xsi:type="decimal" scale="2" precision="16" name="tax_amount" nullable="true" default="0" comment="Total Tax"/>
+        <column xsi:type="int" name="member_id" nullable="true" comment="Member Id"/>
+        <column xsi:type="smallint" name="country_code" nullable="true" unsigned="true" comment="Country Code"/>
+        <column xsi:type="int" name="used_point" nullable="false" default="0" comment="Used Point"/>
+        <column xsi:type="int" name="acquired_point" nullable="true" comment="Acquired Point"/>
+        <column xsi:type="int" name="added_point" nullable="true" default="0" comment="Added Point"/>
+        <column xsi:type="int" name="cancel_point" nullable="true" default="0" comment="Cancel Point"/>
+        <column xsi:type="datetime" name="added_point_date" nullable="true" comment="Added point date"/>
+        <column xsi:type="datetime" name="cancel_point_date" nullable="true" comment="Cancel point date"/>
+        <column xsi:type="varchar" name="point_history_id" nullable="true" length="64" comment="Point History Id"/>
+        <column xsi:type="varchar" name="payment_method" nullable="true" length="255" comment="Payment Method"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+
+        <column xsi:type="varchar" name="return_purchase_id" nullable="true" length="255" comment="Origin Purchase ID"/>
+        <column xsi:type="varchar" name="order_comment" nullable="true" length="255" comment="Order Comment"/>
+        <column xsi:type="int" name="canceled_used_point" nullable="false" default="0" comment="Canceled Used Point"/>
+        <column xsi:type="int" name="got_back_added_point" nullable="false" default="0" comment="Got Back Added Point"/>
+        <column xsi:type="tinyint" name="guest_purchase_flg" nullable="false" default="1" comment="Guest Purchase Flag"/>
+        <column xsi:type="decimal" scale="2" precision="16" name="point_discount_amount" nullable="false" default="0" comment="POS Point Discount"/>
+        <column xsi:type="datetime" name="got_back_added_point_date" nullable="true" comment="Got Back Added Point Date"/>
+        <column xsi:type="datetime" name="add_point_request_date" nullable="true" default="NULL" comment="Add Point Request Date"/>
+        <column xsi:type="datetime" name="get_back_point_request_date" nullable="true" default="NULL" comment="Got Back Point Request Date"/>
+
+        <column xsi:type="decimal" scale="2" precision="16" name="return_total_amount" nullable="true" default="0" comment="Return Total Amount"/>
+        <column xsi:type="decimal" scale="2" precision="16" name="return_discount_amount" nullable="true" default="0" comment="Return Discount Amount"/>
+        <column xsi:type="decimal" scale="2" precision="16" name="return_tax_amount" nullable="true" default="0" comment="Total Tax"/>
+        <column xsi:type="decimal" scale="2" precision="16" name="return_point_discount_amount" nullable="false" default="0" comment="Return POS Point Discount"/>
+
+        <column xsi:type="varchar" name="store_code" nullable="true" length="255" comment="Store code"/>
+        <column xsi:type="datetime" name="exch_date" nullable="true" comment="Return/Cancel datetime"/>
+        <column xsi:type="varchar" name="exch_purchase_id" nullable="true" length="255" comment="Original Purchase ID"/>
+
+        <constraint xsi:type="primary" referenceId="CRM_SHOP_RECEIPT_PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+
+        <index referenceId="CRM_SHOP_RECEIPT_FULLTEXT_FIELDS" indexType="fulltext">
+            <column name="purchase_id"/>
+            <column name="return_purchase_id"/>
+            <column name="point_history_id"/>
+        </index>
+
+        <constraint xsi:type="unique" referenceId="CRM_SHOP_RECEIPT_UNQ_FIELDS">
+            <column name="purchase_id"/>
+        </constraint>
+    </table>
+
+    <table name="sales_order">
+        <column xsi:type="int" name="used_point" nullable="true" comment="Used Point"/>
+        <column xsi:type="int" name="acquired_point" nullable="true" comment="Acquired Point"/>
+        <column xsi:type="varchar" name="member_id" nullable="true" length="64" comment="Member Id"/>
+        <column xsi:type="varchar" name="how_to_use" nullable="true" comment="How to use Point"/>
+        <column xsi:type="int" name="added_point" nullable="true" default="0" comment="Added Point"/>
+        <column xsi:type="int" name="cancel_point" nullable="true" default="0" comment="Cancel Point"/>
+        <column xsi:type="varchar" name="cpss_sub_status" nullable="true" comment="API Sub Status"/>
+        <column xsi:type="varchar" name="cpss_refund_sub_status" nullable="true" comment="API Refund Status"/>
+        <column xsi:type="int" name="non_proportionable_point" comment="Non Proportionable Point"/>
+        <column xsi:type="int" name="used_point_refunded" comment="Total Point Refunded"/>
+        <column xsi:type="int" name="online_capture" comment="Online Capture"/>
+        <column xsi:type="int" name="online_refunded" comment="Online Refunded"/>
+        <column xsi:type="datetime" name="added_point_date" nullable="true" comment="Added point date"/>
+        <column xsi:type="datetime" name="cancel_point_date" nullable="true" comment="Cancel point date"/>
+        <column xsi:type="int" name="got_back_added_point" nullable="false" default="0" comment="Got Back Added Point"/>
+        <column xsi:type="datetime" name="got_back_added_point_date" nullable="true" comment="Got Back Added Point Date"/>
+    </table>
+
+    <table name="quote">
+        <column xsi:type="int" name="used_point" nullable="true" comment="Used Point"/>
+        <column xsi:type="int" name="acquired_point" nullable="true" comment="Acquired Point"/>
+        <column xsi:type="varchar" name="how_to_use" nullable="true" comment="How to use Point"/>
+        <column xsi:type="int" name="non_proportionable_point" comment="Non Proportionable Point"/>
+    </table>
+
+    <table name="quote_item">
+        <column xsi:type="decimal" name="used_point" nullable="true" scale="2" precision="20" comment="Custom Point"/>
+    </table>
+
+    <table name="sales_order_item">
+        <column xsi:type="decimal" name="used_point" nullable="true" scale="2" precision="20" comment="Custom Point"/>
+        <column xsi:type="decimal" name="refunded_used_point" comment="Refund Custom Point"/>
+    </table>
+
+    <table name="crm_analysis_data" resource="default" engine="innodb" comment="CRM Analysis Data">
+        <column xsi:type="int" name="crm_id" unsigned="true" nullable="false" identity="true" comment="CRM ID"/>
+        <column xsi:type="int" name="member_id" unsigned="true" nullable="false" padding="10" comment="Member ID (Key)"/>
+        <column xsi:type="date" name="first_purchase_day" nullable="true" comment="First purchase day(YYYY-MM-DD)"/>
+        <column xsi:type="date" name="last_purchase_day" nullable="true" comment="Last purchase day(YYYY-MM-DD)"/>
+        <column xsi:type="int" name="total_purchase_times" nullable="true" padding="11" comment="Total purchase times"/>
+        <column xsi:type="int" name="total_return_times" nullable="true" padding="11" comment="Total return times"/>
+        <column xsi:type="decimal" name="total_purchase_amounts" nullable="true" scale="2" precision="20" comment="Total purchase amounts"/>
+        <column xsi:type="decimal" name="total_return_amounts" nullable="true" scale="2" precision="20" comment="Total return amounts"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+
+        <constraint xsi:type="primary" referenceId="CRM_ANALYSIS_DATA_PRIMARY">
+            <column name="crm_id"/>
+        </constraint>
+
+        <constraint xsi:type="unique" referenceId="CRM_ANALYSIS_DATA_UNQ">
+            <column name="member_id"/>
+        </constraint>
+    </table>
+
+    <table name="crm_real_stores" resource="default" engine="innodb" comment="Onitsuka Registered Real Stores">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="varchar" name="shop_id" nullable="false" comment="Store ID"/>
+        <column xsi:type="varchar" name="shop_name" nullable="false" length="256" comment="Store Name"/>
+        <column xsi:type="varchar" name="shop_status" nullable="false" length="10" comment="Store Status"/>
+        <column xsi:type="varchar" name="shop_password" nullable="true" length="50" comment="Store API password"/>
+        <column xsi:type="varchar" name="shop_password_hash" nullable="true" length="256" comment="Store API password hash"/>
+        <column xsi:type="varchar" name="access_token" nullable="true" length="256" comment="API Access Token"/>
+        <column xsi:type="varchar" name="country_code" default="sg"  nullable="true" length="255" comment="Country code"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+
+        <constraint xsi:type="primary" referenceId="CRM_REAL_STORES_PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+
+        <constraint xsi:type="unique" referenceId="CRM_REAL_STORES_UNIQUE">
+            <column name="shop_id"/>
+            <column name="country_code"/>
+        </constraint>
+
+        <index referenceId="CRM_REAL_STORES_FULLTEXT_FIELDS" indexType="fulltext">
+            <column name="shop_name"/>
+        </index>
+    </table>
+
+    <table name="customer_entity">
+        <column xsi:type="int" name="is_agreed" nullable="false" default="0" comment="Agreed to New Agreement"/>
+    </table>
+</schema>

@@ -1,0 +1,94 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block \Magento\ProductAlert\Block\Email\Stock */
+$currencyHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
+$imageHelper = $this->helper('Magento\Catalog\Helper\Image');
+$reservation = $block->getReservationPeriod();
+$reservationFrom = date("Y-n-d", strtotime($reservation['reservation_from']));
+$reservationFromDay = date("D", strtotime($reservation['reservation_from']));
+$reservationTo = date("Y-n-d", strtotime($reservation['reservation_to']));
+$reservationToDay = date("D", strtotime($reservation['reservation_to']));
+
+
+/** @var $block \Magento\ProductAlert\Block\Email\Stock */
+?>
+<?php if ($_products = $block->getProducts()) : ?>
+
+    <p style="font-size: 14px; letter-spacing: 0.09em; margin:0; padding:0; line-height: 20px; color: #000; font-weight:400;"><?= $block->escapeHtml(__('予約申込みいただいていた以下商品について、決済手続きが開始いたしました。')) ?></p>
+    <p style="font-size: 14px; letter-spacing: 0.09em; margin:0; padding:0; line-height: 20px; color: #000; font-weight:400;"><?= $block->escapeHtml(__('つきましては、指定期間中に以下より購入手続きをお願いいたします。')) ?></p>
+    <p style="font-size: 14px; letter-spacing: 0.09em; margin:15px 0px 0px 0px; padding:0; line-height: 20px; color: #000; font-weight:400;">
+        <?= $reservationFrom; ?> (<?= __($reservationFromDay); ?>) ~ <?= $reservationTo; ?> (<?= __($reservationToDay); ?>)
+    </p>
+    <table style="width:338px;margin-left:0px;margin-right: 0px;text:align:center;">
+        <?php foreach ($_products as $_product) :
+            $color = $_product->getResource()->getAttribute('color')->getFrontend()->getValue($_product);
+            $size = $_product->getResource()->getAttribute('size')->getFrontend()->getValue($_product);
+            $parentProductUrl = $block->getParentProductUrl($_product->getEntityId());
+            ?>
+            <tr>
+                <td class="col photo">
+                    <table style="width:215px;margin-left:0px;margin-right: 0px;text:align:center;">
+                        <tr>
+                            <td align="center">
+                                <p style="text-align:center;margin-top: 30px;">
+                                    <a style="" href="<?= $block->escapeUrl($parentProductUrl) ?>" title="<?= $block->escapeHtml($_product->getName()) ?>" class="product photo">
+                                        <?= $block->getImage($_product, 'product_thumbnail_image', ['class' => 'photo image'])->toHtml() ?>
+                                    </a>
+                                </p>
+
+                                <p style="text-align:center;font-size: 14px; letter-spacing: 0.09em; margin:0; padding:0; line-height: 20px; color: #000; font-weight:400;">
+                                    <a style="font-size: 16px; letter-spacing: 0.09em; text-transform:uppercase;margin:0; padding:0; line-height: 20px; color: #000; font-weight:600;" href="<?= $block->escapeUrl($parentProductUrl) ?>"><?= $block->escapeHtml($_product->getName()) ?></a>
+                                </p>
+                                <p style="text-align:center;font-size: 14px; letter-spacing: 0.09em; margin:0 0px 0px 0px; padding:0; line-height: 20px; color: #000; font-weight:400;"><?= $color; ?></p>
+                                <p style="text-align:center;font-size: 14px; letter-spacing: 0.09em; margin:10px 0px 30px 0px; padding:0; line-height: 20px; color: #000; font-weight:400;"><?= $block->escapeHtml(__("サイズです：")) ?><?= $size; ?></p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="center" style="width: 338px;">
+                    <table class="button" width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+                        <tr>
+                            <td>
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="inner-wrapper" align="center">
+                                    <tr>
+                                        <td class="roll-ovr" align="center" style="height:45px; vertical-align:middle; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;">
+                                            <a class="reset-btn" style="padding:10px 0px 10px 0px;width:100%;background-color: #212322; color:#fff; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;"  href="<?= $block->escapeUrl($parentProductUrl) ?>">購入手続きに進む</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col item">
+                    <p style="font-size: 14px; letter-spacing: 0.09em; margin:0; padding:0; line-height: 20px; color: #000; font-weight:400;">※配信を停止されたい方はこちらをクリックしてください <a style="color:#000;text-decoration:underline;font-weight:600;" href="<?= $block->escapeUrl($block->getProductUnsubscribeUrl($_product->getId())) ?>"><?= $block->escapeHtml(__('ここをクリック。')) ?></a> </p>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+    <p style="font-size: 14px; letter-spacing: 0.09em; margin:0; padding:0; line-height: 20px; color: #000; font-weight:400;"><a style="color:#000;text-decoration:underline;font-weight:600;" href="<?= $block->escapeUrl($block->getUnsubscribeUrl()) ?>"><?= $block->escapeHtml(__('すべての在庫アラートの購読を解除する')) ?></a></p>
+<?php endif; ?>
+
+
+<style>
+    td.roll-ovr .reset-btn {
+        color: #ffffff !important;
+    }
+    table td.roll-ovr,
+    table td.roll-ovr:hover {
+        background-color: #212322 !important;
+    }
+    td.roll-ovr .reset-btn:hover {
+        color: #ffffff !important;
+    }
+</style>

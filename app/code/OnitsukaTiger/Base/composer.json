@@ -1,0 +1,24 @@
+{
+    "name": "OnitsukaTiger/base",
+    "description": "OnitsukaTiger Base Module",
+    "require": {
+        "php": "~5.6.5|7.0.2|7.0.4|~7.0.6|~7.1.0|~7.1.3|~7.2.0|~7.3.0|~7.4.0|~8.0.0|~8.1.0|~8.2.0"
+    },
+    "type": "magento2-module",
+    "license": "GPL-3.0",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Onitsukatiger",
+            "email": "info@onitsukatiger.com"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Onitsukatiger\\Base\\": ""
+        }
+    }
+}

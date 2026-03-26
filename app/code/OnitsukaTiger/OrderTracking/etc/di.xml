@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Sales\Helper\Guest" type="OnitsukaTiger\OrderTracking\Helper\Guest"/>
+    <preference for="Magento\Sales\Block\Order\Item\Renderer\DefaultRenderer"  type="OnitsukaTiger\OrderTracking\Block\Order\Item\Renderer\DefaultRenderer"/>
+    <preference for="Magento\Sales\Controller\Guest\Form" type="OnitsukaTiger\OrderTracking\Controller\Guest\Form" />
+    <preference for="Magento\Sales\Controller\Guest\View" type="OnitsukaTiger\OrderTracking\Controller\Guest\View" />
+</config>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="onitsukatiger" translate="label" sortOrder="200">
+            <label>OnitsukaTiger</label>
+        </tab>
+        <section id="source_algorithm" translate="label" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Source Algorithm Selection</label>
+            <tab>onitsukatiger</tab>
+            <resource>OnitsukaTiger_NetSuite::netsuite_config</resource>
+            <group id="source_algorithm_list" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Source Selection Algorithm</label>
+                <field id="enabled" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Select <strong>Yes</strong> to enable the module.]]></comment>
+                </field>
+                <field id="algorithm_code" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Select Source Algorithm</label>
+                    <source_model>OnitsukaTiger\InventorySourceAlgorithm\Model\Config\Source\SourceAlgorithmList</source_model>
+                    <comment>List Source Algorithm</comment>
+                </field>
+                <field id="create_shipment" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Create shipment after allocation</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Select <strong>Yes</strong> to create shipment.]]></comment>
+                </field>
+                <field id="time_order_reallocation" translate="label comment" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Time Order ReAllocation</label>
+                    <comment><![CDATA[Set minutes]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

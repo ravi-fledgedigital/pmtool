@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="weltpixel_ga4_orders_pushed" resource="default" engine="innodb" comment="WeltPixel GA4 Orders Pushed">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="order_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Order id"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <index referenceId="WELTPIXEL_GA4_ORDERS_PUSHED_ORDER_ID" indexType="btree">
+            <column name="order_id"/>
+        </index>
+    </table>
+    <table name="weltpixel_ga4_orders_pushed_payload" resource="default" engine="innodb" comment="WeltPixel GA4 Orders Pushed Payload">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="order_id" padding="10" unsigned="true" nullable="false" identity="false" default="0" comment="Order id"/>
+        <column xsi:type="text" name="order_payload" nullable="true" comment="Order Pushed Payload"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <index referenceId="WELTPIXEL_GA4_ORDERS_PUSHED_PAYLOAR_ORDER_ID" indexType="btree">
+            <column name="order_id"/>
+        </index>
+    </table>
+    <table name="sales_order">
+        <index referenceId="WELTPIXEL_GA4_CUSTOMER_ID_EMAIL_CREATE_AT" indexType="btree">
+            <column name="created_at"/>
+            <column name="customer_id"/>
+            <column name="customer_email"/>
+        </index>
+    </table>
+    <table name="weltpixel_ga4_orders_addon_pushed" resource="default" engine="innodb" comment="WeltPixel GA4 Orders Addon Pushed">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="order_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Order Id"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <index referenceId="WELTPIXEL_GA4_ORDERS_ADDON_PUSHED_ORDER_ID" indexType="btree">
+            <column name="order_id"/>
+        </index>
+    </table>
+    <table name="weltpixel_ga4_orders_addon_types" resource="default" engine="innodb" comment="WeltPixel GA4 Orders Addon Types">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="pushed_id" padding="10" unsigned="true" nullable="false" comment="Reference to weltpixel_ga4_orders_addon_pushed.id"/>
+        <column xsi:type="varchar" name="addon_type" length="32" nullable="false" comment="Addon Type"/>
+        <column xsi:type="smallint" name="is_pushed" padding="5" unsigned="true" nullable="false" default="0" comment="Is Pushed"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="FK_WELTPIXEL_GA4_ORDERS_ADDON_TYPES_PUSHED_ID"
+                  table="weltpixel_ga4_orders_addon_types" column="pushed_id"
+                  referenceTable="weltpixel_ga4_orders_addon_pushed" referenceColumn="id"
+                  onDelete="CASCADE"/>
+        <index referenceId="WELTPIXEL_GA4_ORDERS_ADDON_TYPES_PUSHED_ID" indexType="btree">
+            <column name="pushed_id"/>
+        </index>
+        <index referenceId="WELTPIXEL_GA4_ORDERS_ADDON_TYPES_FILTER_IDX" indexType="btree">
+            <column name="addon_type"/>
+            <column name="is_pushed"/>
+        </index>
+    </table>
+</schema>

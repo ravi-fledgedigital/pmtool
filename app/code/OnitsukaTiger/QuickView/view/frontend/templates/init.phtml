@@ -1,0 +1,13 @@
+<?php $helper = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);?>
+<?php if($helper->getConfig('catalog/them_customize/quickview')):?>
+    <div class="quickview-size-guide-link hidden"><a href="<?= $block->getUrl() ?>size-guide"></a></div>
+    <div class="init-quickview-product">
+        <script type="text/x-magento-init">
+        {
+            "*": {
+                "quickView": { "baseUrl": "<?php echo $block->getBaseUrl() ?>" }
+            }
+        }
+        </script>
+    </div>
+<?php endif;?>

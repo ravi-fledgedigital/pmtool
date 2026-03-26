@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Aitoc Team
+ * @copyright Copyright (c) 2022 Aitoc (https://www.aitoc.com)
+ * @package Aitoc_SendGrid
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="sendgrid" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>SendGrid Integration</label>
+            <tab>aitoc_extensions</tab>
+            <resource>Aitoc_SendGrid::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enabled" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="api_secret" translate="label" type="obscure" sortOrder="10" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>API Key</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <depends>
+                        <field id="*/*/enabled">1</field>
+                    </depends>
+                </field>
+                <field id="subscribe_list" translate="label" type="select" sortOrder="20" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Subscribe List</label>
+                    <source_model>Aitoc\SendGrid\Model\Source\GridList</source_model>
+                    <depends>
+                        <field id="*/*/enabled">1</field>
+                    </depends>
+                </field>
+                <field id="unsubscribe_list" translate="label" type="select" sortOrder="30" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Unsubscribe List</label>
+                    <source_model>Aitoc\SendGrid\Model\Source\UnsubscribeList</source_model>
+                    <depends>
+                        <field id="*/*/enabled">1</field>
+                    </depends>
+                </field>
+                <field id="without_sub" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="40">
+                    <label>Add customers without subscriptions status in SendGrid</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[If this setting is enable than all customers without any subscription status (subscribe / unsubsricbe) also will be added in SendGrid contacts list like subscribers.]]></comment>
+                    <depends>
+                        <field id="*/*/enabled">1</field>
+                    </depends>
+                </field>
+                <field id="list_for_new" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="50">
+                    <label>List for New Customer</label>
+                    <source_model>Aitoc\SendGrid\Model\Source\GridList</source_model>
+                    <depends>
+                        <field id="*/*/enabled">1</field>
+                        <field id="*/*/without_sub">1</field>
+                    </depends>
+                </field>
+                <field id="webhook" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="50">
+                    <label>Webhook Url</label>
+                    <frontend_model>Aitoc\SendGrid\Block\Adminhtml\System\Config\Form\Field\Disabled</frontend_model>
+                    <depends>
+                        <field id="*/*/enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="sync" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Sync all contacts</label>
+                <field id="cron" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cron Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="manual_sync" translate="label" type="button" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <frontend_model>Aitoc\SendGrid\Block\Adminhtml\System\Config\Sync</frontend_model>
+                    <label>Sync Contacts</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

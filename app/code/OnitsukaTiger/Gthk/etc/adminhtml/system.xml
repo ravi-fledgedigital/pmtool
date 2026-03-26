@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="onitsukatiger_vn" translate="label" sortOrder="10">
+            <label>OnitsukaTiger VietNam</label>
+        </tab>
+
+        <!-- GHTK Configuration Section -->
+        <section id="onitsukatiger_gthk"
+                 translate="label"
+                 sortOrder="20"
+                 showInDefault="1"
+                 showInWebsite="1"
+                 showInStore="1">
+            <label>GHTK Settings</label>
+            <tab>onitsukatiger_vn</tab>
+            <resource>OnitsukaTiger_Gthk::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="url"
+                       translate="label"
+                       type="text"
+                       sortOrder="20"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>API URL</label>
+                    <comment>Enter GHTK API base URL (e.g., https://services.ghtklab.com/services/shipment/order)</comment>
+                </field>
+
+                <field id="address_url"
+                       translate="label"
+                       type="text"
+                       sortOrder="20"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Address API URL</label>
+                    <comment>Enter GHTK Address API base URL (e.g., https://services.giaohangtietkiem.vn)</comment>
+                </field>
+                <field id="token" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>API Token</label>
+                </field>
+                <field id="x_client_source" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>X-Client-Source</label>
+                </field>
+
+                <field id="pick_name" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Pick-up Name</label>
+                    <comment>Store-specific pick-up display name</comment>
+                </field>
+                <field id="pick_address" translate="label" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Pick-up Address</label>
+                </field>
+
+                <field id="pick_province" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Pick-up Province</label>
+                </field>
+
+                <field id="pick_district" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Pick-up District</label>
+                </field>
+
+                <field id="pick_ward" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Pick-up Ward</label>
+                </field>
+
+                <field id="pick_tel" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Pick-up Phone</label>
+                </field>
+                <field id="hamlet" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Hamlet</label>
+                    <comment>Default: Khác</comment>
+                </field>
+
+                <field id="pick_date" translate="label" type="text" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Pick-up Date</label>
+                    <comment>Default: Current Date (Y-m-d)</comment>
+                </field>
+
+                <field id="pick_money" translate="label" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Pick-up Money</label>
+                    <comment>Default: 47000</comment>
+                </field>
+                <field id="is_freeship" translate="label" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Is Freeship</label>
+                </field>
+                <field id="pick_option" translate="label" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Pick Option</label>
+                </field>
+                <field id="transport" translate="label" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Transport</label>
+                </field>
+                <field id="note" translate="label" type="textarea" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Note</label>
+                    <comment>Example: Khối lượng tính cước tối đa: 1.00 kg</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

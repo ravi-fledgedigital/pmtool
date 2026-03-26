@@ -1,0 +1,52 @@
+<?php
+
+$product = $block->getCurrentProduct();
+$formattedPrice = !empty($product->getData()['price']) ? $product->getData()['price'] : $product->getPrice();
+
+?>
+
+<div class="product-details-container content">
+    <table class="product-details-table">
+        <tbody>
+            <tr>
+                <td class="label"><strong><?= __('Product Name') ?></strong></td>
+                <td class="value"><?= $product->getName(); ?></td>
+            </tr>
+            <tr>
+                <td class="label"><strong><?= __('Item Number') ?></strong></td>
+                <td class="value"><?= $product->getSku(); ?></td>
+            </tr>
+            <tr>
+                <td class="label"><strong><?= __('Product ID') ?></strong></td>
+                <td class="value"><?= $product->getId(); ?></td>
+            </tr>
+            <tr>
+                <td class="label"><strong><?= __('Release Date') ?></strong></td>
+                <td class="value"><?= $product->getLaunchDate(); ?></td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+</div>
+
+<style>
+    .product-details-container table {
+        border-collapse: collapse;
+        width: 100%;
+        border: solid 1px #e6e6e6;
+        margin-bottom: 30px;
+    }
+
+    .product-details-container table .label{
+        font-weight: bold;
+    }
+
+    .product-details-container th, .product-details-container td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    .product-details-container tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+</style>

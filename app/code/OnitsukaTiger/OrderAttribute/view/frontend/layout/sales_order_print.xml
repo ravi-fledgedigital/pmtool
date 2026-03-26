@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @author OnitsukaTiger Team
+* @copyright Copyright (c) 2022 OnitsukaTiger (https://www.onitsukatiger.com)
+* @package Custom Checkout Fields for Magento 2
+*/-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Email Order Items List" design_abstraction="custom">
+    <body>
+        <referenceBlock name="sales.order.print.info">
+            <block class="OnitsukaTiger\OrderAttribute\Block\Order\PrintOrder" name="order_attributes" template="OnitsukaTiger_OrderAttribute::order/print/attributes.phtml" />
+        </referenceBlock>
+    </body>
+</page>

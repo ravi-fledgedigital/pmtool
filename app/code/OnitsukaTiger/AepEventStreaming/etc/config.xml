@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <aep_event_streaming>
+            <oauth>
+                <enable>1</enable>
+                <endpoint>https://ims-na1.adobelogin.com/ims/token/v2</endpoint>
+                <grant_type>client_credentials</grant_type>
+            </oauth>
+        </aep_event_streaming>
+    </default>
+</config>

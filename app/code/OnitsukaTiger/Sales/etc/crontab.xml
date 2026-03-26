@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="update_blank_qty_invoiced_order" instance="OnitsukaTiger\Sales\Cron\UpdateBlankQtyInvoicedOrder" method="execute">
+            <config_path>onitsukatiger_sales/sales_update_invoice_qty/order_cron_frequency_to_update_qty_invoiced</config_path>
+        </job>
+    </group>
+</config>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="OnitsukaTiger\NetSuite\Api\NetSuiteInterface" type="OnitsukaTiger\NetSuite\Model\NetSuite" />
+    <preference for="OnitsukaTiger\NetSuite\Api\Queue\ProductMessageInterface" type="OnitsukaTiger\NetSuite\Model\Queue\ProductMessage" />
+    <preference for="OnitsukaTiger\NetSuite\Api\Queue\CancelMessageInterface" type="OnitsukaTiger\NetSuite\Model\Queue\CancelMessage" />
+
+    <type name="Magento\Catalog\Model\Product">
+        <plugin name="netsuite_product_plugin" type="OnitsukaTiger\NetSuite\Plugin\ProductPlugin"/>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="onitsukatiger_storeShipping" xsi:type="object">OnitsukaTiger\NetSuite\Console\StoreShipping\SyncShipmentFromStore</item>
+                <item name="onitsukatiger_ns_update_shipment_status_to_netsuite" xsi:type="object">OnitsukaTiger\NetSuite\Console\SyncShipmentStatusToNetsuite</item>
+                <item name="onitsukatiger_ns_enable_product" xsi:type="object">OnitsukaTiger\NetSuite\Console\NetsuiteEnableProduct</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Sales\Api\ShipmentRepositoryInterface">
+        <plugin name="save_shipment_attribute_sg" type="OnitsukaTiger\NetSuite\Plugin\ProcessShipmentAttribute"/>
+    </type>
+    <preference for="OnitsukaTiger\Shipment\Model\ShipmentAttributes" type="OnitsukaTiger\NetSuite\Model\ShipmentAttributes" />
+
+    <preference for="OnitsukaTiger\NetSuite\Api\ProductPriceUpdateInterface" type="OnitsukaTiger\NetSuite\Model\ProductPriceUpdate"/>
+    <preference for="OnitsukaTiger\NetSuite\Api\Data\PriceUpdateRequestInterface" type="OnitsukaTiger\NetSuite\Model\PriceUpdateRequest"/>
+    <preference for="OnitsukaTiger\NetSuite\Api\Data\PriceItemInterface" type="OnitsukaTiger\NetSuite\Model\PriceItem"/>
+
+    <preference for="OnitsukaTiger\NetSuite\Api\Data\PriceUpdateItemInterface" type="OnitsukaTiger\NetSuite\Model\PriceUpdateItem"/>
+</config>

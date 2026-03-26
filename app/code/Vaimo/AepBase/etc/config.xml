@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <aep>
+            <general>
+                <exclude_store_products>web_kr_ko</exclude_store_products>
+                <exclude_website_customer>4</exclude_website_customer>
+                <customer_id_prefix>EU_</customer_id_prefix>
+            </general>
+            <data_aggregation>
+                <enabled>1</enabled>
+            </data_aggregation>
+        </aep>
+    </default>
+</config>

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="gdx" translate="label" sortOrder="9000">
+            <label>GDX</label>
+        </tab>
+        <section id="gdx_admintheme" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>GDX Admin Theme</label>
+            <tab>gdx</tab>
+            <resource>Gdx_AdminTheme::admmintheme_config</resource>
+            <group id="env_label" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Env Label</label>
+                <field id="color" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Color</label>
+                </field>
+                <field id="text" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Text</label>
+                </field>
+                <field id="text_color" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Text Color</label>
+                </field>
+            </group>
+            <group id="logos" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Logos</label>
+                <field id="admin_logo_image" translate="label comment" type="image" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0" >
+                    <label>Admin Logo Image</label>
+                    <backend_model>Gdx\AdminTheme\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">adminpandel/images/logos</upload_dir>
+                    <base_url type="media" scope_info="1">adminpandel/images/logos</base_url>
+                    <comment><![CDATA[Allowed file types: jpg, jpeg, png. <br />
+                             It's highly recommended to use the ratio of 185 x 187 for the admin logo image.]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

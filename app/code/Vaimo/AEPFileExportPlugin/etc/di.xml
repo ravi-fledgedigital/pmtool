@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Vaimo\AEPFileExport\Model\ConfigProvider">
+        <plugin name="update_private_key_for_aep" type="Vaimo\AEPFileExportPlugin\Plugin\Model\ConfigProvider" />
+    </type>
+</config>

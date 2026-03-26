@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <onitsukatiger_general>
+            <onitsukatiger_general>
+                <developermode>Yes</developermode>
+                <developer_email>developer@krishtechnolabs.com</developer_email>
+            </onitsukatiger_general>
+        </onitsukatiger_general>
+    </default>
+</config>

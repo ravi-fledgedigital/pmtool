@@ -1,0 +1,51 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \WeltPixel\GA4\Block\KlaviyoPixel\Common */
+
+/** @var \Magento\CatalogSearch\Helper\Data $searchDataHelper */
+$searchDataHelper = $this->helper('Magento\CatalogSearch\Helper\Data');
+/** @var \WeltPixel\GA4\Helper\KlaviyoPixelTracking $klaviyoPixelHelper */
+$klaviyoPixelHelper = $this->helper('WeltPixel\GA4\Helper\KlaviyoPixelTracking');
+$cspNonceProvider = $klaviyoPixelHelper->getCspNonceProvider();
+$searhString = $searchDataHelper->getEscapedQueryText();
+?>
+<script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    let klSearchEventId = <?= /* @noEscape */ $klaviyoPixelHelper->getJsEventIdGenerator() ?>;
+</script>
+<?php if ($block->isKlaviyoPixelTrackingEnabled() && $block->shouldKlaviyoPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\KlaviyoPixel\TrackingEvents::EVENT_PRODUCT_SEARCHED)) : ?>
+<script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    if (window.ga4AllowServices) {
+        let klaviyoSearchData = {
+            'SearchTerm': '<?=  /* @noEscape */ $searhString ?>',
+            'OriginalSearchTerm': '<?=  /* @noEscape */ $searhString ?>',
+            'ReferrerURL': document.referrer,
+            'URL': window.location.href,
+            '$event_id': klSearchEventId
+        };
+        klaviyo.track("<?= /* @noEscape */ $klaviyoPixelHelper->getKlaviyoEventName(\WeltPixel\GA4\Model\Config\Source\KlaviyoPixel\TrackingEvents::EVENT_PRODUCT_SEARCHED) ?>", klaviyoSearchData);
+    }
+</script>
+<?php endif; ?>
+
+
+<?php if ($klaviyoPixelHelper->isServerSideTrackingEnabled() && $klaviyoPixelHelper->shouldKlaviyoServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\KlaviyoPixel\TrackingEvents::EVENT_PRODUCT_SEARCHED)) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($klaviyoPixelHelper->getKlaviyoSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'eventId': klSearchEventId,
+                            'eventName': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\KlaviyoPixel\TrackingEvents::EVENT_PRODUCT_SEARCHED  ?>',
+                            'SearchTerm': '<?=  /* @noEscape */ $searhString ?>',
+                            'ReferrerURL': document.referrer,
+                            'URL': window.location.href
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>

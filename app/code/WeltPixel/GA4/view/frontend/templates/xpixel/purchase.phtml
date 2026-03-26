@@ -1,0 +1,93 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \WeltPixel\GA4\Block\XPixel\Common */
+
+/** @var \WeltPixel\GA4\Helper\XPixelTracking $xPixelHelper */
+$xPixelHelper = $this->helper('WeltPixel\GA4\Helper\XPixelTracking');
+$cspNonceProvider = $xPixelHelper->getCspNonceProvider();
+$paymentMethodTitle = $block->getPaymentMethodTitle();
+$orderId = $block->getOrderId();
+?>
+<script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    let xPaymentInfoEventId = <?= /* @noEscape */ $xPixelHelper->getJsEventIdGenerator('add_payment_info') ?>;
+    let xPurchaseEventId = <?= /* @noEscape */ $xPixelHelper->getJsEventIdGenerator('purchase') ?>;
+</script>
+<?php if ($xPixelHelper->isXPixelTrackingEnabled() && $xPixelHelper->shouldXPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\XPixel\TrackingEvents::EVENT_ADD_PAYMENT_INFO)) :
+    ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        if (window.ga4AllowServices) {
+            twq('event', '<?=  /* @noEscape */ $xPixelHelper->getTwitterEventId(\WeltPixel\GA4\Model\Config\Source\XPixel\TrackingEvents::EVENT_ADD_PAYMENT_INFO) ?>', {
+                value: "<?= /* @noEscape */ $block->getOrderValue() ?>",
+                currency: "<?= /* @noEscape */ $xPixelHelper->getCurrencyCode() ?>",
+                contents: <?= /* @noEscape */ $block->getProductsForPurchase() ?>,
+                description: 'Payment information added - <?= /* @noEscape */ addslashes(str_replace('"', '&quot;', $paymentMethodTitle)) ?>',
+                conversion_id: xPaymentInfoEventId
+            });
+        }
+    </script>
+<?php endif; ?>
+
+
+<?php if ($xPixelHelper->isServerSideTrackingEnabled() && $xPixelHelper->shouldXServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\XPixel\TrackingEvents::EVENT_ADD_PAYMENT_INFO)) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($xPixelHelper->getTwitterSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'conversionId': xPaymentInfoEventId,
+                            'eventName': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\XPixel\TrackingEvents::EVENT_ADD_PAYMENT_INFO  ?>',
+                            'methodTitle': '<?=  /* @noEscape */ $paymentMethodTitle ?>',
+                            'orderId': '<?=  /* @noEscape */ $orderId ?>'
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>
+
+
+
+<?php if ($xPixelHelper->isXPixelTrackingEnabled() &&
+    $xPixelHelper->shouldXPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\XPixel\TrackingEvents::EVENT_PURCHASE) &&
+    $xPixelHelper->isOrderTrackingAllowedBasedOnOrderStatus($block->getOrder())) :
+    ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        if (window.ga4AllowServices) {
+            twq('event', '<?= /* @noEscape */ $xPixelHelper->getTwitterEventId(\WeltPixel\GA4\Model\Config\Source\XPixel\TrackingEvents::EVENT_PURCHASE) ?>', {
+                value: "<?= /* @noEscape */ $block->getOrderValue() ?>",
+                currency: "<?= /* @noEscape */ $xPixelHelper->getCurrencyCode() ?>",
+                contents: <?= /* @noEscape */ $block->getProductsForPurchase() ?>,
+                description: 'Purchase completed - Order #<?= /* @noEscape */ $block->getOrder()->getIncrementId() ?>',
+                conversion_id: xPurchaseEventId
+            });
+        }
+    </script>
+<?php endif; ?>
+
+
+
+<?php if ($xPixelHelper->isServerSideTrackingEnabled() &&
+    $xPixelHelper->shouldXServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\XPixel\TrackingEvents::EVENT_PURCHASE) &&
+    $xPixelHelper->isOrderTrackingAllowedBasedOnOrderStatus($block->getOrder())) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($xPixelHelper->getTwitterSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'conversionId': xPurchaseEventId,
+                            'eventName': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\XPixel\TrackingEvents::EVENT_PURCHASE  ?>',
+                            'orderId': '<?=  /* @noEscape */ $orderId ?>'
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>

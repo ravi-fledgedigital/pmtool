@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright: Copyright © 2019 Firebear Studio. All rights reserved.
+ * @author   : Firebear Studio <fbeardev@gmail.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/publisher.xsd">
+    <publisher topic="netsuite.customer.update">
+        <connection name="db" exchange="netsuite-customer" />
+    </publisher>
+    <publisher topic="netsuite.customer.address.update">
+        <connection name="db" exchange="netsuite-customer-address" />
+    </publisher>
+</config>

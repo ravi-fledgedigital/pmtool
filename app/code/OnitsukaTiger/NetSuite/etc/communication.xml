@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Communication/etc/communication.xsd">
+    <topic name="onitsukatiger.netsuite.product" request="OnitsukaTiger\NetSuite\Api\Queue\ProductMessageInterface"/>
+    <topic name="onitsukatiger.netsuite.cancel" request="OnitsukaTiger\NetSuite\Api\Queue\CancelMessageInterface"/>
+    <topic name="onitsukatiger.price.update.queue" request="OnitsukaTiger\NetSuite\Api\Data\PriceUpdateItemInterface[]">
+        <handler name="onitsukatiger.price.update.queue.handler" type="OnitsukaTiger\NetSuite\Model\Consumer" method="process"/>
+    </topic>
+</config>

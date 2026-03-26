@@ -1,0 +1,48 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \WeltPixel\GA4\Block\PinterestPixel\Common */
+
+/** @var \Magento\CatalogSearch\Helper\Data $searchDataHelper */
+$searchDataHelper = $this->helper('Magento\CatalogSearch\Helper\Data');
+/** @var \WeltPixel\GA4\Helper\PinterestPixelTracking $pinterestPixelHelper */
+$pinterestPixelHelper = $this->helper('WeltPixel\GA4\Helper\PinterestPixelTracking');
+$cspNonceProvider = $pinterestPixelHelper->getCspNonceProvider();
+$searchString = $searchDataHelper->getEscapedQueryText();
+?>
+<script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    let pinterestSearchEventId = <?= /* @noEscape */ $pinterestPixelHelper->getJsEventIdGenerator() ?>;
+</script>
+<?php if ($block->isPinterestPixelTrackingEnabled() && $block->shouldPinterestPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\PinterestPixel\TrackingEvents::EVENT_SEARCH)) : ?>
+<script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    if (window.ga4AllowServices) {
+        pintrk('track', '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\PinterestPixel\TrackingEvents::EVENT_SEARCH ?>', {
+            search_query: '<?=  /* @noEscape */ $searchString ?>',
+            event_id: pinterestSearchEventId
+        });
+    }
+</script>
+<?php endif; ?>
+
+
+<?php if ($pinterestPixelHelper->isServerSideTrackingEnabled() && $pinterestPixelHelper->shouldPinterestServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\PinterestPixel\TrackingEvents::EVENT_SEARCH)) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($pinterestPixelHelper->getPinterestSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'eventId': pinterestSearchEventId,
+                            'eventName': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\PinterestPixel\TrackingEvents::EVENT_SEARCH  ?>',
+                            'eventUrl': window.location.href,
+                            'searchString': '<?=  /* @noEscape */  $searchString ?>'
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>
+
+

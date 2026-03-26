@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<!--
+ /**
+ * Copyright © Firebear Studio, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:module:Firebear_ImportExport:etc/platforms.xsd">
+    <platform name="netsuiteCategory" entity="catalog_category" label="Netsuite Categories" model="Firebear\PlatformNetsuite\Model\Import\Platform\Category">
+        <field name="saved_search_id" id="saved_search_id" label="Saved search id" type="text" required="true" validation="validate-number" />
+        <field name="start_page" id="start_page" label="Start Import from Page" type="text" required="true" />
+        <field name="end_page" id="end_page" label="Stop Import on Page" type="text" required="false" />
+        <field name="endpoint" id="endpoint" label="End point" notice="Example: 2018_2" type="text" required="true" />
+        <field name="host" id="host" label="Host" notice="Example: https://webservices.netsuite.com" type="text" required="true" />
+        <field name="account" id="account" label="Account" type="text" required="true" />
+        <field name="consumerKey" id="consumerKey" label="Consumer Key" type="password" required="true" template="Firebear_PlatformNetsuite/password" />
+        <field name="consumerSecret" id="consumerSecret" label="Consumer Secret" type="password" required="true" template="Firebear_PlatformNetsuite/password" />
+        <field name="token" id="token" label="Token" type="password" required="true" template="Firebear_PlatformNetsuite/password"/>
+        <field name="tokenSecret" id="tokenSecret" label="Token Secret" type="password" required="true" template="Firebear_PlatformNetsuite/password" />
+        <field name="use_old_http_protocol_version"
+               id="use_old_http_protocol_version"
+               label="Use the HTTP 1.0 protocol version option for the SOAP request"
+               type="text"
+               formElement="checkbox"
+               template="Firebear_PlatformNetsuite/switcher"
+               component="Firebear_PlatformNetsuite/js/single-checkbox"/>
+    </platform>
+    <platform name="netsuiteProduct" entity="catalog_product" label="Netsuite Items" model="Firebear\PlatformNetsuite\Model\Import\Platform\Product">
+        <field name="saved_search_id" id="saved_search_id" label="Saved search id" type="text" required="true" validation="validate-number" />
+        <field name="start_page" id="start_page" label="Start Import from Page" type="text" required="true" />
+        <field name="end_page" id="end_page" label="Stop Import on Page" type="text" required="false" />
+        <field name="endpoint" id="endpoint" label="End point" notice="Example: 2018_2" type="text" required="true" />
+        <field name="host" id="host" label="Host" notice="Example: https://webservices.netsuite.com" type="text" required="true" />
+        <field name="account" id="account" label="Account" type="text" required="true" />
+        <field name="consumerKey" id="consumerKey" label="Consumer Key" type="password" required="true" template="Firebear_PlatformNetsuite/password" />
+        <field name="consumerSecret" id="consumerSecret" label="Consumer Secret" type="password" required="true" template="Firebear_PlatformNetsuite/password" />
+        <field name="token" id="token" label="Token" type="password" required="true" template="Firebear_PlatformNetsuite/password"/>
+        <field name="tokenSecret" id="tokenSecret" label="Token Secret" type="password" required="true" template="Firebear_PlatformNetsuite/password" />
+        <field name="import_item_group_to_bundle_product"
+               id="import_item_group_to_bundle_product"
+               label="Import Netsuite Item Group to Magento Bundle products"
+               type="text"
+               notice="As a default, Netsuite Item Group will be imported as Magento Group products"
+               formElement="checkbox"
+               template="Firebear_PlatformNetsuite/switcher"
+               component="Firebear_PlatformNetsuite/js/single-checkbox"/>
+        <field name="use_old_http_protocol_version"
+               id="use_old_http_protocol_version"
+               label="Use the HTTP 1.0 protocol version option for the SOAP request"
+               type="text"
+               formElement="checkbox"
+               template="Firebear_PlatformNetsuite/switcher"
+               component="Firebear_PlatformNetsuite/js/single-checkbox"/>
+        <field name="import_custom_field_images"
+               id="import_custom_field_images"
+               label="Import Netsuite Custom Fields with image type to Magento product images"
+               type="text"
+               formElement="checkbox"
+               template="Firebear_PlatformNetsuite/switcher"
+               component="Firebear_PlatformNetsuite/js/single-checkbox"/>
+    </platform>
+    <platform name="netsuiteCustomer" entity="customer_composite" label="Netsuite Customers" model="Firebear\PlatformNetsuite\Model\Import\Platform\Customer">
+        <field name="saved_search_id" id="saved_search_id" label="Saved search id" type="text" required="true" validation="validate-number" />
+        <field name="price_level_saved_search_id" id="price_level_saved_search_id" label="Price Level Saved search id" type="text" validation="validate-number" />
+        <field name="start_page" id="start_page" label="Start Import from Page" type="text" required="true" />
+        <field name="end_page" id="end_page" label="Stop Import on Page" type="text" required="false" />
+        <field name="endpoint" id="endpoint" label="End point" notice="Example: 2018_2" type="text" required="true" />
+        <field name="host" id="host" label="Host" notice="Example: https://webservices.netsuite.com" type="text" required="true" />
+        <field name="account" id="account" label="Account" type="text" required="true" />
+        <field name="consumerKey" id="consumerKey" label="Consumer Key" type="password" required="true" template="Firebear_PlatformNetsuite/password" />
+        <field name="consumerSecret" id="consumerSecret" label="Consumer Secret" type="password" required="true" template="Firebear_PlatformNetsuite/password" />
+        <field name="token" id="token" label="Token" type="password" required="true" template="Firebear_PlatformNetsuite/password"/>
+        <field name="tokenSecret" id="tokenSecret" label="Token Secret" type="password" required="true" template="Firebear_PlatformNetsuite/password" />
+        <field name="use_old_http_protocol_version"
+               id="use_old_http_protocol_version"
+               label="Use the HTTP 1.0 protocol version option for the SOAP request"
+               type="text"
+               formElement="checkbox"
+               template="Firebear_PlatformNetsuite/switcher"
+               component="Firebear_PlatformNetsuite/js/single-checkbox"/>
+    </platform>
+    <platform name="netsuiteOrder" entity="order" label="Netsuite Orders" model="Firebear\PlatformNetsuite\Model\Import\Platform\Order">
+        <field name="saved_search_id" id="saved_search_id" label="Saved search id" type="text" required="true" validation="validate-number" />
+        <field name="start_page" id="start_page" label="Start Import from Page" type="text" required="true" />
+        <field name="end_page" id="end_page" label="Stop Import on Page" type="text" required="false" />
+        <field name="endpoint" id="endpoint" label="End point" notice="Example: 2018_2" type="text" required="true" />
+        <field name="host" id="host" label="Host" notice="Example: https://webservices.netsuite.com" type="text" required="true" />
+        <field name="account" id="account" label="Account" type="text" required="true" />
+        <field name="consumerKey" id="consumerKey" label="Consumer Key" type="password" required="true" template="Firebear_PlatformNetsuite/password" />
+        <field name="consumerSecret" id="consumerSecret" label="Consumer Secret" type="password" required="true" template="Firebear_PlatformNetsuite/password" />
+        <field name="token" id="token" label="Token" type="password" required="true" template="Firebear_PlatformNetsuite/password"/>
+        <field name="tokenSecret" id="tokenSecret" label="Token Secret" type="password" required="true" template="Firebear_PlatformNetsuite/password" />
+        <field name="use_old_http_protocol_version"
+               id="use_old_http_protocol_version"
+               label="Use the HTTP 1.0 protocol version option for the SOAP request"
+               type="text"
+               formElement="checkbox"
+               template="Firebear_PlatformNetsuite/switcher"
+               component="Firebear_PlatformNetsuite/js/single-checkbox"/>
+    </platform>
+    <platform name="netsuiteAttribute" entity="attribute" label="Netsuite Attribute" model="Firebear\PlatformNetsuite\Model\Import\Platform\Attribute">
+        <field name="endpoint" id="endpoint" label="End point" notice="Example: 2018_2" type="text" required="true" />
+        <field name="host" id="host" label="Host" notice="Example: https://webservices.netsuite.com" type="text" required="true" />
+        <field name="account" id="account" label="Account" type="text" required="true" />
+        <field name="consumerKey" id="consumerKey" label="Consumer Key" type="password" required="true" template="Firebear_PlatformNetsuite/password" />
+        <field name="consumerSecret" id="consumerSecret" label="Consumer Secret" type="password" required="true" template="Firebear_PlatformNetsuite/password" />
+        <field name="token" id="token" label="Token" type="password" required="true" template="Firebear_PlatformNetsuite/password"/>
+        <field name="tokenSecret" id="tokenSecret" label="Token Secret" type="password" required="true" template="Firebear_PlatformNetsuite/password" />
+        <field name="use_old_http_protocol_version"
+               id="use_old_http_protocol_version"
+               label="Use the HTTP 1.0 protocol version option for the SOAP request"
+               type="text"
+               formElement="checkbox"
+               template="Firebear_PlatformNetsuite/switcher"
+               component="Firebear_PlatformNetsuite/js/single-checkbox"/>
+    </platform>
+    <platform name="netsuiteLocation" entity="stock_sources" label="Netsuite Locations" model="Firebear\PlatformNetsuite\Model\Import\Platform\Location">
+        <field name="saved_search_id" id="saved_search_id" label="Saved search id" type="text" required="true" validation="validate-number" />
+        <field name="start_page" id="start_page" label="Start Import from Page" type="text" required="true" />
+        <field name="end_page" id="end_page" label="Stop Import on Page" type="text" required="false" />
+        <field name="endpoint" id="endpoint" label="End point" notice="Example: 2019_2" type="text" required="true" />
+        <field name="host" id="host" label="Host" notice="Example: https://webservices.netsuite.com" type="text" required="true" />
+        <field name="account" id="account" label="Account" type="text" required="true" />
+        <field name="consumerKey" id="consumerKey" label="Consumer Key" type="password" required="true" template="Firebear_PlatformNetsuite/password" />
+        <field name="consumerSecret" id="consumerSecret" label="Consumer Secret" type="password" required="true" template="Firebear_PlatformNetsuite/password" />
+        <field name="token" id="token" label="Token" type="password" required="true" template="Firebear_PlatformNetsuite/password"/>
+        <field name="tokenSecret" id="tokenSecret" label="Token Secret" type="password" required="true" template="Firebear_PlatformNetsuite/password" />
+        <field name="use_old_http_protocol_version"
+               id="use_old_http_protocol_version"
+               label="Use the HTTP 1.0 protocol version option for the SOAP request"
+               type="text"
+               formElement="checkbox"
+               template="Firebear_PlatformNetsuite/switcher"
+               component="Firebear_PlatformNetsuite/js/single-checkbox"/>
+    </platform>
+    <platform name="netsuiteLocationQty" entity="stock_sources_qty" label="Netsuite Locations Qty" model="Firebear\PlatformNetsuite\Model\Import\Platform\LocationQty">
+        <field name="saved_search_id" id="saved_search_id" label="Saved search id" type="text" required="true" validation="validate-number" />
+        <field name="start_page" id="start_page" label="Start Import from Page" type="text" required="true" />
+        <field name="end_page" id="end_page" label="Stop Import on Page" type="text" required="false" />
+        <field name="endpoint" id="endpoint" label="End point" notice="Example: 2019_2" type="text" required="true" />
+        <field name="host" id="host" label="Host" notice="Example: https://webservices.netsuite.com" type="text" required="true" />
+        <field name="account" id="account" label="Account" type="text" required="true" />
+        <field name="consumerKey" id="consumerKey" label="Consumer Key" type="password" required="true" template="Firebear_PlatformNetsuite/password" />
+        <field name="consumerSecret" id="consumerSecret" label="Consumer Secret" type="password" required="true" template="Firebear_PlatformNetsuite/password" />
+        <field name="token" id="token" label="Token" type="password" required="true" template="Firebear_PlatformNetsuite/password"/>
+        <field name="tokenSecret" id="tokenSecret" label="Token Secret" type="password" required="true" template="Firebear_PlatformNetsuite/password" />
+        <field name="use_old_http_protocol_version"
+               id="use_old_http_protocol_version"
+               label="Use the HTTP 1.0 protocol version option for the SOAP request"
+               type="text"
+               formElement="checkbox"
+               template="Firebear_PlatformNetsuite/switcher"
+               component="Firebear_PlatformNetsuite/js/single-checkbox"/>
+    </platform>
+</config>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <source_algorithm>
+            <source_algorithm_list>
+                <enable>1</enable>
+                <algorithm_code>onesource</algorithm_code>
+                <create_shipment>1</create_shipment>
+                <time_order_reallocation>30</time_order_reallocation>
+            </source_algorithm_list>
+        </source_algorithm>
+    </default>
+</config>

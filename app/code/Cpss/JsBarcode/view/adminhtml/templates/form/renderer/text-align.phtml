@@ -1,0 +1,38 @@
+<?php
+    $element = $block->getElement();
+    $form = $element->getForm();
+    /** @var \Magento\Config\Block\System\Config\Form $parentForm */
+    $parentForm = $form->getParent();
+    $textAlignConfigVal = $parentForm->getConfigValue('barcode_section/barcode_group/textalign');
+?>
+
+<div>
+    <button type="button" class="textalign" value="left">Left</button>
+    <button type="button" class="textalign" value="center">Center</button>
+    <button type="button" class="textalign" value="right">Right</button>
+    <input type="hidden" 
+        id="barcode_section_barcode_group_textalign" 
+        name="<?= $block->getFieldName() ?>"
+        class="input-text admin__control-text"
+        value="<?= $textAlignConfigVal ?>">
+</div>
+
+<script type="text/javascript">
+    require(['jquery', 'jquery/ui'], function($) {
+        let curVal = "<?= $textAlignConfigVal ?>";
+
+        $('.textalign').click(function () {
+            $('#barcode_section_barcode_group_textalign').val($(this).val());
+            $('.textalign').removeClass('btn-active');
+            $(this).addClass('btn-active');
+        });
+        
+        if (curVal == 'left') {
+            $('.textalign').eq(0).addClass('btn-active');
+        } else if (curVal == 'center') {
+            $('.textalign').eq(1).addClass('btn-active');
+        } else {
+            $('.textalign').eq(2).addClass('btn-active');
+        }
+    });
+</script>

@@ -1,0 +1,9 @@
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <!--<table name="amasty_xsearch_users_search" resource="default" engine="innodb" comment="Table" disabled="true">
+    </table>
+    <table name="amasty_xsearch_related_term" resource="default" engine="innodb" comment="Table" disabled="true">
+    </table>-->
+    <table name="catalogsearch_recommendations" resource="default" engine="innodb" comment="Table" disabled="true">
+    </table>
+</schema>

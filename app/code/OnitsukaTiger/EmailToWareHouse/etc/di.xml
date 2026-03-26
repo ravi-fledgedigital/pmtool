@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Clickend\Kerry\Observer\Observer" type="OnitsukaTiger\EmailToWareHouse\Observer\PreferenceKerryObserver" />
+    <type name="Magento\Sales\Model\Order">
+        <plugin name="pluginDisplayOrderDateFormat" type="OnitsukaTiger\EmailToWareHouse\Plugin\Sales\Model\Order\PluginDisplayOrderDateFormat" disabled="false" />
+    </type>
+    <type name="Magento\Sales\Model\Order\Invoice">
+        <plugin name="pluginDisplayInvoiceDateFormat" type="OnitsukaTiger\EmailToWareHouse\Plugin\Sales\Model\Order\Invoice\PluginDisplayInvoiceDateFormat" disabled="false" />
+    </type>
+    <type name="Amasty\PDFCustom\Model\Template\PreviewSimpleDataProvider">
+        <plugin name="OnitsukaTiger_EmailToWareHouse::registry_data" type="OnitsukaTiger\EmailToWareHouse\Plugin\Model\Template\PreviewSimpleDataProvider" disabled="false" />
+    </type>
+</config>

@@ -1,0 +1,66 @@
+<?php
+/**
+ * @copyright 2017 Sapient
+ */
+namespace Sapient\Worldpay\Model\Payment\Update;
+
+use \Sapient\Worldpay\Model\Payment\UpdateInterface;
+
+class Error extends \Sapient\Worldpay\Model\Payment\Update\Base implements UpdateInterface
+{
+    /** @var \Sapient\Worldpay\Helper\Data */
+    private $_configHelper;
+     /**
+      * @var \Sapient\Worldpay\Helper\Multishipping
+      */
+    protected $multishippingHelper;
+    /**
+     * Constructor
+     * @param \Sapient\Worldpay\Model\Payment\StateInterface $paymentState
+     * @param \Sapient\Worldpay\Model\Payment\WorldPayPayment $worldPayPayment
+     * @param \Sapient\Worldpay\Helper\Data $configHelper
+     * @param \Sapient\Worldpay\Helper\Multishipping $multishippingHelper
+     */
+    public function __construct(
+        \Sapient\Worldpay\Model\Payment\StateInterface $paymentState,
+        \Sapient\Worldpay\Model\Payment\WorldPayPayment $worldPayPayment,
+        \Sapient\Worldpay\Helper\Data $configHelper,
+        \Sapient\Worldpay\Helper\Multishipping $multishippingHelper
+    ) {
+        $this->_paymentState = $paymentState;
+        $this->_worldPayPayment = $worldPayPayment;
+        $this->_configHelper = $configHelper;
+        $this->multishippingHelper = $multishippingHelper;
+    }
+
+    /**
+     * Apply
+     *
+     * @param Payment $payment
+     * @param Order $order
+     */
+    public function apply($payment, $order = null)
+    {
+        if (!empty($order)) {
+            $this->_assertValidPaymentStatusTransition($order, $this->_getAllowedPaymentStatuses());
+            $order->cancel();
+            $this->_worldPayPayment->updateWorldPayPayment($this->_paymentState);
+            $worldpaypayment = $order->getWorldPayPayment();
+            if ($worldpaypayment->getIsMultishippingOrder()) {
+                $this->multishippingHelper->cancelMultishippingOrders($order);
+            }
+        }
+    }
+
+    /**
+     * Get allow payment status
+     *
+     * @return array
+     */
+    protected function _getAllowedPaymentStatuses()
+    {
+        return [
+            \Sapient\Worldpay\Model\Payment\StateInterface::STATUS_SENT_FOR_AUTHORISATION
+        ];
+    }
+}

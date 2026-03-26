@@ -1,0 +1,28 @@
+<?php /** @var $block \Magento\Checkout\Block\Onepage\Success */
+$orderUrl = $escaper->escapeHtml($block->getViewOrderUrl());
+$orderId = $escaper->escapeHtml($block->getOrderId());
+$errorMsg = '<a href="%s" class="order-number"><strong>%s</strong></a>';
+?>
+<div class="checkout-success">
+    <?php if ($block->getOrderId()):?>
+        <?php if ($block->getCanViewOrder()):?>
+            <p><?= /* @noEscape */ __('Your order number is: %1.', sprintf($errorMsg, $orderUrl, $orderId)) ?></p>
+        <?php  else:?>
+            <p><?= /* @noEscape */ __('Your order # is: <span>%1</span>.', $escaper->escapeHtml($block->getOrderId()))
+            ?>
+            </p>
+        <?php endif;?>
+             <p><?= /* @noEscape */ __('Please note this order is still awaiting confirmation of the funds transfer.');
+                ?>
+             </p>
+    <?php endif;?>
+
+    <?= /* @noEscape */ $block->getAdditionalInfoHtml() ?>
+
+    <div class="actions-toolbar">
+        <div class="primary">
+            <a class="action primary continue" href="<?= /* @noEscape */ $block->getUrl() ?>">
+                <span><?= /* @noEscape */ __('Continue Shopping') ?></span></a>
+        </div>
+    </div>
+</div>

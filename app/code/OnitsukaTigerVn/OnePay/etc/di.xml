@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Ecomteck\OnePay\Controller\Order\Domestic\Pay" type="OnitsukaTigerVn\OnePay\Controller\Order\Domestic\Pay" />
+    <preference for="Ecomteck\OnePay\Controller\Order\International\Pay" type="OnitsukaTigerVn\OnePay\Controller\Order\International\Pay" />
+    <preference for="Ecomteck\OnePay\Model\OnePayDomesticCard" type="OnitsukaTigerVn\OnePay\Model\OnePayDomesticCard" />
+    <preference for="Ecomteck\OnePay\Model\OnePayInternationalCard" type="OnitsukaTigerVn\OnePay\Model\OnePayInternationalCard" />
+    <preference for="Ecomteck\OnePay\Cron\QueryDr" type="OnitsukaTigerVn\OnePay\Cron\QueryDr" />
+</config>

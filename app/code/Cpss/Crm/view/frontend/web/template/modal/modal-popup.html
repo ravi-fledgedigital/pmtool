@@ -1,0 +1,305 @@
+<aside role="dialog" class="modal-<%- data.type %> <%- data.modalClass %>
+    <% if(data.responsive){ %><%- data.responsiveClass %><% } %>
+    <% if(data.innerScroll){ %><%- data.innerScrollClass %><% } %>"
+<% if(data.title){ %> aria-labelledby="modal-title-<%- data.id %>"<% } %>
+aria-describedby="modal-content-<%- data.id %>"
+data-role="modal"
+data-type="<%- data.type %>"
+tabindex="0">
+<div data-role="focusable-start" tabindex="0"></div>
+<div class="modal-inner-wrap" data-role="focusable-scope">
+<span class="title"><b>会員規約変更のお知らせ</b></span>
+<button
+ class="action-close"
+ data-role="closeBtn"
+ type="button">
+ <span><%= data.closeText %></span>
+</button>
+<div id="modal-content-<%- data.id %>" class="modal-content" data-role="content">
+ <div class="page-standard">
+ <div class="page-standard__body">
+ <section>
+     <div class="content-outer-wrapper">
+         <div class="content-inner-wrapper">
+             <div class="content-inner__item">
+                 <h4 class="content-inner-wrapper__title t4" style="text-align:center;">オニツカタイガー 会員規約</h4>
+                 <div class="content-inner-wrapper__parag">
+                     <p>
+                         オニツカタイガー会員とは、会員登録いただくことにより一定のお客様特典を受けていた
+                         だくことができるメンバーシッププログラム（以下「本プログラム」といいます）です。
+                         オニツカタイガー会員規約（以下「本規約」といいます）は、アシックスジャパン株式会
+                         社（以下「弊社」といいます）が運営するオニツカタイガー及びTHE ONITSUKA店舗（以
+                         下「対象店舗」といいます）およびオニツカタイガーマガジン公式オンラインストア
+                         （<a href="<%- data.url %>"><%= data.url %></a>）（以下「本オンラインストア」といいます）のほか、弊社が提供する様々なサー
+                         ビス（以下、対象店舗、本オンラインストアその他すべてのサービスを総称して「本サー
+                         ビス」といいます）のご利用にあたって、会員登録いただいた会員（以下「会員」といい
+                         ます）に適用されます。会員登録に際しては、本規約をお読みください。
+                     </p>
+                 </div>
+             </div>
+             <div class="content-inner__item">
+                 <h4 class="content-inner-wrapper__title t4">第１条（本規約の範囲及び変更）</h4>
+                 <ol class="content-inner-wrapper__list">
+                     <li>本規約は、本サービスの利用に際し、会員に適用されるものとします。なお、会員が
+                         本オンラインストアを利用するにあたっては、本規約とあわせ、本オンラインサイトの「
+                         オンラインストア利用規約」が適用されます。
+                     </li>
+                     <li>弊社は、法令等に従って本規約を変更することができるものとします（これには第６
+                         条に定めるポイントサービス（特典）の内容の変更、ポイント付与率を含むポイントの提
+                         供条件の変更、ポイントの利用方法の変更またはポイントサービスの停止若しくは廃止を
+                         含みますが、これに限りません）。弊社は、当該変更により会員に生じる不利益または損
+                         害について責任を負わないものとします。
+                     </li>
+                 </ol>
+             </div>
+             <div class="content-inner__item">
+                 <h4 class="content-inner-wrapper__title t4">第２条（会員の定義）</h4>
+                 <div class="content-inner-wrapper__parag">
+                     <p>
+                         「会員」とは、本規約に同意いただいたうえ、弊社所定の手続に従いオニツカタイガー会
+                         員に会員登録をした方をいいます。
+                     </p>    
+                 </div> 
+             </div>
+             <div class="content-inner__item">
+                 <h4 class="content-inner-wrapper__title t4">第３条（会員の資格）</h4>
+                 <p>
+                     オニツカタイガー会員に会員登録するには、会員登録時に次の条件を満たしている必要が
+                     あります。
+                 </p>
+                 <ol  class="content-inner-wrapper__list">
+                     <li>
+                     16歳以上であること。
+                     </li>
+                     <li>
+                     有効なEメールアカウントを有していること。
+                     </li>
+                 </ol>
+                 <p>
+                     なお、オニツカタイガー会員のお客様特典は会員登録いただいたご本人のみ有効で、譲渡
+                     はできません。また、当該権利を金銭その他の物品と交換することはできません。
+                 </p>
+             </div>
+             <div class="content-inner__item">
+                 <h4 class="content-inner-wrapper__title t4">第４条（会員登録）</h4>
+                 <ol  class="content-inner-wrapper__list">
+                     <li>会員登録希望者は、弊社が提供するオンラインサービスの会員登録ページ等から会員
+                         登録を行うものとし、弊社から送信する会員登録確認メールの受信をもって会員の資格を
+                         取得します。
+                         弊社は、迷惑メールフィルターの影響などにより会員登録確認メールを受信できない場合
+                         であっても、お客様へ登録確認メールの再送はいたしませんので、予め次に従いドメイン
+                         指定受信等の設定をお願いします。
+                         <ul>
+                             <li>
+                             ドメイン指定受信をご利用の場合『@info.asics.com』を指定受信に設定してくださ
+                             い。
+                             </li>
+                             <li>
+                             迷惑メールフィルターのなりすまし規制レベルを低く設定してください。なりすま
+                             し規制レベルが高く設定されている場合、弊社からのEメールを受信できないことがあり
+                             ます。
+                             </li>
+                         </ul>
+                     </li>
+                     <li>会員登録に使用・設定したEメールアドレス・パスワードは会員本人のみが利用でき
+                         るものとし、他の第三者に譲渡・貸与できないものとします。また、Eメールアドレス・
+                         パスワードを用いて弊社に対して行われた意思表示は、当該Eメールアドレス・パスワー
+                         ドを使用・設定した会員の有効な意思表示とみなし、これにより生じる支払等はすべて会
+                         員の責任とします。
+                     </li>
+                 </ol>
+             </div> 
+             <div class="content-inner__item">
+                 <h4 class="content-inner-wrapper__title t4">第５条（変更の届出及び退会）</h4>
+                 <div class="content-inner-wrapper__parag">
+                     <p>
+                         会員は、Eメールアドレス、その他登録している事項に変更が生じた場合には、すみやか
+                         にマイページにて登録情報の変更を行うことにより、弊社に届け出るものとします。なお
+                         、変更の届け出がなされない場合、会員であっても、特典が付与されない、または特典を
+                         ご利用いただけない場合が生じることがありますのでご注意ください。退会の場合も同様
+                         に、マイページより退会手続きを行うものとします。なお、会員資格を喪失した時点で本
+                         規約第６条に定めるポイントサービスの累計ポイントは全て無効となり、同条に定める特
+                         典を受けることができなくなります。
+                     </p>
+                 </div>    
+             </div>
+             <div class="content-inner__item">
+                 <h4 class="content-inner-wrapper__title t4">第６条（会員の特典等）</h4>
+                 <div class="content-inner-wrapper__parag">
+                     <p>
+                         会員は以下のポイントサービスの特典を受けることができます。
+                     </p>
+                 </div>
+                 <ol class="content-inner-wrapper__list">
+                     <li>ポイントの付与は会員限定の特典です。ポイントの付与率は弊社が定めるもので、
+                         対象店舗、オンラインストア、商品、期間などで異なります。
+                     </li>
+                     <li>ポイントは、以下のとおり付与されます。
+                         <ul>
+                             <li>①対象店舗にて商品をご購入いただいた場合：対象店舗で商品をご購入の際、会員情報を提示いただくことによって、商品購入日の翌日または翌々日にポイントを付与します。会員情報をお支払い時に提示されなかった場合、ポイントは付与されませんので、ご注意ください。なお、対象店舗とは、日本国内のオニツカタイガーおよびTHE ONITSUKAの店舗のうちポイントサービスを実施している店舗です。ポイントサービスを実施していない店舗もあることにご注意ください。</li>
+                             <li>②本オンラインストアで商品をご購入いただいた場合：商品発送日の翌日に付与されます。</li>
+                             <li>③商品ご購入の際のポイント付与の対象は、商品代金（税抜価格）に限ります。送料・手数料・その他サービス料はポイント付与の対象外となります。また、商品購入時に使用したポイントに相当する金額、消費税、修理代、加工代、配送料、振込手数料及びその他弊社所定の対象金額は、ポイント付与の対象外となります。</li>
+                             <li>④その他弊社が随時定める規定・基準に適合すると認めた場合に、当該規定に従いポイントが付与されることがあります。</li>
+                         </ul>
+                     </li>
+                     <li>
+                     付与されたポイントは、1ポイント＝1円換算で、対象店舗や本オンラインストア等での商品代金のお支払いにご利用いただけます。ただし、修理代、加工代、配送料、振込手数料、及びその他弊社所定の対象金額に対しては、ポイントを使用することができません。なお、ポイントの換算率は変更されることがあります。
+                     </li>
+                     <li>
+                     理由の如何を問わず、対象店舗又は本オンラインストアでの商品購入の取消し又は返品の場合には、当該商品購入によるポイントの付与を取り消すものとし、弊社は会員が保有するポイント数から当該商品購入の代金に相当するポイント数を減算いたします。ポイント数の減算により、会員が保有するポイント数がゼロを下回る場合、会員は弊社に対し、ゼロを下回ったポイント数1ポイントあたり1円を支払う義務を負うものとします。なお、この場合、振込手数料は会員が負担するものとします。
+                     </li>
+                     <li>
+                     商品ご購入に対して付与されるポイントの有効期限は、ポイント付与日ごとに異なり、それぞれ付与された日から1年間です。有効期限が切れたポイントは全て失効します。ポイントの保有、取得及び利用の履歴等は会員のマイページで確認できます。
+                     </li>
+                     <li>
+                     ポイントは会員ご本人のみが利用できます。ポイントを第三者に譲渡または貸与することはできません。また、ポイントの換金はいたしません。
+                     </li>
+                     <li>
+                     その他弊社が随時定める規定・基準に従い会員特典を提供します。会員特典は、本オンラインストア内のご案内などでご確認ください。なお、特典内容は、予告なく中止または変更となる場合がございますので、あらかじめご了承ください。
+                     </li>
+                 </ol>
+             </div>    
+ 
+             <div class="content-inner__item">
+                 <h4 class="content-inner-wrapper__title t4">第７条（会員登録の抹消等）</h4>
+                 <div class="content-inner-wrapper__parag">
+                     <p>弊社は、会員が以下の各号のいずれかに該当する場合、会員に事前通知することなく本オ
+                         ンラインストアの利用停止、会員登録の抹消、または再登録を拒否することができるもの
+                         とします。なお、全てのポイントと全ての会員特典は会員資格の抹消・喪失とともに無効
+                         となります。</p>
+                 </div>    
+                 <ol class="content-inner-wrapper__list">
+                     <li>本規約違反などにより、過去に会員登録の抹消などの処分を受けていることが判明
+                         した場合</li>
+                     <li>登録内容に、虚偽の事項が含まれていることが判明した場合</li>
+                     <li>本サービスに関する支払債務の履行遅延、その他の不履行があった場合</li>
+                     <li>本オンラインストアをご利用の際に「オンラインストア利用規約」に違反がある場
+                         合</li>
+                     <li>本規約第3条に定める会員資格を有しないことが判明した場合</li>
+                     <li>実在しない者である場合</li>
+                     <li>すでに会員登録がなされている場合</li>
+                     <li>その他、会員として不適当であると弊社が判断する場合</li>
+                 </ol>
+             </div>    
+             <div class="content-inner__item">
+                 <h4 class="content-inner-wrapper__title t4">第８条（会員ID及びパスワードの管理）</h4>
+                 <div class="content-inner-wrapper__parag">
+                     <p>会員は、以下のとおり会員ID及びパスワード(以下「認証情報」といいます)を管理し、そ
+                         の管理責任を負うものとします。</p>
+                 </div>
+                 <ol class="content-inner-wrapper__list">
+                     <li>認証情報は、会員自身で設定し、会員自身において管理しなければなりません。</li>
+                     <li>会員は、認証情報を第三者に譲渡、貸与、開示してはなりません。</li>
+                     <li>会員は、認証情報の管理不十分、使用上の過誤、第三者の使用などに起因する損害
+                         につき自ら責任を負うものとします。</li>
+                     <li>会員は、認証情報が第三者によって不正に使用されていることが判明した場合には
+                         、直ちに弊社に連絡するものとします。</li>
+                 </ol>
+             </div>    
+ 
+             <div class="content-inner__item">
+                 <h4 class="content-inner-wrapper__title t4">第９条（メールマガジン）</h4>
+                 <ol class="content-inner-wrapper__list">
+                     <li>会員は、希望する場合、会員登録時に、または会員登録後マイページにおいて所定の
+                         手続を行うことにより、弊社よりメールマガジンの配信を受けることができます。</li>
+                     <li>会員は、マイページにおいて所定の手続を行うもしくは受信されたメールマガジンか
+                         ら所定の手続きを行うことにより、いつでもメールマガジンの配信を解除することができ
+                         ます。</li>
+                     <li>メールマガジンによって提供される情報の所有権及びコンテンツの著作権は、弊社又
+                         は弊社にライセンスを付与する第三者に帰属します。メールマガジン及びそのコンテンツ
+                         を会員の商業目的で利用することはできません。</li>
+                     <li>弊社は、以下に該当する場合は、該当する会員へのメールマガジンの配信を解除する
+                         ことがあります。
+                         <ol>
+                             <li>登録されたメールアドレスにメールマガジンが到達しなかった場合。</li>
+                             <li>過去1度もメールマガジンが開封されていない場合。（但し、新規にメールマガジン
+                                 を登録してから1年未満の場合は除くものとします）</li>
+                             <li>第三者のメールアドレスが登録された場合または登録されたと疑うに足りる事由が
+                                 ある場合。</li>
+                             <li>その他、弊社がメールマガジンの配信が不適当と判断する場合。</li>
+                         </ol>
+                     </li>
+                 </ol>
+             </div>    
+ 
+             <div class="content-inner__item">
+                 <h4 class="content-inner-wrapper__title t4">第１０条（個人情報に関して）</h4>
+                 <p>
+                     会員登録時にご提供いただいた個人情報その他本サービスご利用にあたり弊社が取得する
+                     会員の個人情報は、アシックスプライバシーポリシー（<a href="https://www.asics.com/jp/ja-jp/mk/support/guide/privacypolicy" target="_blank">https://www.asics.com/jp/ja-jp/mk/support/guide/privacypolicy</a>）に従って取り扱います。
+                 </p>
+             </div>    
+ 
+             <div class="content-inner__item">
+                 <h4 class="content-inner-wrapper__title t4">第１１条（責任の制限）</h4>
+                 <div class="content-inner-wrapper__parag">
+                     <p>本プログラムの提供にあたり、弊社は、会員に対し、以下の各事由により会員に直接もし
+                         くは間接的に生じた経済的損失、負傷や死亡などの身体的損失もしくは損害について一切
+                         責任を負いません。</p> 
+                     <ol class="content-inner-wrapper__list">
+                         <li>本サービス利用において本プログラムの利用が弊社の責めに帰すべき事由によらず不
+                             能であった場合</li>
+                         <li>会員の登録情報の誤りもしくは本プログラム利用方法の誤りに起因する場合</li>
+                         <li>会員のコンピュータ、ハードウェア、ソフトウェア、モデム、またはその他の機器や
+                             技術への損害、セキュリティ違反やウイルス、バグ、改ざん、詐欺、エラー、脱落、中断
+                             、欠陥、遅延、データ伝送、コンピュータ回線、ネットワーク障害、またはその他の技術
+                             的またはその他の要因による誤動作に起因する場合</li>
+                         <li>本サービスへのアクセスまたは本プログラムの使用が法執行当局による調査に関連し
+                             て不能となった場合</li>
+                         <li>その他弊社の責めに帰さない事由により本プログラムの提供が不能もしくは提供に支
+                             障が生じた場合</li>
+                     </ol>
+                 </div>    
+             </div>    
+             <div class="content-inner__item">
+                 <h4 class="content-inner-wrapper__title t4">第１２条（管轄）</h4>
+                 <div class="content-inner-wrapper__parag">
+                     <p>本規約には日本法が適用され、日本法に基づき解釈されるものとします。本規約に関して
+                         生じる紛争については、東京地方裁判所を第一審の専属的合意管轄裁判所とするものとし
+                         ます。</p>
+                 </div>    
+             </div> 
+             <div class="content-inner__item">
+                 <div class="content-inner-wrapper__parag">
+                     <p>附則：この規約は2022年9月29日から会員に適用されます。</p>
+                 </div>    
+             </div>   
+         </div>
+     </div>
+ 
+ 
+     <form id="agreement_form" method="post">
+         <input type="hidden" name="agree" id="agree" value="1">
+         <input type="hidden" name="login[username]" id="username">
+         <input type="hidden" name="login[rememberme]" id="rememberme">
+         <input type="hidden" name="login[password]" id="password">
+         <div class="page-standard__parag">
+             <p>
+                 <span style="color: red;">※「ご利用規約」を最後の行までご確認いただくと、「規約に同意する」ボタンが有効になります。</span><br/>
+             </p>
+         </div>
+         <div class="page-standard__privacy_policy">
+             <p>プライバシーポリシーは<a href="https://www.asics.com/jp/ja-jp/mk/support/guide/privacypolicy" target="_blank">こちら</a>からご確認いただけます。</p>
+         </div>
+         <div class="accept-btn-wrapper">
+             <input type="submit" id="submit_agreement" value="会員規約およびプライバシーポリシーに同意する" disabled="disabled">
+         </div>
+     </form>
+ </section>
+ </div>
+ </div>
+</div>
+</div>
+<div data-role="focusable-end" tabindex="0"></div>
+</aside>
+
+<script>
+jQuery(document).ready( function($) {
+
+ $('.content-inner-wrapper').on('scroll', function() {
+     if($(this).scrollTop() + $(this).innerHeight() + 1 >= $(this)[0].scrollHeight) {
+         $('#submit_agreement').removeAttr('disabled');
+     }
+ });
+});
+</script>

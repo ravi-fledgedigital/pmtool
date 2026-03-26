@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="onitsukatiger_indo" translate="label" sortOrder="10">
+            <label>OnitsukaTigerIndo</label>
+        </tab>
+        <section id="biteship_indo" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Biteship</label>
+            <tab>onitsukatiger_indo</tab>
+            <resource>OnitsukaTigerIndo_Biteship::configuration</resource>
+            <group id="biteship_api_urls" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Biteship Api Urls</label>
+                <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Module Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="authorization_key" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Authorization Key</label>
+                    <depends>
+                        <field id="biteship_indo/biteship_api_urls/enable">1</field>
+                    </depends>
+                </field>
+                <field id="order_api_url" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Order Api Url</label>
+                    <depends>
+                        <field id="biteship_indo/biteship_api_urls/enable">1</field>
+                    </depends>
+                </field>
+                <field id="courier_rate_url" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Courier Rate Url</label>
+                    <depends>
+                        <field id="biteship_indo/biteship_api_urls/enable">1</field>
+                    </depends>
+                </field>
+                <field id="origin_postal_code" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Origin Postal Code</label>
+                    <depends>
+                        <field id="biteship_indo/biteship_api_urls/enable">1</field>
+                    </depends>
+                </field>
+                <field id="below_this_price_shipping_fee_applied" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Below This price shipping fee will be added</label>
+                    <depends>
+                        <field id="biteship_indo/biteship_api_urls/enable">1</field>
+                    </depends>
+                </field>
+                <field id="days" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Days</label>
+                    <depends>
+                        <field id="biteship_indo/biteship_api_urls/enable">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="biteship_origin_address" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Biteship Origin Address</label>
+                <depends>
+                    <field id="biteship_indo/biteship_api_urls/enable">1</field>
+                </depends>
+                <field id="contact_name" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Contact Name</label>
+                    <depends>
+                        <field id="biteship_indo/biteship_api_urls/enable">1</field>
+                    </depends>
+                </field>
+                <field id="contact_phone" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Contact Phone</label>
+                    <depends>
+                        <field id="biteship_indo/biteship_api_urls/enable">1</field>
+                    </depends>
+                </field>
+                <field id="address" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Address</label>
+                    <depends>
+                        <field id="biteship_indo/biteship_api_urls/enable">1</field>
+                    </depends>
+                </field>
+                <field id="postal_code" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Postal Code</label>
+                    <depends>
+                        <field id="biteship_indo/biteship_api_urls/enable">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

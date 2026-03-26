@@ -1,0 +1,45 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+/** @var \Magento\Sales\Block\Order\Items $block */
+?>
+<div class="table-wrapper order-items">
+    <table class="data table table-order-items table-comparison" id="my-orders-table" summary="<?= $block->escapeHtmlAttr(__('Items Ordered')) ?>">
+        <thead>
+        <tr>
+            <th class="col name"><?= $block->escapeHtml(__('Item Description'))?></th>
+            <th class="col qty"><?= $block->escapeHtml(__('Total')) ?><br/><?= __('Qty')?></th>
+            <th class="col shipped_qty"><?= $block->escapeHtml(__('Shipped')) ?><br/><?= __('Qty')?></th>
+            <th class="col price"><?= $block->escapeHtml(__('Item Price')) ?></th>
+            <th class="col subtotal"><?= $block->escapeHtml(__('Sub Total')) ?></th>
+            <th class="col status"><?= $block->escapeHtml(__('Status')) ?></th>
+            <th class="col logistics"><?= $block->escapeHtml(__('Logistics')) ?></th>
+        </tr>
+        </thead>
+        <?php $items = $block->getItems(); ?>
+        <?php $giftMessage = ''?>
+        <?php foreach ($items as $item) :
+            if ($item->getParentItem()) :
+                continue;
+            endif;
+            ?>
+            <tbody>
+            <?= $block->getItemHtml($item) ?>
+            </tbody>
+        <?php endforeach; ?>
+    </table>
+</div>
+<?php if ($giftMessage) : ?>
+    <script type="text/x-magento-init">
+    {
+        "a.action.show, a.action.close": {
+            "giftMessage": {}
+        }
+    }
+</script>
+<?php endif; ?>

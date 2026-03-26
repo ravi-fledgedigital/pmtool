@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="customer">
+        <field name="promotion_group_id" formElement="multiselect">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">OnitsukaTiger\Customer\Model\Config\Source\PromotionGroup</item>
+                <item name="config" xsi:type="array">
+                    <item name="fieldGroup" xsi:type="string">promotion_group_id</item>
+                    <item name="source" xsi:type="string">customer</item>
+                </item>
+            </argument>
+            <settings>
+                <required>true</required>
+            </settings>
+        </field>
+    </fieldset>
+</form>

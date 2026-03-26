@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <htmlContent name="rma_history_content">
+        <block class="OnitsukaTiger\Rma\Block\Adminhtml\Customer\RmaHistoryTab" name="rma_history">
+            <arguments>
+                <argument name="sort_order" xsi:type="string">50</argument>
+            </arguments>
+        </block>
+    </htmlContent>
+    <htmlContent name="order_memo_content">
+        <block class="OnitsukaTiger\Rma\Block\Adminhtml\Customer\MemoTab" name="order_memo">
+        </block>
+    </htmlContent>
+</form>

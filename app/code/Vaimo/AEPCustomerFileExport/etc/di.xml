@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="AdobeCampaignCustomerConfigProvider" type="Vaimo\AEPFileExport\Model\ConfigProvider">
+        <arguments>
+            <argument name="folderConfigPath" xsi:type="string">aep_customer_file_export/adobe_campaign/folder_path</argument>
+            <argument name="filenameConfigPath" xsi:type="string">aep_customer_file_export/adobe_campaign/filename</argument>
+            <argument name="schedulerEnabledConfigPath" xsi:type="string">aep_customer_file_export/adobe_campaign/scheduler_enabled</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="CustomerAdobeCampaignExportService" type="Vaimo\AEPFileExport\Model\Service\Export">
+        <arguments>
+            <argument name="export" xsi:type="object">Vaimo\AEPCustomerFileExport\Model\Export\Customer</argument>
+            <argument name="configProvider" xsi:type="object">AdobeCampaignCustomerConfigProvider</argument>
+            <argument name="writerDestination" xsi:type="string">aep_export/adobe_campaign_customers.csv</argument>
+        </arguments>
+    </virtualType>
+    <type name="Vaimo\AEPCustomerFileExport\Console\Command\ProxyWrapper">
+        <arguments>
+            <argument name="state" xsi:type="object">Magento\Framework\App\State\Proxy</argument>
+            <argument name="export" xsi:type="object">CustomerAdobeCampaignExportService</argument>
+        </arguments>
+    </type>
+    <type name="Vaimo\AEPCustomerFileExport\Console\Command\Command">
+        <arguments>
+            <argument name="export" xsi:type="object">Vaimo\AEPCustomerFileExport\Console\Command\ProxyWrapper\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="aep-file-export-adobe-campaign-customers" xsi:type="object">Vaimo\AEPCustomerFileExport\Console\Command\Command</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Vaimo\AEPCustomerFileExport\Cron\ExportCustomers">
+        <arguments>
+            <argument name="export" xsi:type="object">CustomerAdobeCampaignExportService</argument>
+            <argument name="configProvider" xsi:type="object">AdobeCampaignCustomerConfigProvider</argument>
+        </arguments>
+    </type>
+</config>

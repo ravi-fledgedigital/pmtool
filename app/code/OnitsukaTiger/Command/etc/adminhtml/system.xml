@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="omise_netsuite" translate="label" sortOrder="130" showInDefault="1" showInWebsite="0" showInStore="0">
+            <class>separator-top</class>
+            <label>Omise - NetSuite</label>
+            <tab>onitsukatiger</tab>
+            <resource>OnitsukaTiger_NetSuite::omise_netsuite_config</resource>
+            <group id="general" translate="label comment" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Configuration</label>
+                <field id="url" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>URL</label>
+                </field>
+                <field id="deploy_id" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Deploy ID</label>
+                </field>
+                <field id="script_id" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Script ID</label>
+                </field>
+                <field id="consumer_key" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Consumer Key</label>
+                </field>
+                <field id="consumer_secret" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Consumer Secret</label>
+                </field>
+                <field id="token_id" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Token ID</label>
+                </field>
+                <field id="token_secret" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Token Secret</label>
+                </field>
+                <field id="missing_order_ids" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Missing Order Ids</label>
+                    <comment><![CDATA[Add missing order ids comma seperated. ex(00000000, 11111111)]]></comment>
+                </field>
+            </group>
+        </section>
+        <section id="cli_command" translate="label" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Cli Command</label>
+            <tab>onitsukatiger</tab>
+            <resource>OnitsukaTiger_Command::configuration</resource>
+            <group id="register_associated_product" translate="label comment" sortOrder="10" type="text" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Register Associated Configurable Product</label>
+                <field id="default_attribute_code_options" translate="label comment" type="multiselect" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Default Attribute Code Options</label>
+                    <source_model>OnitsukaTiger\Catalog\Model\Source\ConfigurableProduct\DefaultOptions</source_model>
+                    <comment><![CDATA[Get options in here if configurable product options is unavailable after importing product]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

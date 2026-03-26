@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="update_order_status_packed">
+        <observer name="update_status_packed" instance="OnitsukaTiger\OrderStatus\Observer\UpdateStatusPacked" />
+    </event>
+    <event name='sales_order_payment_refund'>
+        <observer name='order_status_sales_order_payment_refund' instance='OnitsukaTiger\OrderStatus\Observer\Refund' />
+    </event>
+</config>

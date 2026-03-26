@@ -1,0 +1,91 @@
+<br/>
+<div class="onepay-container">
+    <div data-bind="html: window.checkoutConfig.onepay_checkout_content_vn"></div>
+    <div class="vat-invoice">
+        <strong data-bind="i18n: 'VAT INVOICE INFORMATION'"></strong>
+    </div>
+
+    <input type="checkbox" id="vatInvoice" name="customCheckbox" value="" data-bind="checked: CheckVals"/>
+    <label for="vatInvoice">
+        <span data-bind="i18n: 'Check this box if you need a VAT invoice.'"></span>
+    </label>
+    <div class="vat_info_deatil" data-bind="visible: CheckVals">
+        <form id="vat-invoice-form">
+            <div class="field required">
+                <label for="purchaser_name" class="label">
+                    <span>Purchaser Name</span>
+                </label>
+                <div class="control">
+                    <input type="text"
+                           id="purchaser_name"
+                           name="purchaser_name[purchaser_name]"
+                           class="input-text"
+                           data-validate='{"required":true}'/>
+                </div>
+            </div>
+            <div class="field">
+                <label for="company_tax_code" class="label">
+                    <span>Company Tax Code</span>
+                </label>
+                <div class="control">
+                    <input type="text"
+                           id="company_tax_code"
+                           name="company_tax_code[company_tax_code]"
+                           class="input-text"
+                           data-validate='{"required":true}'/>
+                </div>
+            </div>
+            <!--<div class="field required">
+                <label for="company_name" class="label">
+                    <span>Company Name</span>
+                </label>
+                <div class="control">
+                    <input type="text"
+                           id="company_name"
+                           name="company_name[company_name]"
+                           class="input-text"
+                           data-validate='{"required":true}'/>
+                </div>
+            </div>
+
+            <div class="field required">
+                <label for="customer_address" class="label">
+                    <span>Customer Address</span>
+                </label>
+                <div class="control">
+                <textarea id="customer_address"
+                          name="customer_address[customer_address]"
+                          class="input-text"
+                          rows="3"
+                          data-validate='{"required":true}'></textarea>
+                </div>
+            </div>
+            <div class="field required">
+                <label for="company_email_address" class="label">
+                    <span>Company Email Address</span>
+                </label>
+                <div class="control">
+                    <input type="email"
+                           id="company_email_address"
+                           name="company_email_address[company_email_address]"
+                           class="input-text"
+                           data-validate='{"required":true, "validate-email":true}'/>
+                </div>
+            </div>
+
+            <div class="field required">
+                <label for="company_phone_number" class="label">
+                    <span>Company Phone Number</span>
+                </label>
+                <div class="control">
+                    <input type="text"
+                           id="company_phone_number"
+                           name="company_phone_number[company_phone_number]"
+                           class="input-text"
+                           data-validate='{"required":true, "validate-number":true}'/>
+                </div>
+            </div>-->
+            
+        </form>
+    </div>
+</div>

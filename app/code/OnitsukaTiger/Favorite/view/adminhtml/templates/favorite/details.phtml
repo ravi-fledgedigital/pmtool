@@ -1,0 +1,66 @@
+<?php
+    $product = $block->getProduct();
+    $sku = $product->getSku();
+    $productParams = $this->getProductIdParam();
+    $productId = $product->getId();
+
+    if($product->getTypeId() == 'configurable' && !empty($productParams[1])){
+        $sku = $product->getSku() . '_' . $productParams[1];
+        $productId = '';
+    }
+    $price = !empty($product->getData()['price']) ? $product->getData()['price'] : $product->getPrice();
+?>
+<div class="product-details-container">
+    <table class="product-details-table">
+        <tr>
+            <td class="label"><?= $block->escapeHtml(__('Product Name')) ?></td>
+            <td class="value"><?= $product->getName(); ?></td>
+        </tr>
+        <tr>
+            <td class="label"><?= $block->escapeHtml(__('Item Number')) ?></td>
+            <td class="value"><?= $sku; ?></td>
+        </tr>
+        <tr>
+            <td class="label"><?= $block->escapeHtml(__('Price')) ?></td>
+            <td class="value"><?= $block->getFormatedPrice($price); ?></td>
+        </tr>
+        <tr>
+            <td class="label"><?= $block->escapeHtml(__('Selling price')) ?></td>
+            <td class="value"><?= $block->getFormatedPrice($product->getSalesPrice()); ?></td>
+        </tr>
+        <tr>
+            <td class="label"><?= $block->escapeHtml(__('Product Quantity')) ?></td>
+            <td class="value"><?= $product->getQuantityAndStockStatus()['qty']; ?></td>
+        </tr>
+        <tr>
+            <td class="label"><?= $block->escapeHtml(__('Product ID')) ?></td>
+            <td class="value"><?= $productId; ?></td>
+        </tr>
+        <tr>
+            <td class="label"><?= $block->escapeHtml(__('Release Date')) ?></td>
+            <td class="value"><?= $product->getLaunchDate(); ?></td>
+        </tr>
+    </table>
+</div>
+
+<style>
+    .product-details-container table {
+        border-collapse: collapse;
+        width: 100%;
+        border: solid 1px #e6e6e6;
+        margin-bottom: 30px;
+    }
+
+    .product-details-container table .label{
+        font-weight: bold;
+    }
+
+    .product-details-container th, .product-details-container td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    .product-details-container tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+</style>

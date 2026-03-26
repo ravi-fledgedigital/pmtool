@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="before.body.end">
+            <block
+                class="Vaimo\OTAdobeDataLayer\Block\Track\Cart"
+                name="adobe-datalayer-checkout-cart"
+                template="Vaimo_OTAdobeDataLayer::checkout/cart.phtml"
+                ifconfig="adobe_launch/general/enabled"
+            />
+        </referenceContainer>
+    </body>
+</page>

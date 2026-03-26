@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <attribute name="class" value="header-article-layout" />
+        <referenceContainer name="header.container" remove="true"/>
+        <referenceContainer name="footer-container" remove="true"/>
+        <referenceContainer name="navigation.sections" remove="true"/>
+        <referenceBlock name="breadcrumbs" remove="true" />
+        <referenceBlock name="breadcrumbs.cms" remove="true" />
+        <referenceContainer name="page.wrapper">
+            <container name="header.container.article" as="header_container_article" label="Page HeaderArticle Container" htmlTag="header" htmlClass="header-container-top" before="main.content">
+                <block class="Magento\Cms\Block\Block" name="header-cms-article" before="-">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">header-article-cms-layout</argument>
+                    </arguments>
+                </block>
+            </container>
+            <container name="footer.container.article" as="footer_container_article" label="Page FooterArticle Container" htmlTag="footer" htmlClass="page-footer-box" after="main.content">
+                <block class="Magento\Cms\Block\Block" name="footer-cms-article" after="-">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">footer-article-cms-layout</argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

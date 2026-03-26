@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="customer_delete_after">
+        <observer name="onitsukatigerkorea_customer_delete_after" instance="OnitsukaTigerKorea\Customer\Observer\CustomerDeleteAfter" />
+    </event>
+    <event name="customer_account_edited">
+        <observer name="onitsukatigerkorea_customer_edit_after" instance="OnitsukaTigerKorea\Customer\Observer\CustomerEditAfter" />
+    </event>
+    <event name="adminhtml_customer_save_after">
+        <observer name="onitsukatigerkorea_Customer_Save_After" instance="OnitsukaTigerKorea\Customer\Observer\CustomerSaveAfterAdmin" />
+    </event>
+</config>

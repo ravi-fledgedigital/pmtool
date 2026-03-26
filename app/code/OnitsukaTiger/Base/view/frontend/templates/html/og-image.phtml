@@ -1,0 +1,14 @@
+<?php
+$mediaUrl = $block->getMediaUrl();
+$ogImage = $mediaUrl . 'wysiwyg/og.jpg';
+$currentUrl = $block->getCurrentUrl();
+$pageTitle = $block->getPageTitle();
+$pageDescription = $block->getPageDescription();
+?>
+<meta property="og:url" content="<?= $currentUrl; ?>" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="<?= $pageTitle; ?>" />
+<meta property="og:description" content="<?= $pageDescription; ?>" />
+<meta property="og:image" content="<?= $ogImage; ?>" />
+<meta property="og:site_name" content="Onitsuka Tiger" />
+

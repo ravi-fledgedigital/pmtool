@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+     <system>
+        <section id="catalog" >
+            <group id="them_customize" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Theme Customize Catalog</label>
+                 <field id="category_filters" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Category Filters Enabled For Korea</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="category_tree_id" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Category Tree Id</label>
+                    <comment>Show Category Tree Id in backend category filter form</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

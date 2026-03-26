@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_save_after">
+        <observer name="seoulwebdesign_toast_send_order_message"
+                  instance="Seoulwebdesign\Toast\Observer\SendOrderMessage"/>
+    </event>
+    <event name="customer_register_success">
+        <observer name="seoulwebdesign_toast_send_customer_register_message"
+                  instance="Seoulwebdesign\Toast\Observer\SendCustomerRegisterMessage"/>
+    </event>
+
+    <event name="order_cancel_after">
+        <observer name="seoulwebdesign_toast_send_order_refund_message"
+                  instance="Seoulwebdesign\Toast\Observer\SendOrderCancelMessage"/>
+    </event>
+
+    <event name="sales_order_payment_cancel_invoice">
+        <observer name="seoulwebdesign_toast_send_order_cancel_message"
+                  instance="Seoulwebdesign\Toast\Observer\SendOrderRefundMessage"/>
+    </event>
+
+    <event name="sales_order_payment_refund">
+        <observer name="seoulwebdesign_toast_send_sales_order_payment_refund_message"
+                  instance="Seoulwebdesign\Toast\Observer\SendOrderRefundMessage"/>
+    </event>
+
+    <event name="toast_send_custom_message">
+        <observer name="seoulwebdesign_toast_toast_send_custom_message"
+                  instance="Seoulwebdesign\Toast\Observer\SendCustomMessage"/>
+    </event>
+</config>

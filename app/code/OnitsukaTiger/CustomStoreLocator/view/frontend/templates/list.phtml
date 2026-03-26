@@ -1,0 +1,69 @@
+<?php
+$collection = $block->getStoreCollection();
+?>
+<div class="cms-page-view">
+    <div class="page-main">
+        <div class="page-title-wrapper">
+            <h1 class="page-title">
+                <span><?= __("Find A Store") ?></span>
+            </h1>
+        </div>
+    </div>
+</div>
+
+<div class="store-listing">
+    <div class="store-listing-outer">
+        <?php foreach ($collection as $index => $store): ?>
+            <?php
+                $images = json_decode($store['gallery'], true) ?: [$store['gallery']];
+                $mobileimages = json_decode($store['mobile_gallery'], true) ?: [$store['mobile_gallery']];
+            ?>
+            <div class="store-listing-grid">
+                <!-- Desktop Images Slider -->
+                <div class="swiper-container swiper-desktop swiper-<?= $index ?>">
+                    <div class="swiper-wrapper-store-locator">
+                        <?php foreach ($images as $img): ?>
+                            <div class="swiper-slide">
+                                <img src="<?= $block->getStoreImageUrl($img) ?>" alt="<?= $store['store_name'] ?>" class="store-image" />
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <!-- Mobile Images Slider -->
+                <div class="swiper-container swiper-mobile swiper-<?= $index ?>">
+                    <div class="swiper-wrapper-store-locator">
+                        <?php foreach ($mobileimages as $img): ?>
+                            <div class="swiper-slide">
+                                <img src="<?= $block->getMobileStoreImageUrl($img) ?>" alt="<?= $store['store_name'] ?>" class="store-image" />
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <div class="store-listing-info">
+                    <h2><?= strtoupper($store['store_name']) ?></h2>
+                    <p class="grid-store-address"><?= $store['store_address']; ?></p>
+                    <p class="grid-store-tel"><?= __("Telephone") ?> <?= $store['store_phone_no']; ?></p>
+                    <p class="grid-store-address grid-store-address-notes"><?= $store['store_notes']; ?></p>
+                    <a href="<?= $store['google_map_link'] ?>" target="_blank" class="map-button"><?= __("MAP") ?></a>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+
+<script>
+require(['jquery', 'jquery/ui', 'Magento_PageBuilder/js/resource/slick/slick'], function($) {
+    $(document).ready(function() {
+        $(".swiper-wrapper-store-locator").slick({
+            dots: false,
+            infinite: true,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            arrows: false,
+            slidesToShow: 1,
+            slidesToScroll: 1
+        });
+        $('.swiper-wrapper-store-locator').show();
+    });
+});
+</script>

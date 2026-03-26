@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <referenceBlock name="page.wrapper">
+        <block class="Magento\ProductRecommendationsLayout\Block\Fetcher" before="-" name="product_recommendations_fetcher" template="Magento_ProductRecommendationsLayout::recsFetcher.phtml" />
+    </referenceBlock> 
+    <body>
+        <referenceBlock name="content">
+            <block class="Magento\ProductRecommendationsLayout\Block\Renderer" after="-" name="product_recommendations_cart_below_content" template="Magento_ProductRecommendationsLayout::layoutRenderer.phtml">
+                <arguments>
+                    <argument name="pagePlacement" xsi:type="string">below-main-content</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Cms\Block\Block" name="recommendation-for-you-cart-page"> 
+                <arguments> 
+                    <argument name="block_id" xsi:type="string">recommendation-for-you-cart-page</argument> 
+                </arguments> 
+            </block> 
+        </referenceBlock>
+
+        <move element="recommendation-for-you-cart-page" destination="checkout.cart.container"
+            after="cart.summary" />
+
+        <move element="product_recommendations_cart_below_content" destination="checkout.cart.container"
+            after="recommendation-for-you-cart-page" />
+
+    </body>
+</page>

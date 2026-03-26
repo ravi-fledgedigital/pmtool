@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="customer.login.container">
+            <block class="Seoulwebdesign\KakaoSync\Block\Login"
+                   after="customer.new"
+                   name="seoulwebdesign-kakao-login-button"
+                   template="Seoulwebdesign_KakaoSync::customer/login_with_kakao.phtml"
+                   ifconfig="kakaosync/general/enable"
+            >
+            </block>
+        </referenceContainer>
+    </body>
+</page>

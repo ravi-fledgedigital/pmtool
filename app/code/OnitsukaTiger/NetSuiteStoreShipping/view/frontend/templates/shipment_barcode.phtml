@@ -1,0 +1,39 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $shipment \Magento\Sales\Model\Order\Shipment  */
+/** @var Magento\Sales\Block\Order\Email\Shipment\Items $block */
+
+$shipment = $block->getShipment();
+?>
+
+<?php if ($shipment) : ?>
+    <?php
+    $orderIncrementId = $shipment->getOrder()->getIncrementId();
+    $config = new \Laminas\Config\Config([
+        'barcode' => 'code128',
+        'barcodeParams' => [
+            'text' => $orderIncrementId,
+            'drawText' => false
+        ],
+        'renderer' => 'image',
+        'rendererParams' => ['imageType' => 'png']
+    ]);
+
+    $barcodeResource = Laminas\Barcode\Barcode::factory($config)->draw();
+
+    ob_start();
+    imagepng($barcodeResource);
+    $barcodeImage = ob_get_clean();
+    ?>
+
+    <?php if (!empty($orderIncrementId)) : ?>
+        <img class="barcode" src="<?php echo 'data:image/png;base64,' . base64_encode($barcodeImage); ?>">
+    <?php else: ?>
+        <div class="barcode">Shipment Barcode Image</div>
+    <?php endif; ?>
+
+<?php endif; ?>

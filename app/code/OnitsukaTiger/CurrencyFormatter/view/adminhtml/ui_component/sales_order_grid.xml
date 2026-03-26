@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<column name="base_grand_total" class="OnitsukaTiger\CurrencyFormatter\Ui\Component\Listing\Columns\Price">
+	    <argument name="data" xsi:type="array">
+	        <item name="config" xsi:type="array">
+	            <item name="filter" xsi:type="string">textRange</item>
+	            <item name="label" xsi:type="string" translate="true">Grand Total (Base)</item>
+	        </item>
+	    </argument>
+	</column>
+	<column name="subtotal" class="OnitsukaTiger\CurrencyFormatter\Ui\Component\Listing\Columns\Price">
+	    <argument name="data" xsi:type="array">
+	        <item name="config" xsi:type="array">
+	            <item name="filter" xsi:type="string">textRange</item>
+	            <item name="label" xsi:type="string" translate="true">Subtotal</item>
+	        </item>
+	    </argument>
+	</column>
+	<column name="shipping_and_handling" class="OnitsukaTiger\CurrencyFormatter\Ui\Component\Listing\Columns\Price">
+	    <argument name="data" xsi:type="array">
+	        <item name="config" xsi:type="array">
+	            <item name="filter" xsi:type="string">textRange</item>
+	            <item name="label" xsi:type="string" translate="true">Shipping and Handling</item>
+	        </item>
+	    </argument>
+	</column>
+	<column name="total_refunded" class="OnitsukaTiger\CurrencyFormatter\Ui\Component\Listing\Columns\Price">
+	    <argument name="data" xsi:type="array">
+	        <item name="config" xsi:type="array">
+	            <item name="filter" xsi:type="string">textRange</item>
+	            <item name="label" xsi:type="string" translate="true">Total Refunded</item>
+	        </item>
+	    </argument>
+	</column>
+</listing>

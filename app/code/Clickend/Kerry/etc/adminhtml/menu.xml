@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Clickend Kerry module registration
+ * @package Clickend\Kerry
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+	 <add
+            id="Clickend_Kerry::kerry"
+            title="Kerry Tracking"
+            module="Clickend_Kerry"
+            sortOrder="20"
+            resource="Clickend_Kerry::kerry"/>       
+            
+		<add action="kerry/trackinglist/index" id="Clickend_Kerry::TrackingList" module="Clickend_Kerry" resource="Clickend_Kerry::TrackingList" sortOrder="20" title="Tracking List"  parent="Clickend_Kerry::kerry"/>
+		
+		<add action="kerry/trackinghistory/index" id="Clickend_Kerry::TrackingHistory" module="Clickend_Kerry" resource="Clickend_Kerry::TrackingHistory" sortOrder="21" title="Tracking Status"  parent="Clickend_Kerry::kerry"/>
+		
+		<add action="adminhtml/system_config/edit/section/kerry" id="Clickend_Kerry::KerryConfig" module="Clickend_Kerry" resource="Clickend_Kerry::KerryConfig" sortOrder="22" title="Configuration"  parent="Clickend_Kerry::kerry"/>		
+		
+	</menu>
+</config>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Firebear\PlatformNetsuite\Model\Export\Adapter\Order" type="OnitsukaTiger\NetsuiteOrderSync\Model\Export\Adapter\Order" />
+    <preference for="Firebear\PlatformNetsuite\Model\Export\Adapter\Gateway\Order" type="OnitsukaTiger\NetsuiteOrderSync\Model\Export\Adapter\Gateway\Order" />
+    <preference for="Firebear\ImportExport\Model\Export\Order" type="OnitsukaTiger\NetsuiteOrderSync\Model\Export\Order" />
+    <type name="Firebear\ImportExport\Controller\Adminhtml\Job\Downfiltres">
+        <plugin name="add_select_option_to_stock_location" type="OnitsukaTiger\NetsuiteOrderSync\Plugin\Controller\Adminhtml\Job\FilterStockLocation" />
+    </type>
+</config>

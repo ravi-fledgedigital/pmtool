@@ -1,0 +1,14 @@
+<?php
+$isRedirectFromCatalog = $this->getRequest()->getParam('redirect_from_catalog', false);
+if ($isRedirectFromCatalog) {
+    echo $this->getLayout()
+        ->createBlock(\Magento\Cms\Block\Block::class)
+        ->setBlockId('custom-page-not-found')
+        ->toHtml();
+} else {
+    echo $this->getLayout()
+        ->createBlock(\Magento\Cms\Block\Block::class)
+        ->setBlockId('page-not-found')
+        ->toHtml();
+}
+?>

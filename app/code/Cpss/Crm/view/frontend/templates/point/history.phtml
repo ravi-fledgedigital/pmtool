@@ -1,0 +1,65 @@
+<?php
+/**
+ * @var \Cpss\Crm\Block\Point\History $block
+ */
+
+$options = $block->getJobCodeOptions();
+$pointCollection = $block->getPointHistoryCollection();
+?>
+<?php if ($pointCollection != null): ?>
+<div class="point-history">
+    <div class="point-history__items">
+        <div class="point-history__table-wrap">
+            <?= $block->getPointHistoryByPagination() ?>
+            <table border='1' class="table table-point-history table-pretty--2nd">
+                <thead>
+                    <tr>
+                        <th><?php echo __('Date') ?></th>
+                        <th><?php echo __('Reason') ?></th>
+                        <th><?php echo __('Points') ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($pointCollection as $item): ?>
+                    <?php
+                        $point = $item['point'];
+                        $direction = $item['direction'];
+                        $ope = $item['ope'];
+                        $scode = $item["scode"];
+                        $stat = $item["status"] == "CAN" ? "line-through" : "";
+                    ?>
+                    <tr>
+                        <td class="point-history__transaction-date"><?= $block->formatDateFromCpss($item['effective']) . '&nbsp';?></td>
+                        <td class="point-history__reason <?= $stat ?? '' ?>">
+                            <?php
+                                if ($ope == "EXPR") {
+                                    if ($this->getCurrentStoreId() == 5) {
+                                        echo __("유효 기간 만료");
+                                    } else {
+                                        echo __("Expired with out of date");
+                                    }
+                                    echo __("Expired with out of date");
+                                } else {
+                                    echo $options[$scode] ?? "";
+                                }
+                            ?>
+                        </td>
+                        <td class="point-history__points  <?= $stat ?? '' ?>">
+                            <?php
+                                if($direction == 'ADD'){
+                                    echo number_format($item['point']);
+                                }elseif($direction == 'SUB' || $ope == "EXPR"){
+                                    echo number_format(-$item['point']);
+                                }
+                            ?>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<?php else:?>
+<div class="point-history-message message info empty"><span><?= /* @escapeNotVerified */ __('You don\'t have any recorded points.') ?></span></div>
+<?php endif; ?>

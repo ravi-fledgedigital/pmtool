@@ -1,0 +1,737 @@
+ID-BA,Amlapura,Amlapura
+ID-BA,Jimbaran,Jimbaran
+ID-BA,Kab. Badung,Kab. Badung
+ID-BA,Kab. Bangli,Kab. Bangli
+ID-BA,Kab. Buleleng,Kab. Buleleng
+ID-BA,Kab. Gianyar,Kab. Gianyar
+ID-BA,Kab. Jembrana,Kab. Jembrana
+ID-BA,Kab. Karangasem,Kab. Karangasem
+ID-BA,Kab. Klungkung,Kab. Klungkung
+ID-BA,Kab. Tabanan,Kab. Tabanan
+ID-BA,Kota Denpasar,Kota Denpasar
+ID-BA,Legian,Legian
+ID-BA,Ngurah Rai,Ngurah Rai
+ID-BA,Nusa Dua,Nusa Dua
+ID-BA,Sanur,Sanur
+ID-BA,Semarapura,Semarapura
+ID-BA,Singaraja,Singaraja
+ID-BB,Kab. Bangka,Kab. Bangka
+ID-BB,Kab. Bangka Barat,Kab. Bangka Barat
+ID-BB,Kab. Bangka Selatan,Kab. Bangka Selatan
+ID-BB,Kab. Bangka Tengah,Kab. Bangka Tengah
+ID-BB,Kab. Belitung,Kab. Belitung
+ID-BB,Kab. Belitung Timur,Kab. Belitung Timur
+ID-BB,Kota Pangkal Pinang,Kota Pangkal Pinang
+ID-BT,Kab. Lebak,Kab. Lebak
+ID-BT,Kab. Pandeglang,Kab. Pandeglang
+ID-BT,Kab. Serang,Kab. Serang
+ID-BT,Kab. Tangerang,Kab. Tangerang
+ID-BT,Kota Cilegon,Kota Cilegon
+ID-BT,Kota Serang,Kota Serang
+ID-BT,Kota Tangerang,Kota Tangerang
+ID-BT,Kota Tangerang Selatan,Kota Tangerang Selatan
+ID-BE,Kab. Bengkulu Selatan,Kab. Bengkulu Selatan
+ID-BE,Kab. Bengkulu Tengah,Kab. Bengkulu Tengah
+ID-BE,Kab. Bengkulu Utara,Kab. Bengkulu Utara
+ID-BE,Kab. Kaur,Kab. Kaur
+ID-BE,Kab. Kepahiang,Kab. Kepahiang
+ID-BE,Kab. Lebong,Kab. Lebong
+ID-BE,Kab. Muko Muko,Kab. Muko Muko
+ID-BE,Kab. Rejang Lebong,Kab. Rejang Lebong
+ID-BE,Kab. Seluma,Kab. Seluma
+ID-BE,Kaur,Kaur
+ID-BE,Kota Bengkulu,Kota Bengkulu
+ID-BE,Lebong,Lebong
+ID-BE,Muko-muko,Muko-muko
+ID-BE,Tais,Tais
+ID-YO,Kab. Bantul,Kab. Bantul
+ID-YO,Kab. Gunung Kidul,Kab. Gunung Kidul
+ID-YO,Kab. Kulon Progo,Kab. Kulon Progo
+ID-YO,Kab. Sleman,Kab. Sleman
+ID-YO,Kota Yogyakarta,Kota Yogyakarta
+ID-JK,Kab. Kepulauan Seribu,Kab. Kepulauan Seribu
+ID-JK,Kota DKI Jakarta,Kota DKI Jakarta
+ID-JK,Kota Jakarta Barat,Kota Jakarta Barat
+ID-JK,Kota Jakarta Pusat,Kota Jakarta Pusat
+ID-JK,Kota Jakarta Selatan,Kota Jakarta Selatan
+ID-JK,Kota Jakarta Timur,Kota Jakarta Timur
+ID-JK,Kota Jakarta Utara,Kota Jakarta Utara
+ID-JK,Pulau Pramuka,Pulau Pramuka
+ID-GO,Anggrek,Anggrek
+ID-GO,Atinggota,Atinggota
+ID-GO,Kab. Boalemo,Kab. Boalemo
+ID-GO,Kab. Bone Bolango,Kab. Bone Bolango
+ID-GO,Kab. Gorontalo,Kab. Gorontalo
+ID-GO,Kab. Gorontalo Utara,Kab. Gorontalo Utara
+ID-GO,Kab. Pohuwato,Kab. Pohuwato
+ID-GO,Kota Gorontalo,Kota Gorontalo
+ID-GO,Sumalata,Sumalata
+ID-GO,Tolingula,Tolingula
+ID-JA,Kab. Batang Hari,Kab. Batang Hari
+ID-JA,Kab. Bungo,Kab. Bungo
+ID-JA,Kab. Kerinci,Kab. Kerinci
+ID-JA,Kab. Merangin,Kab. Merangin
+ID-JA,Kab. Muaro Jambi,Kab. Muaro Jambi
+ID-JA,Kab. Sarolangun,Kab. Sarolangun
+ID-JA,Kab. Tanjung Jabung Barat,Kab. Tanjung Jabung Barat
+ID-JA,Kab. Tanjung Jabung Timur,Kab. Tanjung Jabung Timur
+ID-JA,Kab. Tebo,Kab. Tebo
+ID-JA,Kota Jambi,Kota Jambi
+ID-JA,Kota Sungaipenuh,Kota Sungaipenuh
+ID-JA,Kualatungkal,Kualatungkal
+ID-JA,Muara Bungo,Muara Bungo
+ID-JA,Sengeti,Sengeti
+ID-JB,Cibubur,Cibubur
+ID-JB,Cikarang,Cikarang
+ID-JB,Cimahi,Cimahi
+ID-JB,Cimareme,Cimareme
+ID-JB,Cirebon Barat,Cirebon Barat
+ID-JB,"Garut, Kab. Garut","Garut, Kab. Garut"
+ID-JB,Kab. Bandung,Kab. Bandung
+ID-JB,Kab. Bandung Barat,Kab. Bandung Barat
+ID-JB,Kab. Bekasi,Kab. Bekasi
+ID-JB,Kab. Bogor,Kab. Bogor
+ID-JB,Kab. Ciamis,Kab. Ciamis
+ID-JB,Kab. Cianjur,Kab. Cianjur
+ID-JB,Kab. Cirebon,Kab. Cirebon
+ID-JB,Kab. Garut,Kab. Garut
+ID-JB,Kab. Indramayu,Kab. Indramayu
+ID-JB,Kab. Karawang,Kab. Karawang
+ID-JB,Kab. Kuningan,Kab. Kuningan
+ID-JB,Kab. Majalengka,Kab. Majalengka
+ID-JB,Kab. Pangandaran,Kab. Pangandaran
+ID-JB,Kab. Purwakarta,Kab. Purwakarta
+ID-JB,Kab. Subang,Kab. Subang
+ID-JB,Kab. Sukabumi,Kab. Sukabumi
+ID-JB,Kab. Sumedang,Kab. Sumedang
+ID-JB,Kab. Tasikmalaya,Kab. Tasikmalaya
+ID-JB,Kota Bandung,Kota Bandung
+ID-JB,Kota Banjar,Kota Banjar
+ID-JB,Kota Bekasi,Kota Bekasi
+ID-JB,Kota Bogor,Kota Bogor
+ID-JB,Kota Cimahi,Kota Cimahi
+ID-JB,kota Cirebon,kota Cirebon
+ID-JB,Kota Depok,Kota Depok
+ID-JB,Kota Sukabumi,Kota Sukabumi
+ID-JB,Kota Tasikmalaya,Kota Tasikmalaya
+ID-JB,Sumedang,Sumedang
+ID-JT,Kab. Banjarnegara,Kab. Banjarnegara
+ID-JT,Kab. Banyumas,Kab. Banyumas
+ID-JT,Kab. Batang,Kab. Batang
+ID-JT,Kab. Blora,Kab. Blora
+ID-JT,Kab. Boyolali,Kab. Boyolali
+ID-JT,Kab. Brebes,Kab. Brebes
+ID-JT,Kab. Cilacap,Kab. Cilacap
+ID-JT,Kab. Demak,Kab. Demak
+ID-JT,Kab. Grobogan,Kab. Grobogan
+ID-JT,Kab. Jepara,Kab. Jepara
+ID-JT,Kab. Karanganyar,Kab. Karanganyar
+ID-JT,Kab. Kebumen,Kab. Kebumen
+ID-JT,Kab. Kendal,Kab. Kendal
+ID-JT,Kab. Klaten,Kab. Klaten
+ID-JT,Kab. Kudus,Kab. Kudus
+ID-JT,Kab. Magelang,Kab. Magelang
+ID-JT,Kab. Pati,Kab. Pati
+ID-JT,Kab. Pekalongan,Kab. Pekalongan
+ID-JT,Kab. Pemalang,Kab. Pemalang
+ID-JT,Kab. Purbalingga,Kab. Purbalingga
+ID-JT,Kab. Purworejo,Kab. Purworejo
+ID-JT,Kab. Rembang,Kab. Rembang
+ID-JT,Kab. Semarang,Kab. Semarang
+ID-JT,Kab. Sragen,Kab. Sragen
+ID-JT,Kab. Sukoharjo,Kab. Sukoharjo
+ID-JT,Kab. Tegal,Kab. Tegal
+ID-JT,Kab. Temanggung,Kab. Temanggung
+ID-JT,Kab. Wonogiri,Kab. Wonogiri
+ID-JT,Kab. Wonosobo,Kab. Wonosobo
+ID-JT,Klaten,Klaten
+ID-JT,Kota Magelang,Kota Magelang
+ID-JT,Kota Pekalongan,Kota Pekalongan
+ID-JT,Kota Salatiga,Kota Salatiga
+ID-JT,Kota Semarang,Kota Semarang
+ID-JT,Kota Surakarta,Kota Surakarta
+ID-JT,Kota Tegal,Kota Tegal
+ID-JT,Pekalongan,Pekalongan
+ID-JT,Purwokerto,Purwokerto
+ID-JT,Salatiga,Salatiga
+ID-JT,Tegal,Tegal
+ID-JT,Ungaran,Ungaran
+ID-JI,Blitar,Blitar
+ID-JI,Caruban,Caruban
+ID-JI,Kab. Bangkalan,Kab. Bangkalan
+ID-JI,Kab. Banyuwangi,Kab. Banyuwangi
+ID-JI,Kab. Blitar,Kab. Blitar
+ID-JI,Kab. Bojonegoro,Kab. Bojonegoro
+ID-JI,Kab. Bondowoso,Kab. Bondowoso
+ID-JI,Kab. Gresik,Kab. Gresik
+ID-JI,Kab. Jember,Kab. Jember
+ID-JI,Kab. Jombang,Kab. Jombang
+ID-JI,Kab. Kediri,Kab. Kediri
+ID-JI,Kab. Lamongan,Kab. Lamongan
+ID-JI,Kab. Lumajang,Kab. Lumajang
+ID-JI,Kab. Madiun,Kab. Madiun
+ID-JI,Kab. Magetan,Kab. Magetan
+ID-JI,Kab. Malang,Kab. Malang
+ID-JI,Kab. Mojokerto,Kab. Mojokerto
+ID-JI,Kab. Nganjuk,Kab. Nganjuk
+ID-JI,Kab. Ngawi,Kab. Ngawi
+ID-JI,Kab. Pacitan,Kab. Pacitan
+ID-JI,Kab. Pamekasan,Kab. Pamekasan
+ID-JI,Kab. Pasuruan,Kab. Pasuruan
+ID-JI,Kab. Ponorogo,Kab. Ponorogo
+ID-JI,Kab. Probolinggo,Kab. Probolinggo
+ID-JI,Kab. Sampang,Kab. Sampang
+ID-JI,Kab. Sidoarjo,Kab. Sidoarjo
+ID-JI,Kab. Situbondo,Kab. Situbondo
+ID-JI,Kab. Sumenep,Kab. Sumenep
+ID-JI,Kab. Trenggalek,Kab. Trenggalek
+ID-JI,Kab. Tuban,Kab. Tuban
+ID-JI,Kab. Tulungagung,Kab. Tulungagung
+ID-JI,Kendungan,Kendungan
+ID-JI,Kota Batu,Kota Batu
+ID-JI,Kota Blitar,Kota Blitar
+ID-JI,Kota Kediri,Kota Kediri
+ID-JI,Kota Madiun,Kota Madiun
+ID-JI,Kota Malang,Kota Malang
+ID-JI,Kota Mojokerto,Kota Mojokerto
+ID-JI,Kota Pasuruan,Kota Pasuruan
+ID-JI,Kota Probolinggo,Kota Probolinggo
+ID-JI,Kota Surabaya,Kota Surabaya
+ID-JI,Madiun,Madiun
+ID-KB,Ambalau,Ambalau
+ID-KB,Embau,Embau
+ID-KB,Kab. Bengkayang,Kab. Bengkayang
+ID-KB,Kab. Kapuas Hulu,Kab. Kapuas Hulu
+ID-KB,Kab. Kayong Utara,Kab. Kayong Utara
+ID-KB,Kab. Ketapang,Kab. Ketapang
+ID-KB,Kab. Kubu Raya,Kab. Kubu Raya
+ID-KB,Kab. Landak,Kab. Landak
+ID-KB,Kab. Melawi,Kab. Melawi
+ID-KB,Kab. Mempawah,Kab. Mempawah
+ID-KB,Kab. Sambas,Kab. Sambas
+ID-KB,Kab. Sanggau,Kab. Sanggau
+ID-KB,Kab. Sekadau,Kab. Sekadau
+ID-KB,Kab. Sintang,Kab. Sintang
+ID-KB,Kedamin,Kedamin
+ID-KB,Ketapang,Ketapang
+ID-KB,Kota Pontianak,Kota Pontianak
+ID-KB,Kota Singkawang,Kota Singkawang
+ID-KB,Kubu Raya,Kubu Raya
+ID-KB,Sanggau,Sanggau
+ID-KB,Singkawang,Singkawang
+ID-KB,Sui Kakap,Sui Kakap
+ID-KB,Sui Raya,Sui Raya
+ID-KS,Kab. Amuntai,Kab. Amuntai
+ID-KS,Kab. Balangan,Kab. Balangan
+ID-KS,Kab. Banjar,Kab. Banjar
+ID-KS,Kab. BanjarBaru,Kab. BanjarBaru
+ID-KS,Kab. Barito Kuala,Kab. Barito Kuala
+ID-KS,Kab. Batang Alai Tengah,Kab. Batang Alai Tengah
+ID-KS,Kab. Hulu Sungai Selatan,Kab. Hulu Sungai Selatan
+ID-KS,Kab. Hulu Sungai Tengah,Kab. Hulu Sungai Tengah
+ID-KS,Kab. Hulu Sungai Utara,Kab. Hulu Sungai Utara
+ID-KS,Kab. Kota Baru,Kab. Kota Baru
+ID-KS,Kab. Kotabaru,Kab. Kotabaru
+ID-KS,Kab. Rantau,Kab. Rantau
+ID-KS,Kab. Tabalong,Kab. Tabalong
+ID-KS,Kab. Tanah Bumbu,Kab. Tanah Bumbu
+ID-KS,Kab. Tanah Laut,Kab. Tanah Laut
+ID-KS,Kab. Tapin,Kab. Tapin
+ID-KS,Kota Banjarbaru,Kota Banjarbaru
+ID-KS,Kota Banjarmasin,Kota Banjarmasin
+ID-KU,Kab. Bulungan,Kab. Bulungan
+ID-KU,Kab. Malinau,Kab. Malinau
+ID-KU,Kab. Nunukan,Kab. Nunukan
+ID-KU,Kab. Tana Tidung,Kab. Tana Tidung
+ID-KU,Kota Tarakan,Kota Tarakan
+ID-KU,Tanah Tidung,Tanah Tidung
+ID-KT,Kab. Barito Selatan,Kab. Barito Selatan
+ID-KT,Kab. Barito Timur,Kab. Barito Timur
+ID-KT,Kab. Barito Utara,Kab. Barito Utara
+ID-KT,Kab. Gunung Mas,Kab. Gunung Mas
+ID-KT,Kab. Kapuas,Kab. Kapuas
+ID-KT,Kab. Katingan,Kab. Katingan
+ID-KT,Kab. Kotawaringin Barat,Kab. Kotawaringin Barat
+ID-KT,Kab. Kotawaringin Timur,Kab. Kotawaringin Timur
+ID-KT,Kab. Lamandau,Kab. Lamandau
+ID-KT,Kab. Murung Raya,Kab. Murung Raya
+ID-KT,Kab. Pulang Pisau,Kab. Pulang Pisau
+ID-KT,Kab. Seruyan,Kab. Seruyan
+ID-KT,Kab. Sukamara,Kab. Sukamara
+ID-KT,Kasongan,Kasongan
+ID-KT,Kota Palangka Raya,Kota Palangka Raya
+ID-KT,Kota Palangkaraya,Kota Palangkaraya
+ID-KT,Kuala Kapuas,Kuala Kapuas
+ID-KT,Kuala Pembuang,Kuala Pembuang
+ID-KT,Nanga Bulik,Nanga Bulik
+ID-KT,Pangkalan Bun,Pangkalan Bun
+ID-KT,Pulang Pisau,Pulang Pisau
+ID-KT,Sampit,Sampit
+ID-KI,Kab. Berau,Kab. Berau
+ID-KI,Kab. Kutai Barat,Kab. Kutai Barat
+ID-KI,Kab. Kutai Kartanegara,Kab. Kutai Kartanegara
+ID-KI,Kab. Kutai Timur,Kab. Kutai Timur
+ID-KI,Kab. Mahakam Ulu,Kab. Mahakam Ulu
+ID-KI,Kab. Paser,Kab. Paser
+ID-KI,Kab. Penajam Paser Utara,Kab. Penajam Paser Utara
+ID-KI,Kota Balikpapan,Kota Balikpapan
+ID-KI,Kota Bontang,Kota Bontang
+ID-KI,Kota Samarinda,Kota Samarinda
+ID-KI,Sangatta,Sangatta
+ID-KI,Sangkima,Sangkima
+ID-KI,Sendawar,Sendawar
+ID-KI,Singa Gembara,Singa Gembara
+ID-KI,Swarga Bara,Swarga Bara
+ID-KI,Tubaan,Tubaan
+ID-KR,Bandar Sri Bintan,Bandar Sri Bintan
+ID-KR,Daik,Daik
+ID-KR,Dompak,Dompak
+ID-KR,Kab. Bintan,Kab. Bintan
+ID-KR,Kab. Karimun,Kab. Karimun
+ID-KR,Kab. Kepulauan Anambas,Kab. Kepulauan Anambas
+ID-KR,Kab. Kepulauan Riau,Kab. Kepulauan Riau
+ID-KR,Kab. Lingga,Kab. Lingga
+ID-KR,Kab. Natuna,Kab. Natuna
+ID-KR,Kota Batam,Kota Batam
+ID-KR,Kota Tanjung Pinang,Kota Tanjung Pinang
+ID-KR,Lagoi,Lagoi
+ID-KR,Pulau Penyengat,Pulau Penyengat
+ID-KR,Senggarang,Senggarang
+ID-LA,Bandar Jaya,Bandar Jaya
+ID-LA,Gunung Terang,Gunung Terang
+ID-LA,Kab. Lampung Barat,Kab. Lampung Barat
+ID-LA,Kab. Lampung Selatan,Kab. Lampung Selatan
+ID-LA,Kab. Lampung Tengah,Kab. Lampung Tengah
+ID-LA,Kab. Lampung Timur,Kab. Lampung Timur
+ID-LA,Kab. Lampung Utara,Kab. Lampung Utara
+ID-LA,Kab. Mesuji,Kab. Mesuji
+ID-LA,Kab. Pesawaran,Kab. Pesawaran
+ID-LA,Kab. Pesisir Barat,Kab. Pesisir Barat
+ID-LA,Kab. Pringsewu,Kab. Pringsewu
+ID-LA,Kab. Tanggamus,Kab. Tanggamus
+ID-LA,Kab. Tulang Bawang,Kab. Tulang Bawang
+ID-LA,Kab. Tulang Bawang Barat,Kab. Tulang Bawang Barat
+ID-LA,Kab. Way Kanan,Kab. Way Kanan
+ID-LA,Kota Agung,Kota Agung
+ID-LA,Kota Bandar Lampung,Kota Bandar Lampung
+ID-LA,Kota Metro,Kota Metro
+ID-LA,Lambu Kibang,Lambu Kibang
+ID-LA,Liwa,Liwa
+ID-LA,Metro,Metro
+ID-MA,Kab. Buru,Kab. Buru
+ID-MA,Kab. Buru Selatan,Kab. Buru Selatan
+ID-MA,Kab. Dataran Hunimoa,Kab. Dataran Hunimoa
+ID-MA,Kab. Dobo,Kab. Dobo
+ID-MA,Kab. Kepulauan Aru,Kab. Kepulauan Aru
+ID-MA,Kab. Luser,Kab. Luser
+ID-MA,Kab. Maluku,Kab. Maluku
+ID-MA,Kab. Maluku Barat Daya,Kab. Maluku Barat Daya
+ID-MA,Kab. Maluku Tengah,Kab. Maluku Tengah
+ID-MA,Kab. Maluku Tenggara,Kab. Maluku Tenggara
+ID-MA,Kab. Maluku Tenggara Barat,Kab. Maluku Tenggara Barat
+ID-MA,Kab. Mola,Kab. Mola
+ID-MA,Kab. Piru,Kab. Piru
+ID-MA,Kab. Seram Bagian Barat,Kab. Seram Bagian Barat
+ID-MA,Kab. Seram Bagian Timur,Kab. Seram Bagian Timur
+ID-MA,Kab. Serwaru,Kab. Serwaru
+ID-MA,Kota Ambon,Kota Ambon
+ID-MA,Kota Tual,Kota Tual
+ID-MU,Kab. Halmahera Barat,Kab. Halmahera Barat
+ID-MU,Kab. Halmahera Selatan,Kab. Halmahera Selatan
+ID-MU,Kab. Halmahera Tengah,Kab. Halmahera Tengah
+ID-MU,Kab. Halmahera Timur,Kab. Halmahera Timur
+ID-MU,Kab. Halmahera Utara,Kab. Halmahera Utara
+ID-MU,Kab. Kepulauan Sula,Kab. Kepulauan Sula
+ID-MU,Kab. Pulau Morotai,Kab. Pulau Morotai
+ID-MU,Kab. Pulau Taliabu,Kab. Pulau Taliabu
+ID-MU,Kota Ternate,Kota Ternate
+ID-MU,Kota Tidore Kepulauan,Kota Tidore Kepulauan
+ID-MU,Labuha,Labuha
+ID-MU,Nggele,Nggele
+ID-AC,Bireuen,Bireuen
+ID-AC,Kab. Aceh Barat,Kab. Aceh Barat
+ID-AC,Kab. Aceh Barat Daya,Kab. Aceh Barat Daya
+ID-AC,Kab. Aceh Besar,Kab. Aceh Besar
+ID-AC,Kab. Aceh Jaya,Kab. Aceh Jaya
+ID-AC,Kab. Aceh Selatan,Kab. Aceh Selatan
+ID-AC,Kab. Aceh Singkil,Kab. Aceh Singkil
+ID-AC,Kab. Aceh Tamiang,Kab. Aceh Tamiang
+ID-AC,Kab. Aceh Tengah,Kab. Aceh Tengah
+ID-AC,Kab. Aceh Tenggara,Kab. Aceh Tenggara
+ID-AC,Kab. Aceh Timur,Kab. Aceh Timur
+ID-AC,Kab. Aceh Utara,Kab. Aceh Utara
+ID-AC,Kab. Bener Meriah,Kab. Bener Meriah
+ID-AC,Kab. Bireuen,Kab. Bireuen
+ID-AC,Kab. Gayo Lues,Kab. Gayo Lues
+ID-AC,Kab. Nagan Raya,Kab. Nagan Raya
+ID-AC,Kab. Pidie,Kab. Pidie
+ID-AC,Kab. Pidie Jaya,Kab. Pidie Jaya
+ID-AC,Kab. Simeulue,Kab. Simeulue
+ID-AC,Kota Banda Aceh,Kota Banda Aceh
+ID-AC,Kota Langsa,Kota Langsa
+ID-AC,Kota Lhokseumawe,Kota Lhokseumawe
+ID-AC,Kota Sabang,Kota Sabang
+ID-AC,Kota Subulussalam,Kota Subulussalam
+ID-AC,Kutacane,Kutacane
+ID-AC,Langsa,Langsa
+ID-AC,Langsa Teungoh,Langsa Teungoh
+ID-AC,Lhokseumawe,Lhokseumawe
+ID-AC,Meulaboh,Meulaboh
+ID-AC,Pantan Jaya,Pantan Jaya
+ID-AC,Sabang,Sabang
+ID-AC,Simpang Tiga Redelon,Simpang Tiga Redelon
+ID-AC,Sinabang,Sinabang
+ID-AC,Subulussalam,Subulussalam
+ID-AC,Suro Baru,Suro Baru
+ID-AC,Takengon,Takengon
+ID-NB,Kab. Bima,Kab. Bima
+ID-NB,Kab. Dompu,Kab. Dompu
+ID-NB,Kab. Lombok Barat,Kab. Lombok Barat
+ID-NB,Kab. Lombok Tengah,Kab. Lombok Tengah
+ID-NB,Kab. Lombok Timur,Kab. Lombok Timur
+ID-NB,Kab. Lombok Utara,Kab. Lombok Utara
+ID-NB,Kab. Sumbawa,Kab. Sumbawa
+ID-NB,Kab. Sumbawa Barat,Kab. Sumbawa Barat
+ID-NB,Kota Bima,Kota Bima
+ID-NB,Kota Mataram,Kota Mataram
+ID-NB,Kota Sumbawa Besar,Kota Sumbawa Besar
+ID-NT,Baa,Baa
+ID-NT,Kab. Alor,Kab. Alor
+ID-NT,Kab. Belu,Kab. Belu
+ID-NT,Kab. Ende,Kab. Ende
+ID-NT,Kab. Flores Timur,Kab. Flores Timur
+ID-NT,Kab. Kupang,Kab. Kupang
+ID-NT,Kab. Lembata,Kab. Lembata
+ID-NT,Kab. Malaka,Kab. Malaka
+ID-NT,Kab. Manggarai,Kab. Manggarai
+ID-NT,Kab. Manggarai Barat,Kab. Manggarai Barat
+ID-NT,Kab. Manggarai Timur,Kab. Manggarai Timur
+ID-NT,Kab. Nagekeo,Kab. Nagekeo
+ID-NT,Kab. Ngada,Kab. Ngada
+ID-NT,Kab. Rote Ndao,Kab. Rote Ndao
+ID-NT,Kab. Sabu Raijua,Kab. Sabu Raijua
+ID-NT,Kab. Sikka,Kab. Sikka
+ID-NT,Kab. Sumba Barat,Kab. Sumba Barat
+ID-NT,Kab. Sumba Barat Daya,Kab. Sumba Barat Daya
+ID-NT,Kab. Sumba Tengah,Kab. Sumba Tengah
+ID-NT,Kab. Sumba Timur,Kab. Sumba Timur
+ID-NT,Kab. Timor Tengah Selatan,Kab. Timor Tengah Selatan
+ID-NT,Kab. Timor Tengah Utara,Kab. Timor Tengah Utara
+ID-NT,Kalabahi,Kalabahi
+ID-NT,Komba,Komba
+ID-NT,Kota Kupang,Kota Kupang
+ID-NT,Labuan Bajo,Labuan Bajo
+ID-NT,Lambaleda,Lambaleda
+ID-NT,Laratama,Laratama
+ID-NT,Lembata,Lembata
+ID-NT,Maumere,Maumere
+ID-NT,Mbay,Mbay
+ID-NT,Mborong,Mborong
+ID-NT,Ngada Bawa,Ngada Bawa
+ID-NT,Oelamasi,Oelamasi
+ID-NT,Ponco Ranaka,Ponco Ranaka
+ID-NT,Sambi Rambas,Sambi Rambas
+ID-NT,Waibakul,Waibakul
+ID-NT,Walakaka,Walakaka
+ID-NT,Wogomang Ulewa,Wogomang Ulewa
+ID-PA,Botawa,Botawa
+ID-PA,Burmeso,Burmeso
+ID-PA,Kab. Asmat,Kab. Asmat
+ID-PA,Kab. Biak Numfor,Kab. Biak Numfor
+ID-PA,Kab. Boven Digoel,Kab. Boven Digoel
+ID-PA,Kab. Deiyai,Kab. Deiyai
+ID-PA,Kab. Dogiyai,Kab. Dogiyai
+ID-PA,Kab. Intan Jaya,Kab. Intan Jaya
+ID-PA,Kab. Jayapura,Kab. Jayapura
+ID-PA,Kab. Jayawijaya,Kab. Jayawijaya
+ID-PA,Kab. Keerom,Kab. Keerom
+ID-PA,Kab. Kepulauan Yapen,Kab. Kepulauan Yapen
+ID-PA,Kab. Lanny Jaya,Kab. Lanny Jaya
+ID-PA,Kab. Mamberamo Raya,Kab. Mamberamo Raya
+ID-PA,Kab. Mamberamo Tengah,Kab. Mamberamo Tengah
+ID-PA,Kab. Mappi,Kab. Mappi
+ID-PA,Kab. Merauke,Kab. Merauke
+ID-PA,Kab. Mimika,Kab. Mimika
+ID-PA,Kab. Nabire,Kab. Nabire
+ID-PA,Kab. Nduga,Kab. Nduga
+ID-PA,Kab. Paniai,Kab. Paniai
+ID-PA,Kab. Pegunungan Bintang,Kab. Pegunungan Bintang
+ID-PA,Kab. Puncak,Kab. Puncak
+ID-PA,Kab. Puncak Jaya,Kab. Puncak Jaya
+ID-PA,Kab. Sarmi,Kab. Sarmi
+ID-PA,Kab. Supiori,Kab. Supiori
+ID-PA,Kab. Tolikara,Kab. Tolikara
+ID-PA,Kab. Waropen,Kab. Waropen
+ID-PA,Kab. Yahukimo,Kab. Yahukimo
+ID-PA,Kab. Yalimo,Kab. Yalimo
+ID-PA,Kepi,Kepi
+ID-PA,Kota Jayapura,Kota Jayapura
+ID-PA,Serui,Serui
+ID-PA,Sorendiweri,Sorendiweri
+ID-PA,Tanah Merah/ Boven Digoel,Tanah Merah/ Boven Digoel
+ID-PB,Kab. Fakfak,Kab. Fakfak
+ID-PB,Kab. Kaimana,Kab. Kaimana
+ID-PB,Kab. Manokwari,Kab. Manokwari
+ID-PB,Kab. Manokwari Selatan,Kab. Manokwari Selatan
+ID-PB,Kab. Maybrat,Kab. Maybrat
+ID-PB,Kab. Pegunungan Arfak,Kab. Pegunungan Arfak
+ID-PB,Kab. Raja Ampat,Kab. Raja Ampat
+ID-PB,Kab. Sorong,Kab. Sorong
+ID-PB,Kab. Sorong Selatan,Kab. Sorong Selatan
+ID-PB,Kab. Tambrauw,Kab. Tambrauw
+ID-PB,Kab. Teluk Bintuni,Kab. Teluk Bintuni
+ID-PB,Kab. Teluk Wondama,Kab. Teluk Wondama
+ID-PB,Kota Sorong,Kota Sorong
+ID-PB,Manokwari,Manokwari
+ID-PB,Rasei,Rasei
+ID-PB,Waisai,Waisai
+ID-RI,Bagan Siapi-api,Bagan Siapi-api
+ID-RI,Duri Mandau,Duri Mandau
+ID-RI,Kab. Bengkalis,Kab. Bengkalis
+ID-RI,Kab. Indragiri Hilir,Kab. Indragiri Hilir
+ID-RI,Kab. Indragiri Hulu,Kab. Indragiri Hulu
+ID-RI,Kab. Kampar,Kab. Kampar
+ID-RI,Kab. Kepulauan Meranti,Kab. Kepulauan Meranti
+ID-RI,Kab. Kuantan Singingi,Kab. Kuantan Singingi
+ID-RI,Kab. Pelalawan,Kab. Pelalawan
+ID-RI,Kab. Rokan Hilir,Kab. Rokan Hilir
+ID-RI,Kab. Rokan Hulu,Kab. Rokan Hulu
+ID-RI,Kab. Siak,Kab. Siak
+ID-RI,Kota Dumai,Kota Dumai
+ID-RI,Kota Pekanbaru,Kota Pekanbaru
+ID-RI,Meranti,Meranti
+ID-RI,Pasir Pangaraian,Pasir Pangaraian
+ID-RI,Selat Panjang,Selat Panjang
+ID-RI,Siak Indrapura,Siak Indrapura
+ID-RI,Sorek,Sorek
+ID-RI,Teluk Kuantan,Teluk Kuantan
+ID-RI,Tembusai,Tembusai
+ID-RI,Tembusai Utara,Tembusai Utara
+ID-SR,Kab. Majene,Kab. Majene
+ID-SR,Kab. Mamasa,Kab. Mamasa
+ID-SR,Kab. Mamuju,Kab. Mamuju
+ID-SR,Kab. Mamuju Tengah,Kab. Mamuju Tengah
+ID-SR,Kab. Mamuju Utara,Kab. Mamuju Utara
+ID-SR,Kab. Polewali Mandar,Kab. Polewali Mandar
+ID-SN,Jeneponto,Jeneponto
+ID-SN,Kab. Bantaeng,Kab. Bantaeng
+ID-SN,Kab. Barru,Kab. Barru
+ID-SN,Kab. Bone,Kab. Bone
+ID-SN,Kab. Bulukumba,Kab. Bulukumba
+ID-SN,Kab. Enrekang,Kab. Enrekang
+ID-SN,Kab. Gowa,Kab. Gowa
+ID-SN,Kab. Jeneponto,Kab. Jeneponto
+ID-SN,Kab. Kepulauan Selayar,Kab. Kepulauan Selayar
+ID-SN,Kab. Luwu,Kab. Luwu
+ID-SN,Kab. Luwu Timur,Kab. Luwu Timur
+ID-SN,Kab. Luwu Utara,Kab. Luwu Utara
+ID-SN,Kab. Maros,Kab. Maros
+ID-SN,Kab. Pangkajene Kepulauan,Kab. Pangkajene Kepulauan
+ID-SN,Kab. Pinrang,Kab. Pinrang
+ID-SN,Kab. Sidenreng Rappang,Kab. Sidenreng Rappang
+ID-SN,Kab. Sinjai,Kab. Sinjai
+ID-SN,Kab. Soppeng,Kab. Soppeng
+ID-SN,Kab. Takalar,Kab. Takalar
+ID-SN,Kab. Tana Toraja,Kab. Tana Toraja
+ID-SN,Kab. Toraja Utara,Kab. Toraja Utara
+ID-SN,Kab. Wajo,Kab. Wajo
+ID-SN,Kalukuang Masalima,Kalukuang Masalima
+ID-SN,Kota Makassar,Kota Makassar
+ID-SN,Kota Palopo,Kota Palopo
+ID-SN,Kota Parepare,Kota Parepare
+ID-SN,Maros,Maros
+ID-SN,Palopo,Palopo
+ID-SN,Pare-Pare,Pare-Pare
+ID-SN,Pinrang,Pinrang
+ID-SN,Sengkang,Sengkang
+ID-SN,Sidenreng,Sidenreng
+ID-SN,Sidrap,Sidrap
+ID-SN,Sinjai,Sinjai
+ID-SN,Sungguminasa,Sungguminasa
+ID-SN,Takalar,Takalar
+ID-SN,Watampone,Watampone
+ID-SN,Watansoppeng,Watansoppeng
+ID-ST,Bungku,Bungku
+ID-ST,Buol,Buol
+ID-ST,Dolo,Dolo
+ID-ST,Kab. Banggai,Kab. Banggai
+ID-ST,Kab. Banggai Kepulauan,Kab. Banggai Kepulauan
+ID-ST,Kab. Banggai Laut,Kab. Banggai Laut
+ID-ST,Kab. Buol,Kab. Buol
+ID-ST,Kab. Donggala,Kab. Donggala
+ID-ST,Kab. Morowali,Kab. Morowali
+ID-ST,Kab. Morowali Utara,Kab. Morowali Utara
+ID-ST,Kab. Parigi Moutong,Kab. Parigi Moutong
+ID-ST,Kab. Poso,Kab. Poso
+ID-ST,Kab. Sigi,Kab. Sigi
+ID-ST,Kab. Tojo Una-Una,Kab. Tojo Una-Una
+ID-ST,Kab. Toli-Toli,Kab. Toli-Toli
+ID-ST,Kota Palu,Kota Palu
+ID-ST,Lo Bangkurung,Lo Bangkurung
+ID-ST,Toli-Toli,Toli-Toli
+ID-SG,Bau - Bau,Bau - Bau
+ID-SG,Buranga,Buranga
+ID-SG,Kab. Bombana,Kab. Bombana
+ID-SG,Kab. Buton,Kab. Buton
+ID-SG,Kab. Buton Selatan,Kab. Buton Selatan
+ID-SG,Kab. Buton Tengah,Kab. Buton Tengah
+ID-SG,Kab. Buton Utara,Kab. Buton Utara
+ID-SG,Kab. Kolaka,Kab. Kolaka
+ID-SG,Kab. Kolaka Timur,Kab. Kolaka Timur
+ID-SG,Kab. Kolaka Utara,Kab. Kolaka Utara
+ID-SG,Kab. Konawe,Kab. Konawe
+ID-SG,Kab. Konawe Kepulauan,Kab. Konawe Kepulauan
+ID-SG,Kab. Konawe Selatan,Kab. Konawe Selatan
+ID-SG,Kab. Konawe Utara,Kab. Konawe Utara
+ID-SG,Kab. Muna,Kab. Muna
+ID-SG,Kab. Muna Barat,Kab. Muna Barat
+ID-SG,Kab. Wakatobi,Kab. Wakatobi
+ID-SG,Kendar,Kendar
+ID-SG,Kota Bau-Bau,Kota Bau-Bau
+ID-SG,Kota Kendari,Kota Kendari
+ID-SG,Raha,Raha
+ID-SG,Tikep,Tikep
+ID-SG,Wakorumba,Wakorumba
+ID-SG,Wawonii,Wawonii
+ID-SG,Waworete,Waworete
+ID-SA,Bintauna,Bintauna
+ID-SA,Bitung,Bitung
+ID-SA,BOLAANG ITANG,BOLAANG ITANG
+ID-SA,Boroko,Boroko
+ID-SA,Kab. Bolaang Mongondow,Kab. Bolaang Mongondow
+ID-SA,Kab. Bolaang Mongondow Selatan,Kab. Bolaang Mongondow Selatan
+ID-SA,Kab. Bolaang Mongondow Timur,Kab. Bolaang Mongondow Timur
+ID-SA,Kab. Bolaang Mongondow Utara,Kab. Bolaang Mongondow Utara
+ID-SA,Kab. Kepulauan Sangihe,Kab. Kepulauan Sangihe
+ID-SA,Kab. Kepulauan Siau Tagulandang Biaro (Sitaro),Kab. Kepulauan Siau Tagulandang Biaro (Sitaro)
+ID-SA,Kab. Kepulauan Talaud,Kab. Kepulauan Talaud
+ID-SA,Kab. Minahasa,Kab. Minahasa
+ID-SA,Kab. Minahasa Selatan,Kab. Minahasa Selatan
+ID-SA,Kab. Minahasa Tenggara,Kab. Minahasa Tenggara
+ID-SA,Kab. Minahasa Utara,Kab. Minahasa Utara
+ID-SA,Kaidipang,Kaidipang
+ID-SA,Kota Bitung,Kota Bitung
+ID-SA,Kota Kotamobagu,Kota Kotamobagu
+ID-SA,Kota Manado,Kota Manado
+ID-SA,Kota Tomohon,Kota Tomohon
+ID-SA,Kotamobagu,Kotamobagu
+ID-SA,Passi,Passi
+ID-SA,Pinogaluman,Pinogaluman
+ID-SA,Tombasian,Tombasian
+ID-SA,Tomohon,Tomohon
+ID-SA,Tondano,Tondano
+ID-SB,Arosuka,Arosuka
+ID-SB,Batu Sangkar,Batu Sangkar
+ID-SB,Bukit Tinggi,Bukit Tinggi
+ID-SB,Kab. Agam,Kab. Agam
+ID-SB,Kab. Dharmasraya,Kab. Dharmasraya
+ID-SB,Kab. Kepulauan Mentawai,Kab. Kepulauan Mentawai
+ID-SB,Kab. Lima Puluh Kota,Kab. Lima Puluh Kota
+ID-SB,Kab. Padang Pariaman,Kab. Padang Pariaman
+ID-SB,Kab. Pasaman,Kab. Pasaman
+ID-SB,Kab. Pasaman Barat,Kab. Pasaman Barat
+ID-SB,Kab. Pesisir Selatan,Kab. Pesisir Selatan
+ID-SB,Kab. Sijunjung,Kab. Sijunjung
+ID-SB,Kab. Solok,Kab. Solok
+ID-SB,Kab. Solok Selatan,Kab. Solok Selatan
+ID-SB,Kab. Tanah Datar,Kab. Tanah Datar
+ID-SB,Kota Bukittinggi,Kota Bukittinggi
+ID-SB,Kota Padang,Kota Padang
+ID-SB,Kota Padang Panjang,Kota Padang Panjang
+ID-SB,Kota Pariaman,Kota Pariaman
+ID-SB,Kota Payakumbuh,Kota Payakumbuh
+ID-SB,Kota Sawah Lunto,Kota Sawah Lunto
+ID-SB,Kota Solok,Kota Solok
+ID-SB,Padang Aro,Padang Aro
+ID-SB,Padang Panjang,Padang Panjang
+ID-SB,Painan,Painan
+ID-SB,Pariaman,Pariaman
+ID-SB,Payakumbuh,Payakumbuh
+ID-SB,Sarilamak,Sarilamak
+ID-SB,Sawahlunto,Sawahlunto
+ID-SB,Simpang Empat,Simpang Empat
+ID-SB,Sipora,Sipora
+ID-SB,Solok,Solok
+ID-SB,Tuapejat,Tuapejat
+ID-SS,Baturaja,Baturaja
+ID-SS,Kab. Banyuasin,Kab. Banyuasin
+ID-SS,Kab. Empat Lawang,Kab. Empat Lawang
+ID-SS,Kab. Lahat,Kab. Lahat
+ID-SS,Kab. Muara Enim,Kab. Muara Enim
+ID-SS,Kab. Musi Banyuasin,Kab. Musi Banyuasin
+ID-SS,Kab. Musi Rawas,Kab. Musi Rawas
+ID-SS,Kab. Musi Rawas Utara,Kab. Musi Rawas Utara
+ID-SS,Kab. Ogan Ilir,Kab. Ogan Ilir
+ID-SS,Kab. Ogan Komering Ilir,Kab. Ogan Komering Ilir
+ID-SS,Kab. Ogan Komering Ulu,Kab. Ogan Komering Ulu
+ID-SS,Kab. Ogan Komering Ulu Selatan,Kab. Ogan Komering Ulu Selatan
+ID-SS,Kab. Ogan Komering Ulu Timur,Kab. Ogan Komering Ulu Timur
+ID-SS,Kab. Penukal Abab Lematang Ilir,Kab. Penukal Abab Lematang Ilir
+ID-SS,Kota Lubuk Linggau,Kota Lubuk Linggau
+ID-SS,Kota Pagar Alam,Kota Pagar Alam
+ID-SS,Kota Palembang,Kota Palembang
+ID-SS,Kota Prabumulih,Kota Prabumulih
+ID-SS,Lubuk Linggau,Lubuk Linggau
+ID-SS,Merapi,Merapi
+ID-SS,Muara Beliti Baru,Muara Beliti Baru
+ID-SS,Muara Rupit,Muara Rupit
+ID-SS,Pagar Alam,Pagar Alam
+ID-SS,Pangkalan Balai,Pangkalan Balai
+ID-SS,Pematang Panggang,Pematang Panggang
+ID-SS,Prabumulih,Prabumulih
+ID-SS,Tanjung Sakti,Tanjung Sakti
+ID-SU,Batang Onang,Batang Onang
+ID-SU,Binjai,Binjai
+ID-SU,Dolok,Dolok
+ID-SU,Dolok Sigompulon,Dolok Sigompulon
+ID-SU,Gunung Tua,Gunung Tua
+ID-SU,Halongonan,Halongonan
+ID-SU,Huristak,Huristak
+ID-SU,Huta Raja Tinggi,Huta Raja Tinggi
+ID-SU,Kab. Asahan,Kab. Asahan
+ID-SU,Kab. Batu Bara,Kab. Batu Bara
+ID-SU,Kab. Dairi,Kab. Dairi
+ID-SU,Kab. Deli Serdang,Kab. Deli Serdang
+ID-SU,Kab. Humbang Hasundutan,Kab. Humbang Hasundutan
+ID-SU,Kab. Karo,Kab. Karo
+ID-SU,Kab. Labuhanbatu,Kab. Labuhanbatu
+ID-SU,Kab. Labuhanbatu Selatan,Kab. Labuhanbatu Selatan
+ID-SU,Kab. Labuhanbatu Utara,Kab. Labuhanbatu Utara
+ID-SU,Kab. Langkat,Kab. Langkat
+ID-SU,Kab. Mandailing Natal,Kab. Mandailing Natal
+ID-SU,Kab. Nias,Kab. Nias
+ID-SU,Kab. Nias Barat,Kab. Nias Barat
+ID-SU,Kab. Nias Selatan,Kab. Nias Selatan
+ID-SU,Kab. Nias Utara,Kab. Nias Utara
+ID-SU,Kab. Padang Lawas,Kab. Padang Lawas
+ID-SU,Kab. Padang Lawas Utara,Kab. Padang Lawas Utara
+ID-SU,Kab. Pakpak Bharat,Kab. Pakpak Bharat
+ID-SU,Kab. Samosir,Kab. Samosir
+ID-SU,Kab. Serdang Bedagai,Kab. Serdang Bedagai
+ID-SU,Kab. Simalungun,Kab. Simalungun
+ID-SU,Kab. Tapanuli Selatan,Kab. Tapanuli Selatan
+ID-SU,Kab. Tapanuli Tengah,Kab. Tapanuli Tengah
+ID-SU,Kab. Tapanuli Utara,Kab. Tapanuli Utara
+ID-SU,Kab. Toba Samosir,Kab. Toba Samosir
+ID-SU,Kisaran,Kisaran
+ID-SU,Kota Binjai,Kota Binjai
+ID-SU,Kota Gunungsitoli,Kota Gunungsitoli
+ID-SU,Kota Medan,Kota Medan
+ID-SU,Kota Padang Sidempuan,Kota Padang Sidempuan
+ID-SU,Kota Pematang Siantar,Kota Pematang Siantar
+ID-SU,Kota Sibolga,Kota Sibolga
+ID-SU,Kota Tanjung Balai,Kota Tanjung Balai
+ID-SU,Kota Tebing Tinggi,Kota Tebing Tinggi
+ID-SU,Lahewa,Lahewa
+ID-SU,Lubuk Barumun,Lubuk Barumun
+ID-SU,Padang Bolak,Padang Bolak
+ID-SU,Padang Bolak Julu,Padang Bolak Julu
+ID-SU,Padang Sidempuan,Padang Sidempuan
+ID-SU,Panyabungan Kota,Panyabungan Kota
+ID-SU,Pematang Raya,Pematang Raya
+ID-SU,Pematang Siantar,Pematang Siantar
+ID-SU,Portibi,Portibi
+ID-SU,Sibolga,Sibolga
+ID-SU,Sibuhuan,Sibuhuan
+ID-SU,Tanjung Balai,Tanjung Balai
+ID-SU,Ulu Barumun,Ulu Barumun

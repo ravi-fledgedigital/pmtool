@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* @author OnitsukaTiger Team
+* @copyright Copyright (c) 2022 OnitsukaTiger (https://www.onitsukatiger.com)
+* @package Custom Checkout Fields for Magento 2
+*/
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">otorderattribute_attribute_listing.otorderattribute_attribute_listing_data_source</item>
+            <item name="deps" xsi:type="string">otorderattribute_attribute_listing.otorderattribute_attribute_listing_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">order_attributes_columns</item>
+        <item name="buttons" xsi:type="array">
+            <item name="add" xsi:type="array">
+                <item name="name" xsi:type="string">add</item>
+                <item name="label" xsi:type="string" translate="true">Add New Order Attribute</item>
+                <item name="class" xsi:type="string">primary</item>
+                <item name="url" xsi:type="string">*/*/create</item>
+            </item>
+        </item>
+    </argument>
+    <dataSource name="otorderattribute_attribute_listing_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">OnitsukaTiger\OrderAttribute\Model\Attribute\DataProvider\Listing</argument>
+            <argument name="name" xsi:type="string">otorderattribute_attribute_listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">attribute_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">attribute_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <container name="listing_top">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="template" xsi:type="string">ui/grid/toolbar</item>
+            </item>
+        </argument>
+        <bookmark name="bookmarks">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="namespace" xsi:type="string">otorderattribute_attribute_listing</item>
+                    </item>
+                </item>
+            </argument>
+        </bookmark>
+        <component name="columns_controls">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/controls/columns</item>
+                    <item name="displayArea" xsi:type="string">dataGridActions</item>
+                    <item name="columnsData" xsi:type="array">
+                        <item name="provider" xsi:type="string">otorderattribute_attribute_listing.otorderattribute_attribute_listing.order_attributes_columns</item>
+                    </item>
+                </item>
+            </argument>
+        </component>
+        <filters name="listing_filters">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <!--<item name="links" xsi:type="array">-->
+                        <!--<item name="applied" xsi:type="string">not-save-filter</item>-->
+                    <!--</item>-->
+                    <item name="columnsProvider" xsi:type="string">otorderattribute_attribute_listing.otorderattribute_attribute_listing.order_attributes_columns</item>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="provider" xsi:type="string">otorderattribute_attribute_listing.otorderattribute_attribute_listing.listing_top.bookmarks</item>
+                        <item name="namespace" xsi:type="string">current.filters</item>
+                    </item>
+                    <item name="childDefaults" xsi:type="array">
+                        <item name="provider" xsi:type="string">otorderattribute_attribute_listing.otorderattribute_attribute_listing.listing_top.listing_filters</item>
+                        <item name="imports" xsi:type="array">
+                            <item name="visible" xsi:type="string">otorderattribute_attribute_listing.otorderattribute_attribute_listing.order_attributes_columns:${ $.index }.visible</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </filters>
+        <paging name="listing_paging">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="provider" xsi:type="string">otorderattribute_attribute_listing.otorderattribute_attribute_listing.listing_top.bookmarks</item>
+                        <item name="namespace" xsi:type="string">current.paging</item>
+                    </item>
+                    <item name="selectProvider" xsi:type="string">otorderattribute_attribute_listing.otorderattribute_attribute_listing.order_attributes_columns.ids</item>
+                </item>
+            </argument>
+        </paging>
+    </container>
+    <columns name="order_attributes_columns">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="storageConfig" xsi:type="array">
+                    <item name="provider" xsi:type="string">otorderattribute_attribute_listing.otorderattribute_attribute_listing.listing_top.bookmarks</item>
+                    <item name="namespace" xsi:type="string">current</item>
+                </item>
+                <item name="childDefaults" xsi:type="array">
+                    <item name="fieldAction" xsi:type="array">
+                        <item name="provider" xsi:type="string">otorderattribute_attribute_listing.otorderattribute_attribute_listing.order_attributes_columns.actions</item>
+                        <item name="target" xsi:type="string">applyAction</item>
+                        <item name="params" xsi:type="array">
+                            <item name="0" xsi:type="string">edit</item>
+                            <item name="1" xsi:type="string">${ $.$data.rowIndex }</item>
+                        </item>
+                    </item>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="provider" xsi:type="string">otorderattribute_attribute_listing.otorderattribute_attribute_listing.listing_top.bookmarks</item>
+                        <item name="root" xsi:type="string">columns.${ $.index }</item>
+                        <item name="namespace" xsi:type="string">current.${ $.storageConfig.root}</item>
+                    </item>
+                </item>
+            </item>
+        </argument>
+        <!--<selectionsColumn name="ids">-->
+            <!--<argument name="data" xsi:type="array">-->
+                <!--<item name="config" xsi:type="array">-->
+                    <!--<item name="indexField" xsi:type="string">attribute_id</item>-->
+                    <!--<item name="sortOrder" xsi:type="number">0</item>-->
+                <!--</item>-->
+            <!--</argument>-->
+        <!--</selectionsColumn>-->
+        <column name="attribute_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="label" xsi:type="string" translate="true">Attribute ID</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </column>
+        <column name="attribute_code">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">Attribute Code</item>
+                </item>
+            </argument>
+        </column>
+        <column name="frontend_label">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Attribute Label</item>
+                </item>
+            </argument>
+        </column>
+        <column name="frontend_input">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">OnitsukaTiger\OrderAttribute\Model\Attribute\InputType\InputTypeProvider</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Frontend Input Type</item>
+                </item>
+            </argument>
+        </column>
+        <column name="is_visible_on_front">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Visible</item>
+                </item>
+            </argument>
+        </column>
+        <column name="is_visible_on_back">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Visible on Back-end</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </column>
+        <column name="is_required">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Is Required</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </column>
+        <column name="checkout_step">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">OnitsukaTiger\OrderAttribute\Model\Config\Source\CheckoutStep</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Checkout Step</item>
+                </item>
+            </argument>
+        </column>
+        <column name="include_in_pdf">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Include Into PDFs</item>
+                </item>
+            </argument>
+        </column>
+        <column name="include_in_html_print_order">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Include Into HTML Print-out</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </column>
+        <column name="apply_default_value">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Appy Default</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </column>
+        <column name="show_on_grids">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Show on Grid</item>
+                </item>
+            </argument>
+        </column>
+        <column name="sorting_order">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Position</item>
+                </item>
+            </argument>
+        </column>
+        <column name="save_to_future_checkout">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Save Entered Value For Future Checkout</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </column>
+        <actionsColumn name="actions" class="OnitsukaTiger\OrderAttribute\Ui\Component\Listing\Column\ViewAction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="indexField" xsi:type="string">attribute_id</item>
+                    <item name="urlEntityParamName" xsi:type="string">attribute_id</item>
+                    <item name="buttons" xsi:type="array">
+                        <item name="edit" xsi:type="array">
+                            <item name="urlPath" xsi:type="string">otorderattribute/attribute/edit</item>
+                            <item name="itemLabel" xsi:type="string" translate="true">Edit</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </actionsColumn>
+    </columns>
+</listing>

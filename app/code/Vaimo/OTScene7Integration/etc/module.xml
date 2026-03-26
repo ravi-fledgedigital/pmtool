@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Vaimo_OTScene7Integration">
+        <sequence>
+            <module name="Magento_Catalog" />
+            <module name="Magento_Swatches" />
+            <module name="Magento_ConfigurableProduct" />
+            <module name="Magento_Checkout" />
+        </sequence>
+    </module>
+</config>

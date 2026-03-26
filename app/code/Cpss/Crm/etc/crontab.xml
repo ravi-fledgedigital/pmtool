@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+	<group id="update_pos_data_cron">
+<!--		<job instance="Cpss\Crm\Cron\ShopInfo" name="cpss_crm_insert_update_shopinfo" method="applyShopInfo" >-->
+<!--			<schedule>0 0 * * *</schedule>-->
+<!--		</job>-->
+<!--		<job instance="Cpss\Crm\Cron\CrmAnalysisData" name="cpss_crm_insert_update_crmanalysisdata" method="execute" >-->
+<!--			<schedule>0 1 * * *</schedule>-->
+<!--		</job>-->
+	</group>
+</config>

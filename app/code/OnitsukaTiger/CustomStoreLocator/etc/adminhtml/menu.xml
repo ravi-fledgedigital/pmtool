@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add
+        id="OnitsukaTiger_CustomStoreLocator::manager"
+        title="Store Locator"
+        module="OnitsukaTiger_CustomStoreLocator"
+        sortOrder="10"
+        resource="OnitsukaTiger_CustomStoreLocator::manager"
+        />
+        <add
+        id="OnitsukaTiger_CustomStoreLocator::add_row"
+        title="Manage Store"
+        parent="OnitsukaTiger_CustomStoreLocator::manager"
+        module="OnitsukaTiger_CustomStoreLocator"
+        sortOrder="20"
+        action='storelocator/grid/index'
+        resource="OnitsukaTiger_CustomStoreLocator::add_row"
+        />
+    </menu>
+</config>

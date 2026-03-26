@@ -1,0 +1,53 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \WeltPixel\GA4\Block\BingPixel\Common */
+
+/** @var \WeltPixel\GA4\Helper\BingPixelTracking $bingPixelHelper */
+$bingPixelHelper = $this->helper('WeltPixel\GA4\Helper\BingPixelTracking');
+$cspNonceProvider = $bingPixelHelper->getCspNonceProvider();
+/** @var \Magento\CatalogSearch\Helper\Data $searchDataHelper */
+$searchDataHelper = $this->helper('Magento\CatalogSearch\Helper\Data');
+$searchQuery = $searchDataHelper->getEscapedQueryText();
+?>
+<script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    let bingSearchEventId = <?= /* @noEscape */ $bingPixelHelper->getJsEventIdGenerator() ?>;
+</script>
+<?php if ($bingPixelHelper->isBingPixelTrackingEnabled() && $bingPixelHelper->shouldBingPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\BingPixel\TrackingEvents::EVENT_SEARCH)) : ?>
+<script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    if (window.ga4AllowServices) {
+        window.uetq = window.uetq || [];
+        window.uetq.push('event', 'search', {
+            ecomm_pagetype: 'searchresults',
+            search_term: '<?=  /* @noEscape */ $searchQuery ?>',
+            custom_parameters: {
+                mid: bingSearchEventId
+            },
+            mid: bingSearchEventId
+        });
+    }
+</script>
+<?php endif; ?>
+
+
+<?php if ($bingPixelHelper->isServerSideTrackingEnabled() && $bingPixelHelper->shouldBingServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\BingPixel\TrackingEvents::EVENT_SEARCH)) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($bingPixelHelper->getBingSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'eventId': bingSearchEventId,
+                            'eventName': 'Search',
+                            'eventIdentifier': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\BingPixel\TrackingEvents::EVENT_SEARCH  ?>',
+                            'eventUrl': '<?= $block->escapeUrl($bingPixelHelper->getStoreCurrenUrl()) ?>',
+                            'searchString': '<?=  /* @noEscape */  $searchQuery ?>'
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>
+

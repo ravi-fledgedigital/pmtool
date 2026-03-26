@@ -1,0 +1,39 @@
+<?php
+/**
+* @author OnitsukaTiger Team
+* @copyright Copyright (c) 2022 OnitsukaTiger (https://www.onitsukatiger.com)
+* @package Custom Checkout Fields for Magento 2
+*/
+?>
+<?php
+/**
+ * @var \OnitsukaTiger\OrderAttribute\Block\Order\Attributes $block
+ */
+?>
+
+<?php if ($orderAttributeList = $block->getOrderAttributesData()): ?>
+<div class="block block-order-details-view">
+    <div class="block-title">
+        <strong><?= $block->escapeHtml(__('Additional Info')) ?></strong>
+    </div>
+    <div class="block-content">
+        <?php foreach ($orderAttributeList as $attribute): ?>
+        <div class="box">
+            <strong class="box-title">
+                <span><?= $block->escapeHtml(__($attribute['label'])); ?></span>
+            </strong>
+            <div class="box-content">
+                <?php if (is_array($attribute['value'])): ?>
+                    <a class="file-link" target="_blank" href="<?= /** @noEscape */ $attribute['value']['url'] ?? '' ?>">
+                        <?= /** @noEscape */ $attribute['value']['name'] ?? ''; ?>
+                    </a>
+                <?php else: ?>
+                    <?= /** @noEscape */ $attribute['value']; ?>
+                <?php endif; ?>
+            </div>
+        </div>
+        <?php endforeach;?>
+    </div>
+</div>
+<?php endif; ?>
+

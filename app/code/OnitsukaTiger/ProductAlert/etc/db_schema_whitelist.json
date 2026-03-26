@@ -1,0 +1,8 @@
+{
+    "product_alert_stock": {
+        "column": {
+            "opened_date": true,
+            "is_opened": true
+        }
+    }
+}

@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="OnitsukaTiger\CustomStoreLocator\Api\Data\GridInterface" type="OnitsukaTiger\CustomStoreLocator\Model\Grid" />
+    <virtualType name="OnitsukaTiger\CustomStoreLocator\Model\ResourceModel\Grid\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">store_locator</argument>
+            <argument name="resourceModel" xsi:type="string">OnitsukaTiger\CustomStoreLocator\Model\ResourceModel\Grid</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="storelocator_grid_data_source" xsi:type="string">OnitsukaTiger\CustomStoreLocator\Model\ResourceModel\Grid\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Flegde\CustomStoreLocator\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="OnitsukaTiger\CustomStoreLocator\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">customLogHandler</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">OnitsukaTiger\CustomStoreLocator\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- Desktop Image Uploader -->
+    <virtualType name="galleryImage" type="Magento\Catalog\Model\ImageUploader">
+       <arguments>
+          <argument name="baseTmpPath" xsi:type="string">gallery/image</argument>
+          <argument name="basePath" xsi:type="string">gallery/image</argument>
+          <argument name="allowedExtensions" xsi:type="array">
+             <item name="jpg" xsi:type="string">jpg</item>
+             <item name="jpeg" xsi:type="string">jpeg</item>
+             <item name="gif" xsi:type="string">gif</item>
+             <item name="png" xsi:type="string">png</item>
+          </argument>
+       </arguments>
+    </virtualType>
+    <type name="OnitsukaTiger\CustomStoreLocator\Controller\Adminhtml\Index\Upload">
+       <arguments>
+          <argument name="imageUploader" xsi:type="object">galleryImage</argument>
+       </arguments>
+    </type>
+    <!-- End Image Uploader -->
+    <!-- Mobile Image Uploader -->
+    <virtualType name="galleryMobileImage" type="Magento\Catalog\Model\ImageUploader">
+       <arguments>
+          <argument name="baseTmpPath" xsi:type="string">mobile_gallery/image</argument>
+          <argument name="basePath" xsi:type="string">mobile_gallery/image</argument>
+          <argument name="allowedExtensions" xsi:type="array">
+             <item name="jpg" xsi:type="string">jpg</item>
+             <item name="jpeg" xsi:type="string">jpeg</item>
+             <item name="gif" xsi:type="string">gif</item>
+             <item name="png" xsi:type="string">png</item>
+          </argument>
+       </arguments>
+    </virtualType>
+    <type name="OnitsukaTiger\CustomStoreLocator\Controller\Adminhtml\Index\Mobileupload">
+       <arguments>
+          <argument name="imageUploader" xsi:type="object">galleryMobileImage</argument>
+       </arguments>
+    </type>
+    <!-- End Image Uploader -->
+</config>

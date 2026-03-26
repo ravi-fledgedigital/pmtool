@@ -1,0 +1,51 @@
+<?php
+/** @var $block \WeltPixel\Backend\Block\Adminhtml\System\Config\ModuleInformation */
+
+/** @var \WeltPixel\Backend\Helper\Utility $wpHelper */
+$wpHelper = $this->helper('WeltPixel\Backend\Helper\Utility');
+$cspNonceProvider = $wpHelper->getCspNonceProvider();
+
+$originalData = $block->getData('element_data');
+$moduleName = $originalData['button_label'] ?? '';
+
+/** @var  \WeltPixel\Backend\Helper\Developer $_helper */
+$_helper = $this->helper('WeltPixel\Backend\Helper\Developer');
+
+$moduleVersion = $_helper->getComposerVersion($moduleName);
+$moduleLatestVersion = $_helper->getModuleLatestVersion($moduleName);
+$isModuleUpToDate = false;
+$messageClass = 'message-warning';
+$messageId = 'msg-wp-'.uniqid();
+
+if (version_compare($moduleLatestVersion, $moduleVersion) < 1) {
+    $isModuleUpToDate = true;
+    $messageClass = 'message-success';
+}
+?>
+
+<div id="<?= $block->escapeHtmlAttr($messageId) ?>" class="message <?= $block->escapeHtmlAttr($messageClass) ?>">
+    <?php if ($isModuleUpToDate) : ?>
+    <p>The module is up to date, you have the latest version.</p>
+    <?php else : ?>
+        <p>A product update is available and recommended! Your current version is: <strong class="old-version"><?= /* @noEscape */ $moduleVersion ?></strong> and the latest available version is <strong class="current-version"><?= /* @noEscape */ $moduleLatestVersion ?></strong>. Download the latest version of the module from the following <a target="_blank" href="https://www.weltpixel.com/downloadable/customer/products/">link</a>.</p>
+    <?php endif; ?>
+</div>
+<div class="request-feature-button">
+    <a target="_blank" id="request_feature" title="Request Feature" class="action-default scalable save primary ui-button ui-corner-all ui-widget" href="https://support.weltpixel.com/hc/en-us/requests/new">Submit a feature request</a>
+</div>
+
+<script<?php if ($cspNonceProvider): ?> nonce="<?= $block->escapeHtmlAttr($cspNonceProvider->generateNonce()) ?>"<?php endif; ?>>
+    requirejs(['jquery'],function($) {
+        $(document).ready(function() {
+            let msgElement = $('#<?= $block->escapeJs($messageId) ?>');
+            let currentSectionWrapper = msgElement.parents('.section-config.weltpixel-module-information-header');
+            let currentSectionTitleElm = currentSectionWrapper.find('.entry-edit-head a');
+            let currentSectionTitle = currentSectionTitleElm.html();
+            currentSectionTitleElm.html(currentSectionTitle + ' - <span class="wp-module-version"> <?= $block->escapeJs($moduleVersion) ?></span>');
+
+            if ($('.request-feature-button').length > 1) {
+                $('.request-feature-button :first').hide();
+            }
+        });
+    });
+</script>

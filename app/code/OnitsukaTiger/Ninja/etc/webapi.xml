@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../app/code/Magento/Webapi/etc/webapi.xsd">
+    <route url="/V1/ninja/my/en-my/shipping_status" method="POST">
+        <service class="OnitsukaTiger\Ninja\Api\CallbackInterface" method="updateStatus"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+        <data>
+            <parameter name="countryCode" force="false">MY</parameter>
+        </data>
+    </route>
+    <route url="/V1/ninja/sg/en-sg/shipping_status" method="POST">
+        <service class="OnitsukaTiger\Ninja\Api\CallbackInterface" method="updateStatus"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+        <data>
+            <parameter name="countryCode" force="false">SG</parameter>
+        </data>
+    </route>
+    <route url="/V1/ninja/vn/en-vn/shipping_status" method="POST">
+        <service class="OnitsukaTiger\Ninja\Api\CallbackInterface" method="updateStatus"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+        <data>
+            <parameter name="countryCode" force="false">VN</parameter>
+        </data>
+    </route>
+
+    <route url="/V1/ninja/my/en-my/complete" method="POST">
+        <service class="OnitsukaTiger\Ninja\Api\CallbackInterface" method="complete"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+        <data>
+            <parameter name="countryCode" force="false">MY</parameter>
+        </data>
+    </route>
+    <route url="/V1/ninja/sg/en-sg/complete" method="POST">
+        <service class="OnitsukaTiger\Ninja\Api\CallbackInterface" method="complete"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+        <data>
+            <parameter name="countryCode" force="false">SG</parameter>
+        </data>
+    </route>
+    <route url="/V1/ninja/vn/en-vn/complete" method="POST">
+        <service class="OnitsukaTiger\Ninja\Api\CallbackInterface" method="complete"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+        <data>
+            <parameter name="countryCode" force="false">VN</parameter>
+        </data>
+    </route>
+
+    <route url="/V1/ninja/my/en-my/return" method="POST">
+        <service class="OnitsukaTiger\Ninja\Api\CallbackInterface" method="return"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+        <data>
+            <parameter name="countryCode" force="false">MY</parameter>
+        </data>
+    </route>
+    <route url="/V1/ninja/sg/en-sg/return" method="POST">
+        <service class="OnitsukaTiger\Ninja\Api\CallbackInterface" method="return"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+        <data>
+            <parameter name="countryCode" force="false">SG</parameter>
+        </data>
+    </route>
+    <route url="/V1/ninja/vn/en-vn/return" method="POST">
+        <service class="OnitsukaTiger\Ninja\Api\CallbackInterface" method="return"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+        <data>
+            <parameter name="countryCode" force="false">VN</parameter>
+        </data>
+    </route>
+</routes>

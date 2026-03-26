@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <onitsukatiger_catalog_product>
+            <rma_status>
+                <initial_status>4</initial_status>
+                <rma_resolution>2</rma_resolution>
+            </rma_status>
+            <product_sku_wms>
+                <enable>0</enable>
+            </product_sku_wms>
+        </onitsukatiger_catalog_product>
+    </default>
+</config>

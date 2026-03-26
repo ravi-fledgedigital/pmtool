@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <sales>
+            <orders>
+                <payment_mapping>
+                    {
+                        "item1": {
+                            "method": "omise_offsite_internetbanking",
+                            "statuses": [
+                                "pending",
+                                "pending_payment"
+                            ]
+                        },
+                        "item2": {
+                            "method": "molpay_seamless",
+                            "statuses": [
+                                "pending"
+                            ]
+                        },
+                        "item3": {
+                            "method": "worldpay_cc",
+                            "statuses": [
+                                "pending",
+                                "pending_payment"
+                            ]
+                        }
+                    }
+                </payment_mapping>
+            </orders>
+        </sales>
+    </default>
+</config>

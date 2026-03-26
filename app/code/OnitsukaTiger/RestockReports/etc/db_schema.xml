@@ -1,0 +1,15 @@
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="restock_queue">
+        <column xsi:type="int" name="queue_id" padding="10" unsigned="true" nullable="false" comment="Queue Id" identity="true"/>
+        <column xsi:type="varchar" name="name" nullable="false" length="255" comment="Name"/>
+        <column xsi:type="datetime" name="created_at" nullable="false" comment="Created At"/>
+        <column xsi:type="smallint" name="status" nullable="false" identity="false" default="0" comment="Status"/>
+        <column xsi:type="datetime" name="from_date" nullable="false" comment="From Date"/>
+        <column xsi:type="datetime" name="to_date" nullable="false" comment="To Date"/>
+        <column xsi:type="varchar" name="download_restock" nullable="false" length="255" comment="Download Restock Report"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="queue_id"/>
+        </constraint>
+   </table>
+</schema>

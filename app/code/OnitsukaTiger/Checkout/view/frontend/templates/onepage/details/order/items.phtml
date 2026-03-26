@@ -1,0 +1,32 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+/** @var \Magento\Sales\Block\Order\Items $block */
+?>
+<div class="table-wrapper order-items">
+    <table class="data table table-order-items-success cart" summary="<?= $block->escapeHtmlAttr(__('Items Ordered')) ?>">
+        <caption class="table-caption"><?= $block->escapeHtml(__('Items Ordered')) ?></caption>
+        <thead>
+            <tr>
+                <th class="col name"><?= $block->escapeHtml(__('Product')) ?></th>
+                <th class="col qty"><?= $block->escapeHtml(__('Qty')) ?></th>
+                <th class="col price"><?= $block->escapeHtml(__('Price')) ?></th>
+            </tr>
+        </thead>
+        <?php $items = $block->getItems(); ?>
+        <?php foreach ($items as $item) :
+            if ($item->getParentItem()) :
+                continue;
+            endif;
+            ?>
+            <tbody>
+                <?= $block->getItemHtml($item) ?>
+            </tbody>
+        <?php endforeach; ?>
+    </table>
+</div>

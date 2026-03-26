@@ -1,0 +1,11 @@
+<?php
+/**
+ * @var OnitsukaTigerKorea\Newsletter\Helper\Data $helper
+ */
+$helper = $this->helper('OnitsukaTigerKorea\Newsletter\Helper\Data');
+/** @var $block \Magento\Sales\Block\Order\Email\Items */
+?>
+<?php $order = $block->getOrder() ?>
+<a href="<?= $helper->getUnsubscribeUrl($order->getCustomerEmail()) ?>">
+    <?= $block->escapeHtml(__('Unsubscribed.')) ?>
+</a>

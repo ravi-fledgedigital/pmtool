@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Seoulwebdesign_Base::admin_menu"
+             title="Seoul Web Design"
+             module="Seoulwebdesign_Base"
+             sortOrder="100"
+             resource="Seoulwebdesign_Base::admin_menu"/>
+    </menu>
+</config>

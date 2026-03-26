@@ -1,0 +1,85 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		<section id="payment" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="1000" translate="label">
+			<group id="kakaopay" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+				<label>Kakaopay</label>
+				<field id="active" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="select">
+					<label>Enabled</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="title" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="19" translate="label" type="text">
+					<label>Title</label>
+				</field>
+
+				<field id="debug" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1"
+					   showInStore="0" canRestore="1">
+					<label>Enable debug logging</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<config_path>payment/kakaopay/debug</config_path>
+				</field>
+
+				<field id="cid" translate="label" type="text" sortOrder="21" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>Merchant code</label>
+					<comment>You can use the TEST CID value "TC0ONETIME" for the test settlement.</comment>
+					<config_path>payment/kakaopay/cid</config_path>
+				</field>
+
+				<field id="admin_key" translate="label" type="obscure" sortOrder="22" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>Admin Key</label>
+					<backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+					<config_path>payment/kakaopay/admin_key</config_path>
+				</field>
+
+				<field id="payment_action" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>Payment Action</label>
+					<source_model>Seoulwebdesign\Kakaopay\Model\Config\Source\PaymentAction</source_model>
+					<config_path>payment/kakaopay/payment_action</config_path>
+				</field>
+
+				<!--todo: prefix for partner_order_id,partner_user_id,item_name,item_code  -->
+
+				<field id="available_cards" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>Available Cards</label>
+					<source_model>Seoulwebdesign\Kakaopay\Model\Config\Source\Cctype</source_model>
+					<config_path>payment/kakaopay/available_cards</config_path>
+				</field>
+
+				<field id="payment_method_type" translate="label" type="multiselect" sortOrder="61" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>Payment Method Type</label>
+					<source_model>Seoulwebdesign\Kakaopay\Model\Config\Source\PaymentMethodType</source_model>
+					<config_path>payment/kakaopay/payment_method_type</config_path>
+				</field>
+
+				<field id="order_status" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>New Order Status</label>
+					<source_model>Magento\Sales\Model\Config\Source\Order\Status\Processing</source_model>
+					<config_path>payment/kakaopay/order_status</config_path>
+				</field>
+
+				<field id="allowspecific" translate="label" type="allowspecific" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>Payment from Applicable Countries</label>
+					<source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+					<config_path>payment/kakaopay/allowspecific</config_path>
+				</field>
+
+				<field id="specificcountry" translate="label" type="multiselect" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0">
+					<label>Payment from Specific Countries</label>
+					<source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+					<config_path>payment/kakaopay/specificcountry</config_path>
+				</field>
+
+				<field id="instructions" translate="label" type="textarea" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Instructions</label>
+					<config_path>payment/kakaopay/instructions</config_path>
+				</field>
+
+				<field id="sort_order" translate="label" type="text" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Sort Order</label>
+					<frontend_class>validate-number</frontend_class>
+					<config_path>payment/kakaopay/sort_order</config_path>
+				</field>
+			</group>
+		</section>
+	</system>
+</config>

@@ -1,0 +1,68 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
+
+/** @var  $block \Magento\Sales\Block\Order\Item\Renderer\DefaultRenderer */
+/** @var $_item \Magento\Sales\Model\Order\Item */
+$_item = $block->getItem();
+/** @var $_order \Magento\Sales\Model\Order */
+$_order = $block->getItem()->getOrder();
+
+$catalogHelper = $this->helper(\Magento\Catalog\Helper\Image::class);
+
+$helperReturn = $this->helper(\OnitsukaTiger\Rma\Helper\Data::class);
+$helperData = $this->helper(OnitsukaTigerKorea\ConfigurableProduct\Helper\Data::class);
+
+/** @var \Vaimo\OTScene7Integration\Helper\Data $scene7Helper */
+$scene7Helper = $this->helper(\Vaimo\OTScene7Integration\Helper\Data::class);
+$productForThumbnail = $helperReturn->getFinalProductThumbnail($_item, $_order);
+$image_url = $scene7Helper->getOrderItemProductImage($productForThumbnail, "order_item_image_success");
+
+$productHelper = $this->helper(\OnitsukaTiger\Catalog\Helper\Data::class);
+$product = $productHelper->getProduct($_item->getSku());
+$color = $product->getResource()->getAttribute('color');
+$colorValue = $color->getSource()->getOptionText($product->getData('color'));
+?>
+<tr id="order-item-row-<?= (int) $_item->getId() ?>">
+    <td class="col name" data-th="<?= $block->escapeHtmlAttr(__('Product')) ?>">
+        <div class="items-details-container">
+            <div class="items-image">
+                <img src="<?= $image_url ?>" alt="<?= $block->escapeHtml($_item->getName()) ?>"/>
+            </div>
+            <div class="items-details">
+                <strong class="product name product-item-name"><?= $block->escapeHtml($_item->getName()) ?></strong>
+                <?php if ($_options = $block->getItemOptions()) : ?>
+                    <div class="product-options">
+                        <ul>
+                            <?php foreach ($_options as $_option) : ?>
+                                <?php $sizeForDisplay = $helperData->getSizeForDisplay($_item->getSku(), $_item->getStoreId())?>
+                                <li>
+                                    <?php if ($colorValue && strtolower(__($_option['label'])) == 'colors') : ?>
+                                        <?= $block->escapeHtml(__($_option['label'])) ?> :
+                                        <?= /* @noEscape */ nl2br($block->escapeHtml($colorValue)) ?>
+                                    <?php elseif ($sizeForDisplay && strtolower(__($_option['label'])) == 'size') : ?>
+                                        <?= $block->escapeHtml(__($_option['label'])) ?> :
+                                        <?= /* @noEscape */ nl2br($block->escapeHtml($sizeForDisplay)) ?>
+                                    <?php else :?>
+                                        <?= $block->escapeHtml(__($_option['label'])) ?> :
+                                        <?= /* @noEscape */ nl2br($block->escapeHtml($_option['print_value'] ?? $_option['value'])) ?>
+                                    <?php endif; ?>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </td>
+
+    <td class="col qty" data-th="<?= $block->escapeHtmlAttr(__('Qty')) ?>">
+        <?= (float) $block->getItem()->getQtyOrdered() ?>
+    </td>
+    <td class="col price" data-th="<?= $block->escapeHtmlAttr(__('Price')) ?>">
+        <?= $block->getItemPriceHtml() ?>
+    </td>
+</tr>

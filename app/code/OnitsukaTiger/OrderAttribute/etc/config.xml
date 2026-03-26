@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @author OnitsukaTiger Team
+* @copyright Copyright (c) 2022 OnitsukaTiger (https://www.onitsukatiger.com)
+* @package Custom Checkout Fields for Magento 2
+*/-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <otorderattribute>
+            <checkout>
+                <progress>1</progress>
+                <format>yyyy-MM-dd</format>
+                <time_format>0</time_format>
+                <email>1</email>
+                <send_on_shipping_step>1</send_on_shipping_step>
+            </checkout>
+            <pdf>
+                <shipment>1</shipment>
+                <invoice>1</invoice>
+            </pdf>
+            <invoices_shipments>
+                <invoice_grid>1</invoice_grid>
+                <invoice_create>1</invoice_create>
+                <invoice_view>1</invoice_view>
+                <shipment_grid>1</shipment_grid>
+                <shipment_create>1</shipment_create>
+                <shipment_view>1</shipment_view>
+            </invoices_shipments>
+        </otorderattribute>
+        <general>
+            <validator_data>
+                <input_types>
+                    <checkboxes>checkboxes</checkboxes>
+                    <radios>radios</radios>
+                    <datetime>datetime</datetime>
+                    <file>file</file>
+                </input_types>
+            </validator_data>
+        </general>
+    </default>
+</config>

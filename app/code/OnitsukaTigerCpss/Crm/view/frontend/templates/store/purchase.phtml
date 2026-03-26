@@ -1,0 +1,56 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+/** @var \OnitsukaTigerCpss\Crm\Block\RealStore\Purchase $block */
+$helperData =  $this->helper('Magento\Framework\Pricing\Helper\Data');
+?>
+<?php $_orders = $block->getShopPurchaseList(); ?>
+<?= $block->getChildHtml('info') ?>
+<?php if ($_orders && count($_orders)) : ?>
+    <div class="table-wrapper orders-history point-history">
+        <table class="data table table-order-items history" id="my-orders-table">
+            <caption class="table-caption"><?= $block->escapeHtml(__('Orders')) ?></caption>
+            <thead>
+            <tr>
+                <th scope="col" class="col id"><?= $block->escapeHtml(__('Order #')) ?></th>
+                <th scope="col" class="col id"><?= $block->escapeHtml(__('Store')) ?></th>
+                <th scope="col" class="col id"><?= $block->escapeHtml(__('Payment Method')) ?></th>
+                <th scope="col" class="col date"><?= $block->escapeHtml(__('Date')) ?></th>
+                <?= $block->getChildHtml('extra.column.header') ?>
+                <th scope="col" class="col total"><?= $block->escapeHtml(__('Order Total')) ?></th>
+                <th scope="col" class="col status"><?= $block->escapeHtml(__('Transaction Type')) ?></th>
+                <th scope="col" class="col status"><?= $block->escapeHtml(__('Action')) ?></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($_orders as $_order) : ?>
+            <?php $totalAmount = $helperData->currency($_order['totalAmount'] ,true,false); ?>
+                <tr>
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Order #')) ?>" class="col id"><?= $block->escapeHtml($_order['purchaseId']) ?></td>
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Store')) ?>" class="col store"><?= /* @noEscape */ $_order['shopName']?></td>
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Payment Method')) ?>" class="col patment-method"><?= /* @noEscape */ $_order['paymentMethod'] ?></td>
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Date')) ?>" class="col date"><?= /* @noEscape */ date("Y/m/d", strtotime($_order['transactionDateTime'])) ?></td>
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Order Total')) ?>" class="col total"><?= /* @noEscape */ $totalAmount ?></td>
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Transaction Type')) ?>" class="col transaction_type"><?= /* @noEscape */ __($_order['transactionType']) ?></td>
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Actions')) ?>" class="col actions">
+                        <a href="<?= $block->escapeUrl($block->getUrl('crm/realstore/view',['purchase_id'=>$_order['purchaseId']])) ?>" class="action view">
+                            <span><?= $block->escapeHtml(__('View Order')) ?></span>
+                        </a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+        <?= $block->getPurchaseHistoryByPagination() ?>
+    </div>
+    <?php if ($block->getPagerHtml()) : ?>
+        <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml() ?></div>
+    <?php endif ?>
+<?php else : ?>
+    <div class="message info empty"><span><?= $block->escapeHtml(__('You have placed no orders.')) ?></span></div>
+<?php endif ?>

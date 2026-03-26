@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <ninja>
+            <general>
+                <enabled>1</enabled>
+            </general>
+        </ninja>
+        <carriers>
+            <ninja>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>OnitsukaTiger\Ninja\Model\Carrier</model>
+                <title>Ninja</title>
+                <name>Standard</name>
+                <specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.</specificerrmsg>
+                <condition_name>package_value_with_discount</condition_name>
+            </ninja>
+        </carriers>
+    </default>
+</config>

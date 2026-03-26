@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="customer_login">
+        <observer name="cpss_customer_login_success" instance="OnitsukaTigerCpss\Crm\Observer\CustomerLogin" />
+    </event>
+    <event name="customer_register_success">
+        <observer name="customer_add_is_agreed" instance="OnitsukaTigerCpss\Crm\Observer\CreateCustomer" />
+    </event>
+</config>

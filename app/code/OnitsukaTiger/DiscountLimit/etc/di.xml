@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="OnitsukaTiger\DiscountLimit\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="OnitsukaTiger\DiscountLimit\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">OnitsukaTigerDiscountLimitLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">OnitsukaTiger\DiscountLimit\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\SalesRule\Model\Rule\Action\Discount\ByPercent">
+        <plugin name="OnitsukaTiger_DiscountLimit_Magento_SalesRule_Model_Rule_Action_Discount_ByPercent"
+                type="OnitsukaTiger\DiscountLimit\Plugin\Model\SalesRule\Rule\Action\SetMaxDiscountPlugin"
+                sortOrder="1" disabled="false" />
+    </type>
+</config>

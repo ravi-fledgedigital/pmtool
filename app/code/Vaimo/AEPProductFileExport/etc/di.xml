@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="AdobeExperiencePlatformExport" type="Vaimo\AEPProductFileExport\Model\Export\AEPProduct">
+        <arguments>
+            <argument name="mapping" xsi:type="object">Vaimo\AEPProductFileExport\Model\Export\Mapping\AdobeExperiencePlatform</argument>
+            <argument name="lastRunFlagCode" xsi:type="string">aep_adobe_experience_products_export_last_run</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AdobeExperiencePlatformProductsConfigProvider" type="Vaimo\AEPFileExport\Model\ConfigProvider">
+        <arguments>
+            <argument name="folderConfigPath" xsi:type="string">aep_product_file_export/adobe_experience_platform/folder_path</argument>
+            <argument name="filenameConfigPath" xsi:type="string">aep_product_file_export/adobe_experience_platform/filename</argument>
+            <argument name="schedulerEnabledConfigPath" xsi:type="string">aep_product_file_export/adobe_experience_platform/scheduler_enabled</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AdobeExperiencePlatformExportService" type="Vaimo\AEPFileExport\Model\Service\Export">
+        <arguments>
+            <argument name="export" xsi:type="object">AdobeExperiencePlatformExport</argument>
+            <argument name="configProvider" xsi:type="object">AdobeExperiencePlatformProductsConfigProvider</argument>
+            <argument name="writerDestination" xsi:type="string">aep_export/adobe_experience_product.csv</argument>
+        </arguments>
+    </virtualType>
+    <type name="Vaimo\AEPProductFileExport\Console\Command\ExportAdobeExperienceProducts\ProxyWrapper">
+        <arguments>
+            <argument name="state" xsi:type="object">Magento\Framework\App\State\Proxy</argument>
+            <argument name="export" xsi:type="object">AdobeExperiencePlatformExportService</argument>
+        </arguments>
+    </type>
+    <type name="Vaimo\AEPProductFileExport\Console\Command\ExportAdobeExperienceProducts\Command">
+        <arguments>
+            <argument name="productExport" xsi:type="object">Vaimo\AEPProductFileExport\Console\Command\ExportAdobeExperienceProducts\ProxyWrapper\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="aep-file-export-adobe-experience-products" xsi:type="object">Vaimo\AEPProductFileExport\Console\Command\ExportAdobeExperienceProducts\Command</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Vaimo\AEPProductFileExport\Cron\AdobeExperiencePlatform\ExportProducts">
+        <arguments>
+            <argument name="export" xsi:type="object">AdobeExperiencePlatformExportService</argument>
+            <argument name="configProvider" xsi:type="object">AdobeExperiencePlatformProductsConfigProvider</argument>
+        </arguments>
+    </type>
+
+
+    <virtualType name="AdobeCampaignExport" type="Vaimo\AEPProductFileExport\Model\Export\AEPProduct">
+        <arguments>
+            <argument name="mapping" xsi:type="object">Vaimo\AEPProductFileExport\Model\Export\Mapping\AdobeCampaign</argument>
+            <argument name="lastRunFlagCode" xsi:type="string">aep_adobe_campaign_products_export_last_run</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AdobeCampaignProductsConfigProvider" type="Vaimo\AEPFileExport\Model\ConfigProvider">
+        <arguments>
+            <argument name="folderConfigPath" xsi:type="string">aep_product_file_export/adobe_campaign/folder_path</argument>
+            <argument name="filenameConfigPath" xsi:type="string">aep_product_file_export/adobe_campaign/filename</argument>
+            <argument name="schedulerEnabledConfigPath" xsi:type="string">aep_product_file_export/adobe_campaign/scheduler_enabled</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="ProductsAdobeCampaignExportService" type="Vaimo\AEPFileExport\Model\Service\Export">
+        <arguments>
+            <argument name="export" xsi:type="object">AdobeCampaignExport</argument>
+            <argument name="configProvider" xsi:type="object">AdobeCampaignProductsConfigProvider</argument>
+            <argument name="writerDestination" xsi:type="string">aep_export/adobe_campaign_products.csv</argument>
+        </arguments>
+    </virtualType>
+    <type name="Vaimo\AEPProductFileExport\Console\Command\ExportAdobeCampaignProducts\ProxyWrapper">
+        <arguments>
+            <argument name="state" xsi:type="object">Magento\Framework\App\State\Proxy</argument>
+            <argument name="export" xsi:type="object">ProductsAdobeCampaignExportService</argument>
+        </arguments>
+    </type>
+    <type name="Vaimo\AEPProductFileExport\Console\Command\ExportAdobeCampaignProducts\Command">
+        <arguments>
+            <argument name="productExport" xsi:type="object">Vaimo\AEPProductFileExport\Console\Command\ExportAdobeCampaignProducts\ProxyWrapper\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="aep-file-export-adobe-campaign-products" xsi:type="object">Vaimo\AEPProductFileExport\Console\Command\ExportAdobeCampaignProducts\Command</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Vaimo\AEPProductFileExport\Cron\AdobeCampaign\ExportProducts">
+        <arguments>
+            <argument name="export" xsi:type="object">ProductsAdobeCampaignExportService</argument>
+            <argument name="configProvider" xsi:type="object">AdobeCampaignProductsConfigProvider</argument>
+        </arguments>
+    </type>
+</config>

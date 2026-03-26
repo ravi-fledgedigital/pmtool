@@ -1,0 +1,36 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<?php /** @var  $block \Magento\Sales\Block\Order\View*/?>
+<div class="order-details-items ordered">
+    <?php $_order = $block->getOrder() ?>
+    <?php
+    $helper = $this->helper(\OnitsukaTiger\Sales\Helper\Data::class);
+    $helperTracking = $this->helper(\OnitsukaTiger\OrderStatusTracking\Helper\Data::class);
+    $helperReturn = $this->helper(\OnitsukaTiger\Rma\Helper\Data::class);
+    $helperStore = $this->helper(\OnitsukaTiger\Store\Helper\Data::class);
+    ?>
+    <?php $date = $helperStore->formatDate($_order->getCreatedAt(), $_order->getStoreId());?>
+    <?php $shipmentTrackHistory = $helper->getKerryTrackHistory($_order);?>
+    <?php $shipmentTrack = $helper->getKerryTrack($_order);?>
+    <?php $statusOrderTrack = $helperTracking->getStatusTracking($_order);?>
+    <?php $totalTrack = count($statusOrderTrack)?>
+    <?php $orderStatus = $_order->getStatus()?>
+    <?php $index=0; foreach ($statusOrderTrack as $key => $track): $index++;?>
+        <?php if((int)$index == $totalTrack){
+            $updateDate = $helperStore->formatDate($track->getCreatedAt(), $_order->getStoreId());
+            $orderStatus = $track->getStatus();
+        } ?>
+    <?php endforeach;?>
+    <div class="order-title">
+        <div class="order-id"><strong><?= __('Order ID:')?></strong> <?= $_order->getIncrementId()?></div>
+        <div class="order-status"><?= $orderStatus?></div>
+        <div class="order-date"><?= $date?></div>
+    </div>
+    <?= $block->getChildHtml('order_items') ?>
+</div>

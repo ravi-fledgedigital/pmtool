@@ -1,0 +1,7 @@
+{
+    "sales_order": {
+        "column": {
+            "customer_previous_order_date": true
+        }
+    }
+}

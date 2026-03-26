@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Storelocator
+ */
+-->
+<!--
+/**
+* Copyright © 2015 Amasty. All rights reserved.
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <amlocator>
+            <locator>
+                <main_settings>
+                    <enable_search_input>1</enable_search_input>
+                </main_settings>
+            </locator>
+        </amlocator>
+    </default>
+</config>

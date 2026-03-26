@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="OnitsukaTiger\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="OnitsukaTiger\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">otLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">OnitsukaTiger\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="OnitsukaTiger\Logger\Api\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">apiLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">OnitsukaTiger\Logger\Api\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="OnitsukaTiger\Logger\Kerry\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">kerryLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">OnitsukaTiger\Logger\Kerry\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="OnitsukaTiger\Logger\Ninja\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">ninjaLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">OnitsukaTiger\Logger\Ninja\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="OnitsukaTiger\Logger\SourceAlgorithm\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">sourceAlgorithmLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">OnitsukaTiger\Logger\SourceAlgorithm\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="OnitsukaTiger\Logger\StoreShipping\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">storeShippingLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">OnitsukaTiger\Logger\StoreShipping\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="OnitsukaTiger\Logger\EmailToWareHouse\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">emailToWareHouseLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">OnitsukaTiger\Logger\EmailToWareHouse\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="OnitsukaTiger\Logger\Razer\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">razer</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">OnitsukaTiger\Logger\Razer\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

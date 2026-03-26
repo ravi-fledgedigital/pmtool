@@ -1,0 +1,112 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+$_invoice = $block->getInvoice();
+$_order   = $block->getOrder();
+$crmHelper = $this->helper(\OnitsukaTigerCpss\Crm\Helper\HelperData::class);
+?>
+
+<?php if ($_invoice && $_order) : ?>
+    <?php
+    $taxInfo = $this->helper(\Magento\Tax\Helper\Data::class)->getCalculatedTaxes($_invoice);
+    $listTaxTitle = array_column($taxInfo, 'title');
+
+    $grossAmount = (float) $_invoice->getGrandTotal();
+
+    $usedPoint = 0;
+    $pointValue = 0;
+    $pointLabel = 'Points to be earned:';
+    if ($_order->getUsedPoint()) {
+        $usedPoint = number_format($_order->getUsedPoint());
+    }
+    if ($_order->getAddedPointDate() > 0 || $_order->getAcquiredPoint() > 0) {
+        $pointValue = number_format($_order->getAcquiredPoint());
+
+        if ($_order->getAddedPoint() > 0) {
+            $pointLabel = 'Added Points:';
+            $pointValue = number_format($_order->getAddedPoint());
+        }
+    }
+    ?>
+    <table class="table text-center mb-40">
+        <thead>
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">Product No</th>
+            <th scope="col">Item Description</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Unit Price</th>
+            <th scope="col">Subtotal</th>
+        </tr>
+        </thead>
+        <?php foreach ($_invoice->getAllItems() as $_item) : ?>
+            <?php if (!$_item->getOrderItem()->getParentItem()) : ?>
+                <tbody>
+                <?= $block->getItemHtml($_item) ?>
+                </tbody>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </table>
+    <div class="row">
+        <div class="col-8">
+            <p class="note"><i>
+                    <?php echo '*Note: You may receive your order in multiple shipments'; ?><br>
+                    <?php echo 'Please reject shipment(s) if packaging has signs of severe damage such as torn packaging'; ?><br>
+                    <?php echo 'Disclaimer: Due to rounding adjustments, you may encounter a slight difference in the amount reflected.'; ?><br>
+                </i></p>
+        </div>
+        <div class="col-2 text-right">
+            Subtotal (Inclusive of VAT):<br>
+            Cart Discount:<br>
+            Shipping:<br>
+            Total Due(inclusive of VAT):<br>
+            <?php if ($taxInfo) : ?>
+                <?php foreach ($taxInfo as $tax) : ?>
+                    <?php
+                    $taxPercent = round((float) $tax['percent'], 2);
+                    ?>
+                    <?= $block->escapeHtml(__($tax['title']  . $taxPercent . '%:')) ?><br>
+                <?php endforeach; ?>
+            <?php else : ?>
+                VAT 0%:<br>
+            <?php endif; ?>
+            Gross Amount:<br>
+            <?php if ($crmHelper->isEnableModule()): ?>
+                <?= /* @noEscape */ __('Used point:') ?><br>
+                <?= /* @noEscape */ __($pointLabel) ?>
+            <?php endif; ?>
+        </div>
+        <div class="col-2 text-right">
+            <?= $_order->formatPrice($_invoice->getSubtotalInclTax()) ?><br>
+            <?php if($_invoice->getDiscountAmount() != null ): ?>
+                <?= $_order->formatPrice($_invoice->getDiscountAmount()) ?><br>
+            <?php else: ?>
+                <?= $_order->formatPrice(0.00) ?><br>
+            <?php endif; ?>
+            <?php if($_invoice->getShippingAmount() != null): ?>
+                <?= $_order->formatPrice($_invoice->getShippingAmount()) ?><br>
+            <?php else: ?>
+                <?= $_order->formatPrice(0.00) ?><br>
+            <?php endif; ?>
+            <?= $_order->formatPrice($_invoice->getGrandTotal()) ?><br>
+            <?php if ($taxInfo) : ?>
+                <?php foreach ($taxInfo as $tax) : ?>
+                    <?php
+                    $grossAmount -= $tax['tax_amount'];
+                    ?>
+                    <?= $this->helper('Magento\Framework\Pricing\Helper\Data')->currency($tax['tax_amount'], true, false); ?><br>
+                <?php endforeach; ?>
+            <?php else : ?>
+                <?= $this->helper('Magento\Framework\Pricing\Helper\Data')->currency(0.00, true, false); ?><br>
+            <?php endif; ?>
+            <?= $_order->formatPrice($_invoice->getGrandTotal() - $_invoice->getTaxAmount()) ?><br>
+            <?php if ($crmHelper->isEnableModule()): ?>
+                <?= /* @noEscape */ __($usedPoint) . __(' points')?><br>
+                <?= /* @noEscape */ __($pointValue) . __(' points') ?>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>

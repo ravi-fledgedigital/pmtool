@@ -1,0 +1,377 @@
+.omise-banking-fee-warn {
+    padding: 1rem 0;
+}
+
+#omise_offsite_internetbankingForm li.items, #omise_offsite_installmentForm li.items, #omise_offsite_mobilebankingForm li.items {
+    border-bottom: 1px solid #eee;
+    padding: 12px 0 12px;
+    position: relative;
+}
+
+#omise_offsite_internetbankingForm li > input, #omise_offsite_installmentForm li > input, #omise_offsite_mobilebankingForm li > input {
+    position: absolute;
+    top: 26px;
+    left: 14px;
+}
+
+#omise_offsite_internetbankingForm li > label, #omise_offsite_installmentForm li > label, #omise_offsite_mobilebankingForm li > label {
+    width: 100%;
+    margin-left: 36px;
+    cursor: pointer;
+}
+
+#omise_offsite_internetbankingForm .omise-logo-wrapper, #omise_offsite_installmentForm .omise-logo-wrapper {
+    display: inline-block;
+    padding: 5px;
+    margin: 0 10px;
+    border-radius: 2px;
+    vertical-align: top;
+}
+
+#omise_offsite_mobilebankingForm .omise-logo-wrapper  {
+    display: inline-block;
+    margin: 0 10px;
+    vertical-align: top;
+}
+
+#omise_offsite_mobilebankingForm .omise-logo-wrapper img {
+    width: 40px;
+    height: 40px;
+    display: block;
+}
+
+#omise_offsite_internetbankingForm .omise-logo-wrapper img, #omise_offsite_installmentForm .omise-logo-wrapper img {
+    width: 30px;
+    height: 30px;
+    display: block;
+}
+
+#omise_offsite_internetbankingForm .omise-banking-text-wrapper, #omise_offsite_installmentForm .omise-banking-text-wrapper, #omise_offsite_mobilebankingForm .omise-banking-text-wrapper {
+    display: inline-block;
+    line-height: 38px;
+}
+
+/** SCB **/
+#omise_offsite_internetbankingForm .scb, #omise_offsite_installmentForm .scb {
+    background: #4e2e7f;
+}
+
+#omise_offsite_internetbankingForm img.scb, #omise_offsite_installmentForm img.scb {
+    background: url('../images/scb.svg') #4e2e7f;
+}
+
+/** KTB **/
+#omise_offsite_internetbankingForm .ktb, #omise_offsite_installmentForm .ktb {
+    background: #1ba5e1;
+}
+#omise_offsite_internetbankingForm img.ktb, #omise_offsite_installmentForm img.ktb {
+    background: url('../images/ktb.svg') #1ba5e1;
+}
+
+/** BAY **/
+#omise_offsite_internetbankingForm .bay, #omise_offsite_installmentForm .bay {
+    background: #fec43b;
+}
+#omise_offsite_internetbankingForm img.bay, #omise_offsite_installmentForm img.bay {
+    background: url('../images/bay.svg') #fec43b;
+}
+
+/** BBL **/
+#omise_offsite_internetbankingForm .bbl, #omise_offsite_installmentForm .bbl {
+    background: #1e4598;
+}
+#omise_offsite_internetbankingForm img.bbl, #omise_offsite_installmentForm img.bbl {
+    background: url('../images/bbl.svg') #1e4598;
+}
+
+/** KTC **/
+#omise_offsite_internetbankingForm .ktc, #omise_offsite_installmentForm .ktc {
+    background: rgb(247, 226, 226);
+}
+#omise_offsite_internetbankingForm img.ktc, #omise_offsite_installmentForm img.ktc {
+    background: url('../images/ktc.svg') rgb(247, 226, 226);
+}
+
+/** First Choice **/
+#omise_offsite_internetbankingForm .fc, #omise_offsite_installmentForm .fc {
+    background: #007bc4;
+}
+#omise_offsite_internetbankingForm img.fc, #omise_offsite_installmentForm img.fc {
+    background: url('../images/fc.svg') #007bc4;
+}
+
+/** KBank **/
+#omise_offsite_internetbankingForm .kbank, #omise_offsite_installmentForm .kbank {
+    background: rgb(247, 226, 226);
+}
+#omise_offsite_internetbankingForm img.kbank, #omise_offsite_installmentForm img.kbank {
+    background: url('../images/kbank.svg')rgb(247, 226, 226);
+}
+
+/** UOB **/
+#omise_offsite_installmentForm .uob {
+  background: rgb(0, 36, 105);
+}
+#omise_offsite_installmentForm img.uob {
+  background: url('../images/uob.svg')rgb(0, 36, 105);
+}
+
+/** TTB **/
+#omise_offsite_installmentForm .ttb {
+    background: #eeeeee;
+}
+#omise_offsite_installmentForm img.ttb {
+    background: url('../images/bank_ttb.png');
+    background-size: contain;
+}
+
+/** BAYKMA**/
+#omise_offsite_mobilebankingForm img.bay{
+    background: url('../images/bay_kma.png');
+}
+
+/** KPlus**/
+#omise_offsite_mobilebankingForm img.kbank {
+    background: url('../images/kplus.png');
+}
+
+/** SCBEasy**/
+#omise_offsite_mobilebankingForm img.scb{
+    background: url('../images/scb_easy.png');
+}
+
+/** BualuangMBanking**/
+#omise_offsite_mobilebankingForm img.bbl{
+    background: url('../images/bbl_mbank.png');
+}
+
+/** KTB Next**/
+#omise_offsite_mobilebankingForm img.ktb{
+    background: url('../images/ktb_mbank.png');
+    background-size: contain;
+}
+
+#omise_offsite_installmentForm img.mbb {
+    background: url('../images/fpx-maybank.svg');
+}
+
+div.ocbc_digital {
+    background-image: url('../images/ocbc_digital.svg');
+    width: 30px;
+    height: 30px;
+    float: right;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+div.fpx {
+    background: url('../images/fpx.svg');
+    width: 68px;
+    height: 22px;
+    float: right;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+div.boost {
+    background: url('../images/boost.png');
+    width: 90px;
+    height: 40px;
+    float: right;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+div.duitnow_obw {
+    background: url('../images/logo-duitnow.png');
+    width: 68px;
+    height: 22px;
+    float: right;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+div.duitnow_qr {
+    background: url('../images/DuitNowQR_Primary.png');
+    width: 68px;
+    height: 22px;
+    float: right;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+div.mae_maybank {
+    background: url('../images/logo-mae-maybank.png');
+    width: 90px;
+    height: 40px;
+    float: right;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+div.shopeepay {
+    background: url('../images/logo-shopeepay.png');
+    width: 68px;
+    height: 22px;
+    float: right;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#omise_offsite_atomephoneNumber, #omise_offsite_truemoneyphoneNumber, #omise_offline_conveniencestoreEmail, #omise_offline_conveniencestorePhoneNumber, #omise_offline_conveniencestoreCustomerName {
+    width: 225px;
+}
+
+#omise_offsite_atomephoneNumber, #omise_offsite_truemoneyphoneNumber, #omise_offline_conveniencestoreForm {
+    margin-bottom: 18px;
+}
+
+#img_payment_code {
+    max-width: 320px;
+}
+
+.error-msg {
+    background-color: #dc3545;
+    color: #fff;
+    padding: 5px;
+    line-height: 30px;
+    text-align: center;
+}
+
+.select-list-box {
+    position: relative;
+}
+
+.select-list-box:before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 30px;
+    content: "";
+    pointer-events: none;
+    background: transparent;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position-y: 5px;
+}
+
+
+.select-list-box > select {
+    padding: 0 50px;
+    background-image:url(../images/fpx-unknown.svg);
+    background-repeat: no-repeat;
+    background-position-y: 50%;
+    background-position-x: 10px;
+    background-size: 25px;
+    cursor: pointer;
+}
+
+.select-list-box > select.affin {
+    background-image:url(../images/fpx-affin.svg);
+}
+
+.select-list-box > select.agro {
+    background-image:url(../images/fpx-agronet.svg);
+}
+
+.select-list-box > select.alliance {
+    background-image:url(../images/fpx-alliance.svg);
+}
+
+.select-list-box > select.ambank {
+    background-image:url(../images/fpx-ambank.svg);
+}
+
+.select-list-box > select.bocm {
+    background-image:url(../images/fpx-bocm.svg);
+}
+
+.select-list-box > select.bsn {
+    background-image:url(../images/fpx-bsn.svg);
+}
+
+.select-list-box > select.cimb {
+    background-image:url(../images/fpx-cimb.svg);
+}
+
+.select-list-box > select.citi {
+    background-image:url(../images/fpx-citi.svg);
+}
+
+.select-list-box > select.hongleong {
+    background-image:url(../images/fpx-hongleong.svg);
+}
+
+.select-list-box > select.hsbc {
+    background-image:url(../images/fpx-hsbc.svg);
+}
+
+.select-list-box > select.islam {
+    background-image:url(../images/fpx-islam.svg);
+}
+
+.select-list-box > select.kfh {
+    background-image:url(../images/fpx-kfh.svg);
+}
+
+.select-list-box > select.maybank2e{
+    background-image:url(../images/fpx-maybank.svg);
+}
+
+.select-list-box > select.maybank2u {
+    background-image:url(../images/fpx-maybank.svg);
+}
+
+.select-list-box > select.muamalat {
+    background-image:url(../images/fpx-muamalat.svg);
+}
+
+.select-list-box > select.ocbc {
+    background-image:url(../images/fpx-ocbc.svg);
+}
+
+.select-list-box > select.public {
+    background-image:url(../images/fpx-publicbank.svg);
+}
+
+.select-list-box > select.rakyat {
+    background-image:url(../images/fpx-rakyat.svg);
+}
+
+.select-list-box > select.rhb {
+    background-image:url(../images/fpx-rhb.svg);
+}
+
+.select-list-box > select.sc {
+    background-image:url(../images/fpx-sc.svg);
+}
+
+.select-list-box > select.uob {
+    background-image:url(../images/fpx-uob.svg);
+}
+
+.omise-payment-method-title > img {
+    float: right;
+}
+
+.omise-card-form {
+    margin-top: 15px;
+    width:100%; 
+    max-width: 400px;
+}
+
+.omise-card-error-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    max-width: 400px;
+}
+
+.omise-card-error-container .error-text {
+    color: #D90B0B;;
+    margin-bottom: 3px;
+    padding: 0px 12px;
+    font-size: 1.3rem;
+}

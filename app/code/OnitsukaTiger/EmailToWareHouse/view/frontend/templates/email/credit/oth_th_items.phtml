@@ -1,0 +1,127 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+$creditmemo = $block->getCreditmemo();
+$_order   = $block->getOrder();
+$helper = $this->helper(Magento\Framework\Pricing\Helper\Data::class);
+$crmHelper = $this->helper(\OnitsukaTigerCpss\Crm\Helper\HelperData::class);
+
+?>
+
+<?php if ($creditmemo && $_order): ?>
+    <?php
+    $taxInfo = $this->helper(\Magento\Tax\Helper\Data::class)->getCalculatedTaxes($creditmemo);
+    $listTaxTitle = array_column($taxInfo, 'title');
+
+    $grossAmount = (float) $creditmemo->getGrandTotal();
+
+    $usedPoint = 0;
+    $pointValue = 0;
+    $pointLabel = 'Points to be earned:';
+    if ($_order->getUsedPoint()) {
+        $usedPoint = number_format($_order->getUsedPoint());
+    }
+    if ($_order->getAddedPointDate() > 0 || $_order->getAcquiredPoint() > 0) {
+        $pointValue = number_format($_order->getAcquiredPoint());
+
+        if ($_order->getAddedPoint() > 0) {
+            $pointLabel = 'Added Points:';
+            $pointValue = number_format($_order->getAddedPoint());
+        }
+    }
+    ?>
+    <table class="table text-center mb-40">
+        <thead>
+        <tr>
+            <th scope="col"><?= $block->escapeHtml(__('ลำดับ')) ?></th>
+            <th scope="col"><?= $block->escapeHtml(__('รหัสสินค้า')) ?></th>
+            <th scope="col"><?= $block->escapeHtml(__('รายละเอียด')) ?></th>
+            <th scope="col"><?= $block->escapeHtml(__('จํานวน')) ?></th>
+            <th scope="col"><?= $block->escapeHtml(__('ราคาต่อหน่วย')) ?></th>
+            <th scope="col"><?= $block->escapeHtml(__('จํานวนรวม')) ?></th>
+            <?php if ($crmHelper->isEnableModule()): ?>
+                <th scope="col">
+                    <?= /* @noEscape */ $block->escapeHtml(__('Used Point')) ?>
+                </th>
+            <?php endif; ?>
+        </tr>
+        </thead>
+        <?php foreach ($creditmemo->getItems() as $_item): ?>
+            <?php if (!$_item->getOrderItem()->getParentItem()): ?>
+                <tbody>
+                <?= $block->getItemHtml($_item) ?>
+                </tbody>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </table>
+    <div class="row">
+        <div class="col-7">
+        </div>
+        <div class="col-3 text-right">
+            <?= $block->escapeHtml(__('ยอดรวม (รวมภาษีมูลค่าเพิ่ม):')) ?><br>
+            <?= $block->escapeHtml(__('ส่วนลดในตะกร้า:')) ?><br>
+            <?= $block->escapeHtml(__('ค่าจัดส่ง:')) ?><br>
+            <?= $block->escapeHtml(__('ยอดรวมทั้งหมดที่ต้องชำระ:')) ?><br>
+            <?php if ($taxInfo): ?>
+                <?php foreach ($taxInfo as $tax): ?>
+                    <?php
+                    $taxPercent = round((float) $tax['percent'], 2);
+                    ?>
+                    <?= $block->escapeHtml(__('ภาษีมูลค่าเพิ่ม' . $taxPercent . '%:')) ?><br>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <?= $block->escapeHtml(__('ภาษีมูลค่าเพิ่ม 0%:')) ?><br>
+            <?php endif; ?>
+
+            <?php if ($taxInfo): ?>
+                <?php foreach ($taxInfo as $tax): ?>
+                    <?php
+                    $taxPercent = round((float) $tax['percent'], 2);
+                    ?>
+                    <?= $block->escapeHtml(__('ยอดรวมก่อนVat' . $taxPercent . '%:')) ?><br>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <?= $block->escapeHtml(__('ยอดรวมก่อนVat0%:')) ?><br>
+            <?php endif; ?>
+            <?php if ($crmHelper->isEnableModule()): ?>
+                <?= /* @noEscape */ __('Used point:') ?><br>
+                <?= /* @noEscape */ __($pointLabel) ?>
+            <?php endif; ?>
+        </div>
+        <div class="col-2 text-right">
+            <?= /* @noEscape */ $_order->formatPrice($creditmemo->getSubtotalInclTax()) ?><br>
+            <?php if ($creditmemo->getDiscountAmount() != null): ?>
+                <?= /* @noEscape */ $_order->formatPrice($creditmemo->getDiscountAmount()) ?><br>
+            <?php else: ?>
+                <?= /* @noEscape */ $_order->formatPrice(0.00) ?><br>
+            <?php endif; ?>
+            <?php if ($creditmemo->getShippingAmount() != null): ?>
+                <?= /* @noEscape */ $_order->formatPrice($creditmemo->getShippingAmount()) ?><br>
+            <?php else: ?>
+                <?= /* @noEscape */ $_order->formatPrice(0.00) ?><br>
+            <?php endif; ?>
+            <?= /* @noEscape */ $_order->formatPrice($creditmemo->getGrandTotal()) ?><br>
+            <?php if ($taxInfo): ?>
+                <?php foreach ($taxInfo as $tax): ?>
+                    <?php
+                    $grossAmount -= $tax['tax_amount'];
+                    ?>
+                    <?= /* @noEscape */ $helper->currency($tax['tax_amount'], true, false) ; ?>
+                    <br>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <?= /* @noEscape */ $helper->currency(0.00, true, false) ; ?>
+                <br>
+            <?php endif; ?>
+            <?= /* @noEscape */
+            $_order->formatPrice($creditmemo->getGrandTotal() - $creditmemo->getTaxAmount()) ?><br>
+            <?php if ($crmHelper->isEnableModule()): ?>
+                <?= /* @noEscape */ __($usedPoint) . __(' points')?><br>
+                <?= /* @noEscape */ __($pointValue) . __(' points') ?>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="newsletter_subscriber_backup" resource="default" engine="innodb" comment="Newsletter Subscriber Backup">
+        <column xsi:type="int" name="subscriber_id" unsigned="true" nullable="false" identity="true"
+                comment="Subscriber ID"/>
+        <column xsi:type="smallint" name="store_id" unsigned="true" nullable="true" identity="false"
+                default="0" comment="Store ID"/>
+        <column xsi:type="timestamp" name="change_status_at" on_update="false" nullable="true"
+                comment="Change Status At"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="false" identity="false"
+                default="0" comment="Customer ID"/>
+        <column xsi:type="varchar" name="subscriber_email" nullable="true" length="150" comment="Subscriber Email"/>
+        <column xsi:type="int" name="subscriber_status" unsigned="false" nullable="false" identity="false"
+                default="0" comment="Subscriber Status"/>
+        <column xsi:type="varchar" name="subscriber_confirm_code" nullable="true" length="32" default="NULL"
+                comment="Subscriber Confirm Code"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="subscriber_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="NEWSLETTER_SUBSCRIBER_BACKUP_STORE_ID_STORE_STORE_ID"
+                    table="newsletter_subscriber_backup" column="store_id" referenceTable="store" referenceColumn="store_id"
+                    onDelete="SET NULL"/>
+        <index referenceId="NEWSLETTER_SUBSCRIBER_BACKUP_CUSTOMER_ID" indexType="btree">
+            <column name="customer_id"/>
+        </index>
+        <index referenceId="NEWSLETTER_SUBSCRIBER_BACKUP_STORE_ID" indexType="btree">
+            <column name="store_id"/>
+        </index>
+        <index referenceId="NEWSLETTER_SUBSCRIBER_BACKUP_SUBSCRIBER_EMAIL" indexType="btree">
+            <column name="subscriber_email"/>
+        </index>
+    </table>
+</schema>

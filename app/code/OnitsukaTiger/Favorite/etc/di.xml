@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<!-- <preference for="OnitsukaTiger\Favorite\Api\FavoriteRepositoryInterface" type="OnitsukaTiger\Favorite\Model\FavoriteRepository"/>
+	<preference for="OnitsukaTiger\Favorite\Api\Data\FavoriteInterface" type="OnitsukaTiger\Favorite\Model\Favorite"/>
+	<preference for="OnitsukaTiger\Favorite\Api\Data\FavoriteSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="OnitsukaTiger\Favorite\Model\ResourceModel\Favorite\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">wishlist_item</argument>
+			<argument name="resourceModel" xsi:type="string">OnitsukaTiger\Favorite\Model\ResourceModel\Favorite\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="onitsukatiger_favorite_favorite_listing_data_source" xsi:type="string">OnitsukaTiger\Favorite\Model\ResourceModel\Favorite\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+ -->
+ 	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+				<item name="onitsukatiger_favorite_favorite_listing_data_source" xsi:type="string">OnitsukaTiger\Favorite\Model\ResourceModel\Listing\Grid\Collection</item>
+				<item name="onitsukatiger_favorite_favorite_details_data_source" xsi:type="string">OnitsukaTiger\Favorite\Model\ResourceModel\Details\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <preference for="Magento\Wishlist\Controller\Index\Remove" type="OnitsukaTiger\Favorite\Rewrite\Magento\Wishlist\Controller\Index\Remove"/>
+    
+    <type name="Magento\Wishlist\Controller\Index\Add">
+        <plugin name="OnitsukatigerFavoriteWishlistAdd" type="OnitsukaTiger\Favorite\Plugin\Wishlist" sortOrder="10"/>
+    </type>
+ </config>

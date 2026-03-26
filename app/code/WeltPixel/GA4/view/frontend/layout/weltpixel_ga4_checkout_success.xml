@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="before.body.end">
+            <block
+                ifconfig="weltpixel_ga4/general/enable"
+                class="WeltPixel\GA4\Block\Track\Order"
+                name="weltpixel_ga4_purchase"
+                template="WeltPixel_GA4::serverside/checkout/purchase.phtml"
+            />
+            <!-- Meta Pixel Tracking -->
+            <block
+                ifconfig="weltpixel_ga4_meta_pixel/general_tracking/enable"
+                class="WeltPixel\GA4\Block\MetaPixel\Purchase"
+                name="weltpixel_ga4_metapixel_purchase"
+                template="WeltPixel_GA4::metapixel/purchase.phtml"
+            />
+            <!-- Meta Pixel Tracking -->
+            <!-- Reddit Pixel Tracking -->
+            <block
+                ifconfig="weltpixel_ga4_reddit_pixel/general_tracking/enable"
+                class="WeltPixel\GA4\Block\RedditPixel\Common"
+                name="weltpixel_ga4_reddditpixel_purchase"
+                template="WeltPixel_GA4::redditpixel/purchase.phtml"
+            />
+            <!-- Reddit Pixel Tracking -->
+            <!-- Tiktok Pixel Tracking -->
+            <block
+                ifconfig="weltpixel_ga4_tiktok_pixel/general_tracking/enable"
+                class="WeltPixel\GA4\Block\TiktokPixel\Common"
+                name="weltpixel_ga4_tiktokpixel_purchase"
+                template="WeltPixel_GA4::tiktokpixel/purchase.phtml"
+            />
+            <!-- Tiktok Pixel Tracking -->
+            <!-- Bing Pixel Tracking -->
+            <block
+                ifconfig="weltpixel_ga4_bing_pixel/general_tracking/enable"
+                class="WeltPixel\GA4\Block\BingPixel\Common"
+                name="weltpixel_ga4_bingpixel_purchase"
+                template="WeltPixel_GA4::bingpixel/purchase.phtml"
+            />
+            <!-- Bing Pixel Tracking -->
+            <!-- X Pixel Tracking -->
+            <block
+                ifconfig="weltpixel_ga4_x_pixel/general_tracking/enable"
+                class="WeltPixel\GA4\Block\XPixel\Common"
+                name="weltpixel_ga4_xpixel_purchase"
+                template="WeltPixel_GA4::xpixel/purchase.phtml"
+            />
+            <!-- X Pixel Tracking -->
+            <!-- Klaviyo Pixel Tracking -->
+            <block
+                ifconfig="weltpixel_ga4_klaviyo_pixel/general_tracking/enable"
+                class="WeltPixel\GA4\Block\KlaviyoPixel\Common"
+                name="weltpixel_ga4_klaviyopixel_checkout_success"
+                template="WeltPixel_GA4::klaviyopixel/checkout_success.phtml"
+            />
+            <!-- X Klaviyo Tracking -->
+            <!-- Pinterest Pixel Tracking -->
+            <block
+                ifconfig="weltpixel_ga4_pinterest_pixel/general_tracking/enable"
+                class="WeltPixel\GA4\Block\PinterestPixel\Common"
+                name="weltpixel_ga4_pinterestpixel_purchase"
+                template="WeltPixel_GA4::pinterestpixel/purchase.phtml"
+            />
+            <!-- Pinterest Pixel Tracking -->
+        </referenceContainer>
+    </body>
+</page>

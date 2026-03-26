@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="OnitsukaTigerCpss_PaymentList::RealStorePaymentMethod"
+             title="Payment Methods"
+             module="OnitsukaTigerCpss_PaymentList"
+             sortOrder="20"
+             resource="OnitsukaTigerCpss_PaymentList::RealStorePaymentMethod"
+             parent="Cpss_Crm::cpssmenu"
+             action="paymentmethod/index/index"/>
+    </menu>
+</config>

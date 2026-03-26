@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="onitsuka_pre_order_feature" translate="label" type="text" sortOrder="99" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Pre-Order Feature</label>
+            <tab>onitsukatiger_general</tab>
+            <resource>OnitsukaTiger_ProductAlert::config_onitsukatiger_base</resource>
+            <group id="pre_order_feature_reservation_period" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Product Alert Email Settlement Period</label>
+                <field id="settlement_from" translate="label" type="date" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Settlement Period (From)</label>
+                    <frontend_model>OnitsukaTiger\ProductAlert\Block\Adminhtml\System\Config\Date</frontend_model>
+                </field>
+                <field id="settlement_to" translate="label" type="date" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Settlement Period (To)</label>
+                    <frontend_model>OnitsukaTiger\ProductAlert\Block\Adminhtml\System\Config\Date</frontend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,30 @@
+{
+    "store_locator": {
+        "column": {
+            "store_id": true,
+            "store_name": true,
+            "store_address": true,
+            "store_phone_no": true,
+            "date_started": false,
+            "date_completed": false,
+            "store_timing": false,
+            "time_started": true,
+            "time_completed": true,
+            "store_notes": true,
+            "google_map_link": true,
+            "store_image": true,
+            "position": true,
+            "store_status": true,
+            "meta_title": true,
+            "meta_keyword": true,
+            "meta_description": true,
+            "gallery": true,
+            "stores": true,
+            "id": true,
+            "mobile_gallery": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

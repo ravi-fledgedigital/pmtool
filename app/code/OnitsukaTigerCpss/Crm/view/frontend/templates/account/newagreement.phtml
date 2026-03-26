@@ -1,0 +1,48 @@
+<?php
+/**
+ * @var \Magento\Customer\Block\Account\Dashboard\Info $block
+ */
+$crmHelper = $block->getData('viewModel');
+$aboutMember = $block->getLayout()->createBlock(OnitsukaTigerCpss\Crm\Block\Member\About::class)
+?>
+<?php if ($crmHelper->isEnableModule() && !$crmHelper->checkAgreement()): ?>
+    <?php
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $cpssApiRequest = $objectManager->create(\Cpss\Crm\Model\CpssApiRequest::class);
+    $crmHelper = $objectManager->create(\Cpss\Crm\Helper\Customer::class);
+    $customerRepository = $objectManager->get(\Magento\Customer\Api\CustomerRepositoryInterface::class);
+    $cpssApiRequest->addMember($crmHelper->getCpssMembeIdPrefix() . $block->getCustomer()->getId());
+
+    $storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+    $websiteId = $storeManager->getWebsite()->getId();
+
+    $customer = $customerRepository->get($block->getCustomer()->getEmail(), $block->getCustomer()->getWebsiteId());
+    //$customer->setCustomAttribute('is_agreed', 1);
+    if ($websiteId != 4) {
+        $customer->setCustomAttribute('is_agreed', 1);
+        $customerRepository->save($customer);
+    }
+    ?>
+    <!--<form class="form create member form-create-member" action="<?php /*= $block->escapeUrl($aboutMember->getFormAction()) */?>"
+          method="post"
+          id="form-validate"
+          enctype="multipart/form-data"
+          autocomplete="off">
+        <?php /*= $block->getBlockHtml('formkey'); */?>
+        <input type="text" value="<?php /*= $block->escapeHtml($block->getCustomer()->getEmail()) */?>" name="email" hidden>
+        <input type="text" value="<?php /*= $block->escapeHtml($block->getCustomer()->getWebsiteId()) */?>"
+               name="website_id"hidden>
+        <div class="about-member-service">
+            <?php /*= $block->getChildHtml('block_membership_agreement_customer') */?>
+        </div>
+        <div class="field choice agree-member-service">
+            <input type="checkbox" name="is_agreed"
+                   title="<?php /*= $block->escapeHtmlAttr(__('I agree to the Membership Agreement')) */?>"
+                   id="is_agreed" class="checkbox">
+            <label for="is_agreed" class="label">
+                <span><?php /*= $block->escapeHtml(__('I agree to the Membership Agreement')) */?></span>
+            </label>
+        </div>
+        <button class="action primary"><?php /*= $block->escapeHtml(__('Send')) */?></button>
+    </form>-->
+<?php endif; ?>

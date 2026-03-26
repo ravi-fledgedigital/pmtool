@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route url="/V1/onitsukatiger-gthk/gthk" method="POST">
+		<service class="OnitsukaTiger\Gthk\Api\GthkRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="OnitsukaTiger_Gthk::Gthk_save"/>
+		</resources>
+	</route>
+	<route url="/V1/onitsukatiger-gthk/gthk/search" method="GET">
+		<service class="OnitsukaTiger\Gthk\Api\GthkRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="OnitsukaTiger_Gthk::Gthk_view"/>
+		</resources>
+	</route>
+	<route url="/V1/onitsukatiger-gthk/gthk/:gthkId" method="GET">
+		<service class="OnitsukaTiger\Gthk\Api\GthkRepositoryInterface" method="get"/>
+		<resources>
+			<resource ref="OnitsukaTiger_Gthk::Gthk_view"/>
+		</resources>
+	</route>
+	<route url="/V1/onitsukatiger-gthk/gthk/:gthkId" method="PUT">
+		<service class="OnitsukaTiger\Gthk\Api\GthkRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="OnitsukaTiger_Gthk::Gthk_update"/>
+		</resources>
+	</route>
+	<route url="/V1/onitsukatiger-gthk/gthk/:gthkId" method="DELETE">
+		<service class="OnitsukaTiger\Gthk\Api\GthkRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="OnitsukaTiger_Gthk::Gthk_delete"/>
+		</resources>
+	</route>
+    <route url="/V1/cod/handle_webhook" method="POST">
+        <service class="OnitsukaTiger\Gthk\Api\CallbackInterface" method="handleWebhook"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>

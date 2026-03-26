@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="sales_email_cancel_order_template"
+              label="Order Cancel Email Template"
+              module="OnitsukaTiger_Sales"
+              file="cancel_order_template.html"
+              type="html"
+              area="frontend"/>
+    <template id="sales_email_ready_collection_order_template"
+              label="Order Ready Collection Email Template"
+              module="OnitsukaTiger_Sales"
+              file="ready_collection_order_template.html"
+              type="html"
+              area="frontend"/>
+    <template id="sales_email_delivered_order_template"
+              label="Order Delivered Email Template"
+              module="OnitsukaTiger_Sales"
+              file="delivered_order_template.html"
+              type="html"
+              area="frontend"/>
+</config>

@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add
+            id="OnitsukaTiger_Ninja::onitsukatiger_ninja"
+            title="Ninja Tracking"
+            module="OnitsukaTiger_Ninja"
+            sortOrder="20"
+            resource="OnitsukaTiger_Ninja::onitsukatiger_ninja"
+        />
+        <add
+            action="onitsukatiger_ninja/order/index"
+            id="OnitsukaTiger_Ninja::Order"
+            module="OnitsukaTiger_Ninja"
+            resource="OnitsukaTiger_Ninja::Order"
+            sortOrder="10"
+            title="Order"
+            parent="OnitsukaTiger_Ninja::onitsukatiger_ninja"
+        />
+        <add
+            action="adminhtml/system_config/edit/section/ninja"
+            id="OnitsukaTiger_Ninja::NinjaConfig"
+            module="OnitsukaTiger_Ninja"
+            resource="OnitsukaTiger_Ninja::NinjaConfig"
+            sortOrder="22"
+            title="Configuration"
+            parent="OnitsukaTiger_Ninja::onitsukatiger_ninja"
+        />
+    </menu>
+</config>

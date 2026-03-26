@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <sales_email>
+            <delivered_order>
+                <enabled>1</enabled>
+                <senderEmail>sales</senderEmail>
+                <template>sales_email_delivered_order_template</template>
+            </delivered_order>
+            <cancel_order>
+                <enabled>1</enabled>
+                <senderEmail>sales</senderEmail>
+                <template>sales_email_cancel_order_template</template>
+            </cancel_order>
+            <ready_collection_order>
+                <enabled>1</enabled>
+                <senderEmail>sales</senderEmail>
+                <template>sales_email_ready_collection_order_template</template>
+            </ready_collection_order>
+        </sales_email>
+    </default>
+</config>

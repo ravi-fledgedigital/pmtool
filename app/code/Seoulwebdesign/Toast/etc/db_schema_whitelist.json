@@ -1,0 +1,38 @@
+{
+    "seoulwebdesign_toast_template": {
+        "column": {
+            "message_id": true,
+            "toast_id": true,
+            "status": true,
+            "send_message_action": true,
+            "var_order_id": true,
+            "var_order_customer_name": true,
+            "var_order_total": true,
+            "var_order_refunded": true,
+            "var_order_payment_method": true,
+            "var_order_products": true,
+            "var_order_tracking_code": true,
+            "var_shop_url": true,
+            "var_order_created_time": true,
+            "var_order_updated_time": true,
+            "var_customer_name": true,
+            "created_at": true,
+            "updated_at": true,
+            "var_shop_name": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "seoulwebdesign_toast_sendlog": {
+        "column": {
+            "id": true,
+            "order_id": true,
+            "send_message_action": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "SEOULWEBDESIGN_TOAST_SENDLOG_ORDER_ID_SEND_MESSAGE_ACTION": true
+        }
+    }
+}

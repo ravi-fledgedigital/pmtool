@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Email\Model\BackendTemplate">
+        <plugin name="save_before_template" type="OnitsukaTiger\EmailTemplate\Plugin\SaveBefore" disabled="false" />
+    </type>
+    <preference for="Magento\Email\Block\Adminhtml\Template\Grid\Renderer\Action" type="OnitsukaTiger\EmailTemplate\Block\Adminhtml\Template\Grid\Renderer\Action" />
+    <type name="Magento\Framework\Mail\TransportInterface">
+        <plugin name="OnitsukaTiger_EmailTemplate::create_log_email" type="OnitsukaTiger\EmailTemplate\Plugin\Model\Mail\TransportInterfacePlugin" />
+    </type>
+</config>

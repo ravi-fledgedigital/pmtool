@@ -1,0 +1,150 @@
+<?php
+/**
+* @author OnitsukaTiger Team
+* @copyright Copyright (c) 2022 OnitsukaTiger (https://www.onitsukatiger.com)
+* @package Custom Checkout Fields for Magento 2
+*/
+?>
+<?php
+/** @var $block \OnitsukaTiger\OrderAttribute\Block\Adminhtml\Attribute\Edit\Tab\Options\Options */
+/** @var $escaper \Magento\Framework\Escaper */
+?>
+<fieldset class="fieldset-wrapper admin__collapsible-block-wrapper">
+    <div class="fieldset-wrapper-title">
+        <strong class="admin__collapsible-title"
+                data-toggle="collapse"
+                data-target="#manage-options-panel"
+                data-bs-toggle="collapse"
+                data-bs-target="#manage-options-panel">
+            <span><?=$escaper->escapeHtml(__('Manage Options (values of your attribute)')); ?></span>
+        </strong>
+    </div>
+    <div class="fieldset-wrapper-content in collapse selected-type-options" id="manage-options-panel">
+        <div id="manage-options-panel">
+            <table class="admin__control-table">
+                <thead>
+                    <tr id="attribute-options-table">
+                        <th class="col-draggable"></th>
+                        <th class="col-default control-table-actions-th">
+                            <?=$escaper->escapeHtml(__('Is Default')) ?>
+                            <div>(
+                                <a class="am-unselect-default"><?=$escaper->escapeHtml(__('Unselect All')) ?></a>
+                                )
+                            </div>
+                        </th>
+                        <?php foreach ($block->getStoresSortedBySortOrder() as $store): ?>
+                            <th<?= ($store->getId() == \Magento\Store\Model\Store::DEFAULT_STORE_ID)?' class="_required"':''; ?>>
+                                <span><?= $escaper->escapeHtml(__($store->getName())); ?></span>
+                            </th>
+                        <?php endforeach;
+                        $storetotal = count($block->getStoresSortedBySortOrder()) + 3;
+                        ?>
+                        <th class="col-delete">&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody data-role="options-container" class="ignore-validate"></tbody>
+                <tfoot>
+                <tr>
+                    <th colspan="<?=$escaper->escapeHtml($storetotal); ?>" class="validation">
+                       <input type="hidden" class="required-dropdown-attribute-entry" name="dropdown_attribute_validation"/>
+                    </th>
+                </tr>
+                <tr>
+                    <th colspan="<?=$escaper->escapeHtml($storetotal); ?>" class="col-actions-add">
+                        <?php if (!$block->getReadOnly() && !$block->canManageOptionDefaultOnly()): ?>
+                            <button id="add_new_option_button"
+                                    title="<?=$escaper->escapeHtml(__('Add Option')); ?>"
+                                    type="button" class="action- scalable add">
+                                 <span><?=$escaper->escapeHtml(__('Add Option')); ?></span>
+                            </button>
+                        <?php endif; ?>
+                    </th>
+                </tr>
+                </tfoot>
+            </table>
+            <input type="hidden" id="option-count-check" value="" />
+        </div>
+    </div>
+    <script id="row-template" type="text/x-magento-template">
+         <tr>
+            <td class="col-draggable">
+                <?php if (!$block->getReadOnly() && !$block->canManageOptionDefaultOnly()): ?>
+                    <div data-role="draggable-handle" class="draggable-handle"
+                         title="<?=$escaper->escapeHtml(__('Sort Option')); ?>"></div>
+                <?php endif; ?>
+                <input data-role="order" type="hidden" name="option[order][<%- data.id %>]"
+                       value="<%- data.sort_order %>"
+                        <?php if ($block->getReadOnly() || $block->canManageOptionDefaultOnly()): ?>
+                            disabled="disabled"
+                        <?php endif; ?>
+                />
+            </td>
+            <td class="col-default control-table-actions-cell">
+                <input class="input-radio" type="<%- data.intype %>" name="default[]"
+                       value="<%- data.id %>" <%- data.checked %>
+                <?php if ($block->getReadOnly()): ?>
+                    disabled="disabled"
+                <?php endif;?>
+                />
+            </td>
+            <?php foreach ($block->getStoresSortedBySortOrder() as $store): ?>
+            <td class="col-<%- data.id %>">
+                <input  name="option[value][<%- data.id %>][<?=$escaper->escapeHtml($store->getId()) ?>]"
+                        value="<%- data.store<?=$escaper->escapeHtml($store->getId()) ?> %>"
+                        class="input-text
+                        <?php if ($store->getId() == \Magento\Store\Model\Store::DEFAULT_STORE_ID): ?>
+                          required-option
+                        <?php endif; ?>"
+                        type="text"
+                        <?php if ($block->getReadOnly() || $block->canManageOptionDefaultOnly()): ?>
+                           disabled="disabled"
+                        <?php endif;?>
+                />
+            </td>
+            <?php endforeach; ?>
+            <td id="delete_button_container_<%- data.id %>" class="col-delete">
+                <input type="hidden" class="delete-flag" name="option[delete][<%- data.id %>]" value="" />
+                <?php if (!$block->getReadOnly() && !$block->canManageOptionDefaultOnly()): ?>
+                    <button id="delete_button_<%- data.id %>"
+                            title="<?=$escaper->escapeHtml(__('Delete')) ?>" type="button"
+                            class="action- scalable delete delete-option"
+                        >
+                        <span><?=$escaper->escapeHtml(__('Delete')) ?></span>
+                    </button>
+                <?php endif;?>
+            </td>
+        </tr>
+    </script>
+    <?php
+    $values = [];
+    foreach ($block->getOptionValues() as $value) {
+        $value = $value->getData();
+        $values[] = is_array($value) ? array_map(function ($str) {
+            return htmlspecialchars_decode($str, ENT_QUOTES);
+        }, $value) : $value;
+    }
+    ?>
+    <script>
+        require([
+            "jquery"
+        ], function (jQuery) {
+            jQuery('body').on(
+                {'click': function(){
+                    jQuery('input[name="default[]"]').removeAttr('checked');
+                }},
+                ".am-unselect-default"
+            );
+        });
+    </script>
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "Magento_Catalog/js/options": {
+                    "attributesData": <?= /* @noEscape */ json_encode($values); ?>,
+                    "isSortable":  <?= (int)(!$block->getReadOnly() && !$block->canManageOptionDefaultOnly()) ?>,
+                    "isReadOnly": <?= (int)$block->getReadOnly(); ?>
+                }
+            }
+        }
+    </script>
+</fieldset>

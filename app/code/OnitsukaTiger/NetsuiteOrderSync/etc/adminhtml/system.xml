@@ -1,0 +1,60 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="firebear_importexport" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="netsuite_internal_id" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Netsuite Internal ID Infomations</label>
+                <field id="custom_form_id" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom Form Internal ID</label>
+                </field>
+                <field id="custom_form_type" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom Form Type ID</label>
+                </field>
+                <field id="item_price_internalId" translate="label" type="text" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Item Price Internal ID</label>
+                </field>
+                <field id="item_price_internalType" translate="label" type="text" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Item Price Type</label>
+                </field>
+                <field id="item_taxcode_internalId" translate="label" type="text" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Item Tax Code ID</label>
+                </field>
+                <field id="shipping_method_id" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Shipping Method</label>
+                </field>
+                <field id="netsuite_tax_code" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Sale Tax Code Internal ID</label>
+                </field>
+                <field id="netsuite_entity_id" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer(Field Id: Entity)</label>
+                </field>
+                <field id="netsuite_discount_item" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Discount Item</label>
+                </field>
+                <field id="netsuite_loyalty_discount_item" translate="label" type="text" sortOrder="55" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Loyalty Discount Item</label>
+                </field>
+                <field id="netsuite_shipping_item" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Shipping Item</label>
+                </field>
+                <field id="netsuite_deparment_id" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Order Department Internal ID</label>
+                </field>
+            </group>
+        </section>
+        <section id="netsuite" translate="label" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="order_sync_multishipment" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Order sync to Netsuite with Multi Shipment</label>
+                <field id="enabled" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Select <strong>Yes</strong> to enable the module.]]></comment>
+                </field>
+                <field id="store" translate="label comment" sortOrder="20" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Ignore Sync to Netsuite with Source from Stores</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Select <strong>Yes</strong> to ignore sync into NetSuite.]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

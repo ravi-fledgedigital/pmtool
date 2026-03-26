@@ -1,0 +1,19 @@
+{
+    "name": "seoulwebdesign/kakaopay",
+    "description": "",
+    "type": "magento2-module",
+    "version": "2.1.1",
+    "license": "proprietary",
+    "minimum-stability": "dev",
+    "require": {
+        "seoulwebdesign/base": "1.1.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Seoulwebdesign\\Kakaopay\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}

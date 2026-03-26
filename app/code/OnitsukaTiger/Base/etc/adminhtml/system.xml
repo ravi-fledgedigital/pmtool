@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="onitsukatiger_general" translate="label" sortOrder="102">
+            <label>OnitsukaTiger General</label>
+        </tab>
+
+        <tab id="onitsukatiger" translate="label" sortOrder="10">
+            <label>OnitsukaTiger</label>
+        </tab>
+        <section id="onitsukatiger_general" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+            <label>General</label>
+            <tab>onitsukatiger_general</tab>
+            <resource>OnitsukaTiger_Base::config_onitsukatiger_base</resource>
+            <group id="onitsukatiger_general" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                <label>General Email Setting</label>
+                <field id="developermode" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Developermode Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="developer_email" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send E-mail To</label>
+                    <comment>Comma-separated.</comment>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="developermode">1</field>
+                    </depends>
+                </field>
+
+            </group>
+        </section>
+    </system>
+</config>

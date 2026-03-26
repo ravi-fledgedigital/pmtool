@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * @author Aitoc Team
+ * @copyright Copyright (c) 2022 Aitoc (https://www.aitoc.com)
+ * @package Aitoc_SendGrid
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job instance="Aitoc\SendGrid\Model\Cron\Sync" method="execute" name="aitoc_sendgrid_sync">
+            <schedule>0 2 * * *</schedule>
+        </job>
+    </group>
+</config>

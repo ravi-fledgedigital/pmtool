@@ -1,0 +1,36 @@
+<?php
+    $element = $block->getElement();
+    $form = $element->getForm();
+    /** @var \Magento\Config\Block\System\Config\Form $parentForm */
+    $parentForm = $form->getParent();
+    $backgroundConfigVal = $parentForm->getConfigValue('barcode_section/barcode_group/background');
+?>
+
+<div>
+    <input type="text" 
+        id="barcode_section_barcode_group_background" 
+        name="<?= $block->getFieldName() ?>"
+        class="input-text admin__control-text"
+        value="<?= $backgroundConfigVal ?>">
+</div>
+
+<script type="text/javascript">
+    require(['jquery', 'jquery/ui'], function($) {
+
+        $("#barcode_section_barcode_group_background").css("background-color", "<?= $backgroundConfigVal ?>");
+
+        $("#barcode_section_barcode_group_background").colpick({
+            layout: "hex",
+            submit: 0,
+            colorScheme: "dark",
+            color: "' . $value . '",
+            onChange: function(hsb, hex, rgb, el, bySetColor) {
+                hex = "#" + hex;
+                $(el).css("background-color", hex);
+                if (!bySetColor) $(el).val(hex);
+            }
+        }).keyup(function() {
+            $(this).colpickSetColor(this.value);
+        });
+    });
+</script>

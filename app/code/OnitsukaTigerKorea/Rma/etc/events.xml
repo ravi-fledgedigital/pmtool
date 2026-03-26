@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="amasty_manager_rma_saved">
+        <observer name="send_xml_return_to_sftp" instance="OnitsukaTigerKorea\Rma\Observer\RmaSavedObserver" />
+    </event>
+    <event name="customer_rma_created">
+        <observer name="send_xml_return_to_sftp" instance="OnitsukaTigerKorea\Rma\Observer\RmaSavedObserver" />
+    </event>
+    <event name="amasty_manager_rma_before_create">
+        <observer name="before_manager_create_rma_korea" instance="OnitsukaTigerKorea\Rma\Observer\BeforeCreateRmaManager" />
+    </event>
+    <event name="manager_rma_created">
+        <observer name="send_xml_return_to_sftp" instance="OnitsukaTigerKorea\Rma\Observer\RmaSavedObserver" />
+    </event>
+    <event name="amasty_customer_rma_canceled">
+        <observer name="send_xml_cancel_return_to_sftp" instance="OnitsukaTigerKorea\Rma\Observer\AfterCancelReturn"/>
+    </event>
+    <event name="amasty_customer_rma_before_create">
+        <observer name="before_customer_create_rma_korea" instance="OnitsukaTigerKorea\Rma\Observer\BeforeCreateRmaManager" />
+    </event>
+</config>

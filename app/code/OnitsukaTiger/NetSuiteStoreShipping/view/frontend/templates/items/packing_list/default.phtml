@@ -1,0 +1,74 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \OnitsukaTiger\NetSuiteStoreShipping\Block\Order\Shipment\Items\DefaultItem $block */
+/** @var \Magento\Sales\Model\Order\Shipment\Item $item */
+$item = $block->getItem();
+/** @var \Magento\Sales\Model\Order $order */
+$order = $block->getItem()->getOrder();
+
+$sku = $item->getSku();
+$config =  new \Laminas\Config\Config([
+    'barcode' => 'code128',
+    'barcodeParams' => [
+        'text' => $sku,
+        'drawText' => false
+    ],
+    'renderer' => 'image',
+    'rendererParams' => ['imageType' => 'png']
+]);
+
+$barcodeResource = \Laminas\Barcode\Barcode::factory($config)->draw();
+
+ob_start();
+imagepng($barcodeResource);
+$barcodeImage = ob_get_clean();
+
+$orderItem = $item->getOrderItem();
+$discountAmount = $item->getQty()/$orderItem->getQtyOrdered() * $orderItem->getDiscountAmount();
+$subTotal = $item->getQty()*$orderItem->getPriceInclTax() - $discountAmount;
+$helperData = $this->helper(OnitsukaTigerKorea\ConfigurableProduct\Helper\Data::class);
+
+$productHelper = $this->helper(\OnitsukaTiger\Catalog\Helper\Data::class);
+$product = $productHelper->getProduct($item->getSku());
+$color = $product->getResource()->getAttribute('color');
+$colorValue = $color->getSource()->getOptionText($product->getData('color'));
+?>
+
+<tr>
+    <td><?= $block->getProductNo() ?></td>
+    <td><?= $sku ?></td>
+    <td>
+        <img class="barcode" src="<?php echo 'data:image/png;base64,' . base64_encode($barcodeImage); ?>">
+    </td>
+    <td>
+        <?= $item->getName() ?>
+        <?php if ($block->getItemOptions()) : ?>
+            <span style="text-transform: uppercase;">
+                (<?php
+                $itemOption = [];
+                foreach ($block->getItemOptions() as $option) {
+                    $label = $option['label'];
+                    $value = $option['value'];
+                    $sizeForDisplay = $helperData->getSizeForDisplay($item->getSku(), $item->getStoreId());
+                    if ($sizeForDisplay && strtolower($option['label']) == 'size') {
+                        $itemOption[] = $label . '=' . $sizeForDisplay;
+                    }elseif ($colorValue && strtolower($option['label']) == 'colors') {
+                        $itemOption[] = $label . '=' . $colorValue;
+                    }else{
+                        $itemOption[] = $label . '=' . $value;
+                    }
+                }
+                echo $block->escapeHtml(implode(';', $itemOption));
+                ?>)
+            </span>
+        <?php endif; ?>
+    </td>
+    <td><?= (int) $item->getQty() ?></td>
+    <td><?= $order->formatPrice($orderItem->getPriceInclTax()) ?></td>
+    <td><?= $order->formatPrice($discountAmount) ?></td>
+    <td><?= $order->formatPrice($subTotal) ?></td>
+</tr>

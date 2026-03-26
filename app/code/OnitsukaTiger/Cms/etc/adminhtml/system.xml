@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="onitsukatiger_cms" translate="label" sortOrder="1000" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Noto Serif CJK JP</label>
+            <tab>onitsukatiger_general</tab>
+            <resource>OnitsukaTiger_Cms::cms_config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>General</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable Module</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="apply_font_for_category" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Category IDs</label>
+                    <depends><field id="enabled">1</field></depends>
+                    <comment><![CDATA[Enter one or multiple category IDs separated by commas (e.g., 10,15,20). These IDs determine where the Noto Serif CJK JP font will be applied in PLP page. Only numeric IDs are valid.]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

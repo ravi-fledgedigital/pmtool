@@ -1,0 +1,60 @@
+<?php // phpcs:ignoreFile ?>
+
+<?php if($block->getOrder()):?>
+    <?php
+    $helper = $this->helper('OnitsukaTiger\Fixture\Helper\Data');
+    $helperCheckout = $this->helper('OnitsukaTiger\Checkout\Helper\Data');
+    $helperStore = $this->helper('OnitsukaTiger\Store\Helper\Data');
+    $date = $helperStore->formatDate($block->getOrder()->getCreatedAt(), $block->getOrder()->getStoreId());
+    $payment = $block->getOrder()->getPayment() ? $block->getOrder()->getPayment()->getMethod() : '';
+    ?>
+    <div class="title-container">
+        <?php if($payment =='omise_offsite_internetbanking'):?>
+            <h1><?= __('Your order is pending payment processing.')?></h1>
+        <?php else: ?>
+            <h1><?= __('Thank you for your order')?></h1>
+        <?php endif;?>
+        <span><?= __('If you have any additional questions or concerns, please feel free to contact us at')?> <?= $helper->getConfig('trans_email/ident_sales/email')?></span>
+    </div>
+    <div class="order-details">
+        <div class="items"><span><?= __('Order Placed:')?></span> <?= $date ?></div>
+        <div class="items"><span><?= __('Order Number:')?></span> <?= $block->getOrder()->getIncrementId()?></div>
+    </div>
+    <div class="message-order">
+        <?php if($payment =='omise_offsite_internetbanking'):?>
+            <span><?= __('Once payment is confirmed, a confirmation email will be sent to')?> <?= $block->getOrder()->getCustomerEmail()?></span>
+        <?php else: ?>
+            <span><?= __('A confirmation email will be sent to')?> <?= $block->getOrder()->getCustomerEmail()?></span>
+        <?php endif;?>
+        <div class="track-order-details">
+            <?= $block->escapeHtml(__('You can further track this order from the <a href="%1">My Accounts</a> section', $block->getUrl('sales/order/history')), ['a']) ?>
+        </div>
+    </div>
+    <div class="order-items-content">
+        <?= $block->getChildHtml('order_view') ?>
+    </div>
+    <div class="order-summary">
+        <div class="summary-order">
+            <div class="title-block">
+                <?= __('Order Summary')?>
+            </div>
+            <table>
+                <tbody>
+                <?= $block->getChildHtml('order_totals') ?>
+                </tbody>
+            </table>
+        </div>
+        <?= $block->getChildHtml('info') ?>
+    </div>
+    <script>
+        require([
+            'jquery',
+        ], function($){
+            <?php if($helperCheckout->isCustomerLoggedIn()):?>
+            document.cookie = 'checkoutStepCurrent=shipping; expires='.concat(new Date(Date.now() + 6048e5).toUTCString(), "; path=/;");
+            <?php else: ?>
+            document.cookie = 'checkoutStepCurrent=isLogedCheck; expires='.concat(new Date(Date.now() + 6048e5).toUTCString(), "; path=/;");
+            <?php endif; ?>
+        });
+    </script>
+<?php endif; ?>

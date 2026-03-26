@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">admincrm_receipt_listing.admincrm_receipt_listing_data_source</item>
+            <item name="deps" xsi:type="string">admincrm_receipt_listing.admincrm_receipt_listing_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">receipt_columns</item>
+    </argument>
+    <dataSource name="admincrm_receipt_listing_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <argument name="name" xsi:type="string">admincrm_receipt_listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">entity_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+
+    <listingToolbar name="listing_top">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="sticky" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filterSearch name="fulltext"/>
+        <filters name="listing_filters" />
+        <paging name="listing_paging"/>
+         <exportButton name="export_button"/>
+        <massaction name="listing_massaction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
+                </item>
+            </argument>
+            <action name="return">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">return</item>
+                        <item name="label" xsi:type="string" translate="true">Return</item>
+                        <item name="url" xsi:type="url" path="admincrm/receipt/massReturn"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Return Order</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you wan't to return selected orders?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+        </massaction>
+    </listingToolbar>
+
+    <columns name="receipt_columns">
+        <settings>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">admincrm_receipt_listing.admincrm_receipt_listing.receipt_columns.actions</item>
+                    <item name="target" xsi:type="string">applyAction</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">view</item>
+                        <item name="1" xsi:type="string">${ $.$data.rowIndex }</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
+        <selectionsColumn name="ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">55</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </selectionsColumn>
+        <column name="entity_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">ID</item>
+                </item>
+            </argument>
+        </column>
+        <column name="purchase_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Store Purchase ID</item>
+                </item>
+            </argument>
+        </column>
+        <column name="return_purchase_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Return ID</item>
+                </item>
+            </argument>
+        </column>
+        <column name="exch_purchase_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Exchange ID</item>
+                </item>
+            </argument>
+        </column>
+        <column name="shop_id" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <filter>select</filter>
+                <options class="Cpss\Crm\Ui\Component\Listing\Column\PurchaseStore\Options"/>
+                <dataType>select</dataType>
+                <label translate="true">Purchase Store</label>
+            </settings>
+        </column>
+        <column name="pos_terminal_no">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">POS Register No.</item>
+                </item>
+            </argument>
+        </column>
+        <column name="purchase_date" class="Cpss\Crm\Ui\Component\Listing\Column\PurchaseDate">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="label" xsi:type="string" translate="true">Purchase Date</item>
+                </item>
+            </argument>
+        </column>
+        <column name="return_date" class="Cpss\Crm\Ui\Component\Listing\Column\ReturnDate">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="label" xsi:type="string" translate="true">Return Date</item>
+                </item>
+            </argument>
+        </column>
+        <column name="exch_date" class="Cpss\Crm\Ui\Component\Listing\Column\ReturnDate">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="label" xsi:type="string" translate="true">Exchange Date</item>
+                </item>
+            </argument>
+        </column>
+        <column name="total_amount_incl_tax" class="Cpss\Crm\Ui\Component\Listing\Column\Price">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Total Amount Include Tax</label>
+            </settings>
+        </column>
+        <column name="discount_amount_incl_tax" class="Cpss\Crm\Ui\Component\Listing\Column\Price">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Discounted Total Amount Include Tax</label>
+            </settings>
+        </column>
+        <column name="tax_amount" class="Cpss\Crm\Ui\Component\Listing\Column\Price">
+            <settings>
+                <filter>textRange</filter>
+                <visible>false</visible>
+                <label translate="true">Total Tax</label>
+            </settings>
+        </column>
+        <column name="transaction_type" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <filter>select</filter>
+                <options class="Cpss\Crm\Ui\Component\Listing\Column\TransactionType\Options"/>
+                <dataType>select</dataType>
+                <label translate="true">Status</label>
+            </settings>
+        </column>
+        <column name="customer_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Customer Name</item>
+                </item>
+            </argument>
+        </column>
+        <column name="member_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Member ID</item>
+                </item>
+            </argument>
+        </column>
+        <column name="payment_method">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Payment Method</item>
+                </item>
+            </argument>
+        </column>
+        <column name="receipt_no">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Receipt No.</item>
+                </item>
+            </argument>
+        </column>
+        <column name="used_point">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Used Point</item>
+                </item>
+            </argument>
+        </column>
+        <!-- <column name="point_transaction_date_time" class="Magento\Ui\Component\Listing\Columns\Date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Point Transaction Date</item>
+                </item>
+            </argument>
+        </column> -->
+        <column name="point_history_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Point History ID</item>
+                </item>
+            </argument>
+        </column>
+        <!--<column name="country_code" component="Magento_Ui/js/grid/columns/select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Country Code</item>
+                    <item name="options" xsi:type="object">Magento\Directory\Model\Config\Source\Country</item>
+                </item>
+            </argument>
+        </column>-->
+
+        <column name="store_code" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <options class="Cpss\Crm\Model\Source\CountryOptions"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Country</label>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="Cpss\Crm\Ui\Component\Listing\Column\Action">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">107</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </actionsColumn>
+
+    </columns>
+</listing>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @copyright: Copyright © 2019 Firebear Studio. All rights reserved.
+ * @author   : Firebear Studio <fbeardev@gmail.com>
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="source">
+        <field name="image_import_source">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">200</item>
+                </item>
+            </argument>
+        </field>
+        <field name="remove_current_mappings">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">201</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="source_data_map_container_category">
+        <field name="root_category_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="selectType" xsi:type="string">tree</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="behavior_field_indicating_custom_fields_container" class="Firebear\ImportExport\Ui\Component\Form\ExportFieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/components/visible-on-options/fieldset</item>
+                <item name="label" xsi:type="string" translate="true">Fields (check boxes) to be checked after the import</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">50</item>
+                <item name="visible" xsi:type="boolean">false</item>
+                <item name="imports" xsi:type="array">
+                    <item name="toggleVisibility" xsi:type="string">${$.ns}.${$.ns}.settings.platforms:value</item>
+                </item>
+                <item name="valuesForOptions" xsi:type="array">
+                    <item name="netsuiteOrder" xsi:type="string">netsuiteOrder</item>
+                </item>
+            </item>
+        </argument>
+        <field name="behavior_field_netsuite_order_is_in_m2">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_netsuite_order_is_in_m2</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string" translate="true">An custom field (checkbox) in the NetSuite, indicating that the order is in M2</item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_netsuite_invoice_is_in_m2">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_netsuite_invoice_is_in_m2</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string" translate="true">An custom field (checkbox) in the NetSuite, indicating that the invoice is in M2</item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_netsuite_shipment_is_in_m2">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_netsuite_shipment_is_in_m2</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string" translate="true">An custom field (checkbox) in the NetSuite, indicating that the shipment is in M2</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="behavior_field_netsuite_customer_price_level_map_container" class="Firebear\ImportExport\Ui\Component\Form\ExportFieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/components/visible-on-options/fieldset</item>
+                <item name="label" xsi:type="string" translate="true">Map Netsuite Customer Price Level</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">50</item>
+                <item name="visible" xsi:type="boolean">false</item>
+                <item name="imports" xsi:type="array">
+                    <item name="toggleVisibility" xsi:type="string">${$.ns}.${$.ns}.settings.platforms:value</item>
+                </item>
+                <item name="valuesForOptions" xsi:type="array">
+                    <item name="netsuiteCustomer" xsi:type="string">netsuiteCustomer</item>
+                </item>
+            </item>
+        </argument>
+        <button name="import_customer_groups_button" class="Magento\Ui\Component\Container">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/components/button-import-customers</item>
+                    <item name="title" xsi:type="string">Import Customer Groups</item>
+                    <item name="importCustomerGroupUrl" xsi:type="url" path="platformNetsuite/job/importCustomerGroups"/>
+                </item>
+            </argument>
+        </button>
+        <dynamicRows name="behavior_field_netsuite_customer_price_level_map">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="componentType" xsi:type="string">dynamicRows</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/dynamic-rows/dynamic-rows</item>
+                    <item name="addButtonLabel" xsi:type="string" translate="true">Add New</item>
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="admin__field-wide" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="pageSize" xsi:type="number">120</item>
+                    <item name="dndConfig" xsi:type="array">
+                        <item name="enabled" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+            <container name="record">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="isTemplate" xsi:type="boolean">true</item>
+                        <item name="is_collection" xsi:type="boolean">true</item>
+                        <item name="component" xsi:type="string">Magento_Ui/js/dynamic-rows/record</item>
+                        <item name="componentType" xsi:type="string">container</item>
+                        <item name="positionProvider" xsi:type="string">behavior_field_netsuite_customer_price_level_map.behavior_field_netsuite_customer_price_level_map_position</item>
+                    </item>
+                </argument>
+                <field name="behavior_field_netsuite_customer_price_level_map_customer_group">
+                    <argument name="data" xsi:type="array">
+                        <item name="options" xsi:type="object">Magento\Customer\Ui\Component\Listing\Column\Group\Options</item>
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="dataScope" xsi:type="string">behavior_field_netsuite_customer_price_level_map_customer_group</item>
+                            <item name="formElement" xsi:type="string">select</item>
+                            <item name="component" xsi:type="string">Magento_Ui/js/form/element/select</item>
+                            <item name="label" xsi:type="string" translate="true">Magento Customer Group</item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="behavior_field_netsuite_customer_price_level_map_price_level_id">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="dataScope" xsi:type="string">behavior_field_netsuite_customer_price_level_map_price_level_id</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="label" xsi:type="string" translate="true">Netsuite Price Level Internal Id</item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="behavior_field_netsuite_customer_price_level_map_position">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="dataScope" xsi:type="string">behavior_field_netsuite_attribute_map_position</item>
+                            <item name="component" xsi:type="string">Firebear_ImportExport/js/form/element/input</item>
+                            <item name="visible" xsi:type="boolean">false</item>
+                            <item name="additionalClasses" xsi:type="array">
+                                <item name="_hidden" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                </field>
+                <actionDelete name="action_delete">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="componentType" xsi:type="string">actionDelete</item>
+                            <item name="component" xsi:type="string">Firebear_ImportExport/js/form/element/action-delete</item>
+                            <item name="elementTmpl" xsi:type="string">Firebear_ImportExport/form/element/action-delete</item>
+                            <item name="template" xsi:type="string">Firebear_ImportExport/form/element/action-delete</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="fit" xsi:type="boolean">true</item>
+                        </item>
+                    </argument>
+                </actionDelete>
+            </container>
+        </dynamicRows>
+    </fieldset>
+</form>

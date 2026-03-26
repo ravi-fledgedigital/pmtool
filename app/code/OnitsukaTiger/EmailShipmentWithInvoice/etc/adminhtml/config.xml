@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <system>
+        <sales_email>
+            <shipment>
+                <shipment_with_invoice>0</shipment_with_invoice>
+            </shipment>
+        </sales_email>
+    </system>
+</config>

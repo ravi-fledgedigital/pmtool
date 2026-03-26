@@ -1,0 +1,55 @@
+<!--
+   /**
+    * Copyright © Magento, Inc. All rights reserved.
+    * See COPYING.txt for license details.
+    */
+   -->
+<!--@subject {{var subject}}  @-->
+<!--@vars {
+   "var var email":"Customer Email",
+   "var customer_name":"Customer Name"
+   
+   } @-->
+   {{template config_path="design/email/header_template"}}
+</td>
+</tr>
+<tr>
+   <td class="main-content">
+      <!-- Begin Content -->
+      <div class="order-container-information">
+         <div class="newsletter-subscription-container">
+            <p class="message-content" style="padding-top:20px;padding-bottom: 20px;line-height: 26px;">   
+               안녕하세요 {{var customer_name}} 님<br>
+               오니츠카타이거 공식 온라인 스토어를 이용해 주셔서 감사합니다.<br>
+               광고성 정보 , 이벤트 관련 이메일 수신거부가 완료되었습니다.<br>
+               처리완료일 : {{var date}}<br>
+               재수신을 원하시는 경우 마이페이지 > 이메일 광고 수신 설정 에서<br>
+               광고수신에 <strong>"ON"</strong> 해 주시기 바랍니다.
+            </p>
+         </div>
+      </div>
+   </td>
+</tr>
+<tr>
+   <td class="footer">
+      <div class="footer-links">
+         <a href="{{store url=""}}terms-and-conditions">이용약관</a>
+         <span>|</span>
+         <a href="{{store url=""}}privacy-policy">개인정보처리방침</a>
+      </div>
+   </td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<!-- End wrapper table -->
+</body>
+<style>
+   .email-header-links a.my-account-link{
+   display:none !important;
+   }
+   .email-header-links  a.store-link{
+   display:none !important;
+   }
+</style>

@@ -1,0 +1,406 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @author OnitsukaTiger Team
+* @copyright Copyright (c) 2022 OnitsukaTiger (https://www.onitsukatiger.com)
+* @package Custom Checkout Fields for Magento 2
+*/-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="OnitsukaTiger\OrderAttribute\Api\RelationRepositoryInterface" type="OnitsukaTiger\OrderAttribute\Model\Attribute\Relation\RelationRepository"/>
+    <preference for="OnitsukaTiger\OrderAttribute\Api\CheckoutAttributeRepositoryInterface" type="OnitsukaTiger\OrderAttribute\Model\Attribute\Repository"/>
+    <preference for="OnitsukaTiger\OrderAttribute\Api\EntityDataRepositoryInterface" type="OnitsukaTiger\OrderAttribute\Model\Entity\EntityDataRepository" />
+    <preference for="OnitsukaTiger\OrderAttribute\Api\Data\CheckoutAttributeInterface" type="OnitsukaTiger\OrderAttribute\Model\Attribute\Attribute"/>
+    <preference for="OnitsukaTiger\OrderAttribute\Api\Data\EntityDataInterface" type="OnitsukaTiger\OrderAttribute\Model\Entity\EntityData"/>
+    <preference for="OnitsukaTiger\OrderAttribute\Api\CheckoutDataRepositoryInterface" type="OnitsukaTiger\OrderAttribute\Model\Entity\CheckoutDataRepository" />
+    <preference for="OnitsukaTiger\OrderAttribute\Api\GuestCheckoutDataRepositoryInterface" type="OnitsukaTiger\OrderAttribute\Model\Entity\GuestCheckoutDataRepository" />
+    <preference for="OnitsukaTiger\OrderAttribute\Api\Data\AttributeValueInterface"
+                type="OnitsukaTiger\OrderAttribute\Model\Entity\EntityData\AttributeValue" />
+
+    <virtualType name="OrderAttributesReservedList" type="Magento\Catalog\Model\Product\ReservedAttributeList" shared="false">
+        <arguments>
+            <argument name="productModel" xsi:type="string">\Magento\Sales\Api\Data\OrderInterface</argument>
+            <argument name="reservedAttributes" xsi:type="array">
+                <item name="id" xsi:type="string">id</item>
+                <item name="entity_id" xsi:type="string">entity_id</item>
+                <item name="parent_entity_id" xsi:type="string">parent_entity_id</item>
+                <item name="store_id" xsi:type="string">store_id</item>
+                <item name="increment_id" xsi:type="string">increment_id</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="\OnitsukaTiger\OrderAttribute\Model\Attribute\Attribute">
+        <arguments>
+            <argument name="reservedAttributeList" xsi:type="object">OrderAttributesReservedList</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="otorderattribute_relation_grid_data_source" xsi:type="string">OnitsukaTiger\OrderAttribute\Model\ResourceModel\Attribute\Relation\Relation\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- Virtual Input types -->
+    <virtualType name="InputType\Text" type="OnitsukaTiger\OrderAttribute\Model\Attribute\InputType\InputType">
+        <arguments>
+            <argument name="label" translate="true" xsi:type="string">Text Field</argument>
+            <argument name="validateTypes" xsi:type="array">
+                <item name="0" xsi:type="string">min_text_length</item>
+                <item name="1" xsi:type="string">max_text_length</item>
+            </argument>
+            <argument name="validateFilters" xsi:type="array">
+                <item name="alphanumeric" xsi:type="string" translate="true">Alphanumeric</item>
+                <item name="numeric" xsi:type="string" translate="true">Numeric Only</item>
+                <item name="alpha" xsi:type="string" translate="true">Alpha Only</item>
+                <item name="url" xsi:type="string" translate="true">URL</item>
+                <item name="email" xsi:type="string" translate="true">Email</item>
+            </argument>
+            <argument name="filterTypes" xsi:type="array">
+                <item name="striptags" xsi:type="string" translate="true">Strip HTML Tags</item>
+                <item name="escapehtml" xsi:type="string" translate="true">Escape HTML Entities</item>
+            </argument>
+            <argument name="dataModel" xsi:type="string">OnitsukaTiger\OrderAttribute\Model\Value\Metadata\Form\Text</argument>
+            <argument name="backendType" xsi:type="string">varchar</argument>
+            <argument name="defaultValue" xsi:type="string">text</argument>
+            <argument name="filterableInGrid" xsi:type="boolean">true</argument>
+            <argument name="frontendInputType" xsi:type="string">input</argument>
+            <argument name="frontendUiComponent" xsi:type="string">OnitsukaTiger_OrderAttribute/js/form/element/abstract</argument>
+            <argument name="columnUiComponent" xsi:type="string">Magento_Ui/js/grid/columns/column</argument>
+            <argument name="columnUiFilter" xsi:type="string">text</argument>
+            <argument name="columnDatatype" xsi:type="string">text</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="InputType\Textarea" type="OnitsukaTiger\OrderAttribute\Model\Attribute\InputType\InputType">
+        <arguments>
+            <argument name="label" translate="true" xsi:type="string">Text Area</argument>
+            <argument name="validateTypes" xsi:type="array">
+                <item name="0" xsi:type="string">min_text_length</item>
+                <item name="1" xsi:type="string">max_text_length</item>
+            </argument>
+            <argument name="validateFilters" xsi:type="array">
+                <item name="alphanumeric" xsi:type="string" translate="true">Alphanumeric</item>
+                <item name="numeric" xsi:type="string" translate="true">Numeric Only</item>
+                <item name="alpha" xsi:type="string" translate="true">Alpha Only</item>
+            </argument>
+            <argument name="filterTypes" xsi:type="array">
+                <item name="striptags" xsi:type="string" translate="true">Strip HTML Tags</item>
+                <item name="escapehtml" xsi:type="string" translate="true">Escape HTML Entities</item>
+            </argument>
+            <argument name="dataModel" xsi:type="string">OnitsukaTiger\OrderAttribute\Model\Value\Metadata\Form\Text</argument>
+            <argument name="backendType" xsi:type="string">text</argument>
+            <argument name="defaultValue" xsi:type="string">textarea</argument>
+            <argument name="frontendInputType" xsi:type="string">textarea</argument>
+            <argument name="frontendUiComponent" xsi:type="string">OnitsukaTiger_OrderAttribute/js/form/element/textarea</argument>
+            <argument name="columnUiComponent" xsi:type="string">Magento_Ui/js/grid/columns/column</argument>
+            <argument name="columnDatatype" xsi:type="string">text</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="InputType\Date" type="OnitsukaTiger\OrderAttribute\Model\Attribute\InputType\InputType">
+        <arguments>
+            <argument name="label" translate="true" xsi:type="string">Date</argument>
+            <argument name="validateTypes" xsi:type="array">
+                <item name="0" xsi:type="string">date_range_min</item>
+                <item name="1" xsi:type="string">date_range_max</item>
+            </argument>
+            <argument name="backendModel" xsi:type="string">Magento\Eav\Model\Entity\Attribute\Backend\Datetime</argument>
+            <argument name="dataModel" xsi:type="string">OnitsukaTiger\OrderAttribute\Model\Value\Metadata\Form\Date</argument>
+            <argument name="backendType" xsi:type="string">datetime</argument>
+            <argument name="defaultValue" xsi:type="string">date</argument>
+            <argument name="filterableInGrid" xsi:type="boolean">true</argument>
+            <argument name="frontendInputType" xsi:type="string">date</argument>
+            <argument name="frontendUiComponent" xsi:type="string">OnitsukaTiger_OrderAttribute/js/form/element/date</argument>
+            <argument name="columnUiComponent" xsi:type="string">Magento_Ui/js/grid/columns/date</argument>
+            <argument name="columnUiFilter" xsi:type="string">dateRange</argument>
+            <argument name="columnDatatype" xsi:type="string">date</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="InputType\DateTime" type="OnitsukaTiger\OrderAttribute\Model\Attribute\InputType\InputType">
+        <arguments>
+            <argument name="label" translate="true" xsi:type="string">Date With Time</argument>
+            <argument name="validateTypes" xsi:type="array">
+                <item name="0" xsi:type="string">date_range_min</item>
+                <item name="1" xsi:type="string">date_range_max</item>
+            </argument>
+            <argument name="backendModel" xsi:type="string">Magento\Eav\Model\Entity\Attribute\Backend\Datetime</argument>
+            <argument name="dataModel" xsi:type="string">OnitsukaTiger\OrderAttribute\Model\Value\Metadata\Form\Datetime</argument>
+            <argument name="backendType" xsi:type="string">datetime</argument>
+            <argument name="defaultValue" xsi:type="string">datetime</argument>
+            <argument name="filterableInGrid" xsi:type="boolean">true</argument>
+            <argument name="frontendInputType" xsi:type="string">datetime</argument>
+            <argument name="frontendUiComponent" xsi:type="string">OnitsukaTiger_OrderAttribute/js/form/element/date</argument>
+            <argument name="columnUiComponent" xsi:type="string">Magento_Ui/js/grid/columns/date</argument>
+            <argument name="columnUiFilter" xsi:type="string">dateRange</argument>
+            <argument name="columnDatatype" xsi:type="string">date</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="InputType\Select" type="OnitsukaTiger\OrderAttribute\Model\Attribute\InputType\InputType">
+        <arguments>
+            <argument name="label" translate="true" xsi:type="string">Dropdown</argument>
+            <argument name="manageOptions" xsi:type="boolean">true</argument>
+            <argument name="optionDefault" xsi:type="string">radio</argument>
+            <argument name="sourceModel" xsi:type="string">Magento\Eav\Model\Entity\Attribute\Source\Table</argument>
+            <argument name="backendType" xsi:type="string">int</argument>
+            <argument name="filterableInGrid" xsi:type="boolean">true</argument>
+            <argument name="frontendInputType" xsi:type="string">select</argument>
+            <argument name="frontendUiComponent" xsi:type="string">OnitsukaTiger_OrderAttribute/js/form/element/select</argument>
+            <argument name="columnUiComponent" xsi:type="string">Magento_Ui/js/grid/columns/select</argument>
+            <argument name="columnUiFilter" xsi:type="string">select</argument>
+            <argument name="columnDatatype" xsi:type="string">select</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="InputType\MultiSelect" type="OnitsukaTiger\OrderAttribute\Model\Attribute\InputType\InputType">
+        <arguments>
+            <argument name="label" translate="true" xsi:type="string">Multiple Select</argument>
+            <argument name="manageOptions" xsi:type="boolean">true</argument>
+            <argument name="optionDefault" xsi:type="string">checkbox</argument>
+            <argument name="displayEmptyOption" xsi:type="boolean">false</argument>
+            <argument name="sourceModel" xsi:type="string">Magento\Eav\Model\Entity\Attribute\Source\Table</argument>
+            <argument name="backendModel" xsi:type="string">Magento\Eav\Model\Entity\Attribute\Backend\ArrayBackend</argument>
+            <argument name="dataModel" xsi:type="string">OnitsukaTiger\OrderAttribute\Model\Value\Metadata\Form\MultiSelect</argument>
+            <argument name="backendType" xsi:type="string">varchar</argument>
+            <argument name="frontendInputType" xsi:type="string">multiselect</argument>
+            <argument name="frontendUiComponent" xsi:type="string">OnitsukaTiger_OrderAttribute/js/form/element/multiselect</argument>
+            <argument name="columnUiComponent" xsi:type="string">Magento_Ui/js/grid/columns/select</argument>
+            <argument name="columnDatatype" xsi:type="string">select</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="InputType\Boolean" type="OnitsukaTiger\OrderAttribute\Model\Attribute\InputType\InputType">
+        <arguments>
+            <argument name="label" translate="true" xsi:type="string">Yes/No</argument>
+            <argument name="displayEmptyOption" xsi:type="boolean">false</argument>
+            <argument name="sourceModel" xsi:type="string">OnitsukaTiger\OrderAttribute\Model\Config\Source\Boolean</argument>
+            <argument name="backendType" xsi:type="string">int</argument>
+            <argument name="dataModel" xsi:type="string">OnitsukaTiger\OrderAttribute\Model\Value\Metadata\Form\Boolean</argument>
+            <argument name="defaultValue" xsi:type="string">yesno</argument>
+            <argument name="filterableInGrid" xsi:type="boolean">true</argument>
+            <argument name="frontendInputType" xsi:type="string">select</argument>
+            <argument name="frontendUiComponent" xsi:type="string">OnitsukaTiger_OrderAttribute/js/form/element/select</argument>
+            <argument name="columnUiComponent" xsi:type="string">Magento_Ui/js/grid/columns/select</argument>
+            <argument name="columnUiFilter" xsi:type="string">select</argument>
+            <argument name="columnDatatype" xsi:type="string">select</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="InputType\Radios" type="OnitsukaTiger\OrderAttribute\Model\Attribute\InputType\InputType">
+        <arguments>
+            <argument name="label" translate="true" xsi:type="string">Radio Buttons</argument>
+            <argument name="manageOptions" xsi:type="boolean">true</argument>
+            <argument name="optionDefault" xsi:type="string">radio</argument>
+            <argument name="displayEmptyOption" xsi:type="boolean">false</argument>
+            <argument name="sourceModel" xsi:type="string">Magento\Eav\Model\Entity\Attribute\Source\Table</argument>
+            <argument name="backendType" xsi:type="string">int</argument>
+            <argument name="dataModel" xsi:type="string">Magento\Eav\Model\Attribute\Data\Select</argument>
+            <argument name="filterableInGrid" xsi:type="boolean">true</argument>
+            <argument name="frontendInputType" xsi:type="string">radios</argument>
+            <argument name="frontendUiComponent" xsi:type="string">OnitsukaTiger_OrderAttribute/js/form/element/radios</argument>
+            <argument name="frontendTmpl" xsi:type="string">OnitsukaTiger_OrderAttribute/form/element/radios</argument>
+            <argument name="columnUiComponent" xsi:type="string">Magento_Ui/js/grid/columns/select</argument>
+            <argument name="columnUiFilter" xsi:type="string">select</argument>
+            <argument name="columnDatatype" xsi:type="string">select</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="InputType\Checkboxes" type="OnitsukaTiger\OrderAttribute\Model\Attribute\InputType\InputType">
+        <arguments>
+            <argument name="label" translate="true" xsi:type="string">Checkbox Group</argument>
+            <argument name="manageOptions" xsi:type="boolean">true</argument>
+            <argument name="optionDefault" xsi:type="string">checkbox</argument>
+            <argument name="displayEmptyOption" xsi:type="boolean">false</argument>
+            <argument name="sourceModel" xsi:type="string">Magento\Eav\Model\Entity\Attribute\Source\Table</argument>
+            <argument name="backendModel" xsi:type="string">Magento\Eav\Model\Entity\Attribute\Backend\ArrayBackend</argument>
+            <argument name="dataModel" xsi:type="string">Magento\Eav\Model\Attribute\Data\Multiselect</argument>
+            <argument name="backendType" xsi:type="string">varchar</argument>
+            <argument name="frontendInputType" xsi:type="string">checkboxes</argument>
+            <argument name="frontendUiComponent" xsi:type="string">OnitsukaTiger_OrderAttribute/js/form/element/checkboxes</argument>
+            <argument name="frontendTmpl" xsi:type="string">OnitsukaTiger_OrderAttribute/form/element/checkboxes</argument>
+            <argument name="columnUiComponent" xsi:type="string">Magento_Ui/js/grid/columns/select</argument>
+            <argument name="columnUiFilter" xsi:type="string">select</argument>
+            <argument name="columnDatatype" xsi:type="string">select</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="InputType\HtmlContainer" type="OnitsukaTiger\OrderAttribute\Model\Attribute\InputType\InputType">
+        <arguments>
+            <argument name="label" translate="true" xsi:type="string">Html</argument>
+            <argument name="dataModel" xsi:type="string">OnitsukaTiger\OrderAttribute\Model\Value\Metadata\Form\Text</argument>
+            <argument name="backendType" xsi:type="string">text</argument>
+            <argument name="frontendInputType" xsi:type="string">html</argument>
+            <argument name="defaultValue" xsi:type="string">html</argument>
+            <argument name="frontendUiComponent" xsi:type="string">OnitsukaTiger_OrderAttribute/js/form/element/html</argument>
+            <argument name="columnUiComponent" xsi:type="string">Magento_Ui/js/grid/columns/column</argument>
+            <argument name="columnDatatype" xsi:type="string">text</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="InputType\File" type="OnitsukaTiger\OrderAttribute\Model\Attribute\InputType\InputType">
+        <arguments>
+            <argument name="label" translate="true" xsi:type="string">Single File Upload</argument>
+            <argument name="validateTypes" xsi:type="array">
+                <item name="0" xsi:type="string">max_file_size</item>
+                <item name="1" xsi:type="string">file_extensions</item>
+            </argument>
+            <argument name="dataModel" xsi:type="string">OnitsukaTiger\OrderAttribute\Model\Value\Metadata\Form\File</argument>
+            <argument name="backendType" xsi:type="string">varchar</argument>
+            <argument name="frontendInputType" xsi:type="string">file</argument>
+            <argument name="frontendUiComponent" xsi:type="string">OnitsukaTiger_OrderAttribute/js/form/element/file</argument>
+            <argument name="frontendTmpl" xsi:type="string">ui/form/element/uploader/uploader</argument>
+            <argument name="columnUiComponent" xsi:type="string">Magento_Ui/js/grid/columns/column</argument>
+            <argument name="filterableInGrid" xsi:type="boolean">true</argument>
+            <argument name="displayFutureCheckout" xsi:type="boolean">false</argument>
+            <argument name="columnUiFilter" xsi:type="string">text</argument>
+            <argument name="columnDatatype" xsi:type="string">text</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="OnitsukaTiger\OrderAttribute\Model\Attribute\InputType\InputTypeProvider">
+        <arguments>
+            <argument name="inputTypes" xsi:type="array">
+                <item name="text" xsi:type="object">InputType\Text</item>
+                <item name="textarea" xsi:type="object">InputType\Textarea</item>
+                <item name="date" xsi:type="object">InputType\Date</item>
+                <item name="datetime" xsi:type="object">InputType\DateTime</item>
+                <item name="select" xsi:type="object">InputType\Select</item>
+                <item name="multiselect" xsi:type="object">InputType\MultiSelect</item>
+                <item name="boolean" xsi:type="object">InputType\Boolean</item>
+                <item name="radios" xsi:type="object">InputType\Radios</item>
+                <item name="checkboxes" xsi:type="object">InputType\Checkboxes</item>
+                <item name="html" xsi:type="object">InputType\HtmlContainer</item>
+                <item name="file" xsi:type="object">InputType\File</item>
+            </argument>
+            <argument name="frontendCaster" xsi:type="object">OnitsukaTiger\OrderAttribute\Model\Attribute\InputType\FrontendCaster\Proxy</argument>
+            <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="OnitsukaTiger\OrderAttribute\Model\Attribute\InputType\FrontendCaster">
+        <arguments>
+            <argument name="lastCheckoutValue" xsi:type="object">OnitsukaTiger\OrderAttribute\Model\Value\LastCheckoutValue\Proxy</argument>
+        </arguments>
+    </type>
+    <!-- /Virtual Input types -->
+
+    <type name="Magento\Email\Model\Template">
+        <plugin name="onitsukatiger_email_attributes" type="OnitsukaTiger\OrderAttribute\Plugin\Email\Model\Template" />
+    </type>
+
+    <type name="OnitsukaTiger\PDFCustom\Model\Template">
+        <!--order attribute variables for PDF Customizer-->
+        <plugin name="onitsukatiger_PDF_attributes" type="OnitsukaTiger\OrderAttribute\Plugin\Email\Model\Template" />
+    </type>
+
+    <type name="Magento\Sales\Model\OrderRepository">
+        <plugin name="onitsukatiger_order_attributes" type="OnitsukaTiger\OrderAttribute\Model\Entity\Adapter\Order\Plugin\Api\OrderRepository" />
+    </type>
+
+    <type name="Magento\Quote\Api\CartRepositoryInterface">
+        <plugin name="onitsukatiger_order_attributes" type="OnitsukaTiger\OrderAttribute\Model\Entity\Adapter\Quote\Plugin\Api\QuoteRepository"/>
+    </type>
+
+    <type name="Magento\Sales\Block\Items\AbstractItems">
+        <plugin name="OnitsukaTiger_OrderAttribute::OrderEmailAttributesList" type="OnitsukaTiger\OrderAttribute\Block\Order\Plugin\OrderEmail" />
+    </type>
+
+    <type name="Magento\Webapi\Controller\Rest\ParamsOverrider">
+        <arguments>
+            <argument name="paramOverriders" xsi:type="array">
+                <item name="%onitsukatiger_cart_id%" xsi:type="object">OnitsukaTiger\OrderAttribute\Model\Webapi\ParamOverriderOnitsukaTigerCartId\Proxy</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="OnitsukaTiger\OrderAttribute\Model\ConfigProvider">
+        <arguments>
+            <argument name="localeDate" xsi:type="object">Magento\Framework\Stdlib\DateTime\TimezoneInterface\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="OnitsukaTiger\OrderAttribute\Block\Checkout\LayoutProcessor">
+        <arguments>
+            <argument name="checkoutPlaces" xsi:type="array">
+                <item name="shippingAddress" xsi:type="array">
+                    <item name="isCustomerLogged" xsi:type="boolean">false</item>
+                    <item name="path" xsi:type="string">components.checkout.children.steps.children.shipping-step.children.shippingAddress.children.shipping-address-fieldset.children</item>
+                    <item name="place_code" xsi:type="const">OnitsukaTiger\OrderAttribute\Model\Config\Source\CheckoutStep::SHIPPING_STEP</item>
+                    <item name="scope" xsi:type="string">onitsukatigerShippingAttributes</item>
+                    <item name="show_in_shipping_information" xsi:type="boolean">true</item>
+                    <item name="template" xsi:type="string">OnitsukaTiger_OrderAttribute/order-attributes</item>
+                </item>
+                <item name="shippingAddressCustomerLogged" xsi:type="array">
+                    <item name="isCustomerLogged" xsi:type="boolean">true</item>
+                    <item name="path" xsi:type="string">components.checkout.children.steps.children.shipping-step.children.shippingAddress.children.before-form.children</item>
+                    <item name="place_code" xsi:type="const">OnitsukaTiger\OrderAttribute\Model\Config\Source\CheckoutStep::SHIPPING_STEP</item>
+                    <item name="scope" xsi:type="string">onitsukatigerShippingAttributes</item>
+                    <item name="show_in_shipping_information" xsi:type="boolean">true</item>
+                    <item name="template" xsi:type="string">OnitsukaTiger_OrderAttribute/order-attributes-div</item>
+                </item>
+                <item name="shippingMethod" xsi:type="array">
+                    <item name="path" xsi:type="string">components.checkout.children.steps.children.shipping-step.children.shippingAddress.children.before-shipping-method-form.children</item>
+                    <item name="place_code" xsi:type="const">OnitsukaTiger\OrderAttribute\Model\Config\Source\CheckoutStep::SHIPPING_METHODS</item>
+                    <item name="scope" xsi:type="string">onitsukatigerShippingMethodAttributes</item>
+                    <item name="show_in_shipping_information" xsi:type="boolean">true</item>
+                    <item name="template" xsi:type="string">OnitsukaTiger_OrderAttribute/order-attributes-div</item>
+                </item>
+                <item name="paymentAttributes" xsi:type="array">
+                    <item name="path" xsi:type="string">components.checkout.children.steps.children.billing-step.children.payment.children.beforeMethods.children</item>
+                    <item name="place_code" xsi:type="const">OnitsukaTiger\OrderAttribute\Model\Config\Source\CheckoutStep::PAYMENT_STEP</item>
+                    <item name="scope" xsi:type="string">onitsukatigerPaymentAttributes</item>
+                    <item name="template" xsi:type="string">OnitsukaTiger_OrderAttribute/order-attributes</item>
+                </item>
+                <item name="beforePlaceOrder" xsi:type="array">
+                    <item name="path" xsi:type="string">components.checkout.children.steps.children.billing-step.children.payment.children.payments-list.children.before-place-order.children</item>
+                    <item name="place_code" xsi:type="const">OnitsukaTiger\OrderAttribute\Model\Config\Source\CheckoutStep::PAYMENT_PLACE_ORDER</item>
+                    <item name="scope" xsi:type="string">onitsukatigerPaymentMethodAttributes</item>
+                    <item name="template" xsi:type="string">OnitsukaTiger_OrderAttribute/order-attributes-div</item>
+                </item>
+                <item name="totals" xsi:type="array">
+                    <item name="path" xsi:type="string">components.checkout.children.sidebar.children.summary.children.totals.children</item>
+                    <item name="place_code" xsi:type="const">OnitsukaTiger\OrderAttribute\Model\Config\Source\CheckoutStep::ORDER_SUMMARY</item>
+                    <item name="scope" xsi:type="string">onitsukatigerSummaryAttributes</item>
+                    <item name="template" xsi:type="string">OnitsukaTiger_OrderAttribute/order-attributes-tr</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="OnitsukaTiger\OrderAttribute\Block\Checkout\LayoutProcessor">
+        <arguments>
+            <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="OnitsukaTiger\OrderAttribute\Model\Value\LastCheckoutValue">
+        <arguments>
+            <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="OnitsukaTiger\OrderAttribute\Model\Attribute\Repository">
+        <arguments>
+            <argument name="eavAttributeRepository" xsi:type="object">Magento\Eav\Api\AttributeRepositoryInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="OnitsukaTiger\OrderAttribute\Model\Attribute\InputType\InputTypeProvider">
+        <arguments>
+            <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="OnitsukaTiger\OrderAttribute\Model\ResourceModel\Attribute\Relation\Relation\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">onitsukatiger_order_attribute_relation</argument>
+            <argument name="resourceModel" xsi:type="string">OnitsukaTiger\OrderAttribute\Model\ResourceModel\Attribute\Relation\Relation</argument>
+        </arguments>
+    </type>
+
+    <type name="OnitsukaTiger\OrderAttribute\Model\Value\Metadata\Form\CollectionFilter\FilterPool">
+        <arguments>
+            <argument name="filters" xsi:type="array">
+                <item name="checkout_step"
+                      xsi:type="object">OnitsukaTiger\OrderAttribute\Model\Value\Metadata\Form\CollectionFilter\CheckoutStep</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

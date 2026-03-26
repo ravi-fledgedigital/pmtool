@@ -1,0 +1,33 @@
+<?php
+/**
+* @author OnitsukaTiger Team
+* @copyright Copyright (c) 2022 OnitsukaTiger (https://www.onitsukatiger.com)
+* @package Custom Checkout Fields for Magento 2
+*/
+?>
+<?php
+/** @var \OnitsukaTiger\OrderAttribute\Block\Adminhtml\Order\Create\Form\Attributes $block */
+?>
+</section><section id="onitsukatiger-order-attributes" class="admin__page-section onitsukatiger-order-attributes">
+<div class="admin__page-section-title">
+    <span class="title"><?= $block->escapeHtml(__('Order Attributes')); ?></span>
+    <div class="actions"></div>
+</div>
+<div id="order-attributes-fields"
+     class="admin__page-section-content">
+        <?= /** @escapeNotVerified */ $block->getFormHtml();?>
+</div>
+
+<script>
+    require([
+        "jquery",
+        "mage/calendar"
+    ], function($){
+        $('.date-calendar').each(function(key, item) {
+            var calendar = $(item).data('mage-init');
+            if(calendar) {
+                $(item).calendar(calendar.calendar);
+            }
+        });
+    });
+</script>

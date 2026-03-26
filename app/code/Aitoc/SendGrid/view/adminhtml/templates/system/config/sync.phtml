@@ -1,0 +1,20 @@
+<?php
+/**
+ * @author Aitoc Team
+ * @copyright Copyright (c) 2022 Aitoc (https://www.aitoc.com)
+ * @package Aitoc_SendGrid
+ */
+?>
+<script>
+    require([
+        'jquery',
+        'prototype',
+    ], function($){
+        $('#sync_all_cantacts').click(function () {
+            window.location.href = '<?= $block->getAjaxUrl() ?>';
+        });
+    });
+</script>
+
+<?= $block->getButtonHtml() ?>
+

@@ -1,0 +1,38 @@
+<?php
+/** @var $block \Seoulwebdesign\KakaoSync\Block\System\Config\Disconect */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+<script>
+    require([
+        'jquery',
+        //'Magento_Ui/js/model/messageList',
+        'prototype'
+    ], function (jQuery) {
+        function ajaxDisconnect() {
+            params = {};
+
+            new Ajax.Request('<?= $escaper->escapeUrl($block->getDisconnectUrl()) ?>', {
+                loaderArea: false,
+                asynchronous: true,
+                parameters: params,
+                onSuccess: function (transport) {
+                    var response = JSON.parse(transport.responseText);
+                    console.log(response);
+
+                    if(response.errorMessage) {
+                        alert(response.errorMessage);
+                    }
+                    if(response.successMessage) {
+                        alert(response.successMessage);
+                    }
+
+                }
+            });
+        }
+
+        jQuery('#disconnect_button').click(function () {
+            ajaxDisconnect();
+        });
+    });
+</script>
+<?= $block->getButtonHtml() ?>

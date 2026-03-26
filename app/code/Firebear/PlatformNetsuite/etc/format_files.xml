@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright: Copyright © 2019 Firebear Studio. All rights reserved.
+ * @author   : Firebear Studio <fbeardev@gmail.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Firebear_ImportExport:etc/format_files.xsd">
+    <fileFormat name="netsuiteOrder" direction="export" label="Netsuite Order" model="Firebear\PlatformNetsuite\Model\Export\Adapter\Order" />
+    <fileFormat name="netsuiteProduct" direction="export" label="Netsuite Product" model="Firebear\PlatformNetsuite\Model\Export\Adapter\Product" />
+    <fileFormat name="netsuiteCustomer" direction="export" label="Netsuite Customer" model="Firebear\PlatformNetsuite\Model\Export\Adapter\Customer" />
+    <fileFormat name="netsuiteAttribute" direction="export" label="Netsuite Attribute" model="Firebear\PlatformNetsuite\Model\Export\Adapter\Attribute" />
+    <fileFormat name="netsuiteStockSource" direction="export" label="Netsuite Stock Source" model="Firebear\PlatformNetsuite\Model\Export\Adapter\StockSource" />
+    <fileFormat name="netsuiteStockSourceQty" direction="export" label="Netsuite Stock Source Quantity" model="Firebear\PlatformNetsuite\Model\Export\Adapter\StockSourceQty" />
+</config>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="catalog_productalert_email_stock_template_customized" label="Stock Alert" file="stock_alert.html" type="html" module="OnitsukaTiger_ProductAlert" area="frontend"/>
+    <template id="catalog_productalert_email_stock_preorder_template" label="Stock Pre-Order Alert" file="stock_preorder_alert.html" type="html" module="OnitsukaTiger_ProductAlert" area="frontend"/>
+</config>

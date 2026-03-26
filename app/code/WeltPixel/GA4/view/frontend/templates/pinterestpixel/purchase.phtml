@@ -1,0 +1,88 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \WeltPixel\GA4\Block\PinterestPixel\Common */
+
+/** @var \WeltPixel\GA4\Helper\PinterestPixelTracking $pinterestPixelHelper */
+$pinterestPixelHelper = $this->helper('WeltPixel\GA4\Helper\PinterestPixelTracking');
+$cspNonceProvider = $pinterestPixelHelper->getCspNonceProvider();
+$orderId = $block->getOrderId();
+?>
+<script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    let pinterestAddPaymentInfoEventId = <?= /* @noEscape */ $pinterestPixelHelper->getJsEventIdGenerator() ?>;
+    let pinterestPurchaseEventId = <?= /* @noEscape */ $pinterestPixelHelper->getJsEventIdGenerator() ?>;
+</script>
+<?php if ($pinterestPixelHelper->isPinterestPixelTrackingEnabled() && $pinterestPixelHelper->shouldPinterestPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\PinterestPixel\TrackingEvents::EVENT_ADD_PAYMENT_INFO)) :
+    ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        if (window.ga4AllowServices) {
+            pintrk('track', '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\PinterestPixel\TrackingEvents::EVENT_ADD_PAYMENT_INFO ?>', {
+                value: <?= /* @noEscape */ $block->getOrderValue() ?>,
+                currency: "<?= /* @noEscape */ $pinterestPixelHelper->getCurrencyCode() ?>",
+                line_items: <?= /* @noEscape */ $block->getOrderLineItems() ?>,
+                order_quantity:  <?= /* @noEscape */ $block->getOrderItemCount() ?>,
+                event_id: pinterestAddPaymentInfoEventId
+            });
+        }
+    </script>
+<?php endif; ?>
+<?php if ($pinterestPixelHelper->isServerSideTrackingEnabled() && $pinterestPixelHelper->shouldPinterestServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\PinterestPixel\TrackingEvents::EVENT_ADD_PAYMENT_INFO)) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($pinterestPixelHelper->getPinterestSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'eventId': pinterestAddPaymentInfoEventId,
+                            'eventName': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\PinterestPixel\TrackingEvents::EVENT_ADD_PAYMENT_INFO  ?>',
+                            'eventUrl': window.location.href,
+                            'orderId': '<?=  /* @noEscape */ $orderId ?>'
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>
+
+
+<?php if ($pinterestPixelHelper->isPinterestPixelTrackingEnabled() &&
+    $block->shouldPinterestPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\PinterestPixel\TrackingEvents::EVENT_PURCHASE) &&
+    $pinterestPixelHelper->isOrderTrackingAllowedBasedOnOrderStatus($block->getOrder())) :
+    ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        if (window.ga4AllowServices) {
+            pintrk('track', '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\PinterestPixel\TrackingEvents::EVENT_PURCHASE ?>', {
+                value: <?= /* @noEscape */ $block->getOrderValue() ?>,
+                currency: "<?= /* @noEscape */ $pinterestPixelHelper->getCurrencyCode() ?>",
+                order_id: "<?= /* @noEscape */ $block->getOrderTransactionId() ?>",
+                line_items: <?= /* @noEscape */ $block->getOrderLineItems() ?>,
+                order_quantity:  <?= /* @noEscape */ $block->getOrderItemCount() ?>,
+                event_id: pinterestPurchaseEventId
+            });
+        }
+    </script>
+<?php endif; ?>
+<?php if ($pinterestPixelHelper->isServerSideTrackingEnabled() &&
+    $pinterestPixelHelper->shouldPinterestServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\PinterestPixel\TrackingEvents::EVENT_PURCHASE) &&
+    $pinterestPixelHelper->isOrderTrackingAllowedBasedOnOrderStatus($block->getOrder())) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($pinterestPixelHelper->getPinterestSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'eventID': pinterestPurchaseEventId,
+                            'eventName': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\PinterestPixel\TrackingEvents::EVENT_PURCHASE  ?>',
+                            'eventUrl': window.location.href,
+                            'orderId': '<?=  /* @noEscape */ $orderId ?>'
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>

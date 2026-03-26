@@ -1,0 +1,95 @@
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .address-container-items {
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .items-details-container {
+        .address-container-item {
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            width: 100%;
+            margin: 0 2% 15px 0;
+            border: 1px solid #b4b5b4;
+            box-sizing: border-box;
+            padding: 10px 10px 55px;
+            &.selected-address {
+                border: 1px solid #40c04a;
+                box-shadow: 0 0 5px 0 #ccc;
+            }
+        }
+        .action-select-shipping-item {
+            font-family: 'Matter-Bold';
+            text-transform: uppercase;
+            background: #000000;
+            text-align: center;
+            color: #ffffff;
+            height: 34px;
+            line-height: 34px;
+            margin: 0px;
+            font-weight: normal;
+            font-size: 12px;
+            padding: 0px;
+            width: ~"calc(100% - 20px)";
+            float: right;
+            display: none;
+            position: absolute;
+            left: 10px;
+            bottom: 10px;
+        }
+        .address-container {
+            margin: 0;
+            transition: 0.3s border-color;
+            width: 100%;
+            font-size: 14px;
+            position: relative;
+            vertical-align: top;
+            word-wrap: break-word;
+            padding: 10px 10px 60px;
+            box-sizing: border-box;
+            height: 100%;
+            .address-name {
+                font-family: 'Matter , sans-serif';
+                font-size: 13px;
+            }
+            .customer-address {
+                color: #000000;
+                margin: 10px 0;
+            }
+            .customer-phone {
+                font-size: 12px;
+                color: #000000;
+            }
+        }
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .items-details-container {
+        div.address-container-item{
+            margin: 0 2% 15px 0;
+            width: 31%;
+            padding: 0;
+        }
+    }
+    .amrma-customer-information {
+        > div {
+            padding: 0px 30px;
+            box-sizing: border-box;
+            width: 33%;
+            flex-basis: 33%
+        }
+    }
+}

@@ -1,0 +1,81 @@
+<?php
+//phpcs:ignoreFile
+/**
+ * @var \OnitsukaTigerIndo\RmaAccount\Block\RmaAccount $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+?>
+
+<?php $rmaStatus = $block->getRmaAccountDetails();
+$orderId = $block->getOrderId();
+$requestId = $this->getRequest()->getParam('request_id');
+
+if ($rmaStatus): ?>
+<div class="rma-account">
+    <h2><?= $escaper->escapeHtml(__('RMA For Bank Account Details')) ?></h2>
+</div>
+<form class="" action="<?= $escaper->escapeUrl($block->getBaseUrl() . 'rmaaccount/index/save'); ?>"
+      id="onitsukatigerindo-rmaaccount-form" method="post" enctype='multipart/form-data'
+      data-mage-init='{"validation": {}}'>
+    <fieldset class="fieldset">
+        <div class="field order_number required">
+            <label class="label" for="order_number">
+                <span><?= $escaper->escapeHtml(__('Order Number')); ?>
+                </span>
+            </label>
+            <div class="control">
+                <input name="order_number" id="order_number" title="order_number"
+                       value="<?= /* noEscape */ $orderId ?>"
+                       class="input-text" type="text" readonly="readonly" data-validate="{required:true}">
+            </div>
+        </div>
+        <div class="field acc_holder_name required">
+            <label class="label" for="acc_holder_name">
+                <span><?= $escaper->escapeHtml(__('Account Holder Name')); ?>
+                </span>
+            </label>
+            <div class="control">
+                <input name="acc_holder_name" id="acc_holder_name" title="acc_holder_name" value=""
+                       class="input-text validate-alpha-with-space" type="text" data-validate="{required:true}">
+            </div>
+        </div>
+        <div class="field bank_name required">
+            <label class="label" for="bank_name">
+                <span><?= $escaper->escapeHtml(__('Bank Name')); ?></span>
+            </label>
+            <div class="control">
+                <input name="bank_name" id="bank_name" title="bank_name" value="" class="input-text"
+                       type="text" data-validate="{required:true}">
+            </div>
+        </div>
+        <div class="field account_number required">
+            <label class="label" for="account_number">
+                <span><?= $escaper->escapeHtml(__('Account Number')); ?></span>
+            </label>
+            <div class="control">
+                <input name="account_number" id="account_number" title="account_number" value=""
+                       class="input-text validate-length maximum-length-20 minimum-length-8 validate-digits" type="text" data-validate="{required:true}">
+            </div>
+        </div>
+        <div class="field ifsc_code required">
+            <label class="label" for="ifsc_code"><span><?= $escaper->escapeHtml(__('IFSC')); ?></span></label>
+            <div class="control">
+                <input name="ifsc_code" id="ifsc_code" title="ifsc_code" value=""
+                       class="input-text validate-length maximum-length-15 minimum-length-10 validate-alphanum" type="text" data-validate="{required:true}">
+            </div>
+        </div>
+        <input type="hidden" name="request_id" value="<?= /* noEscape */ $requestId ?>" />
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" title="Submit" class="action submit primary">
+                <span><?= $escaper->escapeHtml(__('Submit')); ?></span>
+            </button>
+        </div>
+    </div>
+</form>
+<?php else:?>
+    <div class="rma-account">
+        <h2><?= $escaper->escapeHtml(__('Oops...Could not have an any Return order details.')) ?></h2>
+    </div>
+<?php endif; ?>

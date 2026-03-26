@@ -1,0 +1,9 @@
+<!--@subject {{trans "%sub_email" sub_email=$subject}} @-->
+<p style="height: 50px;">
+    {{trans "Item "}}
+    {{depend fulfillment_id}}
+        {{trans "Fullfillment #%fulfillment_id" fulfillment_id=$fulfillment_id}}
+    {{/depend}}
+    {{trans "Order "}}
+    <b>#{{var order.increment_id}}</b>{{trans " Dispatch and Invoice PDF attached"}}
+</p>

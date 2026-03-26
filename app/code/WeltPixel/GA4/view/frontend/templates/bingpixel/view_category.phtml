@@ -1,0 +1,53 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \Magento\Catalog\Block\Category\View */
+
+/** @var \WeltPixel\GA4\Helper\BingPixelTracking $bingPixelHelper */
+$bingPixelHelper = $this->helper('WeltPixel\GA4\Helper\BingPixelTracking');
+$cspNonceProvider = $bingPixelHelper->getCspNonceProvider();
+$category = $block->getCurrentCategory();
+?>
+<script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    let bingViewCategoryEventId = <?= /* @noEscape */ $bingPixelHelper->getJsEventIdGenerator() ?>;
+</script>
+<?php if ($category && $bingPixelHelper->isBingPixelTrackingEnabled() && $bingPixelHelper->shouldBingPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\BingPixel\TrackingEvents::EVENT_VIEW_ITEM_LIST)) :
+?>
+<script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    if (window.ga4AllowServices) {
+        window.uetq = window.uetq || [];
+        window.uetq.push('event', 'view_category', {
+            ecomm_pagetype: 'category',
+            ecomm_category: "<?= /* @noEscape */ addslashes(str_replace('"', '&quot;', $category->getName())) ?>",
+            currency: "<?= /* @noEscape */ $bingPixelHelper->getCurrencyCode() ?>",
+            custom_parameters: {
+                mid: bingViewCategoryEventId
+            },
+            mid: bingViewCategoryEventId
+        });
+    }
+</script>
+<?php endif; ?>
+
+
+<?php
+if ($category && $bingPixelHelper->isServerSideTrackingEnabled() && $bingPixelHelper->shouldBingServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\BingPixel\TrackingEvents::EVENT_VIEW_ITEM_LIST)) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($bingPixelHelper->getBingSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'eventId': bingViewCategoryEventId,
+                            'eventName': 'ViewCategory',
+                            'eventIdentifier': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\BingPixel\TrackingEvents::EVENT_VIEW_ITEM_LIST  ?>',
+                            'eventUrl': '<?= $block->escapeUrl($bingPixelHelper->getStoreCurrenUrl()) ?>',
+                            'contentCategory': '<?= /* @noEscape */ $category->getName() ?>'
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>

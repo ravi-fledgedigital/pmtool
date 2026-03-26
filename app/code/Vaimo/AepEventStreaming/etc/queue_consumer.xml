@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/consumer.xsd">
+    <consumer name="aep.customer.synchronise" queue="aep_customer_synchronise" handler="Vaimo\AepEventStreaming\Model\Customer\SynchroniseConsumer::processMessage"/>
+    <consumer name="aep.order.synchronise" queue="aep_order_synchronise" handler="Vaimo\AepEventStreaming\Model\Order\SynchroniseConsumer::processMessage"/>
+</config>

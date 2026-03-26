@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job instance="OnitsukaTiger\Cegid\Cron\UpdateShipmentAndCreateReservation" method="execute" name="cegid_update_status">
+            <schedule>* * * * *</schedule>
+        </job>
+        <job name="cegid_send_api" instance="OnitsukaTiger\Cegid\Model\Cron" method="execute">
+            <config_path>cegid/cegid_return/cegid_schedule_send_api</config_path>
+        </job>
+    </group>
+</config>

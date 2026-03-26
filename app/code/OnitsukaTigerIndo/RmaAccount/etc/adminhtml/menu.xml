@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../Backend/etc/menu.xsd">
+    <menu>
+        <add id="onitsukatigerindo_rmaaccount::core" title="RmaAccount" module="OnitsukaTigerIndo_RmaAccount"
+             sortOrder="90" resource="OnitsukaTigerIndo_RmaAccount::sample"/>
+        <add id="onitsukatigerindo_rmaaccount::test" title="RMA Account Details" module="OnitsukaTigerIndo_RmaAccount" sortOrder="10"
+             parent="onitsukatigerindo_rmaaccount::core" action="onitsukatigerindo_rmaaccount/items/"
+             resource="OnitsukaTigerIndo_RmaAccount::items"/>
+    </menu>
+</config>

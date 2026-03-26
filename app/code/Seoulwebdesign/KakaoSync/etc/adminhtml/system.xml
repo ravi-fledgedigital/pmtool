@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		<section id="kakaosync" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+			<label>KakaoSync</label>
+			<tab>swd</tab>
+			<resource>Seoulwebdesign_KakaoSync::config_seoulwebdesign_kakaosync</resource>
+			<group id="general" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+				<label>General</label>
+				<field id="enable" type="select" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+					<label>enable</label>
+					<comment/>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="rest_api_key" type="text" sortOrder="20" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+					<label>REST API key	</label>
+					<comment/>
+				</field>
+                <field id="javascript_key" type="text" sortOrder="30" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>JavaScript key</label>
+                    <comment/>
+                </field>
+                <field id="admin_key" translate="label" type="obscure" sortOrder="42" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Admin Key</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <config_path>payment/kakaopay/admin_key</config_path>
+                </field>
+                <field id="client_secret" type="text" sortOrder="50" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Client Secret</label>
+                    <comment/>
+                </field>
+                <field id="redirect_url" type="text" sortOrder="60" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Redirect Url</label>
+					<comment/>
+				</field>
+
+                <field id="customer_group_id" type="select" sortOrder="70" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>New Customer Group</label>
+                    <comment/>
+                    <source_model>\Seoulwebdesign\KakaoSync\Model\Config\Source\CustomerGroup</source_model>
+                </field>
+                <field id="disconnect_button" translate="label comment" type="button" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <frontend_model>\Seoulwebdesign\KakaoSync\Block\System\Config\Disconnect</frontend_model>
+                    <label>Disconnect all customer</label>
+                </field>
+			</group>
+		</section>
+	</system>
+</config>

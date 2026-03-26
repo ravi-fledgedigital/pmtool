@@ -1,0 +1,22 @@
+{
+    "name": "onitsukatigercpss/module-customer",
+    "description": "Customer",
+    "type": "magento2-module",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Cowell Pham Ngoc Sinh",
+            "email": "sinhpn7288@co-well.vn"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "OnitsukaTigerCpss\\Customer\\": ""
+        }
+    }
+}

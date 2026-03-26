@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="WeltPixel_GA4::GA4Settings" title="WeltPixel Google Analytics 4 Ecommerce PRO" sortOrder="300" />
+                            <resource id="WeltPixel_GA4::GA4MetaSettings" title="WeltPixel GA4 Meta Pixel Settings" sortOrder="301" />
+                            <resource id="WeltPixel_GA4::GA4TikTokSettings" title="WeltPixel GA4 TikTok Pixel Settings" sortOrder="302" />
+                            <resource id="WeltPixel_GA4::GA4RedditSettings" title="WeltPixel GA4 Reddit Pixel Settings" sortOrder="303" />
+                            <resource id="WeltPixel_GA4::GA4BingSettings" title="WeltPixel GA4 Bing UET Settings" sortOrder="304" />
+                            <resource id="WeltPixel_GA4::GA4XSettings" title="WeltPixel GA4 X (Twitter) Pixel Settings" sortOrder="305" />
+                            <resource id="WeltPixel_GA4::GA4KlaviyoSettings" title="WeltPixel Klaviyo Pixel Settings" sortOrder="306" />
+                            <resource id="WeltPixel_GA4::GA4PinterestSettings" title="WeltPixel Pinteest Pixel Settings" sortOrder="307" />
+                        </resource>
+                    </resource>
+                </resource>
+                <resource id="WeltPixel_Backend::WeltPixel" >
+                    <resource id="WeltPixel_GA4::GA4_Label" sortOrder="60" title="Google Analytics 4 Ecommerce PRO" >
+                        <resource id="WeltPixel_GA4::GA4" sortOrder="10" title="Google Analytics 4 Ecommerce PRO Settings" />
+                        <resource id="WeltPixel_GA4::GA4MetaPixel" sortOrder="20" title="GA4 Meta Pixel Settings" />
+                        <resource id="WeltPixel_GA4::GA4TikTokPixel" sortOrder="30" title="GA4 TikTok Pixel Settings" />
+                        <resource id="WeltPixel_GA4::GA4RedditPixel" sortOrder="40" title="GA4 Reddit Pixel Settings" />
+                        <resource id="WeltPixel_GA4::GA4BingUet" sortOrder="50" title="GA4 Bing UET Settings" />
+                        <resource id="WeltPixel_GA4::GA4XPixel" sortOrder="60" title="GA4 X (Twitter) Pixel Settings" />
+                        <resource id="WeltPixel_GA4::GA4KlaviyoPixel" sortOrder="70" title="GA4 Klaviyo Pixel Settings" />
+                        <resource id="WeltPixel_GA4::GA4PinterestPixel" sortOrder="80" title="GA4 Pinterest Pixel Settings" />
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

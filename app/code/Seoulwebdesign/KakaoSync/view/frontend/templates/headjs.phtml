@@ -1,0 +1,21 @@
+<?php
+/** @var \Seoulwebdesign\KakaoSync\Block\Login $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+<script type="text/javascript">
+    var KakaoJs= null;
+    require([
+        "https://developers.kakao.com/sdk/js/kakao.js"
+    ], function () {
+        // Initialize SDK with JavaScript key for your app.
+        Kakao.init('<?= $escaper->escapeHtmlAttr($block->getConfig()->getJavascriptKey())?>');
+        // Check if the initialization is successfully done.
+        //console.log(Kakao.isInitialized());
+        KakaoJs = Kakao;
+    });
+    function loginWithKakao() {
+        KakaoJs.Auth.authorize({
+            redirectUri: '<?= $escaper->escapeUrl($block->getRediectOAuthLink()); ?>'
+        });
+    }
+</script>

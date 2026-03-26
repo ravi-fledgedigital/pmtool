@@ -1,0 +1,8 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="order_cancel_after">
+        <observer name="order_cancel_after_sendemail" instance="OnitsukaTiger\Sales\Observer\CancelOrder" />
+    </event>
+    <event name="store_edit">
+        <observer name="magento_sequence" instance="Magento\SalesSequence\Observer\SequenceCreatorObserver" />
+    </event>
+</config>

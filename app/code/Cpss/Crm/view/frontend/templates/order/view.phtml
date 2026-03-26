@@ -1,0 +1,179 @@
+<?php
+/** @var \Cpss\Crm\Block\Order\View $block */
+$order = $block->getOrder();
+$items = ($order) ? $order->getItems() : [];
+if($order === null || empty($items->getData())) {
+    $block->redirectToSpecificPage("sales/order/history");
+//    return;
+}
+$helperData =  $this->helper('Magento\Framework\Pricing\Helper\Data');
+$requests = $block->getRequest()->getParams();
+?>
+<style>
+    .footer-value {
+        font-family: inherit, sans-serif;
+        text-align: center !important;
+        border-right: 1px solid #CCC;
+        border-bottom: 1px solid #d1d1d1;
+    }
+</style>
+<div class="order-details-items block-ordered ordered">
+    <div class="block-ordered__head">
+        <div class="order-title">
+            <p><span><?= $block->escapeHtml(__('Purchase date :')) ?></span><?= $block->formatDate($order->getPurchaseDate(), \IntlDateFormatter::SHORT, true) ?></p>
+            <p><span><?= $block->escapeHtml(__('Purchased From')) ?> :</span><?= $block->getShopName($requests['purchase_id']); ?></p>
+            <p><span><?= $block->escapeHtml(__('Payment Method :')) ?></span><?= $order->getPaymentMethod() ?></p>
+        </div>
+    </div>
+    <div class="table-wrapper order-items">
+        <table class="data table table-order-items table-pretty--2nd table-history" id="my-orders-table" summary="注文済商品">
+            <thead>
+                <tr class="table-header-mobile" style="display: none;">
+                    <th colspan="4" class="information"> <?= $block->escapeHtml(__('Product code')) ?><br> <?= $block->escapeHtml(__('Product information')) ?></th>
+                    <th class="qty"><?= $block->escapeHtml(__('quantity')) ?></th>
+                    <th class="subtotal"><?= $block->escapeHtml(__('Subtotal')) ?></th>
+                </tr>
+                <tr class="table-header-default">
+                    <th class="code"><?= $block->escapeHtml(__('Product code')) ?></th>
+                    <th class="information"><?= $block->escapeHtml(__('Product information')) ?></th>
+                    <th class="product-type"><?= $block->escapeHtml(__('Product Type')) ?></th>
+                    <th class="price"><?= $block->escapeHtml(__('Unit price')) ?></th>
+                    <th class="qty"><?= $block->escapeHtml(__('quantity')) ?></th>
+                    <th class="subtotal"><?= $block->escapeHtml(__('Subtotal')) ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($items as $item) { ?>
+                <?php $unitPriceInclTax = $item->getSubtotalAmount() + $item->getTaxAmount(); ?>
+                    <tr class="table-row-default" id="order-item-row-1">
+                        <td class="code" data-th="<?= $block->escapeHtml(__('Sku')) ?>"> <?= $escaper->escapeHtml($item->getSku()) ?> </td>
+                        <td class="name" data-th="<?= $block->escapeHtml(__('Name')) ?>">
+                            <dl class="item-options">
+                                <dt><?= $block->escapeHtml("Name") ?></dt>
+                                <dd> <strong class="product name product-item-name"><?= $block->escapeHtml($item->getProductName()) ?></strong> </dd>
+                                <dt><?= $block->escapeHtml("Color") ?></dt>
+                                <dd><?= $block->escapeHtml($item->getColor()) ?></dd>
+                                <dt><?= $block->escapeHtml("Size") ?></dt>
+                                <dd><?= $block->escapeHtml($item->getSize()) ?></dd>
+                            </dl>
+                        </td>
+                        <td class="sku" data-th="<?= $block->escapeHtml(__('simple')) ?>"><?= $block->escapeHtml(__('simple')) ?></td>
+                        <td class="price" data-th="<?= $block->escapeHtml(__('Unit price')) ?>"> <span class="price"><?= $helperData->currency(($unitPriceInclTax + $item->getDiscountAmount())/$item->getQty(), true, false) ?></span> </td>
+                        <td class="qty" data-th="<?= $block->escapeHtml(__('quantity')) ?>">
+                            <ul class="items-qty">
+                                <li class="item"> <span class="content"><?= $block->escapeHtml($item->getQty()) ?></span> </li> <!--                !-->
+                            </ul>
+                        </td>
+                        <td class="subtotal" data-th="<?= $block->escapeHtml(__('Price')) ?>"> <span class="price"><?= $helperData->currency(($unitPriceInclTax + $item->getDiscountAmount()) ,true,false) ?></span> </td>
+                    </tr>
+                    <tr class="table-row-mobile" id="order-item-row-1" style="display: none;">
+                        <td colspan="4" class="name" data-th="<?= $block->escapeHtml(__('Product Name')) ?>">
+                            <dl class="item-options">
+                                <dt>code</dt>
+                                <dd><?= $escaper->escapeHtml($item->getSku()) ?></dd>
+                                <dt><?= $block->escapeHtml("Name") ?></dt>
+                                <dd> <strong class="product name product-item-name"><?= $block->escapeHtml($item->getProductName()) ?></strong> </dd>
+                                <dt><?= $block->escapeHtml("Color") ?></dt>
+                                <dd><?= $block->escapeHtml($item->getColor()) ?></dd>
+                                <dt><?= $block->escapeHtml("Size") ?></dt>
+                                <dd><?= $block->escapeHtml($item->getSize()) ?></dd>
+                                <dt><?= $block->escapeHtml(__('Unit price')) ?></dt>
+                                <dd><span class="price"><?= $helperData->currency(($unitPriceInclTax + $item->getDiscountAmount())/$item->getQty(), true, false) ?></span></dd>
+                            </dl>
+                        </td>
+                        <td class="qty" data-th="<?= $block->escapeHtml(__('Quantity')) ?>">
+                            <ul class="items-qty">
+                                <li class="item"> <span class="content"><?= $block->escapeHtml($item->getQty()) ?></span> </li> <!--                !-->
+                            </ul>
+                        </td>
+                        <td class="subtotal" data-th="小計"> <span class="price"><?= $helperData->currency(($unitPriceInclTax + $item->getDiscountAmount()) ,true,false) ?></span> </td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+            <tfoot>
+                <?php $priceInclTax = $order->getTotalAmount() + $order->getTaxAmount() + $order->getDiscountAmount(); ?>
+                <tr class="subtotal">
+                    <th colspan="5" class="mark footer-label" scope="row" style="background: #EDEDED; text-align: left; font-weight: 100; color: #333; font-family: inherit, sans-serif; vertical-align: middle; border-bottom: 1px solid #d1d1d1; padding: 5px 4px; border-right: 1px solid #CCC; border-left: 1px solid #CCC;"><?= $block->escapeHtml(__('Subtotal')) ?></th>
+                    <td class="amount footer-value" data-th="<?= $block->escapeHtml(__('Price')) ?>" style="font-family: inherit, sans-serif; text-align: center; border-right: 1px solid #CCC; border-bottom: 1px solid #d1d1d1;"> <span class="price"><?= $helperData->currency($priceInclTax, true, false) ?></span> </td>
+                </tr>
+                <tr class="usage-point">
+                    <th colspan="5" class="mark footer-label" scope="row" style="background: #EDEDED; text-align: left; font-weight: 100; color: #333; font-family: inherit, sans-serif; vertical-align: middle; border-bottom: 1px solid #d1d1d1; padding: 5px 4px; border-right: 1px solid #CCC; border-left: 1px solid #CCC;"><?= $block->escapeHtml(__('Used point')) ?></th>
+                    <td class="amount footer-value" data-th="<?= $block->escapeHtml(__('Used point')) ?>小計" style="font-family: inherit, sans-serif; text-align: center; border-right: 1px solid #CCC; border-bottom: 1px solid #d1d1d1;"> <span class="point"><?= $block->escapeHtml(number_format($order->getUsedPoint())) . __(' points') ?></span> </td>
+                </tr>
+                <tr class="discount">
+                    <th colspan="5" class="mark footer-label" scope="row" style="background: #EDEDED; text-align: left; font-weight: 100; color: #333; font-family: inherit, sans-serif; vertical-align: middle; border-bottom: 1px solid #d1d1d1; padding: 5px 4px; border-right: 1px solid #CCC; border-left: 1px solid #CCC;"><?= $block->escapeHtml(__('Discount')) ?></th>
+                    <td class="amount footer-value" data-th="<?= $block->escapeHtml(__('Discount')) ?>" style="font-family: inherit, sans-serif; text-align: center; border-right: 1px solid #CCC; border-bottom: 1px solid #d1d1d1;"> <span class="price"><?= $helperData->currency($order->getDiscountAmount(), true, false) ?></span> </td>
+                </tr>
+                <tr class="grand_total">
+                    <th colspan="5" class="mark footer-label" scope="row" style="background: #EDEDED; text-align: left; font-weight: 100; color: #333; font-family: inherit, sans-serif; vertical-align: middle; border-bottom: 1px solid #d1d1d1; padding: 5px 4px; border-right: 1px solid #CCC; border-left: 1px solid #CCC;"> <strong><?= $block->escapeHtml(__('Total Amount')) ?></strong> </th>
+                    <td class="amount footer-value" data-th="<?= $block->escapeHtml(__('Total Amount')) ?>" style="font-family: inherit, sans-serif; text-align: center; border-right: 1px solid #CCC; border-bottom: 1px solid #d1d1d1;"> <strong><span class="price"><?= $helperData->currency($priceInclTax - $order->getDiscountAmount(), true, false) ?></span></strong> </td>
+                </tr>
+                <?php
+                    if ($order->getAddedPointDate() > 0 || $order->getAcquiredPoint() > 0) {
+                        $pointLabel = 'Points to be earned';
+                        $pointValue = $order->getAcquiredPoint();
+
+                        if (($order->getAddedPoint() > 0)) {
+                            $pointLabel = 'Added Points';
+                            $pointValue = $order->getAddedPoint();
+                        }
+
+                ?>
+                    <tr class="points-to-be-earned">
+                        <th colspan="5"
+                            class="mark footer-label"
+                            scope="row"
+                            style="background: #EDEDED; text-align: left; font-weight: 100; color: #333; font-family: inherit, sans-serif; vertical-align: middle; border-bottom: 1px solid #d1d1d1; padding: 5px 4px; border-right: 1px solid #CCC; border-left: 1px solid #CCC;"
+                        >
+                        <?= $block->escapeHtml(__($pointLabel)) ?>
+                        </th>
+                        <td class="amount footer-value"
+                            data-th=" <?= $block->escapeHtml(__($pointLabel)) ?>"
+                            style="font-family: inherit, sans-serif; text-align: center; border-right: 1px solid #CCC; border-bottom: 1px solid #d1d1d1;">
+                            <span class="point"><?= $block->escapeHtml(number_format($pointValue)) . __(' points') ?></span>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<div class="block block-order-details-view">
+    <div class="block-content">
+        <div class="actions-toolbar">
+            <div class="secondary">
+                <a class="action back" href="<?= $block->escapeUrl($block->getUrl('crm/realstore/purchase')) ?>">
+                    <span><?= $block->escapeHtml(__('Back')) ?></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    require(['jquery'], function($){
+        $(document).ready(function()
+        {
+            setMobileView();
+            $(window).on('resize', function(){
+                setMobileView();
+            });
+
+            function setMobileView()
+            {
+                var win = $(this);
+                if(win.width() <= 959){
+                    $(".table-header-default").hide();
+                    $(".table-header-mobile").show();
+                    $(".table-row-default").hide();
+                    $(".table-row-mobile").show();
+                }else{
+                    $(".table-header-default").show();
+                    $(".table-header-mobile").hide();
+                    $(".table-row-default").show();
+                    $(".table-row-mobile").hide();
+                }
+            }
+        });
+    });
+</script>

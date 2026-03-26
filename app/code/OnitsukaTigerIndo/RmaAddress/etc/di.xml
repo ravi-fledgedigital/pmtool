@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Amasty\Rma\Controller\FrontendRma">
+        <plugin name="create_rma_by_customer_for_chat"
+                type="OnitsukaTigerIndo\RmaAddress\Plugin\FrontendPlugin" sortOrder="10" disabled="false"/>
+    </type>
+    <preference for="Amasty\Rma\Utils\FileUpload"
+                type="OnitsukaTigerIndo\RmaAddress\Plugin\UploadFilePlugin" />
+
+    <type name="Amasty\Rma\Controller\Account\Save">
+        <plugin name="before_create_rma_by_customer_indo"
+                type="OnitsukaTigerIndo\RmaAddress\Plugin\Account\SavePlugin" sortOrder="10" disabled="false"/>
+    </type>
+    <type name="Amasty\Rma\Controller\Guest\Save">
+        <plugin name="before_create_rma_by_guest_indo"
+                type="OnitsukaTigerIndo\RmaAddress\Plugin\Guest\SavePlugin" sortOrder="10" disabled="false"/>
+    </type>
+</config>

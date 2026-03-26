@@ -1,0 +1,18 @@
+<?php
+/**
+ * @var $block \OnitsukaTigerCpss\Customer\Block\AppConfirmRedirect
+ */
+?>
+<?php if( $block->isRedirectAppConfirm()): ?>
+    <?php $block->setNotRedirectToApp();?>
+<script>
+    require([
+        "jquery",
+        "mage/mage"
+    ], function($){
+
+        $($.mage.redirect("<?= $block->getUrlRedirectToApp() ?>", "assign", 500));
+
+    });
+</script>
+<?php endif;?>

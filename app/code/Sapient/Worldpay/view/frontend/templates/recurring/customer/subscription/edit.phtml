@@ -1,0 +1,152 @@
+<?php
+/**
+ * Copyright © 2018 Worldpay, LLC. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+?>
+<?php
+/**
+ * @var $block \Sapient\Worldpay\Block\Recurring\Customer\Subscriptions\Edit
+ */
+?>
+
+<form class="worldpay-subscription-edit" action="<?= /* @noEscape */  $block->getSaveUrl() ?>"
+      method="post" id="worldpay-subscription-edit" enctype="multipart/form-data" 
+      data-hasrequired="<?= /* @noEscape */  __('* Required Fields') ?>">
+    <div class="actions-toolbar">
+        <div class="skip-next-order">
+        <?php
+            $nextOrder = $block->getNextRecurringOrder();
+        if (!empty($nextOrder)): ?>
+                <a href="javascript:void(0)"
+                    id="skiporder" class="action primary"
+                    rel="noopener">
+                    <span><?= /* @noEscape */ __('Skip Next Order') ?></span>
+                </a>
+                <span><?= /* @noEscape */ __('Scheduled on') ?></span>
+                <strong id="next-orderdate">
+                    <?= /* @noEscape */  $nextOrder->getRecurringDate() ?>
+                </strong>
+            <?php endif; ?>
+        </div>
+        <div class="all-recurring-order-mobile">
+            <?php if (!empty($nextOrder)): ?>
+                <span class="upcoming-delivery mobile">
+                    <?= /* @noEscape */ __('Upcoming Delivery') ?>
+                </span>
+            <?php endif; ?>
+            <?php if ($block->getRecurringOrderCollection() > 0): ?>
+                <a href="<?= /* @noEscape */  $block->getViewAllRecurringOrder() ?>"
+                    class="action" rel="noopener">
+                    <span><?= /* @noEscape */ __('View All Recurring Order') ?></span>
+                </a>
+            <?php endif; ?>
+        </div>
+    </div>
+    <fieldset class="fieldset subscription">
+        <?= /* @noEscape */  $block->getBlockHtml('formkey')?>
+        <div class="">
+            <legend class="legend">
+                <span><?= /* @noEscape */  $block->getMyAccountLabels('AC25') ?></span>
+                <?php if ($block->getRecurringOrderCollection() > 0): ?>
+                    <a href="<?= /* @noEscape */  $block->getViewAllRecurringOrder() ?>"
+                        class="action all-recurring-order-desktop"
+                        rel="noopener">
+                    <span><?= /* @noEscape */ __('View All Recurring Order') ?></span>
+                </a>
+                <?php endif; ?>
+                <?php if (!empty($nextOrder)): ?>
+                    <span class="upcoming-delivery desktop">
+                        <?= /* @noEscape */ __('Upcoming Delivery') ?>
+                    </span>
+                <?php endif; ?>    
+            </legend>
+        </div>
+        
+        <div class="field product-name">
+            <label class="label" for="product_name">
+                <span>
+        <?= /* @noEscape */  $escaper->escapeHtml($block->getMyAccountLabels('AC26')) ?>
+                </span></label>
+            <div class="control">
+                <span><?= $escaper->escapeHtml(__($block->getSubscription()->getProductName())); ?></span>
+            </div>
+        </div>
+        <?php if ($block->getPlans()): ?>
+            <div class="field plan">
+                <label class="label" for="plan">
+                    <span>
+            <?= /* @noEscape */ $escaper->escapeHtml($block->getMyAccountLabels('AC27')) ?>
+                    </span>
+                </label>
+                <?php foreach ($block->getPlans() as $plan): ?>
+                    <div class="field choice">
+                        <?php if ($block->isPlanSelected($plan)): ?>
+                        <input type="radio"
+                               name="plan_id"
+                               id="plan_id_<?= /* @noEscape */  $plan->getId() ?>"
+                               value="<?= /* @noEscape */  $plan->getId() ?>"
+                               checked />
+                        <label class="label" for="plan_id_<?= /* @noEscape */  $plan->getId() ?>">
+                            <span><?= /* @noEscape */  $block->getPlanTitle($plan); ?></span>
+                        </label>
+                        <?php endif; ?>
+                    </div>
+                <?php endforeach; ?>
+                
+            </div>
+        <?php endif; ?>
+    </fieldset>
+</form>
+<script type="text/x-magento-init">
+    {
+        "#worldpay-subscription-edit": {
+            "validation": {}
+        },
+        "#country": {
+            "regionUpdater": {
+                "optionalRegionAllowed": <?= /* @noEscape */($block->getConfig('general/region/display_all')
+                        ? 'true' : 'false'); ?>,
+                "regionListId": "#region_id",
+                "regionInputId": "#region",
+                "postcodeId": "#zip",
+                "form": "#worldpay-subscription-edit",
+                "regionJson": <?= /* @noEscape */ $block->getRegionJson() ?>,
+                "defaultRegion": "<?= /* @noEscape */ $block->getSubscription()->getBillingAddress()->getRegionId() ?>",
+                "countriesWithOptionalZip": <?= /* @noEscape */ $block->getCountriesWithOptionalZip(true) ?>
+            }
+        }
+    }
+</script>
+<script>
+    require(['jquery',
+        'mage/url',
+        'prototype'
+    ], function ($, urlBuilder) { 
+        $('#skiporder').on("click", function(event) {
+            $.ajax({
+                url: urlBuilder.build('worldpay/skiporder/'),
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    subscriptionId: <?= $escaper->escapeHtml(__($block->getSubscription()->getSubscriptionId())) ?>,
+                    nextOrder: '<?= $escaper->escapeHtml(__($block->getNextOrderDate())) ?>',
+                },
+                /** Show loader before send */
+                    beforeSend: function() {
+                        $('body').trigger('processStart');
+                    },
+                    success: function(data, status, xhr) {
+                        console.log(data);
+                        location.reload();
+                    },
+                    error: function (xhr, status, errorThrown) {
+                        console.log('Error happens. Try again.');
+                        console.log(errorThrown);
+                    }
+                }).always(function () {
+                $('body').trigger('processStop');
+            });
+        });           
+    });
+</script>

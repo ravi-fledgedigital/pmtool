@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="product_alert_stock" resource="default" engine="innodb" comment="Product Stock Alert">
+        <column name="opened_date" xsi:type="datetime" nullable="true" comment="Opened Date"/>
+        <column name="is_opened" xsi:type="smallint" padding="2" unsigned="true" nullable="false" default="0" comment="Is Opened"/>
+    </table>
+</schema>

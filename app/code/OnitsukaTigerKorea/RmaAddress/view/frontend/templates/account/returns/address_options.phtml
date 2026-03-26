@@ -1,0 +1,115 @@
+<?php
+/**
+ * @var \OnitsukaTigerKorea\RmaAddress\Block\Returns\AddressOption $block
+ */
+?>
+<?php
+$helperConfig = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);
+$telephonePrefix = $helperConfig->getConfig('general/telephone_prefix/number') ? $helperConfig->getConfig('general/telephone_prefix/number') : '66';
+
+/*
+ * Customer
+ * Default value for selection
+ */
+$idShippingAddress = $block->getOrder()->getShippingAddress()->getData('customer_address_id');
+$idsAddressOptions = array_keys( $block->getAddressOptions() );
+$idShippingAddress = in_array($idShippingAddress,$idsAddressOptions) ? $idShippingAddress : reset($idsAddressOptions);
+if($helperConfig->getConfig('onitsukatiger_catalog_product/rma_address/enable')):?>
+    <div class="items-details-container">
+        <div class="items-title">
+            <strong>2.<?= __('RMA Address') ?></strong>
+        </div>
+        <div class="address-container-items">
+            <?php foreach ($block->getAddressOptions() as $key => $address): ?>
+                  <?php if($idShippingAddress != $key):?>
+                    <div class="address-container-item">
+                        <div class="address-container">
+                            <div class="address-name">
+                                <?= $block->escapeHtml($address['name']) ?>
+                            </div>
+                            <div class="customer-address">
+                                <?php foreach ($address['street'] as $street):?>
+                                    <?= $block->escapeHtml($street) ?>,<br/>
+                                <?php endforeach;?>
+                                <?= $block->escapeHtml($address['post_code']) ?>,<br/>
+                                <?= $block->escapeHtml($block->getCountryByCode($address['country'])) ?>
+                            </div>
+                            <div class="customer-phone">
+                                <?php if($helperConfig->getConfig('general/telephone_prefix/enable')): ?>
+                                    <?= '+'.$telephonePrefix.'-'.substr($block->escapeHtml($address['telephone']), 2) ?>
+                                <?php else: ?>
+                                    <p><?= $address['telephone'] ?></p>
+                                <?php endif;?>
+                                <span class="customer-email"><?= $block->escapeHtml($address['email'])?></span>
+                            </div>
+                            <input hidden type="radio" id="rma_address_<?= $key ?>" class="rma_address" name="rma_address" value="<?= $key ?>">
+                        </div>
+                        <button type="button" class="action action-select-shipping-item">
+                            <span><?= __('Select Address') ?></span>
+                        </button>
+                    </div>
+                  <?php else: ?>
+                    <div class="address-container-item selected-address">
+                        <div class="address-container selected-item">
+                            <div class="address-name">
+                                <?= $block->escapeHtml($address['name']) ?>
+                            </div>
+                            <div class="customer-address">
+                                <?php foreach ($address['street'] as $street): ?>
+                                    <?= $block->escapeHtml($street) ?>,<br/>
+                                <?php endforeach; ?>
+                                <?= $block->escapeHtml($address['post_code']) ?>,<br/>
+                                <?= $block->escapeHtml($block->getCountryByCode($address['country'])) ?>
+                            </div>
+                            <div class="customer-phone">
+                                <?php if ($helperConfig->getConfig('general/telephone_prefix/enable')): ?>
+                                    <?= '+' . $telephonePrefix . '-' . substr($block->escapeHtml($address['telephone']), 2) ?>
+                                <?php else: ?>
+                                    <p><?= $address['telephone'] ?></p>
+                                <?php endif; ?>
+                                <span class="customer-email"><?= $block->escapeHtml($address['email']) ?></span>
+                            </div>
+                            <input hidden type="radio"
+                                   id="rma_address_<?= $key ?>"
+                                   class="rma_address" name="rma_address"
+                                   value="<?= $key ?>" checked>
+                        </div>
+                        <button type="button" class="action action-select-shipping-item" style="display: block">
+                            <span><?= __('Select Address') ?></span>
+                        </button>
+                    </div>
+                <?php endif;?>
+
+            <?php endforeach; ?>
+        </div>
+        <?= $block->getChildHtml('description-address-rma-return')?>
+    </div>
+    <script type="text/javascript">
+        require(['jquery'], function($) {
+
+            $(document).ready(function () {
+
+                $('.address-container').click(function (){
+                    if($('.address-container').hasClass('selected-item') === false) {
+                        $('.address-container .rma_address').prop('checked', false);
+                        $('.action-select-shipping-item').hide();
+                        $(this).addClass('selected-item');
+                        $(this).next().show();
+                        $(".address-container-item").removeClass('selected-address');
+                    }else {
+                        $('.address-container .rma_address').prop('checked', false);
+                        $(".address-container-item").removeClass('selected-address');
+                        $('.address-container').removeClass('selected-item');
+                        $('.action-select-shipping-item').hide();
+                        $(this).next().show();
+                        $(this).addClass('selected-item');
+                    }
+                });
+                $('.action-select-shipping-item').click(function (){
+                    $(this).parent().addClass('selected-address');
+                    $('.address-container.selected-item .rma_address').prop('checked', true);
+                })
+            });
+        })
+    </script>
+<?php endif;?>

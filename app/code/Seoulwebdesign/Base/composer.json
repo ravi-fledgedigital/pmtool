@@ -1,0 +1,16 @@
+{
+    "name": "seoulwebdesign/base",
+    "description": "SWD Base module",
+    "require": {},
+    "type": "magento2-module",
+    "version": "1.1.1",
+    "license": "proprietary",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Seoulwebdesign\\Base\\": ""
+        }
+    }
+}

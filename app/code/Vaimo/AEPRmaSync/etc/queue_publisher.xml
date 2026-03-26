@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/publisher.xsd">
+    <publisher topic="aep.rma.synchronise">
+        <connection name="amqp" exchange="aep.rma.synchronise" disabled="false"/>
+    </publisher>
+</config>

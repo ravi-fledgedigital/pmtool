@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config>
+    <type name="Clickend\Kerry\Model\shipingstatusdata">
+        <plugin name="OnitsukaTiger_Kerry_Plugin_ShipingStatusData" type="OnitsukaTiger\NetsuiteNotDeliveryOrderSync\Plugin\shipingstatusdataPlugin" sortOrder="1" disabled="true"/>
+    </type>
+</config>

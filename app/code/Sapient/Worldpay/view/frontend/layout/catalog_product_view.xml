@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2020 Worldpay, LLC. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.options.wrapper">
+            <block class="Sapient\Worldpay\Block\Catalog\Product\SubscriptionPlans" 
+                   name="product.info.worldpay.subscription.options" as="worldpay_subscription_options" 
+                   before="-" template="Sapient_Worldpay::catalog/product/subscription_plans.phtml" ifconfig="worldpay/tokenization/saved_card">
+                <block class="Magento\Catalog\Pricing\Render" name="product.price.worldpay.subscription">
+                    <arguments>
+                        <argument name="price_render" xsi:type="string">product.price.render.default</argument>
+                        <argument name="price_type_code" xsi:type="string">worldpay_subscription_price</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceContainer>
+        
+        <referenceBlock name="product.info.addtocart">
+              <action method="setTemplate">
+                    <argument name="template" xsi:type="string">Sapient_Worldpay::catalog/product/view/addtocart.phtml</argument>
+                </action>
+             <block name="product.info.addtocart.wallets" class="Sapient\Worldpay\Block\Wallets" 
+                   template="Sapient_Worldpay::wallets.phtml" before="-" ifconfig="worldpay/general_config/enable_worldpay">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="wp-wallet-pay" xsi:type="array">
+                                <item name="component" xsi:type="string">Sapient_Worldpay/js/view/wallet-pay</item>
+                                 <item name="config" xsi:type="array">
+                                     <item name="template" xsi:type="string">Sapient_Worldpay/wallets/checkout</item>
+                                 </item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+                <block name="product.info.addtocart.googlepay" class="Sapient\Worldpay\Block\GooglePay\Button" 
+                   template="Sapient_Worldpay::wallets/googlepay.phtml" before="-">
+                 </block>
+                 <block name="product.info.addtocart.applepay" class="Sapient\Worldpay\Block\ApplePay\Button" 
+                   template="Sapient_Worldpay::wallets/applepay.phtml" before="-">
+                 </block>
+            </block>
+            <block name="product.info.addtocart.instantPurchase" class="Sapient\Worldpay\Block\InstantPurchase\Button" 
+                   template="Magento_InstantPurchase::button.phtml" after="product.info.addtocart.wallets">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="instant-purchase" xsi:type="array">
+                                <item name="component" xsi:type="string">Sapient_Worldpay/js/view/instant-purchase</item>
+                                <item name="config" xsi:type="array">
+                                    <item name="template" xsi:type="string">Sapient_Worldpay/instant-purchase/instant-purchase</item>
+                                </item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>            
+        </referenceBlock>
+        <referenceBlock name="product.info.addtocart.additional">
+                <action method="setTemplate">
+                    <argument name="template" xsi:type="string">Sapient_Worldpay::catalog/product/view/addtocart.phtml</argument>
+                </action>
+               <block name="product.info.addtocart.wallets.additional" class="Sapient\Worldpay\Block\Wallets" 
+                   template="Sapient_Worldpay::wallets.phtml" before="-" ifconfig="worldpay/general_config/enable_worldpay">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="wp-wallet-pay" xsi:type="array">
+                                <item name="component" xsi:type="string">Sapient_Worldpay/js/view/wallet-pay</item>
+                                 <item name="config" xsi:type="array">
+                                     <item name="template" xsi:type="string">Sapient_Worldpay/wallets/checkout</item>
+                                 </item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+                <block name="product.info.addtocart.googlepay.additional" class="Sapient\Worldpay\Block\GooglePay\Button" 
+                   template="Sapient_Worldpay::wallets/googlepay.phtml" before="-">
+                 </block>
+                 <block name="product.info.addtocart.applepay.additional" class="Sapient\Worldpay\Block\ApplePay\Button" 
+                   template="Sapient_Worldpay::wallets/applepay.phtml" before="-">
+                 </block>
+            </block>
+            <block name="product.info.addtocart.instantPurchase.additional" class="Sapient\Worldpay\Block\InstantPurchase\Button" 
+                   template="Magento_InstantPurchase::button.phtml" after="product.info.addtocart.wallets.additional">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="instant-purchase" xsi:type="array">
+                                <item name="component" xsi:type="string">Sapient_Worldpay/js/view/instant-purchase</item>
+                                <item name="config" xsi:type="array">
+                                    <item name="template" xsi:type="string">Sapient_Worldpay/instant-purchase/instant-purchase</item>
+                                </item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

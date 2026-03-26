@@ -1,0 +1,49 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="firebear_importexport" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="netsuite" translate="label" type="text" sortOrder="1" showInDefault="1">
+                <label>Netsuite Integration Details</label>
+                <field id="account_saved_search_id" translate="label" type="text" sortOrder="10" showInDefault="1">
+                    <label>Account Saved Search Id</label>
+                </field>
+                <field id="number_of_records_in_account_ss" translate="label" type="text" sortOrder="10" showInDefault="1">
+                    <label>Number of records in the account saved search</label>
+                    <comment>Set the number of records in the account saved search</comment>
+                </field>
+                <field id="export_customers" translate="label" type="select" sortOrder="10" showInDefault="1">
+                    <label>Customers Export to the Netsuite</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Export customers to the Netsuite when saved in the Magento</comment>
+                </field>
+                <field id="default_subsidiary_internal_id" translate="label" type="text" sortOrder="20" showInDefault="1">
+                    <label>Default Subsidiary Internal Id</label>
+                </field>
+                <field id="endpoint" translate="label" type="text" sortOrder="30" showInDefault="1">
+                    <label>Endpoint</label>
+                </field>
+                <field id="host" translate="label" type="text" sortOrder="40" showInDefault="1">
+                    <label>Host</label>
+                </field>
+                <field id="account" translate="label" type="text" sortOrder="50" showInDefault="1">
+                    <label>Account</label>
+                </field>
+                <field id="consumerKey" translate="label" type="password" sortOrder="60" showInDefault="1">
+                    <label>Consumer Key</label>
+                </field>
+                <field id="consumerSecret" translate="label" type="password" sortOrder="70" showInDefault="1">
+                    <label>Consumer Secret</label>
+                </field>
+                <field id="token" translate="label" type="password" sortOrder="80" showInDefault="1">
+                    <label>Token</label>
+                </field>
+                <field id="tokenSecret" translate="label" type="password" sortOrder="90" showInDefault="1">
+                    <label>Token Secret</label>
+                </field>
+                <field id="use_old_http_protocol_version" translate="label" type="select" sortOrder="100" showInDefault="1">
+                    <label>Use the HTTP 1.0 protocol version option for the SOAP request</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

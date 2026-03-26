@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="catalog" >
+            <group id="them_customize" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Theme Customize Catalog</label>
+                <field id="qty_dropdown" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Quantity Showing In Frontend With Dropdown</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Minus and Plus button will be show if dropdown is No</comment>
+                </field>
+                <field id="qty_validate" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Validate Max Quantity Can Purchase</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable Validate Quantity Can Purchase before add to cart</comment>
+                </field>
+                <field id="qty_validate_sales" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Validate Max Quantity Sales</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable Validate Quantity Sales before add to cart</comment>
+                </field>
+                <field id="quickview" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Show QuickView Button</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable Showing QuickView In Product List page</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

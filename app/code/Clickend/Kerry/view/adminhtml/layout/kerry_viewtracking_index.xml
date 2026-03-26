@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+    <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+        <head>
+            <title>ViewTracking</title>
+            <css src="Clickend_Kerry::css/bootstrap.css"/>            
+            <css src="Clickend_Kerry::css/fontawesome-all.css"/>            
+        </head> 
+        <body>
+            <referenceContainer name="content">
+                <block class="Clickend\Kerry\Block\Adminhtml\ViewTracking\Index" name="ViewTracking_index"  template="Clickend_Kerry::ViewTracking.phtml" />
+            </referenceContainer>
+        </body>
+    </page>

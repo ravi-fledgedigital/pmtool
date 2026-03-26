@@ -1,0 +1,14 @@
+<?php
+$helper = $this->helper(\OnitsukaTiger\Customer\Helper\Data::class);
+?>
+<?php $_order = $block->getOrder() ?>
+<?php if ($_order) : ?>
+    <p class="title-address"><?= __('Shipping Address')?></p>
+    <?= $_order->getShippingAddress()->getFirstName()?> <?= $_order->getShippingAddress()->getLastName()?> ( <?= $helper->getCountryByCode($_order->getShippingAddress()->getCountryId())?>)
+    <?php foreach ($_order->getShippingAddress()->getStreet() as $street): ?>
+        <?= $block->escapeHtml($street) ?>,
+    <?php endforeach;?><br/>
+    <?= $_order->getShippingAddress()->getCity() ?>, <?= $_order->getShippingAddress()->getRegion() ?><br/>
+    <?= $helper->getCountryByCode($_order->getShippingAddress()->getCountryId())?>
+    <?= $_order->getShippingAddress()->getPostcode()?>,<br/>
+<?php endif; ?>

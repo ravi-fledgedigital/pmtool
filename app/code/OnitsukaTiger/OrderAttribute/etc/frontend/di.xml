@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @author OnitsukaTiger Team
+* @copyright Copyright (c) 2022 OnitsukaTiger (https://www.onitsukatiger.com)
+* @package Custom Checkout Fields for Magento 2
+*/-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Sales\Block\Order\Info">
+        <plugin name="OnitsukaTiger_OrderAttribute::OrderViewAttributesList" type="OnitsukaTiger\OrderAttribute\Block\Order\Plugin\OrderView" />
+    </type>
+    <type name="Magento\Checkout\Block\Onepage">
+        <arguments>
+            <argument name="layoutProcessors" xsi:type="array">
+                <item name="orderAttributes" xsi:type="object">OnitsukaTiger\OrderAttribute\Block\Checkout\LayoutProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Customer\Block\SectionConfig">
+        <arguments>
+            <argument name="clientSideSections" xsi:type="array">
+                <item name="onitsukatiger-checkout-data" xsi:type="string">onitsukatiger-checkout-data</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Checkout\Model\CompositeConfigProvider">
+        <arguments>
+            <argument name="configProviders" xsi:type="array">
+                <item name="onitsukatiger_order_attribute_config_provider" xsi:type="object">OnitsukaTiger\OrderAttribute\Model\Checkout\CheckoutConfigProvider</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="OnitsukaTiger\OrderAttribute\Model\Attribute\InputType\FrontendCaster">
+        <arguments>
+            <argument name="specificationProcessorClasses" xsi:type="array">
+                <item name="multiselect" xsi:type="string">OnitsukaTiger\OrderAttribute\Model\Attribute\InputType\FrontendCaster\Multiselect</item>
+                <item name="date" xsi:type="string">OnitsukaTiger\OrderAttribute\Model\Attribute\InputType\FrontendCaster\Date</item>
+                <item name="datetime" xsi:type="string">OnitsukaTiger\OrderAttribute\Model\Attribute\InputType\FrontendCaster\Datetime</item>
+                <item name="file" xsi:type="string">OnitsukaTiger\OrderAttribute\Model\Attribute\InputType\FrontendCaster\File</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- <preference for="Magento\Quote\Model\ValidationRules\ShippingMethodValidationRule" type="OnitsukaTiger\OrderAttribute\Model\ValidationRules\ShippingMethodValidationRule"/> -->
+</config>

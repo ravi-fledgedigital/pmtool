@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_creditmemo_save_after">
+        <observer name="update_rma_request" instance="OnitsukaTiger\Rma\Observer\CreditMemoSaveAfter"/>
+    </event>
+    <event name="amasty_manager_rma_saved">
+        <observer name="re_sync_rma_request" instance="OnitsukaTiger\Rma\Observer\Rma\ReSyncSaveAfter"/>
+    </event>
+    <event name="rma_saved_sync_netsuite">
+        <observer name="rma_request_sync_netsuite" instance="OnitsukaTiger\NetsuiteReturnOrderSync\Observer\RmaSavedObserver"/>
+    </event>
+</config>

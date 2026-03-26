@@ -1,0 +1,58 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \Magento\Catalog\Block\Category\View */
+
+/** @var \WeltPixel\GA4\Helper\MetaPixelTracking $metaPixelHelper */
+$metaPixelHelper = $this->helper('WeltPixel\GA4\Helper\MetaPixelTracking');
+$cspNonceProvider = $metaPixelHelper->getCspNonceProvider();
+$category = $block->getCurrentCategory();
+?>
+<script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    let metaViewCategoryEventId = <?= /* @noEscape */ $metaPixelHelper->getJsEventIdGenerator() ?>;
+</script>
+<?php if ($category && $metaPixelHelper->isMetaPixelTrackingEnabled() && $metaPixelHelper->shouldMetaPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\MetaPixel\TrackingEvents::EVENT_VIEW_CATEGORY)) :
+?>
+<script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    if (window.ga4AllowServices) {
+        let metaViewCategory = {
+            content_category: "<?= /* @noEscape */ addslashes(str_replace('"', '&quot;', $category->getName())) ?>"
+        };
+
+        let fbpCookie = window.getWpGA4Cookie('_fbp');
+        let fbcCookie = window.getWpGA4Cookie('_fbc');
+
+        if (fbpCookie !== undefined) {
+            metaViewCategory.fbp = fbpCookie;
+        }
+        if (fbcCookie !== undefined) {
+            metaViewCategory.fbc = fbcCookie;
+        }
+
+        fbq('trackCustom', 'ViewCategory', metaViewCategory, {
+            eventID: metaViewCategoryEventId
+        });
+    }
+</script>
+<?php endif; ?>
+
+<?php if ($category && $metaPixelHelper->isServerSideTrackingEnabled() && $metaPixelHelper->shouldMetaServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\MetaPixel\TrackingEvents::EVENT_VIEW_CATEGORY)) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($metaPixelHelper->getMetaSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'eventID': metaViewCategoryEventId,
+                            'eventName': 'ViewCategory',
+                            'eventIdentifier': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\MetaPixel\TrackingEvents::EVENT_VIEW_CATEGORY  ?>',
+                            'eventUrl': '<?= $block->escapeUrl($metaPixelHelper->getStoreCurrenUrl()) ?>',
+                            'contentCategory': '<?= /* @noEscape */ $category->getName() ?>'
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Vaimo\OTScene7AsicsIntegration\Model\SynchroniseAvailableAnglesInterface"
+                type="Vaimo\OTScene7AsicsIntegration\Model\SynchroniseAvailableAngles"/>
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="asics_images_sync_angles" xsi:type="object">Vaimo\OTScene7AsicsIntegration\Console\Command\SyncAvailableAngles</item>
+                <item name="asics_remove-website" xsi:type="object">Vaimo\OTScene7AsicsIntegration\Console\Command\RemoveProductNoImage</item>
+                <item name="asics-add-website" xsi:type="object">Vaimo\OTScene7AsicsIntegration\Console\Command\ReAddWebsiteProductWithImage</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

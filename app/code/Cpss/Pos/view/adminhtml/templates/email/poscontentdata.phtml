@@ -1,0 +1,39 @@
+<?php
+/** @var \Cpss\Pos\Block\Adminhtml\Email\PosContent $block */
+
+$content = $block->parseContent();
+$headerContent = $content["data"]["HEADER"] ?? [];
+$detailContent = $content["data"]["DETAILS"] ?? [];
+$ignoreDetailContent = $content["data"]["IGNORED"] ?? [];
+$emailType = $content["emailType"];
+$errorMessage = $content["errMessage"];
+?>
+
+<?php if ($emailType && $errorMessage) : ?>
+    <h4>VALIDATION RESULT</h4>
+    <p><?= $errorMessage ?></p>
+<?php endif; ?>
+
+<?php if (!empty($headerContent)) :  ?>
+    <h4>HEADER CSV DATA</h4>
+    <?php foreach ($headerContent as $k => $value) : ?>
+        <span><?= $value["purchase_id"] . ' - ' . $value["error_message"] ?></span>
+        <br>
+    <?php endforeach; ?>
+<?php endif; ?>
+
+<?php if (!empty($detailContent)) :  ?>
+    <h4>DETAIL CSV DATA</h4>
+    <?php foreach ($detailContent as $k => $value) : ?>
+        <span><?= $value["purchase_id"] . ' ' . $value["sku"] . ' - ' . $value["error_message"] ?></span>
+        <br>
+    <?php endforeach; ?>
+<?php endif; ?>
+
+<?php if (!empty($ignoreDetailContent)) :  ?>
+    <h4>RETN or RECL without Origin Purchase ID</h4>
+    <?php foreach ($ignoreDetailContent as $k => $value) : ?>
+        <span><?= $value ?></span>
+        <br>
+    <?php endforeach; ?>
+<?php endif; ?>

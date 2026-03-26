@@ -1,0 +1,54 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \Magento\Catalog\Block\Category\View */
+
+/** @var \WeltPixel\GA4\Helper\KlaviyoPixelTracking $klaviyoPixelHelper */
+$klaviyoPixelHelper = $this->helper('WeltPixel\GA4\Helper\KlaviyoPixelTracking');
+$cspNonceProvider = $klaviyoPixelHelper->getCspNonceProvider();
+$category = $block->getCurrentCategory();
+?>
+<script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    let klViewCategoryEventId = <?= /* @noEscape */ $klaviyoPixelHelper->getJsEventIdGenerator() ?>;
+</script>
+<?php if ($category && $klaviyoPixelHelper->isKlaviyoPixelTrackingEnabled() && $klaviyoPixelHelper->shouldKlaviyoPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\KlaviyoPixel\TrackingEvents::EVENT_VIEWED_CATEGORY)) :
+?>
+<script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    if (window.ga4AllowServices) {
+        let klaviyoCategoryData = {
+            'CategoryName': "<?= /* @noEscape */ addslashes(str_replace('"', '&quot;', $category->getName())) ?>",
+            'CategoryID': <?= /* @noEscape */ $category->getId() ?>,
+            'CategoryURL': window.location.href,
+            'CategoryPath': <?= /* @noEscape */ json_encode($klaviyoPixelHelper->getCategoryPath([$category->getId()])) ?>,
+            'ReferrerURL': document.referrer,
+            '$event_id': klViewCategoryEventId
+        }
+        klaviyo.track("<?= /* @noEscape */ $klaviyoPixelHelper->getKlaviyoEventName(\WeltPixel\GA4\Model\Config\Source\KlaviyoPixel\TrackingEvents::EVENT_VIEWED_CATEGORY) ?>", klaviyoCategoryData);
+    }
+</script>
+<?php endif; ?>
+
+
+<?php if ($category && $klaviyoPixelHelper->isServerSideTrackingEnabled() && $klaviyoPixelHelper->shouldKlaviyoServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\KlaviyoPixel\TrackingEvents::EVENT_VIEWED_CATEGORY)) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($klaviyoPixelHelper->getKlaviyoSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'eventId': klViewCategoryEventId,
+                            'categoryId': '<?= /* @noEscape */ $category->getId() ?>',
+                            'eventName': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\KlaviyoPixel\TrackingEvents::EVENT_VIEWED_CATEGORY  ?>',
+                            'categoryName:': "<?= /* @noEscape */ addslashes(str_replace('"', '&quot;', $category->getName()))  ?>",
+                            'categoryPath': '<?= /* @noEscape */ json_encode($klaviyoPixelHelper->getCategoryPath([$category->getId()])) ?>',
+                            'CategoryURL': window.location.href,
+                            'ReferrerURL': document.referrer
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>
+

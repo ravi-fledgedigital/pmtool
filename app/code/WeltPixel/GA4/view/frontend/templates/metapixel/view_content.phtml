@@ -1,0 +1,64 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \Magento\Catalog\Block\Product\View */
+
+/** @var \WeltPixel\GA4\Helper\MetaPixelTracking $metaPixelHelper */
+$metaPixelHelper = $this->helper('WeltPixel\GA4\Helper\MetaPixelTracking');
+$cspNonceProvider = $metaPixelHelper->getCspNonceProvider();
+$product = $block->getProduct();
+?>
+<script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    let metaViewContentEventId = <?= /* @noEscape */ $metaPixelHelper->getJsEventIdGenerator() ?>;
+</script>
+<?php if ($product && $metaPixelHelper->isMetaPixelTrackingEnabled() && $metaPixelHelper->shouldMetaPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\MetaPixel\TrackingEvents::EVENT_VIEW_CONTENT)) :
+        $productCategoryIds = $product->getCategoryIds();
+?>
+<script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    if (window.ga4AllowServices) {
+        let metaViewContent = {
+            content_type: "<?= /* @noEscape */ $metaPixelHelper->getProductType($product) ?>",
+            content_ids: ["<?= /* @noEscape */ $metaPixelHelper->getMetaProductId($product) ?>"],
+            content_name: "<?= /* @noEscape */ addslashes(str_replace('"', '&quot;', html_entity_decode($product->getName() ?? ''))) ?>",
+            content_category: "<?= /* @noEscape */ addslashes(str_replace('"', '&quot;', $metaPixelHelper->getContentCategory($productCategoryIds))) ?>",
+            value: "<?= /* @noEscape */ floatval(number_format($product->getPriceInfo()->getPrice('final_price')->getValue() ?? 0, 2, '.', '')); ?>",
+            currency: "<?= /* @noEscape */ $metaPixelHelper->getCurrencyCode() ?>"
+        };
+
+        let fbpCookie = window.getWpGA4Cookie('_fbp');
+        let fbcCookie = window.getWpGA4Cookie('_fbc');
+
+        if (fbpCookie !== undefined) {
+            metaViewContent.fbp = fbpCookie;
+        }
+        if (fbcCookie !== undefined) {
+            metaViewContent.fbc = fbcCookie;
+        }
+
+        fbq('track', 'ViewContent', metaViewContent, {
+            eventID: metaViewContentEventId
+        });
+    }
+</script>
+<?php endif; ?>
+
+<?php if ($product && $metaPixelHelper->isServerSideTrackingEnabled() && $metaPixelHelper->shouldMetaServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\MetaPixel\TrackingEvents::EVENT_VIEW_CONTENT)) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($metaPixelHelper->getMetaSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'eventID': metaViewContentEventId,
+                            'eventName': 'ViewContent',
+                            'eventIdentifier': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\MetaPixel\TrackingEvents::EVENT_VIEW_CONTENT  ?>',
+                            'eventUrl': '<?= $block->escapeUrl($metaPixelHelper->getStoreCurrenUrl()) ?>',
+                            'productId': '<?= /* @noEscape */ $product->getId() ?>'
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Vaimo\AEPFileExport\Model\FileUploaderInterface" type="Vaimo\AEPFileExport\Model\FileUpload" />
+    <preference for="Vaimo\AEPFileExport\Model\FtpConfigProviderInterface" type="Vaimo\AEPFileExport\Model\ConfigProvider" />
+</config>

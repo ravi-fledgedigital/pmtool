@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <sftp_korea>
+            <order_sync_multishipment>
+                <enable>0</enable>
+            </order_sync_multishipment>
+        </sftp_korea>
+        <korean_address>
+            <sales>
+                <enable>0</enable>
+            </sales>
+        </korean_address>
+    </default>
+</config>

@@ -1,0 +1,119 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \WeltPixel\GA4\Block\MetaPixel\Purchase */
+
+/** @var \WeltPixel\GA4\Helper\MetaPixelTracking $metaPixelHelper */
+$metaPixelHelper = $this->helper('WeltPixel\GA4\Helper\MetaPixelTracking');
+$cspNonceProvider = $metaPixelHelper->getCspNonceProvider();
+$paymentMethodTitle = $block->getPaymentMethodTitle();
+$orderId = $block->getOrderId();
+?>
+<script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    let metaPaymentEventId = <?= /* @noEscape */ $metaPixelHelper->getJsEventIdGenerator() ?>;
+    let metaPurchaseEventId = <?= /* @noEscape */ $metaPixelHelper->getJsEventIdGenerator() ?>;
+</script>
+<?php if ($metaPixelHelper->isMetaPixelTrackingEnabled() && $metaPixelHelper->shouldMetaPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\MetaPixel\TrackingEvents::EVENT_ADD_PAYMENT_INFO)) :
+    ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        if (window.ga4AllowServices) {
+
+            let metaAddPaymentInfo = {
+                method_title: '<?= /* @noEscape */ addslashes(str_replace('"', '&quot;', $paymentMethodTitle)) ?>'
+            };
+
+            let fbpCookie = window.getWpGA4Cookie('_fbp');
+            let fbcCookie = window.getWpGA4Cookie('_fbc');
+
+            if (fbpCookie !== undefined) {
+                metaAddPaymentInfo.fbp = fbpCookie;
+            }
+            if (fbcCookie !== undefined) {
+                metaAddPaymentInfo.fbc = fbcCookie;
+            }
+
+            fbq('track', 'AddPaymentInfo', metaAddPaymentInfo, {
+                eventID: metaPaymentEventId
+            });
+        }
+    </script>
+<?php endif; ?>
+
+<?php if ($metaPixelHelper->isServerSideTrackingEnabled() && $metaPixelHelper->shouldMetaServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\MetaPixel\TrackingEvents::EVENT_ADD_PAYMENT_INFO)) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($metaPixelHelper->getMetaSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'eventID': metaPaymentEventId,
+                            'eventName': 'AddPaymentInfo',
+                            'eventIdentifier': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\MetaPixel\TrackingEvents::EVENT_ADD_PAYMENT_INFO  ?>',
+                            'eventUrl': '<?= $block->escapeUrl($metaPixelHelper->getStoreCurrenUrl()) ?>',
+                            'methodTitle': '<?=  /* @noEscape */ $paymentMethodTitle ?>',
+                            'orderId': '<?=  /* @noEscape */ $orderId ?>'
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>
+
+
+<?php if ($metaPixelHelper->isMetaPixelTrackingEnabled() &&
+    $metaPixelHelper->shouldMetaPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\MetaPixel\TrackingEvents::EVENT_PURCHASE) &&
+    $metaPixelHelper->isOrderTrackingAllowedBasedOnOrderStatus($block->getOrder())) :
+    ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        if (window.ga4AllowServices) {
+
+            let metaPurchase = {
+                content_type: "<?= /* @noEscape */ $block->getContentType() ?>",
+                content_ids: [<?= /* @noEscape */ $block->getContentIds() ?>],
+                contents: <?= /* @noEscape */ $block->getContents() ?>,
+                value: <?= /* @noEscape */ $block->getValue() ?>,
+                currency: "<?= /* @noEscape */ $metaPixelHelper->getCurrencyCode() ?>"
+            };
+
+            let fbpCookie = window.getWpGA4Cookie('_fbp');
+            let fbcCookie = window.getWpGA4Cookie('_fbc');
+
+            if (fbpCookie !== undefined) {
+                metaPurchase.fbp = fbpCookie;
+            }
+            if (fbcCookie !== undefined) {
+                metaPurchase.fbc = fbcCookie;
+            }
+
+            fbq('track', 'Purchase', metaPurchase, {
+                eventID: metaPurchaseEventId
+            });
+        }
+    </script>
+<?php endif; ?>
+<?php if ($metaPixelHelper->isServerSideTrackingEnabled() &&
+    $metaPixelHelper->shouldMetaServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\MetaPixel\TrackingEvents::EVENT_PURCHASE) &&
+    $metaPixelHelper->isOrderTrackingAllowedBasedOnOrderStatus($block->getOrder())) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($metaPixelHelper->getMetaSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'eventID': metaPurchaseEventId,
+                            'eventName': 'Purchase',
+                            'eventIdentifier': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\MetaPixel\TrackingEvents::EVENT_PURCHASE  ?>',
+                            'eventUrl': '<?= $block->escapeUrl($metaPixelHelper->getStoreCurrenUrl()) ?>',
+                            'orderId': '<?=  /* @noEscape */ $orderId ?>'
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>
+

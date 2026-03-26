@@ -1,0 +1,22 @@
+{
+    "name": "onitsukatiger/module-restock",
+    "description": "Product restock alert",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Dharmesh Vaja",
+            "email": "dharmesh.vaja@krishtechnolabs.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "OnitsukaTiger\\Restock\\": ""
+        }
+    }
+}

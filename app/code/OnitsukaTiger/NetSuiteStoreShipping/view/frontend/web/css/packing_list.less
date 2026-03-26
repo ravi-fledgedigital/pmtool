@@ -1,0 +1,200 @@
+@font-face {
+    font-family: 'THSarabunNew';
+    src: url('../../OnitsukaTiger_EmailToWareHouse/fonts/thsarabunnew-webfont.eot');
+    src: url('../../OnitsukaTiger_EmailToWareHouse/fonts/thsarabunnew-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../../OnitsukaTiger_EmailToWareHouse/fonts/thsarabunnew-webfont.woff') format('woff'),
+    url('../../OnitsukaTiger_EmailToWareHouse/fonts/thsarabunnew-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'THSarabunNew';
+    src: url('../../OnitsukaTiger_EmailToWareHouse/fonts/thsarabunnew_bolditalic-webfont.eot');
+    src: url('../../OnitsukaTiger_EmailToWareHouse/fonts/thsarabunnew_bolditalic-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../../OnitsukaTiger_EmailToWareHouse/fonts/thsarabunnew_bolditalic-webfont.woff') format('woff'),
+    url('../../OnitsukaTiger_EmailToWareHouse/fonts/thsarabunnew_bolditalic-webfont.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'THSarabunNew';
+    src: url('../../OnitsukaTiger_EmailToWareHouse/fonts/thsarabunnew_italic-webfont.eot');
+    src: url('../../OnitsukaTiger_EmailToWareHouse/fonts/thsarabunnew_italic-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../../OnitsukaTiger_EmailToWareHouse/fonts/thsarabunnew_italic-webfont.woff') format('woff'),
+    url('../../OnitsukaTiger_EmailToWareHouse/fonts/thsarabunnew_italic-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'THSarabunNew';
+    src: url('../../OnitsukaTiger_EmailToWareHouse/fonts/thsarabunnew_bold-webfont.eot');
+    src: url('../../OnitsukaTiger_EmailToWareHouse/fonts/thsarabunnew_bold-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../../OnitsukaTiger_EmailToWareHouse/fonts/thsarabunnew_bold-webfont.woff') format('woff'),
+    url('../../OnitsukaTiger_EmailToWareHouse/fonts/thsarabunnew_bold-webfont.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: block;
+}
+* {
+    box-sizing: border-box;
+}
+body {
+    font-size: 14px;
+    line-height: 0.6;
+    margin-left: 30px;
+    width: 100.0001%;
+    margin-top: 50px;
+}
+p {
+    margin: 0 0 6px 0;
+}
+h4 {
+    font-size: 18px;
+    margin: 18px 0;
+}
+h5 {
+    font-size: 14px;
+    margin: 0 0 6px 0;
+}
+h6 {
+    font-size: 14px;
+    margin: 0 0 6px 0;
+}
+hr {
+    border: none;
+    border-top: 3px dashed #000;
+    margin-top: 10px;
+}
+a {
+    text-decoration: none;
+    color: #0a0a0a;
+    cursor: none;
+    pointer-events: none;
+}
+.container {
+    padding: 0 60px;
+}
+.row {
+    h4 {
+        text-transform: uppercase;
+    }
+    .address-header {
+        margin-top: 10px;
+        h5 {
+            padding-right: 30px;
+        }
+        p {
+            padding-right: 30px;
+        }
+    }
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    &:before {
+        content: "";
+        display: table;
+    }
+}
+.col-3 {
+    float: left;
+    width: 25%;
+}
+.col-4 {
+    float: left;
+    width: 33.33333333%;
+}
+.col-6 {
+    float: left;
+    width: 50%;
+}
+.col-7 {
+    float: left;
+    width: 58.33333333%;
+}
+.col-8 {
+    float: left;
+    width: 66.66666667%;
+}
+.col-12 {
+    float: left;
+    width: 100%;
+}
+.text-right {
+    text-align: right;
+}
+.text-center {
+    text-align: center;
+}
+.order-info {
+    margin-bottom: 20px;
+}
+.shipment-info {
+    margin-bottom: 40px;
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    thead {
+        th {
+            background-color: #f5f5f5;
+        }
+    }
+    th {
+        padding: 10px 4px;
+    }
+    td {
+        padding-top: 15px;
+        border-bottom: 1px solid #2B2B2B;
+        padding-bottom: 15px;
+    }
+}
+.page-break-after-always {
+    page-break-after: always;
+}
+.thai-font {
+    * {
+        font-family: "THSarabunNew";
+    }
+}
+.default-font {
+    font-family: sans-serif;
+}
+table.order-detail {
+    margin-left: -3px;
+}
+.order-info {
+    table.order-detail {
+        tr {
+            td {
+                &:nth-of-type(2) {
+                    padding-left: 20px;
+                }
+            }
+        }
+    }
+}
+.shipment-info {
+    table.order-detail {
+        tr {
+            td {
+                &:nth-of-type(2) {
+                    padding-left: 44px;
+                }
+            }
+        }
+    }
+}
+
+.barcode {
+    width: 300px;
+    height: 50px;
+}

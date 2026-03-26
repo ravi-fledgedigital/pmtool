@@ -1,0 +1,115 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \WeltPixel\GA4\Block\KlaviyoPixel\Common */
+
+/** @var \WeltPixel\GA4\Helper\KlaviyoPixelTracking $klaviyoPixelHelper */
+$klaviyoPixelHelper = $this->helper('WeltPixel\GA4\Helper\KlaviyoPixelTracking');
+$cspNonceProvider = $klaviyoPixelHelper->getCspNonceProvider();
+$paymentMethodTitle = $block->getPaymentMethodTitle();
+$orderId = $block->getOrderId();
+?>
+<script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    let klEventIdPaymentInfo = <?= /* @noEscape */ $klaviyoPixelHelper->getJsEventIdGenerator() ?>;
+    let klEventIdPlaceOrder = <?= /* @noEscape */ $klaviyoPixelHelper->getJsEventIdGenerator() ?>;
+</script>
+<?php if ($klaviyoPixelHelper->isKlaviyoPixelTrackingEnabled() && $klaviyoPixelHelper->shouldKlaviyoPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\KlaviyoPixel\TrackingEvents::EVENT_ADD_PAYMENT_INFO)) :
+    ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        if (window.ga4AllowServices) {
+            let klaviyoCheckoutPaymentData = {
+                '$value': "<?= /* @noEscape */ /* @noEscape */ $block->getOrderValue() ; ?>",
+                'CartTotal': "<?= /* @noEscape */ /* @noEscape */ $block->getOrderValue() ; ?>",
+                'Currency': "<?= /* @noEscape */ $klaviyoPixelHelper->getCurrencyCode() ?>",
+                'CheckoutURL': window.location.href,
+                'ReferrerURL': document.referrer,
+                "CheckoutStep": 2,
+                "CheckoutStepName": "Payment Information",
+                'PaymentMethod': "<?= /* @noEscape */ addslashes(str_replace('"', '&quot;', $paymentMethodTitle)) ?>",
+                'CartTotalQuantity': <?= /* @noEscape */ $block->getOrderNumItems() ?>,
+                'Items': <?= /* @noEscape */ $block->getOrderContents() ?>,
+                '$event_id': klEventIdPaymentInfo
+            }
+            klaviyo.track("<?= /* @noEscape */ $klaviyoPixelHelper->getKlaviyoEventName(\WeltPixel\GA4\Model\Config\Source\KlaviyoPixel\TrackingEvents::EVENT_ADD_PAYMENT_INFO) ?>", klaviyoCheckoutPaymentData);
+        }
+    </script>
+<?php endif; ?>
+
+
+
+<?php if ($klaviyoPixelHelper->isServerSideTrackingEnabled() && $klaviyoPixelHelper->shouldKlaviyoServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\KlaviyoPixel\TrackingEvents::EVENT_ADD_PAYMENT_INFO)) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($klaviyoPixelHelper->getKlaviyoSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'eventId': klEventIdPaymentInfo,
+                            'eventName': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\KlaviyoPixel\TrackingEvents::EVENT_ADD_PAYMENT_INFO  ?>',
+                            'CheckoutURL': window.location.href,
+                            'ReferrerURL': document.referrer,
+                            'PaymentMethod': "<?= /* @noEscape */ addslashes(str_replace('"', '&quot;', $paymentMethodTitle)) ?>",
+                            'orderId':'<?=  /* @noEscape */ $orderId ?>'
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>
+
+
+
+<?php if ($klaviyoPixelHelper->isKlaviyoPixelTrackingEnabled() &&
+    $klaviyoPixelHelper->shouldKlaviyoPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\KlaviyoPixel\TrackingEvents::EVENT_PLACED_ORDER) &&
+    $klaviyoPixelHelper->isOrderTrackingAllowedBasedOnOrderStatus($block->getOrder())) :
+    ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        if (window.ga4AllowServices) {
+            let klaviyoPlacedOrderData = {
+                '$value': "<?= /* @noEscape */ /* @noEscape */ $block->getOrderValue() ; ?>",
+                'GrandTotal': "<?= /* @noEscape */ /* @noEscape */ $block->getOrderValue() ; ?>",
+                'Currency': "<?= /* @noEscape */ $klaviyoPixelHelper->getCurrencyCode() ?>",
+                'OrderURL': window.location.href,
+                'ReferrerURL': document.referrer,
+                'PaymentMethod': '<?= /* @noEscape */ addslashes(str_replace('"', '&quot;', $paymentMethodTitle)) ?>',
+                'ShippingMethod': '<?= /* @noEscape */ addslashes(str_replace('"', '&quot;', $block->getOrder()->getShippingDescription())) ?>',
+                'OrderTotalQuantity': <?= /* @noEscape */ $block->getOrderNumItems() ?>,
+                'Items': <?= /* @noEscape */ $block->getOrderContents() ?>,
+                'TransactionId': '<?= /* @noEscape */ $block->getOrder()->getIncrementId() ?>',
+                '$event_id': klEventIdPlaceOrder
+            }
+            klaviyo.track("<?= /* @noEscape */ $klaviyoPixelHelper->getKlaviyoEventName(\WeltPixel\GA4\Model\Config\Source\KlaviyoPixel\TrackingEvents::EVENT_PLACED_ORDER) ?>", klaviyoPlacedOrderData);
+        }
+    </script>
+<?php endif; ?>
+
+
+
+<?php if ($klaviyoPixelHelper->isServerSideTrackingEnabled() &&
+    $klaviyoPixelHelper->shouldKlaviyoServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\KlaviyoPixel\TrackingEvents::EVENT_PLACED_ORDER) &&
+    $klaviyoPixelHelper->isOrderTrackingAllowedBasedOnOrderStatus($block->getOrder())) :
+    ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        if (window.ga4AllowServices) {
+            requirejs(['jquery'],
+                function  ($) {
+                    $(document).ready(function() {
+                        var requestUrl = '<?php echo $block->escapeUrl($klaviyoPixelHelper->getKlaviyoSSTrackUrl()); ?>';
+                        $.post({
+                            url: requestUrl,
+                            global: false,
+                            data: {
+                                'eventId': klEventIdPlaceOrder,
+                                'eventName': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\KlaviyoPixel\TrackingEvents::EVENT_PLACED_ORDER  ?>',
+                                'OrderURL': window.location.href,
+                                'ReferrerURL': document.referrer,
+                                'orderId':'<?=  /* @noEscape */ $orderId ?>'
+                            }
+                        });
+                    });
+                });
+        }
+    </script>
+<?php endif; ?>

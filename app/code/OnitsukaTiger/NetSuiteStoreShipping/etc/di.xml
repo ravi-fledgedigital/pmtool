@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\PDFCustom\Model\ResourceModel\TemplateRepository" type="OnitsukaTiger\NetSuiteStoreShipping\Model\ResourceModel\StoreShippingTemplateRepository" />
+    <preference for="Magento\InventoryAdminUi\Ui\DataProvider\SourceDataProvider" type="OnitsukaTiger\NetSuiteStoreShipping\Ui\DataProvider\SourceDataProvider" />
+    <preference for="Amasty\PDFCustom\Block\Adminhtml\Template\Edit" type="OnitsukaTiger\NetSuiteStoreShipping\Block\Adminhtml\Template\StoreShippingEdit" />
+
+    <type name="Amasty\PDFCustom\Model\Source\PlaceForUse">
+        <plugin name="pluginAddType" type="OnitsukaTiger\NetSuiteStoreShipping\Model\Source\PluginAddType" disabled="false" />
+    </type>
+    <preference for="Magento\InventoryShipping\Observer\SourceDeductionProcessor" type="OnitsukaTiger\NetSuiteStoreShipping\Observer\SourceDeductionWhenShipmentGenerateProcessor" />
+    <type name="Magento\Framework\Acl\AclResource\TreeBuilder">
+        <plugin name="create_menu_shipping_from_store" type="OnitsukaTiger\NetSuiteStoreShipping\Plugin\AclResource\TreeBuilder" />
+    </type>
+
+</config>

@@ -1,0 +1,35 @@
+<?php
+    $element = $block->getElement();
+    $form = $element->getForm();
+    /** @var \Magento\Config\Block\System\Config\Form $parentForm */
+    $parentForm = $form->getParent();
+    $barWidthConfigVal = $parentForm->getConfigValue('barcode_section/barcode_group/width');
+?>
+
+<div>
+    <div id="barWidthSlider"></div>
+    <input type="hidden" 
+        id="barcode_section_barcode_group_barwidth" 
+        name="<?= $block->getFieldName() ?>"
+        value="<?= $barWidthConfigVal ?>">
+</div>
+
+<script type="text/javascript">
+    require(['jquery', 'jquery/ui'], function($){
+        $("#barWidthSlider").slider({
+            range: "min",
+            min: 1,
+            max: 4,
+            value: "<?= $barWidthConfigVal ?>",
+            slide: function( event, ui ) {
+                $(this).find('.ui-slider-handle').text(ui.value);
+                $("#barcode_section_barcode_group_barwidth").val(ui.value);
+            },
+            create: function(event, ui) {
+                var v=$(this).slider('value');
+                $(this).find('.ui-slider-handle').text(v);
+                $("#barcode_section_barcode_group_barwidth").val(v);
+            }
+        });
+    });
+</script>

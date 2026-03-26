@@ -1,0 +1,52 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+$_item = $block->getItem();
+$_order = $block->getItem()->getOrder();
+$_unitPrice = $_item->getRowTotalInclTax() - $_item->getDiscountAmount();
+$helperData = $this->helper(OnitsukaTigerKorea\ConfigurableProduct\Helper\Data::class);
+
+$productHelper = $this->helper(\OnitsukaTiger\Catalog\Helper\Data::class);
+$product = $productHelper->getProduct($_item->getSku());
+$color = $product->getResource()->getAttribute('color');
+$colorValue = $color->getSource()->getOptionText($product->getData('color'));
+
+?>
+
+<tr>
+    <td><?= /* @noEscape */ $block->getProductNo() ?></td>
+    <td><?= /* @noEscape */ $_item->getSku() ?></td>
+    <td>
+        <?= /* @noEscape */ $_item->getName() ?>
+        <?php if ($block->getItemOptions()): ?>
+            <span style="text-transform: uppercase;">
+                (<?php
+                $itemOption = [];
+                foreach ($block->getItemOptions() as $option) {
+                    $label = $option['label'];
+                    $value = $option['value'];
+                    $sizeForDisplay = $helperData->getSizeForDisplay($_item->getSku(), $_item->getStoreId());
+                    if ($sizeForDisplay && strtolower($option['label']) == 'size') {
+                        $itemOption[] = $label . '=' . $sizeForDisplay;
+                    } elseif ($colorValue && strtolower($option['label']) == 'colors') {
+                        $itemOption[] = $label . '=' . $colorValue;
+                    } else {
+                        $itemOption[] = $label . '=' . $value;
+                    }
+                }
+                echo $block->escapeHtml(implode(';', $itemOption));
+                ?>)
+            </span>
+        <?php endif; ?>
+        <?php $addInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+        <?php if ($addInfoBlock):?>
+            <?= $addInfoBlock->setItem($_item->getOrderItem())->toHtml() ?>
+        <?php endif; ?>
+    </td>
+    <td><?= (int) $_item->getQty() ?></td>
+    <td><?= $_order->formatPrice(/* @noEscape */ $_unitPrice / (int) $_item->getQty()) ?></td>
+    <td><?= $_order->formatPrice(/* @noEscape */ $_unitPrice) ?></td>
+</tr>

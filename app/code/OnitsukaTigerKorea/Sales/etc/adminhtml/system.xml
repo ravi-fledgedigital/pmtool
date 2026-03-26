@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="onitsukatiger" translate="label" sortOrder="200">
+            <label>OnitsukaTiger</label>
+        </tab>
+        <section id="sftp_korea" translate="label" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>SFTP</label>
+            <tab>onitsukatiger</tab>
+            <resource>OnitsukaTiger_NetSuite::netsuite_config</resource>
+            <group id="order_sync_multishipment" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Order sync to SFTP with Multi Shipment</label>
+                <field id="enable" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Select <strong>Yes</strong> to enable the module.]]></comment>
+                </field>
+            </group>
+        </section>
+        <section id="korean_address">
+            <group id="sales" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Sales</label>
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable Module</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[Select <b>Yes</b> to enable this module.<br />
+                        . Enable or disable the module depending on the website (SG, TH, MY, KR)]]>
+                    </comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

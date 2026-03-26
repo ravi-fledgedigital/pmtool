@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Config/etc/system_file.xsd">
+    <system>
+        <section id="maxqtyconfiguration" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Max Quantity</label>
+            <tab>onitsukatiger</tab>
+            <resource>OnitsukaTiger_MaxQty::config_maxqty</resource>
+            <group id="maxqtyconfig" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Max Quantity Configuration</label>
+                <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="max_qty" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max Qty</label>
+                    <validate>validate-digits</validate>
+                    <comment><![CDATA[Please add number only. ex. 2]]></comment>
+                    <depends>
+                        <field id="maxqtyconfiguration/maxqtyconfig/enable">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

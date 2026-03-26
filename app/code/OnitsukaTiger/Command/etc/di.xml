@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="onitsukatiger_OmiseCsvExport" xsi:type="object">OnitsukaTiger\Command\Console\Omise\CsvExport</item>
+                <item name="onitsukatiger_OmiseSyncMissingOrders" xsi:type="object">OnitsukaTiger\Command\Console\Omise\SyncMissingOrders</item>
+                <item name="onitsukatiger_inventoryReAllocation" xsi:type="object">OnitsukaTiger\Command\Console\Inventory\ReAllocation</item>
+                <item name="onitsukatiger_ToolsNetSuiteOrder" xsi:type="object">OnitsukaTiger\Command\Console\Tools\NetSuiteOrder</item>
+                <item name="onitsukatiger_ToolsNetSuiteProduct" xsi:type="object">OnitsukaTiger\Command\Console\Tools\NetSuiteProduct</item>
+                <item name="onitsukatiger_inventoryAllocation" xsi:type="object">OnitsukaTiger\Command\Console\Inventory\Allocation</item>
+                <item name="onitsukatiger_ToolsNetSuiteEnableImport" xsi:type="object">OnitsukaTiger\Command\Console\Tools\NetSuiteEnableImport</item>
+                <item name="onitsukatiger_ToolsNetSuiteInternalId" xsi:type="object">OnitsukaTiger\Command\Console\Tools\NetSuiteInternalId</item>
+                <item name="onitsukatiger_configurableProductRelationAdd" xsi:type="object">OnitsukaTiger\Command\Console\Catalog\Relation\Add</item>
+                <item name="onitsukatiger_configurableProductRelationReplace" xsi:type="object">OnitsukaTiger\Command\Console\Catalog\Relation\Replace</item>
+                <item name="onitsukatiger_configurableProductImageUpdate" xsi:type="object">OnitsukaTiger\Command\Console\Catalog\Product\ImageUpdate</item>
+                <item name="onitsukatiger_configurableProductImageUpdateFromCSV" xsi:type="object">OnitsukaTiger\Command\Console\Catalog\Product\ImageUpdateFromCsv</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

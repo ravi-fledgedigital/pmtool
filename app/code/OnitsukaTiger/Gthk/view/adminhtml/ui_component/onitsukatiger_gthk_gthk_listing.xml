@@ -1,0 +1,147 @@
+<?xml version="1.0" ?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">onitsukatiger_gthk_gthk_listing.onitsukatiger_gthk_gthk_listing_data_source</item>
+		</item>
+	</argument>
+	<settings>
+		<spinner>onitsukatiger_gthk_gthk_columns</spinner>
+		<deps>
+			<dep>onitsukatiger_gthk_gthk_listing.onitsukatiger_gthk_gthk_listing_data_source</dep>
+		</deps>
+		<buttons>
+			<button name="add">
+				<url path="*/*/new"/>
+				<class>primary</class>
+				<label translate="true">Add new Ghtk</label>
+			</button>
+		</buttons>
+	</settings>
+	<dataSource name="onitsukatiger_gthk_gthk_listing_data_source" component="Magento_Ui/js/grid/provider">
+		<settings>
+			<storageConfig>
+				<param name="indexField" xsi:type="string">gthk_id</param>
+			</storageConfig>
+			<updateUrl path="mui/index/render"/>
+		</settings>
+		<aclResource>OnitsukaTiger_Gthk::Gthk</aclResource>
+		<dataProvider name="onitsukatiger_gthk_gthk_listing_data_source" class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+			<settings>
+				<requestFieldName>id</requestFieldName>
+				<primaryFieldName>gthk_id</primaryFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+	<listingToolbar name="listing_top">
+		<settings>
+			<sticky>true</sticky>
+		</settings>
+		<bookmark name="bookmarks"/>
+		<columnsControls name="columns_controls"/>
+		<filters name="listing_filters"/>
+		<paging name="listing_paging"/>
+	</listingToolbar>
+	<columns name="onitsukatiger_gthk_gthk_columns">
+		<settings>
+			<editorConfig>
+				<param name="selectProvider" xsi:type="string">onitsukatiger_gthk_gthk_listing.onitsukatiger_gthk_gthk_listing.onitsukatiger_gthk_gthk_columns.ids</param>
+				<param name="enabled" xsi:type="boolean">true</param>
+				<param name="indexField" xsi:type="string">gthk_id</param>
+				<param name="clientConfig" xsi:type="array">
+					<item name="saveUrl" xsi:type="url" path="onitsukatiger_gthk/Gthk/inlineEdit"/>
+					<item name="validateBeforeSave" xsi:type="boolean">false</item>
+				</param>
+			</editorConfig>
+			<childDefaults>
+				<param name="fieldAction" xsi:type="array">
+					<item name="provider" xsi:type="string">onitsukatiger_gthk_gthk_listing.onitsukatiger_gthk_gthk_listing.onitsukatiger_gthk_gthk_columns_editor</item>
+					<item name="target" xsi:type="string">startEdit</item>
+					<item name="params" xsi:type="array">
+						<item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+						<item name="1" xsi:type="boolean">true</item>
+					</item>
+				</param>
+			</childDefaults>
+		</settings>
+		<selectionsColumn name="ids">
+			<settings>
+				<indexField>gthk_id</indexField>
+			</settings>
+		</selectionsColumn>
+		<column name="gthk_id">
+			<settings>
+				<filter>text</filter>
+				<sorting>asc</sorting>
+				<label translate="true">ID</label>
+			</settings>
+		</column>
+		<column name="Order_id">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Order Id</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<actionsColumn name="actions" class="OnitsukaTiger\Gthk\Ui\Component\Listing\Column\GthkActions">
+			<settings>
+				<indexField>gthk_id</indexField>
+				<resizeEnabled>false</resizeEnabled>
+				<resizeDefaultWidth>107</resizeDefaultWidth>
+			</settings>
+		</actionsColumn>
+		<column name="shipment_id">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Shipment Id</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="tracking_id">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Tracking Id</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="created_at">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Created At</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="json_data">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Json Data</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+	</columns>
+</listing>

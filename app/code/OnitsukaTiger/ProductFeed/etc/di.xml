@@ -1,0 +1,12 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Mageplaza\ProductFeed\Block\Adminhtml\LiquidFilters" type="OnitsukaTiger\ProductFeed\Block\Adminhtml\LiquidFilters" />
+    <preference for="Mageplaza\ProductFeed\Helper\Data" type="OnitsukaTiger\ProductFeed\Helper\Data" />
+    <preference for="Mageplaza\ProductFeed\Console\Command\Generate" type="OnitsukaTiger\ProductFeed\Console\Command\Generate" />
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="asics_add_google_shop_image_link" xsi:type="object">OnitsukaTiger\ProductFeed\Console\Command\AddGoogleImageShop</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

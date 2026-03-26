@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <columns name="amrma_request_manage_columns">
+        <column name="order_xml_id" class="OnitsukaTigerKorea\Sales\Ui\Component\Listing\Column\OrderXmlId">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Order XML ID</label>
+            </settings>
+        </column>
+        <column name="order_id">
+            <settings>
+                <label translate="true">Order Id</label>
+                <visible>false</visible>
+            </settings>
+        </column>
+    </columns>
+    <listingToolbar name="listing_top">
+        <filters name="listing_filters">
+            <filterSelect name="store_id">
+                <argument name="optionsProvider" xsi:type="configurableObject">
+                    <argument name="class" xsi:type="string">Magento\Store\Ui\Component\Listing\Column\Store\Options</argument>
+                </argument>
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="provider" xsi:type="string">${ $.parentName }</item>
+                        <item name="dataScope" xsi:type="string">store_id</item>
+                        <item name="caption" xsi:type="string" translate="true">All Store Views</item>
+                        <item name="label" xsi:type="string" translate="true">Store View</item>
+                    </item>
+                </argument>
+            </filterSelect>
+        </filters>
+    </listingToolbar>
+</listing>

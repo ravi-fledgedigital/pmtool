@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="newsletter">
+            <group id="cart_rule_generate" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Coupon code auto generate</label>
+                <field id="cart_rule" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cart Prices Rules ID</label>
+                    <comment>The coupon code will be generate on cart prices id</comment>
+                    <validate>validate-no-empty validate-number</validate>
+                </field>
+                <field id="cart_rule_length" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Coupon Code Length</label>
+                    <comment>The coupon code length will be auto generate</comment>
+                    <validate>validate-no-empty validate-number</validate>
+                </field>
+                <field id="cart_rule_format" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Coupon Code Format</label>
+                    <comment>The coupon code format will be auto generate</comment>
+                    <source_model>OnitsukaTiger\Newsletter\Model\Config\Source\Coupon</source_model>
+                </field>
+                <field id="cart_rule_prefix" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Coupon Code Prefix</label>
+                    <comment>The coupon code prefix will be auto generate</comment>
+                </field>
+                <field id="cart_rule_suffix" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Coupon Code Suffix</label>
+                    <comment>The coupon code suffix will be auto generate</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

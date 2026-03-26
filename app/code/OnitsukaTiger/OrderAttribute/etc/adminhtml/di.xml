@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @author OnitsukaTiger Team
+* @copyright Copyright (c) 2022 OnitsukaTiger (https://www.onitsukatiger.com)
+* @package Custom Checkout Fields for Magento 2
+*/-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Sales\Model\Order\Pdf\Invoice" type="OnitsukaTiger\OrderAttribute\Model\Order\Pdf\Invoice" />
+    <preference for="Magento\Sales\Model\Order\Pdf\Shipment" type="OnitsukaTiger\OrderAttribute\Model\Order\Pdf\Shipment" />
+
+    <type name="Magento\Sales\Block\Adminhtml\Order\Create\Form\Account">
+        <plugin name="OnitsukaTiger_OrderAttribute::addOrderAttributesToOrderCreateForm" type="OnitsukaTiger\OrderAttribute\Block\Adminhtml\Order\Plugin\CreateFormOrderAttributes" />
+    </type>
+    <type name="Magento\Sales\Model\AdminOrder\Create">
+        <plugin name="onitsukatigerOrderAttributeCreate" type="OnitsukaTiger\OrderAttribute\Model\Entity\Adapter\Order\Plugin\Admin\CreateOrderPlugin"/>
+    </type>
+    <type name="Magento\Sales\Block\Adminhtml\Order\View\Info">
+        <plugin name="OnitsukaTiger_OrderAttribute::OrderEditAttributesList" type="OnitsukaTiger\OrderAttribute\Block\Adminhtml\Order\Plugin\OrderView" />
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <plugin name="OnitsukaTiger_OrderAttribute::addAttributesToGrids" type="OnitsukaTiger\OrderAttribute\Model\ResourceModel\Value\Plugin\Order\Grid\SearchResult" />
+    </type>
+    <type name="Magento\Ui\Component\Listing\Columns">
+        <plugin name="OnitsukaTiger_OrderAttribute::OrderAddAttributesGridColumns" type="OnitsukaTiger\OrderAttribute\Model\ResourceModel\Value\Plugin\Order\Grid\Columns" />
+    </type>
+    <type name="Magento\Eav\Model\Attribute\Data\Select">
+        <plugin name="OnitsukaTiger_OrderAttribute::AttributeDataSelectPlugin" type="OnitsukaTiger\OrderAttribute\Model\Attribute\Data\SelectPlugin" />
+    </type>
+
+    <virtualType name="OrderEditFactoryForm" type="Magento\Framework\Data\FormFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">OnitsukaTiger\OrderAttribute\Block\Adminhtml\Order\Create\Form\Attributes\Data\Form</argument>
+        </arguments>
+    </virtualType>
+    <type name="OnitsukaTiger\OrderAttribute\Block\Adminhtml\Order\Create\Form\Attributes">
+        <arguments>
+            <argument name="formFactory" xsi:type="object">OrderEditFactoryForm</argument>
+        </arguments>
+    </type>
+</config>

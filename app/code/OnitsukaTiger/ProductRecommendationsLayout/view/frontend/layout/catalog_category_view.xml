@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <move element="product_recommendations_category_before_content" destination="content" before="-"/>
+        <referenceBlock name="main">
+           <container htmlTag="div" htmlClass="category-box sp-only recently-viewed-pdp" after="-">
+               <block class="Magento\Cms\Block\Block" name="recently-viewed-pdp-page">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">recently-viewed-pdp-page</argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceBlock>
+    </body>
+</page>
+
+
+

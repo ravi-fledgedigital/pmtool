@@ -1,0 +1,28 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \WeltPixel\GA4\Block\KlaviyoPixel\Common */
+
+/** @var \WeltPixel\GA4\Helper\KlaviyoPixelTracking $klaviyoPixelHelper */
+$klaviyoPixelHelper = $this->helper('WeltPixel\GA4\Helper\KlaviyoPixelTracking');
+$cspNonceProvider = $klaviyoPixelHelper->getCspNonceProvider();
+?>
+<?php if ($klaviyoPixelHelper->isKlaviyoPixelTrackingEnabled()) : ?>
+    <script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        require(['jquery', 'Magento_Customer/js/customer-data'],
+            function ($, customerData) {
+                if (window.ga4AllowServices) {
+                    $(document).ajaxComplete(function (event, xhr, settings) {
+                        if (settings.url.search('/customer\/section\/load/') > 0) {
+                            var response = xhr.responseJSON;
+                            if (response.wp_ga4) {
+                                var klaviyoPixel = $.parseJSON(response.wp_ga4.klaviyopixel);
+                                for (index in klaviyoPixel) {
+                                    klaviyo.track(klaviyoPixel[index].eventName, klaviyoPixel[index].eventData);
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+    </script>
+<?php endif; ?>

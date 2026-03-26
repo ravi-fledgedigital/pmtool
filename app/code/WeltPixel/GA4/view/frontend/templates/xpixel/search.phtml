@@ -1,0 +1,46 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \WeltPixel\GA4\Block\XPixel\Common */
+
+/** @var \WeltPixel\GA4\Helper\XPixelTracking $xPixelHelper */
+$xPixelHelper = $this->helper('WeltPixel\GA4\Helper\XPixelTracking');
+$cspNonceProvider = $xPixelHelper->getCspNonceProvider();
+/** @var \Magento\CatalogSearch\Helper\Data $searchDataHelper */
+$searchDataHelper = $this->helper('Magento\CatalogSearch\Helper\Data');
+$searchQuery = $searchDataHelper->getEscapedQueryText();
+?>
+<script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    let xSearchEventId = <?= /* @noEscape */ $xPixelHelper->getJsEventIdGenerator('search') ?>;
+</script>
+<?php if ($xPixelHelper->isXPixelTrackingEnabled() && $xPixelHelper->shouldXPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\XPixel\TrackingEvents::EVENT_SEARCH)) : ?>
+<script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    if (window.ga4AllowServices) {
+        twq('event', '<?= /* @noEscape */ $xPixelHelper->getTwitterEventId(\WeltPixel\GA4\Model\Config\Source\XPixel\TrackingEvents::EVENT_SEARCH) ?>', {
+            search_string: '<?= /* @noEscape */ $searchQuery ?>',
+            description: 'Site search for <?= /* @noEscape */ $searchQuery ?>',
+            conversion_id: xSearchEventId
+        });
+    }
+</script>
+<?php endif; ?>
+
+
+<?php if ($xPixelHelper->isServerSideTrackingEnabled() && $xPixelHelper->shouldXServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\XPixel\TrackingEvents::EVENT_SEARCH)) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($xPixelHelper->getTwitterSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'conversionId': xSearchEventId,
+                            'eventName': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\XPixel\TrackingEvents::EVENT_SEARCH  ?>',
+                            'searchString': '<?=  /* @noEscape */  $searchQuery ?>'
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Vaimo\OTScene7Integration\Api\Data\Scene7AssetInterface"
+                type="Vaimo\OTScene7Integration\Model\Scene7Asset"/>
+    <preference for="Vaimo\OTScene7Integration\Api\Scene7ImageAssetProviderInterface"
+                type="Vaimo\OTScene7Integration\Model\Scene7ImageAssetProvider"/>
+
+    <type name="Magento\Catalog\Block\Product\ImageFactory">
+        <plugin name="Vaimo_OTScene7Integration::replaceProductImage"
+                type="Vaimo\OTScene7Integration\Plugin\Catalog\Block\Product\ImageFactoryPlugin" />
+    </type>
+    <type name="Magento\Catalog\Block\Product\View\Gallery">
+        <plugin name="Vaimo_OTScene7Integration::replaceProductGalleryImages"
+                type="Vaimo\OTScene7Integration\Plugin\Catalog\Block\Product\View\GalleryPlugin" />
+    </type>
+    <type name="Magento\Swatches\Helper\Data">
+        <plugin name="Vaimo_OTScene7Integration::replaceSwatchImages"
+                type="Vaimo\OTScene7Integration\Plugin\Swatches\Helper\DataPlugin" sortOrder="100" />
+    </type>
+    <type name="Magento\Checkout\CustomerData\ItemInterface">
+        <plugin name="Vaimo_OTScene7Integration::replaceImagesOnMiniCart"
+                type="Vaimo\OTScene7Integration\Plugin\Checkout\CustomerData\ItemPlugin" />
+    </type>
+    <type name="\Magento\Catalog\Api\ProductRepositoryInterface">
+        <plugin name="Vaimo_OTScene7Integration::replaceImagesOnProductGet"
+                type="Vaimo\OTScene7Integration\Plugin\Catalog\ProductRepositoryPlugin" />
+    </type>
+    <type name="Magento\Quote\Model\Quote">
+        <plugin name="Vaimo_OTScene7Integration::updateQuoteItem"
+                type="Vaimo\OTScene7Integration\Plugin\Quote\QuotePlugin" />
+    </type>
+</config>

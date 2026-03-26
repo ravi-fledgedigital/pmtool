@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Amasty_Rma
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="amrma" translate="label" type="text" sortOrder="181301" showInDefault="1" showInWebsite="1" showInStore="1">
+            <resource>Amasty_Rma::config</resource>
+            <class>separator-top</class>
+            <label>RMA</label>
+            <tab>amasty</tab>
+            <group id="email" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label> RMA Creation Email Notifications</label>
+                <field id="admin_template_bank_details" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Bank Details Email Template Admin</label>
+                    <depends>
+                        <field id="notify_admin">1</field>
+                    </depends>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

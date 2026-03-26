@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/menu.xsd">
+    <menu>
+        <!-- Root Menu -->
+        <add id="OnitsukaTigerIndo_SizeConverter::menu_root"
+             title="Size Converter"
+             module="OnitsukaTigerIndo_SizeConverter"
+             sortOrder="10"
+             parent="Magento_Backend::stores"
+             resource="OnitsukaTigerIndo_SizeConverter::size_converter"/>
+
+        <!-- Child Menu under Root Menu -->
+        <add id="OnitsukaTigerIndo_SizeConverter::size_management"
+             title="Euro Size Management"
+             module="OnitsukaTigerIndo_SizeConverter"
+             sortOrder="20"
+             parent="OnitsukaTigerIndo_SizeConverter::menu_root"
+             action="indosize/index/index"
+             resource="OnitsukaTigerIndo_SizeConverter::size_management"/>
+    </menu>
+</config>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="netsuite_update_order_status_shipped">
+        <observer name="send_email_after_netsuite_response" instance="OnitsukaTiger\OrderEmails\Observer\SendEmailsShipped" />
+    </event>
+    <event name="sales_order_invoice_save_after">
+        <observer name="send_email_confirm_after_create_invoice" instance="OnitsukaTiger\OrderEmails\Observer\SendEmailsConfirm" />
+    </event>
+    <event name="netsuite_update_order_status_delivered">
+        <observer name="send_email_after_kerry_delivered" instance="OnitsukaTiger\OrderEmails\Observer\SendEmailsDelivered" />
+    </event>
+</config>

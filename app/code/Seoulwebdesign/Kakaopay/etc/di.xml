@@ -1,0 +1,180 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magenest. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Seoulwebdesign\Kakaopay\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Seoulwebdesign\Kakaopay\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">Kakaopay Logger</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">Seoulwebdesign\Kakaopay\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <!--<preference for="Magento\Checkout\Model\PaymentInformationManagement" type="Seoulwebdesign\Kakaopay\Model\PaymentInformationManagement" />-->
+
+
+
+    <!-- Payment Method Facade configuration -->
+    <virtualType name="KakaopayPaymentGatewayFacade" type="Magento\Payment\Model\Method\Adapter">
+        <arguments>
+            <argument name="code" xsi:type="const">Seoulwebdesign\Kakaopay\Model\Ui\ConfigProvider::CODE</argument>
+            <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form</argument>
+            <argument name="infoBlockType" xsi:type="string">Seoulwebdesign\Kakaopay\Block\Info</argument>
+            <argument name="valueHandlerPool" xsi:type="object">KakaopayPaymentGatewayValueHandlerPool</argument>
+            <argument name="commandPool" xsi:type="object">KakaopayPaymentGatewayCommandPool</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Value handlers infrastructure -->
+    <virtualType name="KakaopayPaymentGatewayValueHandlerPool" type="Magento\Payment\Gateway\Config\ValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">KakaopayPaymentGatewayConfigValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="KakaopayPaymentGatewayConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">KakaopayPaymentGatewayConfig</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Configuration reader -->
+    <virtualType name="KakaopayPaymentGatewayConfig" type="Magento\Payment\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="const">Seoulwebdesign\Kakaopay\Model\Ui\ConfigProvider::CODE</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Seoulwebdesign\Kakaopay\Block\Info">
+        <arguments>
+            <argument name="config" xsi:type="object">KakaopayPaymentGatewayConfig</argument>
+        </arguments>
+    </type>
+    <!--  ============================================================================================ -->
+
+    <!-- Command manager -->
+    <virtualType name="KakaopayCommandManager" type="Magento\Payment\Gateway\Command\CommandManager">
+        <arguments>
+            <argument name="commandPool" xsi:type="object">KakaopayPaymentGatewayCommandPool</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Payment\Gateway\Command\CommandManagerPool">
+        <arguments>
+            <argument name="executors" xsi:type="array">
+                <item name="kakaopay" xsi:type="string">KakaopayCommandManager</item>
+            </argument>
+        </arguments>
+    </type>
+    <!--  ============================================================================================ -->
+
+    <!-- Commands infrastructure -->
+    <virtualType name="KakaopayPaymentGatewayCommandPool" type="Magento\Payment\Gateway\Command\CommandPool">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="donothing" xsi:type="string">Seoulwebdesign\Base\Gateway\Command\DoNothingCommand</item>
+                <item name="initialize" xsi:type="string">Seoulwebdesign\Kakaopay\Gateway\Command\InitializeCommand</item>
+                <item name="capture" xsi:type="string">Seoulwebdesign\Kakaopay\Gateway\Command\CaptureCommand</item>
+                <item name="refund" xsi:type="string">KakaopayRefundCommand</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+
+    <!--InitializeCommand-->
+    <type name="Seoulwebdesign\Kakaopay\Gateway\Command\InitializeCommand">
+        <arguments>
+            <argument name="client" xsi:type="object">Seoulwebdesign\Kakaopay\Gateway\Http\Client\TransactionInitialize</argument>
+            <argument name="requestBuilder" xsi:type="object">KakaopayInitializeDataBuilder</argument>
+            <argument name="validator" xsi:type="object">Seoulwebdesign\Kakaopay\Gateway\Validator\Authorize\ResponseValidator</argument>
+            <argument name="handler" xsi:type="object">KakaopayPaymentInitializeHandler</argument>
+            <argument name="transferFactory" xsi:type="object">Seoulwebdesign\Base\Gateway\Http\TransferFactory</argument>
+        </arguments>
+    </type>
+    <virtualType name="KakaopayInitializeDataBuilder" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="data1" xsi:type="string">Seoulwebdesign\Kakaopay\Gateway\Request\InitializeDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="KakaopayPaymentInitializeHandler" type="Magento\Payment\Gateway\Response\HandlerChain">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="transaction" xsi:type="string">Seoulwebdesign\Kakaopay\Gateway\Response\Handler\Initialize\InitializeTransaction</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <!--End InitializeCommand-->
+
+    <!--CaptureCommand-->
+    <type name="Seoulwebdesign\Kakaopay\Gateway\Command\CaptureCommand">
+        <arguments>
+            <argument name="client" xsi:type="object">Seoulwebdesign\Kakaopay\Gateway\Http\Client\TransactionCapture</argument>
+            <argument name="requestBuilder" xsi:type="object">KakaopayCaptureDataBuilder</argument>
+            <argument name="validator" xsi:type="object">Seoulwebdesign\Kakaopay\Gateway\Validator\Capture\ResponseValidator</argument>
+            <argument name="handler" xsi:type="object">KakaopayPaymentCaptureHandler</argument>
+            <argument name="transferFactory" xsi:type="object">Seoulwebdesign\Base\Gateway\Http\TransferFactory</argument>
+        </arguments>
+    </type>
+    <virtualType name="KakaopayCaptureDataBuilder" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="data1" xsi:type="string">Seoulwebdesign\Kakaopay\Gateway\Request\CaptureDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="KakaopayPaymentCaptureHandler" type="Magento\Payment\Gateway\Response\HandlerChain">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="transaction" xsi:type="string">Seoulwebdesign\Kakaopay\Gateway\Response\Handler\Capture\CaptureTransaction</item>
+                <item name="status" xsi:type="string">Seoulwebdesign\Kakaopay\Gateway\Response\Handler\Capture\OrderStatusProcessing</item>
+                <item name="email" xsi:type="string">Seoulwebdesign\Kakaopay\Gateway\Response\Handler\Capture\SendOrderEmail</item>
+                <item name="invoice" xsi:type="string">Seoulwebdesign\Kakaopay\Gateway\Response\Handler\Capture\CreateNSendInvoice</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <!--End CaptureCommand-->
+
+    <!-- Refund Command -->
+    <virtualType name="KakaopayRefundCommand" type="Magento\Payment\Gateway\Command\GatewayCommand">
+        <arguments>
+            <argument name="client" xsi:type="object">Seoulwebdesign\Kakaopay\Gateway\Http\Client\TransactionRefund</argument>
+            <argument name="requestBuilder" xsi:type="object">KakaopayRefundBuilder</argument>
+            <argument name="validator" xsi:type="object">Seoulwebdesign\Kakaopay\Gateway\Validator\Refund\ResponseValidator</argument>
+            <argument name="handler" xsi:type="object">Seoulwebdesign\Kakaopay\Gateway\Response\Handler\Refund\RefundHandler</argument>
+            <argument name="transferFactory" xsi:type="object">Seoulwebdesign\Base\Gateway\Http\TransferFactory</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="KakaopayRefundBuilder" type="Magento\Payment\Gateway\Request\BuilderComposite">
+        <arguments>
+            <argument name="builders" xsi:type="array">
+                <item name="refund" xsi:type="string">Seoulwebdesign\Kakaopay\Gateway\Request\RefundDataBuilder</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <!-- END Refund Command -->
+
+
+
+    <!-- Logger, initialized with KakaopayPaymentGatewayConfig -->
+    <virtualType name="KakaopayPaymentGatewayLogger" type="Magento\Payment\Model\Method\Logger">
+        <arguments>
+            <argument name="config" xsi:type="object">KakaopayPaymentGatewayConfig</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Framework\Session\SessionStartChecker">
+        <plugin name="kakaopay_transparent_session_checker" type="Seoulwebdesign\Kakaopay\Plugin\TransparentSessionChecker"/>
+    </type>
+</config>

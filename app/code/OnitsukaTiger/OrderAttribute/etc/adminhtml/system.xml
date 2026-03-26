@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @author OnitsukaTiger Team
+* @copyright Copyright (c) 2022 OnitsukaTiger (https://www.onitsukatiger.com)
+* @package Custom Checkout Fields for Magento 2
+*/-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="otorderattribute" translate="label" type="text" sortOrder="151801" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Order Attributes</label>
+            <tab>onitsukatiger</tab>
+            <resource>OnitsukaTiger_OrderAttribute::attribute</resource>
+            <group id="checkout" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Checkout Settings</label>
+                <field id="progress" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Attribute Values in the Order Summary</label>
+                    <comment>Filled in order attributes will be displayed in the order summary section at the payment checkout step.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="format" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Date Format</label>
+                    <source_model>OnitsukaTiger\OrderAttribute\Model\Config\Source\DateFormat</source_model>
+                    <comment><![CDATA[Format of date for outputting values]]></comment>
+                </field>
+                <field id="time_format" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Time Format</label>
+                    <source_model>OnitsukaTiger\OrderAttribute\Model\Config\Source\TimeFormat</source_model>
+                </field>
+                <field id="email" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Include Order Attributes into Emails</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="send_on_shipping_step" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Attributes on Shipping Step</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Set `No` to prevent validation on Shipping Step (One Step Checkout better compatibility)</comment>
+                </field>
+                <field id="subscribe" translate="label comment" type="text" sortOrder="70" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Newsletter Subscription</label>
+                    <comment>Set an attribute code of order attribute (Yes/No or Checkbox)</comment>
+                </field>
+            </group>
+            <group id="pdf" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>PDF Documents</label>
+                <field id="shipment" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Include Order Attributes into Shipment (packing slip)</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="invoice" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Include Order Attributes into Invoice</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="invoices_shipments" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Order Attributes in the Invoices and Shipments</label>
+                <field id="invoice_grid" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Display Order Attributes on the Invoice Grid</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="invoice_create" translate="label" type="select" sortOrder="15" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Display Order Attributes when Creating an Invoice</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="invoice_view" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Display Order Attributes when Viewing an Invoice</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="shipment_grid" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Display Order Attributes on the Shipments Grid</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="shipment_create" translate="label" type="select" sortOrder="35" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Display Order Attributes when Creating a Shipment</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="shipment_view" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Display Order Attributes when Viewing a Shipment</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

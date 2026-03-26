@@ -1,0 +1,48 @@
+<!--
+   /**
+    * Copyright © Magento, Inc. All rights reserved.
+    * See COPYING.txt for license details.
+    */
+   -->
+<!--@subject {{var subject}}  @-->
+<!--@vars {
+   "var email":"Customer Email",
+   "var customer_name":"Customer Name"
+   
+   } @-->
+   <style>
+    .email-header-links a.my-account-link{
+    display:none !important;
+    }
+    .email-header-links  a.store-link{
+    display:none !important;
+    }
+    .customer-account-container p,
+    .customer-account-container span{
+    color:#000 !important;
+    }
+ </style>
+ {{template config_path="design/email/header_template"}}
+ <div class="customer-account-container">
+    <p> </p>
+    <p class="greeting">안녕하세요,{{var customer_name}} 고객님</p>
+    <p>오니츠카타이거 온라인 스토어입니다.</p>
+    <p>{{var customer_name}}님의 계정이 탈퇴 완료되었습니다.<br>
+       계정: {{var email}}<br>
+       탈퇴 일시: {{var date}}
+    <p>
+    <p>탈퇴 처리가 완료되면 고객님의 개인정보는 원칙적으로 영구삭제되어, 계정을 재사용하실 수 없습니다. 세부적인 사항은 당사의 개인정보처리방침을 참고하여 주십시오.</p>
+    <p>본 메시지는 {{var customer_name}}님의 개인정보 보호를 위한 목적으로 전송되었습니다.</p>
+    <p>회원가입 과정에서 번호나 이메일 주소가 오입력된 경우, 타인에게 메시지가 수신될 수 있습니다. 본 메시지를 오수신하셨더라도, 메시지 전송 후 사용된 개인정보는 파기조치되므로 별도 조치를 하지 않으셔도 됩니다. </p>
+    <p>감사합니다.</p>
+ </div>
+ <tr>
+    <td class="footer">
+       <div class="footer-links">
+          <a href="{{store url=""}}terms-and-conditions">이용약관</a>
+          <span>|</span>
+          <a href="{{store url=""}}privacy-policy">개인정보처리방침</a>
+       </div>
+    </td>
+ </tr>
+ </table>

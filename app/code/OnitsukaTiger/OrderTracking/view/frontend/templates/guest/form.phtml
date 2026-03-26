@@ -1,0 +1,65 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+/**
+ * @var \Magento\Sales\Block\Widget\Guest\Form $block ;
+ */
+?>
+<div class="legend"><span><?= $block->escapeHtml(__('Get updates about your Order status. Enter your Order ID and Email.')) ?></span></div>
+<div class="error-noti"></div>
+<form class="form form-orders-search"
+      id="oar-widget-orders-and-returns-form"
+      data-mage-init='{"validation":{}}'
+      action="<?= $block->escapeUrl($block->getActionUrl()) ?>"
+      method="post" name="guest_post">
+    <fieldset class="fieldset">
+        <div class="field id required">
+            <label class="label" for="oar-order-id"><span><?= $block->escapeHtml(__('Order ID')) ?></span></label>
+            <div class="control">
+                <input type="text" onkeydown="return /[0-9a-zA-Z]/i.test(event.key)" class="input-text" id="oar-order-id" name="oar_order_id" placeholder="<?= $block->escapeHtml(__('Enter Your Order ID')); ?>"/>
+            </div>
+        </div>
+        <div id="oar-email" class="field email required">
+            <label class="label" for="oar_email"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
+
+            <div class="control">
+                <input type="email" class="input-text" id="oar_email" name="oar_email"
+                       data-validate="{'validate-email':true}"/>
+            </div>
+        </div>
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" title="<?= $block->escapeHtmlAttr(__('Track Order')) ?>" class="action submit primary" id="trackOrder">
+                <span><?= $block->escapeHtml(__('Track Order')) ?></span>
+            </button>
+        </div>
+    </div>
+</form>
+<div class="order-details">
+</div>
+
+<div class="loadding-ajax">
+    <div class="wrp_loaderimg"></div>
+</div>
+<script>
+    require.config({
+        map: {
+            '*': {
+                orderTracking: 'OnitsukaTiger_OrderTracking/js/order-tracking'
+            }
+        }
+    });
+</script>
+<script type="text/x-magento-init">
+        {
+            "#oar-widget-orders-and-returns-form": {
+                "orderTracking": {
+                    "actionUrlPrefix": "<?= $block->escapeJs($block->escapeUrl($block->getActionUrl())) ?>"
+                }
+            }
+        }
+</script>
+

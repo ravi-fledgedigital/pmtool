@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Sales\Model\ResourceModel\Order\Handler\State" type="OnitsukaTiger\Sales\Model\ResourceModel\Order\Handler\State" />
+    <preference for="Magento\SalesArchive\Controller\Adminhtml\Order\View" type="OnitsukaTiger\Sales\Controller\Adminhtml\Order\View" />
+    <type name="Magento\Sales\Controller\Adminhtml\Order\Create\Index">
+        <plugin name="OnitsukaTiger_Sales_Controller_Adminhtml_Order_Create_Index" type="OnitsukaTiger\Sales\Controller\Adminhtml\Order\Create\Index" sortOrder="10"/>
+    </type>
+    <preference for="Magento\Sales\Model\Order\Item" type="OnitsukaTiger\Sales\Model\Order\Item" />
+    <type name="Magento\Sales\Model\Order">
+        <plugin name="debug_created_at_plugin" type="OnitsukaTiger\Sales\Plugin\OrderCreatedAtPlugin" />
+    </type>
+    <type name="Magento\Sales\Model\Order\Shipment">
+        <plugin name="debug_created_at_plugin_shipment" type="OnitsukaTiger\Sales\Plugin\ShipmentCreatedAtPlugin" />
+    </type>
+
+</config>

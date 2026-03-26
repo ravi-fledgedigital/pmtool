@@ -1,0 +1,8 @@
+<?php
+/** @var \Seoulwebdesign\Kakaopay\Block\Pay $block */
+$type = 'hidden';
+?>
+<h1><?php echo __('Your order payment is not complete')?></h1>
+<h2><a href="<?php echo $block->getRepayUrl()?>" title="<?php echo __('Repay')?>"><?php echo __('Retry to pay')?></a></h2>
+<h2><a href="<?php echo $block->getCartUrl()?>" title="<?php echo __('Shopping Cart')?>"><?php echo __('Shopping Cart')?></a></h2>
+

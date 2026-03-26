@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="onitsukatiger" translate="label" sortOrder="10">
+            <label>OnitsukaTiger</label>
+        </tab>
+        <section id="sendEmailWareHouse" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Email To WareHouse</label>
+            <tab>onitsukatiger</tab>
+            <resource>OnitsukaTiger_EmailToWareHouse::configuration</resource>
+            <group id="general" translate="label comment" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Configuration</label>
+                <field id="enabled" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Select <strong>Yes</strong> to enable the module.]]></comment>
+                </field>
+                <field id="subject" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Email Subject</label>
+                    <comment>Title of Email</comment>
+                </field>
+                <field id="senderEmail" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="template" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Template</label>
+                    <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="recipientEmail" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Recipient Email</label>
+                    <comment>Comma-separated, Please DO NOT add space after comma (example aaa@mail.com,bbb@mail.com)</comment>
+                </field>
+                <field id="ccTo" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>CC to Emails</label>
+                    <comment>Comma-separated, Please DO NOT add space after comma (example aaa@mail.com,bbb@mail.com)</comment>
+                </field>
+                <field id="bccTo" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>BCC to Emails</label>
+                    <comment>Comma-separated, Please DO NOT add space after comma (example aaa@mail.com,bbb@mail.com)</comment>
+                </field>
+            </group>
+        </section>
+        <section id="kerry" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="observer" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Observer</label>
+                <field id="action_code" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Action Code</label>
+                    <comment>A - Add, U - Update</comment>
+                </field>
+            </group>
+        </section>
+        <section id="carriers" translate="label" type="text" sortOrder="320" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="kerryshipping" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="freeshipping" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Free Shipping Threshold</label>
+                    <comment>Price exclude tax</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

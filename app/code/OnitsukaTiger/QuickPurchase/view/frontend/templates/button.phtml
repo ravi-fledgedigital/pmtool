@@ -1,0 +1,51 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \OnitsukaTiger\QuickPurchase\Block\Button $block */
+
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php $buttonTitle = __('Quick Purchase'); ?>
+
+<?php if ($block->isEnabled()) : ?>
+    <div class="box-quick-purchase">
+        <div class="fieldset">
+            <div class="actions">
+                <button type="button"
+                        title="<?= $block->escapeHtmlAttr($buttonTitle) ?>"
+                        class="action primary quick-purchase"
+                        id="product-quick-purchase-button" disabled>
+                    <span><?= $block->escapeHtml($buttonTitle) ?></span>
+                </button>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "OnitsukaTiger_QuickPurchase/js/validate-product": {}
+        }
+    }
+</script>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Catalog/js/restock": {
+                "pageIdentifier": "product_view_page"
+            }
+        }
+    }
+</script>
+<script type="text/javascript">
+    require(["jquery","domReady!"], function ($) {
+        $('.content-wrap.item-detail .area-content .box-quick-purchase button.quick-purchase').on("click", function (e) {
+            var add_cart_action = $('form#product_addtocart_form').prop('action');
+            var quick_purchase_action = add_cart_action.replace("checkout/cart/add", "quickpurchase/button/redirect");
+            $('form#product_addtocart_form').attr('action', quick_purchase_action);
+        })
+    });
+</script>

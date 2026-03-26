@@ -1,0 +1,290 @@
+<?xml version="1.0"?>
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp/etc/csp_whitelist.xsd">
+    <policies>
+        <policy id="script-src">
+            <values>
+                <value id="googletagmanager" type="host">*.googletagmanager.com</value>
+                <value id="vimeo" type="host">vimeo.com</value>
+                <value id="analytics_tiktok_com" type="host">analytics.tiktok.com</value>
+                <value id="mediacategory" type="host">*.mediacategory.com</value>
+                <value id="googleadservices" type="host">*.googleadservices.com</value>
+                <value id="api_useinsider_com" type="host">*.useinsider.com</value>
+                <value id="google-analytics" type="host">*.google-analytics.com</value>
+                <value id="paypal" type="host">*.paypal.com</value>
+                <value id="asics" type="host">*.asics.com</value>
+                <value id="hotjar" type="host">*.hotjar.com</value>
+                <value id="worldpay" type="host">*.worldpay.com</value>
+                <value id="google" type="host">*.google.com</value>
+                <value id="gstatic" type="host">*.gstatic.com</value>
+                <value id="googleapis" type="host">*.googleapis.com</value>
+                <value id="omise_ot" type="host">cdn.omise.co</value>
+                <value id="js_agent_newrelic" type="host">js-agent.newrelic.com</value>
+                <value id="nr_data_net" type="host">*.nr-data.net</value>
+                <value id="facebook_net" type="host">*.facebook.net</value>
+                <value id="wcs_naver" type="host">wcs.naver.net</value>
+                <value id="googleads_doubleclick" type="host">googleads.g.doubleclick.net</value>
+                <value id="mcc_ot_sea_prod" type="host">mcc.ot-sea-prod.com</value>
+                <value id="mcc_manage_ot_sea_prod" type="host">mcc-manage.ot-sea-prod.com</value>
+                <value id="mcc_static_ot_sea_prod" type="host">mcc-static.ot-sea-prod.com</value>
+                <value id="mcc_media_ot_sea_prod" type="host">mcc-media.ot-sea-prod.com</value>
+                <value id="mcc_ot_sea_stage" type="host">mcc.ot-sea-stage.com</value>
+                <value id="mcc_manage_ot_sea_stage" type="host">mcc-manage.ot-sea-stage.com</value>
+                <value id="mcc_static_ot_sea_stage" type="host">mcc-static.ot-sea-stage.com</value>
+                <value id="mcc_media_ot_sea_stage" type="host">mcc-media.ot-sea-stage.com</value>
+                <value id="bc_ad_daum_net" type="host">bc.ad.daum.net</value>
+                <value id="www_facebook_com" type="host">www.facebook.com</value>
+                <value id="t1_daumcdn_net" type="host">t1.daumcdn.net</value>
+                <value id="cdn_megadata_co_kr" type="host">cdn.megadata.co.kr</value>
+                <value id="www_googletagmanager_com" type="host">www.googletagmanager.com</value>
+                <value id="www_googletagmanager_com" type="host">*.go-mpulse.net</value>
+                <value id="684d0d4c.akstat.io" type="host">*.akstat.io</value>
+                <value id="trial-eum-clientnsv4-s.akamaihd.net" type="host">*.akamaihd.net</value>
+                <value id="trial-eum-clienttons-s.akamaihd.net" type="host">*.akamaihd.net</value>
+                <value id="ozdiaulwiuiimyvrqupq-poiecp-6191a8b22-clientnsv4-s.akamaihd.net" type="host">*.akamaihd.net</value>
+                <value id="dable.io" type="host">*.dable.io</value>
+                <value id="adingo.jp" type="host">*.adingo.jp</value>
+                <value id="stickyadstv.com" type="host">*.stickyadstv.com</value>
+                <value id="mediavine.com" type="host">*.mediavine.com</value>
+                <value id="smaato.net" type="host">*.smaato.net</value>
+                <value id="clmbtech.com" type="host">*.clmbtech.com</value>
+                <value id="1rx.io" type="host">*.1rx.io</value>
+                <value id="criteo.com" type="host">*.criteo.com</value>
+                <value id="media.ot-sea-prod.com" type="host">media.ot-sea-prod.com</value>
+                <value id="yellowmessenger.com" type="host">*.yellowmessenger.com</value>
+                <value id="egrianoa.github.io" type="host">egrianoa.github.io</value>
+            </values>
+        </policy>
+        <policy id="img-src">
+            <values>
+                <value id="googletagmanager" type="host">*.googletagmanager.com</value>
+                <value id="vimeo" type="host">vimeo.com</value>
+                <value id="googleadservices" type="host">*.googleadservices.com</value>
+                <value id="analytics_tiktok_com" type="host">analytics.tiktok.com</value>
+                <value id="api_useinsider_com" type="host">*.useinsider.com</value>
+                <value id="google-analytics" type="host">*.google-analytics.com</value>
+                <value id="mediacategory" type="host">*.mediacategory.com</value>
+                <value id="paypal" type="host">*.paypal.com</value>
+                <value id="hotjar" type="host">*.hotjar.com</value>
+                <value id="asics" type="host">*.asics.com</value>
+                <value id="worldpay" type="host">*.worldpay.com</value>
+                <value id="google" type="host">*.google.com</value>
+                <value id="gstatic" type="host">*.gstatic.com</value>
+                <value id="googleapis" type="host">*.googleapis.com</value>
+                <value id="magentocommerce" type="host">www.magentocommerce.com</value>
+                <value id="trustmarkthai" type="host">www.trustmarkthai.com</value>
+                <value id="google_com" type="host">www.google.com</value>
+                <value id="google_com_vn" type="host">www.google.com.vn</value>
+                <value id="asics_scene7_com" type="host">asics.scene7.com</value>
+                <value id="facebook_net" type="host">*.facebook.net</value>
+                <value id="wcs_naver" type="host">wcs.naver.net</value>
+                <value id="wcs_naver_com" type="host">wcs.naver.com</value>
+                <value id="googleads_doubleclick" type="host">googleads.g.doubleclick.net</value>
+                <value id="mcc_ot_sea_prod" type="host">mcc.ot-sea-prod.com</value>
+                <value id="mcc_manage_ot_sea_prod" type="host">mcc-manage.ot-sea-prod.com</value>
+                <value id="mcc_static_ot_sea_prod" type="host">mcc-static.ot-sea-prod.com</value>
+                <value id="mcc_media_ot_sea_prod" type="host">mcc-media.ot-sea-prod.com</value>
+                <value id="mcc_ot_sea_stage" type="host">mcc.ot-sea-stage.com</value>
+                <value id="mcc_manage_ot_sea_stage" type="host">mcc-manage.ot-sea-stage.com</value>
+                <value id="mcc_static_ot_sea_stage" type="host">mcc-static.ot-sea-stage.com</value>
+                <value id="mcc_media_ot_sea_stage_com" type="host">mcc-media.ot-sea-stage.com</value>
+                <value id="bc_ad_daum_net" type="host">bc.ad.daum.net</value>
+                <value id="www_facebook_com" type="host">www.facebook.com</value>
+                <value id="t1_daumcdn_net" type="host">t1.daumcdn.net</value>
+                <value id="cdn_megadata_co_kr" type="host">cdn.megadata.co.kr</value>
+                <value id="www_googletagmanager_com" type="host">www.googletagmanager.com</value>
+                <value id="assetsadobe.com" type="host">*.assetsadobe.com</value>
+                <value id="nr_data_net" type="host">*.nr-data.net</value>
+                <value id="dable.io" type="host">*.dable.io</value>
+                <value id="adingo.jp" type="host">*.adingo.jp</value>
+                <value id="stickyadstv.com" type="host">*.stickyadstv.com</value>
+                <value id="mediavine.com" type="host">*.mediavine.com</value>
+                <value id="smaato.net" type="host">*.smaato.net</value>
+                <value id="clmbtech.com" type="host">*.clmbtech.com</value>
+                <value id="1rx.io" type="host">*.1rx.io</value>
+                <value id="criteo.com" type="host">*.criteo.com</value>
+                <value id="media.ot-sea-prod.com" type="host">media.ot-sea-prod.com</value>
+                <value id="yellowmessenger.com" type="host">*.yellowmessenger.com</value>
+                <value id="egrianoa.github.io" type="host">egrianoa.github.io</value>
+            </values>
+        </policy>
+        <policy id="connect-src">
+            <values>
+                <value id="googletagmanager" type="host">*.googletagmanager.com</value>
+                <value id="vimeo" type="host">vimeo.com</value>
+                <value id="googleadservices" type="host">*.googleadservices.com</value>
+                <value id="analytics_tiktok_com" type="host">analytics.tiktok.com</value>
+                <value id="api_useinsider_com" type="host">*.useinsider.com</value>
+                <value id="google-analytics" type="host">*.google-analytics.com</value>
+                <value id="mediacategory" type="host">*.mediacategory.com</value>
+                <value id="paypal" type="host">*.paypal.com</value>
+                <value id="hotjar" type="host">*.hotjar.com</value>
+                <value id="asics" type="host">*.asics.com</value>
+                <value id="worldpay" type="host">*.worldpay.com</value>
+                <value id="google" type="host">*.google.com</value>
+                <value id="gstatic" type="host">*.gstatic.com</value>
+                <value id="googleapis" type="host">*.googleapis.com</value>
+                <value id="maps_googleapis" type="host">maps.googleapis.com</value>
+                <value id="doubleclick" type="host">stats.g.doubleclick.net</value>
+                <value id="nr_data_net" type="host">*.nr-data.net</value>
+                <value id="facebook_net" type="host">*.facebook.net</value>
+                <value id="wcs_naver" type="host">wcs.naver.net</value>
+                <value id="googleads_doubleclick" type="host">googleads.g.doubleclick.net</value>
+                <value id="mcc_ot_sea_prod" type="host">mcc.ot-sea-prod.com</value>
+                <value id="mcc_manage_ot_sea_prod" type="host">mcc-manage.ot-sea-prod.com</value>
+                <value id="mcc_static_ot_sea_prod" type="host">mcc-static.ot-sea-prod.com</value>
+                <value id="mcc_media_ot_sea_prod" type="host">mcc-media.ot-sea-prod.com</value>
+                <value id="mcc_ot_sea_stage" type="host">mcc.ot-sea-stage.com</value>
+                <value id="mcc_manage_ot_sea_stage" type="host">mcc-manage.ot-sea-stage.com</value>
+                <value id="mcc_static_ot_sea_stage" type="host">mcc-static.ot-sea-stage.com</value>
+                <value id="mcc_media_ot_sea_stage" type="host">mcc-media.ot-sea-stage.com</value>
+                <value id="bc_ad_daum_net" type="host">bc.ad.daum.net</value>
+                <value id="www_facebook_com" type="host">www.facebook.com</value>
+                <value id="t1_daumcdn_net" type="host">t1.daumcdn.net</value>
+                <value id="cdn_megadata_co_kr" type="host">cdn.megadata.co.kr</value>
+                <value id="www_googletagmanager_com" type="host">*.go-mpulse.net</value>
+                <value id="684d0d4c.akstat.io" type="host">*.akstat.io</value>
+                <value id="trial-eum-clientnsv4-s.akamaihd.net" type="host">*.akamaihd.net</value>
+                <value id="trial-eum-clienttons-s.akamaihd.net" type="host">*.akamaihd.net</value>
+                <value id="ozdiaulwiuiimyvrqupq-poiecp-6191a8b22-clientnsv4-s.akamaihd.net" type="host">*.akamaihd.net</value>
+                <value id="dable.io" type="host">*.dable.io</value>
+                <value id="adingo.jp" type="host">*.adingo.jp</value>
+                <value id="stickyadstv.com" type="host">*.stickyadstv.com</value>
+                <value id="mediavine.com" type="host">*.mediavine.com</value>
+                <value id="smaato.net" type="host">*.smaato.net</value>
+                <value id="clmbtech.com" type="host">*.clmbtech.com</value>
+                <value id="1rx.io" type="host">*.1rx.io</value>
+                <value id="criteo.com" type="host">*.criteo.com</value>
+                <value id="media.ot-sea-prod.com" type="host">media.ot-sea-prod.com</value>
+                <value id="yellowmessenger.com" type="host">*.yellowmessenger.com</value>
+                <value id="egrianoa.github.io" type="host">egrianoa.github.io</value>
+            </values>
+        </policy>
+        <policy id="frame-src">
+            <values>
+                <value id="vimeo" type="host">vimeo.com</value>
+                <value id="googleadservices" type="host">*.googleadservices.com</value>
+                <value id="analytics_tiktok_com" type="host">analytics.tiktok.com</value>
+                <value id="api_useinsider_com" type="host">*.useinsider.com</value>
+                <value id="google-analytics" type="host">*.google-analytics.com</value>
+                <value id="mediacategory" type="host">*.mediacategory.com</value>
+                <value id="paypal" type="host">*.paypal.com</value>
+                <value id="hotjar" type="host">*.hotjar.com</value>
+                <value id="asics" type="host">*.asics.com</value>
+                <value id="worldpay" type="host">*.worldpay.com</value>
+                <value id="google" type="host">*.google.com</value>
+                <value id="gstatic" type="host">*.gstatic.com</value>
+                <value id="googleapis" type="host">*.googleapis.com</value>
+                <value id="googletagmanager" type="host">*.googletagmanager.com</value>
+                <value id="bid_g_doubleclick_net" type="host">bid.g.doubleclick.net</value>
+                <value id="mcc_ot_sea_prod" type="host">mcc.ot-sea-prod.com</value>
+                <value id="mcc_manage_ot_sea_prod" type="host">mcc-manage.ot-sea-prod.com</value>
+                <value id="mcc_static_ot_sea_prod" type="host">mcc-static.ot-sea-prod.com</value>
+                <value id="mcc_media_ot_sea_prod" type="host">mcc-media.ot-sea-prod.com</value>
+                <value id="mcc_ot_sea_stage" type="host">mcc.ot-sea-stage.com</value>
+                <value id="mcc_manage_ot_sea_stage" type="host">mcc-manage.ot-sea-stage.com</value>
+                <value id="mcc_static_ot_sea_stage" type="host">mcc-static.ot-sea-stage.com</value>
+                <value id="mcc_media_ot_sea_stage" type="host">mcc-media.ot-sea-stage.com</value>
+                <value id="bc_ad_daum_net" type="host">bc.ad.daum.net</value>
+                <value id="www_facebook_com" type="host">www.facebook.com</value>
+                <value id="t1_daumcdn_net" type="host">t1.daumcdn.net</value>
+                <value id="nr_data_net" type="host">*.nr-data.net</value>
+                <value id="facebook_net" type="host">*.facebook.net</value>
+                <value id="dable.io" type="host">*.dable.io</value>
+                <value id="adingo.jp" type="host">*.adingo.jp</value>
+                <value id="stickyadstv.com" type="host">*.stickyadstv.com</value>
+                <value id="mediavine.com" type="host">*.mediavine.com</value>
+                <value id="smaato.net" type="host">*.smaato.net</value>
+                <value id="clmbtech.com" type="host">*.clmbtech.com</value>
+                <value id="1rx.io" type="host">*.1rx.io</value>
+                <value id="criteo.com" type="host">*.criteo.com</value>
+                <value id="media.ot-sea-prod.com" type="host">media.ot-sea-prod.com</value>
+                <value id="yellowmessenger.com" type="host">*.yellowmessenger.com</value>
+                <value id="egrianoa.github.io" type="host">egrianoa.github.io</value>
+            </values>
+        </policy>
+        <policy id="style-src">
+            <values>
+                <value id="vimeo" type="host">vimeo.com</value>
+                <value id="googleadservices" type="host">*.googleadservices.com</value>
+                <value id="analytics_tiktok_com" type="host">analytics.tiktok.com</value>
+                <value id="api_useinsider_com" type="host">*.useinsider.com</value>
+                <value id="google-analytics" type="host">*.google-analytics.com</value>
+                <value id="mediacategory" type="host">*.mediacategory.com</value>
+                <value id="paypal" type="host">*.paypal.com</value>
+                <value id="hotjar" type="host">*.hotjar.com</value>
+                <value id="asics" type="host">*.asics.com</value>
+                <value id="worldpay" type="host">*.worldpay.com</value>
+                <value id="google" type="host">*.google.com</value>
+                <value id="gstatic" type="host">*.gstatic.com</value>
+                <value id="googleapis" type="host">*.googleapis.com</value>
+                <value id="googletagmanager" type="host">*.googletagmanager.com</value>
+                <value id="style_mcc_ot_sea_prod" type="host">mcc.ot-sea-prod.com</value>
+                <value id="style_mcc_manage_ot_sea_prod" type="host">mcc-manage.ot-sea-prod.com</value>
+                <value id="style_mcc_static_ot_sea_prod" type="host">mcc-static.ot-sea-prod.com</value>
+                <value id="style_mcc_media_ot_sea_prod" type="host">mcc-media.ot-sea-prod.com</value>
+                <value id="style_mcc_ot_sea_stage" type="host">mcc.ot-sea-stage.com</value>
+                <value id="style_mcc_manage_ot_sea_stage" type="host">mcc-manage.ot-sea-stage.com</value>
+                <value id="style_mcc_static_ot_sea_stage" type="host">mcc-static.ot-sea-stage.com</value>
+                <value id="style_mcc_media_ot_sea_stage" type="host">mcc-media.ot-sea-stage.com</value>
+                <value id="nr_data_net" type="host">*.nr-data.net</value>
+                <value id="facebook_net" type="host">*.facebook.net</value>
+                <value id="dable.io" type="host">*.dable.io</value>
+                <value id="adingo.jp" type="host">*.adingo.jp</value>
+                <value id="stickyadstv.com" type="host">*.stickyadstv.com</value>
+                <value id="mediavine.com" type="host">*.mediavine.com</value>
+                <value id="smaato.net" type="host">*.smaato.net</value>
+                <value id="clmbtech.com" type="host">*.clmbtech.com</value>
+                <value id="1rx.io" type="host">*.1rx.io</value>
+                <value id="criteo.com" type="host">*.criteo.com</value>
+                <value id="media.ot-sea-prod.com" type="host">media.ot-sea-prod.com</value>
+                <value id="yellowmessenger.com" type="host">*.yellowmessenger.com</value>
+                <value id="egrianoa.github.io" type="host">egrianoa.github.io</value>
+            </values>
+        </policy>
+        <policy id="font-src">
+            <values>
+                <value id="cdn-apple" type="host">*.cdn-apple.com</value>
+                <value id="vimeo" type="host">vimeo.com</value>
+                <value id="googleadservices" type="host">*.googleadservices.com</value>
+                <value id="analytics_tiktok_com" type="host">analytics.tiktok.com</value>
+                <value id="api_useinsider_com" type="host">*.useinsider.com</value>
+                <value id="google-analytics" type="host">*.google-analytics.com</value>
+                <value id="paypal" type="host">*.paypal.com</value>
+                <value id="mediacategory" type="host">*.mediacategory.com</value>
+                <value id="hotjar" type="host">*.hotjar.com</value>
+                <value id="asics" type="host">*.asics.com</value>
+                <value id="worldpay" type="host">*.worldpay.com</value>
+                <value id="google" type="host">*.google.com</value>
+                <value id="gstatic" type="host">*.gstatic.com</value>
+                <value id="googleapis" type="host">*.googleapis.com</value>
+                <value id="googletagmanager" type="host">*.googletagmanager.com</value>
+                <value id="font_mcc_ot_sea_prod" type="host">mcc.ot-sea-prod.com</value>
+                <value id="font_mcc_manage_ot_sea_prod" type="host">mcc-manage.ot-sea-prod.com</value>
+                <value id="font_mcc_static_ot_sea_prod" type="host">mcc-static.ot-sea-prod.com</value>
+                <value id="font_mcc_media_ot_sea_prod" type="host">mcc-media.ot-sea-prod.com</value>
+                <value id="font_mcc_ot_sea_stage" type="host">mcc.ot-sea-stage.com</value>
+                <value id="font_mcc_manage_ot_sea_stage" type="host">mcc-manage.ot-sea-stage.com</value>
+                <value id="font_mcc_static_ot_sea_stage" type="host">mcc-static.ot-sea-stage.com</value>
+                <value id="font_mcc_media_ot_sea_stage" type="host">mcc-media.ot-sea-stage.com</value>
+                <value id="nr_data_net" type="host">*.nr-data.net</value>
+                <value id="facebook_net" type="host">*.facebook.net</value>
+                <value id="dable.io" type="host">*.dable.io</value>
+                <value id="adingo.jp" type="host">*.adingo.jp</value>
+                <value id="stickyadstv.com" type="host">*.stickyadstv.com</value>
+                <value id="mediavine.com" type="host">*.mediavine.com</value>
+                <value id="smaato.net" type="host">*.smaato.net</value>
+                <value id="clmbtech.com" type="host">*.clmbtech.com</value>
+                <value id="1rx.io" type="host">*.1rx.io</value>
+                <value id="criteo.com" type="host">*.criteo.com</value>
+                <value id="media.ot-sea-prod.com" type="host">media.ot-sea-prod.com</value>
+                <value id="yellowmessenger.com" type="host">*.yellowmessenger.com</value>
+                <value id="egrianoa.github.io" type="host">egrianoa.github.io</value>
+            </values>
+        </policy>
+        <policy id="media-src">
+            <values>
+                <value id="yellowmessenger.com" type="host">*.yellowmessenger.com</value>
+            </values>
+        </policy>
+    </policies>
+</csp_whitelist>

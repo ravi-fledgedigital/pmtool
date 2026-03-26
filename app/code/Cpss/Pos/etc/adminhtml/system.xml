@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="cpss" translate="label" sortOrder="5997">
+            <label>CPSS CRM</label>
+        </tab>
+        <section id="sftp" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Sftp</label>
+            <tab>cpss</tab>
+            <resource>Cpss_Crm::config</resource>
+            <group id="pos" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>POS</label>
+                <field id="host" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Host</label>
+                </field>
+                <field id="username" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Username</label>
+                </field>
+                <field id="method_access" type="select" translate="label" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Method Access</label>
+                    <source_model>Cpss\Pos\Model\Config\Method</source_model>
+                </field>
+                <field id="private_key_pem" translate="label comment" type="Cpss\Pos\Model\Config\File\PemFile" sortOrder="4" showInDefault="1" showInWebsite="1">
+                    <label>Private Key</label>
+                    <config_path>sftp/pos/private_key</config_path>
+                    <backend_model>Cpss\Pos\Model\Config\File\PrivateKeyPem</backend_model>
+                    <upload_dir config="system" scope_info="1">pos</upload_dir>
+                    <comment><![CDATA[<a href="#" class="pos-private-key-change-key-type">Change Private Key input method]]></comment>
+                </field>
+                <field id="private_key_text" translate="label comment" type="textarea" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Private Key</label>
+                    <config_path>sftp/pos/private_key</config_path>
+                    <frontend_model>Cpss\Pos\Model\Config\Form\Privatekey</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <validate>validate-key</validate>
+                    <comment><![CDATA[<a href="#" class="pos-private-key-change-key-type">Change Private Key input method]]></comment>
+                </field>
+                <field id="private_key_selected" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Private Key Selected</label>
+                    <frontend_model>Cpss\Pos\Model\Config\Form\PrivateKeySelected</frontend_model>
+                </field>
+                <field id="private_key_selector" translate="label comment" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Private Key</label>
+                    <frontend_model>Cpss\Pos\Block\Adminhtml\System\Config\Form\PrivateKeySelector</frontend_model>
+                </field>
+                <field id="password" translate="label" type="password" sortOrder="5" showInDefault="1" showInWebsite="1">
+                    <label>Password</label>
+                    <depends>
+                        <field id="method_access">password</field>
+                    </depends>
+                </field>
+                <field id="port" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Port</label>
+                </field>
+                <field id="path" translate="label" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Path</label>
+                    <comment>Please ommit trailing slash in the path value</comment>
+                </field>
+                <field id="standby_host" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Standby Host</label>
+                </field>
+                <field id="standby_port" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Standby Port</label>
+                </field>
+                <field id="new_file_generation_time" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Time for new file creation</label>
+                </field>
+            </group>
+        </section>
+        <section id="crm" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="pos_mailer" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>POS Mailer Configuration</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="pos_recipient_email" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Send Emails To</label>
+                    <validate>validate-email</validate>
+                </field>
+                <field id="pos_email_identity" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+                <field id="pos_email_template" translate="label comment" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Email Template</label>
+                    <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

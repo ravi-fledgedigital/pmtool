@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <biteship_indo>
+            <biteship_origin_address>
+                <contact_name>PT Satria Antara Prima Tbk (SAP)</contact_name>
+                <contact_phone>+62 89510862378</contact_phone>
+                <address>Jl. Karpindo No.9, RT.9/RW.4, Ciracas, Kec. Ciracas, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta DKI Jakarta</address>
+                <postal_code>13740</postal_code>
+            </biteship_origin_address>
+        </biteship_indo>
+    </default>
+</config>

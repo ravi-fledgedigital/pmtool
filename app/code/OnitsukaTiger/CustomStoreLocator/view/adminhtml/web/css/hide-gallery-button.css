@@ -1,0 +1,7 @@
+.file-uploader-area label.file-uploader-button:contains('Select from Gallery') {
+    display: none !important;
+}
+
+.file-uploader-area .file-uploader-button:nth-of-type(2) {
+    display: none !important;
+}

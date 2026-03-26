@@ -1,0 +1,12 @@
+<?php /* @var $block \Seoulwebdesign\Kpostcode\Block\PostCode */ ?>
+<div id="swd-kpostcode-popup" class="kpostcode-popup" style="display: none">
+    <div class="popup_box <?php echo $this->helper("Seoulwebdesign\Kpostcode\Helper\Data")->getSelectedVersion() === 'daum' ? 'daum-popup' : '' ?>">
+        <div class="image-top">
+            <a id="kpostcodeIconX" href="javascript:void(0)" class="icon-x"><?php echo __("Close") ?></a>
+        </div>
+        <div class="content">
+            <h4><?php echo $this->helper("Seoulwebdesign\Kpostcode\Helper\Data")->getPopupTitle() ?></h4>
+            <div id="postcode-area"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+<?php
+/**
+ * @var \Cpss\Crm\Block\Member\Info $block
+ */
+?>
+<?php if($block->isModuleEnabled()) : ?>
+    <div class="customer-barcode-head">
+        <p><?= __('Member ID') ?></p>
+    </div>
+    <?= $block->getBarcode() ?>
+    <?php
+    $balance = 0;
+    $pointExpiration = null;
+    $afterExpiration = 0;
+    $exppt = null;
+// $response = $block->getMemberStatus();
+    $response = $block->getNearestExpires();
+    if(!empty($response)){
+        $result = $response['result'];
+        $balance = (int) $result['expires'][0]['available'];
+        // $expires = $block->getNearestExpires();
+        if (!empty($result)) {
+            $exppt = $result['expires'][0]['exppt'];
+            $pointExpiration = $result['expires'][0]['expdate'];
+
+            if ($pointExpiration == null) {
+                $pointExpiration = null;
+                $exppt = null;
+            } elseif ($exppt != null && $pointExpiration != null) {
+                $afterExpiration = (int) ($exppt);
+                $pointExpiration = $block->formatDateFromCpss($pointExpiration);
+            }
+        }
+    }
+    ?>
+    <span><?= __('Current balance: %1 points', number_format($balance)) ?></span><br>
+    <?php if ($exppt != null): ?>
+        <span><?= __('Expiring points: %1 points', number_format($afterExpiration)) ?></span>
+    <?php else: ?>
+        <span><?= __('Expiring points: —', number_format($afterExpiration)) ?></span>
+    <?php endif; ?>
+    <br>
+    <span><?= __('Expiring on: %1', $pointExpiration ?? '—') ?></span><br><br><br>
+<?php endif; ?>

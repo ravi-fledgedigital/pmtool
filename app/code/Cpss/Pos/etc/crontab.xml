@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+	<group id="update_pos_data_cron">
+		<job instance="Cpss\Pos\Cron\UpdatePosData" name="update_pos_data" method="execute">
+			<schedule>0 0 * * *</schedule>
+		</job>
+		<job instance="Cpss\Pos\Helper\CreateCsv" name="cpss_realstores_csv" method="generateRealStoresData">
+			<schedule>0 3 * * *</schedule>
+		</job>
+		<job instance="Cpss\Pos\Cron\GetGivenPoint" name="get_given_point" method="getGivenPointAndSave">
+			<schedule>0 7 * * *</schedule>
+		</job>
+		<job instance="Cpss\Pos\Cron\CreateCsvFiles" name="cpss_ec_tomorrow_batch_csv" method="execute">
+			<schedule>0 23 * * *</schedule>
+		</job>
+		<job instance="Cpss\Pos\Cron\CpssTransferFiles" name="cpss_integrate_ec_csv" method="executeEc">
+			<schedule>0 0 * * *</schedule>
+		</job>
+		<job instance="Cpss\Pos\Cron\CpssTransferFiles" name="cpss_integrate_realstore_csv" method="executeRealStore">
+			<schedule>1 0 * * *</schedule>
+		</job>
+		<job instance="Cpss\Pos\Cron\RemoveBackupFiles" name="cpss_remove_pos_backups" method="execute">
+			<schedule>0 0 * * *</schedule>
+		</job>
+		<job instance="Cpss\Pos\Cron\CronSchedRun" name="pos_cpss_sftp_process" method="execute">
+			<schedule>30 3 * * *</schedule>
+		</job>
+	</group>
+</config>

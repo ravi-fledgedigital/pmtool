@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="korean_address">
+            <group id="shipment" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Shipment</label>
+                <field id="cancel_partially" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Partial Delete Button</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[Select <b>Yes</b> to enable use to delete shipment partially. <br />
+                         <span style='color:red'>It is full main function as delete shipment button excluding sync cancel.xml to SFTP</span>
+                        . <br/> Enable or disable the module depending on the website (SG, TH, MY, KR)]]>
+                    </comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

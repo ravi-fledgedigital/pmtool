@@ -1,0 +1,19 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \OnitsukaTiger\Customer\Block\Widget\CellPhone $block */
+?>
+
+<div class="field cell-phone required">
+    <label for="cell_phone_input" class="label">
+        <span>
+            <?= $block->escapeHtml(__('휴대폰 번호')) ?>
+        </span>
+    </label>
+    <div class="control">
+        <input  type="text" name="cell_phone" id="cell_phone_input" class="required-entry" data-validate="{'validate-number':true}" />
+    </div>
+</div>

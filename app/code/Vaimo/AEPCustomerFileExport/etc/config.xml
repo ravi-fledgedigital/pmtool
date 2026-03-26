@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <aep_customer_file_export>
+            <adobe_campaign>
+                <folder_path>/incoming/ACC</folder_path>
+                <filename>ftp_acc_customer_data_</filename>
+                <scheduler_enabled>0</scheduler_enabled>
+                <cron_scheduler>0 3 * * *</cron_scheduler>
+            </adobe_campaign>
+        </aep_customer_file_export>
+    </default>
+</config>

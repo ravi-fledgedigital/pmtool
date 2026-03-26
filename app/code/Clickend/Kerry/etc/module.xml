@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Clickend Kerry module registration
+ * @package Clickend\Kerry
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+	<module name="Clickend_Kerry" setup_version="1.0.2"/>
+</config>

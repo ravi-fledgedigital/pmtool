@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">onitsukatiger_favorite_favorite_listing.onitsukatiger_favorite_favorite_listing_data_source</item>
+        </item>
+        <item name="buttons" xsi:type="array">
+            <item name="add" xsi:type="array">
+                <item name="name" xsi:type="string">add</item>
+                <item name="class" xsi:type="string">addspaceinbtn</item>
+            </item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>onitsukatiger_favorite_favorite_columns</spinner>
+        <deps>
+            <dep>onitsukatiger_favorite_favorite_listing.onitsukatiger_favorite_favorite_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="onitsukatiger_favorite_favorite_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="dataScope" xsi:type="string">filters.store_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Magento_Catalog::products</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="onitsukatiger_favorite_favorite_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>fku_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters">
+            <filterRange name="period" provider="${ $.parentName }">
+                <settings>
+                    <dataScope>period</dataScope>
+                    <rangeType>date</rangeType>
+                    <label translate="true">Period</label>
+                </settings>
+            </filterRange>
+        </filters>
+        <!-- <filters name="listing_filters"/> -->
+        <paging name="listing_paging"/>
+        <exportButton name="export_button"/>
+        <filterSearch name="fulltext"/>
+    </listingToolbar>
+    <columns name="onitsukatiger_favorite_favorite_columns">
+        <selectionsColumn name="ids" sortOrder="0">
+            <settings>
+                <indexField>fku_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="display_id" sortOrder="10">
+            <settings>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+                <filter>textRange</filter>
+            </settings>
+        </column>
+        <column name="thumbnail" class="Magento\Catalog\Ui\Component\Listing\Columns\Thumbnail" component="Magento_Ui/js/grid/columns/thumbnail" sortOrder="20">
+            <settings>
+                <altField>name</altField>
+                <hasPreview>1</hasPreview>
+                <label translate="true">Thumbnail</label>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+        <column name="name" sortOrder="30">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Name</label>
+            </settings>
+        </column>
+        <column name="display_type_id" component="Magento_Ui/js/grid/columns/select" sortOrder="40">
+            <settings>
+                <options class="Magento\Catalog\Model\Product\Type"/>
+                <dataType>select</dataType>
+                <label translate="true">Type</label>
+                <filter>select</filter>
+            </settings>
+        </column>
+        <column name="sku" sortOrder="60">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">SKU</label>
+            </settings>
+        </column>
+        <column name="price" class="Magento\Catalog\Ui\Component\Listing\Columns\Price" sortOrder="70">
+            <settings>
+                <label translate="true">Price</label>
+            </settings>
+        </column>
+        <column name="qty" sortOrder="80">
+            <settings>
+                <label translate="true">Quantity</label>
+            </settings>
+        </column>
+        <column name="total_favorites" sortOrder="90">
+            <settings>
+                <label translate="true">Total Favorites</label>
+                <filter>textRange</filter>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="OnitsukaTiger\Favorite\Ui\Component\Columns\FavoriteActions" sortOrder="200">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="label" xsi:type="string" translate="true">Actions</item>
+                </item>
+            </argument>
+        </actionsColumn>
+    </columns>
+</listing>

@@ -1,0 +1,17 @@
+<?php
+/** @var \OnitsukaTiger\PortOne\Block\Order\View\Info $block */
+$portOne = $block->getPortOneData();
+?>
+
+<?php if ($portOne && $portOne->getId()): ?>
+    <table class="data-table admin__table-secondary">
+        <tr>
+            <th><?= __('Payment ID') ?></th>
+            <td><?= $block->escapeHtml($portOne->getPaymentId()) ?></td>
+        </tr>
+        <tr>
+            <th><?= __('Transaction ID') ?></th>
+            <td><?= $block->escapeHtml($portOne->getTxid()) ?></td>
+        </tr>
+    </table>
+<?php endif; ?>

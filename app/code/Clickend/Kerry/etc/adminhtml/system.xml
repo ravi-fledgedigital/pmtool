@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="clickend" translate="label" sortOrder="10">
+            <label>CLICKEND</label>
+        </tab>
+        <section id="kerry" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Kerry Configuration</label>
+            <tab>clickend</tab>
+            <resource>Clickend_Kerry::KerryConfig</resource>
+            <group id="webhook" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>API Webhook</label>
+                <field id="url_hook" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>URL For Webhook</label>                    
+                    <comment>Copy this URL to Kerry provider for receive shipping status</comment>                  
+                </field>              
+            </group>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General Configuration</label>
+                
+                <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Module Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="market_name" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Market Name</label>                   
+                </field>
+                <field id="vendor_name" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>App ID</label>                  
+                </field>
+                <field id="password" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>App Key</label>                    
+                </field> 
+                <field id="mode" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Test Mode</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>                    
+                </field>
+            </group>
+            
+            <group id="vendor_information" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Vendor Infotmation</label>
+                <field id="sender_name" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Sender Name</label>                    
+                </field>
+                <field id="sender_address" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Sender Address</label>                    
+                </field>
+                <field id="sender_village" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Sender Village</label>                    
+                </field>
+                <field id="sender_soi" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Sender Soi</label>                    
+                </field>
+                <field id="sender_road" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Sender Road</label>                    
+                </field>
+                <field id="sender_sub_district" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Sender Sub District</label>                    
+                </field>
+                <field id="sender_district" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Sender District</label>                    
+                </field>
+                <field id="sender_province" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Sender Province</label>                    
+                </field>
+                <field id="sender_zipcode" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Sender Zipcode</label>                    
+                </field> 
+                <field id="sender_mobile_1" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Sender Mobile 1</label>                    
+                </field> 
+                <field id="sender_mobile_2" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Sender Mobile 2</label>                    
+                </field> 
+                <field id="sender_telephone" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Sender Telephone</label>                    
+                </field> 
+                <field id="sender_email" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Sender Email</label>                    
+                </field> 
+                <field id="sender_contact_person" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Sender Contact Person</label>                    
+                </field> 
+                
+            </group>
+            <group id="product_information" translate="label" type="text" sortOrder="700" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>Product Information</label>
+                <field id="author" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label><![CDATA[<p>Author: <a target="_blank" title="Clickend" href="http://www.nbtech.co.th">Clickend</a></p>
+											<p>Vesion: 1.0.2</p>
+											<p>Support: <a target="_blank" href="https://www.nbtech.co.th/#contact">https://www.nbtech.co.th/#contact</a></p>
+								]]></label>
+                    <frontend_model>Magento\Config\Block\System\Config\Form\Field\Heading</frontend_model>
+                </field>
+            </group>
+
+        </section>
+        <section id="carriers" translate="label" type="text" sortOrder="320" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="kerryshipping" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Kerry Express Method</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="name" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Method Name</label>
+                </field>
+                <field id="price" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Price</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="OverPrice" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Over Price</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="OverPriceFee" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Price Fee</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>                
+                <field id="handling_type" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Calculate Handling Fee</label>
+                    <source_model>Magento\Shipping\Model\Source\HandlingType</source_model>
+                </field>
+                <field id="handling_fee" translate="label" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Handling Fee</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sort Order</label>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Title</label>
+                </field>
+                <field id="sallowspecific" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Ship to Applicable Countries</label>
+                    <frontend_class>shipping-applicable-country</frontend_class>
+                    <source_model>Magento\Shipping\Model\Config\Source\Allspecificcountries</source_model>
+                </field>
+                <field id="specificcountry" translate="label" type="multiselect" sortOrder="91" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Ship to Specific Countries</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="showmethod" translate="label" type="select" sortOrder="92" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Show Method if Not Applicable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <frontend_class>shipping-skip-hide</frontend_class>
+                </field>
+                <field id="specificerrmsg" translate="label" type="textarea" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Displayed Error Message</label>
+                </field>
+            </group>
+        </section>        
+    </system>
+</config>

@@ -1,0 +1,16 @@
+{
+   "name": "creansmaerd/jsbarcode",
+   "description": "CPSS JsBarcode for Points Functionality.",
+   "type": "magento2-module",
+   "version":"1.0.0",
+   "license": "proprietary",
+   "minimum-stability": "stable",
+   "autoload":{
+      "psr-4":{
+         "Cpss\\JsBarcode\\":""
+      },
+      "files":[
+         "registration.php"
+      ]
+   }
+}

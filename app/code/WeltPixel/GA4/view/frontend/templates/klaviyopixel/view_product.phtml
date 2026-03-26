@@ -1,0 +1,58 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \Magento\Catalog\Block\Product\View */
+
+/** @var \WeltPixel\GA4\Helper\KlaviyoPixelTracking $klaviyoPixelHelper */
+$klaviyoPixelHelper = $this->helper('WeltPixel\GA4\Helper\KlaviyoPixelTracking');
+$cspNonceProvider = $klaviyoPixelHelper->getCspNonceProvider();
+$product = $block->getProduct();
+?>
+<script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    let klViewProductEventId = <?= /* @noEscape */ $klaviyoPixelHelper->getJsEventIdGenerator() ?>;
+</script>
+<?php if ($product && $klaviyoPixelHelper->isKlaviyoPixelTrackingEnabled() && $klaviyoPixelHelper->shouldKlaviyoPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\KlaviyoPixel\TrackingEvents::EVENT_VIEWED_PRODUCT)) :
+        $productCategoryIds = $product->getCategoryIds();
+?>
+<script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    if (window.ga4AllowServices) {
+        let klaviyoProductData = {
+            '$value': "<?= /* @noEscape */ floatval(number_format($product->getPriceInfo()->getPrice('final_price')->getValue() ?? 0, 2, '.', '')); ?>",
+            'ProductName': "<?= /* @noEscape */ addslashes(str_replace('"', '&quot;', html_entity_decode($product->getName() ?? ''))) ?>",
+            'ProductID': <?= /* @noEscape */ $product->getId() ?>,
+            'SKU': '<?= /* @noEscape */ $product->getSku() ?>',
+            'Categories': ' <?= /* @noEscape */ json_encode($klaviyoPixelHelper->getCategoryPath($productCategoryIds)) ?>',
+            'URL': window.location.href,
+            'ImageURL': "<?= /* @noEscape */ $block->stripTags($klaviyoPixelHelper->getImageUrl($product)) ?>",
+            'ReferrerURL': document.referrer,
+            'Price': "<?= /* @noEscape */ floatval(number_format($product->getPriceInfo()->getPrice('final_price')->getValue() ?? 0, 2, '.', '')); ?>",
+            'Currency': "<?= /* @noEscape */ $klaviyoPixelHelper->getCurrencyCode() ?>",
+            '$event_id': klViewProductEventId
+        }
+        klaviyo.track("<?= /* @noEscape */ $klaviyoPixelHelper->getKlaviyoEventName(\WeltPixel\GA4\Model\Config\Source\KlaviyoPixel\TrackingEvents::EVENT_VIEWED_PRODUCT) ?>", klaviyoProductData);
+    }
+</script>
+<?php endif; ?>
+
+
+<?php if ($klaviyoPixelHelper->isServerSideTrackingEnabled() && $klaviyoPixelHelper->shouldKlaviyoServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\KlaviyoPixel\TrackingEvents::EVENT_VIEWED_PRODUCT)) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($klaviyoPixelHelper->getKlaviyoSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'eventId': klViewProductEventId,
+                            'productId': '<?= /* @noEscape */ $product->getId() ?>',
+                            'eventName': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\KlaviyoPixel\TrackingEvents::EVENT_VIEWED_PRODUCT  ?>',
+                            'URL': window.location.href,
+                            'ReferrerURL': document.referrer
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>
+

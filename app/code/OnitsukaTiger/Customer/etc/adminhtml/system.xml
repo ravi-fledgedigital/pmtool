@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="customer" >
+            <group id="startup">
+                <field id="redirect_hompage" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Redirect Home Page after Logging in</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>The redirect page will depends redirect dashboard configuration if "NO".</comment>
+                </field>
+            </group>
+            <group id="address">
+                <field id="length_of_postcode" translate="label comment" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Length of PostCode</label>
+                    <comment>Post Code Validation Text Length</comment>
+                    <validate>validate-number</validate>
+                </field>
+            </group>
+            <group id="account_information">
+                <field id="shoes_size" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Show Shoes Size Field</label>
+                    <source_model>Magento\Config\Model\Config\Source\Nooptreq</source_model>
+                    <comment>Showing Select shoes size of customer information</comment>
+                </field>
+            </group>
+        </section>
+        <section id="customer_address_validate" translate="label" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Customer Address</label>
+            <tab>onitsukatiger</tab>
+            <resource>OnitsukaTiger_Ninja::config</resource>
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Configuration</label>
+                <field id="enable_validation_character" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Ignore Address Character</label>
+                    <comment>Will ignore character from address ( Will read each character) </comment>
+                </field>
+                <field id="enable_limitations" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable Address Limitations Charactor</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Will be validate max length of total address 1 and address 2</comment>
+                </field>
+                <field id="limitations_character" translate="label comment" type="text" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <depends>
+                        <field id="enable_limitations">1</field>
+                    </depends>
+                    <label>Max Length Address Character</label>
+                    <comment>Maximum length of address ( default 81 character )</comment>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,136 @@
+{
+    "sales_real_store_order": {
+        "column": {
+            "entity_id": true,
+            "purchase_id": true,
+            "shop_id": true,
+            "pos_terminal_no": true,
+            "receipt_no": true,
+            "transaction_type": true,
+            "purchase_date": true,
+            "return_date": true,
+            "total_amount": true,
+            "discount_amount": true,
+            "tax_amount": true,
+            "member_id": true,
+            "country_code": true,
+            "used_point": true,
+            "acquired_point": true,
+            "added_point": true,
+            "cancel_point": true,
+            "added_point_date": true,
+            "cancel_point_date": true,
+            "point_history_id": true,
+            "payment_method": true,
+            "created_at": true,
+            "updated_at": true,
+            "return_purchase_id": true,
+            "order_comment": true,
+            "canceled_used_point": true,
+            "got_back_added_point": true,
+            "guest_purchase_flg": true,
+            "point_discount_amount": true,
+            "got_back_added_point_date": true,
+            "add_point_request_date": true,
+            "get_back_point_request_date": true,
+            "return_total_amount": true,
+            "return_discount_amount": true,
+            "return_tax_amount": true,
+            "return_point_discount_amount": true,
+            "store_code": true,
+            "exch_date": true,
+            "exch_purchase_id": true
+        },
+        "index": {
+            "FTI_D02BAE6085A1363741D2ED9A3CF18A1E": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "SALES_REAL_STORE_ORDER_PURCHASE_ID": true
+        }
+    },
+    "sales_order": {
+        "column": {
+            "used_point": true,
+            "acquired_point": true,
+            "member_id": true,
+            "how_to_use": true,
+            "added_point": true,
+            "cancel_point": true,
+            "cpss_sub_status": true,
+            "cpss_refund_sub_status": true,
+            "non_proportionable_point": true,
+            "used_point_refunded": true,
+            "online_capture": true,
+            "online_refunded": true,
+            "added_point_date": true,
+            "cancel_point_date": true,
+            "got_back_added_point": true,
+            "got_back_added_point_date": true
+        }
+    },
+    "quote": {
+        "column": {
+            "used_point": true,
+            "acquired_point": true,
+            "how_to_use": true,
+            "non_proportionable_point": true
+        }
+    },
+    "quote_item": {
+        "column": {
+            "used_point": true
+        }
+    },
+    "sales_order_item": {
+        "column": {
+            "used_point": true,
+            "refunded_used_point": true
+        }
+    },
+    "crm_analysis_data": {
+        "column": {
+            "crm_id": true,
+            "member_id": true,
+            "first_purchase_day": true,
+            "last_purchase_day": true,
+            "total_purchase_times": true,
+            "total_return_times": true,
+            "total_purchase_amounts": true,
+            "total_return_amounts": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "CRM_ANALYSIS_DATA_MEMBER_ID": true
+        }
+    },
+    "crm_real_stores": {
+        "column": {
+            "entity_id": true,
+            "shop_id": true,
+            "shop_name": true,
+            "shop_status": true,
+            "shop_password": true,
+            "shop_password_hash": true,
+            "access_token": true,
+            "created_at": true,
+            "updated_at": true,
+            "country_code": true
+        },
+        "index": {
+            "CRM_REAL_STORES_SHOP_NAME": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "CRM_REAL_STORES_SHOP_ID": true,
+            "CRM_REAL_STORES_SHOP_ID_COUNTRY_CODE": true
+        }
+    },
+    "customer_entity": {
+        "column": {
+            "is_agreed": true
+        }
+    }
+}

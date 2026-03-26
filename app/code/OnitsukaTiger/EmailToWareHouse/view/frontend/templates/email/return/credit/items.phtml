@@ -1,0 +1,31 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+$creditmemo = $block->getCreditmemo();
+?>
+
+<?php if ($creditmemo):?>
+    <table class="table text-center">
+        <thead>
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">Product No</th>
+            <th scope="col"">Item Description</th>
+            <th scope="col">Qty</th>
+            <th scope="col">Return(Please Tick)</th>
+            <th scope="col">Return Quantity</th>
+            <th scope="col">Reason Code</th>
+        </tr>
+        </thead>
+        <?php foreach ($creditmemo->getItems() as $_item): ?>
+            <?php if (!$_item->getOrderItem()->getParentItem()): ?>
+                <tbody>
+                <?= $block->getItemHtml($_item) ?>
+                </tbody>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </table>
+<?php endif; ?>

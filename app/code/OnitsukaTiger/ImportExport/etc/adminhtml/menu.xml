@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Amasty_Base
+*/
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="OnitsukaTiger_ImportExport::menu"
+             title="ImportExport"
+             module="OnitsukaTiger_ImportExport"
+             translate="title"
+             sortOrder="50"
+             resource="OnitsukaTiger_ImportExport::menu"/>
+        <add id="OnitsukaTiger_ImportExport::korea"
+             title="Korea"
+             module="OnitsukaTiger_ImportExport"
+             translate="title"
+             sortOrder="20"
+             action="ambase/marketplace"
+             parent="OnitsukaTiger_ImportExport::menu"
+             resource="OnitsukaTiger_ImportExport::korea"/>
+        <add id="OnitsukaTiger_ImportExport::singapore"
+             title="Singapore"
+             module="OnitsukaTiger_ImportExport"
+             translate="title"
+             sortOrder="30"
+             action="ambase/marketplace"
+             parent="OnitsukaTiger_ImportExport::menu"
+             resource="OnitsukaTiger_ImportExport::singapore"/>
+        <add id="OnitsukaTiger_ImportExport::malaysia"
+             title="Malaysia"
+             module="OnitsukaTiger_ImportExport"
+             translate="title"
+             sortOrder="40"
+             action="ambase/marketplace"
+             parent="OnitsukaTiger_ImportExport::menu"
+             resource="OnitsukaTiger_ImportExport::malaysia"/>
+        <add id="OnitsukaTiger_ImportExport::thailand"
+             title="Thailand"
+             module="OnitsukaTiger_ImportExport"
+             translate="title"
+             sortOrder="50"
+             action="ambase/marketplace"
+             parent="OnitsukaTiger_ImportExport::menu"
+             resource="OnitsukaTiger_ImportExport::thailand"/>
+        <add id="OnitsukaTiger_ImportExport::indonesia"
+             title="Indonesia"
+             module="OnitsukaTiger_ImportExport"
+             translate="title"
+             sortOrder="50"
+             action="ambase/marketplace"
+             parent="OnitsukaTiger_ImportExport::menu"
+             resource="OnitsukaTiger_ImportExport::indonesia"/>
+    </menu>
+</config>

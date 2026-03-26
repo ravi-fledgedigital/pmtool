@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_real_store_order_item" resource="default" engine="innodb" comment="CRM Shop Receipt Product Details">
+        <column xsi:type="int" name="item_id" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="sales_real_store_order_id" unsigned="true" nullable="false" comment="Sales Real Store Order Id"/>
+        <column xsi:type="varchar" name="purchase_id" nullable="false" length="64" comment="Purchase Id"/>
+        <!-- 24 orignal legnth -->
+        <column xsi:type="varchar" name="sku" nullable="false" length="255" comment="Product No"/>
+        <column xsi:type="varchar" name="jan_code" length="255" comment="JAN Code"/>
+        <column xsi:type="int" name="qty" nullable="false" comment="Quantity"/>
+        <column xsi:type="decimal" scale="2" precision="16" name="subtotal_amount" nullable="false" comment="Purchase Amount with Tax"/>
+        <column xsi:type="decimal" scale="2" precision="16" name="discount_amount" nullable="false" comment="Customer Discout Amount"/>
+        <column xsi:type="decimal" scale="2" precision="16" name="tax_amount" nullable="false" comment="Tax Amount"/>
+        <column xsi:type="varchar" name="product_name" length="255" comment="Product Name"/>
+        <column xsi:type="varchar" name="color" length="255" comment="Product Color"/>
+        <column xsi:type="varchar" name="size" length="255" comment="Product Size"/>
+        <column xsi:type="decimal" scale="2" precision="16" name="point_discount_amount" nullable="false" default="0" comment="POS Point Discount"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+
+        <column xsi:type="decimal" scale="2" precision="16" name="return_subtotal_amount" nullable="false" comment="Return Purchase Amount with Tax"/>
+        <column xsi:type="decimal" scale="2" precision="16" name="return_discount_amount" nullable="false" comment="Return Customer Discout Amount"/>
+        <column xsi:type="decimal" scale="2" precision="16" name="return_tax_amount" nullable="false" comment="Return Tax Amount"/>
+        <column xsi:type="decimal" scale="2" precision="16" name="return_point_discount_amount" nullable="false" default="0" comment="Return POS Point Discount"/>
+        <column xsi:type="tinyint" name="return_flg" nullable="false" default="0" comment="Return Purchase Flag"/>
+        <column xsi:type="tinyint" name="transaction_type" nullable="true" default="1" comment="Transaction Type"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="item_id"/>
+        </constraint>
+
+        <index referenceId="SALES_REAL_STORE_ORDER_ITEM_FULLTEXT_FIELDS" indexType="fulltext">
+            <column name="purchase_id"/>
+            <column name="sku"/>
+            <column name="product_name"/>
+            <column name="color"/>
+            <column name="size"/>
+        </index>
+
+        <constraint xsi:type="unique" referenceId="SALES_REAL_STORE_ORDER_ITEM_UNQ_FIELDS">
+            <column name="sales_real_store_order_id"/>
+            <column name="purchase_id"/>
+            <column name="sku"/>
+        </constraint>
+
+        <constraint xsi:type="foreign" referenceId="SALES_REAL_STORE_ORDER_ITEM_FK_SALES_REAL_STORE_ORDER" table="sales_real_store_order_item" column="sales_real_store_order_id" referenceTable="sales_real_store_order" referenceColumn="entity_id" onDelete="CASCADE"/>
+    </table>
+
+    <table name="cpss_completed_orders" resource="default" engine="innodb" comment="CPSS Completed Orders">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="varchar" name="increment_id" nullable="false" length="64" comment="increment_id"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+</schema>

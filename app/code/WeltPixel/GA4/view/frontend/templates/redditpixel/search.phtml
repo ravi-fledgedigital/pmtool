@@ -1,0 +1,41 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \WeltPixel\GA4\Block\RedditPixel\Common */
+
+/** @var \WeltPixel\GA4\Helper\RedditPixelTracking $redditPixelHelper */
+$redditPixelHelper = $this->helper('WeltPixel\GA4\Helper\RedditPixelTracking');
+$cspNonceProvider = $redditPixelHelper->getCspNonceProvider();
+?>
+<script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    let redditSearchEventId = <?= /* @noEscape */ $redditPixelHelper->getJsEventIdGenerator() ?>;
+</script>
+<?php if ($block->isRedditPixelTrackingEnabled() && $block->shouldRedditPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\RedditPixel\TrackingEvents::EVENT_SEARCH)) : ?>
+<script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    if (window.ga4AllowServices) {
+        rdt('track', 'Search' , {
+            conversionId: redditSearchEventId
+        });
+    }
+</script>
+<?php endif; ?>
+
+
+<?php if ($redditPixelHelper->isServerSideTrackingEnabled() && $redditPixelHelper->shouldRedditServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\RedditPixel\TrackingEvents::EVENT_SEARCH)) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($redditPixelHelper->getRedditSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'eventId': redditSearchEventId,
+                            'eventName': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\RedditPixel\TrackingEvents::EVENT_SEARCH  ?>',
+                            'pageUrl': '<?= $block->escapeUrl($redditPixelHelper->getStoreCurrenUrl()) ?>'
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>

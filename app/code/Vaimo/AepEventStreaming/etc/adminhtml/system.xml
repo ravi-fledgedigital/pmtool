@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="aep_event_streaming" translate="label" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+            <class>separator-top</class>
+            <label>Event streaming</label>
+            <tab>aep</tab>
+            <resource>Vaimo_AepEventStreaming::config</resource>
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General Configuration</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable event streaming</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="tenant_id" translate="label" sortOrder="15" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Tenant ID</label>
+                </field>
+                <field id="client_id" translate="label" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Client ID</label>
+                </field>
+                <field id="client_secret" translate="label" type="obscure" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Client Secret</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+                <field id="debug_mode" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Debug mode</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>When enabled AEP will provide more information in the responses. When enabled maximum number of request that can be sent is 60 per min</comment>
+                </field>
+                <field id="debug_mode_param" translate="label" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Endpoint param for debugging</label>
+                    <depends>
+                        <field id="debug_mode">1</field>
+                    </depends>
+                </field>
+                <field id="exclude_store_aep_streaming" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Disable AEP Streaming For Store</label>
+                    <comment>Add store code comma seperated if you exclude Order and RMA for multiple store. Ex. web_kr_ko,web_id_en</comment>
+                </field>
+                <field id="exclude_website_aep_streaming" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Disable AEP Streaming For Website</label>
+                    <comment>Add website id comma seperated if you exclude customers for multiple website. Ex. 1,2</comment>
+                </field>
+                <!-- <field id="grant_type" translate="label" sortOrder="80" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Grant Type</label>
+                </field>
+                <field id="scope" translate="label" type="textarea" sortOrder="90" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Scope</label>
+                </field> -->
+            </group>
+            <group id="auth_token" translate="label" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Auth token / JWT data</label>
+                <field id="endpoint" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Endpoint</label>
+                </field>
+                <field id="organisation_id" translate="label" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Organisation ID</label>
+                    <comment>Used to build JWT field: iss</comment>
+                </field>
+                <field id="technical_account_id" translate="label" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Technical account ID</label>
+                    <comment>Used to build JWT field: sub</comment>
+                </field>
+                <field id="token_audience" translate="label" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Token Audience</label>
+                    <comment>Used to build JWT field: aud</comment>
+                </field>
+                <field id="api_key" translate="label" type="obscure"  sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>API Key</label>
+                    <comment>Used to build JWT field: aud</comment>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+                <field id="metascope" translate="label" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Metascope</label>
+                </field>
+                <field id="jwt_expiration" translate="label" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>JWT expiration time</label>
+                    <comment>Number of seconds</comment>
+                    <frontend_class>validate-digits</frontend_class>
+                </field>
+            </group>
+            <group id="customer_sync" translate="label" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Customer sync</label>
+                <field id="endpoint" translate="label" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Endpoint url</label>
+                </field>
+                <field id="schema_id" translate="label" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Schema Id</label>
+                </field>
+                <field id="dataset_id" translate="label" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Dataset Id</label>
+                </field>
+                <field id="flow_id" translate="label" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Flow Id</label>
+                </field>
+            </group>
+            <group id="order_sync" translate="label" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Order sync</label>
+                <field id="endpoint" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Endpoint url</label>
+                </field>
+                <field id="schema_id" translate="label" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Schema Id</label>
+                </field>
+                <field id="dataset_id" translate="label" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Dataset Id</label>
+                </field>
+                <field id="flow_id" translate="label" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Flow Id</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

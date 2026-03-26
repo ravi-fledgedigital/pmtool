@@ -1,0 +1,9 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\Reporting">
+        <plugin name="sales_grid_collection" type="OnitsukaTiger\PreOrders\Model\Plugin\Sales\Order\Grid"/>
+    </type>
+    <type name="Magento\InventoryShippingAdminUi\Controller\Adminhtml\SourceSelection\Index">
+        <plugin name="inventory_source_selection_plugin_custom" type="OnitsukaTiger\PreOrders\Plugin\InventoryShippingAdminUi\Controller\Adminhtml\SourceSelection\DisallowShipmentPreorderPlugin"/>
+    </type>
+</config>

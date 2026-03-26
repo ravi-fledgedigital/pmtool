@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="onitsuka_tiger_korea" translate="label" sortOrder="1000">
+            <label>OnitsukaTiger Korea</label>
+        </tab>
+        <section id="search_custom" translate="label" sortOrder="10"
+                 showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Custom Search</label>
+            <tab>onitsuka_tiger_korea</tab>
+            <resource>Magento_Config::config</resource>
+
+            <group id="general" translate="label" type="text" sortOrder="10"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="enabled" translate="label" type="select" sortOrder="5"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Custom Search</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="product_skus" translate="label" type="textarea" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>SKUs to Display</label>
+                    <comment>Enter comma-separated SKUs (e.g., SKU1,SKU2)</comment>
+                </field>
+
+            </group>
+        </section>
+    </system>
+</config>

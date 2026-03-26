@@ -1,0 +1,154 @@
+<?php
+/**
+ * Copyright © 2020 Worldpay, LLC. All rights reserved.
+ * See LICENSE.txt for license details.
+ */
+
+
+
+?>
+<?php $subscriptions = $block->getSubscriptions(); ?>
+<?php if ($subscriptions && count($subscriptions)): ?>
+    <div class="table-wrapper subscriptions-list">
+        <table class="data table table-subscriptions-items" id="my-subscriptions-table">
+            <caption class="table-caption"><?= /* @noEscape */  $escaper->escapeHtml(__('Subscriptions')) ?></caption>
+            <thead>
+            <tr>
+                <th scope="col" class="col original-order-id">
+                    <?= /* @noEscape */  $escaper->escapeHtml($block->getMyAccountLabels('AC13')) ?>
+                </th>
+                <th scope="col" class="col original-order-date">
+                    <?= /* @noEscape */  $escaper->escapeHtml($block->getMyAccountLabels('AC14')) ?>
+                </th>
+                <th scope="col" class="col product">
+                    <?= /* @noEscape */  $escaper->escapeHtml($block->getMyAccountLabels('AC15')) ?>
+                </th>
+                <th scope="col" class="col interval-amount">
+                    <?= /* @noEscape */  $escaper->escapeHtml($block->getMyAccountLabels('AC16')) ?>
+                </th>
+                <th scope="col" class="col interval">
+                    <?= /* @noEscape */  $escaper->escapeHtml($block->getMyAccountLabels('AC17'))?>
+                </th>
+                <th scope="col" class="col start-date">
+                    <?= /* @noEscape */  $escaper->escapeHtml($block->getMyAccountLabels('AC18')) ?>
+                </th>
+                <?php if ($block->isEndDateEnabled()): ?>
+                <th scope="col" class="col start-date">
+                    <?= /* @noEscape */  $escaper->escapeHtml($block->getMyAccountLabels('AC19')) ?>
+                </th>
+                <?php endif; ?>
+                <th scope="col" class="col status">
+                <?= /* @noEscape */ $escaper->escapeHtml($block->getMyAccountLabels('AC20')) ?>
+                </th>
+                <th scope="col" class="col actions">
+                    <?= /* @noEscape */  $escaper->escapeHtml($block->getMyAccountLabels('AC21')) ?>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($subscriptions as $subscription): ?>
+                <tr>
+                    <td data-th="<?= /* @noEscape */  $escaper->escapeHtml(__('Original Order #')) ?>"
+                        class="col original-order-id"><?= /* @noEscape */ $block->getOrderIdLabel($subscription) ?></td>
+                    <td data-th="<?= /* @noEscape */  $escaper->escapeHtml(__('Original Order Date')) ?>"
+                        class="col original-order-date">
+                <?=/* @noEscape */$block->formatDate($subscription->getCreatedAt())?>
+                    </td>
+                    <td data-th="<?= /* @noEscape */  $escaper->escapeHtml(__('Product')) ?>"
+                        class="col product"><?= /* @noEscape */ $escaper->escapeHtml($subscription->getProductName()) ?>
+                    </td>
+                    <td data-th="<?= /* @noEscape */  $escaper->escapeHtml(__('Amount')) ?>"
+                        class="col interval-amount"><?= /* @noEscape */ $subscription->getFormattedIntervalAmount() ?>
+                    </td>
+                    <td data-th="<?= /* @noEscape */ $escaper->escapeHtml(__('Interval')) ?>" class="col interval">
+                        <?= /* @noEscape */ $escaper->escapeHtml($block->getSubscriptionIntervalLabel($subscription)) ?>
+                    </td>
+                    <td data-th="<?= /* @noEscape */ $escaper->escapeHtml(__('Start Date')) ?>" class="col start-date">
+                        <?= /* @noEscape */ $block->formatDate(
+                            $subscription->getStartDate(),
+                            \IntlDateFormatter::SHORT,
+                            false,
+                            date_default_timezone_get()
+                        ) ?>
+                    </td>
+                    <?php if ($block->isEndDateEnabled()): ?>
+                    <td data-th="<?= /* @noEscape */  $escaper->escapeHtml(__('End Date')) ?>" class="col end-date">
+                        <?= /* @noEscape */  $block->formatDate(
+                            $subscription->getEndDate()?$subscription->getEndDate():$subscription->getStartDate(),
+                            \IntlDateFormatter::SHORT,
+                            false,
+                            date_default_timezone_get()
+                        ) ?>
+                    </td>
+                    <?php endif; ?>
+                    <td data-th="<?= /* @noEscape */ $escaper->escapeHtml(__('Status')) ?>"
+                        class="col status">
+                            <?= /* @noEscape */ $escaper->escapeHtml($subscription->getStatusLabel()) ?>    
+                    </td>
+                    <td data-th="<?= /* @noEscape */  $escaper->escapeHtml(__('Actions')) ?>" class="col actions">
+                        <?php if ($subscription->getStatus() == 'active'): ?>
+                            <a href="<?= /* @noEscape */  $block->getEditUrl($subscription); ?>"
+                               class="action edit"><span><?= /* @noEscape */  $block->getMyAccountLabels('AC22') ?>
+                                </span></a>
+                            <a href="javascript:void(0)" 
+                               data-cancel-url="<?= /* @noEscape */  $block->getCancelUrl($subscription); ?>"
+                               class="action delete"><span><?= /* @noEscape */  $block->getMyAccountLabels('AC23') ?>
+                                </span></a>
+                        <?php endif; ?>
+                        <?php
+                            $subscriptionId = $subscription->getSubscriptionId();
+                            $nextOrder = $block->getNextRecurringOrder($subscriptionId);
+                        if (!empty($nextOrder)) { ?>
+                                <div class="upcoming-delivery">
+                                    <?= /* @noEscape */ __('Upcoming Delivery') ?>
+                                    <?= /* @noEscape */  $nextOrder->getRecurringDate() ?>
+                                </div>
+                        <?php } ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+        <script>
+            require([
+                'jquery',
+                'Magento_Ui/js/modal/confirm'
+            ], function($, confirm) {
+
+                $('.action.delete').on("click", function(event) {
+                    confirm({
+                        title: 'Cancel Subscription',
+                        content: getMyAccountExceptions('MCAM12'),
+                        actions: {
+                            confirm: function() {
+                                window.location.href = $(event.currentTarget).data('cancel-url');
+                            }
+                        }
+                    });
+                });
+            });
+            function getMyAccountExceptions (exceptioncode){
+                var data=window.MyAccountExceptions;
+                var gendata=JSON.parse(data);
+                for (var key in gendata) {
+                    if (gendata.hasOwnProperty(key)) {  
+                        var cxData=gendata[key];
+                    if(cxData['exception_code'].includes(exceptioncode)){
+                        return cxData['exception_module_messages']?cxData['exception_module_messages']
+                        :cxData['exception_messages'];
+                    }
+                    }
+                }
+            }
+        </script>
+    </div>
+    <?php if ($paginationHtml = $block->getPaginationHtml()): ?>
+        <div class="susbcriptions-toolbar toolbar bottom">
+        <?= /* @noEscape */  $paginationHtml; ?></div>
+    <?php endif ?>
+<?php else: ?>
+    <div class="message info empty">
+        <span><?php
+        $msg = $block->getMyAccountSpecificException('MCAM13');
+        echo $escaper->escapeHtml(__($msg)); ?></span></div>
+<?php endif ?>

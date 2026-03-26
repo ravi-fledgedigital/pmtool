@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+ /**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="aep_event_streaming" translate="label" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Event streaming</label>
+            <tab>aep</tab>
+            <resource>Vaimo_AepEventStreaming::config</resource>
+            <group id="rma_sync" translate="label" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Rma sync</label>
+                <field id="endpoint" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Endpoint url</label>
+                </field>
+                <field id="schema_id" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Schema Id</label>
+                </field>
+                <field id="dataset_id" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Dataset Id</label>
+                </field>
+                <field id="flow_id" translate="label" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Flow Id</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

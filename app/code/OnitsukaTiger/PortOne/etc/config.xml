@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2025 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <portone>
+                <active>0</active>
+                <title>신용카드 및 간편결제</title>
+                <model>OnitsukaTiger\PortOne\Model\Payment</model>
+                <order_status>pending_payment</order_status>
+                <pay_method>CARD</pay_method>
+            </portone>
+            <portonetransfer>
+                <active>0</active>
+                <title>토스 계좌이체</title>
+                <model>OnitsukaTiger\PortOne\Model\TransferPayment</model>
+                <order_status>pending_payment</order_status>
+                <pay_method>TRANSFER</pay_method>
+            </portonetransfer>
+            <portone_tosspay>
+                <active>0</active>
+                <title>Toss Pay Payment</title>
+                <model>OnitsukaTiger\PortOne\Model\TossPayPayment</model>
+                <order_status>pending_payment</order_status>
+                <pay_method>TOSSPAY</pay_method>
+            </portone_tosspay>
+            <portone_npay>
+                <active>0</active>
+                <title>Npay instance</title>
+                <model>OnitsukaTiger\PortOne\Model\NPayPayment</model>
+                <order_status>pending_payment</order_status>
+                <pay_method>NAVERPAY</pay_method>
+            </portone_npay>
+            <portone_kakaopay>
+                <active>0</active>
+                <title>kakaopay app</title>
+                <model>OnitsukaTiger\PortOne\Model\KakaoPayPayment</model>
+                <order_status>pending_payment</order_status>
+                <pay_method>KAKAOPAY</pay_method>
+            </portone_kakaopay>
+            <portonepaycopay>
+                <active>0</active>
+                <title>PAYCO</title>
+                <model>OnitsukaTiger\PortOne\Model\PaycoPayPayment</model>
+                <order_status>pending_payment</order_status>
+                <pay_method>EASY_PAY</pay_method>
+                <easy_pay_provider>PAYCO</easy_pay_provider>
+            </portonepaycopay>
+            <portonesamsungpay>
+                <active>0</active>
+                <title>Samsung Pay</title>
+                <model>OnitsukaTiger\PortOne\Model\SamsungPayPayment</model>
+                <order_status>pending_payment</order_status>
+                <pay_method>EASY_PAY</pay_method>
+                <easy_pay_provider>SAMSUNGPAY</easy_pay_provider>
+            </portonesamsungpay>
+            <portoneapplepay>
+                <active>0</active>
+                <title>Apple Pay</title>
+                <model>OnitsukaTiger\PortOne\Model\ApplePayPayment</model>
+                <order_status>pending_payment</order_status>
+                <pay_method>EASY_PAY</pay_method>
+                <easy_pay_provider>APPLEPAY</easy_pay_provider>
+            </portoneapplepay>
+        </payment>
+    </default>
+</config>

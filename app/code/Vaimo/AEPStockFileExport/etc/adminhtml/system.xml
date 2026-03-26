@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="aep_stock_file_export" translate="label" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Stock File Export</label>
+            <tab>aep</tab>
+            <resource>Vaimo_AEPStockFileExport::config</resource>
+            <group id="adobe_campaign" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Adobe Experience Platform</label>
+                <field id="folder_path" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Folder path</label>
+                </field>
+                <field id="filename" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Filename</label>
+                </field>
+                <field id="scheduler_enabled" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Run export by scheduler</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="cron_scheduler" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Sync Schedule</label>
+                    <depends>
+                        <field id="scheduler_enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

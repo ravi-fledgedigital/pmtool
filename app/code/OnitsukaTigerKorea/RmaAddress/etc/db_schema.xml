@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="rma_request_address" resource="default" engine="innodb" comment="Rma Request Address Table">
+        <column xsi:type="int" name="id" padding="6" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <column xsi:type="int" name="rma_request_id" nullable="false" comment="Request ID" identity="false"/>
+        <column xsi:type="int" name="region_id" padding="11" unsigned="false" nullable="true" identity="false"
+                comment="Region ID"/>
+        <column xsi:type="varchar" name="fax" nullable="true" length="255" comment="Fax"/>
+        <column xsi:type="varchar" name="region" nullable="true" length="255" comment="Region"/>
+        <column xsi:type="varchar" name="postcode" nullable="true" length="255" comment="Postcode"/>
+        <column xsi:type="varchar" name="street" nullable="true" length="255" comment="Street"/>
+        <column xsi:type="varchar" name="city" nullable="true" length="255" comment="City"/>
+        <column xsi:type="varchar" name="email" nullable="true" length="255" comment="Email"/>
+        <column xsi:type="varchar" name="telephone" nullable="true" length="255" comment="Phone Number"/>
+        <column xsi:type="varchar" name="country_id" nullable="true" length="2" comment="Country ID"/>
+        <column xsi:type="varchar" name="firstname" nullable="true" length="255" comment="Firstname"/>
+        <column xsi:type="varchar" name="address_type" nullable="true" length="255" comment="Address Type"/>
+        <column xsi:type="varchar" name="prefix" nullable="true" length="255" comment="Prefix"/>
+        <column xsi:type="varchar" name="middlename" nullable="true" length="255" comment="Middlename"/>
+        <column xsi:type="varchar" name="suffix" nullable="true" length="255" comment="Suffix"/>
+        <column xsi:type="varchar" name="company" nullable="true" length="255" comment="Company"/>
+    </table>
+</schema>

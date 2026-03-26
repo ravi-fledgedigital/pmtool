@@ -1,0 +1,59 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="payment_method_assign_data_omise_cc">
+        <observer name="omise_data_assign" instance="Omise\Payment\Observer\CreditCardDataObserver" />
+    </event>
+
+    <event name="payment_method_assign_data_omise_cc_googlepay">
+        <observer name="omise_data_assign_googlepay" instance="Omise\Payment\Observer\CreditCardDataObserver" />
+    </event>
+
+    <event name="payment_method_assign_data_omise_offsite_internetbanking">
+        <observer name="omise_data_assign" instance="Omise\Payment\Observer\InternetbankingDataAssignObserver" />
+    </event>
+
+    <event name="payment_method_assign_data_omise_offsite_installment">
+        <observer name="omise_data_assign_installment" instance="Omise\Payment\Observer\InstallmentDataAssignObserver" />
+    </event>
+
+    <event name="payment_method_assign_data_omise_offsite_mobilebanking">
+        <observer name="omise_data_assign_mobilebanking" instance="Omise\Payment\Observer\MobilebankingDataAssignObserver" />
+    </event>
+
+    <event name="payment_method_assign_data_omise_offsite_truemoney">
+        <observer name="omise_data_assign_truemoney" instance="Omise\Payment\Observer\TruemoneyDataAssignObserver" />
+    </event>
+
+    <event name="payment_method_assign_data_omise_offsite_fpx">
+        <observer name="omise_data_assign_fpx" instance="Omise\Payment\Observer\FpxDataAssignObserver" />
+    </event>
+
+    <event name="payment_method_assign_data_omise_offsite_duitnowobw">
+        <observer name="omise_data_assign_dutinowobw" instance="Omise\Payment\Observer\DuitnowOBWDataAssignObserver" />
+    </event>
+
+    <event name="payment_method_assign_data_omise_offline_conveniencestore">
+        <observer name="omise_data_assign_conveniencestore" instance="Omise\Payment\Observer\ConveniencestoreDataAssignObserver" />
+    </event>
+
+    <event name="payment_method_assign_data_omise_offsite_atome">
+        <observer name="omise_data_assign_atome" instance="Omise\Payment\Observer\AtomeDataAssignObserver" />
+    </event>
+
+    <event name="sales_order_place_after">
+        <observer name="omise_end_order" instance="Omise\Payment\Observer\PaymentCreationObserver" />
+    </event>
+
+    <!-- Webhook -->
+    <event name="omise_payment_webhook_charge_complete">
+        <observer name="omise_payment_webhook_charge_complete_observer" instance="Omise\Payment\Observer\WebhookObserver\WebhookCompleteObserver" />
+    </event>
+
+    <event name="omise_payment_webhook_refund_create">
+        <observer name="omise_payment_webhook_refund_create_observer" instance="Omise\Payment\Observer\WebhookObserver\WebhookRefundObserver" />
+    </event>
+
+    <!-- Webhook -->
+    <event name="omise_payment_webhook_charge_capture">
+        <observer name="omise_payment_webhook_charge_capture_observer" instance="Omise\Payment\Observer\WebhookObserver\WebhookCompleteObserver" />
+    </event>
+</config>

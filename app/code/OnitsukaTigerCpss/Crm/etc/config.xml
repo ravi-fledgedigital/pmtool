@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <crm>
+            <general>
+                <show_store_purchase>1</show_store_purchase>
+            </general>
+            <cpss_point>
+                <minimum_point>0</minimum_point>
+                <per_x_point>100</per_x_point>
+                <per_x_rate>1</per_x_rate>
+                <point_multiple_by>100</point_multiple_by>
+                <point_earned_multiple_by>100</point_earned_multiple_by>
+            </cpss_point>
+            <cpss_minimum_order_amount>
+                <world_pay>0</world_pay>
+                <razer>2</razer>
+                <omise>20</omise>
+                <adyen_kakao_pay>10</adyen_kakao_pay>
+            </cpss_minimum_order_amount>
+        </crm>
+        <sftp>
+            <cpss_email_config>
+                <enable>1</enable>
+                <pos_sftp_email_template>sftp_cpss_email_config_pos_sftp_email_template</pos_sftp_email_template>
+                <cpss_sftp_email_template>sftp_cpss_email_config_cpss_sftp_email_template</cpss_sftp_email_template>
+            </cpss_email_config>
+        </sftp>
+    </default>
+</config>

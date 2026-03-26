@@ -1,0 +1,248 @@
+<style>
+.page-header {
+    padding-bottom: 9px;
+    margin: 0px 15px 20px 15px !important;
+   : 1px solid #eee;
+}
+.footer-legal { 
+    width: 100%;
+}
+</style>
+   
+
+<?php
+    $objectManager =   \Magento\Framework\App\ObjectManager::getInstance();
+    $connection = $objectManager->get('Magento\Framework\App\ResourceConnection')->getConnection('\Magento\Framework\App\ResourceConnection::DEFAULT_CONNECTION');
+	$track_id = $this->getIddata();
+
+
+    $res_shipping_track1 = $connection->fetchAll("select * from kerry_shipping_track where track_id=".$track_id);
+
+	foreach($res_shipping_track1 as $res => $data){
+		$data_track_id=$data['track_id'];
+		$data_con_no=$data['con_no'];		
+		$data_unique_id=$data['unique_id'];
+		$data_s_name=$data['s_name'];
+		$data_s_address=$data['s_address'];
+		$data_s_village=$data['s_village'];
+		$data_s_soi=$data['s_soi'];
+		$data_s_road=$data['s_road'];
+		$data_s_subdistrict=$data['s_subdistrict'];
+		$data_s_district=$data['s_district'];
+		$data_s_province=$data['s_province'];
+		$data_s_zipcode=$data['s_zipcode'];
+		$data_s_mobile1=$data['s_mobile1'];
+		$data_s_mobile2=$data['s_mobile2'];
+		$data_s_telephone=$data['s_telephone'];
+		$data_s_email=$data['s_email'];
+		$data_s_contact=$data['s_contact'];
+		$data_r_name=$data['r_name'];
+		$data_r_address=$data['r_address'];
+		$data_r_village=$data['r_village'];
+		$data_r_soi=$data['r_soi'];
+		$data_r_road=$data['r_road'];
+		$data_r_subdistrict=$data['r_subdistrict'];
+		$data_r_district=$data['r_district'];
+		$data_r_province=$data['r_province'];
+		$data_r_zipcode=$data['r_zipcode'];
+		$data_r_mobile1=$data['r_mobile1'];
+		$data_r_mobile2=$data['r_mobile2'];
+		$data_r_telephone=$data['r_telephone'];
+		$data_r_email=$data['r_email'];
+		$data_r_contact=$data['r_contact'];
+		$data_special_note=$data['special_note'];
+		$data_service_code=$data['service_code'];
+		$data_cod_amount=$data['cod_amount'];
+		$data_cod_type=$data['cod_type'];
+		$data_tot_pkg=$data['tot_pkg'];
+		$data_declare_value=$data['declare_value'];
+		$data_ref_no=$data['ref_no'];
+		$data_action_code=$data['action_code'];
+		$data_time_create=$data['time_create'];
+		$data_last_update=$data['last_update'];
+
+	}
+
+	$res_shipping_track_history = $connection->fetchAll("select * from kerry_shipping_track_history where con_no='".$data_con_no."'");
+
+
+
+/*
+echo "<pre>";	
+print_r($res_shipping_track1[0]);
+echo "</pre>";
+*/
+?>
+<div class="page-main-actions">
+
+<button class="primary pb-3 pl-4 pr-4 pt-3" onClick="window.history.back(-1);"><i class="fas fa-chevron-left"></i> Back</button>
+<button class="primary float-right pb-3 pl-5 pr-5 pt-3"><i class="fas fa-sync"></i> Refresh</button>
+<button class="primary float-right pb-3 pl-5 pr-5 pt-3 mr-2"><i class="fas fa-print"></i> Print</button>
+
+</div>
+
+<h1 class="page-title pb-4"><i class="fas fa-shipping-fast"></i> Tracking Status</h1>
+<div class="container-fluid pb-5 border-bottom mb-5">
+<div class="row bg-secondary pt-3 pb-3 text-white a-center">
+<div class="col-md-2 font-weight-bold">Consiment No.</div>
+<div class="col-md-1 font-weight-bold">Status</div>
+<div class="col-md-3 font-weight-bold">Description</div>
+<div class="col-md-2 font-weight-bold">Service Code</div>
+<div class="col-md-2 font-weight-bold">Create Time</div>
+<div class="col-md-2 font-weight-bold">Last Update</div>
+</div>
+<div class="row  a-center">
+<?php
+$i=1;	
+foreach($res_shipping_track_history as $res_history => $data_history){
+	if($i%2){$class_bg="bg-light";}else{$class_bg="";}
+	
+	
+	echo '<div class="col-md-2 pb-3 pt-3 '.$class_bg.'">'.$data_history['con_no'].'</div>';
+	echo '<div class="col-md-1 pb-3 pt-3 '.$class_bg.'">'.$data_history['status'].'</div>';
+	echo '<div class="col-md-3 pb-3 pt-3 '.$class_bg.' text-left">'.$data_history['description'].'</div>';
+	echo '<div class="col-md-2 pb-3 pt-3 '.$class_bg.'">'.$data_history['service_code'].'</div>';
+	echo '<div class="col-md-2 pb-3 pt-3 '.$class_bg.'">'.$data_history['create_time'].'</div>';
+	echo '<div class="col-md-2 pb-3 pt-3 '.$class_bg.'">'.$data_history['update_time'].'</div>';
+$i++;
+}
+?>
+</div>
+</div>
+
+
+<h1 class="page-title pb-4"><i class="fas fa-clipboard-list"></i> Tracking Information</h1>
+<div class="container-fluid">
+<div class="row">
+	<div class="col-md-6">
+		<div class="row mr-1 row">
+			<div class="col-md-5 bg-light pb-3 pt-3 font-weight-bold">Consiment No.</div>
+			<div class="col-md-7 bg-light pb-3 pt-3"><?=$data_con_no?></div>
+			
+			<div class="col-md-5 pb-3 pt-3 font-weight-bold">Sender Name</div>
+			<div class="col-md-7 pb-3 pt-3"><?=$data_s_name?></div>
+			
+			<div class="col-md-5 bg-light pb-3 pt-3 font-weight-bold">Sender Address</div>
+			<div class="col-md-7 bg-light pb-3 pt-3"><?=$data_s_address?></div>
+			
+			<div class="col-md-5 pb-3 pt-3 font-weight-bold">Sender Village</div>
+			<div class="col-md-7 pb-3 pt-3"><?=$data_s_village?></div>
+			
+			<div class="col-md-5 bg-light pb-3 pt-3 font-weight-bold">Sender Soi</div>
+			<div class="col-md-7 bg-light pb-3 pt-3"><?=$data_s_soi?></div>
+			
+			<div class="col-md-5 pb-3 pt-3 font-weight-bold">Sender Road</div>
+			<div class="col-md-7 pb-3 pt-3"><?=$data_s_road?></div>
+			
+			<div class="col-md-5 bg-light pb-3 pt-3 font-weight-bold">Sender Sub District</div>
+			<div class="col-md-7 bg-light pb-3 pt-3"><?=$data_s_subdistrict?></div>
+			
+			<div class="col-md-5 pb-3 pt-3 font-weight-bold">Sender District</div>
+			<div class="col-md-7 pb-3 pt-3"><?=$data_s_district?></div>
+			
+			<div class="col-md-5 bg-light pb-3 pt-3 font-weight-bold">Sender Province</div>
+			<div class="col-md-7 bg-light pb-3 pt-3"><?=$data_s_province?></div>
+			
+			<div class="col-md-5 pb-3 pt-3 font-weight-bold">Sender Zipcode</div>
+			<div class="col-md-7 pb-3 pt-3"><?=$data_s_zipcode?></div>
+			
+			<div class="col-md-5 bg-light pb-3 pt-3 font-weight-bold">Sender Mobile 1</div>
+			<div class="col-md-7 bg-light pb-3 pt-3"><?=$data_s_mobile1?></div>
+			
+			<div class="col-md-5 pb-3 pt-3 font-weight-bold">Sender Mobile 2</div>
+			<div class="col-md-7 pb-3 pt-3"><?=$data_s_mobile2?></div>
+			
+			<div class="col-md-5 bg-light pb-3 pt-3 font-weight-bold">Sender Telephone</div>
+			<div class="col-md-7 bg-light pb-3 pt-3"><?=$data_s_telephone?></div>
+			
+			<div class="col-md-5 pb-3 pt-3 font-weight-bold">Sender Email</div>
+			<div class="col-md-7 pb-3 pt-3"><?=$data_s_email?></div>
+			
+			<div class="col-md-5 bg-light pb-3 pt-3 font-weight-bold">Sender Contact Person</div>
+			<div class="col-md-7 bg-light pb-3 pt-3"><?=$data_s_contact?></div>
+			
+			<div class="col-md-5 pb-3 pt-3 font-weight-bold">Special Note</div>
+			<div class="col-md-7 pb-3 pt-3"><?=$data_special_note?></div>
+			
+			<div class="col-md-5 bg-light pb-3 pt-3 font-weight-bold">COD Amount</div>
+			<div class="col-md-7 bg-light pb-3 pt-3"><?=$data_cod_amount?></div>
+			
+			<div class="col-md-5 pb-3 pt-3 font-weight-bold">Total Package</div>
+			<div class="col-md-7 pb-3 pt-3"><?=$data_tot_pkg?></div>
+			
+			<div class="col-md-5 bg-light pb-3 pt-3 font-weight-bold">Reference No.</div>
+			<div class="col-md-7 bg-light pb-3 pt-3"><?=$data_ref_no?></div>
+			
+			<div class="col-md-5 pb-3 pt-3 font-weight-bold">Tracking Create</div>
+			<div class="col-md-7 pb-3 pt-3"><?=$data_time_create?></div>
+			
+		</div>
+	
+	
+	</div>
+	<div class="col-md-6">
+		<div class="row ml-1 row">
+			<div class="col-md-5 bg-light pb-3 pt-3 font-weight-bold">Order ID</div>
+			<div class="col-md-7 bg-light pb-3 pt-3"><?=$data_unique_id?></div>
+			
+			<div class="col-md-5 pb-3 pt-3 font-weight-bold">Recipient Name</div>
+			<div class="col-md-7 pb-3 pt-3"><?=$data_r_name?></div>
+			
+			<div class="col-md-5 bg-light pb-3 pt-3 font-weight-bold">Recipient Address</div>
+			<div class="col-md-7 bg-light pb-3 pt-3"><?=$data_r_address?></div>
+			
+			<div class="col-md-5 pb-3 pt-3 font-weight-bold">Recipient Village</div>
+			<div class="col-md-7 pb-3 pt-3"><?=$data_r_village?></div>
+			
+			<div class="col-md-5 bg-light pb-3 pt-3 font-weight-bold">Recipient Soi</div>
+			<div class="col-md-7 bg-light pb-3 pt-3"><?=$data_r_soi?></div>
+			
+			<div class="col-md-5 pb-3 pt-3 font-weight-bold">Recipient Road</div>
+			<div class="col-md-7 pb-3 pt-3"><?=$data_r_road?></div>
+			
+			<div class="col-md-5 bg-light pb-3 pt-3 font-weight-bold">Recipient Subdistrict</div>
+			<div class="col-md-7 bg-light pb-3 pt-3"><?=$data_r_subdistrict?></div>
+			
+			<div class="col-md-5 pb-3 pt-3 font-weight-bold">Recipient District</div>
+			<div class="col-md-7 pb-3 pt-3"><?=$data_r_district?></div>
+			
+			<div class="col-md-5 bg-light pb-3 pt-3 font-weight-bold">Recipient Province</div>
+			<div class="col-md-7 bg-light pb-3 pt-3"><?=$data_r_province?></div>
+			
+			<div class="col-md-5 pb-3 pt-3 font-weight-bold">Recipient Zipcode</div>
+			<div class="col-md-7 pb-3 pt-3"><?=$data_r_zipcode?></div>
+			
+			<div class="col-md-5 bg-light pb-3 pt-3 font-weight-bold">Recipient Mobile 1</div>
+			<div class="col-md-7 bg-light pb-3 pt-3"><?=$data_r_mobile1?></div>
+			
+			<div class="col-md-5 pb-3 pt-3 font-weight-bold">Recipient Mobile 2</div>
+			<div class="col-md-7 pb-3 pt-3"><?=$data_r_mobile2?></div>
+			
+			<div class="col-md-5 bg-light pb-3 pt-3 font-weight-bold">Recipient Telephone</div>
+			<div class="col-md-7 bg-light pb-3 pt-3"><?=$data_r_telephone?></div>
+			
+			<div class="col-md-5 pb-3 pt-3 font-weight-bold">Recipient Email</div>
+			<div class="col-md-7 pb-3 pt-3"><?=$data_r_email?></div>
+			
+			<div class="col-md-5 bg-light pb-3 pt-3 font-weight-bold">Recipient Contact Person</div>
+			<div class="col-md-7 bg-light pb-3 pt-3"><?=$data_r_contact?></div>
+			
+			<div class="col-md-5 pb-3 pt-3 font-weight-bold">Service Code</div>
+			<div class="col-md-7 pb-3 pt-3"><?=$data_service_code?></div>
+			
+			<div class="col-md-5 bg-light pb-3 pt-3 font-weight-bold">COD Type</div>
+			<div class="col-md-7 bg-light pb-3 pt-3"><?=$data_cod_type?></div>
+			
+			<div class="col-md-5 pb-3 pt-3 font-weight-bold">Declare Value</div>
+			<div class="col-md-7 pb-3 pt-3"><?=$data_declare_value?></div>
+			
+			<div class="col-md-5 bg-light pb-3 pt-3 font-weight-bold">Action Code</div>
+			<div class="col-md-7 bg-light pb-3 pt-3"><?=$data_action_code?></div>
+			
+			<div class="col-md-5 pb-3 pt-3 font-weight-bold">Last Update</div>
+			<div class="col-md-7 pb-3 pt-3"><?=$data_last_update?></div>
+		</div>
+	</div>
+</div>
+
+</div>

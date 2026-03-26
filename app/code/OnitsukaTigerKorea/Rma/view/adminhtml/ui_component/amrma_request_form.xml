@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="tracking_details">
+        <fieldset name="note">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="additionalClasses" xsi:type="string">amrma-note-container</item>
+                    <item name="template" xsi:type="string">Amasty_Rma/form/rma_fieldset</item>
+                </item>
+            </argument>
+            <field name="note">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="visible" xsi:type="boolean">true</item>
+                        <item name="label" xsi:type="string" translate="true">Internal RMA Note</item>
+                        <item name="labelVisible" xsi:type="boolean">true</item>
+                        <item name="additionalClasses" xsi:type="string">amrma-note-block</item>
+                        <item name="dataType" xsi:type="string">text</item>
+                        <item name="formElement" xsi:type="string">textarea</item>
+                        <item name="source" xsi:type="string">note</item>
+                        <item name="validation" xsi:type="array">
+                            <item name="max_text_length" xsi:type="number">255</item>
+                        </item>
+                    </item>
+                </argument>
+            </field>
+        </fieldset>
+    </fieldset>
+</form>

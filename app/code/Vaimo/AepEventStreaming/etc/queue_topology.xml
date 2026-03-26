@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/topology.xsd">
+    <exchange name="aep.customer.synchronise" type="topic" connection="amqp">
+        <binding id="aepCustomerSynchronise" topic="aep.customer.synchronise" destinationType="queue" destination="aep_customer_synchronise"/>
+    </exchange>
+    <exchange name="aep.order.synchronise" type="topic" connection="amqp">
+        <binding id="aepOrderSynchronise" topic="aep.order.synchronise" destinationType="queue" destination="aep_order_synchronise"/>
+    </exchange>
+</config>

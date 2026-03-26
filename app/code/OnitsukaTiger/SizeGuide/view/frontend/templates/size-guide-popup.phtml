@@ -1,0 +1,12 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+/** @var $block \OnitsukaTiger\SizeGuide\Block\SizeGuide */
+?>
+<?php if(!empty($block->getSizeGuideContent())) {?>
+    <div class="custom-popup-size-guide" style="display: none">
+        <?= $block->getSizeGuideContent() ?>
+    </div>
+<?php } ?>

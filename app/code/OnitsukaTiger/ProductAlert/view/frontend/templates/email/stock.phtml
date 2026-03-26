@@ -1,0 +1,58 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block \Magento\ProductAlert\Block\Email\Stock */
+$catalogHelper = $this->helper(\Magento\Catalog\Helper\Image::class);
+$scene7Helper = $this->helper(\Vaimo\OTScene7Integration\Helper\Data::class);
+$restockHelper = $this->helper(\OnitsukaTiger\Restock\Helper\Data::class);
+
+?>
+<?php if ($_products = $block->getProducts()) : ?>
+    <p><?= $block->escapeHtml(__('We would like to let you know that the item you are looking for is now available.')) ?></p>
+    <table>
+    <?php foreach ($_products as $_product) : ?>
+        <tr>
+            <td class="col photo" style="padding-right: 20px;">
+                <a title="<?= $block->escapeHtml($_product->getName()) ?>" class="product photo">
+                    <?php
+                        $productObj = $restockHelper->getProductById($_product->getId());
+                    ?>
+                    <?php
+                        $image_url = $scene7Helper->getOrderItemProductImage($productObj) ?? $catalogHelper->init($productObj, 'product_page_image_small')->setImageFile($productObj->getImage())->resize(80, 80)->getUrl();
+                    ?>
+                    <span>
+                        <span>
+                            <img src="<?= $image_url ?>" width="75" height="75" alt="<?= $block->escapeHtml($_product->getName()) ?>">
+                        </span>
+                    </span>
+                </a>
+            </td>
+            <td class="col item">
+                <p>
+                    <strong class="product name">
+                        <a><?= $block->escapeHtml($_product->getName()) ?></a>
+                    </strong>
+                </p>
+                <?php if ($shortDescription = $block->getFilteredContent($_product->getShortDescription())) : ?>
+                    <p><small><?= /* @noEscape */  $shortDescription ?></small></p>
+                <?php endif; ?>
+                <?=
+                $block->getProductPriceHtml(
+                    $_product,
+                    \Magento\Catalog\Pricing\Price\FinalPrice::PRICE_CODE,
+                    \Magento\Framework\Pricing\Render::ZONE_EMAIL,
+                    [
+                        'display_label' => __('Price:')
+                    ]
+                );
+                ?>
+                <p><small><a href="<?= $block->escapeUrl($block->getProductUnsubscribeUrl($_product->getId())) ?>"><?= $block->escapeHtml(__('Click here to stop alerts for this product.')) ?></a></small></p>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </table>
+    <p><a href="<?= $block->escapeUrl($block->getUnsubscribeUrl()) ?>"><?= $block->escapeHtml(__('Unsubscribe from all stock alerts')) ?></a></p>
+<?php endif; ?>

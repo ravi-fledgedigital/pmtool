@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Firebear\ImportExport\Model\Import\Product" type="OnitsukaTiger\ImportExport\Model\Import\Product" />
+    <preference for="Firebear\ImportExport\Model\Import\NewsletterSubscriber" type="OnitsukaTiger\ImportExport\Model\Import\NewsletterSubscriber" />
+    <preference for="Firebear\ImportExport\Model\Import\Customer" type="OnitsukaTiger\ImportExport\Model\Import\Customer" />
+    <type name="Firebear\ImportExport\Controller\Adminhtml\Export\Job\Save">
+        <plugin name="add_behavior_field_netsuite_attribute_map_system" type="OnitsukaTiger\ImportExport\Plugin\UpdateBehaviorDataPlugin" sortOrder="10" disabled="false"  />
+    </type>
+    <type name="Firebear\ImportExport\Model\OneDrive\OneDrive">
+        <plugin name="one_drive_auth_state" type="OnitsukaTiger\ImportExport\Plugin\Model\OneDrive\OneDrivePlugin" sortOrder="10" disabled="false"  />
+    </type>
+    <type name="Firebear\ImportExport\Model\Export\Product">
+        <plugin name="handle_max_character_using_xlsx" type="OnitsukaTiger\ImportExport\Plugin\Model\Export\ProductPlugin" sortOrder="10" disabled="false"  />
+    </type>
+</config>

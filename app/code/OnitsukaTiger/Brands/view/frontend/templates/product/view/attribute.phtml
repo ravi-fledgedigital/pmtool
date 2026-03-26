@@ -1,0 +1,32 @@
+<?php
+/**
+ * Product view template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\Description
+ */
+?>
+<?php
+$_product = $block->getProduct();
+
+if (!$_product instanceof \Magento\Catalog\Model\Product) {
+    return;
+}
+$brands = null;
+$helperConfigration = $this->helper(OnitsukaTiger\Fixture\Helper\Data::class);
+if ($helperConfigration->getConfig('catalog/them_customize/brands')) {
+    $brands = $_product->getBrands();
+    $attribute = $_product->getResource()->getAttribute('brands');
+    $optionsIds = null;
+    if ($brands) {
+        $optionsIds = explode(',', $brands)[0];
+    }
+}
+?>
+
+<?php if ($brands) :?>
+<div class="product attribute product-brands">
+    <strong class="product-item-brands">
+        <?= /* @noEscape */ $attribute->getSource()->getOptionText($optionsIds) ?>
+    </strong>
+</div>
+<?php endif; ?>

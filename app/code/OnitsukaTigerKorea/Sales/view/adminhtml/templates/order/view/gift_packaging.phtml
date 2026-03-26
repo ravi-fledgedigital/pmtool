@@ -1,0 +1,16 @@
+<?php /** @var $block \OnitsukaTigerKorea\Sales\Block\Adminhtml\Order\View\GiftPackaging */ ?>
+<?php if($block->isGiftPackagingEnabled()) {?>
+    <section class="admin__page-section order-view-custom-section">
+        <div class="admin__page-section-title">
+            <span class="title"><?= __('Gift Options') ?></span>
+        </div>
+        <div class="admin__page-section-content">
+            <table class="admin__table-secondary">
+                <tr>
+                    <th><?= __('Gift Type') ?></th>
+                    <td><?= $block->escapeHtml($block->getGiftPackaging() ? __('Yes') : __('No')) ?></td>
+                </tr>
+            </table>
+        </div>
+    </section>
+<?php } ?>

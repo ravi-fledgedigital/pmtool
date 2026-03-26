@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Improved Sorting for Magento 2
+*/-->
+
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="bestseller_products_list" class="OnitsukaTiger\Catalog\Block\Widget\BestsellersProductList" is_email_compatible="true"
+            placeholder_image="Magento_CatalogWidget::images/products_list.png" ttl="86400">
+        <label translate="true">Bestsellers Products List</label>
+        <description translate="true">List of BestSeller Products.</description>
+        <parameters>
+            <parameter name="title" xsi:type="text" visible="true" sort_order="10">
+                <label translate="true">Title</label>
+            </parameter>
+            <parameter name="products_count" xsi:type="text" visible="true" sort_order="50">
+                <label translate="true">Number of Products to Display</label>
+                <description translate="true">The number of products is set to 10 by default.</description>
+            </parameter>
+            <parameter name="template" xsi:type="select" required="true" visible="true" sort_order="60">
+                <label translate="true">Template</label>
+                <options>
+                    <option name="default" value="Magento_CatalogWidget::product/widget/content/grid.phtml" selected="true">
+                        <label translate="true">Products Grid Template</label>
+                    </option>
+                </options>
+            </parameter>
+            <parameter name="cache_lifetime" xsi:type="text" visible="true" sort_order="70">
+                <label translate="true">Cache Lifetime (Seconds)</label>
+                <description translate="true">86400 by default, if not set. To refresh instantly, clear the Blocks HTML Output cache.</description>
+            </parameter>
+            <parameter name="best_period" xsi:type="text" visible="true" sort_order="80">
+                <label translate="true">Bestsellers Period (days)</label>
+                <description translate="true">Leave empty for life-time statistics.</description>
+            </parameter>
+        </parameters>
+        <containers>
+            <container name="content">
+                <template name="grid" value="default" />
+            </container>
+            <container name="content.top">
+                <template name="grid" value="default" />
+            </container>
+            <container name="content.bottom">
+                <template name="grid" value="default" />
+            </container>
+        </containers>
+    </widget>
+</widgets>

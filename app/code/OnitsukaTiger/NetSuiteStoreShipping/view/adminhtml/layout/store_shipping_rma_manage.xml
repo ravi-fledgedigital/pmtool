@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="header.inner.left">
+            <block class="OnitsukaTiger\NetSuiteStoreShipping\Block\Adminhtml\SwitchButton" name="switch_button" template="OnitsukaTiger_NetSuiteStoreShipping::header/switch-button.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <uiComponent name="store_shipping_request_manage_listing"/>
+        </referenceContainer>
+    </body>
+</page>

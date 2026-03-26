@@ -1,0 +1,35 @@
+<?php
+    $element = $block->getElement();
+    $form = $element->getForm();
+    /** @var \Magento\Config\Block\System\Config\Form $parentForm */
+    $parentForm = $form->getParent();
+    $fontOptionsConfigVal = $parentForm->getConfigValue('barcode_section/barcode_group/fontoptions');
+?>
+
+<div>
+    <button type="button" class="fontoptions" value="bold">Bold</button>
+    <button type="button" class="fontoptions" value="italic">Italic</button>
+    <input type="hidden" 
+        id="barcode_section_barcode_group_fontoptions" 
+        name="<?= $block->getFieldName() ?>"
+        class="input-text admin__control-text"
+        value="<?= $fontOptionsConfigVal ?>">
+</div>
+
+<script type="text/javascript">
+    require(['jquery', 'jquery/ui'], function($) {
+        let curVal = "<?= $fontOptionsConfigVal ?>";
+
+        $('.fontoptions').click(function () {
+            $('#barcode_section_barcode_group_fontoptions').val($(this).val());
+            $('.fontoptions').removeClass('btn-active');
+            $(this).addClass('btn-active');
+        });
+
+        if (curVal === 'bold') {
+            $('.fontoptions').eq(0).addClass('btn-active');
+        } else {
+            $('.fontoptions').eq(1).addClass('btn-active');
+        }
+    });
+</script>

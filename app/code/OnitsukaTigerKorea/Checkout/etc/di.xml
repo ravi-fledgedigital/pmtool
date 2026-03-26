@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Checkout\Block\Checkout\LayoutProcessor">
+        <plugin name="OnitsukaTigerKorea_Checkout::hide_custom_field_checkout_form" type="OnitsukaTigerKorea\Checkout\Plugin\Block\Checkout\LayoutProcessor" sortOrder="100" disabled="false" />
+    </type>
+    <type name="OnitsukaTiger\Checkout\Block\Onepage\Success\Info">
+        <plugin name="OnitsukaTigerKorea_Checkout::settemplate_sales_orser_info" type="OnitsukaTigerKorea\Checkout\Plugin\Block\Checkout\Info" sortOrder="100" disabled="false" />
+    </type>
+    <preference for="Magento\CheckoutAgreements\Model\AgreementsConfigProvider" type="OnitsukaTigerKorea\Checkout\Model\AgreementsConfigProvider" />
+    <preference for="Magento\CheckoutAgreements\Model\Checkout\Plugin\Validation" type="OnitsukaTigerKorea\Checkout\Model\Checkout\Plugin\Validation" />
+    <type name="Magento\Checkout\Model\GuestPaymentInformationManagement">
+        <plugin name="save_gift_packaging_value" type="OnitsukaTigerKorea\Checkout\Plugin\Model\Checkout\GuestPaymentInformationManagement" sortOrder="10"/>
+    </type>
+    <type name="Magento\Checkout\Model\ShippingInformationManagement">
+        <plugin name="save-sms-consent" type="OnitsukaTigerKorea\Checkout\Model\Checkout\ShippingInformationManagement" sortOrder="10"/>
+    </type>
+    <type name="Magento\Checkout\Model\PaymentInformationManagement">
+        <plugin name="save_gift_value" type="OnitsukaTigerKorea\Checkout\Plugin\Model\Checkout\PaymentInformationManagement" sortOrder="20"/>
+    </type>
+</config>

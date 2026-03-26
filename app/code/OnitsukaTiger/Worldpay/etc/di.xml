@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Sapient\Worldpay\Model\XmlBuilder\RedirectOrder" type="OnitsukaTiger\Worldpay\Model\XmlBuilder\RedirectOrder" />
+    <preference for="Sapient\Worldpay\Model\Request\PaymentServiceRequest" type="OnitsukaTiger\Worldpay\Model\Request\PaymentServiceRequest" />
+    <preference for="Magento\Vault\Model\Method\Vault" type="OnitsukaTiger\Worldpay\Model\PaymentMethods\CcVault" />
+    <type name="Sapient\Worldpay\Model\PaymentMethods\AbstractMethod">
+        <plugin name="payment.abstract.method" type="OnitsukaTiger\Worldpay\Plugin\Model\PaymentMethods\AbstractMethod"  sortOrder="30"/>
+    </type>
+    <preference for="Sapient\Worldpay\Controller\Notification\Index" type="OnitsukaTiger\Worldpay\Controller\Notification\Index" />
+    <preference for="Sapient\Worldpay\Model\Order\Service" type="OnitsukaTiger\Worldpay\Model\Order\Service" />
+    <preference for="Sapient\Worldpay\Model\Payment\StateXml" type="OnitsukaTiger\Worldpay\Model\Payment\StateXml"/>
+    <preference for="Sapient\Worldpay\Model\Payment\Service" type="OnitsukaTiger\Worldpay\Model\Payment\Service"/>
+    <preference for="Sapient\Worldpay\Model\Payment\Update\Factory" type="OnitsukaTiger\Worldpay\Model\Payment\Update\Factory"/>
+    <preference for="Sapient\Worldpay\Model\Payment\Update\Refused" type="OnitsukaTiger\Worldpay\Model\Payment\Update\Refused"/>
+</config>

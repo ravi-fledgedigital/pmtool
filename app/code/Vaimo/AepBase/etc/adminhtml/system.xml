@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="aep" translate="label" sortOrder="100">
+            <label>Adobe Experience Platform</label>
+        </tab>
+        <section id="aep" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+            <class>separator-top</class>
+            <label>General config</label>
+            <tab>aep</tab>
+            <resource>Vaimo_AepBase::config</resource>
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>General Configuration</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable AEP integration</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="exclude_store_products" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Exclude Store Products For SFTP</label>
+                    <comment>Add store code comma seperated if you exclude products for multiple store. Ex. web_kr_ko,web_id_en</comment>
+                </field>
+                <field id="exclude_website_customer" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Exclude Customer Website For SFTP</label>
+                    <comment>Add website id comma seperated if you exclude customers for multiple website. Ex. 1,2</comment>
+                </field>
+                <field id="private_key" translate="label" type="Vaimo\AepBase\Block\Adminhtml\Config\Form\Field\PrivateKey" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Private key</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+                <field id="customer_id_prefix" translate="label" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Customer id prefix</label>
+                </field>
+            </group>
+            <group id="data_aggregation" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                <field id="enabled" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Enable customer data aggregation</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

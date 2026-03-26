@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="amrma">
+            <group id="general">
+                <field id="date_expriry" translate="label comment" type="text" sortOrder="41" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Expiry Return Date</label>
+                    <comment>The days return policy from the date of receiving your order</comment>
+                    <validate>validate-no-empty validate-number</validate>
+                </field>
+                <field id="status_expiry" translate="label comment" type="select" sortOrder="42" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Order Status Expiry From</label>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                    <comment>The order status of expiry date from ( default completed )</comment>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="is_show_button_sync" translate="label tooltip" type="select" sortOrder="45" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Save &amp; Sync Button</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip>Button Save &amp; Sync at  RMA detail.</tooltip>
+                </field>
+                <field id="is_show_admin_canceled_status" translate="label tooltip" type="select" sortOrder="47" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Button Canceled at Admin </label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip>Button Canceled  will be displayed to Admin at  RMA detail.</tooltip>
+                </field>
+                <field id="admin_canceled_status" translate="label" type="select" sortOrder="48" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Canceled Status by Admin</label>
+                    <depends>
+                        <field id="is_show_admin_canceled_status">1</field>
+                    </depends>
+                    <source_model>Amasty\Rma\Model\Status\OptionSource\Status</source_model>
+                    <comment>Set canceled status by admin</comment>
+                </field>
+                <field id="is_show_frontend_canceled_status" translate="label tooltip" type="select" sortOrder="49" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Button Canceled at Frontend</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip>Button Canceled  will be displayed to customer at  RMA detail.</tooltip>
+                </field>
+                <field id="frontend_canceled_status" translate="label" type="select" sortOrder="49" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Canceled Status by customer</label>
+                    <depends>
+                        <field id="is_show_frontend_canceled_status">1</field>
+                    </depends>
+                    <source_model>Amasty\Rma\Model\Status\OptionSource\Status</source_model>
+                    <comment>Set canceled status by customer</comment>
+                </field>
+                <field id="is_show_history_of_rma" translate="label tooltip" type="select" sortOrder="49" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display History of RMA</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip>Display history of RMA at customer detail in backend.</tooltip>
+                </field>
+                <field id="is_show_history_of_memo" translate="label tooltip" type="select" sortOrder="49" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display History of Memo</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip>Display history of Memo at customer detail in backend.</tooltip>
+                </field>
+            </group>
+            <group id="email_user" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>RMA Email Template</label>
+                <field id="template_approve" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Approve Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="template_rejected" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Reject Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="template_completed" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Completed Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="template_initial" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Initial Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="template_warehouse" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Warehouse Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+                <field id="template_customer" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Customer Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+            </group>
+        </section>
+        <section id="rma_to_creditmemo" translate="label" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>RMA to Credit Memo</label>
+            <tab>onitsukatiger</tab>
+            <resource>Magento_Sales::config_sales</resource>
+            <group id="general" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enabled" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

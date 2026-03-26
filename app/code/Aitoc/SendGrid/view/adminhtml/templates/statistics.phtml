@@ -1,0 +1,63 @@
+<?php
+/**
+ * @author Aitoc Team
+ * @copyright Copyright (c) 2022 Aitoc (https://www.aitoc.com)
+ * @package Aitoc_SendGrid
+ */
+?>
+<div class="sendgrid_stats_fields">
+    <div class="sendgrid_float_left">
+        <label>Start date:</label>
+        <input name="start" type="text" id="sendgrid-start-date" />
+        <label>End date:</label>
+        <input name="end" type="text" id="sendgrid-end-date" />
+        <label>Single Sends:</label>
+        <select class="sendgrid_select" id="sendgrid-singlesends" name="singlesends">
+            <option value="all">All Statistics</option>
+            <?php $singleSends = $block->getSingleSends(); ?>
+            <?php if (is_array($singleSends) && count($singleSends) > 0): ?>
+                <?php foreach ($singleSends as $id => $name): ?>
+                    <option value="<?= $id ?>"><?= $name ?></option>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </select>
+    </div>
+    <div class="sendgrid-stats-load-div">
+        <div class="sk-fading-circle" id="sendgrid_stats_load">
+            <div class="sk-circle1 sk-circle"></div>
+            <div class="sk-circle2 sk-circle"></div>
+            <div class="sk-circle3 sk-circle"></div>
+            <div class="sk-circle4 sk-circle"></div>
+            <div class="sk-circle5 sk-circle"></div>
+            <div class="sk-circle6 sk-circle"></div>
+            <div class="sk-circle7 sk-circle"></div>
+            <div class="sk-circle8 sk-circle"></div>
+            <div class="sk-circle9 sk-circle"></div>
+            <div class="sk-circle10 sk-circle"></div>
+            <div class="sk-circle11 sk-circle"></div>
+            <div class="sk-circle12 sk-circle"></div>
+        </div>
+        &nbsp;
+    </div>
+    <div class="sendgrid_float_left">
+        <input type="button" value="Apply" id="sendgrid-stats-apply" class="sendgrid_button" />
+    </div>
+</div>
+
+<div class="sendgrid_error_div">
+    <h4 id="sendgrid_error">No data to display. Please check Aitoc_SendGrid Extension Settings and try again.</h4> &nbsp;
+</div>
+
+<div style="width:90%;">
+    <canvas id="sg_stats_canvas"></canvas>
+</div>
+
+<input type="hidden" id="statistics-base-url" value="<?= $block->getStatsBaseUrl(); ?>" />
+
+<script type="text/javascript">
+    require(['jquery', 'jquery/ui', 'aitoc_sendgrid_jquery', 'aitoc_sendgrid_chart', 'aitoc_sendgrid_statistics'], function() {
+        jQuery(document).ready( function($) {
+            Statistics.init();
+        });
+    });
+</script>

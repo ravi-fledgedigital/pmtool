@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="amasty_manager_rma_saved">
+        <observer name="sync_rma_request_to_netsuite" instance="OnitsukaTiger\NetsuiteReturnOrderSync\Observer\RmaSavedObserver" />
+    </event>
+    <event name="amasty_customer_rma_before_create">
+        <observer name="split_rma_request_to_netsuite" instance="OnitsukaTiger\NetsuiteReturnOrderSync\Observer\RmaSplitRequest" />
+    </event>
+    <event name="amasty_manager_rma_before_create">
+        <observer name="split_rma_request_to_netsuite" instance="OnitsukaTiger\NetsuiteReturnOrderSync\Observer\RmaSplitRequest" />
+    </event>
+</config>

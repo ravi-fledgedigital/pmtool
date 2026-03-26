@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="onitsukatiger" translate="label" sortOrder="200">
+            <label>OnitsukaTiger</label>
+        </tab>
+        <section id="sftp_korea" translate="label" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>SFTP Korea</label>
+            <tab>onitsukatiger</tab>
+            <resource>OnitsukaTiger_NetSuite::netsuite_config</resource>
+            <group id="sftp_korea_config" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Setting</label>
+                <field id="enable" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Select <strong>Yes</strong> to enable the module.]]></comment>
+                </field>
+                <field id="store_code" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Select Store</label>
+                    <source_model>Magento\Store\Ui\Component\Listing\Column\Store\Options</source_model>
+                    <comment>Choosen store using SFTP to Sync</comment>
+                </field>
+            </group>
+            <group id="sftp_api" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>SFTP RMA Status</label>
+                <field id="rma_accept" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Status</label>
+                    <source_model>Amasty\Rma\Model\Status\OptionSource\Status</source_model>
+                </field>
+            </group>
+            <group id="sftp_export_sales_data" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>SFTP Export Sales Data</label>
+                <field id="rma_status" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>RMA Status For Export</label>
+                    <source_model>Amasty\Rma\Model\Status\OptionSource\Status</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

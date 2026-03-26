@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <update handle="editor"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="OnitsukaTigerIndo\SizeConverter\Block\Adminhtml\Indosize\Edit" name="indosize_edit_page"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="OnitsukaTigerIndo\SizeConverter\Block\Adminhtml\Indosize\Edit\Tabs" name="indosize_edit_tabs">
+                <block class="OnitsukaTigerIndo\SizeConverter\Block\Adminhtml\Indosize\Edit\Tab\Indosize" name="indosize_edit_tab_main"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">main_section</argument>
+                    <argument name="block" xsi:type="string">indosize_edit_tab_main</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

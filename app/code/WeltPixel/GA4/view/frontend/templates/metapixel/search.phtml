@@ -1,0 +1,59 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \WeltPixel\GA4\Block\MetaPixel\Common */
+
+/** @var \Magento\CatalogSearch\Helper\Data $searchDataHelper */
+$searchDataHelper = $this->helper('Magento\CatalogSearch\Helper\Data');
+/** @var \WeltPixel\GA4\Helper\MetaPixelTracking $metaPixelHelper */
+$metaPixelHelper = $this->helper('WeltPixel\GA4\Helper\MetaPixelTracking');
+$cspNonceProvider = $metaPixelHelper->getCspNonceProvider();
+$searchString = $searchDataHelper->getEscapedQueryText();
+?>
+<script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    let metaSearchEventId = <?= /* @noEscape */ $metaPixelHelper->getJsEventIdGenerator() ?>;
+</script>
+<?php if ($block->isMetaPixelTrackingEnabled() && $block->shouldMetaPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\MetaPixel\TrackingEvents::EVENT_SEARCH)) : ?>
+<script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    if (window.ga4AllowServices) {
+        let metaSearch = {
+            search_string: '<?=  /* @noEscape */ $searchString ?>'
+        };
+
+        let fbpCookie = window.getWpGA4Cookie('_fbp');
+        let fbcCookie = window.getWpGA4Cookie('_fbc');
+
+        if (fbpCookie !== undefined) {
+            metaSearch.fbp = fbpCookie;
+        }
+        if (fbcCookie !== undefined) {
+            metaSearch.fbc = fbcCookie;
+        }
+
+        fbq('track', 'Search', metaSearch, {
+            eventID: metaSearchEventId
+        });
+    }
+</script>
+<?php endif; ?>
+
+<?php if ($metaPixelHelper->isServerSideTrackingEnabled() && $metaPixelHelper->shouldMetaServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\MetaPixel\TrackingEvents::EVENT_SEARCH)) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($metaPixelHelper->getMetaSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'eventID': metaSearchEventId,
+                            'eventName': 'Search',
+                            'eventIdentifier': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\MetaPixel\TrackingEvents::EVENT_SEARCH  ?>',
+                            'eventUrl': '<?= $block->escapeUrl($metaPixelHelper->getStoreCurrenUrl()) ?>',
+                            'searchString': '<?=  /* @noEscape */  $searchString ?>'
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>

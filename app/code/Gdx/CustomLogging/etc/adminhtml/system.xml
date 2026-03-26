@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+Copyright © 2016 Magestore. All rights reserved.
+See COPYING.txt for license details.
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="gdx" translate="label" sortOrder="210">
+            <label>Gdx</label>
+        </tab>
+        <section id="logger" translate="label" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+            <class>separator-top</class>
+            <label>Logging</label>
+            <tab>gdx</tab>
+            <resource>Gdx_CustomLogging::gdx_logger</resource>
+            <group id="custom_logging" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Custom Logging</label>
+                <field id="logger_formatter" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Change Logging Formatter</label>
+                    <comment>Change logging formatter </comment>
+                    <source_model>Gdx\CustomLogging\Model\Source\Logger\Formatter</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

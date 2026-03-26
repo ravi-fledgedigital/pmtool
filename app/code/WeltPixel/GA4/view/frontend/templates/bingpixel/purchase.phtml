@@ -1,0 +1,109 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \WeltPixel\GA4\Block\BingPixel\Common */
+
+/** @var \WeltPixel\GA4\Helper\BingPixelTracking $bingPixelHelper */
+$bingPixelHelper = $this->helper('WeltPixel\GA4\Helper\BingPixelTracking');
+$cspNonceProvider = $bingPixelHelper->getCspNonceProvider();
+$paymentMethodTitle = $block->getPaymentMethodTitle();
+$orderId = $block->getOrderId();
+?>
+<script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    let bingPaymentInfoEventId = <?= /* @noEscape */ $bingPixelHelper->getJsEventIdGenerator() ?>;
+    let bingPurchaseEventId = <?= /* @noEscape */ $bingPixelHelper->getJsEventIdGenerator() ?>;
+</script>
+<?php if ($bingPixelHelper->isBingPixelTrackingEnabled() && $bingPixelHelper->shouldBingPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\BingPixel\TrackingEvents::EVENT_ADD_PAYMENT_INFO)) :
+    ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        if (window.ga4AllowServices) {
+            window.uetq = window.uetq || [];
+            window.uetq.push('event', 'add_payment_info', {
+                ecomm_pagetype: 'cart',
+                ecomm_prodid: [<?= /* @noEscape */ $block->getPurchaseContentIds() ?>],
+                ecomm_totalvalue: <?= /* @noEscape */ $block->getOrderValue() ?>,
+                payment_type: '<?= /* @noEscape */ addslashes(str_replace('"', '&quot;', $paymentMethodTitle)) ?>',
+                currency: "<?= /* @noEscape */ $bingPixelHelper->getCurrencyCode() ?>",
+                items: <?= /* @noEscape */ $block->getProductsForPurchase() ?>,
+                custom_parameters: {
+                    mid: bingPaymentInfoEventId
+                },
+                mid: bingPaymentInfoEventId
+            });
+        }
+    </script>
+<?php endif; ?>
+
+
+<?php if ($bingPixelHelper->isServerSideTrackingEnabled() && $bingPixelHelper->shouldBingServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\BingPixel\TrackingEvents::EVENT_ADD_PAYMENT_INFO)) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($bingPixelHelper->getBingSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'eventId': bingPaymentInfoEventId,
+                            'eventName': 'AddPaymentInfo',
+                            'eventIdentifier': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\BingPixel\TrackingEvents::EVENT_ADD_PAYMENT_INFO  ?>',
+                            'eventUrl': '<?= $block->escapeUrl($bingPixelHelper->getStoreCurrenUrl()) ?>',
+                            'methodTitle': '<?=  /* @noEscape */ $paymentMethodTitle ?>',
+                            'orderId':'<?=  /* @noEscape */ $orderId ?>'
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>
+
+
+
+<?php if ($bingPixelHelper->isBingPixelTrackingEnabled() &&
+    $bingPixelHelper->shouldBingPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\BingPixel\TrackingEvents::EVENT_PURCHASE) &&
+    $bingPixelHelper->isOrderTrackingAllowedBasedOnOrderStatus($block->getOrder())) :
+    ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        if (window.ga4AllowServices) {
+            window.uetq = window.uetq || [];
+            window.uetq.push('event', 'purchase', {
+                ecomm_pagetype: 'purchase',
+                ecomm_prodid: [<?= /* @noEscape */ $block->getPurchaseContentIds() ?>],
+                ecomm_totalvalue: <?= /* @noEscape */ $block->getOrderValue() ?>,
+                revenue_value: <?= /* @noEscape */ $block->getOrderValue() ?>,
+                currency: "<?= /* @noEscape */ $bingPixelHelper->getCurrencyCode() ?>",
+                items: <?= /* @noEscape */ $block->getProductsForPurchase() ?>,
+                transaction_id: '<?= /* @noEscape */ $block->getOrder()->getIncrementId() ?>',
+                custom_parameters: {
+                    mid: bingPurchaseEventId
+                },
+                mid: bingPurchaseEventId
+            });
+        }
+    </script>
+<?php endif; ?>
+
+
+<?php if ($bingPixelHelper->isServerSideTrackingEnabled() &&
+    $bingPixelHelper->shouldBingServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\BingPixel\TrackingEvents::EVENT_PURCHASE) &&
+    $bingPixelHelper->isOrderTrackingAllowedBasedOnOrderStatus($block->getOrder())) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($bingPixelHelper->getBingSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'eventId': bingPurchaseEventId,
+                            'eventName': 'Purchase',
+                            'eventIdentifier': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\BingPixel\TrackingEvents::EVENT_PURCHASE  ?>',
+                            'eventUrl': '<?= $block->escapeUrl($bingPixelHelper->getStoreCurrenUrl()) ?>',
+                            'orderId':'<?=  /* @noEscape */ $orderId ?>'
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>

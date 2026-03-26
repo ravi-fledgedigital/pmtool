@@ -1,0 +1,10 @@
+<?php
+$loginUrl = $this->getUrl().'customer/account/loginfromapps?app_id=stgotappjp&client_id=stgiosclientid&redirect_to=home';
+?>
+
+<form action="<?=$this->getUrl().'customer/account/loginfromapps'?>" method="POST">
+    <input type="hidden" id="app_id" name="app_id" value="stgotappjp"><br>
+    <input type="hidden" id="client_id" name="client_id" value="stgiosclientid"><br>
+    <input type="hidden" id="redirect_to" name="redirect_to" value="home"><br>
+    <input type="submit" value="SIGN IN CREATE AN ACCOUNT">
+</form>

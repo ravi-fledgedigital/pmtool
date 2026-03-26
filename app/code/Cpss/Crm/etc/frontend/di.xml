@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\App\RouterList">
+        <arguments>
+            <argument name="routerList" xsi:type="array">
+                <item name="customer" xsi:type="array">
+                    <item name="class" xsi:type="string">Cpss\Crm\Controller\Router</item>
+                    <item name="disable" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="string">999</item>
+                </item>
+                <item name="crm" xsi:type="array">
+                    <item name="class" xsi:type="string">Cpss\Crm\Controller\Router</item>
+                    <item name="disable" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="string">999</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Customer\Controller\Account\LoginPost">
+        <plugin sortOrder="5" name="cpss_member_login" type="Cpss\Crm\Plugin\Customer\Login"/>
+    </type>
+    <type name="Magento\Sales\Block\Order\Items">
+        <plugin name="append_points_html" type="Cpss\Crm\Plugin\Order\Items\Totals" sortOrder="10"/>
+    </type>
+    <type name="Magento\Checkout\Model\CompositeConfigProvider">
+        <arguments>
+            <argument name="configProviders" xsi:type="array">
+                <item name="checkout_point_use" xsi:type="object">Cpss\Crm\Model\PointConfigProvider</item>
+                <item name="crm_fullpoint_config_provider" xsi:type="object">Cpss\Crm\Model\FullpointConfigProvider</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Customer\Controller\Account\CreatePost">
+        <plugin name="cpss_member_create_account" type="Cpss\Crm\Plugin\Customer\Create"/>
+    </type>
+
+    <type name="Magento\Customer\Controller\Ajax\Login">
+        <plugin name="creansmaerdcheckout_member_login" type="Cpss\Crm\Plugin\Customer\CheckoutLogin"/>
+    </type>
+</config>

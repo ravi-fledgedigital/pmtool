@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="OnitsukaTiger\Cegid\Api\CegidInterface" type="OnitsukaTiger\Cegid\Model\Cegid"/>
+    <type name="OnitsukaTiger\Cegid\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">cegidLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">OnitsukaTiger\Cegid\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Sales\Model\Order\Shipment">
+        <plugin name="OnitsukaTiger_Cegid::core_event_handle_plugin" type="OnitsukaTiger\Cegid\Plugin\Model\ShipmentPlugin" sortOrder="10" disabled="false"  />
+    </type>
+    <type name="Magento\Sales\Api\ShipmentRepositoryInterface">
+        <plugin name="save_onitsukatiger_shipment_attribute" sortOrder="20" disabled="false" />
+    </type>
+    <type name="Magento\Sales\Api\ShipmentRepositoryInterface">
+        <plugin name="OnitsukaTiger_Cegid::onitsukatiger_update_shipment_status" type="OnitsukaTiger\Cegid\Plugin\ProcessShipmentStatus" sortOrder="10" disabled="false"/>
+    </type>
+    <type name="Magento\Framework\HTTP\PhpEnvironment\Response">
+        <plugin name="OnitsukaTiger_Cegid::set_status_code" type="OnitsukaTiger\Cegid\Plugin\Webapi\ResponsePlugin" sortOrder="10" disabled="false"  />
+    </type>
+    <type name="OnitsukaTiger\Shipment\Model\CoreEventHandle">
+        <plugin name="OnitsukaTiger_Cegid::core_event_handle_plugin" type="OnitsukaTiger\Cegid\Plugin\Model\CoreEventHandlePlugin" sortOrder="10" disabled="false"  />
+    </type>
+    <preference for="OnitsukaTiger\Cegid\Api\ReturnActionRepositoryInterface" type="OnitsukaTiger\Cegid\Model\ReturnActionRepository"/>
+    <preference for="OnitsukaTiger\Cegid\Api\Data\ReturnActionInterface" type="OnitsukaTiger\Cegid\Model\ReturnAction"/>
+    <preference for="OnitsukaTiger\Cegid\Api\Data\ReturnActionSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+</config>

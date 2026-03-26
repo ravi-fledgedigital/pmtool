@@ -1,0 +1,12 @@
+<?php /** @var $block \Magento\Checkout\Block\Onepage\Success */ ?>
+<div class="checkout-success">
+    <?= $block->getChildHtml('details') ?>
+</div>
+<script>
+    require([
+        'Magento_Customer/js/customer-data'
+    ], function (customerData) {
+        var sections = ['cart'];
+        customerData.reload(sections, true);
+    });
+</script>

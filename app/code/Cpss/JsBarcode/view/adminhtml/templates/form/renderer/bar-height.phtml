@@ -1,0 +1,36 @@
+<?php
+    $element = $block->getElement();
+    $form = $element->getForm();
+    /** @var \Magento\Config\Block\System\Config\Form $parentForm */
+    $parentForm = $form->getParent();
+    $heightConfigVal = $parentForm->getConfigValue('barcode_section/barcode_group/height');
+?>
+
+<div>
+    <div id="barHeightSlider"></div>
+    <input type="hidden" 
+        id="barcode_section_barcode_group_height" 
+        name="<?= $block->getFieldName() ?>"
+        value="<?= $heightConfigVal ?>">
+</div>
+
+<script type="text/javascript">
+    require(['jquery', 'jquery/ui'], function($) {
+        $("#barHeightSlider").slider({
+            range: "min",
+            min: 10,
+            max: 150,
+            step: 5,
+            value: "<?= $heightConfigVal ?>",
+            slide: function( event, ui ) {
+                $(this).find('.ui-slider-handle').text(ui.value);
+                $("#barcode_section_barcode_group_height").val(ui.value);
+            },
+            create: function(event, ui) {
+                var v=$(this).slider('value');
+                $(this).find('.ui-slider-handle').text(v);
+                $("#barcode_section_barcode_group_height").val(v);
+            }
+        });
+    });
+</script>

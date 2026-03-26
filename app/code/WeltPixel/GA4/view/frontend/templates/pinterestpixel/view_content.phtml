@@ -1,0 +1,56 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \Magento\Catalog\Block\Product\View */
+
+/** @var \WeltPixel\GA4\Helper\PinterestPixelTracking $pinterestPixelHelper */
+$pinterestPixelHelper = $this->helper('WeltPixel\GA4\Helper\PinterestPixelTracking');
+$cspNonceProvider = $pinterestPixelHelper->getCspNonceProvider();
+$product = $block->getProduct();
+?>
+<script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    let pinterestViewContentEventId = <?= /* @noEscape */ $pinterestPixelHelper->getJsEventIdGenerator() ?>;
+</script>
+<?php if ($product && $pinterestPixelHelper->isPinterestPixelTrackingEnabled() && $pinterestPixelHelper->shouldPinterestPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\PinterestPixel\TrackingEvents::EVENT_VIEW_CONTENT)) :
+        $productCategoryIds = $product->getCategoryIds();
+?>
+<script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    if (window.ga4AllowServices) {
+        pintrk('track', '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\PinterestPixel\TrackingEvents::EVENT_VIEW_CONTENT ?>', {
+            value: "<?= /* @noEscape */ floatval(number_format($product->getPriceInfo()->getPrice('final_price')->getValue() ?? 0, 2, '.', '')); ?>",
+            currency: "<?= /* @noEscape */ $pinterestPixelHelper->getCurrencyCode() ?>",
+            line_items: [
+                {
+                    "product_id": "<?= /* @noEscape */ $pinterestPixelHelper->getPinterestProductId($product) ?>",
+                    "product_name": "<?= /* @noEscape */ addslashes(str_replace('"','&quot;',html_entity_decode($product->getName() ?? ''))) ?>",
+                    "product_category": "<?= /* @noEscape */ addslashes(str_replace('"','&quot;',$pinterestPixelHelper->getContentCategory($product->getCategoryIds()))) ?>",
+                    "product_price": "<?= /* @noEscape */ floatval(number_format($product->getPriceInfo()->getPrice('final_price')->getValue() ?? 0, 2, '.', '')); ?>",
+                }
+            ],
+            event_id: pinterestViewContentEventId
+        });
+    }
+</script>
+<?php endif; ?>
+
+
+<?php if ($pinterestPixelHelper->isServerSideTrackingEnabled() && $pinterestPixelHelper->shouldPinterestServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\PinterestPixel\TrackingEvents::EVENT_VIEW_CONTENT)) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($pinterestPixelHelper->getPinterestSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'eventId': pinterestViewContentEventId,
+                            'eventName': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\PinterestPixel\TrackingEvents::EVENT_VIEW_CONTENT  ?>',
+                            'eventUrl': window.location.href,
+                            'productId': '<?= /* @noEscape */ $product->getId() ?>'
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>
+

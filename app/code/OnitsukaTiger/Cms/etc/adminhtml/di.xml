@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\MediaStorage\Model\File\Validator\NotProtectedExtension">
+        <plugin sortOrder="1" name="allowedExtensions" type="OnitsukaTiger\Cms\Plugin\Uploader\UploaderPlugin"/>
+    </type>
+    <type name="Magento\Cms\Model\Wysiwyg\Images\Storage">
+        <plugin name="allow-svg" type="OnitsukaTiger\Cms\Plugin\Model\Wysiwyg\Images\Storage" sortOrder="30"/>
+    </type>
+    <type name="Magento\Cms\Model\Wysiwyg\Images\Storage">
+        <plugin name="allow-mp4" type="OnitsukaTiger\Cms\Plugin\Model\Wysiwyg\Videos\StorageVideo" sortOrder="30"/>
+    </type>
+    <type name="Magento\Cms\Controller\Adminhtml\Wysiwyg\Images\Thumbnail">
+        <plugin name="allow-svg" type="OnitsukaTiger\Cms\Plugin\Controller\Adminhtml\Wysiwyg\Images\Thumbnail" sortOrder="30"/>
+    </type>
+    <type name="Magento\Cms\Controller\Adminhtml\Wysiwyg\Directive">
+        <plugin name="allow-svg" type="OnitsukaTiger\Cms\Plugin\Controller\Adminhtml\Wysiwyg\Directive" sortOrder="30"/>
+    </type>
+    <preference for="Magento\Cms\Controller\Adminhtml\Wysiwyg\Images\OnInsert" type="OnitsukaTiger\Cms\Controller\Adminhtml\Wysiwyg\Images\OnInsert"/>
+</config>

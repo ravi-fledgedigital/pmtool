@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package    OnitsukaTiger_DiscountLimit
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <!-- Menu -->
+                <resource id="Magento_Backend::marketing">
+                    <resource id="OnitsukaTiger_DiscountLimit::menu_section" title="Discount Limiter Section" sortOrder="20">
+                        <resource id="OnitsukaTiger_DiscountLimit::menu_config" title="Manage Settings" sortOrder="20" />
+                    </resource>
+                </resource>
+
+                <!-- Settings -->
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="OnitsukaTiger_DiscountLimit::config" title="Discount Limiter Section" sortOrder="50" />
+                        </resource>
+                    </resource>
+                </resource>
+
+            </resource>
+        </resources>
+    </acl>
+</config>

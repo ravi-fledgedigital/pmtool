@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="crm_real_store_payment_list" resource="default" engine="innodb" comment="Onitsuka Real Store Payment Method">
+        <column xsi:type="int" name="payment_id" unsigned="true" nullable="false" identity="true" comment="Payment Id"/>
+        <column xsi:type="varchar" name="code" nullable="false" comment="Payment Code"/>
+        <column xsi:type="varchar" name="title" nullable="false" length="256" comment="Payment Title"/>
+        <column xsi:type="varchar" name="currency" nullable="false" length="10" comment="Currency"/>
+        <column xsi:type="varchar" name="type" nullable="true" length="50" comment="Payment Type"/>
+        <column xsi:type="varchar" name="description" nullable="true" length="256" comment="Payment Description"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated At"/>
+
+        <constraint xsi:type="primary" referenceId="CRM_REAL_STORE_PAYMENT_LIST_PRIMARY">
+            <column name="payment_id"/>
+        </constraint>
+    </table>
+
+</schema>

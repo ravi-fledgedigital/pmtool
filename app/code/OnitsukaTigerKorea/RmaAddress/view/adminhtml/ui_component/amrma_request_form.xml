@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="rma_request_address">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">RMA Address Information</item>
+                <item name="additionalClasses" xsi:type="string">rma-address-info</item>
+                <item name="imports" xsi:type="array">
+                    <item name="information" xsi:type="string">${ $.provider }:data.rma.address</item>
+                </item>
+                <item name="template" xsi:type="string">OnitsukaTigerKorea_RmaAddress/rma_address_info</item>
+            </item>
+        </argument>
+    </fieldset>
+</form>

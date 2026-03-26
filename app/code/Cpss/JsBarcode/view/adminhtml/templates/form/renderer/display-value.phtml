@@ -1,0 +1,63 @@
+<?php
+    $element = $block->getElement();
+    $form = $element->getForm();
+    /** @var \Magento\Config\Block\System\Config\Form $parentForm */
+    $parentForm = $form->getParent();
+    $displayValueConfigVal = $parentForm->getConfigValue('barcode_section/barcode_group/displayvalue');
+?>
+
+<div>
+    <button type="button" class="displayValue" value="true">Show</button>
+    <button type="button" class="displayValue" value="false">Hide</button>
+    <input type="hidden" 
+        id="barcode_section_barcode_group_displayvalue" 
+        name="<?= $block->getFieldName() ?>"
+        class="input-text admin__control-text"
+        value="<?= $displayValueConfigVal ?>">
+</div>
+
+<script type="text/javascript">
+    require(['jquery', 'jquery/ui'], function($) {
+        let curVal = "<?= $displayValueConfigVal ?>";
+        var dependents = [
+            'textalign',
+            'font',
+            'fontoptions',
+            'fontsize',
+            'textmargin'
+        ];
+
+        $('.displayValue').click(function () {
+            $('#barcode_section_barcode_group_displayvalue').val($(this).val());
+            $('.displayValue').removeClass('btn-active');
+            $(this).addClass('btn-active');
+            toggle($(this).val() === 'true');
+        });
+
+        if (curVal === 'true') {
+            $('.displayValue').eq(0).addClass('btn-active');
+        } else {
+            $('.displayValue').eq(1).addClass('btn-active');
+        } 
+
+        function toggle(flag) {
+            dependents.forEach(function(field) { 
+                if (flag) {
+                    $('#row_barcode_section_barcode_group_' + field).show();
+                } else {
+                    $('#row_barcode_section_barcode_group_' + field).hide();
+                }
+            });
+        }
+    });
+</script>
+
+<style>
+.btn-active {
+    background: #adadad !important;
+}
+
+.btn-active:hover {
+    background: #adadad !important;
+}
+</style>

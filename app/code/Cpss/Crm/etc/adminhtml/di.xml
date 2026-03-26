@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter" type="Cpss\Crm\Ui\DataProvider\FulltextFilter"/>
+    <preference for="Magento\Sales\ViewModel\CreditMemo\Create\ItemsToRender" type="Cpss\Crm\ViewModel\CreditMemo\Create\ItemsToRender"/>
+    <preference for="Magento\Sales\Block\Adminhtml\Order\Creditmemo\Totals" type="Cpss\Crm\Block\Adminhtml\Order\Creditmemo\Totals"/>
+    <preference for="Magento\Sales\Block\Adminhtml\Order\Totals" type="Cpss\Crm\Block\Adminhtml\Order\Totals"/>
+    <preference for="Magento\Sales\Ui\Component\Listing\Column\Price" type="Cpss\Crm\Ui\Component\Listing\Column\salesOrderPrice"/>
+    <preference for="Magento\Ui\Model\Export\MetadataProvider" type="Cpss\Crm\Model\Export\MetadataProvider" />
+</config>

@@ -1,0 +1,127 @@
+<?xml version="1.0" ?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">onitsukatiger_restock_restock_customer_view.onitsukatiger_restock_restock_customer_view_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>onitsukatiger_restock_restock_customer_view_columns</spinner>
+        <deps>
+            <dep>onitsukatiger_restock_restock_customer_view.onitsukatiger_restock_restock_customer_view_data_source</dep>
+        </deps>
+        <buttons>
+            <button name="back" class="OnitsukaTiger\Restock\Block\Adminhtml\Product\BackButton"/>
+        </buttons>
+    </settings>
+    <dataSource name="onitsukatiger_restock_restock_customer_view_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">alert_stock_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>OnitsukaTiger_Restock::restock_view</aclResource>
+        <dataProvider name="onitsukatiger_restock_restock_customer_view_data_source" class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>alert_stock_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters"/>
+        <paging name="listing_paging"/>
+        <exportButton name="export_button"/>
+    </listingToolbar>
+    <columns name="onitsukatiger_restock_restock_customer_view_columns">
+        <settings>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">admincrm_receipt_listing.admincrm_receipt_listing.receipt_columns.actions</item>
+                    <item name="target" xsi:type="string">applyAction</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">view</item>
+                        <item name="1" xsi:type="string">${ $.$data.rowIndex }</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
+        <selectionsColumn name="ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="resizeEnabled" xsi:type="boolean">false</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">55</item>
+                    <item name="indexField" xsi:type="string">alert_stock_id</item>
+                </item>
+            </argument>
+        </selectionsColumn>
+        <column name="customer_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">Customer Number</item>
+                </item>
+            </argument>
+        </column>
+        <!--<column name="fullname">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Customer Name</item>
+                </item>
+            </argument>
+        </column>
+        <column name="email">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Customer Email Address</item>
+                </item>
+            </argument>
+        </column>-->
+        <column name="product_price" class="OnitsukaTiger\Restock\Ui\Component\Listing\Column\PriceFormat">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/column</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Price</item>
+                    <item name="sortOrder" xsi:type="number">60</item>
+                </item>
+            </argument>
+        </column>
+        <column name="add_date" class="Magento\Ui\Component\Listing\Columns\Date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="label" xsi:type="string" translate="true">Restock Registration Date</item>
+                </item>
+            </argument>
+        </column>
+        <column name="status" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <filter>select</filter>
+                <options class="OnitsukaTiger\Restock\Ui\Component\Listing\Column\RestockNotified\Options"/>
+                <dataType>select</dataType>
+                <label translate="true">Restock Notified</label>
+            </settings>
+        </column>
+        <column name="send_date" class="Magento\Ui\Component\Listing\Columns\Date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="label" xsi:type="string" translate="true">Restock Notification Date</item>
+                </item>
+            </argument>
+        </column>
+    </columns>
+</listing>

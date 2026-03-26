@@ -1,0 +1,65 @@
+{
+    "weltpixel_ga4_orders_pushed": {
+        "column": {
+            "id": true,
+            "order_id": true
+        },
+        "index": {
+            "WELTPIXEL_GA4_ORDERS_PUSHED_ORDER_ID": true,
+            "WELTPIXEL_GA4_CUSTOMER_ID_EMAIL_CREATE_AT": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "sales_order": {
+        "index": {
+            "SALES_ORDER_CREATED_AT_CUSTOMER_ID_CUSTOMER_EMAIL": true
+        }
+    },
+    "weltpixel_ga4_orders_addon_pushed": {
+        "column": {
+            "id": true,
+            "order_id": true,
+            "addon_type": true,
+            "is_pushed": true,
+            "created_at": true
+        },
+        "index": {
+            "WELTPIXEL_GA4_ORDERS_ADDON_PUSHED_ORDER_ID": true,
+            "IDX_14FFDC67FC896D7352DC08DFC12175BB": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "weltpixel_ga4_orders_addon_types": {
+        "column": {
+            "pushed_id": true,
+            "addon_type": true,
+            "is_pushed": true,
+            "id": true
+        },
+        "index": {
+            "WELTPIXEL_GA4_ORDERS_ADDON_TYPES_PUSHED_ID": true,
+            "WELTPIXEL_GA4_ORDERS_ADDON_TYPES_ADDON_TYPE_IS_PUSHED": true
+        },
+        "constraint": {
+            "FK_AD1A6E7C9788370093E47C319327C151": true,
+            "PRIMARY": true
+        }
+    },
+    "weltpixel_ga4_orders_pushed_payload": {
+        "column": {
+            "id": true,
+            "order_id": true,
+            "order_payload": true
+        },
+        "index": {
+            "WELTPIXEL_GA4_ORDERS_PUSHED_PAYLOAD_ORDER_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

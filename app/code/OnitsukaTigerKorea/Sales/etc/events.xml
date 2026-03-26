@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_status_after_shipped">
+        <observer name="korean_inventory_sales_source_deduction_processor" instance="OnitsukaTigerKorea\Sales\Observer\SourceDeductionWhenShipProcessor"/>
+    </event>
+    <event name="sales_order_shipment_save_after">
+        <observer name="update_order_xml_id_shipment_create_from_manager" instance="OnitsukaTigerKorea\Sales\Observer\AfterSaveShipment"/>
+    </event>
+    <event name="admin_sales_order_address_update">
+        <observer name="update_order_address_admin" instance="OnitsukaTigerKorea\Sales\Observer\AfterAddressSave"/>
+    </event>
+    <event name="checkout_submit_all_after">
+        <observer name="save_coupon_condition" instance="OnitsukaTigerKorea\Sales\Observer\SaveCouponCondition"/>
+        <observer name="korean_after_order_create" instance="OnitsukaTigerKorea\Sales\Observer\AfterOrderCreate"/>
+        <observer name="update_sku_wms_item" instance="OnitsukaTigerKorea\Sales\Observer\AfterCheckoutSubmit"/>
+    </event>
+    <event name="sales_order_creditmemo_save_after">
+        <observer name="update_qty_sku_wms_return_to_stock" instance="OnitsukaTigerKorea\Sales\Observer\AfterCreditMemoSave"/>
+    </event>
+</config>

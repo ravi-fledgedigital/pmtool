@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="crm" frontName="crm">
+            <module name="Cpss_Crm" />
+        </route>
+        <route id="customer" frontName="customer">
+            <module name="Cpss_Crm"/>
+        </route>
+    </router>
+</config>

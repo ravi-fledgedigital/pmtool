@@ -1,0 +1,44 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \Magento\Catalog\Block\Category\View */
+
+/** @var \WeltPixel\GA4\Helper\PinterestPixelTracking $pinterestPixelHelper */
+$pinterestPixelHelper = $this->helper('WeltPixel\GA4\Helper\PinterestPixelTracking');
+$cspNonceProvider = $pinterestPixelHelper->getCspNonceProvider();
+$category = $block->getCurrentCategory();
+?>
+<script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    let pinterestViewCategoryEventId = <?= /* @noEscape */ $pinterestPixelHelper->getJsEventIdGenerator() ?>;
+</script>
+<?php if ($category && $pinterestPixelHelper->isPinterestPixelTrackingEnabled() && $pinterestPixelHelper->shouldPinterestPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\PinterestPixel\TrackingEvents::EVENT_VIEW_CATEGORY)) :
+?>
+<script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    if (window.ga4AllowServices) {
+        pintrk('track', '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\PinterestPixel\TrackingEvents::EVENT_VIEW_CATEGORY ?>', {
+            category_name: "<?= /* @noEscape */ addslashes(str_replace('"', '&quot;', $category->getName())) ?>",
+            event_id: pinterestViewCategoryEventId
+        });
+    }
+</script>
+<?php endif; ?>
+
+<?php if ($pinterestPixelHelper->isServerSideTrackingEnabled() && $pinterestPixelHelper->shouldPinterestServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\PinterestPixel\TrackingEvents::EVENT_VIEW_CATEGORY)) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($pinterestPixelHelper->getPinterestSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'eventId': pinterestViewCategoryEventId,
+                            'eventName': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\PinterestPixel\TrackingEvents::EVENT_VIEW_CATEGORY  ?>',
+                            'eventUrl': window.location.href,
+                            'categoryName': '<?= /* @noEscape */ $category->getName() ?>'
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>

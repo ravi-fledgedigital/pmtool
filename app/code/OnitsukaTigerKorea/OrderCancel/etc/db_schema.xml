@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="order_cancel_reason" resource="default" engine="innodb" comment="Order Cancel Reasons Table">
+        <column xsi:type="int" name="reason_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Reason_id"/>
+        <column xsi:type="varchar" name="title" nullable="false" length="255" default="" comment="Title"/>
+        <column xsi:type="smallint" name="status" padding="6" unsigned="false" nullable="false" identity="false" default="0" comment="Status"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="reason_id"/>
+        </constraint>
+    </table>
+    <table name="order_cancel_reason_store" resource="default" engine="innodb" comment="Order Cancel Reason Stores Table">
+        <column xsi:type="int" name="reason_store_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Reason_store_id"/>
+        <column xsi:type="int" name="reason_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Reason_id"/>
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Store_id"/>
+        <column xsi:type="varchar" name="label" nullable="false" length="255" default="" comment="Label"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="reason_store_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="ORDER_CANCEL_REASON_STORE_REASON_ID_ORDER_CANCEL_REASON_REASON_ID" table="order_cancel_reason_store" column="reason_id" referenceTable="order_cancel_reason" referenceColumn="reason_id" onDelete="CASCADE"/>
+    </table>
+</schema>
+

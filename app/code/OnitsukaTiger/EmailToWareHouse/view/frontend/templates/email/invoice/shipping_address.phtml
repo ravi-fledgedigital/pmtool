@@ -1,0 +1,21 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php /** @var $block \OnitsukaTiger\EmailToWareHouse\Block\Order\Email\Invoice\Address */ ?>
+<?php
+$_order = $block->getOrder();
+$shippingAddress = $_order->getShippingAddress();
+$helper = $this->helper(\OnitsukaTiger\Store\Helper\Data::class);
+?>
+
+<span class="address"><?= $block->escapeHtml($helper->removeSpecialCharacter($block->getName($shippingAddress))) ?></span><br>
+<?php foreach ($block->getStreet($shippingAddress) as $street) : ?>
+    <span class="address"><?= $block->escapeHtml($helper->removeSpecialCharacter($street)) ?></span><br>
+<?php endforeach; ?>
+<span class="address"><?= $block->escapeHtml($helper->removeSpecialCharacter($block->getProvinceCity($shippingAddress))) ?></span><br>
+<p class="address country"><?= $block->escapeHtml($block->getCountry($shippingAddress)) ?>, <?= $block->escapeHtml($block->getPostCode($shippingAddress)) ?></p>
+<span class="address"><?= $block->escapeHtml($block->getTelephone($shippingAddress)) ?></span><br>
+<span class="address"><?= $block->escapeHtml($block->getEmail($shippingAddress)) ?></span><br>

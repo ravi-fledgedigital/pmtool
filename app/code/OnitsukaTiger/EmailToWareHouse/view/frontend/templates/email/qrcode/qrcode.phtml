@@ -1,0 +1,43 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Writer\PngWriter;
+
+/** @var $shipment \Magento\Sales\Model\Order\Shipment */
+$shipment = $block->getShipment();
+$order = $block->getOrder();
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+?>
+
+<?php if ($shipment && $order):?>
+    <?php
+    $trackCollection = $shipment->getTracksCollection();
+    $trackNumber = $trackCollection->getFirstItem()->getTrackNumber();
+
+    $qrCode = QrCode::create($trackNumber)
+        ->setEncoding(new Encoding('UTF-8'))
+        ->setSize(300)
+        ->setMargin(10)
+        ->setForegroundColor(new Color(0, 0, 0))
+        ->setBackgroundColor(new Color(255, 255, 255));
+
+    $writer = new PngWriter();
+    $result = $writer->write($qrCode);
+    $imageData = $result->getString();
+
+    $base64 = base64_encode($imageData);
+    ?>
+    <?php if ($base64) { ?>
+        <div>
+            <img style="width:170px;height:auto;" src="data:image/png;base64,<?= /* @noEscape */ $base64 ?>"
+                 alt="QR Code">
+        </div>
+    <?php } ?>
+<?php endif; ?>

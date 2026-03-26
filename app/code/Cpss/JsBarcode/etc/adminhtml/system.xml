@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="barcode" translate="label" sortOrder="999999">
+            <label>Barcode</label>
+        </tab>
+        <section id="barcode_section" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Barcode Configuration</label>
+            <tab>barcode</tab>
+            <resource>Cpss_JsBarcode::barcode_config</resource>
+            <group id="barcode_group" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Configuration</label>
+                <field id="sample_output" translate="label comment" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Sample Output</label>
+                    <frontend_model>Cpss\JsBarcode\Block\Adminhtml\Output\Element</frontend_model>
+                </field>
+                <field id="format" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Format</label>
+                    <source_model>Cpss\JsBarcode\Model\Config\Format</source_model>
+                </field>
+                <field id="width" translate="label comment" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Bar Width</label>
+                    <frontend_model>Cpss\JsBarcode\Block\Adminhtml\Width\Element</frontend_model>
+                </field>
+                <field id="height" translate="label comment" type="text" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Height</label>
+                    <frontend_model>Cpss\JsBarcode\Block\Adminhtml\Height\Element</frontend_model>
+                </field>
+                <field id="margin" translate="label comment" type="text" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Margin</label>
+                    <frontend_model>Cpss\JsBarcode\Block\Adminhtml\Margin\Element</frontend_model>
+                </field>
+                <field id="background" translate="label comment" type="text" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Background</label>
+                    <frontend_model>Cpss\JsBarcode\Block\Adminhtml\Background\Element</frontend_model>
+                </field>
+                <field id="linecolor" translate="label comment" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Line Color</label>
+                    <frontend_model>Cpss\JsBarcode\Block\Adminhtml\LineColor\Element</frontend_model>
+                </field>
+                <field id="displayvalue" translate="label comment" type="text" sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Show Text</label>
+                    <frontend_model>Cpss\JsBarcode\Block\Adminhtml\DisplayValue\Element</frontend_model>
+                </field>
+                <field id="textalign" translate="label comment" type="text" sortOrder="17" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Text Align</label>
+                    <frontend_model>Cpss\JsBarcode\Block\Adminhtml\TextAlign\Element</frontend_model>
+                    <depends>
+                        <field id="barcode_section/barcode_group/displayvalue">true</field>
+                    </depends>
+                </field>
+                <field id="font" translate="label" type="select" sortOrder="18" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Font</label>
+                    <source_model>Cpss\JsBarcode\Model\Config\Font</source_model>
+                    <depends>
+                        <field id="barcode_section/barcode_group/displayvalue">true</field>
+                    </depends>
+                </field>
+                <field id="fontoptions" translate="label comment" type="text" sortOrder="19" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Font Style</label>
+                    <frontend_model>Cpss\JsBarcode\Block\Adminhtml\FontOptions\Element</frontend_model>
+                    <depends>
+                        <field id="barcode_section/barcode_group/displayvalue">true</field>
+                    </depends>
+                </field>
+                <field id="fontsize" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Font Size</label>
+                    <frontend_model>Cpss\JsBarcode\Block\Adminhtml\FontSize\Element</frontend_model>
+                    <depends>
+                        <field id="barcode_section/barcode_group/displayvalue">true</field>
+                    </depends>
+                </field>
+                <field id="textmargin" translate="label comment" type="text" sortOrder="21" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Text Margin</label>
+                    <frontend_model>Cpss\JsBarcode\Block\Adminhtml\TextMargin\Element</frontend_model>
+                    <depends>
+                        <field id="barcode_section/barcode_group/displayvalue">true</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

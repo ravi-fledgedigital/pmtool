@@ -1,0 +1,15 @@
+<?php
+
+namespace OnitsukaTigerIndo\SizeConverter\Model\ResourceModel;
+
+class IndoSize extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
+{
+    /**
+     * Initialize resource model
+     *
+     * @return void
+     */
+    protected function _construct(){
+        $this->_init('onitsukatigerindo_sizeconverter','size_id');
+    }
+}

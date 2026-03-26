@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account_index"/>
+    <body>
+        <referenceBlock name="content">
+            <block class="Magento\Customer\Block\Account\Dashboard\Info" name="account_newagreement" as="account.newagreement" template="OnitsukaTigerCpss_Crm::account/newagreement.phtml" cacheable="false" after="customer_account_titlepage">
+                <arguments>
+                    <argument name="viewModel" xsi:type="object">OnitsukaTigerCpss\Crm\ViewModel\Customer</argument>
+                </arguments>
+                <block class="Magento\Cms\Block\Block" name="block_membership_agreement_customer">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">membership-agreement</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

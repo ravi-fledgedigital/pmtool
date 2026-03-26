@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Vaimo\AepBase\Api\ConfigInterface" type="Vaimo\AepBase\Model\Config"/>
+
+    <type name="Magento\Customer\Api\CustomerRepositoryInterface">
+        <plugin name="Vaimo_AepBase" type="Vaimo\AepBase\Plugin\CustomerRepositoryPlugin" sortOrder="-1" />
+    </type>
+    <type name="Magento\Sales\Api\OrderManagementInterface">
+        <plugin name="Vaimo_AepBase" type="Vaimo\AepBase\Plugin\OrderManagementPlugin" sortOrder="-1" />
+    </type>
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin name="Vaimo_AepBase" type="Vaimo\AepBase\Plugin\OrderRepositoryPlugin" sortOrder="50" />
+    </type>
+</config>

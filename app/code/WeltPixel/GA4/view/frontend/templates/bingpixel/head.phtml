@@ -1,0 +1,24 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \WeltPixel\GA4\Block\BingPixel\Common */
+
+/** @var \WeltPixel\GA4\Helper\BingPixelTracking $bingPixelHelper */
+$bingPixelHelper = $this->helper('WeltPixel\GA4\Helper\BingPixelTracking');
+$cspNonceProvider = $bingPixelHelper->getCspNonceProvider();
+$bingPixelTrackingCode = $block->getBingPixelTrackingCodeSnippet();
+
+?>
+<?php if ($block->isBingPixelTrackingEnabled()) : ?>
+    <?php
+    $pattern = '/<\s*script[^>]*>/';
+    $replacement = '<script ${1}> if (window.ga4AllowServices) {';
+
+    $bingPixelTrackingCode =  str_replace('</script>', '} </script>', preg_replace($pattern, $replacement, $bingPixelTrackingCode));
+
+    if ($cspNonceProvider) {
+        $bingPixelTrackingCode = str_replace('<script', '<script nonce="' . $cspNonceProvider->generateNonce() . '" ', $bingPixelTrackingCode);
+    }
+
+    /* @noEscape */ echo $bingPixelTrackingCode;
+    ?>
+<?php endif; ?>

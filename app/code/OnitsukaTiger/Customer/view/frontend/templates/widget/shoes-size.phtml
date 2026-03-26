@@ -1,0 +1,33 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \OnitsukaTiger\Customer\Block\Widget\ShoesSize $block */
+?>
+<?php
+$customer = $block->getCurrentCustomer();
+if ($customer && $customer->getCustomAttribute('is_kakao_login')) {
+    $isKakaoValue = $customer->getCustomAttribute('is_kakao_login')->getValue();
+}
+$linkBlock = $block->getLayout()->createBlock(Seoulwebdesign\KakaoSync\Block\Customer\Link::class);
+$linkStatus = $linkBlock->getLinkStatus();
+?>
+<?php $options = $block->getOptions();?>
+<?php $defaultOptions  = !is_null($block->getShoesSize()) ? $block->getShoesSize() : $block->getDefaultOptions();?>
+<div class="field shoes_size <?= $block->isRequired() ? 'required' : '' ?>">
+    <label for="shoes_size" class="label">
+        <span>
+            <?= $block->escapeHtml(__('Shoes Size')) ?>
+        </span>
+    </label>
+    <div class="control">
+        <?php $_validationClass =  $block->isRequired() ? 'required-entry' : '' ; ?>
+        <select name="shoes_size" id="shoes_size" class="<?= $_validationClass?>" <?php if(isset($linkStatus['id'])) : ?> style="pointer-events: none; background-color: #f5f5f5; color: #888; border: 1px solid #ccc;" <?php endif; ?>>
+            <?php foreach ($options as $option) : ?>
+                <option value="<?= $option['value']?>" <?php if($defaultOptions == $option['value']) : echo 'selected="selected"';endif;?>><?= $option['label']?></option>
+            <?php endforeach;?>
+        </select>
+    </div>
+</div>

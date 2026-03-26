@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Seoulwebdesign_Toast::message" title="Manage Toast Messages" module="Seoulwebdesign_Toast" sortOrder="10"
+             action="seoulwebdesign_toast/message/index"
+             resource="Seoulwebdesign_Toast::message"
+             parent="Seoulwebdesign_Base::admin_menu"/>
+        <add id="Seoulwebdesign_Toast::toast_configuration" title="Toast Configuration" module="Seoulwebdesign_Toast"
+             sortOrder="99"
+             parent="Seoulwebdesign_Base::admin_menu"
+             action="adminhtml/system_config/edit/section/toast"
+             resource="Seoulwebdesign_Toast::stores_toast_config"/>
+    </menu>
+</config>

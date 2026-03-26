@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Cpss\Crm\Model\Btoc\Token" type="OnitsukaTigerCpss\Crm\Model\Btoc\Token"/>
+    <preference for="Cpss\Crm\Model\Btoc\Login" type="OnitsukaTigerCpss\Crm\Model\Btoc\Login"/>
+    <preference for="Cpss\Crm\Model\Btoc\Delete" type="OnitsukaTigerCpss\Crm\Model\Btoc\Delete"/>
+    <preference for="Cpss\Crm\Model\Btoc\Update" type="OnitsukaTigerCpss\Crm\Model\Btoc\Update"/>
+    <preference for="Cpss\Crm\Model\Btoc\Register" type="OnitsukaTigerCpss\Crm\Model\Btoc\Register"/>
+    <preference for="Cpss\Crm\Model\Btoc\Info" type="OnitsukaTigerCpss\Crm\Model\Btoc\Info"/>
+
+    <preference for="Cpss\Crm\Model\Btoc\Config\Param" type="OnitsukaTigerCpss\Crm\Model\Btoc\Config\Param"/>
+    <preference for="Cpss\Crm\Helper\MemberValidation" type="OnitsukaTigerCpss\Crm\Helper\MemberValidation"/>
+    <preference for="Cpss\Crm\Model\Btoc\OrderHistory" type="OnitsukaTigerCpss\Crm\Model\Btoc\OrderHistory"/>
+    <preference for="Cpss\Crm\Model\CpssApiRequest" type="OnitsukaTigerCpss\Crm\Model\CpssApiRequest"/>
+    <preference for="Cpss\Crm\Helper\AbstractHelper" type="OnitsukaTigerCpss\Crm\Helper\AbstractHelper"/>
+    <preference for="Cpss\Crm\Helper\Data" type="OnitsukaTigerCpss\Crm\Helper\CrmData"/>
+    <preference for="\Cpss\Crm\Helper\Customer" type="OnitsukaTigerCpss\Crm\Helper\Data"/>
+    <preference for="\Cpss\Crm\Block\Member\About" type="OnitsukaTigerCpss\Crm\Block\Member\About"/>
+    <preference for="\Cpss\Crm\Plugin\Customer\Login" type="OnitsukaTigerCpss\Crm\Plugin\Customer\Login"/>
+    <preference for="Cpss\Crm\Observer\SavePoints" type="OnitsukaTigerCpss\Crm\Observer\SavePoints"/>
+    <preference for="Cpss\Crm\Controller\NewAgreement\Index" type="OnitsukaTigerCpss\Crm\Plugin\Controller\NewAgreement\Index"/>
+    <preference for="Cpss\Crm\Plugin\Customer\CpssCreateAccount" type="OnitsukaTigerCpss\Crm\Plugin\Customer\CpssCreateAccount"/>
+    <preference for="Cpss\Crm\Model\Order" type="OnitsukaTigerCpss\Crm\Model\Order"/>
+    <preference for="Cpss\Crm\Cron\CrmAnalysisData" type="OnitsukaTigerCpss\Crm\Cron\CrmAnalysisData"/>
+
+    <preference for="\Cpss\Crm\Model\Shop\Login" type="OnitsukaTigerCpss\Crm\Model\Shop\Login"/>
+    <preference for="Cpss\Crm\Model\Shop\RegisterReceipt" type="OnitsukaTigerCpss\Crm\Model\Shop\RegisterReceipt"/>
+    <preference for="Cpss\Crm\Model\Shop\DeleteReceipt" type="OnitsukaTigerCpss\Crm\Model\Shop\DeleteReceipt"/>
+    <preference for="Cpss\Crm\Model\Shop\OrderHistory" type="OnitsukaTigerCpss\Crm\Model\Shop\OrderHistory"/>
+
+    <type name="Cpss\Crm\Controller\Point\History">
+        <plugin name="OnitsukaTigerCpss_PointHistory" type="OnitsukaTigerCpss\Crm\Plugin\Point\History"/>
+    </type>
+    <type name="Cpss\Crm\Model\PointConfigProvider">
+        <plugin name="OnitsukaTigerCpss_PointConfigProvider" type="OnitsukaTigerCpss\Crm\Plugin\Model\PointConfigProvider"/>
+    </type>
+    <type name="Magento\Customer\Controller\Account\CreatePost">
+        <plugin name="cpss_member_create_account" disabled="true"/>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="cpssSftpFileUpload" xsi:type="object">OnitsukaTigerCpss\Crm\Console\SftpFileUpload</item>
+                <item name="cpssSftpReadFile" xsi:type="object">OnitsukaTigerCpss\Crm\Console\SftpReadFile</item>
+                <item name="posSFTPEmailNotification" xsi:type="object">OnitsukaTigerCpss\Crm\Console\PosSftpEmailNotification</item>
+                <item name="cpssSFTPEmailNotification" xsi:type="object">OnitsukaTigerCpss\Crm\Console\CpssSftpEmailNotification</item>
+                <item name="cpssPendingFilesSFTPEmailNotification" xsi:type="object">OnitsukaTigerCpss\Crm\Console\CpssPendingFilesSftpEmailNotification</item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>

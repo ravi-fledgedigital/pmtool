@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Track your order</title>
+    </head>
+    <body>
+        <referenceContainer name="sidebar.main">
+            <block class="Magento\Cms\Block\Block" name="login-links">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">login-links</argument>
+                </arguments>
+            </block>
+            <container  htmlTag="div" htmlClass="login-need-help">
+                <block class="Magento\Cms\Block\Block" name="need-help">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">need-help</argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Magento\Sales\Block\Widget\Guest\Form" name="guest.form" template="OnitsukaTiger_OrderTracking::guest/form.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

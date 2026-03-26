@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="bestsellers_product_list" resource="sales" engine="innodb"
+           comment="Bestsellers Product List">
+        <column xsi:type="int" name="id" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="date" name="period" comment="Period"/>
+        <column xsi:type="smallint" name="store_id" unsigned="true" nullable="true" identity="false"
+                comment="Store ID"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="true" identity="false"
+                comment="Product ID"/>
+        <column xsi:type="varchar" name="product_name" nullable="true" length="255" comment="Product Name"/>
+        <column xsi:type="decimal" name="product_price" scale="4" precision="12" unsigned="false" nullable="false"
+                default="0" comment="Product Price"/>
+        <column xsi:type="decimal" name="qty_ordered" scale="4" precision="12" unsigned="false" nullable="false"
+                default="0" comment="Qty Ordered"/>
+        <column xsi:type="smallint" name="rating_pos" unsigned="true" nullable="false" identity="false"
+                default="0" comment="Rating Pos"/>
+        <column xsi:type="varchar" name="material_code" nullable="true" length="255" comment="Material Code"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="BESTSELLERS_DAILY_STORE_ID_STORE_STORE_ID"
+                    table="sales_bestsellers_aggregated_daily" column="store_id" referenceTable="store"
+                    referenceColumn="store_id" onDelete="CASCADE"/>
+        <constraint xsi:type="unique" referenceId="BESTSELLERS_DAILY_PERIOD_STORE_ID_PRODUCT_ID">
+            <column name="period"/>
+            <column name="store_id"/>
+            <column name="product_id"/>
+        </constraint>
+        <index referenceId="BESTSELLERS_DAILY_STORE_ID" indexType="btree">
+            <column name="store_id"/>
+        </index>
+        <index referenceId="BESTSELLERS_DAILY_PRODUCT_ID" indexType="btree">
+            <column name="product_id"/>
+        </index>
+    </table>
+</schema>
+

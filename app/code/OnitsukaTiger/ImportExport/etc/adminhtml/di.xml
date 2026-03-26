@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Backend\Block\Menu" type="OnitsukaTiger\ImportExport\Rewrite\Block\MenuCustom" />
+    <type name="Magento\Backend\Block\Menu">
+        <plugin name="OnitsukaTiger_ImportExport:menu" type="OnitsukaTiger\ImportExport\Plugin\Backend\Block\Menu"/>
+    </type>
+    <type name="Magento\Backend\Model\Menu\Item">
+        <plugin name="OnitsukaTiger_ImportExport:correct-market-url" type="OnitsukaTiger\ImportExport\Plugin\Backend\Model\Menu\Item"/>
+    </type>
+    <type name="Magento\Framework\View\Result\Page">
+        <plugin name="OnitsukaTiger_ImportExport:remove-button-delete" type="OnitsukaTiger\ImportExport\Plugin\Result\Page" />
+    </type>
+</config>

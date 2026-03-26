@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <virtualType name="OnitsukaTigerIndo\SizeConverter\Model\ResourceModel\IndoSize\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">onitsukatigerindo_sizeconverter</argument>
+            <argument name="resourceModel" xsi:type="string">OnitsukaTigerIndo\SizeConverter\Model\ResourceModel\IndoSize</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="indosize_listing_data_source" xsi:type="string">OnitsukaTigerIndo\SizeConverter\Model\ResourceModel\IndoSize\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="OnitsukaTigerIndo\SizeConverter\Console\Command\SizeConvert" xsi:type="object">OnitsukaTigerIndo\SizeConverter\Console\Command\SizeConvert</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

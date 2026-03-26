@@ -1,0 +1,20 @@
+{
+    "name": "seoulwebdesign/toast",
+    "description": "Toast integration for Magento 2",
+    "version": "2.0.2",
+    "type": "magento2-module",
+    "license": "OSL-3.0",
+    "minimum-stability": "dev",
+    "require": {
+        "seoulwebdesign/base": "*"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Seoulwebdesign\\Toast\\": ""
+        }
+    }
+}
+

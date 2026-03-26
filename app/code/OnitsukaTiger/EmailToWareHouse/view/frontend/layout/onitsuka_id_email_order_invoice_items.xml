@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Email Invoice Items List" design_abstraction="custom">
+    <update handle="sales_email_item_price"/>
+    <body>
+        <block class="Magento\Sales\Block\Order\Email\Invoice\Items" name="items" template="OnitsukaTiger_EmailToWareHouse::email/invoice/id_items.phtml">
+            <block class="Magento\Framework\View\Element\RendererList" name="sales.pdf.order.invoice" as="renderer.list">
+                <block class="Magento\Sales\Block\Order\Email\Items\DefaultItems" name="sales.pdf.order.invoice.renderers" as="default" template="OnitsukaTiger_EmailToWareHouse::email/items/invoice/id_items.phtml">
+                    <arguments>
+                        <argument name="view_model" xsi:type="object">OnitsukaTiger\EmailToWareHouse\ViewModel\Invoice\Product</argument>
+                    </arguments>
+                </block>
+            </block>
+            <block class="Magento\Sales\Block\Order\Invoice\Totals" name="invoice_totals" template="Magento_Sales::order/totals.phtml" cacheable="false">
+                <arguments>
+                    <argument name="label_properties" xsi:type="string">colspan="2"</argument>
+                </arguments>
+                <block class="Magento\Tax\Block\Sales\Order\Tax" name="tax" template="Magento_Tax::order/tax.phtml"/>
+            </block>
+        </block>
+        <block class="Magento\Framework\View\Element\Template" name="additional.product.info" template="Magento_Theme::template.phtml"/>
+    </body>
+</page>

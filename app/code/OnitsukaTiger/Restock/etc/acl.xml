@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+		<resources>
+			<resource id="Magento_Backend::admin">
+				<resource id="OnitsukaTiger_Base::asics" title="OnitsukaTiger ASICS Menu" sortOrder="51">
+					<resource id="OnitsukaTiger_Restock::onitsukatiger_restock_restock" title="Restock List" sortOrder="10"/>
+					<resource id="OnitsukaTiger_Restock::restock_view" title="View Restock Customer" sortOrder="20"/>
+				</resource>
+			</resource>
+		</resources>
+	</acl>
+</config>

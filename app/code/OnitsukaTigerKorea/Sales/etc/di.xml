@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Sales\Api\ShipmentRepositoryInterface">
+        <plugin name="save_shipment_attribute" type="OnitsukaTigerKorea\Sales\Plugin\ProcessShipmentAttribute"/>
+    </type>
+    <preference for="OnitsukaTiger\Shipment\Model\ShipmentAttributes" type="OnitsukaTigerKorea\Sales\Model\Shipment\ShipmentAttributes" />
+    <virtualType name="Magento\Sales\Model\ResourceModel\Order\Grid" type="Magento\Sales\Model\ResourceModel\Grid">
+        <arguments>
+            <argument name="columns" xsi:type="array">
+                <item name="order_xml_id" xsi:type="string">sales_order.order_xml_id</item>
+                <item name="shipping_telephone" xsi:type="string">sales_order.shipping_telephone</item>
+                <item name="billing_telephone" xsi:type="string">sales_order.billing_telephone</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Sales\Block\Adminhtml\Items\Column\DefaultColumn">
+        <plugin name="add_sku_wms_item_detail" type="OnitsukaTigerKorea\Sales\Plugin\Block\Sales\Item\DefaultColumn"/>
+    </type>
+    <type name="Magento\Sales\Model\Order">
+        <plugin name="ignore_send_email_when_cancel_order" type="OnitsukaTigerKorea\Sales\Plugin\IgnoreEmailCancel" />
+    </type>
+    <preference for="OnitsukaTiger\Sales\Observer\CancelOrder" type="OnitsukaTigerKorea\Sales\Observer\CancelOrder" />
+    <preference for="Magento\Sales\Block\Adminhtml\Order\Address\Form" type="OnitsukaTigerKorea\Sales\Block\Adminhtml\Order\Address\Form"/>
+    <type name="Magento\Sales\Model\Order\Address">
+        <plugin name="OnitsukaTigerKorea_Sales::custom_get_set_order_address" type="OnitsukaTigerKorea\Sales\Plugin\Model\Order\Address" disabled="false"/>
+    </type>
+    <type name="Magento\Sales\Block\Adminhtml\Order\View\History">
+        <plugin name="OnitsukaTigerKorea_Sales::set_template_history" type="OnitsukaTigerKorea\Sales\Plugin\Block\Adminhtml\Order\View\History" disabled="false"/>
+    </type>
+</config>
+

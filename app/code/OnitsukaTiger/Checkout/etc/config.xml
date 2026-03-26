@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <shipping>
+            <shipping_link>
+                <enable>0</enable>
+            </shipping_link>
+        </shipping>
+        <payment_default>
+            <general>
+                <payment>omise_cc</payment>
+            </general>
+        </payment_default>
+    </default>
+</config>

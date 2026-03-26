@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="amasty.returns.guest.new">
+            <block class="OnitsukaTigerKorea\RmaAddress\Block\Returns\AddressOption"
+                   name="amasty.returns.customer.guest.address.options" as="address_options"
+                   template="OnitsukaTigerKorea_RmaAddress::account/returns/address_options.phtml">
+                <arguments>
+                    <argument name="isGuest" xsi:type="boolean">true</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

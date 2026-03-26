@@ -1,0 +1,20 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @var \Magento\Theme\Block\Html\Header\Logo $block
+ */
+$storeName = $block->getThemeName() ? $block->getThemeName() : $block->getLogoAlt();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$assetRepository = $objectManager->get('\Magento\Framework\View\Asset\Repository');
+$repository = $assetRepository->createAsset('OnitsukaTiger_EmailToWareHouse::images/logo_onitsuka_tiger_01.svg');
+$logo = "data:image/svg+xml;base64,". base64_encode(file_get_contents($repository->getSourceFile()));
+?>
+<img src="<?= $logo ?>"
+     alt="<?= $block->escapeHtmlAttr($block->getLogoAlt()) ?>"
+     width="150px"
+     height="100px"
+/>

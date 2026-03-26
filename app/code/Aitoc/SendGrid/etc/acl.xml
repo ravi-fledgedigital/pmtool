@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Aitoc Team
+ * @copyright Copyright (c) 2022 Aitoc (https://www.aitoc.com)
+ * @package Aitoc_SendGrid
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Reports::report">
+                    <resource id="Aitoc_SendGrid::send_grid" title="Aitoc: SendGrid" sortOrder="31">
+                        <resource id="Aitoc_SendGrid::statistics" title="SendGrid Statistic Report" translate="title" sortOrder="10" />
+                    </resource>
+                </resource>
+                <resource id="Magento_Backend::marketing">
+                    <resource id="Aitoc_SendGrid::send_grid_marketing" title="Aitoc: SendGrid" sortOrder="31">
+                        <resource id="Aitoc_SendGrid::singlesends" title="Aitoc SendGrid Single Sends Manage" translate="title" sortOrder="10" />
+                    </resource>
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Aitoc_SendGrid::config"
+                                      title="Aitoc SendGrid Extension" sortOrder="50"/>
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

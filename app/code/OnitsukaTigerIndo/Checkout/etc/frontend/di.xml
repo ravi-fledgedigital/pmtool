@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © CO-WELL ASIA CO.,LTD.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Checkout\Block\Onepage">
+        <arguments>
+            <argument name="layoutProcessors" xsi:type="array">
+                <item name="add_district_option" xsi:type="object">OnitsukaTigerIndo\Checkout\Block\Cart\LayoutProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Checkout\Block\Checkout\DirectoryDataProcessor">
+        <plugin name="DirectoryDataProcessorAfter" type="OnitsukaTigerIndo\Checkout\Plugin\Checkout\Block\Checkout\DirectoryDataProcessor" sortOrder="22" />
+    </type>
+</config>

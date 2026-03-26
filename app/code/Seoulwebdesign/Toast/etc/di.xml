@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Seoulwebdesign\Toast\Helper\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Seoulwebdesign\Toast\Helper\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">Toast Logger</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">Seoulwebdesign\Toast\Helper\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="seoulwebdesign_toast_message_listing_data_source" xsi:type="string">Seoulwebdesign\Toast\Model\ResourceModel\Message\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Seoulwebdesign\Toast\Model\ResourceModel\Message\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">seoulwebdesign_toast_template</argument>
+            <argument name="resourceModel" xsi:type="string">Seoulwebdesign\Toast\Model\ResourceModel\Message</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="\Seoulwebdesign\Toast\Helper\Data">
+        <arguments>
+            <argument name="attributeResolver" xsi:type="array">
+                <item name="var_order_customer_name" xsi:type="object">\Seoulwebdesign\Toast\Model\Resolver\VarOrderCustomerName</item>
+                <item name="var_order_courier" xsi:type="object">\Seoulwebdesign\Toast\Model\Resolver\VarOrderCourier</item>
+                <item name="var_order_created_time" xsi:type="object">\Seoulwebdesign\Toast\Model\Resolver\VarOrderCreatedTime</item>
+                <item name="var_order_id" xsi:type="object">\Seoulwebdesign\Toast\Model\Resolver\VarOrderId</item>
+                <item name="var_order_payment_method" xsi:type="object">\Seoulwebdesign\Toast\Model\Resolver\VarOrderPaymentMethod</item>
+                <item name="var_order_products" xsi:type="object">\Seoulwebdesign\Toast\Model\Resolver\VarOrderProducts</item>
+                <item name="var_order_refunded" xsi:type="object">\Seoulwebdesign\Toast\Model\Resolver\VarOrderRefunded</item>
+                <item name="var_order_total" xsi:type="object">\Seoulwebdesign\Toast\Model\Resolver\VarOrderTotal</item>
+                <item name="var_order_tracking_code" xsi:type="object">\Seoulwebdesign\Toast\Model\Resolver\VarOrderTrackingCode</item>
+                <item name="var_order_updated_time" xsi:type="object">\Seoulwebdesign\Toast\Model\Resolver\VarOrderUpdatedTime</item>
+                <item name="var_shop_name" xsi:type="object">\Seoulwebdesign\Toast\Model\Resolver\VarShopName</item>
+                <item name="var_shop_url" xsi:type="object">\Seoulwebdesign\Toast\Model\Resolver\VarShopUrl</item>
+                <item name="var_customer_name" xsi:type="object">\Seoulwebdesign\Toast\Model\Resolver\VarCustomerName</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="\Seoulwebdesign\Toast\Block\Adminhtml\Message\Edit\Form">
+        <arguments>
+            <argument name="messageFields" xsi:type="array">
+                <item name="message_field_order" xsi:type="object">\Seoulwebdesign\Toast\Model\MessageField\Order</item>
+                <item name="message_field_customer" xsi:type="object">\Seoulwebdesign\Toast\Model\MessageField\Customer</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

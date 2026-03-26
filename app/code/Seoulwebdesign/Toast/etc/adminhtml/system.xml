@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+        <tab id="swd" sortOrder="400" translate="label">
+            <label>Seoul Web Design</label>
+        </tab>
+		<section id="toast" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+			<class>separator-top</class>
+			<label>Toast Config</label>
+			<tab>swd</tab>
+			<resource>Seoulwebdesign_Toast::stores_toast_config</resource>
+			<group id="config" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+				<label>Toast Config</label>
+				<field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Enabled</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+				</field>
+				<field id="debug" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Debug Enabled</label>
+					<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+					<comment>Record the request to the debug.log file</comment>
+				</field>
+				<field id="app_key" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>App Key</label>
+				</field>
+				<field id="secret_key" translate="label" type="obscure" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+					<label>Secret Key</label>
+					<backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+				</field>
+                <field id="plus_friend_id" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Plus Friend Id</label>
+                </field>
+                <field id="can_resend" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Can Resend</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="resend_type" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Resend Type</label>
+                    <source_model>Seoulwebdesign\Toast\Model\Source\ResendType</source_model>
+                </field>
+			</group>
+		</section>
+	</system>
+</config>

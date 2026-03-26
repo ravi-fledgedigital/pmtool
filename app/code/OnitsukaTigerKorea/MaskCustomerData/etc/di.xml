@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Sales\Model\ResourceModel\Order\Grid\Collection">
+        <plugin name="mask_customer_data_plugin" type="OnitsukaTigerKorea\MaskCustomerData\Plugin\MaskCustomerData" />
+    </type>
+
+    <type name="Magento\Customer\Model\ResourceModel\Grid\Collection">
+        <plugin name="customer_grid_data_masking" type="OnitsukaTigerKorea\MaskCustomerData\Plugin\Customer\Grid" />
+    </type>
+
+    <type name="Magento\Customer\Model\ResourceModel\Online\Grid\Collection">
+        <plugin name="now_online_grid_data_masking" type="OnitsukaTigerKorea\MaskCustomerData\Plugin\NowOnline\Grid" />
+    </type>
+
+    <type name="Magento\Newsletter\Model\ResourceModel\Subscriber\Collection">
+        <plugin name="mask_customer_data" type="OnitsukaTigerKorea\MaskCustomerData\Plugin\Newsletter\Grid" />
+    </type>
+    
+    <type name="Magento\Sales\Model\ResourceModel\Order\Shipment\Grid\Collection">
+        <plugin name="mask_shipment_grid" type="OnitsukaTigerKorea\MaskCustomerData\Plugin\Shipment\Grid" />
+    </type>
+
+    <type name="Magento\Sales\Model\ResourceModel\Order\Creditmemo\Grid\Collection">
+        <plugin name="mask_creditmemo_grid" type="OnitsukaTigerKorea\MaskCustomerData\Plugin\CreditMemo\Grid" />
+    </type>
+
+    <type name="Amasty\Rma\Model\Request\DataProvider\Listing">
+        <plugin name="mask_creditmemo_grid" type="OnitsukaTigerKorea\MaskCustomerData\Plugin\Rma\Request\Listing" />
+    </type>
+
+</config>

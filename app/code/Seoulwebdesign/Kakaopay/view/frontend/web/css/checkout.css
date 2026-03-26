@@ -1,0 +1,14 @@
+div.kakaopay-submit-button {
+    background: transparent url('images/button.png') no-repeat center;
+    background-size: contain;
+    width: 124px;
+    height: 54px;
+    cursor: pointer;
+}
+div.kakaopay-submit-button:hover{
+    background: transparent url('images/button_hover.png') no-repeat center;
+    background-size: contain;
+    width: 124px;
+    height: 54px;
+    cursor: pointer;
+}

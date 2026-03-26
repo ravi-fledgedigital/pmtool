@@ -1,0 +1,125 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @var \Cpss\Crm\Block\Adminhtml\Receipt\View\Content\Info $block
+ */
+$helperData =  $this->helper('Magento\Framework\Pricing\Helper\Data');
+$posHelper = $this->helper(\OnitsukaTigerCpss\Pos\Helper\HelperData::class);
+$_order = $block->getOrder();
+?>
+<section class="admin__page-section">
+	<div class="admin__page-section-title">
+        <span class="title"><?= $block->escapeHtml(__('Order Total')) ?></span>
+    </div>
+	<div class="admin__page-section-content">
+		<div class="admin__page-section-item order-comments-history">
+            <div class="admin__page-section">
+                <div class="admin__page-section-item-title admin-section-head">
+                    <span class="title"><?= $block->escapeHtml(__('Shop Comments')) ?></span>
+                </div>
+                <div class="order-comments">
+                    <div class="order-comments-block">
+                        <div class="admin__field">
+                            <div class="admin__field-control">
+                                <div>
+                                    <?php if(!empty($_order->getOrderComment())) {?>
+                                        <span><?= $_order->getOrderComment() ?></span>
+                                    <?php } else { ?>
+                                        <span><?= $block->escapeHtml(__('No comments')) ?></span>
+                                    <?php }?>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="admin__page-section-item-title  admin-section-head">
+                <span class="title"><?= $block->escapeHtml(__('Point information')) ?></span>
+            </div>
+			<div class="admin-data-table admin-point-information">
+				<div class="admin-data-table-block">
+					<div class="admin__field">
+						<div class="admin__field-control">
+							<table class="admin-point-table admin__table-secondary">
+                                <tbody>
+                                    <tr>
+                                        <td><span><?= __("Used Points:") ?></span></td>
+                                        <td><span><?= $_order->getUsedPoint() ?  __("%1 points", $_order->getUsedPoint()) : "-"  ?></span></td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <td><span><?= __("Cancelled Points:") ?></span></td>
+                                        <td><span><?= $_order->getCancelPoint() ? __("%1 points", $_order->getCancelPoint()) : "-" ?></span></td>
+                                    </tr> -->
+                                    <tr>
+                                        <td><span><?= __("Added Points:") ?></span></td>
+                                        <td><span><?= ($_order->getAddedPointDate() == null && $_order->getAddedPoint() == 0 ? "-" : ($_order->getAddedPointDate() ? $posHelper->formatDateFromCpss($_order->getAddedPointDate(), $_order->getStoreCode()) : "") . ' ' . ($_order->getAddedPoint() != 0 ? __("%1 points", $_order->getAddedPoint()) : "")) ?></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span><?= __("Get Back Added Points:") ?></span></td>
+                                        <td><span><?= ($_order->getGotBackAddedPointDate() == null && $_order->getGotBackAddedPoint() == 0 ? "-" : ($_order->getGotBackAddedPointDate() ? $posHelper->formatDateFromCpss($_order->getGotBackAddedPointDate(), $_order->getStoreCode()) : "") . ' ' . ($_order->getGotBackAddedPoint() != 0 ? __("%1 points", $_order->getGotBackAddedPoint()) : "")) ?></span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="admin__page-section-item order-totals">
+			<div class="admin__page-section-item-title">
+                <span class="title">Order Totals</span>
+            </div>
+            <table class="admin__table-secondary order-subtotal-table">
+                <tbody>
+                    <tr>
+                        <td><?= $block->escapeHtml(__('Subtotal')) ?></td>
+                        <!--<td> <span><span><?php /*= $helperData->currency($_order->getTotalAmount() + $_order->getTaxAmount() + $_order->getDiscountAmount() ,true,false) */?></span></span>-->
+                        <td> <span><span><?= $posHelper->getFormatedPrice($_order->getTotalAmount() + $_order->getTaxAmount() + $_order->getDiscountAmount(), $_order->getStoreCode()); ?></span></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><?= $block->escapeHtml(__('Discount Amount')) ?></td>
+                        <!--<td> <span><span><?php /*= $helperData->currency($_order->getDiscountAmount() ,true,false) */?></span></span>-->
+                        <td> <span><span><?= $posHelper->getFormatedPrice($_order->getDiscountAmount(), $_order->getStoreCode()); ?></span></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="summary-collapse" tabindex="0"><?= $block->escapeHtml(__('Tax')) ?></div>
+                        </td>
+                        <!--<td> <span><?php /*= $helperData->currency($_order->getTaxAmount() ,true,false) */?></span> </td>-->
+                        <td> <span><?= $posHelper->getFormatedPrice($_order->getTaxAmount(), $_order->getStoreCode()) ?></span> </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <?php $totalPrice = ($_order->getTotalAmount() + $_order->getTaxAmount()) - $_order->getDiscountAmount(); ?>
+                    <tr>
+                        <td> <strong><?= $block->escapeHtml(__('Grand Total')) ?></strong> </td>
+                        <!--<td> <strong><span><?php /*= $helperData->currency($totalPrice + $_order->getDiscountAmount(),true,false) */?></span></strong> </td>-->
+                        <td> <strong><span><?= $posHelper->getFormatedPrice($totalPrice + $_order->getDiscountAmount(), $_order->getStoreCode()) ?></span></strong> </td>
+                    </tr>
+                    <tr>
+                        <td> <strong><?= $block->escapeHtml(__('Total Paid')) ?></strong> </td>
+                        <!--<td> <strong><span><?php /*= $helperData->currency($totalPrice + $_order->getDiscountAmount(),true,false) */?></span></strong> </td>-->
+                        <td> <strong><span><?= $posHelper->getFormatedPrice($totalPrice + $_order->getDiscountAmount(), $_order->getStoreCode()) ?></span></strong> </td>
+                    </tr>
+                    <tr>
+                        <?php
+                            $refundPrice = $_order->getReturnTotalAmount() + $_order->getReturnTaxAmount();
+                            /*if(!empty($_order->getReturnPurchaseId())) {
+                                $refundPrice = $_order->getReturnTotalAmount();
+                            }*/
+                        ?>
+                        <td> <strong><?= $block->escapeHtml(__('Total Refunded')) ?></strong> </td>
+                        <td> <strong><span><?= $posHelper->getFormatedPrice($refundPrice, $_order->getStoreCode()) ?></span></strong> </td>
+                    </tr>
+                </tfoot>
+            </table>
+		</div>
+	</div>
+</section>

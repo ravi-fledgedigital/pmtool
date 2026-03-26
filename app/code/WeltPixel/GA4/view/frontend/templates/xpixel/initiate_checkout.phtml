@@ -1,0 +1,47 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \WeltPixel\GA4\Block\XPixel\Common */
+
+/** @var \WeltPixel\GA4\Helper\XPixelTracking $xPixelHelper */
+$xPixelHelper = $this->helper('WeltPixel\GA4\Helper\XPixelTracking');
+$cspNonceProvider = $xPixelHelper->getCspNonceProvider();
+?>
+<script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    let xInititateCheckoutEventId = <?= /* @noEscape */ $xPixelHelper->getJsEventIdGenerator('initiate_checkout') ?>;
+</script>
+<?php if ($xPixelHelper->isXPixelTrackingEnabled() && $xPixelHelper->shouldXPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\XPixel\TrackingEvents::EVENT_INITIATE_CHECKOUT)) :
+?>
+<script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        if (window.ga4AllowServices) {
+            twq('event', '<?= /* @noEscape */ $xPixelHelper->getTwitterEventId(\WeltPixel\GA4\Model\Config\Source\XPixel\TrackingEvents::EVENT_INITIATE_CHECKOUT) ?>', {
+                value:  <?= /* @noEscape */ $block->getCheckoutValue() ?>,
+                currency: "<?= /* @noEscape */ $xPixelHelper->getCurrencyCode() ?>",
+                contents:  <?= /* @noEscape */ $block->getCheckoutContents() ?>,
+                description: "Checkout initiated with <?= /* @noEscape */ $block->getCheckoutNumItems() ?> items",
+                conversion_id: xInititateCheckoutEventId
+            });
+    }
+</script>
+<?php endif; ?>
+
+
+
+<?php if ($xPixelHelper->isServerSideTrackingEnabled() && $xPixelHelper->shouldXServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\XPixel\TrackingEvents::EVENT_INITIATE_CHECKOUT)) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($xPixelHelper->getTwitterSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'conversionId': xInititateCheckoutEventId,
+                            'eventName': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\XPixel\TrackingEvents::EVENT_INITIATE_CHECKOUT  ?>',
+                            'quoteId': '<?=  /* @noEscape */ $block->getQuoteId() ?>'
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>

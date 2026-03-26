@@ -1,0 +1,23 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "予約商品の決済開始のご案内"}} @-->
+<!--@vars {
+"var alertGrid|raw":"Alert Data Grid",
+"var customerName":"Customer Name",
+"template config_path=\"design\/email\/footer_template\"":"Email Footer Template",
+"template config_path=\"design\/email\/header_template\"":"Email Header Template"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+<p class="greeting">{{trans "%name" name=$customerName}}</p>
+<p>オニツカタイガー公式オンラインストアをご利用いただきまして誠にありがとうございます。</p>
+<br>
+{{var alertGrid|raw}}
+<p style="font-size: 14px; letter-spacing: 0.09em; margin:0; padding:0; line-height: 20px; color: #000; font-weight:400;">※本メールは送信専用アドレスからお送りしているためご返信いただいてもメールを受け取ることができません。ご不明な点がございましたら、こちらからお問い合わせください
+    <a href="{{var this.getUrl($store,'contact/')}}" style="text-decoration:underline;font-weight:regular;" target="_blank" >ここから。</a>
+</p>
+{{template config_path="design/email/footer_template"}}

@@ -1,0 +1,101 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @var \Cpss\Crm\Block\Adminhtml\Receipt\View\Content\Info $block
+ */
+$helperData =  $this->helper('Magento\Framework\Pricing\Helper\Data');
+$posHelper = $this->helper(\OnitsukaTigerCpss\Pos\Helper\HelperData::class);
+$_order = $block->getOrder();
+?>
+<div class="admin__page-section-title">
+    <span class="title"><?= $block->escapeHtml(__('Items Ordered')) ?></span>
+</div>
+<div class="admin__table-wrapper">
+    <table class="admin__table-primary edit-order-table">
+        <thead>
+            <tr class="headings">
+                <?php $i = 0;
+                $columns = $block->getColumns();
+                $lastItemNumber = count($columns) ?>
+                <?php foreach ($columns as $columnName => $columnTitle) : ?>
+                    <?php $i++; ?>
+                    <th class="col-<?= $block->escapeHtmlAttr($columnName) ?><?= /* @noEscape */ ($i === $lastItemNumber ? ' last' : '') ?>">
+                        <span><?= $block->escapeHtml($columnTitle) ?></span>
+                    </th>
+                <?php endforeach; ?>
+            </tr>
+        </thead>
+        <?php $_items = $_order->getItems();?>
+        <?php $i = 0;
+            foreach ($_items as $_item) : ?>
+            <?php $i++; ?>
+                <tbody class="<?= /* @noEscape */ $i%2 ? 'even' : 'odd' ?>">
+                    <tr>
+                        <td class="col-product">
+                            <!-- <div id="order_item_471">
+                                <div id="order_item_471_title" class="product-title"><?= $block->escapeHtml($_item['product_name']) ?></div>
+                            </div> -->
+                            <div id="order_item_<?= $_item['item_id']; ?>">
+                                <div id="order_item_<?= $_item['item_id']; ?>_title" class="product-title">
+                                    <?= $block->escapeHtml($_item['product_name']) ?>
+                                </div>
+                                <dl class="item-options">
+                                    <dt><?= $block->escapeHtml(__('Sku')) ?>:</dt>
+                                    <?php $sku = str_replace("_RETN", "", $_item['sku']);?>
+                                    <dd><?= $block->escapeHtml($sku) ?></dd>
+                                    <dt><?= $block->escapeHtml(__('Color')) ?>:</dt>
+                                    <dd><?= $block->escapeHtml($_item['color']) ?></dd>
+                                    <dt><?= $block->escapeHtml(__('Size')) ?>:</dt>
+                                    <dd><?= $block->escapeHtml($_item['size']) ?></dd>
+                                </dl>
+                            </div>
+                        </td>
+                        <?php
+                            if(!empty($_item['tax_amount']) && $_item['tax_amount'] > 0){
+                                //$subtotal = (($_item['subtotal_amount'] + $_item['tax_amount']) + $_item['discount_amount']) / 1.1;
+                                /*$subtotal = (($_item['subtotal_amount'] + $_item['tax_amount']) + $_item['discount_amount']);*/
+                                /*$subtotal = $_item['subtotal_amount'];*/
+                            } else {
+                                /*$subtotal = $_item['subtotal_amount'] + $_item['discount_amount'];*/
+                            }
+                        $subtotal = $_item['subtotal_amount'];
+                        ?>
+                        <?php $price = $subtotal / $_item['qty']; ?>
+                        <td class="col-price">
+                            <div class="price-excl-tax">
+                                <span class="price"><?= $posHelper->getFormatedPrice(($price), $_order->getStoreCode()) ?></span>
+                            </div>
+                        </td>
+                        <td class="col-ordered-qty">
+                            <table class="qty-table">
+                                <tbody>
+                                    <tr>
+                                        <th><?= $block->escapeHtml(__('Ordered')) ?></th>
+                                        <td><?= $block->escapeHtml($_item['qty']) ?></td>
+                                    </tr>
+                                    <?php if ($_item['return_flg']) :?>
+                                        <tr>
+                                            <th><?= $block->escapeHtml(__('Returned')) ?></th>
+                                            <td><?= $block->escapeHtml($_item['qty']) ?></td>
+                                        </tr>
+                                    <?php endif;?>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td class="col-subtotal">
+                            <div class="subtotal-excl-tax">
+                                <span class="subtotal"><?= $posHelper->getFormatedPrice($subtotal, $_order->getStoreCode()) ?></span>
+                            </div>
+                        </td>
+                        <td class="col-tax"> <span class="price"><?= $posHelper->getFormatedPrice($_item['tax_amount'], $_order->getStoreCode()) ?></span> </td>
+                        <td class="col-discont"> <span class="price"><?= $posHelper->getFormatedPrice($_item['discount_amount'], $_order->getStoreCode()) ?></span> </td>
+                        <td class="col-total last"> <span class="price"><?= $posHelper->getFormatedPrice($_item['subtotal_amount'] + $_item['tax_amount'], $_order->getStoreCode()) ?></span> </td>
+                    </tr>
+                </tbody>
+        <?php endforeach; ?>
+    </table>
+</div>

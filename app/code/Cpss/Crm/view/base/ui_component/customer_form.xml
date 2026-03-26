@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">customer_form.customer_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Customer Information</item>
+        <item name="reverseMetadataMerge" xsi:type="boolean">true</item>
+    </argument>
+    <fieldset name="customer">
+        <field name="owned_point" formElement="input" sortOrder="2000">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">customer</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Current balance</label>
+                <dataType>text</dataType>
+                <visible>true</visible>
+            </settings>
+        </field>
+        <field name="expiring_point" formElement="input" sortOrder="2001">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">customer</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Expiring points</label>
+                <dataType>text</dataType>
+                <visible>true</visible>
+            </settings>
+        </field>
+        <field name="point_effective_date" formElement="input" sortOrder="2002">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">customer</item>
+                </item>
+            </argument>
+            <settings>
+                <label translate="true">Expiring on</label>
+                <dataType>text</dataType>
+                <visible>true</visible>
+            </settings>
+        </field>
+        <htmlContent name="customer_point_info" sortOrder="2003">
+            <block class="Cpss\Crm\Block\Adminhtml\Member\Info" name="point_info" template="Cpss_Crm::member/info.phtml"/>
+        </htmlContent>
+    </fieldset>
+</form>

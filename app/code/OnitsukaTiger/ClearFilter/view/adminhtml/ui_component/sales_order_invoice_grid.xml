@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+
+    <argument name="data" xsi:type="array">
+        <item name="buttons" xsi:type="array">
+            <item name="clear_filters" xsi:type="array">
+                <item name="name" xsi:type="string">clear_filters</item>
+                <item name="label" xsi:type="string" translate="true">Clear All Filters</item>
+                <item name="class" xsi:type="string">secondary</item>
+                <item name="sortOrder" xsi:type="number">10</item>
+                <item name="url" xsi:type="url" path="filter/invoice/clearall"/>
+            </item>
+        </item>
+    </argument>
+</listing>

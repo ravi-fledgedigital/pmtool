@@ -1,0 +1,185 @@
+.kpostcode-popup {
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 999999999;
+    top: 0;
+    left: 0;
+}
+
+.kpostcode-popup > .popup_box {
+    background: #FFF;
+    display: block;
+    position: absolute;
+    width: 680px;
+    height: 400px;
+    top: 50%;
+    left: 50%;
+    margin-left: -340px;
+    margin-top: -200px;
+    overflow: hidden;
+}
+
+.kpostcode-popup > .popup_box .content {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+    margin: 20px 40px 20px 30px;
+    text-align: left;
+    width: auto;
+    height: 90%;
+    overflow-y: auto;
+}
+
+.kpostcode-popup > .popup_box .content .postcode_search_status.summary {
+    display: none
+}
+
+.kpostcode-popup > .popup_box .content .search_button {
+    height: 29px;
+    margin: 7px 0 0;
+}
+
+.kpostcode-popup > .popup_box .icon-x {
+    background: url("../images/x_icon.png");
+    display: block;
+    width: 22px;
+    height: 21px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    text-indent: -99999px;
+    z-index: 9999;
+}
+
+.swdkpostcode-ico {
+    cursor: pointer;
+    margin: 5px 0 0;
+}
+
+.swdkpostcode-ico img {
+    display: inline;
+    height: 18px;
+    margin: 0 0 -3px 3px;
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+    .kpostcode-popup > .popup_box {
+        width: 650px;
+        height: 450px;
+        top: 250px;
+        left: 50%;
+        margin-left: -325px;
+    }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+    .kpostcode-popup > .popup_box {
+        width: 450px;
+        height: 300px;
+        top: 50%;
+        left: 50%;
+        margin-left: -225px;
+        margin-top: -150px;
+    }
+
+    .kpostcode-popup > .popup_box .keyword {
+        width: 273px;
+    }
+}
+
+@media (max-width: 479px) {
+    .kpostcode-popup > .popup_box {
+        width: 300px;
+        height: 300px;
+        top: 50%;
+        left: 50%;
+        margin-left: -150px;
+        margin-top: -150px;
+    }
+
+    .kpostcode-popup > .popup_box .keyword {
+        width: 140px;
+    }
+}
+
+.kpostcode-popup > .popup_box.daum-popup {
+    width: 500px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    overflow: hidden;
+}
+.kpostcode-popup > .popup_box.daum-popup .content {
+    height: auto;
+    margin: 0;
+    overflow: auto;
+}
+.kpostcode-popup > .popup_box.daum-popup .content > h4{
+    margin: 20px;
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+    .kpostcode-popup > .popup_box.daum-popup {
+        width: 450px;
+        height: 500px;
+    }
+    .kpostcode-popup > .popup_box.daum-popup #postcode-area > div,
+    .kpostcode-popup > .popup_box.daum-popup #postcode-area-pm > div,
+    .kpostcode-popup > .popup_box.daum-popup .postcode-area-class > div{
+        width: 450px!important;
+    }
+}
+
+@media (max-width: 479px) {
+    .kpostcode-popup > .popup_box.daum-popup {
+        width: 300px;
+        height: 525px;
+    }
+    .kpostcode-popup > .popup_box.daum-popup #postcode-area > div,
+    .kpostcode-popup > .popup_box.daum-popup #postcode-area-pm > div,
+    .kpostcode-popup > .popup_box.daum-popup .postcode-area-class > div{
+        width: 300px!important;
+    }
+}
+.kpostcode-popup.iframe-mode {
+    background: none;
+    width: 100%;
+    height: initial;
+    position: relative;
+    z-index: 999999999;
+    top: initial;
+    left: initial;
+}
+.kpostcode-popup.iframe-mode .popup_box:not(.daum-popup) {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 400px;
+    top: initial;
+    left: initial;
+    margin: auto;
+    overflow: hidden;
+}
+.kpostcode-popup.iframe-mode .popup_box:not(.daum-popup) .keyword {
+    width: 100%;
+}
+.kpostcode-popup.iframe-mode .popup_box.daum-popup {
+    width: 100%!important;
+    height: 525px;
+    top: initial;
+    left: initial;
+    transform: initial;
+    margin: 0;
+    overflow: hidden;
+    position: relative;
+}
+.kpostcode-popup.iframe-mode .popup_box.daum-popup #postcode-area > div,
+.kpostcode-popup.iframe-mode .popup_box.daum-popup #postcode-area-pm > div,
+.kpostcode-popup.iframe-mode .popup_box.daum-popup .postcode-area-class > div{
+    width: 100%!important;
+}

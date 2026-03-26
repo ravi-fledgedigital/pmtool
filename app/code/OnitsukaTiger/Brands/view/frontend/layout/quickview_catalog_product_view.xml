@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="empty"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+      <body>
+          <referenceContainer name="product.info.main">
+              <block name="product_detail_attr_brands_quickview" before="-" class="Magento\Catalog\Block\Product\View\Description" template="OnitsukaTiger_Brands::product/view/attribute.phtml">
+                  <arguments>
+                      <argument name="at_call" xsi:type="string">getBrands</argument>
+                      <argument name="at_code" xsi:type="string">brands</argument>
+                      <argument name="css_class" xsi:type="string">brands</argument>
+                      <argument name="at_label" xsi:type="string">default</argument>
+                      <argument name="at_type" xsi:type="string">text</argument>
+                      <argument name="add_attribute" xsi:type="string">itemprop="brands"</argument>
+                  </arguments>
+              </block>
+          </referenceContainer>
+          <move element="page.main.title" destination="product.info.main" after="product_detail_attr_brands_quickview"/>
+      </body>
+</page>

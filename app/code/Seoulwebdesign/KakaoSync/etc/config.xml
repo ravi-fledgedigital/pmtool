@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <kakaosync>
+            <general>
+                <enable>0</enable>
+                <rest_api_key>cb682f58cd2426422823c181f1d302d4</rest_api_key>
+                <javascript_key>1f79cb36f448d869f52ab3d3df2ace21</javascript_key>
+                <admin_key>2b8601509631df38287488c94e62fc27</admin_key>
+                <client_secret>lo8YQAHK7ai383NdeJyko1hpuhPeTq0l</client_secret>
+                <redirect_url>http://ce24.magevn.com/kakaosync/redirect/oauth</redirect_url>
+                <customer_group_id>1</customer_group_id>
+            </general>
+        </kakaosync>
+    </default>
+</config>

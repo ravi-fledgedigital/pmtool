@@ -1,0 +1,143 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+$creditmemo = $block->getCreditmemo();
+$_order   = $block->getOrder();
+$crmHelper = $this->helper(\OnitsukaTigerCpss\Crm\Helper\HelperData::class);
+
+?>
+
+<?php if ($creditmemo && $_order):?>
+    <?php
+    $usedPoint = 0;
+    $pointValue = 0;
+    $pointLabel = 'Points to be earned:';
+    if ($_order->getUsedPoint()) {
+        $usedPoint = number_format($_order->getUsedPoint());
+    }
+    if ($_order->getAddedPointDate() > 0 || $_order->getAcquiredPoint() > 0) {
+        $pointValue = number_format($_order->getAcquiredPoint());
+
+        if ($_order->getAddedPoint() > 0) {
+            $pointLabel = 'Added Points:';
+            $pointValue = number_format($_order->getAddedPoint());
+        }
+    }
+
+    $helperFixture = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);
+    $priceIncludingTax = $helperFixture->getConfig('tax/calculation/price_includes_tax');
+    $totalInclusiveTax = $helperFixture->getConfig('tax/cart_display/subtotal');
+    if ($priceIncludingTax == 1) {
+        $priceIncludeLabel = 'Including';
+    } else {
+        $priceIncludeLabel = 'Excluding';
+    }
+    if ($totalInclusiveTax == 1) {
+        $totalIncludeLabel = 'Exclusive';
+    } else {
+        $totalIncludeLabel = 'Inclusive';
+    }
+
+    $taxInfo = $this->helper(\Magento\Tax\Helper\Data::class)->getCalculatedTaxes($creditmemo);
+    $listTaxTitle = array_column($taxInfo, 'title');
+    ?>
+    <?php
+    $cItems = $creditmemo->getAllItems();
+    $refundedPoint = 0;
+    foreach ($cItems as $item) {
+        $oItem = $item->getOrderItem();
+        $orderQty = (int)$oItem->getQtyOrdered();
+        $returnQty = (int)$item->getQty();
+        $returnPoints = ($oItem->getUsedPoint() / $orderQty) * $returnQty;
+        $refundedPoint += $returnPoints;
+    }
+
+    if ($refundedPoint > 0) {
+        $refundedPoint = number_format($refundedPoint * 100);
+    }
+    ?>
+    <table class="table text-center">
+        <thead>
+        <tr>
+            <th scope="col">
+                <?= $block->escapeHtml(__('No')) ?>
+            </th>
+            <th scope="col">
+                <?= $block->escapeHtml(__('Product No')) ?>
+            </th>
+            <th scope="col">
+                <?= $block->escapeHtml(__('Item Description')) ?>
+            </th>
+            <th scope="col">
+                <?= $block->escapeHtml(__('Quantity')) ?>
+            </th>
+            <th scope="col">
+                <?= $block->escapeHtml(__('Unit Price')) ?>
+            </th>
+            <th scope="col">
+                <?= $block->escapeHtml(__('Subtotal')) ?>
+            </th>
+            <?php if ($crmHelper->isEnableModule()): ?>
+                <th scope="col">
+                    <?= /* @noEscape */ $block->escapeHtml(__('Used Point')) ?>
+                </th>
+            <?php endif; ?>
+        </tr>
+        </thead>
+        <?php foreach ($creditmemo->getItems() as $_item): ?>
+            <?php if (!$_item->getOrderItem()->getParentItem()): ?>
+                <tbody>
+                <?= $block->getItemHtml($_item) ?>
+                </tbody>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </table>
+    <div class="row">
+        <div class="col-7">
+        </div>
+        <div class="col-3 text-right">
+            <?= $block->escapeHtml(__('Shipping:')) ?><br>
+            <b><?= $block->escapeHtml(__('Total ('. $totalIncludeLabel .' of GST):')) ?></b><br>
+            <?php if ($taxInfo): ?>
+                <?php foreach ($taxInfo as $tax): ?>
+                    <?php
+                    $taxPercent = round((float) $tax['percent'], 2);
+                    ?>
+                    <?= $block->escapeHtml(__('GST ' . $totalIncludeLabel . ' ' . $taxPercent . '%:')) ?><br>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <?= $block->escapeHtml(__('GST '. $totalIncludeLabel .' 0%:')) ?><br>
+            <?php endif; ?>
+            <?php if ($crmHelper->isEnableModule()): ?>
+                <?= /* @noEscape */ __('Used point:') ?><br>
+                <?php if ($refundedPoint > 0) :?>
+                    <?= /* @noEscape */ __('Refunded Point:') ?><br>
+                <?php endif;?>
+                <?= /* @noEscape */ __($pointLabel) ?>
+            <?php endif; ?>
+        </div>
+        <div class="col-2 text-right">
+            <div class="pr-9">
+                <?= /* @noEscape */ $_order->formatPrice($creditmemo->getShippingAmount()) ?><br>
+                <b><?= /* @noEscape */ $_order->formatPrice($creditmemo->getGrandTotal()) ?></b><br>
+                <?php if ($taxInfo): ?>
+                    <?php foreach ($taxInfo as $tax): ?>
+                        <b><?= /* @noEscape */ $_order->formatPrice($tax['tax_amount']) ?></b><br>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <b><?= /* @noEscape */ $_order->formatPrice(0.00) ?></b><br>
+                <?php endif; ?>
+                <?php if ($crmHelper->isEnableModule()): ?>
+                    <?= /* @noEscape */ __($usedPoint) . __(' points')?><br>
+                    <?php if ($refundedPoint > 0) :?>
+                        <?= /* @noEscape */ __($refundedPoint) . __(' points') ?><br>
+                    <?php endif;?>
+                    <?= /* @noEscape */ __($pointValue) . __(' points') ?>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>

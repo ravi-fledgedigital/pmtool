@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <update handle="styles"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="OnitsukaTiger\Favorite\Block\Adminhtml\Favorite\Details" template="OnitsukaTiger_Favorite::favorite/details.phtml" cacheable="false"/>
+            <container name="div.customer.container" htmlTag="div" htmlClass="customer-grid-container">
+                <container name="favorite.page-title.tag" htmlTag="h1" htmlClass="page-title">
+                    <block class="Magento\Framework\View\Element\Text" name="favorite.page-title">
+                        <arguments>
+                            <argument translate="true" name="text" xsi:type="string">Favorites List</argument>
+                        </arguments>
+                    </block>
+                </container>
+                <uiComponent name="onitsukatiger_favorite_favorite_details"/>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

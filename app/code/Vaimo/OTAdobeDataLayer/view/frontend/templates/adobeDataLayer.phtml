@@ -1,0 +1,409 @@
+<?php
+
+/**
+ * Copyright © Vaimo Group. All rights reserved.
+ * See LICENSE_VAIMO.txt for license details.
+ */
+
+use Magento\Framework\View\Element\Template;
+use Vaimo\OTAdobeDataLayer\ViewModel\AdobeDataLayer;
+
+/** @var Template $block */
+/** @var AdobeDataLayer $viewModel */
+
+$viewModel = $block->getData('view_model');
+$launchEmbedCode = $viewModel->getLaunchEmbedCode();
+
+/** @var Vaimo\OTAdobeDataLayer\Helper\Data $dataLayerHelper */
+$dataLayerHelper = $this->helper('Vaimo\OTAdobeDataLayer\Helper\Data');
+$pageInfo = json_decode($dataLayerHelper->getPageInfo());
+$pageInfo = json_encode($pageInfo->pageInfo);
+
+$userInfo = json_encode($dataLayerHelper->getUserInfo());
+$catInfo = json_encode($dataLayerHelper->getCategoryInfoById());
+?>
+<?php if ($launchEmbedCode && $dataLayerHelper->isEnabledAdobeLaunch()) : ?>
+    <?= /** @noEscape */ sprintf(
+            '
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "adobeDataLayer": {
+                "dataLayerProviderUrl": "%s",
+                "dataLayerComponents": "%s"
+            }
+        }
+    }
+</script>
+',
+            $block->escapeUrl($viewModel->getUserInfoUrl()),
+            $block->escapeJs($viewModel->getDataLayerComponents())
+        ); ?>
+    <?= /** @noEscape  */ $launchEmbedCode ?>
+<?php endif; ?>
+
+<?php if($dataLayerHelper->isEnabledAdobeLaunch()) :?>
+    <script>
+        require(['jquery', 'mage/cookies'], function($){
+            $(document).ready(function() {
+                // custom code for add adobe data layer start
+                let adobeDataLayer = window.adobeDataLayer ? window.adobeDataLayer : [];
+
+                /* add signId data layer */
+                var signIn = $.cookie('signIn');
+                if(signIn){
+                    var signInData = JSON.parse(signIn);
+                    adobeDataLayer.push(
+                        {
+                            'event' : 'signIn',
+                            'page' :   signInData.page,
+                            'userInfo' : signInData.userInfo
+                        }
+                    ); //push data in to Adobe data layer
+
+                    window.adobeDataLayer = adobeDataLayer;
+                }
+
+                /* addd signUp data layer */
+                var signUp = $.cookie('signUp');
+                if(signUp){
+                    var signUpData = JSON.parse(signUp);
+                    adobeDataLayer.push(
+                        {
+                            'event' : 'signUp',
+                            'page' :   signUpData.page,
+                            'userInfo' : signUpData.userInfo
+                        }
+                    ); //push data in to Adobe data layer
+
+                    window.adobeDataLayer = adobeDataLayer;
+                }
+
+                var orderCookies = $.cookie('orderPlaced');
+                if(orderCookies){
+                    var orderData = JSON.parse(orderCookies);
+                    adobeDataLayer.push(
+                        {
+                            'event' : 'order',
+                            'commerce' : orderData.data,
+                            'productListItems' : orderData.productListItems,
+                            'page' : {
+                                    'pageInfo' : JSON.parse('<?= $pageInfo ?>')
+                                },
+                            'userInfo' : JSON.parse('<?= $userInfo ?>'),
+                        }
+                    ); //push data in to Adobe data layer
+
+                    window.adobeDataLayer = adobeDataLayer;
+                }
+
+                var AddWishList = $.cookie('wishlistAdd');
+                if(AddWishList){
+                    var wishList = JSON.parse(AddWishList);
+
+                    adobeDataLayer.push(
+                        {
+                            'event' : 'wishlistAdd',
+                            'productListItems' : wishList,
+                            'page' : {
+                                    'pageInfo' : JSON.parse('<?= $pageInfo ?>'),
+                                    'category': JSON.parse('<?= $catInfo ?>'),
+                                },
+                            'userInfo' : JSON.parse('<?= $userInfo ?>'),
+                        }
+                    ); //push data in to Adobe data layer
+
+                    window.adobeDataLayer = adobeDataLayer;
+                }
+
+                // add payement info on the checkout page
+                var checkoutPayment = $.cookie('checkoutPayment');
+                if(checkoutPayment){
+                    console.log('checkoutPayment info ');
+                    console.log(checkoutPayment);
+                    var checkoutPaymentData = JSON.parse(checkoutPayment);
+                    adobeDataLayer.push(
+                        {
+                            'event' : 'checkoutPayment',
+                            'commerce' : checkoutPaymentData.data,
+                            'productListItems' : checkoutPaymentData.productListItems,
+                            'page' : {
+                                    'pageInfo' : JSON.parse('<?= $pageInfo ?>')
+                                },
+                            'userInfo' : JSON.parse('<?= $userInfo ?>'),
+                        }
+                    ); //push data in to Adobe data layer
+
+                    window.adobeDataLayer = adobeDataLayer;
+                }
+
+                var wishlistView = $.cookie('wishlistView');
+                if(wishlistView){
+                    var wishListView = JSON.parse(wishlistView);
+
+                    adobeDataLayer.push(
+                        {
+                            'event' : 'wishlistView',
+                            'productListItems' : wishListView,
+                            'page' : {
+                                    'pageInfo' : JSON.parse('<?= $pageInfo ?>')
+                                },
+                            'userInfo' : JSON.parse('<?= $userInfo ?>'),
+                        }
+                    ); //push data in to Adobe data layer
+
+                    window.adobeDataLayer = adobeDataLayer;
+                }
+
+                var wishlistRemove = $.cookie('wishlistRemove');
+                if(wishlistRemove){
+                    var wishListRemoveData = JSON.parse($.cookie('wishlistRemove'));
+                    adobeDataLayer.push(
+                        {
+                            'event' : 'wishlistRemove',
+                            'productListItems' : wishListRemoveData.item,
+                            'page' : {
+                                    'pageInfo' : JSON.parse('<?= $pageInfo ?>')
+                                },
+                            'userInfo' : JSON.parse('<?= $userInfo ?>'),
+                        }
+                    ); //push data in to Adobe data layer
+
+                    window.adobeDataLayer = adobeDataLayer;
+                }
+
+                /*adding view promotion datalayer on page load*/
+                var promotionViews = [];
+                if ($('a').hasClass('promo-banner')) {
+                    $("a.promo-banner").each(function(index, element) {
+                        promotionViews.push(
+                            {
+                                'promotionId': $(this).attr('data-promotionId'),
+                                'promotionName': $(this).attr('data-promotionName'),
+                                'creativeName': $(this).attr('data-creativeName')
+                            }
+                        );
+                    });
+                }
+
+                if (promotionViews.length) {
+                    adobeDataLayer.push(
+                        {
+                            'event' : 'promoImp',
+                            'promotion' : promotionViews,
+                            'page' : {
+                                    'pageInfo' : JSON.parse('<?= $pageInfo ?>'),
+                                    'category': JSON.parse('<?= $catInfo ?>'),
+                                },
+                            'userInfo' : JSON.parse('<?= $userInfo ?>'),
+                        }
+                    ); //push data in to Adobe data layer
+
+                    window.adobeDataLayer = adobeDataLayer;
+                }
+
+                /* add newsletter subscribe registration from data layer start*/
+                var isSubscribe = $.cookie('subscribe');
+                if(isSubscribe){
+                    var subscribe = JSON.parse(isSubscribe);
+                    adobeDataLayer.push(
+                        {
+                            'event' : 'subscribe',
+                            'page' : {
+                                    'pageInfo' : JSON.parse('<?= $pageInfo ?>')
+                                },
+                            'userInfo' : JSON.parse('<?= $userInfo ?>'),
+                        }
+                    ); //push data in to Adobe data layer
+
+                    window.adobeDataLayer = adobeDataLayer;
+                }
+                /* add newsletter subscribe registration from data layer end*/
+
+                setTimeout(function () {
+                    if (localStorage.getItem('promotionId') || localStorage.getItem('promotionName') || localStorage.getItem('creativeName') || localStorage.getItem('bannerText') || localStorage.getItem('bannerHref') ) {
+                        let adobeDataLayer = window.adobeDataLayer ? window.adobeDataLayer : [];
+
+                        adobeDataLayer.push(
+                            {
+                                'event' : 'promoClick',
+                                'CTAInfo' : {
+                                    'CTAText': localStorage.getItem('bannerText'),
+                                    'CTAhref': localStorage.getItem('bannerHref')
+                                },
+                                'promotion' : {
+                                    'promotionId': localStorage.getItem('promotionId'),
+                                    'promotionName': localStorage.getItem('promotionName'),
+                                    'creativeName': localStorage.getItem('creativeName')
+                                },
+                                'page' : {
+                                        'pageInfo' : JSON.parse('<?= $pageInfo ?>'),
+                                        'category': JSON.parse('<?= $catInfo ?>'),
+                                    },
+                                'userInfo' : JSON.parse('<?= $userInfo ?>'),
+                            }
+                        ); //push data in to Adobe data layer
+
+                        window.adobeDataLayer = adobeDataLayer;
+                        setTimeout(function () {
+                            localStorage.removeItem("promotionId");
+                            localStorage.removeItem("promotionName");
+                            localStorage.removeItem("creativeName");
+                            localStorage.removeItem("bannerText");
+                            localStorage.removeItem("bannerHref");
+                        },500);
+                    }
+                },500);
+
+                // set internal search event
+                var internalSearch = $.cookie('internalSearch');
+                if(internalSearch){
+                    var searchResultData = JSON.parse(internalSearch);
+                    adobeDataLayer.push(
+                        {
+                            'event' : searchResultData.event,
+                            'search' : searchResultData.keyword,
+                            'page' : {
+                                'pageInfo' : searchResultData.page
+                            },
+                            'userInfo' : searchResultData.userInfo,
+                        }
+                    ); //push data in to Adobe data layer
+
+                    window.adobeDataLayer = adobeDataLayer;
+                }
+
+                // set internal search zero event
+                var internalSearchZero = $.cookie('internalSearchZero');
+                if(internalSearchZero){
+                    var searchZeroData = JSON.parse(internalSearchZero);
+                    adobeDataLayer.push(
+                        {
+                            'event' : searchZeroData.event,
+                            'search' : searchZeroData.keyword,
+                            'page' : {
+                                'pageInfo' : searchZeroData.page
+                            },
+                            'userInfo' : searchZeroData.userInfo,
+                        }
+                    ); //push data in to Adobe data layer
+
+                    window.adobeDataLayer = adobeDataLayer;
+                }
+
+                setTimeout(function () {
+                    let adobeDataLayer = window.adobeDataLayer ? window.adobeDataLayer : [];
+                    if(localStorage.getItem('CTAhref') || localStorage.getItem('CTAText')){
+                        adobeDataLayer.push(
+                            {
+                                'event' : 'linkClick',
+                                'CTAInfo' : {
+                                    'CTAText': $.trim(localStorage.getItem('CTAText')),
+                                    'CTAhref': localStorage.getItem('CTAhref')
+                                },
+                                'page' : {
+                                        'pageInfo' : JSON.parse('<?= $pageInfo ?>'),
+                                        'category': JSON.parse('<?= $catInfo ?>'),
+                                    },
+                                'userInfo' : JSON.parse('<?= $userInfo ?>'),
+                            }
+                        ); //push data in to Adobe data layer
+                    }
+
+                    window.adobeDataLayer = adobeDataLayer;
+
+                    setTimeout(function () {
+                        localStorage.removeItem("CTAhref");
+                        localStorage.removeItem("CTAText");
+                    },1500);
+                },1000);
+
+                // custom code for add adobe data layer end
+            });
+
+            // add data layer on ajax success
+            $( document ).ajaxComplete(function( event, xhr, settings ) {
+                var cartAdd = $.cookie('cartAdd');
+                var cartRemove = $.cookie('cartRemove');
+                if(xhr.responseJSON && xhr.responseJSON.cart && cartRemove){
+                    var cartRemoveData = JSON.parse(cartRemove);
+                    let adobeDataLayer = window.adobeDataLayer ? window.adobeDataLayer : [];
+
+                    adobeDataLayer.push(
+                        {
+                            'event' : 'cartRemove',
+                            'productListItems' : cartRemoveData.data,
+                            'page' : {
+                                    'pageInfo' : JSON.parse('<?= $pageInfo ?>'),
+                                    'category': JSON.parse('<?= $catInfo ?>'),
+                                },
+                            'userInfo' : JSON.parse('<?= $userInfo ?>'),
+                        }
+                    ); //push data in to Adobe data layer
+
+                    window.adobeDataLayer = adobeDataLayer;
+                }
+
+                if(xhr.responseJSON && xhr.responseJSON.cart && cartAdd){
+                    var cartAddData = JSON.parse(cartAdd);
+                    let adobeDataLayer = window.adobeDataLayer ? window.adobeDataLayer : [];
+
+                    adobeDataLayer.push(
+                        {
+                            'event' : 'cartAdd',
+                            'productListItems' : cartAddData,
+                            'page' : {
+                                    'pageInfo' : JSON.parse('<?= $pageInfo ?>'),
+                                    'category': JSON.parse('<?= $catInfo ?>'),
+                                },
+                            'userInfo' : JSON.parse('<?= $userInfo ?>'),
+                        }
+                    ); //push data in to Adobe data layer
+
+                    window.adobeDataLayer = adobeDataLayer;
+                }
+
+                // add shipping info on checkout page
+                var checkoutShipping = $.cookie('checkoutShipping');
+                if(xhr.responseJSON && xhr.responseJSON.payment_methods && xhr.responseJSON.payment_methods.length && checkoutShipping){
+                    var checkoutShippingInfo = JSON.parse(checkoutShipping);
+                    adobeDataLayer.push(
+                        {
+                            'event' : 'checkoutShipping',
+                            'commerce' : checkoutShippingInfo.data,
+                            'productListItems' : checkoutShippingInfo.productListItems,
+                            'page' : {
+                                    'pageInfo' : JSON.parse('<?= $pageInfo ?>')
+                                },
+                            'userInfo' : JSON.parse('<?= $userInfo ?>'),
+                        }
+                    ); //push data in to Adobe data layer
+
+                    window.adobeDataLayer = adobeDataLayer;
+
+                    return false;
+                }
+            });
+
+            $(document).on('click', '.promo-banner', function(e) {
+                localStorage.setItem('promotionId', $(this).attr('data-promotionId'));
+                localStorage.setItem('promotionName', $(this).attr('data-promotionName'));
+                localStorage.setItem('creativeName', $(this).attr('data-creativeName'));
+                localStorage.setItem('bannerHref', $(this).attr('data-url')+$(this).attr('href'));
+                localStorage.setItem('bannerText', $(this).find('span').text());
+            });
+
+            $(document).on('click', '.page-header li a, .page-footer-hader li a, .product-items li a, .footer-store-information a', function(e) {
+                localStorage.setItem('CTAhref', $(this).attr('href').trim());
+                localStorage.setItem('CTAText', $(this).text());
+            });
+
+            $(document).ready(function(){
+                $(".sidebar-main ul li a, .article-typography a, login-need-help a").bind("click", function() {
+                    localStorage.setItem('CTAhref', $(this).attr('href'));
+                    localStorage.setItem('CTAText', $(this).text());
+                });
+            });
+        });
+    </script>
+<?php endif; ?>

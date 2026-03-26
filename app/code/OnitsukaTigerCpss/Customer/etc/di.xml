@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<type name="Magento\Customer\Model\Customer">
+		<plugin name="Cpss_Customer_Plugin_Magento_Customer_Model_Customer" type="OnitsukaTigerCpss\Customer\Plugin\Customer\Model\Customer" sortOrder="10" disabled="false"/>
+	</type>
+	<type name="Magento\Customer\Model\AccountManagement">
+		<plugin name="Cpss_Customer_Plugin_Magento_Customer_Model_EmailNotification" type="OnitsukaTigerCpss\Customer\Plugin\Customer\Model\AccountManagement" sortOrder="10"/>
+	</type>
+	<type name="Magento\Customer\Controller\Account\Confirm">
+		<plugin name="Cpss_Customer_Plugin_Magento_Customer_Model_Confirm" type="OnitsukaTigerCpss\Customer\Plugin\Customer\Controller\Account\Confirm" sortOrder="10"/>
+	</type>
+	<type name="Magento\Customer\Controller\Account\Index">
+		<plugin name="Cpss_Customer_Plugin_Controller_Account_Index" type="OnitsukaTigerCpss\Customer\Plugin\Customer\Controller\Account\Index" sortOrder="10"/>
+	</type>
+</config>

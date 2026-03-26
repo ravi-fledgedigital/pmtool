@@ -1,0 +1,73 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- ko if: isEnabled() -->
+    <!-- ko if: isEnabledPointCheckoutPage() -->
+    <div class="payment-option _collapsible opc-payment-additional point-discount-code"
+        data-bind="mageInit: {'collapsible':{'openedState': '_active'}}">
+        <div class="payment-option-title field choice point-title" data-role="title">
+            <span class="action action-toggle" id="block-discount-heading" role="heading" aria-level="2">
+                <!-- ko i18n: 'Designation of Points of Use'--><!-- /ko -->
+            </span>
+        </div>
+        <div class="payment-point-content" data-role="content">
+            <!-- ko foreach: getRegion('messages') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+
+            <form class="form form-points" id="points-form" style="display:block;">
+                <div class="payment-option-inner">
+                    <table>
+                        <tr>
+                            <td class="leftheader"><!-- ko i18n: 'Current balance'--><!-- /ko --></td>
+                            <td><span data-bind="text: formatPointDisplay(getCurrentPoints())"></span> <!-- ko i18n: 'point' --><!-- /ko --></td>
+                        </tr>
+                        <tr>
+                            <td class="leftheader"><!-- ko i18n: 'Used Points'--><!-- /ko --></td>
+                            <td class="form-field-groups">
+                                <div class="form-groups">
+                                    <input type="radio" class="how-to-use" name="how_to_use[]" data-bind="click: selectUse(), checked: how_to_use" value="use_points">
+                                    <!-- ko i18n: 'Specify usage points'--><!-- /ko -->
+                                </div>
+                                <div class="form-groups w-label">
+                                    <input class="input-text use-points"
+                                        type="number"
+                                        id="use_points"
+                                        name="use_points"
+                                        data-bind=""
+                                    />
+                                    <!-- ko i18n: 'point'--><!-- /ko -->
+                                </div>
+                                <div class="form-groups">
+                                    <input type="radio" name="how_to_use[]" class="use_all" data-bind="click: selectUse(), checked: how_to_use" value="use_all">
+                                    <!-- ko i18n: 'Use all points'--><!-- /ko -->
+                                </div>
+                                <div class="actions-toolbar form-groups">
+                                    <!-- ko ifnot: isApplied() -->
+                                    <div class="primary">
+                                        <button class="action action-apply primary" type="submit" data-bind="'value': $t('Apply'), click: applyPoints, enable: hasPoint()">
+                                            <span><!-- ko i18n: 'Apply'--><!-- /ko --></span>
+                                        </button>
+                                    </div>
+                                    <!-- /ko -->
+                                    <!-- ko if: isApplied() -->
+                                    <div class="primary">
+                                        <button class="action action-cancel" type="submit" data-bind="'value': $t('Cancel'), click: cancelPoints, enable: hasPoint()">
+                                            <span><!-- ko i18n: 'Cancel Point'--><!-- /ko --></span>
+                                        </button>
+                                    </div>
+                                    <!-- /ko -->
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--/ko-->
+<!--/ko-->

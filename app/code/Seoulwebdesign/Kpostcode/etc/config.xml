@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <swdkpostcode>
+            <general>
+                <api_version>legacy</api_version>
+                <popup_title>Korea Postcode</popup_title>
+                <show_jibun>1</show_jibun>
+            </general>
+        </swdkpostcode>
+    </default>
+</config>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<update handle="styles"/>
+	<body>
+		<referenceContainer name="content">
+			<block class="OnitsukaTiger\Restock\Block\Adminhtml\Product\Details" name="admin_restock_view" template="OnitsukaTiger_Restock::product/details.phtml" />
+			<container name="div.customer.container" htmlTag="div" htmlClass="customer-grid-container">
+                <container name="favorite.page-title.tag" htmlTag="h1" htmlClass="page-title">
+                    <block class="Magento\Framework\View\Element\Text" name="favorite.page-title">
+                        <arguments>
+                            <argument translate="true" name="text" xsi:type="string">Restock Notification List</argument>
+                        </arguments>
+                    </block>
+                </container>
+                <uiComponent name="onitsukatiger_restock_restock_customer_view"/>
+            </container>
+			
+		</referenceContainer>
+	</body>
+</page>

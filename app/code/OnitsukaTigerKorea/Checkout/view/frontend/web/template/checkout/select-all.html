@@ -1,0 +1,13 @@
+<div class="checkout-age-checkbox fieldset">
+    <div class="checkout-select-all select-all field choice required">
+        <input type="checkbox"
+               data-bind="attr: {
+                    id: checkbox_id,
+                    disabled: disabled,
+                    name: inputName,
+                }"/>
+        <label class="label" data-bind="checked: value, attr: { for: checkbox_id }">
+            <span data-bind="text: description"></span>
+        </label>
+    </div>
+</div>

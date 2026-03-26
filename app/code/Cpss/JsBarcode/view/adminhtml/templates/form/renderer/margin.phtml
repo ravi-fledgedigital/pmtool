@@ -1,0 +1,35 @@
+<?php
+    $element = $block->getElement();
+    $form = $element->getForm();
+    /** @var \Magento\Config\Block\System\Config\Form $parentForm */
+    $parentForm = $form->getParent();
+    $marginConfigVal = $parentForm->getConfigValue('barcode_section/barcode_group/margin');
+?>
+
+<div>
+    <div id="barMarginlider"></div>
+    <input type="hidden" 
+        id="barcode_section_barcode_group_margin" 
+        name="<?= $block->getFieldName() ?>"
+        value="<?= $marginConfigVal ?>">
+</div>
+
+<script type="text/javascript">
+    require(['jquery', 'jquery/ui'], function($){
+        $("#barMarginlider").slider({
+            range: "min",
+            min: 0,
+            max: 25,
+            value: "<?= $marginConfigVal ?>",
+            slide: function( event, ui ) {
+                $(this).find('.ui-slider-handle').text(ui.value);
+                $("#barcode_section_barcode_group_margin").val(ui.value);
+            },
+            create: function(event, ui) {
+                var v=$(this).slider('value');
+                $(this).find('.ui-slider-handle').text(v);
+                $("#barcode_section_barcode_group_margin").val(v);
+            }
+        });
+    });
+</script>

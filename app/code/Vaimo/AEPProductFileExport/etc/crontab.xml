@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="aep_integration">
+        <job name="aep_export_adobe_experience_products" instance="Vaimo\AEPProductFileExport\Cron\AdobeExperiencePlatform\ExportProducts" method="execute">
+            <config_path>aep_product_file_export/adobe_experience_platform/cron_scheduler</config_path>
+        </job>
+        <job name="aep_export_adobe_campaign_products" instance="\Vaimo\AEPProductFileExport\Cron\AdobeCampaign\ExportProducts" method="execute">
+            <config_path>aep_product_file_export/adobe_campaign/cron_scheduler</config_path>
+        </job>
+    </group>
+</config>

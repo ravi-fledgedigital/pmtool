@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <newsletter>
+            <cart_rule_generate>
+                <cart_rule_format>alphanum</cart_rule_format>
+                <cart_rule_length>12</cart_rule_length>
+            </cart_rule_generate>
+        </newsletter>
+    </default>
+</config>

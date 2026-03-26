@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Aitoc Team
+ * @copyright Copyright (c) 2022 Aitoc (https://www.aitoc.com)
+ * @package Aitoc_SendGrid
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="admin">
+        <route id="aitoc_sendgrid" frontName="aitoc_sendgrid">
+            <module name="Aitoc_SendGrid" before="Magento_Backend" />
+        </route>
+    </router>
+</config>

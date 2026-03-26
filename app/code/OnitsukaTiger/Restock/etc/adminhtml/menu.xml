@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="OnitsukaTiger_Restock::onitsukatiger_restock_restock" title="Restock" module="OnitsukaTiger_Restock" sortOrder="90" resource="OnitsukaTiger_Restock::onitsukatiger_restock_restock" parent="OnitsukaTiger_Base::asics" action="onitsukatiger_restock/restock/index"/>
+		<add action="adminhtml/system_config/edit/section/onitsukatiger_restock" id="OnitsukaTiger_Restock::RestockConfig" module="OnitsukaTiger_Restock" resource="OnitsukaTiger_Restock::RestockConfig" sortOrder="22" title="Configuration"  parent="OnitsukaTiger_Base::asics"/>
+	</menu>
+</config>

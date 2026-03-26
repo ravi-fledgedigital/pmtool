@@ -1,0 +1,15 @@
+<?php 
+    $helperData = $this->helper(Cpss\JsBarcode\Helper\Data::class);
+?>
+
+<div class="customer-barcode">
+    <svg id="barcode"></svg>
+</div>
+
+<script type="text/javascript">
+    require(['jquery', 'JsBarcode'], function($) {
+        let options = '<?= $helperData->getJsBarcodeOptionsToJson() ?>';
+        options = JSON.parse(options);
+        JsBarcode("#barcode", "<?= $block->getData('text') ?>", options);
+    });
+</script>

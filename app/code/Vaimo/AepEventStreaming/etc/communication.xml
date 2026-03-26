@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Communication/etc/communication.xsd">
+    <topic name="aep.customer.synchronise" request="Magento\Customer\Api\Data\CustomerInterface"/>
+    <topic name="aep.order.synchronise" request="Magento\Sales\Api\Data\OrderInterface"/>
+</config>

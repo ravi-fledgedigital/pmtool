@@ -1,0 +1,51 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \Magento\Catalog\Block\Category\View */
+
+/** @var \WeltPixel\GA4\Helper\XPixelTracking $xPixelHelper */
+$xPixelHelper = $this->helper('WeltPixel\GA4\Helper\XPixelTracking');
+$cspNonceProvider = $xPixelHelper->getCspNonceProvider();
+$category = $block->getCurrentCategory();
+?>
+<script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    let xViewCategoryEventId = <?= /* @noEscape */ $xPixelHelper->getJsEventIdGenerator('view_category') ?>;
+</script>
+<?php if ($category && $xPixelHelper->isXPixelTrackingEnabled() && $xPixelHelper->shouldXPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\XPixel\TrackingEvents::EVENT_VIEW_CATEGORY)) :
+?>
+<script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    if (window.ga4AllowServices) {
+        twq('event', '<?= /* @noEscape */ $xPixelHelper->getTwitterEventId(\WeltPixel\GA4\Model\Config\Source\XPixel\TrackingEvents::EVENT_VIEW_CATEGORY) ?>', {
+            contents: [
+                {
+                    content_id: 'category-<?= /* @noEscape */ $category->getId() ?>',
+                    content_name: "<?= /* @noEscape */ addslashes(str_replace('"', '&quot;', $category->getName())) ?>"
+                }
+            ],
+            description: 'Category view - <?= /* @noEscape */ addslashes(str_replace('"', '&quot;', $category->getName())) ?>',
+            conversion_id: xViewCategoryEventId
+        });
+    }
+</script>
+<?php endif; ?>
+
+
+<?php if ($category && $xPixelHelper->isServerSideTrackingEnabled() && $xPixelHelper->shouldXServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\XPixel\TrackingEvents::EVENT_VIEW_CATEGORY)) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($xPixelHelper->getTwitterSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'conversionId': xViewCategoryEventId,
+                            'eventName': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\XPixel\TrackingEvents::EVENT_VIEW_CATEGORY  ?>',
+                            'contentCategoryId': 'category-<?= /* @noEscape */ $category->getId() ?>',
+                            'contentCategory': '<?= /* @noEscape */ $category->getName() ?>'
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="onitsukatiger_catalog_product" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>RMA</label>
+            <tab>onitsukatiger</tab>
+            <resource>OnitsukaTigerKorea_Rma::product_config</resource>
+            <group id="rma_status" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Rma Korea</label>
+                <field id="initial_status" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Initital Status</label>
+                    <source_model>OnitsukaTigerKorea\Rma\Model\Config\Source\RmaStatus</source_model>
+                    <comment>Initial Status RMA for Korea. It is a status for a newly created RMA request</comment>
+                </field>
+                <field id="rma_resolution" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Return Resolutions</label>
+                    <source_model>OnitsukaTigerKorea\Rma\Model\Config\Source\RmaResolution</source_model>
+                    <comment>Initial Return Resolution RMA for Korea. It is a status for a newly created RMA request</comment>
+                </field>
+            </group>
+            <group id="product_sku_wms" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>RMA Show Product SKU WMS</label>
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="rma_sftp" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Sync RMA to SFTP</label>
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

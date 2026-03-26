@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="seoulwebdesign_toast_template" resource="default" engine="innodb"
+           comment="seoulwebdesign_toast_template">
+        <column xsi:type="int" name="message_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Message ID"/>
+        <column xsi:type="varchar" name="toast_id" nullable="false" length="255" comment="Toast Message ID"/>
+        <column xsi:type="int" name="status" padding="11" unsigned="false" nullable="true" identity="false"
+                comment="Post Status"/>
+        <column xsi:type="varchar" name="send_message_action" nullable="false" length="50"
+                comment="Send message action"/>
+        <column xsi:type="varchar" name="var_order_id" nullable="false" length="255" comment="Order Id variable name"/>
+        <column xsi:type="varchar" name="var_order_customer_name" nullable="false" length="255"
+                comment="Order Customer Name variable name"/>
+        <column xsi:type="varchar" name="var_order_total" nullable="false" length="255"
+                comment="Order Total variable name"/>
+        <column xsi:type="varchar" name="var_order_refunded" nullable="false" length="255"
+                comment="Order Refund variable name"/>
+        <column xsi:type="varchar" name="var_order_payment_method" nullable="false" length="255"
+                comment="Order Payment Method variable name"/>
+        <column xsi:type="varchar" name="var_order_products" nullable="false" length="255"
+                comment="Order Products variable name"/>
+        <column xsi:type="varchar" name="var_order_products_name_extra" nullable="true" length="255"
+                comment="Products name attr extra"/>
+        <column xsi:type="varchar" name="var_order_tracking_code" nullable="false" length="255"
+                comment="Order Tracking Code variable name"/>
+        <column xsi:type="varchar" name="var_order_courier" nullable="false" length="255"
+                comment="Order Courier variable name"/>
+        <column xsi:type="varchar" name="var_shop_url" nullable="false" length="255" comment="Shop URL variable name"/>
+        <column xsi:type="varchar" name="var_order_created_time" nullable="false" length="255"
+                comment="Order Created Time variable name"/>
+        <column xsi:type="varchar" name="var_order_updated_time" nullable="false" length="255"
+                comment="Order Updated Time variable name"/>
+        <column xsi:type="varchar" name="var_customer_name" nullable="false" length="255"
+                comment="Customer Name variable name"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <column xsi:type="varchar" name="var_shop_name" nullable="true" length="255" comment="Shop Name variable name"/>
+        <column xsi:type="text" name="json_var" nullable="true" comment="Variable in json"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="message_id"/>
+        </constraint>
+    </table>
+    <table name="seoulwebdesign_toast_sendlog" resource="default" engine="innodb" comment="seoulwebdesign_toast_orderstatus_sendlog">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+        <column xsi:type="int" name="order_id" unsigned="true" nullable="false" identity="false"
+                comment="Order Id"/>
+        <column xsi:type="varchar" name="send_message_action" nullable="false" length="50"
+                comment="Send message action"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="SEOULWEBDESIGN_TOAST_SENDLOG_UNIQUE">
+            <column name="order_id"/>
+            <column name="send_message_action"/>
+        </constraint>
+
+        <constraint xsi:type="foreign" referenceId="fk_seoulwebdesign_toast_sendlog_order_id"
+                    table="seoulwebdesign_toast_sendlog" column="order_id"
+                    referenceTable="sales_order" referenceColumn="entity_id"
+                    onDelete="CASCADE"/>
+    </table>
+</schema>

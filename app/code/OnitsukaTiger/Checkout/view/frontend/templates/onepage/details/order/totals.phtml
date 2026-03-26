@@ -1,0 +1,87 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @var $block \Magento\Sales\Block\Order\Totals
+ * @see \Magento\Sales\Block\Order\Totals
+ */
+$crmHelper = $this->helper(\OnitsukaTigerCpss\Crm\Helper\HelperData::class);
+$usedPoint = 0;
+$pointValue = 0;
+$pointLabel = 'Points to be earned:';
+?>
+<?php foreach ($block->getTotals() as $_code => $_total) : ?>
+    <?php if($_code == 'grand_total'): ?>
+        <?php $_total->setLabel(__('Total'))?>
+    <?php elseif($_code == 'discount'): ?>
+        <?php $_total->setLabel(__('Order Discount'))?>
+    <?php elseif($_code == 'shipping'): ?>
+        <?php $_total->setLabel(__('Shipping'))?>
+    <?php endif;?>
+    <?php if ($_total->getBlockName()) : ?>
+        <?= $block->getChildHtml($_total->getBlockName(), false) ?>
+    <?php else :?>
+        <tr class="<?= $block->escapeHtmlAttr($_code) ?>">
+            <th <?= /* @noEscape */ $block->getLabelProperties() ?> scope="row">
+                <?php if ($_total->getStrong()) : ?>
+                    <strong><?= $block->escapeHtml(__($_total->getLabel())) ?></strong>
+                <?php else : ?>
+                    <?= $block->escapeHtml(__($_total->getLabel())) ?>
+                <?php endif ?>
+            </th>
+            <td <?= /* @noEscape */ $block->getValueProperties() ?> data-th="<?= $block->escapeHtmlAttr($_total->getLabel()) ?>">
+                <?php if ($_total->getStrong()) : ?>
+                    <strong><?= /* @noEscape */ $block->formatValue($_total) ?></strong>
+                <?php else : ?>
+                    <?= /* @noEscape */ $block->formatValue($_total) ?>
+                <?php endif?>
+            </td>
+        </tr>
+    <?php if($_code == 'grand_total'): ?>
+        <?php
+    if ($block->getOrder()->getAddedPointDate() > 0 || $block->getOrder()->getAcquiredPoint() > 0) {
+        $pointValue = number_format($block->getOrder()->getAcquiredPoint());
+
+        if (($block->getOrder()->getAddedPoint() > 0)) {
+            $pointLabel = 'Added Points';
+            $pointValue = number_format($block->getOrder()->getAddedPoint());
+        }
+        ?>
+            <tr class="points-to-be-earned">
+                <th scope="row">
+                    <?= $block->escapeHtml(__($pointLabel)) ?>
+                </th>
+                <td data-th="<?= $block->escapeHtml(__($pointLabel)) ?>">
+                    <?= /* @noEscape */ $block->escapeHtml($pointValue) . __(' points') ?>
+                </td>
+            </tr>
+        <?php } ?>
+    <?php endif;?>
+    <?php endif; ?>
+    <?php if($_code =='subtotal'): ?>
+        <?php if(!array_key_exists('discount', $block->getTotals())):?>
+            <tr class="discount">
+                <th  scope="row">
+                    <?= __('Order Discount')?>
+                </th>
+                <td  data-th="<?= __('Order Discount')?>">
+                    <?= /* @noEscape */ $block->getOrder()->formatPrice(0) ?>
+                </td>
+            </tr>
+        <?php endif;?>
+    <?php endif;?>
+<?php endforeach?>
+<?php if ($crmHelper->isEnableModule()): ?>
+    <?php if ($block->getOrder()->getUsedPoint()): ?>
+        <span class="usage-point">
+                        <?= $block->escapeHtml(__('Used point')) ?>
+                        <span class="point" style="float: right">
+                            <?= /* @noEscape */
+                            $block->escapeHtml(number_format($block->getOrder()->getUsedPoint())) . __(' points') ?>
+                        </span> </br>
+                </span>
+    <?php endif; ?>
+<?php endif; ?>

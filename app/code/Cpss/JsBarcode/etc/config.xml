@@ -1,0 +1,27 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <barcode_section>
+            <barcode_group>
+                <format>CODE39</format>
+                <width>2</width>
+                <height>100</height>
+                <displayvalue>true</displayvalue>
+                <text></text>
+                <fontOptions></fontOptions>
+                <font>monospace</font>
+                <textalign>center</textalign>
+                <textposition>bottom</textposition>
+                <textmargin>15</textmargin>
+                <fontSize>20</fontSize>
+                <background>#ffffff</background>
+                <linecolor>#000000</linecolor>
+                <margin>10</margin>
+                <marginTop></marginTop>
+                <marginBottom></marginBottom>
+                <marginLeft></marginLeft>
+                <marginRight></marginRight>
+                <flat>false</flat>
+            </barcode_group>
+        </barcode_section>
+    </default>
+</config>

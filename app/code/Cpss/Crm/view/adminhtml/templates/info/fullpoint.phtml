@@ -1,0 +1,15 @@
+<?php
+/** @var \Veriteworks\CashOnDelivery\Block\Info $block */?>
+    <p><strong><?= $block->escapeHtml($block->getMethod()->getTitle()) ?></strong></p>
+<?php if ($_specificInfo = $block->getSpecificInformation()) :?>
+    <table>
+        <?php foreach ($_specificInfo as $_label => $_value) :?>
+            <tr>
+                <td><?= $block->escapeHtml($_label)?>:</td>
+                <td><?= $block->escapeHtml($_value); ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php endif;?>
+
+<?= $block->getChildHtml()?>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Aitoc Team
+ * @copyright Copyright (c) 2022 Aitoc (https://www.aitoc.com)
+ * @package Aitoc_SendGrid
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Aitoc_SendGrid::send_grid" title="SendGrid" module="Aitoc_SendGrid" sortOrder="600" parent="Magento_Reports::report" resource="Aitoc_SendGrid::send_grid"/>
+        <add id="Aitoc_SendGrid::statistics" title="Statistics" module="Aitoc_SendGrid" sortOrder="10" parent="Aitoc_SendGrid::send_grid" action="aitoc_sendgrid/statistics" resource="Aitoc_SendGrid::statistics"/>
+        <add id="Aitoc_SendGrid::send_grid_marketing" title="SendGrid" module="Aitoc_SendGrid" sortOrder="600" parent="Magento_Backend::marketing" resource="Aitoc_SendGrid::send_grid"/>
+        <add id="Aitoc_SendGrid::singlesends" title="Single Sends" module="Aitoc_SendGrid" sortOrder="10" parent="Aitoc_SendGrid::send_grid_marketing" action="aitoc_sendgrid/singlesends" resource="Aitoc_SendGrid::singlesends"/>
+    </menu>
+</config>

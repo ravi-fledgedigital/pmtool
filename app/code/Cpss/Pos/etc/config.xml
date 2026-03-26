@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <sftp>
+            <pos>
+                <new_file_generation_time>60</new_file_generation_time>
+            </pos>
+        </sftp>
+        <crm>
+            <pos_mailer>
+                <active>1</active>
+                <pos_recipient_email>elvinmarcbarcial.creansmaerd@gmail.com</pos_recipient_email>
+                <pos_email_identity>general</pos_email_identity>
+                <pos_email_template>crm_pos_mailer_pos_email_template</pos_email_template>
+            </pos_mailer>
+        </crm>
+    </default>
+</config>

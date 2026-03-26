@@ -1,0 +1,43 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $shipment \Magento\Sales\Model\Order\Shipment */
+$shipment = $block->getShipment();
+$order   = $block->getOrder();
+?>
+
+<?php if ($shipment && $order) : ?>
+    <?php
+    $trackCollection = $shipment->getTracksCollection();
+    $trackNumber = $trackCollection->getFirstItem()->getTrackNumber();
+
+    $config = new \Laminas\Config\Config([
+        'barcode' => 'code128',
+        'barcodeParams' => [
+            'text' => (string)$trackNumber,
+            'drawText' => false
+        ],
+        'renderer' => 'image',
+        'rendererParams' => ['imageType' => 'png']
+    ]);
+
+    $barcodeResource = \Laminas\Barcode\Barcode::factory($config)->draw();
+
+    ob_start();
+    imagepng($barcodeResource);
+    $barcodeImage = ob_get_clean();
+
+    ?>
+
+    <?php if (!empty($trackNumber)) : ?>
+        <img class="barcode" src="<?php echo 'data:image/png;base64,' . base64_encode($barcodeImage); ?>">
+        <div class="track-number"><?php echo $trackNumber; ?></div>
+    <?php else: ?>
+        <div class="barcode">Barcode Image</div>
+        <div class="track-number"><?php echo 'track number'; ?></div>
+    <?php endif; ?>
+
+<?php endif; ?>

@@ -1,0 +1,149 @@
+<?php
+// @codingStandardsIgnoreFile
+$ga4ServerSideHelper = $this->helper('WeltPixel\GA4\Helper\ServerSideTracking');
+
+/** @var $block \WeltPixel\GA4\Block\Order */
+?>
+<?php if($this->isEnabled()) : ?>
+    <?php
+
+    $allowedECKeyValues = [
+        \WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_EMAIL,
+        \WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_PHONE,
+        \WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_FIRSTNAME,
+        \WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_LASTNAME,
+        \WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_STREET,
+        \WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_CITY,
+        \WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_REGION,
+        \WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_COUNTRY,
+        \WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_POSTALCODE
+    ];
+
+    $helper = $this->helper('WeltPixel\GA4\Helper\Data');
+    $order = $this->getOrder();
+
+    $checkoutPaymentData = $helper->getGA4CheckoutPaymentData();
+    $multipleCheckoutPaymentData = $helper->popG4MultipleCheckoutPaymentData();
+    $isAdwordsSeparateDatalayerEvent = $helper->isAdwordsSeparateDatalayerEvent();
+    $adsPurchaseData = [
+        'event' => 'ads_purchase'
+    ];
+
+    if ($checkoutPaymentData && is_array($checkoutPaymentData)) {
+        $this->setCustomDataLayerData($checkoutPaymentData[0]);
+        $helper->invalidateGA4CheckoutPaymentData();
+    }
+
+    if ($multipleCheckoutPaymentData && is_array($multipleCheckoutPaymentData) && !empty($multipleCheckoutPaymentData)) {
+        $this->setCustomDataLayerData($multipleCheckoutPaymentData);
+    }
+
+    if ($this->isOrderTrackingAllowedBasedOnOrderStatus($order) && $this->isFreeOrderTrackingAllowedForGoogleAnalytics() && !($ga4ServerSideHelper->isServerSideTrakingEnabled() && $ga4ServerSideHelper->shouldEventBeTracked(\WeltPixel\GA4\Model\Config\Source\ServerSide\TrackingEvents::EVENT_PURCHASE)
+        && $ga4ServerSideHelper->isDataLayerEventDisabled())) :
+        $products = $this->getProducts();
+
+        $this->setDataLayerOption('event', 'purchase');
+        $this->setEcommerceData('transaction_id', $order->getIncrementId());
+        $this->setEcommerceData('value', $helper->parsePriceBasedOnOptions(floatval(number_format($this->getOrderTotal(), 2, '.', ''))));
+        $this->setEcommerceData('coupon', (string)$order->getCouponCode());
+        $this->setEcommerceData('tax', $helper->parsePriceBasedOnOptions(floatval(number_format($order->getTaxAmount(), 2, '.', ''))));
+        $this->setEcommerceData('shipping', $helper->parsePriceBasedOnOptions(floatval(number_format($this->getShippingAmount(), 2, '.', ''))));
+        $this->setEcommerceData('currency', $this->getCurrencyCodeBasedOnOptions());
+        $this->setEcommerceData('total_order_count', $this->getTotalOrderCount());
+        $this->setEcommerceData('total_lifetime_value', $helper->parsePriceBasedOnOptions(floatval(number_format($this->getTotalLifetimeValue(), 2, '.', ''))));
+        $this->setEcommerceData('items', $products);
+    endif;
+
+    if ($helper->isAdWordConversionTrackingEnabled() && $this->isFreeOrderAllowedForAdwordsConversionTracking()) :
+        $adsPurchaseData[\WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CONVERSION_VALUE] = $helper->parsePriceBasedOnOptions(floatval(number_format($this->getOrderTotal(), 2, '.', '')));
+        $adsPurchaseData[\WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_ORDER_ID] = $order->getIncrementId();
+    endif;
+
+    if ($helper->isAdWordConversionTrackingEnabled() && $helper->isEnhancedConversionsEnabled() ) :
+        $selectedAttributes = $helper->getEnhancedConversionEffectiveAttributes();
+
+        $adsPurchaseDataSelectedValues = [];
+
+        if (in_array(\WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_EMAIL, $selectedAttributes)) {
+            $adsPurchaseDataSelectedValues[\WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_EMAIL] = $helper->preHashCustomerData($order->getCustomerEmail());
+        }
+
+        $billingAddress = $order->getBillingAddress();
+
+        if ($billingAddress) {
+            if (in_array(\WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_PHONE, $selectedAttributes)) {
+                $adsPurchaseDataSelectedValues[\WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_PHONE] = $helper->preHashCustomerData($billingAddress->getTelephone() ?? '');
+            }
+
+            if (in_array(\WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_FIRSTNAME, $selectedAttributes)) {
+                $adsPurchaseDataSelectedValues[\WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_FIRSTNAME] = $helper->preHashCustomerData($billingAddress->getFirstname() ?? '');
+            }
+
+            if (in_array(\WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_LASTNAME, $selectedAttributes)) {
+                $adsPurchaseDataSelectedValues[\WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_LASTNAME] = $helper->preHashCustomerData($billingAddress->getLastname() ?? '');
+            }
+
+            if (in_array(\WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_STREET, $selectedAttributes)) {
+                $adsPurchaseDataSelectedValues[\WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_STREET] = implode(",", $billingAddress->getStreet() ?? []);
+            }
+
+            if (in_array(\WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_CITY, $selectedAttributes)) {
+                $adsPurchaseDataSelectedValues[\WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_CITY] = $billingAddress->getCity() ?? '';
+            }
+
+            if (in_array(\WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_REGION, $selectedAttributes)) {
+                $adsPurchaseDataSelectedValues[\WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_REGION] = $billingAddress->getRegion() ?? '';
+            }
+
+            if (in_array(\WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_COUNTRY, $selectedAttributes)) {
+                $adsPurchaseDataSelectedValues[\WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_COUNTRY] = $billingAddress->getCountryId();
+            }
+
+            if (in_array(\WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_POSTALCODE, $selectedAttributes)) {
+                $adsPurchaseDataSelectedValues[\WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_POSTALCODE] = $billingAddress->getPostcode() ?? '';
+            }
+        }
+
+        foreach ($adsPurchaseDataSelectedValues as $selectedAttributeKey => $selectedAttributeValue) {
+            $adsPurchaseData[$selectedAttributeKey] = $selectedAttributeValue;
+        }
+    endif;
+
+    if ($helper->isAdWordConversionTrackingEnabled() && $helper->isAdWordNewCustomerAcquisitionEnabled()) {
+        $conversionTrackingNewCustomer = $this->getAdwordNewCustomer();
+        $adsPurchaseData[\WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_NEW_CUSTOMER] = $conversionTrackingNewCustomer;
+        $adsPurchaseData[\WeltPixel\GA4\Model\Api\ConversionTracking::FIELD_CONVERSION_TRACKING_CUSTOMER_LIFETIME_VALUE] = $this->getAdwordCustomerLifetimeValue($conversionTrackingNewCustomer);
+    }
+
+    if ($helper->isAdWordConversionTrackingEnabled() && $helper->isConversionWithCartDataEnabled()) {
+        $adsPurchaseData['discount'] = $helper->parsePriceBasedOnOptions(floatval(number_format(abs($block->getOrderDiscountedAmount(true)), 2, '.', '')));
+        $adsPurchaseData['items'] = $block->getConversionCartDataItems();
+    }
+
+    if ($helper->isAdWordsRemarketingEnabled() && $this->isFreeOrderAllowedForAdwordsRemarketing()):
+        $remarketingData = [];
+        $remarketingData['ecomm_pagetype'] = \WeltPixel\GA4\Model\Api\Remarketing::ECOMM_PAGETYPE_PURCHASE;
+        $remarketingData['ecomm_prodid'] = $this->getProductIds();
+        $remarketingData['ecomm_totalvalue'] = $helper->parsePriceBasedOnOptions(floatval(number_format($this->getOrderTotal(), 2, '.', '')));
+        $this->setDataLayerOption('google_tag_params', $remarketingData);
+    endif;
+
+    if (count($adsPurchaseData) > 1) :
+        if ($isAdwordsSeparateDatalayerEvent) :
+            $this->setAdditionalDataLayerData($adsPurchaseData);
+            foreach ($adsPurchaseData as $key => $value) {
+                if (in_array($key, $allowedECKeyValues)) {
+                    $this->setDataLayerOption($key, $value);
+                }
+            }
+        else:
+            foreach ($adsPurchaseData as $key => $value) {
+                if ($key  != 'event') {
+                    $this->setDataLayerOption($key, $value);
+                }
+            }
+        endif;
+    endif;
+
+    ?>
+<?php endif; ?>

@@ -1,0 +1,192 @@
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .store-listing{
+        max-width: 1140px;
+        margin: 0 auto;
+        .store-listing h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: #111;
+            font-weight: bold;
+        }
+        .store-listing-outer{
+            padding: 10px 0 0;
+            margin: 0 -30px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .store-listing-grid{
+            padding: 0 30px 60px;
+            width: 28.33%;
+            .slick-slide img{
+                margin-top: 40px;
+                margin-bottom: 5px;
+            }
+        }
+        .map-button {
+            background: #212322;
+            border-radius: 5px;
+            color: #fff;
+            padding: 11px 10px;
+            display: inline-block;
+            text-decoration: none;
+            font-weight: 700;
+            line-height: 100%;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            width: 120px;
+            text-align: center;
+            margin-right: 15px;
+            margin-top: 15px;
+        }
+
+        .map-button:hover {
+            background: #E7E8EA;
+            color: #212322;
+        }
+        .store-listing-info{
+            h2 {
+                font-weight: 500;
+                font-size: 17px;
+                line-height: 24px;
+                letter-spacing: 0.03em;
+                color: #212322;
+                margin-top: 0;
+                font-family: 'Matter , sans-serif';
+                margin-bottom: 0;
+            }
+            h2.store-notes {
+                margin-top: 20px;
+            } 
+            p {
+                font-weight: 400;
+                line-height: 150%;
+                letter-spacing: 0.03em;
+                color: #212322;
+                margin-top: 15px !important;
+                margin-bottom: 0;
+            }
+            .grid-store-address.grid-store-address-notes{
+                min-height: 24px;
+            }
+        }
+        .grid-store-open, 
+        .grid-store-tel{
+            text-transform: uppercase;
+        }
+        .store-listing-grid{
+            .slick-slide{
+                img{
+                    object-fit: cover;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 769px) {
+    .store-listing{
+        .store-listing-grid{
+            .slick-slide{
+                img{
+                    min-height: 250px;
+                    max-height: 250px;
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 768px) {
+    .store-listing{
+        .store-listing-outer{
+            margin:0;
+            padding: 0;
+        }
+        .store-listing-grid{
+            width: 100%;
+            padding: 0;
+            display: flex;
+            padding: 15px 0;
+            border-bottom: 1px solid #BABEC2;
+            gap: 15px;
+            &:last-child{
+                border-bottom: none;
+            }
+            .swiper-container{
+                width: 31%;
+            }
+            .store-listing-info{
+                width: 65%;
+                padding-top: 0;
+            }
+            .slick-slide img{
+                margin-top: 0;
+                width: 100;
+            }
+        }
+        .store-listing-info h2{
+            font-size: 14px;
+        }
+        .store-listing-info p{
+            font-size: 12px;
+        }
+    }
+
+    .storefinder-index-index{
+        .columns{
+            padding: 0!important;
+        }
+    }
+}
+
+.web_kr_ko{
+    .swiper-wrapper-store-locator {
+        display: none;
+    }
+    .swiper-mobile { 
+        display: none; 
+    }
+    .swiper-desktop { 
+        display: block; 
+    }
+    .page-wrapper{
+        .store-listing{
+            .store-listing-grid{
+                .slick-slide{
+                    img{
+                        object-fit: inherit;
+                        aspect-ratio: 4 / 3;
+                        min-height: inherit;
+                        max-height: inherit;
+                    }
+                }
+            }
+        }
+    }
+}
+ 
+@media screen and (max-width: 768px) {
+    .web_kr_ko{
+        .swiper-desktop {
+            display: none;
+        }
+        .swiper-mobile { 
+            display: block; 
+        }
+        .page-wrapper{
+            .store-listing{
+                .store-listing-grid{
+                    .slick-slide{
+                        img{
+                            aspect-ratio: 4 / 5;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

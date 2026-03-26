@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @author OnitsukaTiger Team
+* @copyright Copyright (c) 2022 OnitsukaTiger (https://www.onitsukatiger.com)
+* @package Custom Checkout Fields for Magento 2
+*/-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="OnitsukaTiger_OrderAttribute::order_attributes"
+             title="OnitsukaTiger Order Attributes"
+             module="OnitsukaTiger_OrderAttribute"
+             sortOrder="151801"
+             parent="Magento_Sales::sales"
+             resource="OnitsukaTiger_OrderAttribute::order_attributes"/>
+        <add id="OnitsukaTiger_OrderAttribute::attributes_list"
+             title="Manage Order Attributes"
+             module="OnitsukaTiger_OrderAttribute"
+             sortOrder="10"
+             parent="OnitsukaTiger_OrderAttribute::order_attributes"
+             action="otorderattribute/attribute/index"
+             resource="OnitsukaTiger_OrderAttribute::order_attributes"/>
+        <add id="OnitsukaTiger_OrderAttribute::attributes_relation"
+             title="Manage Order Attributes Relations"
+             module="OnitsukaTiger_OrderAttribute"
+             sortOrder="20"
+             parent="OnitsukaTiger_OrderAttribute::order_attributes"
+             action="otorderattribute/relation/index"
+             resource="OnitsukaTiger_OrderAttribute::attributes_relation"/>
+    </menu>
+</config>

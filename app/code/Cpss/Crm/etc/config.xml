@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <crm>
+            <general>
+                <enable>0</enable>
+                <enable_point_checkout_page>0</enable_point_checkout_page>
+                <shop_id>58001</shop_id>
+            </general>
+            <membership>
+                <editor_textarea>
+                <![CDATA[
+                    <p>
+                    オニツカタイガーのポイントは、「1ポイント＝1円」として、１ポイントから店舗とオンラインストアでご利用いただけます。<br/>
+                    ※一部ポイント対象外店舗がございます。（対象店舗はSHOP LOCATIONからご確認ください。）<br/>
+                    利用可能ポイントや有効期限は、マイページからご確認いただけます。<br/>
+                    </p>
+                    <p>
+                    ※ONITSUKATIGER ONLINE STOREをご利用の場合、ポイントの還元タイミングはお支払い方法により異なります。<br/>
+                    ※Amazon Payをご利用の場合ポイントは付与されません。<br/>
+                    ※1商品単位の商品購入金額（ポイント利用やクーポン利用を差し引いた金額）の100円ごとにポイントがたまります。<br/>
+                    　ポイントの還元率は1％「100円（税抜）で1ポイント」となります。100円未満の端数は切り捨てとなります。<br/>
+                    ※購入時に付与されるポイントの有効期限はポイント付与日から１年間となります。<br/>
+                    　購入以外で付与されるポイントの有効期限は内容によって異なります。<br/>
+                    </p>
+                    <p>　ポイントの期限や履歴はマイページのポイント履歴からご確認ください。</p>
+                ]]>
+                </editor_textarea>
+            </membership>      
+            <login_from_apps>
+                <app_id>stgotappjp</app_id>
+                <client_id>stgiosclientid,stgandroidclientid</client_id>
+                <redirect_waiting_time>3400</redirect_waiting_time>
+                <redirect_to>stg.onitsukatiger://localhost/close-web?topic=provisional_registration</redirect_to>
+                <redirect_waiting_time>1212</redirect_waiting_time>
+                <redirect_to_register>stg.onitsukatiger://localhost/online-store/auth/callback</redirect_to_register>
+                <hash>123</hash>
+            </login_from_apps>
+        </crm>
+        <payment>
+            <fullpoint>
+                <active>0</active>
+                <model>Cpss\Crm\Model\Fullpoint</model>
+                <title>Full Point Payment</title>
+                <group>offline</group>
+                <sort_order>999</sort_order>
+            </fullpoint>
+            <free>
+                <active>0</active>
+            </free>
+        </payment>
+    </default>
+</config>

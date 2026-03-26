@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+   <table name="store_locator" resource="default" engine="innodb" comment="Store Locator">
+      <column xsi:type="int" name="id" padding="11" unsigned="false" nullable="false" identity="true" comment="Store ID" />
+      <column name="store_name" xsi:type="text" nullable="false" comment="Store Name" />
+      <column name="store_address" xsi:type="text" nullable="false" comment="Store Address" />
+      <column name="store_phone_no" xsi:type="text" nullable="false" comment="Store Phone No" />
+      <!-- thi -->
+      <column name="time_started" xsi:type="timestamp" nullable="false" comment="Store Timing" />
+      <column name="time_completed" xsi:type="timestamp" nullable="false" comment="Store Timing" />
+      <column name="store_notes" xsi:type="text" nullable="false" comment="Store Notes" />
+      <!-- this -->
+      <column name="google_map_link" xsi:type="text" nullable="false" comment="Google Map Link" />
+      <column name="gallery" xsi:type="text" nullable="false" comment="Desktop Gallery" />
+      <column name="mobile_gallery" xsi:type="text" nullable="false" comment="Mobile Gallery" />
+      <column name="position" xsi:type="int" nullable="false" comment="position" />
+      <column name="store_status" xsi:type="boolean" nullable="false" default="1" comment="Is Active" />
+      <column name="stores" xsi:type="text" nullable="false" comment="Stores Ids" />
+      <column name="meta_title" xsi:type="text" nullable="false" comment="Meta Title" />
+      <column name="meta_keyword" xsi:type="text" nullable="false" comment="Meta Keyword" />
+      <column name="meta_description" xsi:type="text" nullable="false" comment="Meta Description" />
+      <constraint xsi:type="primary" referenceId="PRIMARY">
+         <column name="id" />
+      </constraint>
+   </table>
+</schema>

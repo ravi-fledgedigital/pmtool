@@ -1,0 +1,21 @@
+{
+	"name": "firebear/platformnetsuite",
+	"description": "Platform Netsuite Module",
+	"require": {
+		"php": "~5.5.0|~5.6.0|~7.0.0|~7.1",
+		"firebear/importexport": ">=3.4.3",
+		"firebear/netsuite-php": "2019.1.*",
+		"firebear/importexport-msi": ">=1.1.0"
+	},
+	"type": "magento2-module",
+	"version": "1.9.0",
+	"license": "OSL-3.0",
+	"autoload": {
+		"files": [
+			"registration.php"
+		],
+		"psr-4": {
+			"Firebear\\PlatformNetsuite\\": ""
+		}
+	}
+}

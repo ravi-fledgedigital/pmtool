@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* @author OnitsukaTiger Team
+* @copyright Copyright (c) 2022 OnitsukaTiger (https://www.onitsukatiger.com)
+* @package Custom Checkout Fields for Magento 2
+*/-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Mview/etc/mview.xsd">
+    <view id="onitsukatiger_order_attribute_values" class="OnitsukaTiger\OrderAttribute\Model\Indexer\Mview\OrderAction" group="indexer">
+        <subscriptions>
+            <table name="sales_order" entity_column="entity_id"/>
+        </subscriptions>
+    </view>
+</config>

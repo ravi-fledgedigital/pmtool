@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Sales\Api\ShipmentRepositoryInterface">
+        <plugin name="save_onitsukatiger_shipment_attribute" type="OnitsukaTiger\Shipment\Plugin\ProcessShipmentAttribute"/>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="manuallySendEmailToWarehouse" xsi:type="object">OnitsukaTiger\Shipment\Console\SendEmailToWarehouse</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

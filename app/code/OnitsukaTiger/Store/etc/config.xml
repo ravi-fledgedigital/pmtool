@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <date_time>
+            <general>
+                <date_format>d-M-Y</date_format>
+                <dob_date_format>M/d/Y</dob_date_format>
+                <timezone_be>Asia/Singapore</timezone_be>
+                <locale_be>en_US</locale_be>
+                <translate_date>0</translate_date>
+            </general>
+        </date_time>
+    </default>
+</config>

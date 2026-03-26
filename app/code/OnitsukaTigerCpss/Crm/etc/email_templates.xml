@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="sftp_cpss_email_config_pos_sftp_email_template" label="POS SFTP Email Template" file="pos_sftp_email.html" type="html" module="OnitsukaTigerCpss_Crm" area="frontend"/>
+    <template id="sftp_cpss_email_config_cpss_sftp_email_template" label="CPSS SFTP Email Template" file="cpss_sftp_email.html" type="html" module="OnitsukaTigerCpss_Crm" area="frontend"/>
+</config>

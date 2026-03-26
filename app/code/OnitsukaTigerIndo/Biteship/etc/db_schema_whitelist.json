@@ -1,0 +1,14 @@
+{
+    "sales_order": {
+        "column": {
+            "biteship_order_id": true,
+            "courier_waybill_id": true
+        }
+    },
+    "sales_order_grid": {
+        "column": {
+            "biteship_order_id": true,
+            "courier_waybill_id": true
+        }
+    }
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\Rma\Controller\Guest\Login" type="OnitsukaTigerKorea\Rma\Controller\Rma\Guest\Login"/>
+    <type name="Amasty\Rma\Model\Request\DataProvider\CreateForm">
+        <plugin name="get_sku_wms_return_create" type="OnitsukaTigerKorea\Rma\Plugin\Model\Request\DataProvider\CreateForm"/>
+    </type>
+    <type name="Amasty\Rma\Model\Request\DataProvider\Form">
+        <plugin name="get_sku_wms_return_view" type="OnitsukaTigerKorea\Rma\Plugin\Model\Request\DataProvider\Form"/>
+    </type>
+    <type name="Amasty\Rma\Model\Request\DataProvider\Listing">
+        <plugin name="add_filter_store" type="OnitsukaTigerKorea\Rma\Plugin\Model\Request\DataProvider\Listing"/>
+    </type>
+    <type name="Amasty\Rma\Model\Order\CreateReturnProcessor">
+        <plugin name="update_order_available_qty" type="OnitsukaTigerKorea\Rma\Plugin\Model\Order\CreateReturnProcessor"/>
+    </type>
+</config>

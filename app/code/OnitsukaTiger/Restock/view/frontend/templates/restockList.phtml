@@ -1,0 +1,95 @@
+<?php
+$productsWithAlerts = $block->getProductsWithAlerts();
+$image = 'related_products_list';
+
+?>
+<?php
+	/* @var $restockHelper  \OnitsukaTiger\Restock\Helper\Data */
+	$restockHelper = $this->helper(OnitsukaTiger\Restock\Helper\Data::class);
+?>
+<div class="products-grid restock">
+	<?php if (count($productsWithAlerts)) : ?>
+		<?php if ($block->getPagerHtml()): ?>
+		<div class="restock-products-toolbar toolbar bottom" style="display: none;"><?php echo $block->getPagerHtml(); ?></div>
+		<?php endif ?>
+		<ol class="product-items">
+			<?php foreach ($productsWithAlerts as $alertItem) : ?>
+				<?php
+                $product = $block->getProductById($alertItem->getProductId());
+                $color = $product->getResource()->getAttribute('color')->getFrontend()->getValue($product);
+                $size = $product->getResource()->getAttribute('qa_size')->getFrontend()->getValue($product);
+                $blockObj = $block->getLayout()->createBlock('Magento\Catalog\Block\Product\AbstractProduct');
+                $productImage =$blockObj->getImage($product, 'category_page_list');
+                $configurableUrl = $block->getParentProductUrl($product->getId());
+
+                /*get parent product url*/
+                $parentProductUrl = $restockHelper->getParentUrlBySku($product->getSku());
+                if($parentProductUrl){
+					$configurableUrl = $parentProductUrl;
+                }
+                $productStock = $block->getStockItem($product->getId());
+                if ($product->getTypeId() == \Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE) {
+                    $finalPrice = $product->getFinalPrice();
+                } else {
+                    $finalPrice = $product->getPriceInfo()->getPrice('regular_price')->getValue();
+                    if (!$finalPrice) {
+                        $finalPrice = $product->getPriceInfo()->getPrice('special_price')->getValue();
+                    }
+                }
+                $finalPrice = $this->helper(Magento\Catalog\Helper\Data::class)->getTaxPrice($product, $finalPrice, true);
+                $finalPrice = $this->helper(Magento\Checkout\Helper\Data::class)->formatPrice($finalPrice);
+
+                ?>
+				<li data-row="product-item" class="product-item" id="item_<?= $block->escapeHtmlAttr($product->getId()) ?>">
+					<div class="product-item-info" data-container="product-grid">
+						<a class="action-remove" style="z-index: 1;" href="<?= $block->getUrl() . "restock/customer/index/?product_id=" . $product->getId() ?>">
+							<?= __("Remove"); ?>
+						</a>
+						<a href="<?= $block->escapeUrl($configurableUrl) ?>" class="product photo product-item-photo">
+                            <?= $productImage->toHtml() ?>
+                        </a>
+
+						<?php if ($product->getBrand()):
+                            ?>
+						    <div class="brand-logo">
+						        <span class="<?= str_replace(['(',')'], '', strtolower(str_replace(" ", "_", $product->getAttributeText('brand')))) ?>"></span>
+						    </div>
+						<?php endif; ?>
+
+						<strong class="product name product-item-name">
+							<a class="product-item-link" title="<?= $block->escapeHtmlAttr($product->getName()) ?>"
+                                href="<?= $block->escapeUrl($configurableUrl) ?>">
+                                <?= $block->escapeHtml($product->getName()) ?>
+                            </a>
+                        </strong>
+                        <div class="color-label-text"><?= $block->escapeHtml($color) ?></div>
+                        <div class="price-box"><?= $finalPrice ?></div>
+                        <div class="content">
+                        	<p>
+                        		<label><?= __("Size"); ?></label>
+                        		<strong><?= $block->escapeHtml($size) ?></strong>
+							</p>
+                       	</div>
+
+                       	<!--<div class="box-tocart">
+				            <div class="field qty">
+				                <label class="label"><span><?php /*= __("Qty"); */?></span></label>
+				                <strong class="control">
+				                    <?php /*= __($productStock->getQty()); */?>
+								</strong>
+				            </div>
+			            </div>-->
+
+					</div>
+				</li>
+			<?php endforeach; ?>
+		</ol>
+		<?php if ($block->getPagerHtml()): ?>
+		<div class="restock-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+		<?php endif ?>
+	<?php else : ?>
+		<div class="message info empty">
+			<span><?= $block->escapeHtml(__('Your restock list is currently empty.')) ?></span>
+		</div>
+	<?php endif; ?>
+</div>

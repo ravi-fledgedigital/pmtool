@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Email Default Invoice Items List" design_abstraction="custom">
+    <body>
+        <referenceBlock name="packing.list.items.renderers">
+            <block class="OnitsukaTiger\NetSuiteStoreShipping\Block\Order\Shipment\Items\DefaultItem" name="packing.list.items.renderers.default" as="default" template="OnitsukaTiger_NetSuiteStoreShipping::items/packing_list/default.phtml"/>
+        </referenceBlock>
+    </body>
+</page>

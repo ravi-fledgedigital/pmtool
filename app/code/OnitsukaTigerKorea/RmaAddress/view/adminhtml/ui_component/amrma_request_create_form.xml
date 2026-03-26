@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="rma_address_container" class="OnitsukaTigerKorea\RmaAddress\Ui\Component\Form\Fieldset\Address">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">RMA Address</item>
+                <item name="additionalClasses" xsi:type="string">amrma-col-message amrma-fieldset-wrapper</item>
+                <item name="template" xsi:type="string">ui/form/fieldset</item>
+            </item>
+        </argument>
+
+        <field name="rma_address">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">OnitsukaTigerKorea\RmaAddress\Model\OptionSource\Address</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Selection address</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">rma_address</item>
+                </item>
+            </argument>
+        </field>
+        <field name="is_enable">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Add new address</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="source" xsi:type="string">from_general</item>
+                    <item name="dataScope" xsi:type="string">is_enable</item>
+                    <item name="switcherConfig" xsi:type="array">
+                        <item name="enabled" xsi:type="boolean">true</item>
+                        <item name="rules" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="value" xsi:type="number">0</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">amrma_request_create_form.amrma_request_create_form.rma_address_container.rma_address</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                    <item name="1" xsi:type="array">
+                                        <item name="target" xsi:type="string">amrma_request_create_form.amrma_request_create_form.rma_address_container.firstname</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                    <item name="2" xsi:type="array">
+                                        <item name="target" xsi:type="string">amrma_request_create_form.amrma_request_create_form.rma_address_container.street</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                    <item name="3" xsi:type="array">
+                                        <item name="target" xsi:type="string">amrma_request_create_form.amrma_request_create_form.rma_address_container.city</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                    <item name="4" xsi:type="array">
+                                        <item name="target" xsi:type="string">amrma_request_create_form.amrma_request_create_form.rma_address_container.country_id</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                    <item name="5" xsi:type="array">
+                                        <item name="target" xsi:type="string">amrma_request_create_form.amrma_request_create_form.rma_address_container.postcode</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                    <item name="6" xsi:type="array">
+                                        <item name="target" xsi:type="string">amrma_request_create_form.amrma_request_create_form.rma_address_container.telephone</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                </item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="value" xsi:type="number">1</item>
+                                <item name="actions" xsi:type="array">
+                                    <item name="0" xsi:type="array">
+                                        <item name="target" xsi:type="string">amrma_request_create_form.amrma_request_create_form.rma_address_container.rma_address</item>
+                                        <item name="callback" xsi:type="string">hide</item>
+                                    </item>
+                                    <item name="1" xsi:type="array">
+                                        <item name="target" xsi:type="string">amrma_request_create_form.amrma_request_create_form.rma_address_container.firstname</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                    <item name="2" xsi:type="array">
+                                        <item name="target" xsi:type="string">amrma_request_create_form.amrma_request_create_form.rma_address_container.street</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                    <item name="3" xsi:type="array">
+                                        <item name="target" xsi:type="string">amrma_request_create_form.amrma_request_create_form.rma_address_container.city</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                    <item name="4" xsi:type="array">
+                                        <item name="target" xsi:type="string">amrma_request_create_form.amrma_request_create_form.rma_address_container.country_id</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                    <item name="5" xsi:type="array">
+                                        <item name="target" xsi:type="string">amrma_request_create_form.amrma_request_create_form.rma_address_container.postcode</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                    <item name="6" xsi:type="array">
+                                        <item name="target" xsi:type="string">amrma_request_create_form.amrma_request_create_form.rma_address_container.telephone</item>
+                                        <item name="callback" xsi:type="string">show</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="firstname" sortOrder="20" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="label" xsi:type="string" translate="true">First Name</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="additionalClasses" xsi:type="string">amrma-note-block</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="street" sortOrder="130" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <visible>true</visible>
+                <label translate="true">Street Address</label>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="city" sortOrder="130" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <visible>true</visible>
+                <label translate="true">District</label>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="country_id"  formElement="select" sortOrder="10">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Directory\Model\Config\Source\Country</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Country</item>
+                    <item name="componentType" xsi:type="string">field</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</item>
+                    <item name="elementTmpl" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                    <item name="dataScope" xsi:type="string">country_id</item>
+                    <item name="filterOptions" xsi:type="boolean">true</item>
+                    <item name="showCheckbox" xsi:type="boolean">true</item>
+                    <item name="disableLabel" xsi:type="boolean">true</item>
+                    <item name="chipsEnabled" xsi:type="boolean">true</item>
+                    <item name="multiple" xsi:type="boolean">false</item>
+                    <item name="levelsVisibility" xsi:type="number">1</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="default" xsi:type="string">1</item>
+                    <item name="value" xsi:type="string">KR</item>
+                </item>
+            </argument>
+        </field>
+        <field name="postcode" sortOrder="120" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <visible>true</visible>
+                <label translate="true">Zip/Postal Code</label>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="telephone" sortOrder="130" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <visible>true</visible>
+                <label translate="true">Phone Number</label>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+    </fieldset>
+</form>

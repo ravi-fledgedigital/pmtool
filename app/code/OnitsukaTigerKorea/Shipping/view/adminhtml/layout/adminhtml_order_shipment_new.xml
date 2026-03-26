@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock class="OnitsukaTigerKorea\Shipping\Block\Adminhtml\Create\Items" name="order_items" template="OnitsukaTigerKorea_Shipping::create/items.phtml" />
+        <referenceBlock class="Magento\Sales\Block\Adminhtml\Items\Renderer\DefaultRenderer" name="default" template="OnitsukaTigerKorea_Shipping::create/items/renderer/default.phtml"/>
+    </body>
+</page>

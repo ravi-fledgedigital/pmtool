@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <attribute name="class" value="header-anniversary-layout" />
+        <referenceContainer name="header.container" remove="true"/>
+        <referenceContainer name="footer-container" remove="true"/>
+        <referenceContainer name="navigation.sections" remove="true"/>
+        <referenceBlock name="breadcrumbs" remove="true" />
+        <referenceBlock name="breadcrumbs.cms" remove="true" />
+        <referenceContainer name="page.wrapper">
+            <container name="header.container.anniversary" as="header_container_anniversary" label="Page HeaderAnniversary Container" htmlTag="header" htmlClass="header-container-top" before="main.content">
+                <block class="Magento\Cms\Block\Block" name="header-cms-anniversary" before="-">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">header-anniversary-cms-layout</argument>
+                    </arguments>
+                </block>
+            </container>
+            <container name="footer.container.anniversary" as="footer_container_anniversary" label="Page FooterAnniversary Container" htmlTag="footer" htmlClass="page-footer-box" after="main.content">
+                <block class="Magento\Cms\Block\Block" name="footer-cms-anniversary" after="-">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">footer-anniversary-cms-layout</argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

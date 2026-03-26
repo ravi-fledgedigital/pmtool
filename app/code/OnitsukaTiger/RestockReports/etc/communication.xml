@@ -1,0 +1,5 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Communication/etc/communication.xsd">
+    <topic name="download_restock_data" request="string">
+        <handler name="download_restock_data" type="OnitsukaTiger\RestockReports\Model\RestockData" method="process" />
+    </topic>
+</config>

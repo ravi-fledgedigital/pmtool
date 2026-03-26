@@ -1,0 +1,84 @@
+<!--@subject Packing List PDF Template @-->
+<!--@vars {
+"var formattedBillingAddress|raw":"Billing Address",
+"var this.getUrl($store, 'customer/account/')":"Customer Account URL",
+"var order.getCustomerName()":"Customer Name",
+"var comment":"Shipment Comment",
+"var invoice.increment_id":"Invoice Id",
+"var shipment.increment_id":"Shipment Id",
+"layout area=\"frontend\" handle=\"packing_list_items\" shipment=$shipment order=$order":"Packing List Items Grid",
+"var order.increment_id":"Order Id",
+"var payment_html|raw":"Payment Details",
+"var formattedShippingAddress|raw":"Shipping Address",
+"var order.shipping_description":"Shipping Description",
+"var order.getShippingDescription()":"Shipping Description"
+} @-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <style type="text/css">
+        @page {
+            size: a4;
+            margin: 0;
+            padding: 0;
+        }
+
+        {{css file="OnitsukaTiger_NetSuiteStoreShipping::css/packing_list.css"}}
+    </style>
+</head>
+<body>
+    <div class="container thai-font">
+        <div class="row">
+            <div class="col-8">
+                {{layout area="frontend" handle="onitsuka_email_logo"}}
+                <h4>Packing List</h4>
+            </div>
+            <div class="col-4 text-right address-header">
+                <h5>ASICS Asia Pte Ltd</h5>
+                <p>#24-00, One Raffles Place,</p>
+                <p>Singapore - 048616</p>
+                <p>GST Registration No: 201213268K</p>
+            </div>
+        </div>
+
+        <div class="row order-info">
+            <div class="col-12">
+                <h5>ORDER DETAILS</h5>
+                <table class="order-detail">
+                    <tr>
+                        <td><b>Order No:</b></td>
+                        <td>{{var order.increment_id}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Order Date:</b></td>
+                        <td>{{var order.getCreatedAtFormatted(2)|raw}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Tax Invoice No:</b></td>
+                        <td>{{var invoice.increment_id}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Tax Invoice Date:</b></td>
+                        <td>{{var invoice.getCreatedAt()}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row shipment-info">
+            <div class="col-12">
+                <h5>SHIPMENT DETAILS</h5>
+                <table class="order-detail">
+                    <tr>
+                        <td><b>Shipment No:</b></td>
+                        <td>{{var shipment.increment_id}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        {{layout area="frontend" handle="packing_list_items" shipment_id=$shipment_id order_id=$order_id}}
+    </div>
+</body>
+</html>

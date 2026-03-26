@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="onitsukatiger" translate="label" sortOrder="200">
+            <label>OnitsukaTiger</label>
+        </tab>
+        <section id="netsuite" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="0">
+            <class>separator-top</class>
+            <label>NetSuite</label>
+            <tab>onitsukatiger</tab>
+            <resource>OnitsukaTiger_NetSuite::netsuite_config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Source Mapping</label>
+                <field id="is_enable_exclude_skus_from_inventory_sync" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Is enable exclude SKU's from inventory Sync</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="sources" translate="label" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Sources</label>
+                    <frontend_model>OnitsukaTiger\NetSuite\Config\Backend\SourceMapping</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
+            </group>
+            <group id="saved_search_id" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Saved search ID</label>
+                <field id="inventory_search" translate="label" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Inventory search</label>
+                </field>
+            </group>
+            <group id="suitetalk" translate="label" type="text" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>SuiteTalk</label>
+                <field id="log" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Suite Talk Log</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="log_path" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Suite Talk Log Path</label>
+                </field>
+                <field id="product_enable_disable" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Product Enable Disable Sync</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="cancel" translate="label" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Cancel Data Sync</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="not_delivered" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Not Delivered Sync</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="api" translate="label" type="text" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Magento API</label>
+                <field id="rma_accept" translate="label" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>RMA Status ID - Accept</label>
+                </field>
+                <field id="rma_reject" translate="label" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>RMA Status ID - Reject</label>
+                </field>
+                <field id="rma_not_delivered" translate="label" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>RMA Status ID - Not Delivered</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

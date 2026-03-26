@@ -1,0 +1,23 @@
+<!--@subject RMA Bank Account Details Conformation  @-->
+<!--@vars {
+"var customer_id":"Customer Id",
+"var customer_name":"Customer Name",
+"var rma_id":"Rma Id",
+"var status":"Status",
+"var bank_details_id":"Customer Bank Account Details"
+} @-->
+{{template config_path="design/email/header_template"}}
+
+<table style="width:100%" cellspacing="0" cellpadding="0">
+    <tr class="email-summary">
+        <td class="bank-details">
+            <p><strong>{{trans "Customer Id : "}} </strong>{{var customer_id}}</p>
+            <p><strong>{{trans "Customer Name : "}} </strong>{{var customer_name}}</p>
+            <p><strong>{{trans "Rma Id : "}} </strong>{{var rma_id}}</p>
+            <p><strong>{{trans "Rma Status : "}} </strong>{{var status}}</p>
+            <p><strong>{{trans "Bank Account Detail ID :"}} </strong>{{var banck_details_id}}</p>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

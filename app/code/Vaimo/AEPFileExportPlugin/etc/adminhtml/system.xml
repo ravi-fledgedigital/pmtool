@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="aep_sftp">
+            <group id="access">
+                <field id="private_key">
+                    <comment>With this setting, the private key format changes, and it is no longer supported by the library's subsequent version. We are uploading a private key file named "id_rsa" to the var/aep_keys/ folder for validation.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

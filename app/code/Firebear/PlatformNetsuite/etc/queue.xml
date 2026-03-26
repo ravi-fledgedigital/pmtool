@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright: Copyright © 2019 Firebear Studio. All rights reserved.
+ * @author   : Firebear Studio <fbeardev@gmail.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/queue.xsd">
+    <broker topic="netsuite.customer.update" exchange="netsuite-customer" type="db">
+        <queue name="netsuite_customer_update_queue" consumer="netsuiteCustomerUpdate" consumerInstance="Magento\Framework\MessageQueue\BatchConsumer" handler="Firebear\PlatformNetsuite\Model\Customer\UpdateConsumer::processMessage" />
+    </broker>
+    <broker topic="netsuite.customer.address.update" exchange="netsuite-customer-address" type="db">
+        <queue name="netsuite_customer_address_update_queue" consumer="netsuiteCustomerAddressUpdate" consumerInstance="Magento\Framework\MessageQueue\BatchConsumer" handler="Firebear\PlatformNetsuite\Model\Customer\Address\UpdateConsumer::processMessage" />
+    </broker>
+</config>

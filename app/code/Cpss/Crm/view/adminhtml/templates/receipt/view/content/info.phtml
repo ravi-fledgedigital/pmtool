@@ -1,0 +1,98 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @var \Cpss\Crm\Block\Adminhtml\Receipt\View\Content\Info $block
+ */
+use Cpss\Crm\Model\Shop\Config\Param;
+$transactionType = Param::TRANSACTION_TYPE_VALUES;
+
+$realStoreOrder = $block->getOrder();
+
+$orderAdminDate = $block->formatDate(
+    $block->getOrderAdminDate($realStoreOrder->getPurchaseDate()),
+    \IntlDateFormatter::MEDIUM,
+    true
+);
+
+if (in_array($realStoreOrder->getStoreCode(), array('th', 'kr'))) {
+    $posHelper = $this->helper(\OnitsukaTigerCpss\Pos\Helper\HelperData::class);
+    $convertedDate = $posHelper->formatDateFromCpss($realStoreOrder->getPurchaseDate(), $realStoreOrder->getStoreCode());
+    $orderAdminDate = date("M j, Y, g:i:s A", strtotime($convertedDate));
+}
+
+$customerData =  $block->getCustomerData($realStoreOrder->getMemberId());
+?>
+<section class="admin__page-section order-view-account-information">
+    <div class="admin__page-section-title">
+        <span class="title"><?= $block->escapeHtml(__('Order & Account Information')) ?></span>
+    </div>
+    <div class="admin__page-section-content">
+        <div class="admin__page-section-item order-information">
+            <?php /* Order Information */ ?>
+            <div class="admin__page-section-item-title">
+                <span class="title">
+                    <span><?= $block->escapeHtml(__('Order # %1', $realStoreOrder->getPurchaseId())) ?></span>
+                </span>
+            </div>
+            <div class="admin__page-section-item-content">
+                <table class="admin__table-secondary order-information-table">
+                <tr>
+                    <th><?= $block->escapeHtml(__('Order Date')) ?></th>
+                    <td><?= $block->escapeHtml($orderAdminDate) ?></td>
+                </tr>
+                <tr>
+                    <th><?= $block->escapeHtml(__('Order Status')) ?></th>
+                    <td><span id="order_status"><?= $block->escapeHtml(__($transactionType[$realStoreOrder->getTransactionType()])) ?></span></td>
+                </tr>
+                <tr>
+                    <th><?= $block->escapeHtml(__('Purchased From')) ?></th>
+                    <td><?= $block->escapeHtml($block->getShopName($realStoreOrder->getShopId())) ?></td>
+                </tr>
+            </table>
+            </div>
+        </div>
+
+        <div class="admin__page-section-item order-account-information">
+            <?php /* Account Information */ ?>
+            <div class="admin__page-section-item-title">
+                <span class="title"><?= $block->escapeHtml(__('Account Information')) ?></span>
+                <div class="actions">
+                    <a href="" target="_blank">
+                    </a>
+                </div>
+            </div>
+            <div class="admin__page-section-item-content">
+                <table class="admin__table-secondary order-account-information-table">
+                    <tr>
+                        <th><?= $block->escapeHtml(__('Customer Name')) ?></th>
+                        <td>
+                            <a href="<?= $this->getUrl('customer/index/edit', ['id'=>$customerData->getId(), '_secure' => true]); ?>" target="_blank">
+                                <span><?= $block->escapeHtml($customerData->getName()) ?></span>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><?= $block->escapeHtml(__('Email')) ?></th>
+                        <td><a href="mailto:"><?= $block->escapeHtml($customerData->getEmail()) ?></a></td>
+                    </tr>
+                    <tr>
+                        <th><?= $block->escapeHtml(__('Customer Group')) ?></th>
+                        <td><?= $block->escapeHtml($block->getCustomerGroupName($customerData)) ?></td>
+                    </tr>
+                    <?php
+                        $customerAdditionalData = $block->getCustomerAccountData($customerData);
+                        foreach ($customerAdditionalData as $data) : ?>
+                        <tr>
+                            <th><?= $block->escapeHtml($data['label']) ?></th>
+                            <td><?= $block->escapeHtml($data['value'], ['br']) ?></td>
+                        </tr>
+                    <?php endforeach;?>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

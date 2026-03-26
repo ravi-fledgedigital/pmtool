@@ -1,0 +1,23 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \WeltPixel\GA4\Block\PinterestPixel\Common */
+
+/** @var \WeltPixel\GA4\Helper\PinterestPixelTracking $pinterestPixelHelper */
+$pinterestPixelHelper = $this->helper('WeltPixel\GA4\Helper\PinterestPixelTracking');
+$cspNonceProvider = $pinterestPixelHelper->getCspNonceProvider();
+$pinterestPixelTrackingCode = $block->getPinterestPixelTrackingCode();
+?>
+<?php if ($block->isPinterestPixelTrackingEnabled()) : ?>
+    <?php
+    $pattern = '/<\s*script[^>]*>/';
+    $replacement = '<script ${1}> if (window.ga4AllowServices) {';
+
+    $pinterestPixelTrackingCode =  str_replace('</script>', ' pintrk(\'setconsent\', true); } </script>', preg_replace($pattern, $replacement, $pinterestPixelTrackingCode));
+
+    if ($cspNonceProvider) {
+        $pinterestPixelTrackingCode = str_replace('<script', '<script nonce="' . $cspNonceProvider->generateNonce() . '" ', $pinterestPixelTrackingCode);
+    }
+
+    /* @noEscape */ echo $pinterestPixelTrackingCode;
+    ?>
+<?php endif; ?>

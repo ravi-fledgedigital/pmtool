@@ -1,0 +1,16 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- ko if: window.checkoutConfig.is_gift_packaging_module_enabled && window.checkoutConfig.is_checkbox_show_mobile === true -->
+<tr class="totals gift">
+    <th class="mark" scope="row">
+        <span class="title" data-bind="text: getTitle()"></span>
+    </th>
+    <td class="amount">
+        <span class="price gift_packaging_label">미신청</span>
+    </td>
+</tr>
+<!--/ko-->

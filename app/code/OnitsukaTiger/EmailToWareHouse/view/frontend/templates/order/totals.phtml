@@ -1,0 +1,27 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @var $block \Magento\Sales\Block\Order\Totals
+ * @see \Magento\Sales\Block\Order\Totals
+ */
+$invoice = $block->getInvoice();
+$order = $invoice->getOrder();
+$subtotalIncludeTax = $order->formatPrice($invoice->getSubtotalInclTax());
+
+$taxInfo = $this->helper(\Magento\Tax\Helper\Data::class)->getCalculatedTaxes($invoice);
+$listTaxTitle = array_column($taxInfo, 'title');
+?>
+<div class="col-10 text-right">
+    <?php if (empty($listTaxTitle)) : ?>
+        <?php echo 'Subtotal:'; ?>
+    <?php else : ?>
+        <?php echo 'Subtotal (Inclusive of ' . implode(',', $listTaxTitle) . '):'; ?>
+    <?php endif; ?>
+</div>
+<div class="col-2 text-right">
+    <?= /* @noEscape */ $subtotalIncludeTax ?>
+</div>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/db_schema.xsd">
+    <table name="quote">
+        <column name="use_personal_information" xsi:type="boolean" nullable="false" comment="Use Personal Information" default="0"/>
+        <column name="send_newsletter_subscription" xsi:type="boolean" nullable="false" comment="Send Newsletter Subscription" default="0"/>
+        <column name="gift_packaging" xsi:type="boolean" nullable="false" comment="Gift Packaging" default="0"/>
+    </table>
+    <table name="sales_order">
+        <column name="use_personal_information" xsi:type="boolean" nullable="false" comment="Use Personal Information" default="0"/>
+        <column name="send_newsletter_subscription" xsi:type="boolean" nullable="false" comment="Send Newsletter Subscription" default="0"/>
+        <column name="gift_packaging" xsi:type="boolean" nullable="false" comment="Gift Packaging" default="0"/>
+    </table>
+</schema>

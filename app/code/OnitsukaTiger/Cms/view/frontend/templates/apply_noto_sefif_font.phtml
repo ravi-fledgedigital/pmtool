@@ -1,0 +1,14 @@
+<?php
+$isClassAddToBody = $block->isAddNotoClassInBody();
+$bodyClass = 'noto-serif-cjk-jp';
+?>
+
+<?php if ($isClassAddToBody): ?>
+    <script type="text/javascript">
+        require(['jquery'], function ($) {
+            $(document).ready(function () {
+                $('body').addClass('<?= $block->escapeJs($bodyClass) ?>');
+            });
+        });
+    </script>
+<?php endif; ?>

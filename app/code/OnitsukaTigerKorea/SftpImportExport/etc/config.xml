@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <sftp_korea>
+            <sftp_korea_config>
+                <enable>1</enable>
+                <store_code>5</store_code>
+            </sftp_korea_config>
+            <sftp_api>
+                <rma_accept>18</rma_accept>
+            </sftp_api>
+            <sftp_export_sales_data>
+                <rma_status>18</rma_status>
+            </sftp_export_sales_data>
+        </sftp_korea>
+    </default>
+</config>

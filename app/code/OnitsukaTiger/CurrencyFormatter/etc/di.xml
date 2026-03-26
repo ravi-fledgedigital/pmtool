@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Directory\Model\Currency" type="OnitsukaTiger\CurrencyFormatter\Model\Currency" />
+    <preference for="Magento\Framework\Locale\Format" type="OnitsukaTiger\CurrencyFormatter\Model\Format" />
+    <type name='Magento\Sales\Ui\Component\Listing\Column\PurchasedPrice'>
+        <plugin name='ot-currency-formatter-sale-order-grid' type='OnitsukaTiger\CurrencyFormatter\Plugin\Sale\Component\PurchasedPrice'/>
+    </type>
+</config>

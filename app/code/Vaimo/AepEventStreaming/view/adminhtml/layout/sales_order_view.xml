@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="order_info">
+            <block name="aep_last_action_id" template="Vaimo_AepEventStreaming::order/view/info/last_action_id.phtml" ifconfig="aep_event_streaming/general/enabled">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Vaimo\AepEventStreaming\ViewModel\OrderLastActionId</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

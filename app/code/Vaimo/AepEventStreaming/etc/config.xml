@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <aep_event_streaming>
+            <general>
+                <tenant_id>onitsukatiger</tenant_id>
+                <debug_mode_param>?syncValidation=true</debug_mode_param>
+            </general>
+            <auth_token>
+                <endpoint>https://ims-na1.adobelogin.com/ims/exchange/jwt</endpoint>
+                <metascope>https://ims-na1.adobelogin.com/s/ent_dataservices_sdk</metascope>
+                <organisation_id>51CD3176612D534B0A495C0A@AdobeOrg</organisation_id>
+                <jwt_expiration>60</jwt_expiration>
+                <token_audience>https://ims-na1.adobelogin.com/c/</token_audience>
+            </auth_token>
+            <customer_sync>
+                <customer_id_prefix>EU_</customer_id_prefix>
+                <endpoint>https://dcs.adobedc.net/collection/411626ddb6fe5d41c8e4570930ec89c37cd7d8154abfe06fce3c7c17efcb79a1</endpoint>
+                <schema_id>b9a6bc9db0eac590a31b10218e8299f9ada8c92729aabdd7</schema_id>
+                <dataset_id>626baef3b27d9818dedcbf3f</dataset_id>
+                <flow_id>ecbd3ed6-a1dc-40f0-bbe0-ca810ce934d0</flow_id>
+            </customer_sync>
+            <order_sync>
+                <endpoint>https://dcs.adobedc.net/collection/411626ddb6fe5d41c8e4570930ec89c37cd7d8154abfe06fce3c7c17efcb79a1</endpoint>
+                <schema_id>ef1a8dc1875acaa7e6caecff13efd3991763d886fd6dfe07</schema_id>
+                <dataset_id>626baeaee9626118dbbdde9b</dataset_id>
+                <flow_id>1929a9a1-7593-403c-82ce-6adfe7be6e9e</flow_id>
+            </order_sync>
+        </aep_event_streaming>
+    </default>
+</config>

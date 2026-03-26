@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <cegid>
+            <general>
+                <cegid_update_status_url>https://cegidUat.asicssea.com/MagentoStatusUpdate/api/updatestatus</cegid_update_status_url>
+            </general>
+            <cegid_return>
+                <cegid_schedule_send_api>*/5 * * * *</cegid_schedule_send_api>
+            </cegid_return>
+            <cegid_get_pdf>
+                <enable>0</enable>
+            </cegid_get_pdf>
+        </cegid>
+    </default>
+</config>

@@ -1,0 +1,31 @@
+<?php
+/** @var $block \WeltPixel\GA4\Block\Track\Order */
+
+/** @var \WeltPixel\GA4\Helper\ServerSideTracking $ga4Helper */
+$ga4Helper = $this->helper('WeltPixel\GA4\Helper\ServerSideTracking');
+$cspNonceProvider = $ga4Helper->getCspNonceProvider();
+
+$order = $ga4Helper->getCurrentOrder();
+$orderId = $ga4Helper->getCurrentOrderId();
+?>
+<?php
+if ($order && $ga4Helper->isServerSideTrakingEnabled() && $ga4Helper->isOrderTrackingAllowedBasedOnOrderStatus($order) && $block->isFreeOrderTrackingAllowedForGoogleAnalytics($order) && $ga4Helper->shouldEventBeTracked(\WeltPixel\GA4\Model\Config\Source\ServerSide\TrackingEvents::EVENT_PURCHASE)) :
+?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($ga4Helper->getServerSideTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'orderId': '<?=  /* @noEscape */ $orderId ?>'
+                        }
+                    });
+                });
+            });
+    </script>
+<?php
+endif;
+?>

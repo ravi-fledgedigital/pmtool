@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Webapi\Controller\Rest\InputParamsResolver" type="OnitsukaTiger\Webapi\Controller\Rest\InputParamsResolver" />
+    <preference for="Magento\Integration\Block\Adminhtml\Integration\Edit\Tab\Info" type="OnitsukaTiger\Webapi\Block\Adminhtml\Integration\Edit\Tab\Info" />
+    <preference for="Magento\Integration\Controller\Adminhtml\Integration\Save" type="OnitsukaTiger\Webapi\Controller\Adminhtml\Integration\Save" />
+</config>

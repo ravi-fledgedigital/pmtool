@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="quote" resource="checkout" engine="innodb" comment="Quote Table">
+        <column xsi:type="boolean" name="vat_invoice_agree" nullable="false" default="0" comment="VAT Invoice Agreement"/>
+        <column xsi:type="boolean" name="terms_and_condition_agree" nullable="false" default="0" comment="Terms And Condition Agree"/>
+
+        <column xsi:type="varchar" name="purchaser_name" nullable="true" comment="Purchaser’s Name" />
+        <column xsi:type="varchar" name="company_name" nullable="true" comment="Company Name" />
+        <column xsi:type="text" name="customer_address" nullable="true" comment="Customer Address" />
+        <column xsi:type="varchar" name="company_tax_code" nullable="true" comment="Company Tax Code" />
+        <column xsi:type="varchar" name="company_email_address" nullable="true" comment="Company Email Address" />
+        <column xsi:type="varchar" name="company_phone_number" nullable="true" comment="Company Phone Number" />
+    </table>
+
+    <table name="sales_order" resource="sales" engine="innodb" comment="Sales Order Table">
+        <column xsi:type="boolean" name="vat_invoice_agree" nullable="false" default="0" comment="VAT Invoice Agreement"/>
+        <column xsi:type="boolean" name="terms_and_condition_agree" nullable="false" default="0" comment="Terms And Condition Agree"/>
+
+        <column xsi:type="varchar" name="purchaser_name" nullable="true" comment="Purchaser’s Name" />
+        <column xsi:type="varchar" name="company_name" nullable="true" comment="Company Name" />
+        <column xsi:type="text" name="customer_address" nullable="true" comment="Customer Address" />
+        <column xsi:type="varchar" name="company_tax_code" nullable="true" comment="Company Tax Code" />
+        <column xsi:type="varchar" name="company_email_address" nullable="true" comment="Company Email Address" />
+        <column xsi:type="varchar" name="company_phone_number" nullable="true" comment="Company Phone Number" />
+    </table>
+</schema>

@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">storelocator_form.storelocator_grid_data_source</item>
+            <item name="deps" xsi:type="string">storelocator_form.storelocator_grid_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Store Information</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">storelocator_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+    
+        <buttons>
+            <button name="save" class="OnitsukaTiger\CustomStoreLocator\Block\Adminhtml\Grid\SaveButton"/>
+            <button name="back" class="OnitsukaTiger\CustomStoreLocator\Block\Adminhtml\Grid\BackButton"/>
+        </buttons>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>storelocator_form.storelocator_grid_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="storelocator_grid_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="*/*/save"/>
+        </settings>
+        <dataProvider class="OnitsukaTiger\CustomStoreLocator\Model\DataProvider" name="storelocator_grid_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="store_details">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="collapsible" xsi:type="boolean">false</item>
+                <item name="label" xsi:type="string" translate="true">Store Details</item>
+                <item name="sortOrder" xsi:type="number">20</item>
+            </item>
+        </argument>
+        <field name="store_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Store Name</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">storelocator</item>
+                    <item name="dataScope" xsi:type="string">store_name</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="store_address">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Store Address</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="source" xsi:type="string">storelocator</item>
+                    <item name="dataScope" xsi:type="string">store_address</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="store_phone_no">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Store Phone No.</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">storelocator</item>
+                    <item name="dataScope" xsi:type="string">store_phone_no</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <!-- <field name="time_started">
+            <argument name="data" xsi:type="array">                
+                <item name="config" xsi:type="array">                    
+                    <item name="dataType" xsi:type="string">timestamp</item>
+                    <item name="label" xsi:type="string" translate="true">Open Time</item>
+                    <item name="formElement" xsi:type="string">date</item>
+                    <item name="source" xsi:type="string">prmrule</item>
+                    <item name="dataScope" xsi:type="string">time_started</item>
+                    <item name="options" xsi:type="array">                             
+                        <item name="controlType" xsi:type="string">select</item>
+                        <item name="timeOnlyTitle" xsi:type="string">Select Open Time</item>                        
+                        <item name="showsTime" xsi:type="boolean">true</item>                        
+                        <item name="timeOnly" xsi:type="boolean">true</item>                                               
+                    </item>                    
+                </item>
+            </argument>
+        </field>
+        <field name="time_completed">
+            <argument name="data" xsi:type="array">                
+                <item name="config" xsi:type="array">                    
+                    <item name="dataType" xsi:type="string">timestamp</item>
+                    <item name="label" xsi:type="string" translate="true">Close Time</item>
+                    <item name="formElement" xsi:type="string">date</item>
+                    <item name="source" xsi:type="string">prmrule</item>
+                    <item name="dataScope" xsi:type="string">time_completed</item>       
+                    <item name="options" xsi:type="array">                             
+                        <item name="controlType" xsi:type="string">select</item>
+                        <item name="timeOnlyTitle" xsi:type="string">Select Close Time</item>                        
+                        <item name="showsTime" xsi:type="boolean">true</item>                        
+                        <item name="timeOnly" xsi:type="boolean">true</item>                                               
+                    </item>                    
+                </item>
+            </argument>
+        </field> -->
+        <field name="store_notes">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Store Note</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="source" xsi:type="string">storelocator</item>
+                    <item name="dataScope" xsi:type="string">store_notes</item>
+                </item>
+            </argument>
+        </field>
+        <field name="google_map_link">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Google Map Link</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">storelocator</item>
+                    <item name="dataScope" xsi:type="string">google_map_link</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="gallery">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">imageUploader</item> <!-- Changed -->
+                    <item name="previewTmpl" xsi:type="string">OnitsukaTiger_CustomStoreLocator/image-preview</item> 
+                    <item name="placeholderType" xsi:type="string">image</item>
+                    <item name="label" xsi:type="string" translate="true">Desktop Image</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="required" xsi:type="boolean">true</item>
+                    <item name="isMultipleFiles" xsi:type="boolean">true</item> <!-- Set to false if you want only one image -->
+                        <item name="uploaderConfig" xsi:type="array">
+                        <item name="url" xsi:type="url" path="storelocator/index/upload"/>
+                    </item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="mobile_gallery">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">imageUploader</item> <!-- Changed -->
+                    <item name="previewTmpl" xsi:type="string">OnitsukaTiger_CustomStoreLocator/image-preview</item> 
+                    <item name="placeholderType" xsi:type="string">image</item>
+                    <item name="label" xsi:type="string" translate="true">Mobile Image</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="required" xsi:type="boolean">true</item>
+                    <item name="isMultipleFiles" xsi:type="boolean">true</item> <!-- Set to false if you want only one image -->
+                        <item name="uploaderConfig" xsi:type="array">
+                        <item name="url" xsi:type="url" path="storelocator/index/mobileupload"/>
+                    </item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="position">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">int</item>
+                    <item name="label" xsi:type="string" translate="true">Store Position</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">storelocator</item>
+                    <item name="dataScope" xsi:type="string">position</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="notice" xsi:type="string" translate="true">This field will only accept unique value.</item>
+                </item>
+            </argument>
+        </field>
+        <field name="store_status">
+            <argument name="data" xsi:type="array">
+            <item name="options" xsi:type="object">OnitsukaTiger\CustomStoreLocator\Model\Status</item> 
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item> 
+                    <item name="label" xsi:type="string" translate="true">Store Status</item> 
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">storelocator</item>
+                    <item name="dataScope" xsi:type="string">store_status</item>   
+                </item>
+            </argument>
+        </field>
+        <field name="stores">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">OnitsukaTiger\CustomStoreLocator\Ui\Component\Listing\Column\StoreOptions</item>
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Store View</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">multiselect</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="meta_title">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Meta Title</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">storelocator</item>
+                    <item name="dataScope" xsi:type="string">meta_title</item>
+                </item>
+            </argument>
+        </field>
+        <field name="meta_keyword">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Meta Keyword</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">storelocator</item>
+                    <item name="dataScope" xsi:type="string">meta_keyword</item>
+                </item>
+            </argument>
+        </field>
+        <field name="meta_description">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Meta Description</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">storelocator</item>
+                    <item name="dataScope" xsi:type="string">meta_description</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+</form>

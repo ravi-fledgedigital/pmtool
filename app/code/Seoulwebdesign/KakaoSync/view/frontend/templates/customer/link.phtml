@@ -1,0 +1,60 @@
+<?php
+/** @var \Seoulwebdesign\KakaoSync\Block\Customer\Link $block */
+/** @var \Magento\Framework\Escaper $escaper */
+
+$linkStatus = $block->getLinkStatus();
+$addresses = $block->getShippingAddress();
+?>
+
+<?php if (isset($linkStatus['id'])):?>
+    <div><?= $escaper->escapeHtml(__('Link status:')) ?> <strong><?= $escaper->escapeHtml(__('Connected')) ?></strong>
+        <a class="button" href="javascript:kakaoDisconnect()"><?= $escaper->escapeHtml(__('Disconnect')) ?></a></div>
+<div class="table-wrapper">
+    <table class="data table" id="my-kakao-address-table">
+        <caption class="table-caption"><?= $escaper->escapeHtml(__('Shipping Address')) ?></caption>
+        <thead>
+        <tr>
+            <th scope="col" class="col detail-address"><?= $escaper->escapeHtml(__('Detail Address')) ?></th>
+            <th scope="col" class="col receiver-name"><?= $escaper->escapeHtml(__('Receiver Name')) ?></th>
+            <th scope="col" class="col addess"><?= $escaper->escapeHtml(__('Base Address')) ?></th>
+            <th scope="col" class="col phone"><?= $escaper->escapeHtml(__('Phone')) ?></th>
+            <th scope="col" class="col zone"><?= $escaper->escapeHtml(__('Zone')) ?></th>
+            <th scope="col" class="col action"><?= $escaper->escapeHtml(__('Action')) ?></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($addresses as $address):?>
+            <tr>
+                <td><?= $escaper->escapeHtml($address['detail_address'])?></td>
+                <td><?= $escaper->escapeHtml($address['receiver_name'])?></td>
+                <td><?= $escaper->escapeHtml($address['base_address'])?></td>
+                <td><?= $escaper->escapeHtml($address['receiver_phone_number1'])?></td>
+                <td><?= $escaper->escapeHtml($address['zone_number'])?></td>
+                <td>
+                    <a href="<?= $escaper->escapeUrl($block->getImportUrl($address['id']))?>" class="action import">
+                        <span><?= $escaper->escapeHtml(__('Import')) ?></span>
+                    </a>
+                </td>
+        </tr>
+        <?php endforeach;?>
+        </tbody>
+    </table>
+</div>
+<?php else: ?>
+    <div><?= $escaper->escapeHtml(__('Link status:')) ?> <strong><?= $escaper->escapeHtml(__('Not Connected')) ?></strong>
+        </div>
+<?php endif ?>
+
+<script type="text/javascript">
+    function kakaoDisconnect() {
+        if(confirm("<?= $escaper->escapeHtml(__('Please confirm to disconnect')) ?>"))
+        {
+            window.location.href = "<?= $escaper->escapeUrl($block->getUrl('kakaosync/customer/disconnect'))?>";
+        }
+    }
+    function linkWithKakao() {
+        KakaoJs.Auth.authorize({
+            redirectUri: '<?= $escaper->escapeUrl($block->getRediectOAuthLink()); ?>'
+        });
+    }
+</script>

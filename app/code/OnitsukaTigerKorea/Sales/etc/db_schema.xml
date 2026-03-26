@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_order">
+        <column xsi:type="varchar" name="order_xml_id" nullable="true" comment="Order Xml Id" />
+        <column xsi:type="varchar" name="shipping_telephone" nullable="true" comment="Shipping Telephone" />
+        <column xsi:type="varchar" name="billing_telephone" nullable="true" comment="Billing Telephone" />
+        <index referenceId="SALES_ORDER_ORDER_XML_ID" indexType="btree">
+            <column name="order_xml_id"/>
+        </index>
+        <index referenceId="SALES_ORDER_SHIPPING_TELEPHONE" indexType="btree">
+            <column name="shipping_telephone"/>
+        </index>
+        <index referenceId="SALES_ORDER_BILLING_TELEPHONE" indexType="btree">
+            <column name="billing_telephone"/>
+        </index>
+    </table>
+    <table name="sales_order_grid">
+        <column xsi:type="varchar" name="order_xml_id" nullable="true" comment="Order Xml Id" />
+        <column xsi:type="varchar" name="shipping_telephone" nullable="true" comment="Shipping Telephone" />
+        <column xsi:type="varchar" name="billing_telephone" nullable="true" comment="Billing Telephone" />
+        <index referenceId="SALES_ORDER_GRID_ORDER_XML_ID" indexType="btree">
+            <column name="order_xml_id"/>
+        </index>
+        <index referenceId="FTI_65B9E9925EC58F0C7C2E2F6379C233E7" indexType="fulltext">
+            <column name="order_xml_id"/>
+            <column name="shipping_telephone"/>
+            <column name="billing_telephone"/>
+        </index>
+    </table>
+    <table name="sales_order_item">
+        <column xsi:type="varchar" name="sku_wms" nullable="true" comment="Sku Wms" />
+        <column xsi:type="int" name="qty_sku_wms_return" nullable="true" comment="Quantity SkuWms Return"/>
+        <column xsi:type="smallint" name="sku_wms_return_flag" nullable="true" default="0" comment="0: Sku wms wait export, 1: Sku wms exported"/>
+    </table>
+</schema>
+

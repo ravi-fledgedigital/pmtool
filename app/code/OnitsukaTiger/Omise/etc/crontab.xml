@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="import_xml_cronjob" instance="OnitsukaTiger\Omise\Cron\UpdateBlankOrderStatus" method="execute">
+            <config_path>payment/omise/omise_cron_frequency_to_update_blank_order_status</config_path>
+        </job>
+    </group>
+</config>

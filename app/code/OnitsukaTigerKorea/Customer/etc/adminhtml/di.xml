@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Customer\Model\Data\Customer">
+        <plugin name="OnitsukaTigerKorea_Customer::custom_get_set_customer" type="OnitsukaTigerKorea\Customer\Plugin\Model\Data\Backend\Customer" disabled="false" />
+    </type>
+</config>

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Admin Actions Log for Magento 2
+*/-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <remove id="Amasty_AdminActionsLog::login_attempts" />
+        <add id="OnitsukaTigerKorea_ActionLog::amaudit"
+             title="Admin Actions Log"
+             module="OnitsukaTigerKorea_ActionLog"
+             sortOrder="100"
+             parent="Magento_Backend::stores"
+             resource="OnitsukaTigerKorea_ActionLog::amaudit"
+        />
+        <add id="OnitsukaTigerKorea_ActionLog::login_attempts"
+             title="Login Attempts"
+             module="OnitsukaTigerKorea_ActionLog"
+             sortOrder="30"
+             parent="OnitsukaTigerKorea_ActionLog::amaudit"
+             action="loginandlogoutactionlog/loginattempts/index"
+             resource="OnitsukaTigerKorea_ActionLog::login_attempts"
+        />
+        <add id="OnitsukaTigerKorea_ActionLog::page_view_history"
+             title="Page View History"
+             module="OnitsukaTigerKorea_ActionLog"
+             sortOrder="40"
+             parent="OnitsukaTigerKorea_ActionLog::amaudit"
+             action="loginandlogoutactionlog/pageview/index"
+             resource="OnitsukaTigerKorea_ActionLog::page_view_history"
+        />
+    </menu>
+</config>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <cli_command>
+            <register_associated_product>
+                <default_attribute_code_options>color,width,qa_size</default_attribute_code_options>
+            </register_associated_product>
+        </cli_command>
+    </default>
+</config>

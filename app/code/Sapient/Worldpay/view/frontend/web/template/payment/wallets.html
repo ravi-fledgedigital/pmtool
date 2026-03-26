@@ -1,0 +1,49 @@
+<style>
+    #wallets_APPLEPAY-SSL {
+        display: none;
+    }
+    #wallets_image_APPLEPAY-SSL {
+        display: none;
+    }
+    #wallets_label_APPLEPAY-SSL {
+        display: none;
+    }
+</style>
+<!--ko if: (walletCCTypes().length) -->
+
+<div class="payment-method2">
+    <div class="payment-method-outer-content">
+        <div class="wp-payment-method-wallets">
+            <!-- <div class="payment-googlepay-checkout"> -->
+            <!-- ko foreach: $parent.getRegion('googlepayCheckout') -->
+            <!-- ko template: getTemplate() -->
+            <!-- /ko -->
+            <!-- /ko -->
+            <!-- </div> -->
+            <!-- apple pay -->
+            <!-- ko foreach: $parent.getRegion('applepayCheckout') -->
+            <!-- ko template: getTemplate() -->
+            <!-- /ko -->
+            <!-- /ko -->
+            <!-- sammsung pay-->
+            <!-- ko foreach: $parent.getRegion('samsungpayCheckout') -->
+            <!-- ko template: getTemplate() -->
+            <!-- /ko -->
+            <!-- /ko -->
+
+        </div>
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() -->
+        <!-- /ko -->
+        <!--/ko-->
+        <div class="payment-method-billing-address">
+            <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+            <!-- ko template: getTemplate() -->
+            <!-- /ko -->
+            <!--/ko-->
+        </div>
+        <div class="actions-toolbar">
+        </div>
+    </div>
+</div>
+<!--/ko-->

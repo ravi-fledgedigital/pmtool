@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\App\Request\CsrfValidator">
+        <plugin name="OnitsukaTigerIndo_Midtrans::csrf_validator_skip" type="OnitsukaTigerIndo\Midtrans\Plugin\CsrfValidatorSkip" />
+    </type>
+    <type name="Midtrans\Snap\Controller\Index\Finish">
+        <plugin name="OnitsukaTiger_Checkout::after_redirect_checkout_success" type="OnitsukaTigerIndo\Midtrans\Plugin\Controller\Index\FinishPlugin"/>
+    </type>
+    <type name="Midtrans\Snap\Controller\Index\Close">
+        <plugin name="OnitsukaTiger_Checkout::after_redirect_checkout_cart_index" type="OnitsukaTigerIndo\Midtrans\Plugin\Controller\Index\ClosePlugin"/>
+    </type>
+    <type name="Midtrans\Snap\Controller\Payment\Notification">
+        <plugin name="OnitsukaTigerIndo_Midtrans::before_order_status_change" type="OnitsukaTigerIndo\Midtrans\Plugin\Controller\Payment\NotificationPlugin" disabled="true"/>
+    </type>
+    <!--<type name="Midtrans\Snap\Model\Order\OrderRepository">
+        <plugin name="change_behavior_of" type="OnitsukaTigerIndo\Midtrans\Plugin\Model\Order\OrderRepository" sortOrder="1" />
+    </type>-->
+    <preference for="Midtrans\Snap\Model\Order\OrderRepository" type="OnitsukaTigerIndo\Midtrans\Preference\Model\Order\OrderRepository" />
+    <preference for="Midtrans\Snap\Controller\Payment\Notification" type="OnitsukaTigerIndo\Midtrans\Preference\Controller\Payment\Notification" />
+</config>

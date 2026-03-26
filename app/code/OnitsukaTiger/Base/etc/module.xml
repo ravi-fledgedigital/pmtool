@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * OnitsukaTiger
+ * Copyright (C) 2023 OnitsukaTiger <info@onitsukatiger.com>
+ *
+ * @category OnitsukaTiger
+ * @package OnitsukaTigerNewsletter
+ * @copyright Copyright (c) 2023 OnitsukaTiger (https://www.onitsukatiger.com/)
+ * @license http://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+ * @version    1.0.0
+ * @author OnitsukaTiger <info@onitsukatiger.com>
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="OnitsukaTiger_Base" setup_version="1.0.0">
+        <sequence>
+            <module name="Magento_Backend" />
+        </sequence>
+    </module>
+</config>

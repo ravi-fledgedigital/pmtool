@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="header.container" remove="true" />
+        <referenceContainer name="footer-container" remove="true" />
+        <referenceContainer name="order.actions.container" remove="true" />
+        <referenceContainer name="page.messages" remove="true" />
+        <referenceBlock name="breadcrumbs" remove="true" />
+        <referenceBlock name="order_totals" remove="true" />
+        <referenceBlock name="sales.order.info.links.invoice" remove="true" />
+        <referenceBlock name="sales.order.info.links.shipment" remove="true" />
+        <referenceBlock name="sales.order.info.links.creditmemo" remove="true" />
+        <referenceBlock name="sales.order.info.links" remove="true" />
+        <referenceBlock name="header-offer" remove="true" />
+        <referenceBlock name="sales.order.view">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">OnitsukaTiger_OrderTracking::order/view.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="order_items">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">OnitsukaTiger_OrderTracking::order/items.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="sales.order.info">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">OnitsukaTiger_OrderTracking::order/info.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="sales.order.items.renderers.default" template="OnitsukaTiger_OrderTracking::order/items/renderer/default.phtml"/>
+        <referenceBlock name="sales.order.items.renderers.grouped" template="OnitsukaTiger_OrderTracking::order/items/renderer/default.phtml"/>
+    </body>
+</page>

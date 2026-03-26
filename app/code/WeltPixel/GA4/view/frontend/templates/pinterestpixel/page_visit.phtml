@@ -1,0 +1,42 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \WeltPixel\GA4\Block\PinterestPixel\Common */
+
+/** @var \WeltPixel\GA4\Helper\PinterestPixelTracking $pinterestPixelHelper */
+$pinterestPixelHelper = $this->helper('WeltPixel\GA4\Helper\PinterestPixelTracking');
+$cspNonceProvider = $pinterestPixelHelper->getCspNonceProvider();
+?>
+<script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    let pinterestEventId = <?= /* @noEscape */ $pinterestPixelHelper->getJsEventIdGenerator() ?>;
+</script>
+<?php if ($pinterestPixelHelper->isPinterestPixelTrackingEnabled() && $pinterestPixelHelper->shouldPinterestPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\PinterestPixel\TrackingEvents::EVENT_PAGE_VISIT)) : ?>
+<script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    if (window.ga4AllowServices) {
+        pintrk('track', '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\PinterestPixel\TrackingEvents::EVENT_PAGE_VISIT ?>', {
+            event_id: pinterestEventId
+        });
+    }
+</script>
+<?php endif; ?>
+
+
+<?php if ($pinterestPixelHelper->isServerSideTrackingEnabled() && $pinterestPixelHelper->shouldPinterestServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\PinterestPixel\TrackingEvents::EVENT_PAGE_VISIT)) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($pinterestPixelHelper->getPinterestSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'eventId': pinterestEventId,
+                            'eventName': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\PinterestPixel\TrackingEvents::EVENT_PAGE_VISIT  ?>',
+                            'eventUrl': window.location.href
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>
+

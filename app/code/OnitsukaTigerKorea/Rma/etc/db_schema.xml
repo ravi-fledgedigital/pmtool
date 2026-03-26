@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="return_xml_tracking_no_info">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="varchar" name="order_id" nullable="true" comment="Order Id" />
+        <column xsi:type="varchar" name="return_id" nullable="true" comment="Return Id" />
+        <column xsi:type="varchar" name="tracking_no" nullable="true" comment="Tracking No" />
+        <column xsi:type="varchar" name="product_info" nullable="true" comment="Product Info" />
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <index referenceId="RETURN_XML_TRACKING_NO_ENTITY_ID" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+    </table>
+</schema>
+

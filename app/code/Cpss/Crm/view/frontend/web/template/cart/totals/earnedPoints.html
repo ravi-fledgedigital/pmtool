@@ -1,0 +1,18 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- ko if: isEnabled() -->
+<tr class="totals totals--points">
+    <th colspan="1" class="mark" scope="row">
+        <span class="title" data-bind="text: getTitle() +':'"></span>
+    </th>
+    <td class="amount" data-bind="attr: {'data-th': getTitle()}">
+        <span><span class="price" data-bind="text: getCartValue()"></span></span>
+        <span data-bind="i18n: 'points'"></span>
+    </td>
+</tr>
+
+<!--/ko-->

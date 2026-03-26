@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <onitsukatiger_sales>
+            <sales_update_invoice_qty>
+                <order_cron_frequency_to_update_qty_invoiced>*/30 * * * *</order_cron_frequency_to_update_qty_invoiced>
+                <order_hours_frequency_to_update_qty_invoiced>2</order_hours_frequency_to_update_qty_invoiced>
+                <order_status>processing</order_status>
+            </sales_update_invoice_qty>
+        </onitsukatiger_sales>
+    </default>
+</config>

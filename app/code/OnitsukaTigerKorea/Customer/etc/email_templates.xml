@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="korean_address_customer_account_email_template_delete_customer" label="Delete Customer Email Template" file="email_file.html" type="html" module="OnitsukaTigerKorea_Customer" area="frontend"/>
+    <template id="korean_address_customer_account_email_template_delete_customer_email_copy_to" label="Delete Customer Copy to Email Template" file="account_deletion_email_CC.html" type="html" module="OnitsukaTigerKorea_Customer" area="frontend"/>
+    <template id="korean_address_newsletter_unsubscription_email_template_un_email_copy_to" label="Newsletter Unsubscription Send  Email Copy" file="newsletter_unsubscription_email_CC.html" type="html" module="OnitsukaTigerKorea_Customer" area="frontend"/>
+</config>

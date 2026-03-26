@@ -1,0 +1,41 @@
+<?php
+/**
+ * @var $block \Magento\Catalog\Block\Product\View
+ */
+/** @var \Vaimo\OTAdobeDataLayer\Helper\Data $helper */
+$helper = $this->helper('\Vaimo\OTAdobeDataLayer\Helper\Data');
+?>
+<?php if($helper->isEnabledAdobeLaunch()): ?>
+    <?php
+        $product = $block->getProduct();
+        $productListItems = json_encode($helper->getProductListItem($product->getId()));
+        $pageInfo = json_decode($helper->getPageInfoForProdView());
+        $pageInfo = json_encode($pageInfo->pageInfo);
+
+        $userInfo = json_encode($helper->getUserInfo());
+        $catInfo = json_encode($helper->getCategoryInfoById());
+    ?>
+    <script>
+        require(['jquery', 'mage/cookies'], function($){
+            // custom code for add adobe data layer start
+            $(document).ready(function() {
+                let adobeDataLayer = window.adobeDataLayer ? window.adobeDataLayer : [];
+
+                adobeDataLayer.push(
+                    {
+                        'event' : 'prodView',
+                        'productListItems' : JSON.parse('<?= $productListItems; ?>'),
+                        'page' : {
+                                'pageInfo' : JSON.parse('<?= $pageInfo ?>'),
+                                'category': JSON.parse('<?= $catInfo ?>'),
+                            },
+                        'userInfo' : JSON.parse('<?= $userInfo ?>'),
+                    }
+                ); //push data in to Adobe data layer
+
+                window.adobeDataLayer = adobeDataLayer;
+            });
+            // custom code for add adobe data layer end
+        });
+    </script>
+<?php  endif; ?>

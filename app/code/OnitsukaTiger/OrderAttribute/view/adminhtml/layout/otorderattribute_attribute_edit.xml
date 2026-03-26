@@ -1,0 +1,26 @@
+<?xml version="1.0"?><!--
+/**
+* @author OnitsukaTiger Team
+* @copyright Copyright (c) 2022 OnitsukaTiger (https://www.onitsukatiger.com)
+* @package Custom Checkout Fields for Magento 2
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="left">
+            <block class="OnitsukaTiger\OrderAttribute\Block\Adminhtml\Attribute\Edit\Tabs" name="attribute_edit_tabs">
+                <container label="Main" name="main">
+                    <block class="OnitsukaTiger\OrderAttribute\Block\Adminhtml\Attribute\Edit\Tab\Main" as="base"/>
+                </container>
+                <block class="OnitsukaTiger\OrderAttribute\Block\Adminhtml\Attribute\Edit\Tab\Options" as="options"/>
+                <block class="OnitsukaTiger\OrderAttribute\Block\Adminhtml\Attribute\Edit\Tab\Conditions" as="conditions"/>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="OnitsukaTiger\OrderAttribute\Block\Adminhtml\Attribute\Edit" name="attribute_edit_content"/>
+        </referenceContainer>
+        <referenceContainer name="js">
+            <block class="OnitsukaTiger\OrderAttribute\Block\Adminhtml\Attribute\Edit\Js" name="attribute_edit_js" template="OnitsukaTiger_OrderAttribute::attribute/js.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

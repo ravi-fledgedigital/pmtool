@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="general">
+        <field name="is_mega_menu">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">150</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Show Thumbnail In Menu</item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </field>
+        <field name="show_all_items">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">150</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Hidden on top menu</item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </field>
+        <field name="show_all_first">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">150</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Show All Link on top in Menu</item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <!--Show Additional Class attribute in category form -->
+    <fieldset name="content">
+        <field name="additional_class">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="required" xsi:type="boolean">false</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="sortOrder" xsi:type="number">100</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" translate="true" xsi:type="string">Additional Class</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+</form>

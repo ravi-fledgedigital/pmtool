@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @author OnitsukaTiger Team
+* @copyright Copyright (c) 2022 OnitsukaTiger (https://www.onitsukatiger.com)
+* @package Custom Checkout Fields for Magento 2
+*/-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <route url="/V1/onitsukatiger_orderattribute/entityData" method="POST">
+        <service class="OnitsukaTiger\OrderAttribute\Api\EntityDataRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="OnitsukaTiger_OrderAttribute::order_attributes" />
+        </resources>
+    </route>
+    <route url="/V1/onitsukatiger_orderattribute/entityData/:entityId" method="PUT">
+        <service class="OnitsukaTiger\OrderAttribute\Api\EntityDataRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="OnitsukaTiger_OrderAttribute::order_attributes" />
+        </resources>
+    </route>
+    <route url="/V1/onitsukatiger_orderattribute/entityData/:entityId" method="DELETE">
+        <service class="OnitsukaTiger\OrderAttribute\Api\EntityDataRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="OnitsukaTiger_OrderAttribute::order_attributes" />
+        </resources>
+    </route>
+    <route url="/V1/onitsukatiger_orderattribute/entityData" method="GET">
+        <service class="OnitsukaTiger\OrderAttribute\Api\EntityDataRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="OnitsukaTiger_OrderAttribute::order_attributes" />
+        </resources>
+    </route>
+    <route url="/V1/onitsukatiger_orderattribute/entityData/all" method="GET">
+        <service class="OnitsukaTiger\OrderAttribute\Api\EntityDataRepositoryInterface" method="getList" />
+        <resources>
+            <resource ref="OnitsukaTiger_OrderAttribute::order_attributes" />
+        </resources>
+    </route>
+    <route url="/V1/onitsukatiger_orderattribute/checkoutData" method="POST">
+        <service class="OnitsukaTiger\OrderAttribute\Api\CheckoutDataRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="onitsukatigerCartId" force="true">%onitsukatiger_cart_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/onitsukatiger_orderattribute/guestCheckoutData" method="POST">
+        <service class="OnitsukaTiger\OrderAttribute\Api\GuestCheckoutDataRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+</routes>

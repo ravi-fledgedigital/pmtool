@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Clickend\Kerry\Model\shipingstatusdata" type="OnitsukaTiger\OrderStatus\Model\shipingstatusdata" />
+    <preference for="Omise\Payment\Controller\Callback\Webhook" type="OnitsukaTiger\OrderStatus\Controller\Callback\Webhook" />
+    <type name="OnitsukaTiger\OrderStatus\Cron\CleanExpiredOrders">
+        <plugin name="plugin_clean_expired_orders_adyen_payment" type="OnitsukaTiger\OrderStatus\Plugin\CleanExpiredOrdersAdyenPayment" sortOrder="10" disabled="false"/>
+    </type>
+
+    <type name="Omise\Payment\Cron\OrderSyncStatus">
+        <plugin name="plugin_omise_payment_cron_order_sync" type="OnitsukaTiger\OrderStatus\Plugin\Omise\OrderSyncStatusPlugin" sortOrder="99" disabled="false"/>
+    </type>
+</config>

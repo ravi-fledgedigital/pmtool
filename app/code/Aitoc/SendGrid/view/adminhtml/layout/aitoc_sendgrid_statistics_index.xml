@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Aitoc Team
+ * @copyright Copyright (c) 2022 Aitoc (https://www.aitoc.com)
+ * @package Aitoc_SendGrid
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Aitoc_SendGrid::css/sendgrid.css"/>
+        <css src="Aitoc_SendGrid::css/sendgrid_jquery_ui.css"/>
+        <css src="Aitoc_SendGrid::css/sendgrid_jquery_ui_structure.css"/>
+        <title>SendGrid Statistics</title>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Aitoc\SendGrid\Block\Adminhtml\Statistics" name="aitoc_statistics" template="Aitoc_SendGrid::statistics.phtml" />
+        </referenceContainer>
+    </body>
+</page>

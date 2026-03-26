@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/netsuite/order/stocknotavailable" method="POST">
+        <service class="OnitsukaTiger\NetSuite\Api\NetSuiteInterface" method="orderStockNotAvailable"/>
+        <resources>
+            <resource ref="OnitsukaTiger_NetSuite::manage"/>
+        </resources>
+    </route>
+    <route url="/V1/netsuite/order/packed" method="POST">
+        <service class="OnitsukaTiger\NetSuite\Api\NetSuiteInterface" method="orderPacked"/>
+        <resources>
+            <resource ref="OnitsukaTiger_NetSuite::manage"/>
+        </resources>
+    </route>
+    <route url="/V1/netsuite/order/shipped" method="POST">
+        <service class="OnitsukaTiger\NetSuite\Api\NetSuiteInterface" method="orderShipped"/>
+        <resources>
+            <resource ref="OnitsukaTiger_NetSuite::manage"/>
+        </resources>
+    </route>
+    <route url="/V1/netsuite/order/cancel" method="POST">
+        <service class="OnitsukaTiger\NetSuite\Api\NetSuiteInterface" method="orderCancel"/>
+        <resources>
+            <resource ref="OnitsukaTiger_NetSuite::manage"/>
+        </resources>
+    </route>
+    <route url="/V1/netsuite/order/return/status" method="POST">
+        <service class="OnitsukaTiger\NetSuite\Api\NetSuiteInterface" method="orderReturnStatus"/>
+        <resources>
+            <resource ref="OnitsukaTiger_NetSuite::manage"/>
+        </resources>
+    </route>
+    <route url="/V1/netsuite/inventory" method="POST">
+        <service class="OnitsukaTiger\NetSuite\Api\NetSuiteInterface" method="inventory"/>
+        <resources>
+            <resource ref="OnitsukaTiger_NetSuite::manage"/>
+        </resources>
+    </route>
+    <route url="/V1/netsuite/products/internalId" method="POST">
+        <service class="OnitsukaTiger\NetSuite\Api\NetSuiteInterface" method="productsInternalId"/>
+        <resources>
+            <resource ref="OnitsukaTiger_NetSuite::manage"/>
+        </resources>
+    </route>
+    <route url="/V1/netsuite/priceupdate" method="POST">
+        <service class="OnitsukaTiger\NetSuite\Api\ProductPriceUpdateInterface" method="execute"/>
+        <resources>
+            <resource ref="Magento_Catalog::products"/>
+        </resources>
+    </route>
+</routes>

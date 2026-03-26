@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright: Copyright © 2019 Firebear Studio. All rights reserved.
+ * @author   : Firebear Studio <fbeardev@gmail.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Firebear\ImportExport\Model\Import\Product"
+                type="Firebear\PlatformNetsuite\Model\Import\Product" />
+    <preference for="Firebear\ImportExport\Model\Import\CustomerComposite"
+                type="Firebear\PlatformNetsuite\Model\Import\CustomerComposite" />
+    <preference for="Firebear\ImportExport\Model\Import\Category"
+                type="Firebear\PlatformNetsuite\Model\Import\Category" />
+    <preference for="Firebear\ImportExportMsi\Model\Import\StockSource"
+                type="Firebear\PlatformNetsuite\Model\Import\Location" />
+    <preference for="Firebear\ImportExportMsi\Model\Import\StockSourceQty"
+                type="Firebear\PlatformNetsuite\Model\Import\LocationQty" />
+    <preference for="Firebear\ImportExport\Controller\Adminhtml\Job\Save"
+                type="Firebear\PlatformNetsuite\Controller\Adminhtml\Job\Save" />
+    <preference for="Firebear\ImportExport\Model\Import\Order\Item"
+                type="Firebear\PlatformNetsuite\Model\Import\OrderItem" />
+    <preference for="Firebear\PlatformNetsuite\Api\UpdateEntitiesInterface"
+                type="Firebear\PlatformNetsuite\Model\Import\UpdateEntities" />
+    <type name="Firebear\ImportExport\Model\Job\Processor">
+        <plugin name="firebear_platformnetsuite_job_processor"
+                type="Firebear\PlatformNetsuite\Plugin\Model\Job\Processor"/>
+    </type>
+    <type name="Magento\Customer\Model\ResourceModel\CustomerRepository">
+        <plugin name="publish_customer_update"
+                type="Firebear\PlatformNetsuite\Plugin\CustomerUpdatePlugin"/>
+    </type>
+    <type name="Magento\Customer\Model\ResourceModel\AddressRepository">
+        <plugin name="publish_customer_address_update"
+                type="Firebear\PlatformNetsuite\Plugin\CustomerAddressUpdatePlugin"/>
+    </type>
+    <type name="Firebear\ImportExport\Ui\Component\Listing\Column\Entity\Import\Options">
+        <plugin name="firebear_platformnetsuite_import_options"
+                type="Firebear\PlatformNetsuite\Plugin\Ui\Component\Listing\Column\Entity\Import\OptionsPlugin"/>
+    </type>
+    <type name="Firebear\ImportExport\Model\Import\Address">
+        <plugin name="firebear_platformnetsuite_import_address"
+                type="Firebear\PlatformNetsuite\Plugin\Model\Import\AddressPlugin"/>
+    </type>
+    <type name="Firebear\ImportExport\Model\Import\Customer">
+        <plugin name="firebear_platformnetsuite_import_customer"
+                type="Firebear\PlatformNetsuite\Plugin\Model\Import\CustomerPlugin"/>
+    </type>
+    <type name="Firebear\ImportExport\Model\Import\Order">
+        <plugin name="firebear_platformnetsuite_import_order"
+                type="Firebear\PlatformNetsuite\Plugin\Model\Import\OrderPlugin"/>
+    </type>
+</config>

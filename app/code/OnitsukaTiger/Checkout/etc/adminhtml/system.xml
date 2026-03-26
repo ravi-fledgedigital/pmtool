@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="shipping">
+            <group id="shipping_link" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Shipping Redirect Management</label>
+                <field id="enable" translate="label comment" type="select" sortOrder="80" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Enable Redirect Link with Tracking Number</label>
+                    <comment>Enable Redirect Link with Tracking Number</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="links" translate="label comment" type="text" sortOrder="80" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Shipping Link Management</label>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <comment>Link Redirect</comment>
+                </field>
+            </group>
+        </section>
+        <section id="payment_default" translate="label" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Payment Methods</label>
+            <tab>onitsukatiger</tab>
+            <resource>Magento_Sales::config_sales</resource>
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Default Payment Method</label>
+                <field id="payment" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Payment Method</label>
+                    <source_model>OnitsukaTiger\Checkout\Model\Config\Source\Payment</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

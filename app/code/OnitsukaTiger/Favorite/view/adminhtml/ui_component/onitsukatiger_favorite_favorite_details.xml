@@ -1,0 +1,85 @@
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">onitsukatiger_favorite_favorite_details.onitsukatiger_favorite_favorite_details_data_source</item>
+            <item name="deps" xsi:type="string">onitsukatiger_favorite_favorite_details.onitsukatiger_favorite_favorite_details_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">spinner_columns</item>
+    </argument>
+
+    <settings>
+        <buttons>
+            <button name="back" class="OnitsukaTiger\Favorite\Block\Adminhtml\Favorite\BackButton"/>
+        </buttons>
+    </settings>
+    <dataSource name="onitsukatiger_favorite_favorite_details_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <!-- <argument name="class" xsi:type="string">Creansmaerd\Favorite\Ui\DataProvider\FavoriteCustomerDataProvider</argument> -->
+            <argument name="name" xsi:type="string">onitsukatiger_favorite_favorite_details_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">main_wishlist_item_id</argument>
+            <argument name="requestFieldName" xsi:type="string">main_wishlist_item_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                    <item name="update_url" xsi:type="url" path="mui/index/render">
+                        <param name="_current">true</param>
+                    </item>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">main_wishlist_item_id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="sticky" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+        <filters name="listing_filters" />
+        <paging name="listing_paging"/>
+        <exportButton name="export_button">
+            <settings>
+                <additionalParams>
+                    <param xsi:type="string" name="id">*</param>
+                    <param xsi:type="string" name="type_id">*</param>
+                </additionalParams>
+            </settings>
+        </exportButton>
+    </listingToolbar>
+    <columns name="spinner_columns">
+        <selectionsColumn name="ids" sortOrder="0">
+            <settings>
+                <indexField>main_wishlist_item_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="customer_id" sortOrder="10">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Customer Number</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="fullname" sortOrder="30">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Customer Name</label>
+            </settings>
+        </column>
+        <column name="email" sortOrder="60">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Customer Email Address</label>
+            </settings>
+        </column>
+        <column name="added_at" sortOrder="80" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Favorite Registration Date</label>
+            </settings>
+        </column>
+    </columns>
+</listing>

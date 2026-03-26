@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="cegid" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Cegid</label>
+            <tab>onitsukatiger</tab>
+            <resource>OnitsukaTiger_Cegid::cegid_config</resource>
+            <include path="OnitsukaTiger_Cegid::system/cegid_configure_general.xml"/>
+            <group id="cegid_return" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="1">
+                <label>General</label>
+                <field id="endpoint" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="0">
+                    <label>Endpoint API</label>
+                </field>
+                <field id="username" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="0">
+                    <label>UserName</label>
+                </field>
+                <field id="password" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="0">
+                    <label>Password</label>
+                </field>
+                <field id="database_id" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="0">
+                    <label>Database Id</label>
+                </field>
+                <field id="new_request_status" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="0">
+                    <label>Return Status Send to Cegid</label>
+                    <source_model>Amasty\Rma\Model\Status\OptionSource\Status</source_model>
+                </field>
+                <field id="approve_by_admin_status" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="0">
+                    <label>Return Status When Remaining Qty Is 0</label>
+                    <source_model>Amasty\Rma\Model\Status\OptionSource\Status</source_model>
+                </field>
+                <field id="reject_by_admin_status" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="0">
+                    <label>Return Status When Reponse Empty</label>
+                    <source_model>Amasty\Rma\Model\Status\OptionSource\Status</source_model>
+                </field>
+                <field id="cegid_schedule_send_api" translate="label" sortOrder="78" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Cegid API Frequency</label>
+                </field>
+                <field id="cegid_source_mapping" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="0">
+                    <label>Cegid Source Mapping</label>
+                    <frontend_model>OnitsukaTiger\Cegid\Block\Adminhtml\Form\Field\SourceMapping</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
+            </group>
+            <group id="cegid_get_pdf" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Invoice</label>
+                <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Get Invoice</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="cegid_get_awb_pdf" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>AWB</label>
+                <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Get AWB</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

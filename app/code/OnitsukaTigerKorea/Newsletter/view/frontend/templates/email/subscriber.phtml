@@ -1,0 +1,10 @@
+<?php
+/**
+ * @var OnitsukaTigerKorea\Newsletter\Helper\Data $helper
+ */
+$helper = $this->helper('OnitsukaTigerKorea\Newsletter\Helper\Data');
+$subscriber = $block->getData('subscriber');
+?>
+<a href="<?= $helper->getUnsubscribeUrl($subscriber) ?>">
+    <?= $block->escapeHtml(__('Unsubscribed.')) ?>
+</a>

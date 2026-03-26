@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework/MessageQueue/etc/queue.xsd">
+    <broker topic="onitsukatiger.price.update.queue" exchange="magento">
+        <queue name="onitsukatiger.price.update.queue" consumer="onitsukatiger.price.update.queue" handler="OnitsukaTiger\NetSuite\Model\Consumer::process"/>
+    </broker>
+</config>

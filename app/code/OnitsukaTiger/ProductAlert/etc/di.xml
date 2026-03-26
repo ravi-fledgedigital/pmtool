@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<!-- <preference for="Magento\ProductAlert\Model\Email" type="OnitsukaTiger\ProductAlert\Rewrite\Magento\ProductAlert\Model\Email"/> -->
+	<preference for="Magento\ProductAlert\Model\Observer" type="OnitsukaTiger\ProductAlert\Rewrite\Magento\ProductAlert\Model\Observer"/> 
+	<preference for="Magento\ProductAlert\Model\Mailing\AlertProcessor" type="OnitsukaTiger\ProductAlert\Rewrite\Magento\ProductAlert\Model\Mailing\AlertProcessor"/>
+
+	<preference for="Magento\ProductAlert\Block\Email\Stock" type="OnitsukaTiger\ProductAlert\Rewrite\Block\Email\Stock"/>
+</config>

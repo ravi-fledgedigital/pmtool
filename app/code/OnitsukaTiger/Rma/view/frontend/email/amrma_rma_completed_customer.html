@@ -1,0 +1,58 @@
+<!--@subject {{trans "Onitsuka Tiger Refund Confirmation %increment_id" increment_id=$email_request.getOrderIncrement()}}@-->
+<!--@vars
+{
+"var email_request":"Request Object"
+}
+@-->
+
+{{template config_path="design/email/header_template"}}
+<div class="order-container-information">
+    <table>
+        <tr class="email-intro">
+            <td>
+                <p class="greeting-order rma-order-title">{{trans "Hello %customer_name," customer_name=$email_request.getCustomerName()}}</p>
+                <p>
+                    {{trans 'Please add <a href="mailto:%store_email">%store_email</a> to your email address book so all Onitsuka Tiger notifications are received.' store_email=$store_email |raw}}
+                </p>
+            </td>
+        </tr>
+        <tr class="email-summary">
+            <td>
+                {{layout handle="sales_email_order_info_rma_completed" returnItems=$email_request.getRequestItems() order=$email_request.getOrderIncrement() create=$email_request.getOrderCreatedAt() status=$email_request.getStatus() area="frontend"}}
+            </td>
+        </tr>
+        <tr class="order-notification">
+            <td>
+                <p>
+                    {{trans "We have completed refunds."}}
+                </p>
+                <p>
+                    {{trans "We have processed the refunds to the payment method used on the original purchase and the amount will include the cost of the product and any tax applied."}}
+                </p>
+                <p>
+                    {{trans "However, refund times are not guaranteed as shipments are handled by third parties and your bank or credit card company may require additional period of time to process your refund and for the refund to be reflected in your account. We therefore require you to allow us at least 14 working days in total to receive and process your returns."}}
+                </p>
+            </td>
+        </tr>
+        <tr class="email-intro rma-details">
+            <td>
+                <p class="email-title">{{trans "Return Details"}}</p>
+                <p>{{trans "RMA Number:"}} {{var email_request.rma_increment|escape}}</p>
+                <p>{{trans "Return Method: Postal Returns"}}</p>
+            </td>
+        </tr>
+        <tr class="email-summary">
+            <td>
+                {{block class='Magento\\Framework\\View\\Element\\Template' area='frontend' order=$email_request.getOrderIncrement() template='Amasty_Rma::email/return_items.phtml' returnItems=$email_request.getRequestItems()}}
+            </td>
+        </tr>
+        <tr class="order-notification">
+            <td>
+                <p class="question-order-information">
+                    {{trans 'If you have any additional questions or concerns, please feel free to contact us at <a href="mailto:%store_email">%store_email</a>.' store_email=$store_email |raw}}
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+{{template config_path="design/email/footer_template"}}

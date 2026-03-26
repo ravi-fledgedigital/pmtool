@@ -1,0 +1,11 @@
+<!-- ko if: isEnabled() -->
+<tr class="totals earnedpoints excl" data-bind="style: { display: isDisplayedPointdiscount() ? 'revert' : 'none'}">
+    <th class="mark" colspan="1" scope="row">
+        <span class="label" data-bind="i18n: 'Points to be earned'"></span>
+    </th>
+    <td class="amount">
+        <span class="earned-points" data-bind="text: getValue(), attr: {'data-th': title}"></span>
+        <span data-bind="i18n: 'points'"></span>
+    </td>
+</tr>
+<!--/ko-->

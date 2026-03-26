@@ -1,0 +1,64 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \Magento\Catalog\Block\Product\View */
+/** @var \WeltPixel\GA4\Helper\BingPixelTracking $bingPixelHelper */
+$bingPixelHelper = $this->helper('WeltPixel\GA4\Helper\BingPixelTracking');
+$cspNonceProvider = $bingPixelHelper->getCspNonceProvider();
+$product = $block->getProduct();
+?>
+<script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    let bingViewContentEventId = <?= /* @noEscape */ $bingPixelHelper->getJsEventIdGenerator() ?>;
+</script>
+<?php if ($product && $bingPixelHelper->isBingPixelTrackingEnabled() && $bingPixelHelper->shouldBingPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\BingPixel\TrackingEvents::EVENT_VIEW_ITEM)) :
+        $productCategoryIds = $product->getCategoryIds();
+        $productPrice = floatval(number_format($product->getPriceInfo()->getPrice('final_price')->getValue() ?? 0, 2, '.', ''));
+?>
+<script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    if (window.ga4AllowServices) {
+        window.uetq = window.uetq || [];
+        window.uetq.push('event', 'view_item', {
+            ecomm_prodid: ["<?= /* @noEscape */ $bingPixelHelper->getBingProductId($product) ?>"],
+            ecomm_pagetype: 'product',
+            ecomm_totalvalue: "<?= /* @noEscape */ $productPrice; ?>",
+            items: [
+                {
+                    id: "<?= /* @noEscape */ $bingPixelHelper->getBingProductId($product) ?>",
+                    name: "<?= /* @noEscape */ addslashes(str_replace('"', '&quot;', html_entity_decode($product->getName() ?? ''))) ?>",
+                    price: "<?= /* @noEscape */ $productPrice; ?>",
+                    category: "<?= /* @noEscape */ addslashes(str_replace('"', '&quot;', $bingPixelHelper->getContentCategory($productCategoryIds))) ?>",
+                    quantity: 1
+                }
+            ],
+            currency: "<?= /* @noEscape */ $bingPixelHelper->getCurrencyCode() ?>",
+            custom_parameters: {
+                mid: bingViewContentEventId
+            },
+            mid: bingViewContentEventId
+        });
+    }
+</script>
+<?php endif; ?>
+
+
+<?php if ($product && $bingPixelHelper->isServerSideTrackingEnabled() && $bingPixelHelper->shouldBingServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\BingPixel\TrackingEvents::EVENT_VIEW_ITEM)) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($bingPixelHelper->getBingSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'eventId': bingViewContentEventId,
+                            'eventName': 'ViewItem',
+                            'eventIdentifier': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\BingPixel\TrackingEvents::EVENT_VIEW_ITEM  ?>',
+                            'eventUrl': '<?= $block->escapeUrl($bingPixelHelper->getStoreCurrenUrl()) ?>',
+                            'productId': '<?= /* @noEscape */ $product->getId() ?>'
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>
+

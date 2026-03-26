@@ -1,0 +1,515 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+?>
+<?php
+/**
+ * @var \Amasty\Rma\Block\Returns\NewReturn $block
+ */
+
+$returnOrder = $block->getReturnOrder();
+$order = $returnOrder->getOrder();
+$helper = $this->helper(\OnitsukaTiger\Rma\Helper\Data::class);
+$helperSales = $this->helper(\OnitsukaTiger\Sales\Helper\Data::class);
+$helperStore = $this->helper(\OnitsukaTiger\Store\Helper\Data::class);
+$date = $helperStore->formatDateTime($order->getCreatedAt(),$order->getStoreId());
+$helperFixture = $this->helper('OnitsukaTiger\Fixture\Helper\Data');
+$checkConfigAddress = $helperFixture->getConfig('onitsukatiger_catalog_product/rma_address/enable');
+$helperData = $this->helper(OnitsukaTigerKorea\ConfigurableProduct\Helper\Data::class);
+/** @var \Vaimo\OTScene7Integration\Helper\Data $scene7Helper */
+$scene7Helper = $this->helper(\Vaimo\OTScene7Integration\Helper\Data::class);
+if (!empty($returnOrder->getItems())): ?>
+    <div class="page-title-wrapper">
+        <h1 class="page-title">
+            <span class="base" data-ui-id="page-title-wrapper"><?= __('Order Return')?></span>
+        </h1>
+    </div>
+    <form method="post" action="<?= $block->escapeUrl($block->getSaveUrl()) ?>" class="amrma-create-rma" data-mage-init='{"validation": {}}'>
+        <input type="hidden" name="order" value="<?= (int)$order->getEntityId() ?>">
+        <div class="amrma-products-block">
+            <div class="amrma-products-table">
+                <div class="items-details-container">
+                    <div class="items-title">
+                        <strong><span><?= __('Order Details')?></span></strong>
+                    </div>
+                    <div class="items-container">
+                        <?php foreach ($returnOrder->getItems() as $key => $item):
+                            $productItem = $item->getProductItem() ? : $item->getItem(); ?>
+                            <?php if($helper->showItem($item->getItem())):?>
+                            <div class="amrma-product-item">
+                                <div class="return-items">
+                                    <div class="amrma-checkbox-container items-list-checkbox">
+                                        <input type="checkbox" name="items[<?= (int)$item->getItem()->getItemId() ?>][return]" value="1" id="amrma-checkbox-<?= (int)$key ?>" class="amrma-checkbox amrma-return-item"<?= (!$item->isReturnable() ? ' disabled="true"' : '') ?> />
+                                        <label for="amrma-checkbox-<?= (int)$key ?>"></label>
+                                        <div class="items-title-select">
+                                            <span><?= __('Select item to return')?></span>
+                                        </div>
+                                    </div>
+                                    <div class="item-product-image">
+                                        <img src="<?=$scene7Helper->getOrderItemProductImage($productItem, "order_item_image_medium") ??  $block->escapeUrl($block->getProductImage($item->getItem()->getItemId())); ?>"
+                                             alt="<?= $block->escapeHtml($productItem->getName()) ?>"/>
+                                    </div>
+                                    <div class="order-details">
+                                        <div class="field-details">
+                                            <strong><?= __('Order ID')?>:</strong> <?= $order->getIncrementId()?>
+                                        </div>
+                                        <div class="field-details">
+                                            <strong><?= __('Product')?>:</strong> <span class="amrma-item-name"> <?= $block->escapeHtml($productItem->getName()) ?></span>
+                                        </div>
+                                        <div class="field-details">
+                                            <strong><?= __('Order Date')?>:</strong> <?= $date?>
+                                        </div>
+                                        <?php if ($options = $block->getAdditionalData($item)): ?>
+                                            <?php
+                                            $color = $productItem->getResource()->getAttribute('color');
+                                            $colorValue = $color->getSource()->getOptionText($productItem->getData('color'));
+                                            ?>
+                                            <div class="field-details">
+                                                <?php $optionsTitles = array();?>
+                                                <?php $optionsValues = array();?>
+                                                <?php foreach ($options as $option): ?>
+                                                    <?php if(strtolower($option['label']) != 'width'): ?>
+                                                        <?php if(strtolower($option['label']) == 'colors' || strtolower($option['label']) =='size')?>
+                                                        <?php $optionsTitles[] = $block->escapeHtml($option['label']) ?>
+                                                        <?php $optionValue = $block->getOptionValue($option) ?>
+                                                        <?php $sizeForDisplay = $helperData->getSizeForDisplay($productItem->getSku(), $productItem->getStoreId())?>
+                                                        <?php if($sizeForDisplay && strtolower($option['label']) == 'size'): ?>
+                                                            <?php $optionsValues[] = $block->escapeHtml($sizeForDisplay, ['a']) ?>
+                                                        <?php elseif ($colorValue && strtolower($option['label']) == 'colors') : ?>
+                                                            <?php $optionsValues[] = $block->escapeHtml($colorValue, ['a']) ?>
+                                                        <?php elseif (isset($optionValue['full_view'])): ?>
+                                                            <?php $optionsValues[] = $block->escapeHtml($optionValue['full_view'], ['a']) ?>
+                                                        <?php else: ?>
+                                                            <?php $optionsValues[] = $block->escapeHtml($optionValue['value'], ['a']) ?>
+                                                        <?php endif; ?>
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
+                                                <strong>
+                                                    <?= __(implode('/',$optionsTitles))?>:
+                                                </strong>
+                                                <span><?= __(implode(',',$optionsValues))?></span>
+                                            </div>
+                                        <?php endif; ?>
+                                        <div class="field-details">
+                                            <strong><?= __('Qty')?>:</strong> <?= $item->getAvailableQty()?>
+                                        </div>
+                                        <div class="field-details">
+                                            <strong><?= __('Amount')?>:</strong>
+                                            <?php if($item->getItem()->getParentItemId() !== null):?>
+                                                <?php if((int)$helperFixture->getConfig('tax/cart_display/subtotal') == 1):?>
+                                                    <?= /* @noEscape */ $order->formatPrice($item->getItem()->getParentItem()->getPrice() * (int)$item->getAvailableQty()) ?>
+                                                <?php else: ?>
+                                                    <?= /* @noEscape */ $order->formatPrice($item->getItem()->getParentItem()->getPriceInclTax() * (int)$item->getAvailableQty()) ?>
+                                                <?php endif;?>
+                                            <?php else: ?>
+                                                <?php if((int)$helperFixture->getConfig('tax/cart_display/subtotal') == 1):?>
+                                                    <?= /* @noEscape */ $order->formatPrice($item->getItem()->getPrice() * (int)$item->getAvailableQty()) ?>
+                                                <?php else: ?>
+                                                    <?= /* @noEscape */ $order->formatPrice($item->getItem()->getPriceInclTax() * (int)$item->getAvailableQty()) ?>
+                                                <?php endif;?>
+                                            <?php endif;?>
+                                        </div>
+                                        <div class="field-details">
+                                            <strong><?= __('Qty to be returned')?>:</strong>
+                                            <input id="amrma-qty-select-<?= (int)$item->getItem()->getItemId() ?>"
+                                                   name="items[<?= (int)$item->getItem()->getItemId() ?>][qty]"
+                                                   class="amrma-item-qty" data-qty="<?= $item->getAvailableQty()?>" value="<?= $item->getAvailableQty()?>"
+                                                   onkeydown="if(event.key==='.'){event.preventDefault();}" oninput="event.target.value = event.target.value.replace(/[^0-9]*/g,'');"
+                                                   type="number" size="4">
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php if ($item->isReturnable()): ?>
+                                    <div class="amrma-product-message amrma-return-settings-container" style="display:none">
+                                        <div class="amrma-message-container -options">
+                                            <div class="amrma-return-select return-reason">
+                                                <div class="items-title-option">
+                                                    <strong><?= __('Return Reason')?>:</strong>
+                                                </div>
+                                                <ul>
+                                                    <li value="" class="selected" ><?= $block->escapeHtml(__('Please select Return Reason')) ?></li>
+                                                    <?php foreach ($block->getReasons() as $reason): ?>
+                                                        <li value="<?= (int)$reason->getReasonId() ?>">
+                                                            <?= $block->escapeHtml(__($reason->getLabel())) ?>
+                                                        </li>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                                <select class="amrma-select amrma-item-reason" name="items[<?= (int)$item->getItem()->getItemId() ?>][reason]" >
+                                                    <option value=""><?= $block->escapeHtml(__('Please choose')) ?></option>
+                                                    <?php foreach ($block->getReasons() as $reason): ?>
+                                                        <option value="<?= (int)$reason->getReasonId() ?>" data-payer="<?= (int)$reason->getPayer() ?>">
+                                                            <?= $block->escapeHtml(__($reason->getLabel())) ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                            <div class="amrma-return-select condition item-condition">
+                                                <div class="items-title-option">
+                                                    <strong><?= __('Item Condition')?>:</strong>
+                                                </div>
+                                                <ul>
+                                                    <li value="" class="selected"><?= $block->escapeHtml(__('Please select Item Condition')) ?></li>
+                                                    <?php foreach ($block->getConditions() as $condition): ?>
+                                                        <li value="<?= (int)$condition->getConditionId() ?>">
+                                                            <?= $block->escapeHtml(__($condition->getLabel())) ?>
+                                                        </li>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                                <select class="amrma-select amrma-item-condition" name="items[<?= (int)$item->getItem()->getItemId() ?>][condition]">
+                                                    <option value=""><?= $block->escapeHtml(__('Please choose')) ?></option>
+                                                    <?php foreach ($block->getConditions() as $condition): ?>
+                                                        <option value="<?= (int)$condition->getConditionId() ?>">
+                                                            <?= $block->escapeHtml(__($condition->getLabel())) ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                            <div class="amrma-return-select condition">
+                                                <select class="amrma-select amrma-item-resolution" name="items[<?= (int)$item->getItem()->getItemId() ?>][resolution]">
+                                                    <option value=""><?= $block->escapeHtml(__('Please choose')) ?></option>
+                                                    <?php foreach ($item->getResolutions() as $resolution):?>
+                                                        <option value="<?= (int)$resolution->getResolutionId() ?>">
+                                                            <?= $block->escapeHtml(__($resolution->getLabel())) ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                            <p class="amrma-shipping-payer amrma-message" style="display:none"></p>
+                                        </div>
+                                    </div>
+                                <?php else: ?>
+                                    <?php
+                                    switch ($item->getNoReturnableReason()) {
+                                        case \Amasty\Rma\Model\OptionSource\NoReturnableReasons::ITEM_WASNT_SHIPPED:
+                                            ?>
+                                            <div class="amrma-product-message">
+                                                <div class="amrma-message-container -gray">
+                                                    <p class="amrma-cause _nomargin">
+                                                        <?= $block->escapeHtml(__('This product wasn\'t shipped.')) ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <?php
+                                            break;
+                                        case \Amasty\Rma\Model\OptionSource\NoReturnableReasons::REFUNDED:
+                                            ?>
+                                            <div class="amrma-product-message">
+                                                <div class="amrma-message-container -gray">
+                                                    <p class="amrma-cause _nomargin">
+                                                        <?= $block->escapeHtml(__('This product is already refunded.')) ?>
+                                                    </p>
+                                                    <?php
+                                                    if ($block->getConfig()->isShowAdministratorContact()) {
+                                                        echo $block->escapeHtml(__(
+                                                            ' If you have questions, please contact the store administrator:'
+                                                        ));
+                                                        if ($block->getConfig()->getAdministratorPhoneNumber()) {
+                                                            echo '<p class="amrma-phone _nomargin"><a href="tel:'
+                                                                . $block->escapeHtml($block->getConfig()->getAdministratorPhoneNumber())
+                                                                . '">' . $block->escapeHtml(
+                                                                    $block->getConfig()->getAdministratorPhoneNumber()
+                                                                ) . '</a></p>';
+                                                        }
+                                                        if ($block->getConfig()->getAdministratorEmail()) {
+                                                            echo '<p class="amrma-adminmail _nomargin"><a href="mailto:'
+                                                                . $block->escapeHtml($block->getConfig()->getAdministratorEmail()) . '">'
+                                                                . $block->escapeHtml($block->getConfig()->getAdministratorEmail())
+                                                                . '</a></p>';
+                                                        }
+                                                    }
+                                                    ?>
+                                                </div>
+                                            </div>
+                                            <?php
+                                            break;
+                                        case \Amasty\Rma\Model\OptionSource\NoReturnableReasons::ALREADY_RETURNED:
+                                            ?>
+                                            <div class="amrma-product-message">
+                                                <div class="amrma-message-container -gray">
+                                                    <p class="amrma-cause _nomargin">
+                                                        <?= $block->escapeHtml(__('Rma request for this product is already created. Existing Return(s):')) ?>
+                                                    </p>
+                                                    <p class="_nomargin">
+                                                        <?php foreach ($item->getNoReturnableData() as $request): ?>
+                                                            <a href="<?= $block->escapeUrl($block->getRequestViewUrl($request)) ?>" target="_blank">
+                                                                #<?= $block->escapeHtml(str_pad($request[\Amasty\Rma\Api\Data\RequestInterface::REQUEST_ID], 9, '0', STR_PAD_LEFT)) ?>
+                                                            </a>
+                                                        <?php endforeach; ?>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <?php
+                                            break;
+                                        case \Amasty\Rma\Model\OptionSource\NoReturnableReasons::EXPIRED_PERIOD:
+                                            ?>
+                                            <div class="amrma-product-message">
+                                                <div class="amrma-message-container -gray">
+                                                    <p class="amrma-cause _nomargin">
+                                                        <?= $block->escapeHtml(__('The return for this product can\'t be processed.')) ?>
+                                                    </p>
+                                                    <p class="amrma-warning-message _nomargin">
+                                                        <?= $block->escapeHtml(__('The return period expired.')) ?>
+                                                    </p>
+                                                    <?php
+                                                    if ($block->getConfig()->isShowAdministratorContact()) {
+                                                        echo $block->escapeHtml(__(
+                                                            ' If you have questions, please contact the store administrator:'
+                                                        ));
+                                                        if ($block->getConfig()->getAdministratorPhoneNumber()) {
+                                                            echo '<p class="amrma-phone _nomargin"><a href="tel:'
+                                                                . $block->escapeHtml($block->getConfig()->getAdministratorPhoneNumber())
+                                                                . '">' . $block->escapeHtml(
+                                                                    $block->getConfig()->getAdministratorPhoneNumber()
+                                                                ) . '</a></p>';
+                                                        }
+                                                        if ($block->getConfig()->getAdministratorEmail()) {
+                                                            echo '<p class="amrma-adminmail _nomargin"><a href="mailto:'
+                                                                . $block->escapeHtml($block->getConfig()->getAdministratorEmail()) . '">'
+                                                                . $block->escapeHtml($block->getConfig()->getAdministratorEmail())
+                                                                . '</a></p>';
+                                                        }
+                                                    }
+                                                    ?>
+                                                </div>
+                                            </div>
+                                            <?php
+                                            break;
+                                        case \Amasty\Rma\Model\OptionSource\NoReturnableReasons::ITEM_WAS_ON_SALE:
+                                            ?>
+                                            <div class="amrma-product-message">
+                                                <div class="amrma-message-container -gray">
+                                                    <p class="amrma-cause _nomargin">
+                                                        <?= $block->escapeHtml(__('This product cannot be returned.')) ?>
+                                                    </p>
+                                                    <p class="amrma-warning-message _nomargin">
+                                                        <?= $block->escapeHtml(__('This product was on sale.')) ?>
+                                                    </p>
+                                                    <?php
+                                                    if ($block->getConfig()->isShowAdministratorContact()) {
+                                                        echo $block->escapeHtml(__(
+                                                            ' If you have questions, please contact the store administrator:'
+                                                        ));
+                                                        if ($block->getConfig()->getAdministratorPhoneNumber()) {
+                                                            echo '<p class="amrma-phone _nomargin"><a href="tel:'
+                                                                . $block->escapeHtml($block->getConfig()->getAdministratorPhoneNumber())
+                                                                . '">' . $block->escapeHtml(
+                                                                    $block->getConfig()->getAdministratorPhoneNumber()
+                                                                ) . '</a></p>';
+                                                        }
+                                                        if ($block->getConfig()->getAdministratorEmail()) {
+                                                            echo '<p class="amrma-adminmail _nomargin"><a href="mailto:'
+                                                                . $block->escapeHtml($block->getConfig()->getAdministratorEmail()) . '">'
+                                                                . $block->escapeHtml($block->getConfig()->getAdministratorEmail())
+                                                                . '</a></p>';
+                                                        }
+                                                    }
+                                                    ?>
+                                                </div>
+                                            </div>
+                                            <?php
+                                            break;
+                                    }
+                                    ?>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif;?>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <?= $block->getChildHtml('address_options'); ?>
+                <div class="items-details-container">
+                    <div class="items-container">
+                        <?php if ($block->getConfig()->isReturnPolicyEnabled()): ?>
+                            <div class="amrma-return-policy">
+                                <div class="amrma-checkbox-container -policy">
+                                    <input class="amrma-checkbox"
+                                           type="checkbox"
+                                           id="amrma-checkbox-policy"
+                                           name="rmapolicy"
+                                           value="1"
+                                           data-amrma-js="policy"
+                                    />
+                                    <label for="amrma-checkbox-policy" class="amrma-label"><?= /** @noEscape */ str_replace(['%1', '%2'], ['<a href="' . $block->getUrl() . 'returns-policy" target="_blank">', '</a>'], $block->escapeHtml(__('I confirm that the product is unused and with original tags intact.'))) ?></label>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+            <div class="amrma-comment-block">
+                <div class="amrma-btns-block">
+                    <button class="btn amreturn-btn" type="submit"><?= $block->escapeHtml(__('Confirm')) ?></button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script>
+        require(['jquery', 'Magento_Ui/js/modal/alert', 'domReady!'], function ($, message) {
+            $(document).ready(function() {
+                $('.amrma-checkbox.amrma-return-item').next('label').css('display', 'inline-block');
+
+                $('.amrma-checkbox:checked').each(function () {
+                    $(this).closest('.amrma-product-item').find('.amrma-return-settings-container').show()
+                });
+                $('.amrma-return-item').on("click", function (e) {
+                    if ($(this).is(':checked')) {
+                        $(this).closest('.amrma-product-item').find('.amrma-return-settings-container').show()
+                        $(this).closest('.amrma-product-item').find('.amrma-return-settings-container .amrma-return-select.condition .amrma-item-resolution').prop("selectedIndex", 1);
+                    } else {
+                        $(this).closest('.amrma-product-item').find('.amrma-return-settings-container').hide();
+                        $(this).closest('.amrma-product-item').find('.amrma-return-settings-container .amrma-return-select.condition select').val();
+                    }
+                });
+                $('.amrma-return-select ul li').on("click", function (e) {
+                    $(this).parent().find('li').removeClass('selected');
+                    $(this).addClass('selected');
+                    $(this).parent().next().val($(this).attr('value'));
+                });
+                $('.amrma-return-select.return-reason ul li').click(function () {
+                    if ($(this).val()==''){
+                        $('.amrma-return-select.return-reason select option').first().attr('selected', 'selected');
+                    }
+                });
+                $('.amrma-return-select.item-condition ul li').click(function () {
+                    if ($(this).val()==''){
+                        $('.amrma-return-select.item-condition select option').first().attr('selected', 'selected');
+                    }
+                });
+                $('.amrma-create-rma').submit(function (e) {
+                    $('.btn.amreturn-btn').prop('disabled', true);
+                    var errors = '';
+                    if ($('.amrma-return-item:checked').length === 0) {
+                        errors += '<?= $block->escapeHtml(__('Items were not selected')) ?>' + '. ';
+                    } else {
+                        $('.amrma-return-item:checked').each(function () {
+                            var itemContainer = $(this).closest('.amrma-product-item'),
+                                mContainer = itemContainer.find('.amrma-message-container');
+                            mContainer.removeClass('-failed');
+                            if (itemContainer.find('.amrma-item-reason').val() == '') {
+                                errors += '<?= $block->escapeHtml(__('Please Select Reason for')) ?>' + ' ' + itemContainer.find('.amrma-item-name').text() + '. ';
+                                mContainer.addClass('-failed');
+                            }
+                            if (itemContainer.find('.amrma-item-condition').val() == '') {
+                                errors += '<?= $block->escapeHtml(__('Please Select Condition for')) ?>' + ' ' + itemContainer.find('.amrma-item-name').text() + '. ';
+                                mContainer.addClass('-failed');
+                            }
+                            var qty = itemContainer.find('.amrma-item-qty').val();
+                            if (itemContainer.find('.amrma-item-qty').val() == '' || parseFloat(qty) < 0.001) {
+                                errors += '<?= $block->escapeHtml(__('Please Select Qty for')) ?>' + ' ' + itemContainer.find('.amrma-item-name').text() + '. ';
+                                mContainer.addClass('-failed');
+                            }
+                            if(qty > parseInt(itemContainer.find('.amrma-item-qty').data('qty'))){
+                                errors += '<?= $block->escapeHtml(__('The qty not available for')) ?>' + ' ' + itemContainer.find('.amrma-item-name').text() + '.';
+                                mContainer.addClass('-failed');
+                            }
+                        });
+                    }
+
+                    if ($('[data-amrma-js="policy"]').length && !$('[data-amrma-js="policy"]:checked').length) {
+                        errors += '<?= $block->escapeHtml(__('Please accept the Return Policy')) ?>' + '. ';
+                        $('[data-amrma-js="policy"]').on('click', function () {
+                            $(this).closest('.amrma-return-policy').removeClass('-border');
+                        }).closest('.amrma-return-policy').addClass('-border');
+                    }
+
+                    if (errors.length) {
+                        message({content: errors});
+                        e.preventDefault();
+                        $('.btn.amreturn-btn').prop('disabled', false);
+                    }
+                });
+
+                $('#amrma-attach').change(function () {
+                    var formData = new FormData(),
+                        filesFromForm = $(this)[0].files;
+                    $.each(filesFromForm, function (i, file) {
+                        formData.append(file.name.substr(0, file.name.lastIndexOf('.')), file);
+                    });
+                    $.ajax({
+                        showLoader: true,
+                        url: "<?= $block->escapeUrl($block->getChatUploadUrl()) ?>",
+                        processData: false,
+                        contentType: false,
+                        global: false,
+                        data: formData,
+                        method: "POST",
+                        dataType: "text",
+                        success: function (result) {
+                            var value;
+                            if (result.length) {
+                                showFileNames(JSON.parse(result));
+
+                                if ($('#amrma-attached-files').val() != '') {
+                                    value = JSON.stringify(JSON.parse($('#amrma-attached-files').val()).concat(JSON.parse(result)));
+                                } else {
+                                    value = result;
+                                }
+                                $('#amrma-attached-files').val(value);
+                            }
+                        }
+                    });
+                });
+
+                function showFileNames(files) {
+                    for (var i = 0; i < files.length; i++) {
+                        var $container = $('<div>', {class : 'amrma-chat-file -newreturn'}),
+                            $fileName = $('<span>', {class : 'amrma-file'}),
+                            $link = $('<span>', {class : 'amrma-file amrma-delete'});
+
+                        $fileName.text(files[i].filename);
+                        $container.data('filehash', files[i].filehash);
+                        $container.data('extension', files[i].extension);
+                        $container.append($fileName);
+                        $container.append($link);
+                        $link.on('click', deleteFile);
+                        $('[data-amrma-js="file-container"]').append($container);
+                    }
+                }
+
+                function deleteFile(e) {
+                    var fileNameContainer = $(e.currentTarget).parent(),
+                        postData = {},
+                        $filesInput = $('[data-amrma-js="file-input"]'),
+                        attachedFiles;
+
+                    postData.filehash = fileNameContainer.data('filehash');
+                    postData.extension = fileNameContainer.data('extension');
+
+                    $.ajax({
+                        url: "<?= $block->escapeUrl($block->getChatDeleteUrl()) ?>",
+                        data: {file: postData},
+                        method: 'post',
+                        global: false,
+                        dataType: 'json',
+                        success: function (data) {
+                            attachedFiles = JSON.parse($filesInput.val());
+                            attachedFiles = attachedFiles.filter(function (file) {
+                                return file.filehash !== postData.filehash;
+                            });
+                            $filesInput.val(JSON.stringify(attachedFiles));
+                            fileNameContainer.remove();
+                        }.bind(this)
+                    });
+                }
+
+                $('.amrma-item-reason').change(function () {
+                    switch ($(this).find('option:selected').data('payer')) {
+                        case <?= (int)\Amasty\Rma\Model\OptionSource\ShippingPayer::CUSTOMER ?>:
+                            $(this).closest('.amrma-message-container').find('.amrma-shipping-payer').show().text('<?= $block->escapeHtml(__('You are supposed to cover shipping costs')) ?>');
+                            break;
+                        case <?= (int)\Amasty\Rma\Model\OptionSource\ShippingPayer::STORE_OWNER ?>:
+                            $(this).closest('.amrma-message-container').find('.amrma-shipping-payer').show().text('<?= $block->escapeHtml(__('Store is supposed to cover shipping costs')) ?>');
+                            break;
+                        default:
+                            $(this).closest('.amrma-message-container').find('.amrma-shipping-payer').hide();
+                    }
+                });
+            });
+        });
+    </script>
+<?php else: ?>
+    <h2 class="amrma-title"><?= $block->escapeHtml(__('There are no items to return.')) ?></h2>
+<?php endif; ?>

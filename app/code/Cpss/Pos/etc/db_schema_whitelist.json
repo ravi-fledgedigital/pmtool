@@ -1,0 +1,46 @@
+{
+    "sales_real_store_order_item": {
+        "column": {
+            "item_id": true,
+            "sales_real_store_order_id": true,
+            "purchase_id": true,
+            "sku": true,
+            "jan_code": true,
+            "qty": true,
+            "subtotal_amount": true,
+            "discount_amount": true,
+            "tax_amount": true,
+            "product_name": true,
+            "color": true,
+            "size": true,
+            "point_discount_amount": true,
+            "created_at": true,
+            "updated_at": true,
+            "return_subtotal_amount": true,
+            "return_discount_amount": true,
+            "return_tax_amount": true,
+            "return_point_discount_amount": true,
+            "return_flg": true,
+            "transaction_type": true
+        },
+        "index": {
+            "SALES_REAL_STORE_ORDER_ITEM_PURCHASE_ID_SKU_PRD_NAME_COLOR_SIZE": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "UNQ_52F99BF3454051751E18439E20C14B6C": true,
+            "FK_2F69E1FE81868AD1B38B9BFB8ECF9025": true
+        }
+    },
+    "cpss_completed_orders": {
+        "column": {
+            "id": true,
+            "increment_id": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

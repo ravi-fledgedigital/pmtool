@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    <extension_attributes for="Magento\Customer\Api\Data\CustomerInterface">
+        <attribute code="is_aep_data_set" type="bool" />
+        <attribute code="aep_shoe_fav_size" type="string" />
+        <attribute code="aep_cloths_favorite_size" type="string" />
+        <attribute code="aep_accessories_favorite_size" type="string" />
+        <attribute code="aep_total_coupon_count" type="int" />
+        <attribute code="aep_total_order_amt" type="float" />
+        <attribute code="aep_total_order_cnt" type="int" />
+        <attribute code="aep_whishlist_products" type="string" />
+        <attribute code="aep_cart_abandoned_products" type="string" />
+        <attribute code="aep_last_order_date" type="string" />
+        <attribute code="aep_lifetime_value_amt" type="float" />
+        <attribute code="aep_first_order_date" type="string" />
+        <attribute code="aep_total_return_order_cnt" type="int" />
+        <attribute code="aep_total_return_order_amt" type="float" />
+        <attribute code="aep_wishlist_modified_datetime" type="string" />
+        <attribute code="aep_cart_modified_datetime" type="string" />
+    </extension_attributes>
+    <extension_attributes for="Magento\Sales\Api\Data\OrderInterface">
+        <attribute code="customer_previous_order_date" type="string" />
+    </extension_attributes>
+</config>

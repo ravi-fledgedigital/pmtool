@@ -1,0 +1,188 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Customer\Block\Address\Grid $block */
+$customerAddressView = $block->getData('customer_address');
+$addresses = $block->getCustomer()->getAddresses();
+$helper = $this->helper(\OnitsukaTiger\Customer\Helper\Data::class);
+$helperConfig = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);
+$helperConfigTheme = $this->helper(\OnitsukaTigerKorea\Customer\Helper\Data::class);
+$telephonePrefix = $helperConfig->getConfig('general/telephone_prefix/number') ? $helperConfig->getConfig('general/telephone_prefix/number') : '66';
+$defaultCountry = $helperConfig->getConfig('general/country/default') ? $helperConfig->getConfig('general/country/default') : 'TH';
+?>
+<?php if($helperConfigTheme->isKoreanThemeEnable()):?>
+    <div class="block-address-grid-container">
+        <?= $block->getBlockHtml('formkey') ?>
+        <div class="block block-addresses-list">
+            <div class="block-content">
+                <div class="address-books-lists">
+                    <?php if(!$addresses): ?>
+                        <div class="address-empty">
+                            <h2><?= __('Empty Saved Address')?></h2>
+                            <span><?= __('There are no Shipping Addresses saved for this account.')?></span>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($addresses) : ?>
+                        <?php foreach ($addresses as $address) : ?>
+                            <?php
+                            $address = $helper->getAddressById($address->getId());
+                            ?>
+                            <div class="address-books-item">
+                                <div class="container-address-item">
+                                    <div class="address-name">
+                                        <?= $block->escapeHtml($address->getFirstname()) ?>
+                                        <?= $block->escapeHtml($address->getLastname()) ?>
+                                    </div>
+                                    <div class="customer-address">
+                                        <?php foreach ($address->getStreet() as $street):?>
+                                            <?= $block->escapeHtml($street) ?>,<br/>
+                                        <?php endforeach;?>
+                                        <?php if($address->getCity() != ''): ?>
+                                            <?= $block->escapeHtml($address->getCity()) ?> -
+                                        <?php endif; ?>
+                                        <?= $block->escapeHtml($address->getPostcode()) ?>,<br/>
+                                        <?= $block->escapeHtml($block->getCountryByCode($address->getCountryId())) ?>
+                                    </div>
+                                    <div class="customer-phone">
+                                        <?php if($helperConfig->getConfig('general/telephone_prefix/enable')): ?>
+                                            <?= '+'.$telephonePrefix.'-'.substr($block->escapeHtml($address->getTelephone()), 2) ?>
+                                        <?php else: ?>
+                                            <?= $address->getTelephone() ?>
+                                        <?php endif;?>
+                                        <span class="customer-email"><?= $block->escapeHtml($block->getCustomer()->getEmail())?></span>
+                                    </div>
+                                    <div class="address-actions">
+                                        <a class="action delete" href="#" role="delete-address" data-address="<?= $block->escapeHtmlAttr($address->getId()) ?>"><span><?= $block->escapeHtml(__('Delete')) ?></span></a>
+                                        <a class="action edit" role="edit-address" data-address="<?= $address->getId()?>" href="<?= $block->escapeUrl($block->getUrl('customer/address/edit', ['id' => $address->getId()])) ?>"><span><?= $block->escapeHtml(__('Edit')) ?></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif ?>
+                    <div class="address-books-item new-address-button">
+                        <button type="button" role="add-address" title="<?= $block->escapeHtmlAttr(__('Create New Address')) ?>" class="action primary add"><span><?= $block->escapeHtml(__('Create New Address')) ?></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/x-magento-init">
+            {
+                ".form-address-edit-popup": {
+                    "addressPopup": {
+                        "addressJson": "<?= $block->escapeJs($helper->getJsonAddress($addresses))?>",
+                        <?php if($block->getRequest()->getParam('id')):?>
+                        "addressId" : <?= $block->getRequest()->getParam('id')?>,
+                        <?php endif; ?>
+                        "deleteUrlPrefix": "<?= $block->escapeJs($block->escapeUrl($block->getDeleteUrl())) ?>",
+                        "defaultCountry": "<?= $defaultCountry?>"
+                    }
+                }
+            }
+        </script>
+        <?= $block->getChildHtml('customer_address_edit_popup')?>
+    </div>
+    <div class="loadding-ajax">
+        <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+    <div class="popup-confirm-delete">
+        <div id="popup_overlay"></div>
+        <div id="popup_container" class="jalertbox ui-draggable">
+            <h1 id="popup_title" style="cursor: move;"></h1>
+            <div id="popup_content" class="confirm">
+                <div id="popup_message"><?= __('Are you sure to delete the selected address from this account?')?> </div>
+                <div id="popup_panel">
+                    <input type="button" value="<?= __('Ok')?>" id="popup_ok" class="btn-ok">
+                    <input type="button" value="<?= __('Cancel')?>" id="popup_cancel" class="btn-cancel">
+                </div>
+            </div>
+        </div>
+    </div>
+<?php else: ?>
+    <div class="block-address-grid-container">
+        <?= $block->getBlockHtml('formkey') ?>
+        <div class="block block-addresses-list">
+            <div class="block-content">
+                <div class="address-books-lists">
+                    <?php if(!$addresses): ?>
+                        <div class="address-empty">
+                            <h2><?= __('Empty Saved Address')?></h2>
+                            <span><?= __('There are no Shipping Addresses saved for this account.')?></span>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($addresses) : ?>
+                        <?php foreach ($addresses as $address) : ?>
+                            <?php
+                            $address = $helper->getAddressById($address->getId());
+                            ?>
+                            <div class="address-books-item">
+                                <div class="container-address-item">
+                                    <div class="address-name">
+                                        <?= $block->escapeHtml($address->getFirstname()) ?>
+                                        <?= $block->escapeHtml($address->getLastname()) ?>
+                                    </div>
+                                    <div class="customer-address">
+                                        <?php foreach ($address->getStreet() as $street):?>
+                                            <?= $block->escapeHtml($street) ?>,<br/>
+                                        <?php endforeach;?>
+                                        <?= $block->escapeHtml($address->getRegion()->getRegion()) ?>,<br/>
+                                        <?= $block->escapeHtml($address->getCity()) ?> - <?= $block->escapeHtml($address->getPostcode()) ?>,<br/>
+                                        <?= $block->escapeHtml($block->getCountryByCode($address->getCountryId())) ?>
+                                    </div>
+                                    <div class="customer-phone">
+                                        <?php if($helperConfig->getConfig('general/telephone_prefix/enable')): ?>
+                                            <?= '+'.$telephonePrefix.'-'.substr($block->escapeHtml($address->getTelephone()), 2) ?>
+                                        <?php else: ?>
+                                            <?= $address->getTelephone() ?>
+                                        <?php endif;?>
+                                        <span class="customer-email"><?= $block->escapeHtml($block->getCustomer()->getEmail())?></span>
+                                    </div>
+                                    <div class="address-actions">
+                                        <a class="action delete" href="#" role="delete-address" data-address="<?= $block->escapeHtmlAttr($address->getId()) ?>"><span><?= $block->escapeHtml(__('Delete')) ?></span></a>
+                                        <a class="action edit" role="edit-address" data-address="<?= $address->getId()?>" href="<?= $block->escapeUrl($block->getUrl('customer/address/edit', ['id' => $address->getId()])) ?>"><span><?= $block->escapeHtml(__('Edit')) ?></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif ?>
+                    <div class="address-books-item new-address-button">
+                        <button type="button" role="add-address" title="<?= $block->escapeHtmlAttr(__('Create New Address')) ?>" class="action primary add"><span><?= $block->escapeHtml(__('Create New Address')) ?></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/x-magento-init">
+        {
+            ".form-address-edit-popup": {
+                "addressPopup": {
+                    "addressJson": "<?= $block->escapeJs($helper->getJsonAddress($addresses))?>",
+                    <?php if($block->getRequest()->getParam('id')):?>
+                    "addressId" : <?= $block->getRequest()->getParam('id')?>,
+                    <?php endif; ?>
+                    "deleteUrlPrefix": "<?= $block->escapeJs($block->escapeUrl($block->getDeleteUrl())) ?>",
+                    "defaultCountry":"<?= $defaultCountry?>"
+                }
+            }
+        }
+    </script>
+        <?= $block->getChildHtml('customer_address_edit_popup')?>
+    </div>
+    <div class="loadding-ajax">
+        <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+    <div class="popup-confirm-delete">
+        <div id="popup_overlay"></div>
+        <div id="popup_container" class="jalertbox ui-draggable">
+            <h1 id="popup_title" style="cursor: move;"></h1>
+            <div id="popup_content" class="confirm">
+                <div id="popup_message"><?= __('Are you sure to delete the selected address from this account?')?> </div>
+                <div id="popup_panel">
+                    <input type="button" value="<?= __('Ok')?>" id="popup_ok" class="btn-ok">
+                    <input type="button" value="<?= __('Cancel')?>" id="popup_cancel" class="btn-cancel">
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif;?>

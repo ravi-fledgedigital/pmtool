@@ -1,0 +1,28 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \WeltPixel\GA4\Block\PinterestPixel\Common */
+
+/** @var \WeltPixel\GA4\Helper\PinterestPixelTracking $pinterestPixelHelper */
+$pinterestPixelHelper = $this->helper('WeltPixel\GA4\Helper\PinterestPixelTracking');
+$cspNonceProvider = $pinterestPixelHelper->getCspNonceProvider();
+?>
+<?php if ($pinterestPixelHelper->isPinterestPixelTrackingEnabled()) : ?>
+    <script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        require(['jquery', 'Magento_Customer/js/customer-data'],
+            function ($, customerData) {
+                if (window.ga4AllowServices) {
+                    $(document).ajaxComplete(function (event, xhr, settings) {
+                        if (settings.url.search('/customer\/section\/load/') > 0) {
+                            var response = xhr.responseJSON;
+                            if (response.wp_ga4) {
+                                var pinterestPixel = $.parseJSON(response.wp_ga4.pinterestpixel);
+                                for (index in pinterestPixel) {
+                                    pintrk(pinterestPixel[index].track, pinterestPixel[index].eventName, pinterestPixel[index].eventData);
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+    </script>
+<?php endif; ?>

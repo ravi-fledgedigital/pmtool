@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * @var \Cpss\Crm\Block\Adminhtml\Member\Info $block
+ */
+$response = $block->getInfo();
+$options = $block->getJobCodeOptions();
+
+$balance = 0;
+$pointExpiration = '-';
+$afterExpiration = 0;
+
+if (!empty($response)) {
+    $result = $response['result'];
+    $balance = (int) $result['balance'];
+
+    $expires = $block->getNearestExpires();
+    if (!empty($expires['result'])) {
+        $exppt = $expires['result']['expires'][0]['exppt'];
+        $pointExpiration = $expires['result']['expires'][0]['expdate'];
+
+        if ($exppt != null && $pointExpiration != null) {
+            $afterExpiration = (int) ($exppt);
+            $pointExpiration = $block->formatDateFromCpss($pointExpiration);
+        }
+    }
+}
+?>
+<div class="fieldset-wrapper">
+    <div class="fieldset-wrapper-title" tabindex="-1">
+        <strong class="title">
+            <span data-bind="i18n: label">Point History</span>
+        </strong>
+    </div>
+    <?= $block->getPointHistoryByPagination() ?>
+</div>
+<script>
+    require(['jquery'], function($) {
+        setTimeout(function() {
+            $('input[name="customer[owned_point]"]').val('<?= number_format($balance) ?>');
+            $('input[name="customer[point_effective_date]"]').val('<?= $pointExpiration; ?>');
+            $('input[name="customer[expiring_point]"]').val('<?= number_format($afterExpiration); ?>');
+            $('input[name="customer[owned_point]"]').attr('readonly', true)
+            $('input[name="customer[point_effective_date]"]').attr('readonly', true)
+            $('input[name="customer[expiring_point]"]').attr('readonly', true)
+        }, 500);
+    });
+</script>

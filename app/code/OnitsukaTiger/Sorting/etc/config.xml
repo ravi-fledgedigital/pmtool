@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <amsorting>
+            <customize_sort_default>
+                <enable_automatic>0</enable_automatic>
+                <attribute>sort_order</attribute>
+                <order_by>asc</order_by>
+            </customize_sort_default>
+        </amsorting>
+    </default>
+</config>

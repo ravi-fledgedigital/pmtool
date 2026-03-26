@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/worldpaynotification/get/:order" method="GET">
+        <service class="Sapient\Worldpay\Api\HistoryInterface" method="getHistory"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/worldpay/payment/types" method="POST">
+        <service class="Sapient\Worldpay\Api\PaymentTypeInterface" method="getPaymentType"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/worldpay/latam/types" method="POST">
+        <service class="Sapient\Worldpay\Api\LatAmInstalInterface" method="getInstalmentType"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+     <route url="/V1/worldpay/payment/hostedurl" method="POST">
+        <service class="Sapient\Worldpay\Api\HostedUrlInterface" method="getHostedUrl"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <!-- Multishipping -->
+    <route url="/V1/worldpay/place_multishipping_order" method="POST">
+        <service class="Sapient\Worldpay\Api\MultishippingInterface" method="placeMultishippingOrder"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+     <route url="/V1/worldpay/mine/estimate-recurring-shipping-methods" method="POST">
+        <service class="Sapient\Worldpay\Api\RecurringShippingMethodInterface" method="getShippingMethod"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+     <route url="/V1/worldpay/mine/update-recurring-shipment" method="POST">
+        <service class="Sapient\Worldpay\Api\UpdateRecurringShipmentInterface" method="updateRecurringShipment"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/worldpay/mine/get-customer-payment-tokens" method="POST">
+        <service class="Sapient\Worldpay\Api\CustomerPaymentTokenInterface" method="getAllPaymentTokens"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/worldpay/mine/update-recurring-payment-token" method="POST">
+        <service class="Sapient\Worldpay\Api\UpdateRecurringTokenInterface" method="updateRecurringPaymentToken"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>

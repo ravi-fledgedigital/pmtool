@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * Copyright © Vaimo Group. All rights reserved.
+ * See LICENSE_VAIMO.txt for license details.
+ */
+
+use Magento\Framework\View\Element\Template;
+use Vaimo\AepEventStreaming\ViewModel\OrderLastActionId;
+
+// phpcs:disable SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration
+/** @var Template $block */
+/** @var OrderLastActionId $viewModel */
+
+$viewModel = $block->getViewModel();
+$order = $block->getParentBlock()->getOrder();
+$lastActionId = $viewModel->getOrderExportStatus($order);
+?>
+<tr>
+    <th><?= $block->escapeHtml(__('AEP last action id')) ?></th>
+    <td><span id="order_status"><?= $block->escapeHtml($lastActionId) ?></span></td>
+</tr>

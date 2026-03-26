@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <catalog>
+            <scene7_sync>
+                <scheduler_enabled>1</scheduler_enabled>
+                <cron_scheduler>20 2 * * *</cron_scheduler>
+                <base_url>https://p-pd-api.asicsit.net/asset/v1</base_url>
+                <region_suffix>global</region_suffix>
+            </scene7_sync>
+        </catalog>
+    </default>
+</config>

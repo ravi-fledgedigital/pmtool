@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_order">
+        <column xsi:type="date" name="customer_previous_order_date" nullable="true" comment="Customer previous order date"/>
+    </table>
+    <table name="wishlist_item_option">
+        <index referenceId="WISHLIST_ITEM_OPTION_PRODUCT_ID" indexType="btree">
+            <column name="product_id"/>
+        </index>
+    </table>
+</schema>

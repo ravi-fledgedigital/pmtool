@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Cpss\Crm\Api\Btoc\RegisterInterface" type="Cpss\Crm\Model\Btoc\Register"/>
+    <preference for="Cpss\Crm\Api\Btoc\LoginInterface" type="Cpss\Crm\Model\Btoc\Login" />
+    <preference for="Cpss\Crm\Api\Btoc\InfoInterface" type="Cpss\Crm\Model\Btoc\Info" />
+    <preference for="Cpss\Crm\Api\Btoc\TokenInterface" type="Cpss\Crm\Model\Btoc\Token" />
+    <preference for="Cpss\Crm\Api\Btoc\DeleteInterface" type="Cpss\Crm\Model\Btoc\Delete" />
+    <preference for="Cpss\Crm\Api\Btoc\UpdateInterface" type="Cpss\Crm\Model\Btoc\Update" />
+    <type name="Cpss\Crm\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Cpss\Crm\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">CpssCrmLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Cpss\Crm\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Cpss\Crm\Api\Shop\LoginInterface" type="Cpss\Crm\Model\Shop\Login" />
+    <preference for="Cpss\Crm\Api\Shop\OrderHistoryInterface" type="Cpss\Crm\Model\Shop\OrderHistory" />
+    <preference for="Cpss\Crm\Api\Shop\RegisterReceiptInterface" type="Cpss\Crm\Model\Shop\RegisterReceipt"/>
+	<preference for="Cpss\Crm\Api\Shop\DeleteReceiptInterface" type="Cpss\Crm\Model\Shop\DeleteReceipt"/>
+
+    <preference for="Cpss\Crm\Api\Checkout\PointInterface" type="Cpss\Crm\Model\Checkout\Point"/>
+    <preference for="Cpss\Crm\Api\Btoc\OrderHistoryInterface" type="Cpss\Crm\Model\Btoc\OrderHistory"/>
+    <preference for="Magento\Payment\Model\Checks\ZeroTotal" type="Cpss\Crm\Model\Checks\ZeroTotal"/>
+    <preference for="Magento\Quote\Model\Quote\Payment" type="Cpss\Crm\Model\Quote\Payment"/>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="admincrm_receipt_listing_data_source" xsi:type="string">Cpss\Crm\Model\ResourceModel\ShopReceipt\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Cpss\Crm\Model\ResourceModel\ShopReceipt\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">sales_real_store_order</argument>
+            <argument name="resourceModel" xsi:type="string">Cpss\Crm\Model\ResourceModel\ShopReceipt</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="real_store_listing_data_source" xsi:type="string">Cpss\Crm\Model\ResourceModel\RealStore\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Cpss\Crm\Model\ResourceModel\RealStore\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">crm_real_stores</argument>
+            <argument name="resourceModel" xsi:type="string">Cpss\Crm\Model\ResourceModel\RealStore</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\Webapi\Rest\Request\DeserializerFactory">
+        <arguments>
+            <argument name="deserializers" xsi:type="array">
+                <item name="application_x_www_form_urlencoded" xsi:type="array">
+                    <item name="type" xsi:type="string">application/x-www-form-urlencoded</item>
+                    <item name="model" xsi:type="string">Cpss\Crm\Webapi\Rest\Request\Deserializer\XWwwFormUrlencoded</item>
+                </item>
+                <item name="application_json" xsi:type="array">
+                    <item name="type" xsi:type="string">application/json</item>
+                    <item name="model" xsi:type="string">Magento\Framework\Webapi\Rest\Request\Deserializer\Json</item>
+                </item>
+                <item name="application_xml" xsi:type="array">
+                    <item name="type" xsi:type="string">application/xml</item>
+                    <item name="model" xsi:type="string">Magento\Framework\Webapi\Rest\Request\Deserializer\Xml</item>
+                </item>
+                <item name="application_xhtml_xml" xsi:type="array">
+                    <item name="type" xsi:type="string">application/xhtml+xml</item>
+                    <item name="model" xsi:type="string">Magento\Framework\Webapi\Rest\Request\Deserializer\Xml</item>
+                </item>
+                <item name="text_xml" xsi:type="array">
+                    <item name="type" xsi:type="string">text/xml</item>
+                    <item name="model" xsi:type="string">Magento\Framework\Webapi\Rest\Request\Deserializer\Xml</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Magento\Sales\Model\Order\Creditmemo\Total\Discount" type="Cpss\Crm\Model\Order\Creditmemo\Total\Discount"/>
+    <preference for="Magento\Sales\Model\Order\Invoice\Total\Discount" type="Cpss\Crm\Model\Order\Invoice\Total\Discount"/>
+    <preference for="Magento\Sales\Model\Service\CreditmemoService" type="Cpss\Crm\Model\Service\CreditmemoService"/>
+    <preference for="Magento\Sales\Model\Order\Payment" type="Cpss\Crm\Model\Order\Payment" />
+    <preference for="Magento\Framework\Data\Collection" type="Cpss\Crm\Framework\Data\Collection" />
+    <preference for="Magento\Sales\Model\ResourceModel\Order\Handler\State" type="Cpss\Crm\Model\ResourceModel\Order\Handler\State" />
+    <preference for="Magento\Sales\Model\Order" type="Cpss\Crm\Model\Order" />
+
+    <preference for="Magento\Customer\Controller\Account\Login" type="Cpss\Crm\Controller\Account\Login" />
+    <preference for="Magento\Customer\Controller\Account\LoginPost" type="Cpss\Crm\Controller\Account\LoginPost" />
+    <preference for="Magento\Payment\Model\Checks\ZeroTotal" type="Cpss\Crm\Model\Checks\ZeroTotal" />
+</config>

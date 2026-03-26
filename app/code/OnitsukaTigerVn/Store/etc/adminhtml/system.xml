@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="onitsukatiger_vn" translate="label" sortOrder="10">
+            <label>OnitsukaTiger VietNam</label>
+        </tab>
+        <section id="general_vn" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>General</label>
+            <tab>onitsukatiger_vn</tab>
+            <resource>OnitsukaTigerVn_Store::configuration</resource>
+            <group id="customer" translate="label comment" sortOrder="10" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Customer</label>
+                <field id="disable" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Disable Login/Register</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="checkout" translate="label comment" sortOrder="20" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Checkout</label>
+                <field id="disable" translate="label comment" sortOrder="10" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Disable Checkout</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

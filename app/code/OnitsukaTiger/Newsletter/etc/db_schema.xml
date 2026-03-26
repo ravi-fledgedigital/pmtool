@@ -1,0 +1,7 @@
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="newsletter_subscriber" resource="default" engine="innodb" comment="Newsletter Subscriber">
+        <column xsi:type="smallint" name="gender" unsigned="false" nullable="false" comment="Gender"/>
+        <column xsi:type="date" name="dob" nullable="false" comment="Date Of Birth"/>
+        <column xsi:type="smallint" name="send_code" nullable="false" comment="Send Discount Code"/>
+    </table>
+</schema>

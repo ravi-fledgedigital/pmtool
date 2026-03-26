@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="WeltPixel\GA4\Block\Cart" type="OnitsukaTigerKorea\GA4\Block\Cart" />
+    <preference for="WeltPixel\GA4\Observer\CheckoutCartAddProductObserver" type="OnitsukaTigerKorea\GA4\Observer\CheckoutCartAddProductObserver" />
+    <type name="WeltPixel\GA4\Helper\Data">
+        <plugin name="onitsukatiger_kr_ga4_data" type="OnitsukaTigerKorea\GA4\Plugin\DataPlugin" sortOrder="99"/>
+    </type>
+    <type name="WeltPixel\GA4\Block\Order">
+        <plugin name="onitsukatiger_kr_ga4_order" type="OnitsukaTigerKorea\GA4\Plugin\OrderPlugin" sortOrder="99"/>
+    </type>
+</config>

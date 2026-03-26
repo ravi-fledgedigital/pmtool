@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Vaimo\AepEventStreaming\Api\ConfigInterface" type="Vaimo\AepEventStreaming\Model\Config"/>
+    <preference for="Vaimo\AepEventStreaming\Api\RestClientInterface" type="Vaimo\AepEventStreaming\Model\RestClient"/>
+    <preference for="Vaimo\AepEventStreaming\Api\Data\RequestInterface" type="Vaimo\AepEventStreaming\Model\Data\Request"/>
+    <preference for="Vaimo\AepEventStreaming\Api\Data\IngestRecordInterface" type="Vaimo\AepEventStreaming\Model\Response\IngestRecord"/>
+
+    <type name="Vaimo\AepBase\Model\AbandonedCarts\Processor">
+        <plugin name="Vaimo_AepEventStreaming" type="Vaimo\AepEventStreaming\Plugin\AbandonedCartsPlugin" sortOrder="50" />
+    </type>
+
+    <type name="Magento\Customer\Api\CustomerRepositoryInterface">
+        <plugin name="Vaimo_AepEventStreaming" type="Vaimo\AepEventStreaming\Plugin\CustomerRepositoryPlugin" sortOrder="50" />
+    </type>
+    <type name="Magento\Customer\Api\AddressRepositoryInterface">
+        <plugin name="Vaimo_AepEventStreaming" type="Vaimo\AepEventStreaming\Plugin\Customer\AddressRepositoryPlugin" sortOrder="50" />
+    </type>
+</config>

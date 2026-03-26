@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Sapient\Worldpay\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Sapient\Worldpay\Logger\WorldpayLogger">
+        <arguments>
+            <argument name="name" xsi:type="string">WorldPay</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Sapient\Worldpay\Logger\WorldpayHandler</item>
+            </argument>
+        </arguments>
+    </type>
+    
+    <type name="Magento\Framework\App\Request\CsrfValidator">
+        <plugin name="csrf_validator_disable" type="Sapient\Worldpay\Plugin\CsrfValidatorDisable" />
+    </type>
+
+
+    <type name="Magento\Checkout\Model\GuestPaymentInformationManagement">
+        <plugin name="WorldpayPaymentMessagesGuestPaymentInformationManagement" type="Sapient\Worldpay\Plugin\GuestPaymentInformationManagement" />
+    </type>
+    <type name="Magento\Checkout\Model\PaymentInformationManagement">
+        <plugin name="WorldpayPaymentMessagesPaymentInformationManagement" type="Sapient\Worldpay\Plugin\PaymentInformationManagement" />
+    </type>
+    <type name="Sapient\Worldpay\Model\MethodList">
+        <arguments>
+            <argument name="methodCodes" xsi:type="array">
+                <item name="worldpay_cc" xsi:type="string">worldpay_cc</item>
+                <item name="worldpay_apm" xsi:type="string">worldpay_apm</item>
+                <item name="worldpay_moto" xsi:type="string">worldpay_moto</item>
+                <item name="worldpay_cc_vault" xsi:type="string">worldpay_cc_vault</item>
+                <item name="worldpay_wallets" xsi:type="string">worldpay_wallets</item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Sapient\Worldpay\Api\HistoryInterface" type="Sapient\Worldpay\Model\Notification\History" />
+    <preference for="Sapient\Worldpay\Api\PaymentTypeInterface" type="Sapient\Worldpay\Model\Payment\PaymentTypes" />
+    <preference for="Sapient\Worldpay\Api\HostedUrlInterface" type="Sapient\Worldpay\Model\Payment\HostedUrl" />
+    <preference for="Sapient\Worldpay\Api\LatAmInstalInterface" type="Sapient\Worldpay\Model\Payment\LatAmInstalTypes" />
+    <preference for="Magento\Vault\Model\Method\Vault" type="Sapient\Worldpay\Model\PaymentMethods\CcVault" />
+    <preference for="Magento\Sales\Model\Order\Email\Sender\OrderSender" type="Sapient\Worldpay\Model\Order\Email\Sender\OrderSender"/>
+    <preference for="Sapient\Worldpay\Api\MultishippingInterface" type="Sapient\Worldpay\Model\Multishipping\Multishipping" />
+    <preference for="Sapient\Worldpay\Api\RecurringShippingMethodInterface" type="Sapient\Worldpay\Model\Recurring\Order\ShippingMethods" />
+    <preference for="Sapient\Worldpay\Api\UpdateRecurringShipmentInterface" type="Sapient\Worldpay\Model\Recurring\Order\UpdateRecurringShipment" />
+    <preference for="Sapient\Worldpay\Api\CustomerPaymentTokenInterface" type="Sapient\Worldpay\Model\Recurring\Order\CustomerPaymentTokens" />
+    <preference for="Sapient\Worldpay\Api\UpdateRecurringTokenInterface" type="Sapient\Worldpay\Model\Recurring\Order\UpdateRecurringToken" />
+    <preference for="Sapient\Worldpay\Api\Data\EditSubscriptionHistoryInterface" type="Sapient\Worldpay\Model\EditSubscriptionHistory" />
+    <preference for="Sapient\Worldpay\Api\EditSubscriptionHistoryRepositoryInterface" type="Sapient\Worldpay\Model\EditSubscriptionHistory" />
+   
+    <preference for="Sapient\Worldpay\Api\Data\SkipSubscriptionOrderInterface"
+                type="Sapient\Worldpay\Model\SkipSubscriptionOrder"/>
+    <preference for="Sapient\Worldpay\Api\SkipSubscriptionOrderRepositoryInterface"
+                type="Sapient\Worldpay\Model\SkipSubscriptionOrderRepository"/>
+
+    <type name="Sapient\Worldpay\Model\PaymentMethods\CcVault">
+        <arguments>
+            <argument name="logger" xsi:type="object">Sapient\Worldpay\Logger\WorldpayLogger</argument>
+            <argument name="directservice" xsi:type="object">Sapient\Worldpay\Model\Authorisation\DirectService</argument>
+            <argument name="quoteRepository" xsi:type="object">Magento\Quote\Api\CartRepositoryInterface</argument>
+            <argument name="worldpayhelper" xsi:type="object">Sapient\Worldpay\Helper\Data</argument>
+            <argument name="worldpaypayment" xsi:type="object">Sapient\Worldpay\Model\WorldpaymentFactory</argument>
+            <argument name="worldpaypaymentmodel" xsi:type="object">Sapient\Worldpay\Model\Worldpayment</argument>
+            <argument name="paymentutils" xsi:type="object">Sapient\Worldpay\Model\Utilities\PaymentMethods</argument>
+            <argument name="paymentservicerequest" xsi:type="object">Sapient\Worldpay\Model\Request\PaymentServiceRequest</argument>
+            <argument name="adminhtmlresponse" xsi:type="object">Sapient\Worldpay\Model\Response\AdminhtmlResponse</argument>
+            <argument name="registry" xsi:type="object">Magento\Framework\Registry</argument>
+        </arguments>
+    </type>
+    <!-- Payment Method configuration -->
+    <virtualType name="WorldpayVaultPaymentConfig" type="Magento\Payment\Gateway\Config\Config">
+        <arguments>
+            <argument name="methodCode" xsi:type="const">Sapient\Worldpay\Model\WorldpayConfigProvider::CC_VAULT_CODE</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="WorldpayVaultPaymentValueHandler" type="VaultPaymentDefaultValueHandler">
+        <arguments>
+            <argument name="configInterface" xsi:type="object">WorldpayVaultPaymentConfig</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="WorldpayVaultPaymentValueHandlerPool" type="VaultPaymentValueHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="default" xsi:type="string">WorldpayVaultPaymentValueHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="WorldpayCreditCardVaultFacade" type="Sapient\Worldpay\Model\PaymentMethods\CcVault">
+        <arguments>
+            <argument name="config" xsi:type="object">WorldpayVaultPaymentConfig</argument>
+            <argument name="valueHandlerPool" xsi:type="object">WorldpayVaultPaymentValueHandlerPool</argument>
+            <argument name="vaultProvider" xsi:type="object">Sapient\Worldpay\Model\PaymentMethods\CreditCards</argument>
+            <argument name="code" xsi:type="const">Sapient\Worldpay\Model\WorldpayConfigProvider::CC_VAULT_CODE</argument>
+        </arguments>
+    </virtualType>
+    
+    <!-- Worldpay Subscription Settings -->
+    <virtualType name="Magento\Catalog\Pricing\Price\Pool" type="Magento\Framework\Pricing\Price\Pool">
+        <arguments>
+            <argument name="prices" xsi:type="array">
+                <item name="worldpay_subscription_price" xsi:type="string">Sapient\Worldpay\Model\Pricing\Price\PlanPrice</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Catalog\Helper\Product\Configuration">
+        <plugin name="worldpay_payment" type="Sapient\Worldpay\Helper\Product\Configuration\Plugin" sortOrder="100"/>
+    </type>
+    
+    <type name="Magento\Catalog\Model\Product">
+        <plugin name="worldpay_payment" type="Sapient\Worldpay\Model\ProductPlugin" sortOrder="100"/>
+    </type>
+    <type name="Magento\Catalog\Model\Product\Type\Simple">
+        <plugin name="worldpay_payment" type="Sapient\Worldpay\Model\Product\Type\SimplePlugin" sortOrder="100"/>
+    </type>
+    <type name="Magento\Catalog\Model\Product\Type\Virtual">
+        <plugin name="worldpay_payment" type="Sapient\Worldpay\Model\Product\Type\SimplePlugin" sortOrder="100"/>
+    </type>
+    
+    <type name="Magento\Sales\Block\Order\Email\Items\DefaultItems">
+        <plugin name="worldpay_payment" type="Sapient\Worldpay\Block\Sales\Order\Email\Items\DefaultItemsPlugin" sortOrder="100"/>
+    </type>
+    <type name="Magento\Sales\Block\Order\Email\Items\Order\DefaultOrder">
+        <plugin name="worldpay_payment" type="Sapient\Worldpay\Block\Sales\Order\Email\Items\Order\DefaultOrderPlugin" sortOrder="100"/>
+    </type> 
+    <type name="Magento\Sales\Block\Order\Item\Renderer\DefaultRenderer">
+        <plugin name="worldpay_payment" type="Sapient\Worldpay\Block\Sales\Order\Item\Renderer\DefaultRendererPlugin" sortOrder="100"/>
+    </type>
+    <!-- Multishipping -->
+    <type name="Magento\Multishipping\Model\Checkout\Type\Multishipping">
+        <arguments>
+            <argument name="paymentSpecification" xsi:type="object">multishippingPaymentSpecification</argument>
+        </arguments>
+    </type>
+    <virtualType name="multishippingPaymentSpecification" type="Magento\Payment\Model\Method\Specification\Composite">
+        <arguments>
+            <argument name="specifications" xsi:type="array">
+                <item name="enabled" xsi:type="string">Magento\Multishipping\Model\Payment\Method\Specification\Enabled</item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

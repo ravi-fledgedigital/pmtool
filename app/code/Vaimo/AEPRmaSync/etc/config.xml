@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+ /**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <aep_event_streaming>
+            <rma_sync>
+                <endpoint>https://dcs.adobedc.net/collection/3e9006006f03e360a0716e97651d5603996c2c24b7851e45c23e4e26e28024df</endpoint>
+                <schema_id>c112e7e251ca57c8d6d22eb66a3944846148fc0cbdf0818c</schema_id>
+                <dataset_id>65036f9fe109b0289d22a3c5</dataset_id>
+                <flow_id>c8ed4ec2-c3f9-44b1-a12c-18e4f43a91b4</flow_id>
+            </rma_sync>
+        </aep_event_streaming>
+    </default>
+</config>

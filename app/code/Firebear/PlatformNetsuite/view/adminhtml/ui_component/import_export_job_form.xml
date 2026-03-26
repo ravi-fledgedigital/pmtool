@@ -1,0 +1,1756 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @copyright: Copyright © 2019 Firebear Studio. All rights reserved.
+ * @author   : Firebear Studio <fbeardev@gmail.com>
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="behavior">
+        <field name="behavior_field_location_internal_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Firebear_ImportExport/js/form/dep-file</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Netsuite Location Internal Id</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_location_internal_id</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteProduct" xsi:type="string">netsuiteProduct</item>
+                    </item>
+                    <item name="notice" xsi:type="string">To manage a locations:
+                        1) Open the Netsuite system  https://system.netsuite.com.
+                        2) Go to Setup > Company > Classifications > Locations > New
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_image_folder_internal_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Firebear_ImportExport/js/form/dep-file</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Netsuite Image Folder Internal Id</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">31</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_image_folder_internal_id</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteProduct" xsi:type="string">netsuiteProduct</item>
+                    </item>
+                    <item name="notice" xsi:type="string">To manage a folders:
+                        1) Open the Netsuite system  https://system.netsuite.com.
+                        2) Go to Documents > Files > File Cabinet
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_currency_internal_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Firebear_ImportExport/js/form/dep-file</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Netsuite Currency Internal Id</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">32</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_currency_internal_id</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteProduct" xsi:type="string">netsuiteProduct</item>
+                    </item>
+                    <item name="notice" xsi:type="string">To manage a currencies:
+                        1) Open the Netsuite system  https://system.netsuite.com.
+                        2) Go to Financial > Lists > Currencies
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_tax_schedule_internal_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Firebear_ImportExport/js/form/dep-file</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Netsuite Tax Schedule Internal Id</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">33</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_tax_schedule_internal_id</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteProduct" xsi:type="string">netsuiteProduct</item>
+                    </item>
+                    <item name="notice" xsi:type="string">To manage a Tax Schedule:
+                        1) Open the Netsuite system  https://system.netsuite.com.
+                        2) Go to Financial > Lists > Tax Schedules
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_sales_tax_code_internal_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Firebear_ImportExport/js/form/dep-file</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Netsuite Tax Code Internal Id</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">34</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_sales_tax_code_internal_id</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteProduct" xsi:type="string">netsuiteProduct</item>
+                        <item name="netsuiteOrder" xsi:type="string">netsuiteOrder</item>
+                    </item>
+                    <item name="notice" xsi:type="string">To manage a Tax Codes:
+                        1) Open the Netsuite system  https://system.netsuite.com.
+                        2) Go to Setup > Accounting > Tax Codes
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_export_images">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/form/element/single-checkbox</item>
+                    <item name="label" xsi:type="string" translate="true">Export Product Images</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">35</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_export_images</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteProduct" xsi:type="string">netsuiteProduct</item>
+                    </item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_subsidiary_internal_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Firebear_ImportExport/js/form/dep-file</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Netsuite Subsidiary Internal Id</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">35</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_subsidiary_internal_id</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteProduct" xsi:type="string">netsuiteProduct</item>
+                        <item name="netsuiteOrder" xsi:type="string">netsuiteOrder</item>
+                        <item name="netsuiteCustomer" xsi:type="string">netsuiteCustomer</item>
+                    </item>
+                    <item name="notice" xsi:type="string">To manage a Subsidiary:
+                        1) Open the Netsuite system  https://system.netsuite.com.
+                        2) Go to Setup > Other Setup > Subsidiaries
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_sales_rep_internal_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Firebear_ImportExport/js/form/dep-file</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Netsuite Customers Sales Rep Internal Id</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">36</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_sales_rep_internal_id</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteCustomer" xsi:type="string">netsuiteCustomer</item>
+                        <item name="netsuiteOrder" xsi:type="string">netsuiteOrder</item>
+                    </item>
+                    <item name="notice" xsi:type="string">To manage a Employees
+                        1) Open the Netsuite system  https://system.netsuite.com.
+                        2) Go to Lists > Employees
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_customer_category_internal_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Firebear_ImportExport/js/form/dep-file</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Netsuite Customers Category Internal Id</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">37</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_customer_category_internal_id</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteCustomer" xsi:type="string">netsuiteCustomer</item>
+                        <item name="netsuiteOrder" xsi:type="string">netsuiteOrder</item>
+                    </item>
+                    <item name="notice" xsi:type="string">To manage a Customer Categories
+                        1) Open the Netsuite system  https://system.netsuite.com.
+                        2) Go to Setup > Accounting > Accounting Lists
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_customer_terms_internal_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Firebear_ImportExport/js/form/dep-file</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Netsuite Customers Terms Internal Id</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">38</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_customer_terms_internal_id</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteCustomer" xsi:type="string">netsuiteCustomer</item>
+                        <item name="netsuiteOrder" xsi:type="string">netsuiteOrder</item>
+                    </item>
+                    <item name="notice" xsi:type="string">To manage a Customer Terms
+                        1) Open the Netsuite system  https://system.netsuite.com.
+                        2) Go to Setup > Accounting > Accounting Lists
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_customer_price_level_internal_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Firebear_ImportExport/js/form/dep-file</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Default Netsuite Customers Price Level Internal Id</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">39</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_customer_price_level_internal_id</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteCustomer" xsi:type="string">netsuiteCustomer</item>
+                        <item name="netsuiteOrder" xsi:type="string">netsuiteOrder</item>
+                    </item>
+                    <item name="notice" xsi:type="string">To manage a Customer Price Levels
+                        1) Open the Netsuite system  https://system.netsuite.com.
+                        2) Go to Setup > Accounting > Accounting Lists
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_customer_lead_source_internal_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Firebear_ImportExport/js/form/dep-file</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Default Netsuite Customers Lead Source Internal Id</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_customer_lead_source_internal_id</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteCustomer" xsi:type="string">netsuiteCustomer</item>
+                        <item name="netsuiteOrder" xsi:type="string">netsuiteOrder</item>
+                    </item>
+                    <item name="notice" xsi:type="string">To manage a Customer Lead Source if you have enabled the Marketing Automation feature
+                        1) Open the Netsuite system  https://system.netsuite.com.
+                        2) Go to List > Marketing > Marketing Campaigns.
+                        If you do not use the Marketing Automation feature, you can create new leads sources at Setup > Sales > CRM Lists > New > Lead Source.
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_export_advanced_pricing">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/form/element/single-checkbox</item>
+                    <item name="label" xsi:type="string" translate="true">Export Advanced Pricing</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">41</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_export_advanced_pricing</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteProduct" xsi:type="string">netsuiteProduct</item>
+                    </item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_сustomer_export_company">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/single-checkbox</item>
+                    <item name="template" xsi:type="string">Firebear_PlatformNetsuite/switcher</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Export the customer company attribute to Netsuite</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">35</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_сustomer_export_company</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.ns}.${$.ns}.behavior.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteCustomer" xsi:type="string">netsuiteCustomer</item>
+                        <item name="netsuiteOrder" xsi:type="string">netsuiteOrder</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_order_department_internal_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Firebear_ImportExport/js/form/dep-file</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Netsuite Department Internal Id</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">41</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_order_department_internal_id</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteOrder" xsi:type="string">netsuiteOrder</item>
+                        <item name="netsuiteProduct" xsi:type="string">netsuiteOrder</item>
+                    </item>
+                    <item name="notice" xsi:type="string">To manage a Departments
+                        1) Open the Netsuite system  https://system.netsuite.com.
+                        2) Go to Setup > Company > Classifications > Departments
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_order_location_internal_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Firebear_ImportExport/js/form/dep-file</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Netsuite Order Location Internal Id</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">42</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_order_location_internal_id</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteOrder" xsi:type="string">netsuiteOrder</item>
+                    </item>
+                    <item name="notice" xsi:type="string">To manage a Locations:
+                        1) Open the Netsuite system  https://system.netsuite.com.
+                        2) Go to Setup > Company > Classifications > Locations
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_order_shipping_item_internal_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Firebear_ImportExport/js/form/dep-file</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Default Netsuite Order Shipping Item Internal Id</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">43</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_order_shipping_item_internal_id</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteOrder" xsi:type="string">netsuiteOrder</item>
+                    </item>
+                    <item name="notice" xsi:type="string">To manage a Shipping Items:
+                        1) Open the Netsuite system  https://system.netsuite.com.
+                        2) Go to Lists > Accounting > Shipping Items
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_export_configurable_product">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/form/element/single-checkbox</item>
+                    <item name="label" xsi:type="string" translate="true">Export Configurable Products</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">44</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_export_configurable_product</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteProduct" xsi:type="string">netsuiteProduct</item>
+                    </item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="notice" xsi:type="string">Make sure you exported attributes from Magento to Netsuite before importing Configurable Products</item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_export_bundle_products_as_grouped_products">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/form/element/single-checkbox</item>
+                    <item name="label" xsi:type="string" translate="true">Export Bundle Products as Grouped Products</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">45</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_export_bundle_products_as_grouped_products</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteProduct" xsi:type="string">netsuiteProduct</item>
+                    </item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="notice" xsi:type="string">Bundle products will be exported as Grouped Products</item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_custom_item_field_applies_to_inventory">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/form/element/single-checkbox</item>
+                    <item name="label" xsi:type="string" translate="true">Applies To Inventory Item</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">46</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteAttribute" xsi:type="string">netsuiteAttribute</item>
+                    </item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_custom_item_field_applies_to_non_inventory">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/form/element/single-checkbox</item>
+                    <item name="label" xsi:type="string" translate="true">Applies To Non-Inventory Item</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">47</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteAttribute" xsi:type="string">netsuiteAttribute</item>
+                    </item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_custom_item_field_applies_to_service">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/form/element/single-checkbox</item>
+                    <item name="label" xsi:type="string" translate="true">Applies To Service</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">48</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteAttribute" xsi:type="string">netsuiteAttribute</item>
+                    </item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_custom_item_field_applies_to_othercharge">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/form/element/single-checkbox</item>
+                    <item name="label" xsi:type="string" translate="true">Applies To Other Charge</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">49</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteAttribute" xsi:type="string">netsuiteAttribute</item>
+                    </item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_custom_item_field_applies_to_group">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/form/element/single-checkbox</item>
+                    <item name="label" xsi:type="string" translate="true">Applies To Group</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">50</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteAttribute" xsi:type="string">netsuiteAttribute</item>
+                    </item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_custom_item_field_applies_to_kit">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/form/element/single-checkbox</item>
+                    <item name="label" xsi:type="string" translate="true">Applies To Kit/Package</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">51</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteAttribute" xsi:type="string">netsuiteAttribute</item>
+                    </item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_custom_item_field_print_on_price_list">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/form/element/single-checkbox</item>
+                    <item name="label" xsi:type="string" translate="true">Print on price list</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">52</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteAttribute" xsi:type="string">netsuiteAttribute</item>
+                    </item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_custom_item_field_subscription_plan">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/form/element/single-checkbox</item>
+                    <item name="label" xsi:type="string" translate="true">Subscription Plan</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">53</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteAttribute" xsi:type="string">netsuiteAttribute</item>
+                    </item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_generate_customer_deposite">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/single-checkbox</item>
+                    <item name="template" xsi:type="string">Firebear_PlatformNetsuite/switcher</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Generate a Customer Deposite for an order</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">54</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_generate_customer_deposite</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.ns}.${$.ns}.behavior.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteOrder" xsi:type="string">netsuiteOrder</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_use_increment_id_instead_po_number">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/single-checkbox</item>
+                    <item name="template" xsi:type="string">Firebear_PlatformNetsuite/switcher</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Use order increment id instead of PO number</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">54</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_use_increment_id_instead_po_number</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.ns}.${$.ns}.behavior.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteOrder" xsi:type="string">netsuiteOrder</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_custom_item_field_enable_matrix_option">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/form/element/single-checkbox</item>
+                    <item name="label" xsi:type="string" translate="true">Enable matrix option for custom item fields with a List</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">55</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteAttribute" xsi:type="string">netsuiteAttribute</item>
+                    </item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_custom_item_field_subtype" formElement="select" component="Firebear_PlatformNetsuite/js/form/element/select-subtype">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteAttribute" xsi:type="string">netsuiteAttribute</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Subtype</label>
+                <dataScope>behavior_field_custom_item_field_subtype</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options>
+                            <option name="both" xsi:type="array">
+                                <item name="value" xsi:type="string">0</item>
+                                <item name="label" xsi:type="string">Both</item>
+                            </option>
+                            <option name="purchase" xsi:type="array">
+                                <item name="value" xsi:type="string">1</item>
+                                <item name="label" xsi:type="string">Purchase</item>
+                            </option>
+                            <option name="sale" xsi:type="array">
+                                <item name="value" xsi:type="string">2</item>
+                                <item name="label" xsi:type="string">Sale</item>
+                            </option>
+                        </options>
+                        <caption translate="true">-- Please Select --</caption>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="behavior_field_auto_apply_credit">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Firebear_ImportExport/js/form/element/single-checkbox</item>
+                    <item name="template" xsi:type="string">Firebear_ImportExport/form/element/switcher</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Automatically apply credit to the oldest open receivable</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">54</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_auto_apply_credit</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.ns}.${$.ns}.behavior.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteOrder" xsi:type="string">netsuiteOrder</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_fund_internal_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Firebear_ImportExport/js/form/dep-file</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Netsuite Fund Item Internal Id</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">56</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_fund_internal_id</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteProduct" xsi:type="string">netsuiteProduct</item>
+                    </item>
+                    <item name="notice" xsi:type="string">To manage a Funds:
+                        1) Open the Netsuite system  https://system.netsuite.com.
+                        2) Go to Setup > Company > Classifications > Funds
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_sales_discount_item_internal_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Firebear_ImportExport/js/form/dep-file</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Netsuite Discount Item Internal Id</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">56</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_sales_discount_item_internal_id</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteOrder" xsi:type="string">netsuiteOrder</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_netsuite_price_level_ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Firebear_ImportExport/js/form/dep-file</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">NetSuite Price Level Ids</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">55</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_netsuite_price_level_ids</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">false</item>
+                    </item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.parentName}.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteProduct" xsi:type="string">netsuiteProduct</item>
+                    </item>
+                    <item name="notice" xsi:type="string">
+                        Enter the Internal IDs of the price levels separated by commas
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_set_entity_id_for_customer">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/single-checkbox</item>
+                    <item name="template" xsi:type="string">Firebear_PlatformNetsuite/switcher</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Set First Name + Last Name as The Customer Entity Id</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">56</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_set_entity_id_for_customer</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">1</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.ns}.${$.ns}.behavior.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteOrder" xsi:type="string">netsuiteOrder</item>
+                        <item name="netsuiteCustomer" xsi:type="string">netsuiteCustomer</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_set_attribute_default_value">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/single-checkbox</item>
+                    <item name="template" xsi:type="string">Firebear_PlatformNetsuite/switcher</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Export an attribute's default values</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">56</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_set_attribute_default_value</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                    <item name="imports" xsi:type="array">
+                        <item name="toggleVisibility" xsi:type="string">${$.ns}.${$.ns}.behavior.behavior_field_file_format:value</item>
+                    </item>
+                    <item name="valuesForOptions" xsi:type="array">
+                        <item name="netsuiteAttribute" xsi:type="string">netsuiteAttribute</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="behavior_field_netsuite_credentials" class="Firebear\ImportExport\Ui\Component\Form\ExportFieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/components/visible-on-options/fieldset</item>
+                <item name="label" xsi:type="string" translate="true">Netsuite Credentials</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">34</item>
+                <item name="visible" xsi:type="boolean">false</item>
+                <item name="imports" xsi:type="array">
+                    <item name="toggleVisibility" xsi:type="string">${$.ns}.${$.ns}.behavior.behavior_field_file_format:value</item>
+                </item>
+                <item name="valuesForOptions" xsi:type="array">
+                    <item name="netsuiteProduct" xsi:type="string">netsuiteProduct</item>
+                    <item name="netsuiteOrder" xsi:type="string">netsuiteOrder</item>
+                    <item name="netsuiteCustomer" xsi:type="string">netsuiteCustomer</item>
+                    <item name="netsuiteAttribute" xsi:type="string">netsuiteAttribute</item>
+                    <item name="netsuiteStockSource" xsi:type="string">netsuiteStockSource</item>
+                    <item name="netsuiteStockSourceQty" xsi:type="string">netsuiteStockSourceQty</item>
+                </item>
+            </item>
+        </argument>
+        <field name="behavior_field_netsuite_credentials_endpoint">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Endpoint</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_netsuite_credentials_endpoint</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_netsuite_credentials_host">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Host</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_netsuite_credentials_host</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_netsuite_credentials_account">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Account</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_netsuite_credentials_account</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_netsuite_credentials_consumer_key">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Consumer Key</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="template" xsi:type="string">Firebear_PlatformNetsuite/password</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_netsuite_credentials_consumer_key</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_netsuite_credentials_consumer_secret">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Consumer Secret</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="template" xsi:type="string">Firebear_PlatformNetsuite/password</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">50</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_netsuite_credentials_consumer_secret</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_netsuite_credentials_token">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Token</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="template" xsi:type="string">Firebear_PlatformNetsuite/password</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">60</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_netsuite_credentials_token</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_netsuite_credentials_token_secret">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Token Secret</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="template" xsi:type="string">Firebear_PlatformNetsuite/password</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">70</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_netsuite_credentials_token_secret</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="behavior_field_netsuite_credentials_use_old_http_protocol_version">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/single-checkbox</item>
+                    <item name="template" xsi:type="string">Firebear_PlatformNetsuite/switcher</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="label" xsi:type="string" translate="true">Use the HTTP 1.0 protocol version option for the SOAP request</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="source" xsi:type="string">export</item>
+                    <item name="sortOrder" xsi:type="number">80</item>
+                    <item name="dataScope" xsi:type="string">behavior_field_netsuite_credentials_use_old_http_protocol_version</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="visible" xsi:type="string">true</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="number">1</item>
+                        <item name="false" xsi:type="number">0</item>
+                    </item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+<!--    <fieldset name="behavior_field_netsuite_currencies_map_container" class="Firebear\ImportExport\Ui\Component\Form\ExportFieldset">-->
+<!--        <argument name="data" xsi:type="array">-->
+<!--            <item name="config" xsi:type="array">-->
+<!--                <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/components/visible-on-options/fieldset</item>-->
+<!--                <item name="label" xsi:type="string" translate="true">Map Currencies</item>-->
+<!--                <item name="collapsible" xsi:type="boolean">true</item>-->
+<!--                <item name="sortOrder" xsi:type="number">56</item>-->
+<!--                <item name="visible" xsi:type="boolean">false</item>-->
+<!--                <item name="imports" xsi:type="array">-->
+<!--                    <item name="toggleVisibility" xsi:type="string">${$.ns}.${$.ns}.behavior.behavior_field_file_format:value</item>-->
+<!--                </item>-->
+<!--                <item name="valuesForOptions" xsi:type="array">-->
+<!--                    <item name="netsuiteProduct" xsi:type="string">netsuiteProduct</item>-->
+<!--                </item>-->
+<!--            </item>-->
+<!--        </argument>-->
+<!--        <dynamicRows name="behavior_field_netsuite_currencies_map">-->
+<!--            <argument name="data" xsi:type="array">-->
+<!--                <item name="config" xsi:type="array">-->
+<!--                    <item name="componentType" xsi:type="string">dynamicRows</item>-->
+<!--                    <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/form/element/dynamic-rows</item>-->
+<!--                    <item name="addButtonLabel" xsi:type="string" translate="true">Add New</item>-->
+<!--                    <item name="additionalClasses" xsi:type="array">-->
+<!--                        <item name="admin__field-wide" xsi:type="boolean">true</item>-->
+<!--                    </item>-->
+<!--                    <item name="pageSize" xsi:type="number">120</item>-->
+<!--                    <item name="dndConfig" xsi:type="array">-->
+<!--                        <item name="enabled" xsi:type="boolean">false</item>-->
+<!--                    </item>-->
+<!--                </item>-->
+<!--            </argument>-->
+<!--            <container name="record">-->
+<!--                <argument name="data" xsi:type="array">-->
+<!--                    <item name="config" xsi:type="array">-->
+<!--                        <item name="isTemplate" xsi:type="boolean">true</item>-->
+<!--                        <item name="is_collection" xsi:type="boolean">true</item>-->
+<!--                        <item name="component" xsi:type="string">Magento_Ui/js/dynamic-rows/record</item>-->
+<!--                        <item name="componentType" xsi:type="string">container</item>-->
+<!--                        <item name="positionProvider" xsi:type="string">behavior_field_netsuite_currencies_map.behavior_field_netsuite_currensies_map_position</item>-->
+<!--                    </item>-->
+<!--                </argument>-->
+<!--                <field name="behavior_field_netsuite_currencies_map_currency" class="Firebear\ImportExport\Ui\Component\Form\System\Field">-->
+<!--                    <argument name="data" xsi:type="array">-->
+<!--                        <item name="options" xsi:type="object">Firebear\PlatformNetsuite\UI\Component\Listing\Column\Currencies\Options</item>-->
+<!--                        <item name="source_options" xsi:type="object">Firebear\PlatformNetsuite\UI\Component\Listing\Column\Currencies\Options</item>-->
+<!--                        <item name="config" xsi:type="array">-->
+<!--                            <item name="dataType" xsi:type="string">text</item>-->
+<!--                            <item name="dataScope" xsi:type="string">behavior_field_netsuite_currencies_map_currency</item>-->
+<!--                            <item name="formElement" xsi:type="string">select</item>-->
+<!--                            <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/form/element/select</item>-->
+<!--                            <item name="prefixName" xsi:type="string">behavior_field_netsuite_currencies_map_currency.value</item>-->
+<!--                            <item name="label" xsi:type="string" translate="true">Magento Currency</item>-->
+<!--                        </item>-->
+<!--                    </argument>-->
+<!--                </field>-->
+<!--                <field name="behavior_field_netsuite_currencies_map_ns_id">-->
+<!--                    <argument name="data" xsi:type="array">-->
+<!--                        <item name="config" xsi:type="array">-->
+<!--                            <item name="dataType" xsi:type="string">text</item>-->
+<!--                            <item name="formElement" xsi:type="string">input</item>-->
+<!--                            <item name="component" xsi:type="string">Firebear_ImportExport/js/form/element/input</item>-->
+<!--                            <item name="template" xsi:type="string">Firebear_ImportExport/form/element/input</item>-->
+<!--                            <item name="prefixName" xsi:type="string">behavior_field_netsuite_currencies_map_ns_id.value</item>-->
+<!--                            <item name="label" xsi:type="string" translate="true">NetSuite Currency Internal Id</item>-->
+<!--                        </item>-->
+<!--                    </argument>-->
+<!--                </field>-->
+<!--                <field name="behavior_field_netsuite_currencies_map_position">-->
+<!--                    <argument name="data" xsi:type="array">-->
+<!--                        <item name="config" xsi:type="array">-->
+<!--                            <item name="dataType" xsi:type="string">text</item>-->
+<!--                            <item name="formElement" xsi:type="string">input</item>-->
+<!--                            <item name="dataScope" xsi:type="string">behavior_field_netsuite_currencies_map</item>-->
+<!--                            <item name="component" xsi:type="string">Firebear_ImportExport/js/form/element/input</item>-->
+<!--                            <item name="visible" xsi:type="boolean">false</item>-->
+<!--                            <item name="additionalClasses" xsi:type="array">-->
+<!--                                <item name="_hidden" xsi:type="boolean">true</item>-->
+<!--                            </item>-->
+<!--                        </item>-->
+<!--                    </argument>-->
+<!--                </field>-->
+<!--                <actionDelete name="action_delete">-->
+<!--                    <argument name="data" xsi:type="array">-->
+<!--                        <item name="config" xsi:type="array">-->
+<!--                            <item name="componentType" xsi:type="string">actionDelete</item>-->
+<!--                            <item name="component" xsi:type="string">Firebear_ImportExport/js/form/element/action-delete</item>-->
+<!--                            <item name="elementTmpl" xsi:type="string">Firebear_ImportExport/form/element/action-delete</item>-->
+<!--                            <item name="template" xsi:type="string">Firebear_ImportExport/form/element/action-delete</item>-->
+<!--                            <item name="prefixName" xsi:type="string">behavior_field_netsuite_attribute_map_export.delete</item>-->
+<!--                            <item name="dataType" xsi:type="string">text</item>-->
+<!--                            <item name="fit" xsi:type="boolean">true</item>-->
+<!--                        </item>-->
+<!--                    </argument>-->
+<!--                </actionDelete>-->
+<!--            </container>-->
+<!--        </dynamicRows>-->
+<!--    </fieldset>-->
+    <fieldset name="behavior_field_netsuite_payments_map_container" class="Firebear\ImportExport\Ui\Component\Form\ExportFieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/components/visible-on-options/fieldset</item>
+                <item name="label" xsi:type="string" translate="true">Map Netsuite Account Payment Fields</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">55</item>
+                <item name="visible" xsi:type="boolean">false</item>
+                <item name="imports" xsi:type="array">
+                    <item name="toggleVisibility" xsi:type="string">${$.ns}.${$.ns}.behavior.behavior_field_file_format:value</item>
+                </item>
+                <item name="valuesForOptions" xsi:type="array">
+                    <item name="netsuiteOrder" xsi:type="string">netsuiteOrder</item>
+                </item>
+            </item>
+        </argument>
+        <dynamicRows name="behavior_field_netsuite_payments_map">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="componentType" xsi:type="string">dynamicRows</item>
+                    <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/form/element/dynamic-rows</item>
+                    <item name="addButtonLabel" xsi:type="string" translate="true">Add New</item>
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="admin__field-wide" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="pageSize" xsi:type="number">120</item>
+                    <item name="dndConfig" xsi:type="array">
+                        <item name="enabled" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+            <container name="record">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="isTemplate" xsi:type="boolean">true</item>
+                        <item name="is_collection" xsi:type="boolean">true</item>
+                        <item name="component" xsi:type="string">Magento_Ui/js/dynamic-rows/record</item>
+                        <item name="componentType" xsi:type="string">container</item>
+                        <item name="positionProvider" xsi:type="string">behavior_field_netsuite_payments_map.behavior_field_netsuite_payments_map_position</item>
+                    </item>
+                </argument>
+                <field name="behavior_field_netsuite_payments_map_payment_methods" class="Firebear\ImportExport\Ui\Component\Form\System\Field">
+                    <argument name="data" xsi:type="array">
+                        <item name="options" xsi:type="object">Firebear\PlatformNetsuite\UI\Component\Listing\Column\PaymentMethods\Options</item>
+                        <item name="source_options" xsi:type="object">Firebear\PlatformNetsuite\UI\Component\Listing\Column\PaymentMethods\Options</item>
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="dataScope" xsi:type="string">behavior_field_netsuite_payments_map_payment_methods</item>
+                            <item name="formElement" xsi:type="string">select</item>
+                            <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/form/element/select</item>
+                            <item name="prefixName" xsi:type="string">behavior_field_netsuite_payments_map_payment_methods.value</item>
+                            <item name="label" xsi:type="string" translate="true">Magento Payment Methods</item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="behavior_field_netsuite_payments_map_bank_accounts" class="Firebear\ImportExport\Ui\Component\Form\System\Field">
+                    <argument name="data" xsi:type="array">
+                        <item name="options" xsi:type="object">Firebear\PlatformNetsuite\UI\Component\Listing\Column\PaymentMethods\NetsuiteAccounts\Options</item>
+                        <item name="source_options" xsi:type="object">Firebear\PlatformNetsuite\UI\Component\Listing\Column\PaymentMethods\NetsuiteAccounts\Options</item>
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="dataScope" xsi:type="string">behavior_field_netsuite_payments_map_bank_accounts</item>
+                            <item name="ajaxUrl" xsi:type="url" path="import/export_job/downfields"/>
+                            <item name="formElement" xsi:type="string">select</item>
+                            <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/form/element/select</item>
+                            <item name="prefixName" xsi:type="string">behavior_field_netsuite_payments_map_bank_accounts.value</item>
+                            <item name="label" xsi:type="string" translate="true">Netsuite Accounts</item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="behavior_field_netsuite_payments_map_position">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="dataScope" xsi:type="string">behavior_field_netsuite_payments_map</item>
+                            <item name="component" xsi:type="string">Firebear_ImportExport/js/form/element/input</item>
+                            <item name="visible" xsi:type="boolean">false</item>
+                            <item name="additionalClasses" xsi:type="array">
+                                <item name="_hidden" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                </field>
+                <actionDelete name="action_delete">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="componentType" xsi:type="string">actionDelete</item>
+                            <item name="component" xsi:type="string">Firebear_ImportExport/js/form/element/action-delete</item>
+                            <item name="elementTmpl" xsi:type="string">Firebear_ImportExport/form/element/action-delete</item>
+                            <item name="template" xsi:type="string">Firebear_ImportExport/form/element/action-delete</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="fit" xsi:type="boolean">true</item>
+                        </item>
+                    </argument>
+                </actionDelete>
+            </container>
+        </dynamicRows>
+    </fieldset>
+    <fieldset name="behavior_field_netsuite_shipping_map_container" class="Firebear\ImportExport\Ui\Component\Form\ExportFieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/components/visible-on-options/fieldset</item>
+                <item name="label" xsi:type="string" translate="true">Map Netsuite Shipping Fields</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">35</item>
+                <item name="visible" xsi:type="boolean">false</item>
+                <item name="imports" xsi:type="array">
+                    <item name="toggleVisibility" xsi:type="string">${$.ns}.${$.ns}.behavior.behavior_field_file_format:value</item>
+                </item>
+                <item name="valuesForOptions" xsi:type="array">
+                    <item name="netsuiteOrder" xsi:type="string">netsuiteOrder</item>
+                </item>
+            </item>
+        </argument>
+        <dynamicRows name="behavior_field_netsuite_shipping_map">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="componentType" xsi:type="string">dynamicRows</item>
+                    <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/form/element/dynamic-rows</item>
+                    <item name="addButtonLabel" xsi:type="string" translate="true">Add New</item>
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="admin__field-wide" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="pageSize" xsi:type="number">120</item>
+                    <item name="dndConfig" xsi:type="array">
+                        <item name="enabled" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+            <container name="record">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="isTemplate" xsi:type="boolean">true</item>
+                        <item name="is_collection" xsi:type="boolean">true</item>
+                        <item name="component" xsi:type="string">Magento_Ui/js/dynamic-rows/record</item>
+                        <item name="componentType" xsi:type="string">container</item>
+                        <item name="positionProvider" xsi:type="string">behavior_field_netsuite_shipping_map.behavior_field_netsuite_shipping_map_position</item>
+                    </item>
+                </argument>
+                <field name="behavior_field_netsuite_shipping_map_shipping_methods" class="Firebear\ImportExport\Ui\Component\Form\System\Field">
+                    <argument name="data" xsi:type="array">
+                        <item name="options" xsi:type="object">Firebear\PlatformNetsuite\UI\Component\Listing\Column\ShippingMethods\Options</item>
+                        <item name="source_options" xsi:type="object">Firebear\PlatformNetsuite\UI\Component\Listing\Column\ShippingMethods\Options</item>
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="dataScope" xsi:type="string">behavior_field_netsuite_shipping_map_shipping_methods</item>
+                            <item name="formElement" xsi:type="string">select</item>
+                            <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/form/element/select</item>
+                            <item name="prefixName" xsi:type="string">behavior_field_netsuite_shipping_map_shipping_methods.value</item>
+                            <item name="label" xsi:type="string" translate="true">Magento Shipping Methods</item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="behavior_field_netsuite_shipping_ns_shipping_methods">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="component" xsi:type="string">Firebear_ImportExport/js/form/element/input</item>
+                            <item name="template" xsi:type="string">Firebear_ImportExport/form/element/input</item>
+                            <item name="prefixName" xsi:type="string">behavior_field_netsuite_shipping_ns_shipping_methods.value</item>
+                            <item name="label" xsi:type="string" translate="true">Netsuite Shipping Method Id</item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="behavior_field_netsuite_shipping_map_position">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="dataScope" xsi:type="string">behavior_field_netsuite_shipping_map</item>
+                            <item name="component" xsi:type="string">Firebear_ImportExport/js/form/element/input</item>
+                            <item name="visible" xsi:type="boolean">false</item>
+                            <item name="additionalClasses" xsi:type="array">
+                                <item name="_hidden" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                </field>
+                <actionDelete name="action_delete">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="componentType" xsi:type="string">actionDelete</item>
+                            <item name="component" xsi:type="string">Firebear_ImportExport/js/form/element/action-delete</item>
+                            <item name="elementTmpl" xsi:type="string">Firebear_ImportExport/form/element/action-delete</item>
+                            <item name="template" xsi:type="string">Firebear_ImportExport/form/element/action-delete</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="fit" xsi:type="boolean">true</item>
+                        </item>
+                    </argument>
+                </actionDelete>
+            </container>
+        </dynamicRows>
+    </fieldset>
+    <fieldset name="behavior_field_netsuite_payment_map_container" class="Firebear\ImportExport\Ui\Component\Form\ExportFieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/components/visible-on-options/fieldset</item>
+                <item name="label" xsi:type="string" translate="true">Map Netsuite Payment Fields</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">40</item>
+                <item name="visible" xsi:type="boolean">false</item>
+                <item name="imports" xsi:type="array">
+                    <item name="toggleVisibility" xsi:type="string">${$.ns}.${$.ns}.behavior.behavior_field_file_format:value</item>
+                </item>
+                <item name="valuesForOptions" xsi:type="array">
+                    <item name="netsuiteOrder" xsi:type="string">netsuiteOrder</item>
+                </item>
+            </item>
+        </argument>
+        <dynamicRows name="behavior_field_netsuite_payment_map">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="componentType" xsi:type="string">dynamicRows</item>
+                    <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/form/element/dynamic-rows</item>
+                    <item name="addButtonLabel" xsi:type="string" translate="true">Add New</item>
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="admin__field-wide" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="pageSize" xsi:type="number">120</item>
+                    <item name="dndConfig" xsi:type="array">
+                        <item name="enabled" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+            <container name="record">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="isTemplate" xsi:type="boolean">true</item>
+                        <item name="is_collection" xsi:type="boolean">true</item>
+                        <item name="component" xsi:type="string">Magento_Ui/js/dynamic-rows/record</item>
+                        <item name="componentType" xsi:type="string">container</item>
+                        <item name="positionProvider" xsi:type="string">behavior_field_netsuite_payment_map.behavior_field_netsuite_payment_map_position</item>
+                    </item>
+                </argument>
+                <field name="behavior_field_netsuite_payment_map_payment_methods" class="Firebear\ImportExport\Ui\Component\Form\System\Field">
+                    <argument name="data" xsi:type="array">
+                        <item name="options" xsi:type="object">Firebear\PlatformNetsuite\UI\Component\Listing\Column\PaymentMethods\Options</item>
+                        <item name="source_options" xsi:type="object">Firebear\PlatformNetsuite\UI\Component\Listing\Column\PaymentMethods\Options</item>
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="dataScope" xsi:type="string">behavior_field_netsuite_payment_map_payment_methods</item>
+                            <item name="formElement" xsi:type="string">select</item>
+                            <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/form/element/select</item>
+                            <item name="prefixName" xsi:type="string">behavior_field_netsuite_payment_map_payment_methods.value</item>
+                            <item name="label" xsi:type="string" translate="true">Magento Payment Methods</item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="behavior_field_netsuite_payment_ns_payment_methods">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="component" xsi:type="string">Firebear_ImportExport/js/form/element/input</item>
+                            <item name="template" xsi:type="string">Firebear_ImportExport/form/element/input</item>
+                            <item name="prefixName" xsi:type="string">behavior_field_netsuite_payment_ns_payment_methods.value</item>
+                            <item name="label" xsi:type="string" translate="true">Netsuite Payment Method Id</item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="behavior_field_netsuite_payment_map_position">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="dataScope" xsi:type="string">behavior_field_netsuite_payment_map</item>
+                            <item name="component" xsi:type="string">Firebear_ImportExport/js/form/element/input</item>
+                            <item name="visible" xsi:type="boolean">false</item>
+                            <item name="additionalClasses" xsi:type="array">
+                                <item name="_hidden" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                </field>
+                <actionDelete name="action_delete">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="componentType" xsi:type="string">actionDelete</item>
+                            <item name="component" xsi:type="string">Firebear_ImportExport/js/form/element/action-delete</item>
+                            <item name="elementTmpl" xsi:type="string">Firebear_ImportExport/form/element/action-delete</item>
+                            <item name="template" xsi:type="string">Firebear_ImportExport/form/element/action-delete</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="fit" xsi:type="boolean">true</item>
+                        </item>
+                    </argument>
+                </actionDelete>
+            </container>
+        </dynamicRows>
+    </fieldset>
+    <fieldset name="behavior_field_netsuite_attribute_map_container" class="Firebear\ImportExport\Ui\Component\Form\ExportFieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/components/visible-on-options/fieldset</item>
+                <item name="label" xsi:type="string" translate="true">Map Netsuite Custom Entity Fields</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">56</item>
+                <item name="visible" xsi:type="boolean">false</item>
+                <item name="imports" xsi:type="array">
+                    <item name="toggleVisibility" xsi:type="string">${$.ns}.${$.ns}.behavior.behavior_field_file_format:value</item>
+                </item>
+                <item name="valuesForOptions" xsi:type="array">
+                    <item name="netsuiteProduct" xsi:type="string">netsuiteProduct</item>
+                    <item name="netsuiteOrder" xsi:type="string">netsuiteOrder</item>
+                    <item name="netsuiteCustomer" xsi:type="string">netsuiteCustomer</item>
+                </item>
+            </item>
+        </argument>
+        <dynamicRows name="behavior_field_netsuite_attribute_map">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="componentType" xsi:type="string">dynamicRows</item>
+                    <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/form/element/dynamic-rows</item>
+                    <item name="addButtonLabel" xsi:type="string" translate="true">Add New</item>
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="admin__field-wide" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="pageSize" xsi:type="number">120</item>
+                    <item name="dndConfig" xsi:type="array">
+                        <item name="enabled" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+            <container name="record">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="isTemplate" xsi:type="boolean">true</item>
+                        <item name="is_collection" xsi:type="boolean">true</item>
+                        <item name="component" xsi:type="string">Magento_Ui/js/dynamic-rows/record</item>
+                        <item name="componentType" xsi:type="string">container</item>
+                        <item name="positionProvider" xsi:type="string">behavior_field_netsuite_attribute_map.behavior_field_netsuite_attribute_map_position</item>
+                    </item>
+                </argument>
+                <field name="behavior_field_netsuite_attribute_map_entity" class="Firebear\ImportExport\Ui\Component\Form\System\Field">
+                    <argument name="data" xsi:type="array">
+                        <item name="options" xsi:type="object">Firebear\ImportExport\Ui\Component\Listing\Column\Entity\Types\Options</item>
+                        <item name="source_options" xsi:type="object">Firebear\ImportExport\Ui\Component\Listing\Column\Entity\Types\Options</item>
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="dataScope" xsi:type="string">behavior_field_netsuite_attribute_map_entity</item>
+                            <item name="formElement" xsi:type="string">select</item>
+                            <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/form/element/select-entity</item>
+                            <item name="prefixName" xsi:type="string">behavior_field_netsuite_attribute_map_system.entity</item>
+                            <item name="label" xsi:type="string" translate="true">Entity</item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="behavior_field_netsuite_attribute_map_system" class="Firebear\ImportExport\Ui\Component\Form\System\Field">
+                    <argument name="data" xsi:type="array">
+                        <item name="options" xsi:type="object">Firebear\ImportExport\Ui\Component\Listing\Column\Entity\Options</item>
+                        <item name="source_options" xsi:type="object">Firebear\ImportExport\Ui\Component\Listing\Column\Entity\Options</item>
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="dataScope" xsi:type="string">behavior_field_netsuite_attribute_map_system</item>
+                            <item name="ajaxUrl" xsi:type="url" path="import/export_job/downfields"/>
+                            <item name="formElement" xsi:type="string">select</item>
+                            <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/form/element/select</item>
+                            <item name="prefixName" xsi:type="string">behavior_field_netsuite_attribute_map_system.value</item>
+                            <item name="label" xsi:type="string" translate="true">Magento Attribute</item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="behavior_field_netsuite_attribute_map_export">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="component" xsi:type="string">Firebear_ImportExport/js/form/element/input</item>
+                            <item name="template" xsi:type="string">Firebear_ImportExport/form/element/input</item>
+                            <item name="prefixName" xsi:type="string">behavior_field_netsuite_attribute_map_export.value</item>
+                            <item name="label" xsi:type="string" translate="true">Netsuite Custom Entity Field Id</item>
+                            <item name="imports" xsi:type="array">
+                                <item name="changeText" xsi:type="string" translate="true">${ $.parentName}.behavior_field_netsuite_attribute_map_system:value</item>
+                            </item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="behavior_field_netsuite_attribute_map_replace">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="component" xsi:type="string">Firebear_ImportExport/js/form/element/input</item>
+                            <item name="template" xsi:type="string">Firebear_ImportExport/form/element/input</item>
+                            <item name="prefixName" xsi:type="string">behavior_field_netsuite_attribute_map_replace.value</item>
+                            <item name="label" xsi:type="string" translate="true">Set Default Value</item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="behavior_field_netsuite_attribute_map_position">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="dataScope" xsi:type="string">behavior_field_netsuite_attribute_map_position</item>
+                            <item name="component" xsi:type="string">Firebear_ImportExport/js/form/element/input</item>
+                            <item name="prefixName" xsi:type="string">behavior_field_netsuite_attribute_map_export.order</item>
+                            <item name="visible" xsi:type="boolean">false</item>
+                            <item name="additionalClasses" xsi:type="array">
+                                <item name="_hidden" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                </field>
+                <actionDelete name="action_delete">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="componentType" xsi:type="string">actionDelete</item>
+                            <item name="component" xsi:type="string">Firebear_ImportExport/js/form/element/action-delete</item>
+                            <item name="elementTmpl" xsi:type="string">Firebear_ImportExport/form/element/action-delete</item>
+                            <item name="template" xsi:type="string">Firebear_ImportExport/form/element/action-delete</item>
+                            <item name="prefixName" xsi:type="string">behavior_field_netsuite_attribute_map_export.delete</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="fit" xsi:type="boolean">true</item>
+                        </item>
+                    </argument>
+                </actionDelete>
+            </container>
+        </dynamicRows>
+    </fieldset>
+    <fieldset name="behavior_field_netsuite_customer_price_level_map_container" class="Firebear\ImportExport\Ui\Component\Form\ExportFieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/components/visible-on-options/fieldset</item>
+                <item name="label" xsi:type="string" translate="true">Map Netsuite Customer Price Level</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">57</item>
+                <item name="visible" xsi:type="boolean">false</item>
+                <item name="imports" xsi:type="array">
+                    <item name="toggleVisibility" xsi:type="string">${$.ns}.${$.ns}.behavior.behavior_field_file_format:value</item>
+                </item>
+                <item name="valuesForOptions" xsi:type="array">
+                    <item name="netsuiteCustomer" xsi:type="string">netsuiteCustomer</item>
+                    <item name="netsuiteProduct" xsi:type="string">netsuiteProduct</item>
+                </item>
+            </item>
+        </argument>
+        <dynamicRows name="behavior_field_netsuite_customer_price_level_map">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="componentType" xsi:type="string">dynamicRows</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/dynamic-rows/dynamic-rows</item>
+                    <item name="addButtonLabel" xsi:type="string" translate="true">Add New</item>
+                    <item name="additionalClasses" xsi:type="array">
+                        <item name="admin__field-wide" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="pageSize" xsi:type="number">120</item>
+                    <item name="dndConfig" xsi:type="array">
+                        <item name="enabled" xsi:type="boolean">false</item>
+                    </item>
+                </item>
+            </argument>
+            <container name="record">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="isTemplate" xsi:type="boolean">true</item>
+                        <item name="is_collection" xsi:type="boolean">true</item>
+                        <item name="component" xsi:type="string">Magento_Ui/js/dynamic-rows/record</item>
+                        <item name="componentType" xsi:type="string">container</item>
+                        <item name="positionProvider" xsi:type="string">behavior_field_netsuite_customer_price_level_map.behavior_field_netsuite_customer_price_level_map_position</item>
+                    </item>
+                </argument>
+                <field name="behavior_field_netsuite_customer_price_level_map_customer_group">
+                    <argument name="data" xsi:type="array">
+                        <item name="options" xsi:type="object">Magento\Customer\Ui\Component\Listing\Column\Group\Options</item>
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="dataScope" xsi:type="string">behavior_field_netsuite_customer_price_level_map_customer_group</item>
+                            <item name="formElement" xsi:type="string">select</item>
+                            <item name="component" xsi:type="string">Magento_Ui/js/form/element/select</item>
+                            <item name="label" xsi:type="string" translate="true">Magento Customer Group</item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="behavior_field_netsuite_customer_price_level_map_price_level_id">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="dataScope" xsi:type="string">behavior_field_netsuite_customer_price_level_map_price_level_id</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="label" xsi:type="string" translate="true">Netsuite Price Level Internal Id</item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="behavior_field_netsuite_customer_price_level_map_position">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="dataScope" xsi:type="string">behavior_field_netsuite_attribute_map_position</item>
+                            <item name="component" xsi:type="string">Firebear_ImportExport/js/form/element/input</item>
+                            <item name="visible" xsi:type="boolean">false</item>
+                            <item name="additionalClasses" xsi:type="array">
+                                <item name="_hidden" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                </field>
+                <actionDelete name="action_delete">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="componentType" xsi:type="string">actionDelete</item>
+                            <item name="component" xsi:type="string">Firebear_ImportExport/js/form/element/action-delete</item>
+                            <item name="elementTmpl" xsi:type="string">Firebear_ImportExport/form/element/action-delete</item>
+                            <item name="template" xsi:type="string">Firebear_ImportExport/form/element/action-delete</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="fit" xsi:type="boolean">true</item>
+                        </item>
+                    </argument>
+                </actionDelete>
+            </container>
+        </dynamicRows>
+    </fieldset>
+    <fieldset name="source_data_map_container" class="Firebear\ImportExport\Ui\Component\Form\ExportFieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="component" xsi:type="string">Firebear_PlatformNetsuite/js/components/visible-on-options/fieldset</item>
+                <item name="label" xsi:type="string" translate="true">Map Attributes</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+                <item name="sortOrder" xsi:type="number">58</item>
+                <item name="visible" xsi:type="boolean">false</item>
+                <item name="imports" xsi:type="array">
+                    <item name="toggleVisibility" xsi:type="string">${$.ns}.${$.ns}.behavior.behavior_field_file_format:value</item>
+                </item>
+                <item name="valuesForOptions" xsi:type="array">
+                    <item name="csv" xsi:type="string">csv</item>
+                    <item name="xml" xsi:type="string">xml</item>
+                    <item name="ods" xsi:type="string">ods</item>
+                    <item name="xlsx" xsi:type="string">xlsx</item>
+                </item>
+            </item>
+        </argument>
+    </fieldset>
+</form>

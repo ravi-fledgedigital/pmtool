@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Aitoc\Smtp\Model\Framework\Mail\Transport" type="OnitsukaTiger\Aitoc\Smtp\Model\Framework\Mail\Transport" />
+    <preference for="Aitoc\Smtp\Model\Log" type="OnitsukaTiger\Aitoc\Smtp\Model\Log" />
+    <preference for="Aitoc\Smtp\Model\Sender" type="OnitsukaTiger\Aitoc\Smtp\Model\Sender" />
+    <type name="Aitoc\Smtp\Controller\Adminhtml\Log\Resend">
+        <plugin name="pluginResendEmail" type="OnitsukaTiger\Aitoc\Smtp\Plugin\Controller\Adminhtml\Log\Resend" disabled="false" />
+    </type>
+</config>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="aep_event_streaming">
+            <group id="oauth" translate="label" sortOrder="15" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>OAuth2.0 Credential</label>
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Enable OAuth Credential</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If you are enabling this setting then only get the token using the OAuth credential otherwise default JWT token method use</comment>
+                </field>
+                <field id="endpoint" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Endpoint</label>
+                </field>
+                <field id="grant_type" translate="label" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Grant Type</label>
+                    <comment>Fixed value</comment>
+                </field>
+                <field id="scope" translate="label" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Scopes</label>
+                    <comment>Value of "Scopes" on the Developer Console</comment>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<virtualType name="Clickend\Kerry\Model\ResourceModel\TrackingList\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">kerry_shipping_track</argument>
+			<argument name="resourceModel" xsi:type="string">Clickend\Kerry\Model\ResourceModel\TrackingList\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="kerry_trackinglist_listing_data_source" xsi:type="string">Clickend\Kerry\Model\ResourceModel\TrackingList\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+	
+	<virtualType name="Clickend\Kerry\Model\ResourceModel\TrackingHistory\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">kerry_shipping_track_history</argument>
+			<argument name="resourceModel" xsi:type="string">Clickend\Kerry\Model\ResourceModel\TrackingHistory\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="kerry_trackinghistory_listing_data_source" xsi:type="string">Clickend\Kerry\Model\ResourceModel\TrackingHistory\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+	
+    <preference for="Clickend\Kerry\Api\ShipingStatusInterface" type="Clickend\Kerry\Model\shipingstatusdata" />
+	
+</config>

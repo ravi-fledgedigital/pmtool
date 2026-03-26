@@ -1,0 +1,55 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \Magento\Catalog\Block\Product\View */
+/** @var \WeltPixel\GA4\Helper\XPixelTracking $xPixelHelper */
+$xPixelHelper = $this->helper('WeltPixel\GA4\Helper\XPixelTracking');
+$cspNonceProvider = $xPixelHelper->getCspNonceProvider();
+$product = $block->getProduct();
+?>
+<script <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    let xViewProductEventId = <?= /* @noEscape */ $xPixelHelper->getJsEventIdGenerator('view_product') ?>;
+</script>
+<?php if ($product && $xPixelHelper->isXPixelTrackingEnabled() && $xPixelHelper->shouldXPixelEventBeTracked(\WeltPixel\GA4\Model\Config\Source\XPixel\TrackingEvents::EVENT_VIEW_CONTENT)) :
+        $productPrice = floatval(number_format($product->getPriceInfo()->getPrice('final_price')->getValue() ?? 0, 2, '.', ''));
+?>
+<script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+    if (window.ga4AllowServices) {
+        twq('event', '<?= /* @noEscape */ $xPixelHelper->getTwitterEventId(\WeltPixel\GA4\Model\Config\Source\XPixel\TrackingEvents::EVENT_VIEW_CONTENT) ?>', {
+            value: "<?= /* @noEscape */ $productPrice; ?>",
+            currency: "<?= /* @noEscape */ $xPixelHelper->getCurrencyCode() ?>",
+            contents: [
+                {
+                    content_id: "<?= /* @noEscape */ $xPixelHelper->getXProductId($product) ?>",
+                    content_name: "<?= /* @noEscape */ addslashes(str_replace('"', '&quot;', html_entity_decode($product->getName() ?? ''))) ?>",
+                    content_price: "<?= /* @noEscape */ $productPrice; ?>",
+                    num_items: 1
+                }
+            ],
+            description: 'Product view - <?= /* @noEscape */ addslashes(str_replace('"', '&quot;', html_entity_decode($product->getName() ?? ''))) ?>',
+            conversion_id: xViewProductEventId
+        });
+    }
+</script>
+<?php endif; ?>
+
+
+
+<?php if ($product && $xPixelHelper->isServerSideTrackingEnabled() && $xPixelHelper->shouldXServerSideEventBeTracked(\WeltPixel\GA4\Model\Config\Source\XPixel\TrackingEvents::EVENT_VIEW_CONTENT)) : ?>
+    <script  <?php if ($cspNonceProvider) /* @noEscape */ echo ' nonce="' .  $cspNonceProvider->generateNonce() . '" ' ?>>
+        requirejs(['jquery'],
+            function  ($) {
+                $(document).ready(function() {
+                    var requestUrl = '<?php echo $block->escapeUrl($xPixelHelper->getTwitterSSTrackUrl()); ?>';
+                    $.post({
+                        url: requestUrl,
+                        global: false,
+                        data: {
+                            'conversionId': xViewProductEventId,
+                            'eventName': '<?= /* @noEscape */ \WeltPixel\GA4\Model\Config\Source\XPixel\TrackingEvents::EVENT_VIEW_CONTENT  ?>',
+                            'productId': '<?= /* @noEscape */ $product->getId() ?>'
+                        }
+                    });
+                });
+            });
+    </script>
+<?php endif; ?>

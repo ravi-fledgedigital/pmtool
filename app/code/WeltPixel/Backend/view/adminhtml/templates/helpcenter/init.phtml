@@ -1,0 +1,16 @@
+<?php
+/** @var \WeltPixel\Backend\Helper\Utility $wpHelper */
+$wpHelper = $this->helper('WeltPixel\Backend\Helper\Utility');
+$cspNonceProvider = $wpHelper->getCspNonceProvider();
+?>
+<div>
+    <input type="hidden" name="wp_base_url_jscolor" id="wp_base_url_jscolor" value="<?php  /* @noEscape */ echo $this->getViewFileUrl('WeltPixel_Backend::jscolor'); ?>" />
+</div>
+<script<?php if ($cspNonceProvider): ?> nonce="<?= $block->escapeHtmlAttr($cspNonceProvider->generateNonce()) ?>"<?php endif; ?>>
+    requirejs(['jquery' ],
+        function ($) {
+            $(document).ready(function() {
+                $('.item-weltpixel-helpcenter a').attr('href', 'https://support.weltpixel.com/hc/en-us').attr('target', '_blank');
+            });
+        });
+</script>

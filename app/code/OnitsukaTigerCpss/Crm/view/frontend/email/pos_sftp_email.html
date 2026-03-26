@@ -1,0 +1,17 @@
+<!--@subject {{var subject}}  @-->
+<!--@vars {
+"var this.getUrl($store, 'admin')":"Warehouse Account URL"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+<table>
+    <tr class="email-intro">
+        <td>
+            <p class="greeting">{{trans "%country" country=$country}}</p>
+            <p>{{trans "Please check the corresponding directory on the POS SFTP server."}}</p>
+            <p>{{trans "The files are still on the server and the point process may not be flowing correctly."}}</p>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

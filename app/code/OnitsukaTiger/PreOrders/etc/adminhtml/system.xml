@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="onitsukatiger" translate="label">
+            <label>OnitsukaTiger</label>
+        </tab>
+        <section id="preorders" translate="label" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>PreOrders</label>
+            <tab>onitsukatiger</tab>
+            <resource>OnitsukaTiger_PreOrders::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" >
+                <label>General Configuration</label>
+                <field id="ispreorderenable" translate="label" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Module Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="warehouse_code" translate="label comment" sortOrder="100" type="text" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Warehouse Source Code</label>
+                    <comment>
+                        Add warehouse source code comma seperated.
+                    </comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

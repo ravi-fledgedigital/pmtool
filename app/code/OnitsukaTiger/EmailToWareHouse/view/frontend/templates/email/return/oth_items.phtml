@@ -1,0 +1,35 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+$_invoice = $block->getInvoice();
+$_order   = $block->getOrder();
+/** @var $helperEmailToWareHouse \OnitsukaTiger\EmailToWareHouse\Helper\Data*/
+$helperEmailToWareHouse = $this->helper(\OnitsukaTiger\EmailToWareHouse\Helper\Data::class);
+$squareImage = $helperEmailToWareHouse->getMediaFromUrl('OnitsukaTiger_EmailToWareHouse::images/square.png');
+?>
+
+<?php if ($_invoice && $_order) : ?>
+    <table class="table text-center">
+        <thead>
+        <tr>
+            <th scope="col"><?= $block->escapeHtml(__('ลำดับ')) ?></th>
+            <th scope="col"><?= $block->escapeHtml(__('รหัสสินค้า')) ?></th>
+            <th scope="col"><?= $block->escapeHtml(__('รายละเอียด')) ?></th>
+            <th scope="col"><?= $block->escapeHtml(__('จํานวน')) ?></th>
+            <th scope="col"><?= $block->escapeHtml(__('ส่งคืน'))?>(<img class="square" src="<?= $squareImage ?>">)</th>
+            <th scope="col"><?= $block->escapeHtml(__('จำนวนสินค้าที่ส่งคืน')) ?></th>
+            <th scope="col"><?= $block->escapeHtml(__('รหัสเหตุผลที่ส่งคืน')) ?></th>
+        </tr>
+        </thead>
+        <?php foreach ($_invoice->getAllItems() as $_item) : ?>
+            <?php if (!$_item->getOrderItem()->getParentItem()) : ?>
+                <tbody>
+                <?= $block->getItemHtml($_item) ?>
+                </tbody>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </table>
+<?php endif; ?>

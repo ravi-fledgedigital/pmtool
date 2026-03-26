@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+   <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="onitsukatiger_restock_restock_customer_view_data_source" xsi:type="string">OnitsukaTiger\Restock\Model\ResourceModel\Grid\Stock\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+   <type name="OnitsukaTiger\Restock\Model\ResourceModel\Grid\Stock\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">product_alert_stock</argument>
+            <argument name="resourceModel" xsi:type="string">Magento\ProductAlert\Model\ResourceModel\Stock\Collection</argument>
+        </arguments>
+    </type>
+    <!-- <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="onitsukatiger_restock_restock_listing_data_source" xsi:type="string">OnitsukaTiger\Restock\Model\ResourceModel\Grid\Restock\Collection</item>
+            </argument>
+        </arguments>
+    </type> -->
+    <type name="OnitsukaTiger\Restock\Model\ResourceModel\Grid\Restock\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">catalog_product_entity</argument>
+            <argument name="resourceModel" xsi:type="string">Magento\Catalog\Model\ResourceModel\Product</argument>
+        </arguments>
+    </type>
+
+    <preference for="OnitsukaTiger\Restock\Api\ProductDetailsManagementInterface" type="OnitsukaTiger\Restock\Model\ProductDetailsManagement"/>
+    <type name="Magento\ProductAlert\Controller\Add\Stock">
+        <plugin name="OnitsukaTiger_Restock_Plugin_Magento_ProductAlert_Controller_Add_Stock" type="OnitsukaTiger\Restock\Plugin\Magento\ProductAlert\Controller\Add\Stock" sortOrder="99" disabled="false"/>
+    </type>
+
+    <type name="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable">
+        <plugin name="add_restock_json_data" type="OnitsukaTiger\Restock\Plugin\ConfigurableProduct\Block\Product\View\Type\Configurable" sortOrder="1"/>
+    </type>
+     <virtualType name="OnitsukaTiger\Restock\Model\ResourceModel\GridRestock\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">product_alert_stock_grid</argument>
+            <argument name="resourceModel" xsi:type="string">OnitsukaTiger\Restock\Model\ResourceModel\GridRestock</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="onitsukatiger_restock_restock_listing_data_source" xsi:type="string">OnitsukaTiger\Restock\Model\ResourceModel\GridRestock\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+     <preference for="OnitsukaTiger\Restock\Api\Data\GridInterface" type="OnitsukaTiger\Restock\Model\GridRestock" />
+
+    <!-- <preference for="Magento\Customer\Controller\Account\LoginPost" type="OnitsukaTiger\Restock\Rewrite\Magento\Customer\Controller\Account\LoginPost"/> -->
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="send_product_alert_email" xsi:type="object">OnitsukaTiger\Restock\Console\Command\SendProductAlertEmail</item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Magento\ProductAlert\Controller\Unsubscribe\Stock" type="OnitsukaTiger\Restock\Controller\Unsubscribe\Stock" />
+</config>

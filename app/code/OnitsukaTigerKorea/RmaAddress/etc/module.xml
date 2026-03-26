@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="OnitsukaTigerKorea_RmaAddress" setup_version="1.0.0">
+        <sequence>
+            <module name="Amasty_Rma"/>
+        </sequence>
+    </module>
+</config>

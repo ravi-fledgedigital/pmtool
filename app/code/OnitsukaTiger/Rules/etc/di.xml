@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\Rules\Model\DiscountRegistry" type="OnitsukaTiger\Rules\Model\DiscountRegistry" />
+    <type name="Amasty\Rgrid\Model\DuplicateRuleProcessor">
+        <plugin name="onitsukatiger_rgrid_model_duplicateruleprocessor" type="OnitsukaTiger\Rules\Plugin\Model\DuplicateRuleProcessor" sortOrder="10" />
+    </type>
+</config>

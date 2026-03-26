@@ -1,0 +1,220 @@
+<?php
+/**
+* @author OnitsukaTiger Team
+* @copyright Copyright (c) 2022 OnitsukaTiger (https://www.onitsukatiger.com)
+* @package Custom Checkout Fields for Magento 2
+*/
+?>
+<?php /** @var \OnitsukaTiger\OrderAttribute\Block\Adminhtml\Attribute\Edit\Js $block */ ?>
+<script>
+    require([
+        "jquery",
+        'Magento_Ui/js/modal/prompt',
+        'Magento_Catalog/js/options',
+        "uiRegistry",
+        "underscore",
+        "collapsable",
+        "prototype"
+    ], function (jQuery, prompt, options, rg, _) {
+
+        function saveAndContinueEdit() {
+            editForm.submit($('edit_form').action + 'back/edit/tab/' + product_attribute_tabsJsTabs.activeTab.id);
+        }
+
+        switchFilterSelect = function(id, vals)
+        {
+            var dropdownElement = $(id);
+            if (dropdownElement) {
+                if (vals) {
+                    var value = dropdownElement.value;
+                    dropdownElement.up(1).show();
+                    for (var i = dropdownElement.length - 1; i > 0; i--) {
+                        dropdownElement.remove(i);
+                    }
+                    var index = 1;
+                    _.each(vals, function(optionLabel, optionValue){
+                        var selected = (optionValue === value);
+                        dropdownElement.options[index++] = new Option(optionLabel, optionValue, selected, selected);
+                    }.bind(this));
+                } else {
+                    dropdownElement.up(1).hide();
+                }
+            }
+        }
+
+        function checkOptionsPanelVisibility() {
+            var optionsPanel = jQuery('#manage-options-panel');
+            if (optionsPanel) {
+                var frontendInput = $('frontend_input');
+                var panel = optionsPanel.closest('fieldset');
+                if (frontendInput) {
+                    switch (frontendInput.value) {
+                    <?php foreach ($block->getAttributeInputTypes() as $code => $inputType): ?>
+                        case '<?= /** @noEscape */ $code ?>':
+                        <?php if ($inputType->isManageOptions()): ?>
+                            panel.show();
+                            rg.get('manage-options-panel', function () {
+                                jQuery('#manage-options-panel').trigger('render');
+                            });
+                        <?php else: ?>
+                            panel.hide();
+                        <?php endif;?>
+                            break;
+                    <?php endforeach;?>
+                    }
+                } else {
+                    panel.hide();
+                }
+            }
+        }
+
+        function bindAttributeInputType() {
+            checkOptionsPanelVisibility();
+            switchDefaultValueField();
+        }
+
+        function switchDefaultValueField() {
+            if (!$('frontend_input')) {
+                return;
+            }
+
+            var currentValue = $('frontend_input').value;
+
+            var show_default_value_text = false;
+            var show_default_value_textarea = false;
+            var show_default_value_date = false;
+            var show_default_value_datetime = false;
+            var show_default_value_yesno = false;
+            var show_default_value_html = false;
+
+            var show_min_text_length = false;
+            var show_max_text_length = false;
+            var show_date_range_min = false;
+            var show_date_range_max = false;
+            var show_max_file_size = false;
+            var show_file_extensions = false;
+            var show_future_checkout = true;
+
+            var select_filter_types     = false;
+            var select_validate_filters = false;
+
+            switch (currentValue) {
+            <?php foreach ($block->getAttributeInputTypes() as $code => $inputType): ?>
+                case '<?= /** @noEscape */ $code ?>':
+                <?php foreach ($inputType->getValidateTypes() as $validateType): ?>
+                    show_<?= $block->escapeHtml($validateType) ?> = true;
+                <?php endforeach;?>
+                <?php if ($inputType->getDefaultValue()): ?>
+                    show_default_value_<?= $block->escapeHtml($inputType->getDefaultValue()) ?> = true;
+                <?php endif;?>
+                <?php if ($inputType->isManageOptions()): ?>
+                    optionDefaultInputType = '<?= /** @noEscape */ $inputType->getOptionDefault(); ?>';
+                <?php endif;?>
+                <?php if ($inputType->getFilterTypes()): ?>
+                    select_filter_types = <?= /** @noEscape */ $block->encode($inputType->getFilterTypes()) ?>;
+                <?php endif;?>
+                <?php if ($inputType->getValidateFilters()): ?>
+                    select_validate_filters = <?= /** @noEscape */ $block->encode($inputType->getValidateFilters()) ?>;
+                <?php endif;?>
+                <?php if (!$inputType->isDisplayFutureCheckout()): ?>
+                    show_future_checkout = '<?= /** @noEscape */ $inputType->isDisplayFutureCheckout(); ?>';
+                <?php endif;?>
+                    break;
+            <?php endforeach;?>
+                default:
+                    show_default_value_text = true;
+                    break;
+            }
+
+            $('front_fieldset').previous().show();
+            $('front_fieldset').show();
+
+            switchFilterSelect('input_validation', select_validate_filters);
+            switchFilterSelect('input_filter', select_filter_types);
+
+            setRowVisibility('default_value_text', show_default_value_text);
+            setRowVisibility('default_value_textarea', show_default_value_textarea);
+            setRowVisibility('default_value_html', show_default_value_html);
+            setRowVisibility('default_value_date', show_default_value_date);
+            setRowVisibility('default_value_datetime', show_default_value_datetime);
+            setRowVisibility('default_value_yesno', show_default_value_yesno);
+
+            setRowVisibility('min_text_length', show_min_text_length);
+            setRowVisibility('max_text_length', show_max_text_length);
+            setRowVisibility('date_range_min', show_date_range_min);
+            setRowVisibility('date_range_max', show_date_range_max);
+            setRowVisibility('max_file_size', show_max_file_size);
+            setRowVisibility('file_extensions', show_file_extensions);
+            setRowVisibility('save_to_future_checkout', show_future_checkout);
+
+            var elems = document.getElementsByName('default[]');
+            for (var i = 0; i < elems.length; i++) {
+                elems[i].type = optionDefaultInputType;
+            }
+        }
+
+        function setRowVisibility(id, isVisible) {
+            if ($(id)) {
+                var td = $(id).parentNode;
+                var tr = $(td.parentNode);
+
+                if (isVisible) {
+                    tr.show();
+                } else {
+                    tr.blur();
+                    tr.hide();
+                }
+            }
+        }
+
+        function updateIsHiiden() {
+            var isHidden = jQuery('#is_hidden_from_customer'),
+                defaultValue = jQuery('#default_value_text'),
+                parentField = '.admin__field';
+
+            if (+isHidden.val()) {
+                defaultValue.addClass('required-entry');
+                defaultValue.closest(parentField).addClass('required');
+            } else {
+                defaultValue.removeClass('required-entry');
+                defaultValue.closest(parentField).removeClass('required');
+            }
+        }
+
+        function updateRequiredOptions() {
+            if ($F('is_required') == 0) {
+                $('option-count-check').removeClassName('required-options-count');
+                return;
+            }
+            switch ($F('frontend_input')) {
+                <?php foreach ($block->getAttributeInputTypesWithOptions() as $inputType): ?>
+                case '<?= /** @noEscape */ $inputType ?>':
+                    $('option-count-check').addClassName('required-options-count');
+                    break;
+                <?php endforeach; ?>
+                default:
+                    $('option-count-check').removeClassName('required-options-count');
+            }
+        }
+
+        if ($('frontend_input')) {
+            Event.observe($('frontend_input'), 'change', updateRequiredOptions);
+            Event.observe($('frontend_input'), 'change', bindAttributeInputType);
+        }
+
+        if ($('is_required')) {
+            Event.observe($('is_required'), 'change', updateRequiredOptions);
+        }
+
+        bindAttributeInputType();
+        updateRequiredOptions();
+        updateIsHiiden();
+
+        if (jQuery('#is_hidden_from_customer').length) {
+            jQuery('#is_hidden_from_customer').on('change', function () {
+                updateIsHiiden();
+            })
+        }
+    });
+</script>
+

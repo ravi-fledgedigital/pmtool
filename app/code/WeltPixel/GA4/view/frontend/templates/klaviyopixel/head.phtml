@@ -1,0 +1,31 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \WeltPixel\GA4\Block\KlaviyoPixel\Common */
+
+/** @var \WeltPixel\GA4\Helper\KlaviyoPixelTracking $klaviyoPixelHelper */
+$klaviyoPixelHelper = $this->helper('WeltPixel\GA4\Helper\KlaviyoPixelTracking');
+$cspNonceProvider = $klaviyoPixelHelper->getCspNonceProvider();
+$klaviyoPublicApiKey = $klaviyoPixelHelper->getKlaviyoPublicApiKey();
+
+?>
+<?php if ($block->isKlaviyoPixelTrackingEnabled()) : ?>
+<?php
+$publicApiKeys = explode(',', $klaviyoPublicApiKey);
+foreach ($publicApiKeys as $publicApiKey) :
+?>
+    <script nonce="<?php /* @noEscape */ echo $cspNonceProvider->generateNonce(); ?>">
+        if (window.ga4AllowServices) {
+            // Load Klaviyo script
+            var klaviyoScript = document.createElement('script');
+            klaviyoScript.async = true;
+            klaviyoScript.type = 'text/javascript';
+            klaviyoScript.src = 'https://static.klaviyo.com/onsite/js/<?= /* @noEscape */ $publicApiKey ?>/klaviyo.js';
+            document.head.appendChild(klaviyoScript);
+        }
+    </script>
+<?php endforeach; ?>
+    <script nonce="<?php /* @noEscape */ echo $cspNonceProvider->generateNonce(); ?>">
+        // Initialize Klaviyo
+        !function(){if(!window.klaviyo){window._klOnsite=window._klOnsite||[];try{window.klaviyo=new Proxy({},{get:function(n,i){return"push"===i?function(){var n;(n=window._klOnsite).push.apply(n,arguments)}:function(){for(var n=arguments.length,o=new Array(n),w=0;w<n;w++)o[w]=arguments[w];var t="function"==typeof o[o.length-1]?o.pop():void 0,e=new Promise((function(n){window._klOnsite.push([i].concat(o,[function(i){t&&t(i),n(i)}]))}));return e}}})}catch(n){window.klaviyo=window.klaviyo||[],window.klaviyo.push=function(){var n;(n=window._klOnsite).push.apply(n,arguments)}}}}();
+    </script>
+<?php endif; ?>

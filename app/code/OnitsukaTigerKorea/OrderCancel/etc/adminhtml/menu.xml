@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="OnitsukaTigerKorea_OrderCancel::reason"
+             title="Order Cancel Reasons"
+             module="OnitsukaTigerKorea_OrderCancel"
+             sortOrder="120"
+             parent="Magento_Sales::sales_operation"
+             action="ordercancel/reason"
+             resource="OnitsukaTigerKorea_OrderCancel::reason" />
+    </menu>
+</config>

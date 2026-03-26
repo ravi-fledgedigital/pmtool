@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/biteship/order/prepacked" method="POST">
+        <service class="OnitsukaTigerIndo\Biteship\Api\BiteshipOrderStatusInterface" method="statusPrepacked"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/biteship/order/packed" method="POST">
+        <service class="OnitsukaTigerIndo\Biteship\Api\BiteshipOrderStatusInterface" method="statusPacked"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/biteship/order/shipped" method="POST">
+        <service class="OnitsukaTigerIndo\Biteship\Api\BiteshipOrderStatusInterface" method="statusShipped"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/biteship/order/delivered" method="POST">
+        <service class="OnitsukaTigerIndo\Biteship\Api\BiteshipOrderStatusInterface" method="statusDelivered"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/biteship/order/cancel" method="POST">
+        <service class="OnitsukaTigerIndo\Biteship\Api\BiteshipOrderStatusInterface" method="statusCancel"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/biteship/order/status" method="POST">
+        <service class="OnitsukaTigerIndo\Biteship\Api\BiteshipOrderStatusInterface" method="statusUpdate"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>

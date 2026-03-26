@@ -1,0 +1,71 @@
+"Purchase / Return",購入／返品
+"Return",返品
+"Purchase",購入
+"Reason",事由
+"Used point",ポイント利用
+"Added point",ポイント付与
+"Cancel used point",ポイント利用キャンセル
+"Cancel added point",ポイント付与キャンセル
+"points",ポイント
+"Point history",ポイント履歴
+"Point history list",ポイント履歴一覧
+"Point History List",ポイント履歴一覧
+"Purchase/point history",購入・ポイント履歴
+"Date",日付
+"Points",ポイント数
+"My Account",会員情報の表示
+"Owned points: %1 points",所持ポイント：%1ポイント
+"Effective date: %1",直近失効ポイント有効期限：%1
+"Expiration date if passed effective date: %1 points",直近失効予定ポイント：%1ポイント
+"Expiration date if passed effective date: —","直近失効予定ポイント：—"
+"Member ID",会員ID
+"Barcode(Member ID + country code)",バーコード(会員ID+国コード)
+"Used Points",利用ポイント
+"Acquired Points",獲得予定ポイント
+"%1 points",%1 ポイント
+"Points to be earned",獲得予定ポイント
+"Current balance",所持ポイント
+"point",ポイント
+"Specify usage points",利用ポイントを指定
+"Use all points",全てのポイントを利用
+"Apply",適用
+"About member service",会員サービスについて
+"Designation of Points of Use","利用ポイントの指定"
+"Used points",利用ポイント
+"Used points:",利用ポイント
+"About Member Service",会員サービスについて
+"Full Point Payment",ポイント全額払い
+"Real store management", 実店舗管理
+"Store Id", 店舗ID
+"Store Name", 店舗名
+"Store Status", 店舗ステータス
+"Store API account", 店舗APIアカウント
+"Store API password", 店舗APIパスワード
+"API access token", 店舗APIアクセストークン
+"Real store info", 実店舗情報
+"Real store", 実店舗
+"open", 開店中
+"Temporarily closed", 一時閉店中
+"closed", 閉店
+"Your point was successfully applied.", ポイントを適用しました。
+"Used point:",利用ポイント：
+"Points to be earned:",獲得予定ポイント：
+"Discount Amount:",値引き額：
+"purchase",購入
+"return",返品
+"Point service integration failed. The point service is currently unavailable. Sorry to trouble you, but please log in again.", "ポイントサービスの連携に失敗しました。現在ポイントサービスは利用できない状態です。お手数ですがしばらくお待ちいただいてから再ログインしてください"
+"Used Points:","利用ポイント:"
+"Cancelled Points:","キャンセル済利用ポイント:"
+"Added Points:","付与ポイント:"
+"Get Back Added Points:","取り戻し済付与ポイント:"
+"It was failed to get point info, please try again.","ポイントの適用に失敗しました。お手数ですが再度お試しください。"
+"Added Points","獲得ポイント"
+"Price (Excluding Tax)","価格（税抜）"
+"Subtotal (Excluding Tax)","小計（税抜）"
+"Discount Price","値引価格"
+"Total Item Sales (Including Tax)","明細売上合計（税込）"
+"Cash/credit card payment","現金／クレジットカード払い"
+"%1 Invalid purchaseId format: Purchase date (8 digits)_Store ID (5 digits)_POS register terminal No. (4 digits)_Receipt number (8 digits)","%1 Invalid purchaseId format: 購入日付(8桁)_店舗ID(5桁)_POSレジ端末No.(4桁)_レシート番号(8桁)"
+"Payment","支払い方法"
+"(Full payment with points)","(全額ポイント支払い)"
+"%1 Invalid purchaseId section length: Purchase date (8 digits)_Store ID (5 digits)_POS register terminal No. (4 digits)_Receipt number (8 digits)","%1 Invalid purchaseId section length: 購入日付(8桁)_店舗ID(5桁)_POSレジ端末No.(4桁)_レシート番号(8桁)"

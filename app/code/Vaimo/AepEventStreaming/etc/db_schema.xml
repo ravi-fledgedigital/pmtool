@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!--
+ Copyright (c) Vaimo Group. All rights reserved.
+ See LICENSE_VAIMO.txt for license details.
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_order">
+        <column xsi:type="varchar" name="aep_last_action_id" nullable="true" length="30" comment="AEP last action id"/>
+    </table>
+</schema>

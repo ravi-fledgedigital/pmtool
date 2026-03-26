@@ -1,0 +1,21 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="error-message"></div>
+<div class="checkout-information">
+    <div class="product-info" data-bind="html: getPDPcartInfo"></div>
+</div>
+<div class="checkout-totals" data-bind="blockLoader: isLoadingCheckoutActions">
+    <div class="totals-information">
+        <div class="totals-segments" data-bind="html: totalsegments"></div>
+    </div>    
+    <!-- ko template: 'Sapient_Worldpay/wallets/discount.html' --><!-- /ko -->
+</div>
+<!--div class="checkout-actions">
+     <button class="gpay-checkout" data-bind="click: preparePayment" type="button" data-role="action">
+        <span  data-bind="i18n: 'Place Order'"></span>
+    </button>
+</div -->    

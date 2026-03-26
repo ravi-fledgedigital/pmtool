@@ -1,0 +1,15 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="\Magento\Newsletter\Controller\Subscriber\NewAction">
+        <plugin name="newsletter.customize.post" type="OnitsukaTiger\Newsletter\Plugin\Controller\Subscriber\NewAction" />
+    </type>
+    <type name="\Magento\Customer\Controller\Account\CreatePost">
+        <plugin name="newsletter.register.account" type="OnitsukaTiger\Newsletter\Plugin\Controller\Account\CreatePost" />
+    </type>
+    <preference for="\Magento\Newsletter\Model\Subscriber" type="OnitsukaTiger\Newsletter\Model\Newsletter\Subscriber" />
+    <type name="Magento\Newsletter\Model\Subscriber">
+        <plugin name="delete-email-subscriber-when-unsubscribe" type="OnitsukaTiger\Newsletter\Plugin\Newsletter\Subscriber" sortOrder="20" />
+    </type>
+    <type name="Magento\Newsletter\Model\SubscriptionManager">
+        <plugin name="send-grid-unsubscribe-to-subscriber" type="OnitsukaTiger\Newsletter\Plugin\Newsletter\Unsubscriber" sortOrder="20" />
+    </type>
+</config>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <columns name="customer_columns">
+        <column name="dob">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="sortable" xsi:type="boolean">true</item>
+                    <item name="label" xsi:type="string" translate="true">Date of Birth</item>
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="component" xsi:type="string">OnitsukaTigerKorea_MaskCustomerData/js/grid/columns/custom-dob</item>
+                    <item name="bodyTmpl" xsi:type="string">OnitsukaTigerKorea_MaskCustomerData/grid/cells/custom-dob</item>
+                </item>
+            </argument>
+        </column>
+    </columns>
+</listing>
