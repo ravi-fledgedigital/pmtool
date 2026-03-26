@@ -1,0 +1,51 @@
+<?php
+//phpcs:ignoreFile
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block \Magento\Checkout\Block\Onepage */
+
+$url  = $this->getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true]);
+$login_url = $block->getUrl('customer/account/login', array('referer' => base64_encode($url)));
+$helper = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);
+$defaultCountry = $helper->getConfig('general/country/default') ? $helper->getConfig('general/country/default') : 'TH';
+$telephonePrefix = $helper->getConfig('general/telephone_prefix/number') ? $helper->getConfig('general/telephone_prefix/number') : '66';
+$defaultPayment = $helper->getConfig('payment_default/general/payment') ?? 'omise_cc';
+$telephoneMaxLength = $helper->getConfig('general/telephone_prefix/validate_number');
+?>
+<div id="checkout" data-bind="scope:'checkout'" class="checkout-container" data-taxid="<?= $block->getUrl('')?>checkout/customer/saveTax/" data-save="<?= $block->getUrl('')?>customer/address/formPost/" data-address="<?= $block->getUrl('')?>customer/address/delete/">
+    <div id="checkout-loader" data-role="checkout-loader" class="loading-mask" data-mage-init='{"checkoutLoader": {}}'>
+        <div class="loader">
+            <img src="<?= $block->escapeUrl($block->getViewFileUrl('images/loader-1.gif')) ?>"
+                 alt="<?= $block->escapeHtmlAttr(__('Loading...')) ?>"
+                 style="position: absolute;">
+        </div>
+    </div>
+    <div class="checkout-step-hidden" data-image="<?= $block->getViewFileUrl('images/asics-id.png') ?>" data-login="<?= $login_url ?>">
+    </div>
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script type="text/x-magento-init">
+        {
+            "#checkout": {
+                "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+        }
+    }
+    </script>
+    <script>
+        window.checkoutConfig = <?= /* @noEscape */ $block->getSerializedCheckoutConfig() ?>;
+        window.defaultCountry = '<?= $defaultCountry?>';
+        // Create aliases for customer.js model from customer module
+        window.isCustomerLoggedIn = window.checkoutConfig.isCustomerLoggedIn;
+        window.customerData = window.checkoutConfig.customerData;
+        <?php if($helper->getConfig('general/telephone_prefix/enable')): ?>
+        window.telephonePrefix = <?= /* @noEscape */ $telephonePrefix?>;
+        <?php endif;?>
+        window.telephoneLength = <?= $telephoneMaxLength?>;
+        window.defaultMethod = '<?= $defaultPayment?>';
+    </script>
+</div>
+<div class="loadding-ajax">
+    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+</div>

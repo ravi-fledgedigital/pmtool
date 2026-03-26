@@ -1,0 +1,64 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @var $block \Magento\Sales\Block\Order\Totals
+ * @see \Magento\Sales\Block\Order\Totals
+ */
+?>
+<div class="order-details-item">
+    <strong class="box-title"><span><?= $block->escapeHtml(__('Order Summary')) ?></span></strong>
+    <div class="box-content">
+        <table>
+            <?php foreach ($block->getTotals() as $_code => $_total) : ?>
+                <?php $_total->setLabelProperties("")?>
+                <?php if($_code == 'grand_total'): ?>
+                    <?php $_total->setLabel(__('Total'))?>
+                <?php elseif($_code == 'discount'): ?>
+                    <?php $_total->setLabel(__('Order Discount'))?>
+                <?php elseif($_code == 'shipping'): ?>
+                    <?php $_total->setLabel(__('Shipping'))?>
+                <?php elseif($_code == 'subtotal'): ?>
+                    <?php $_total->setLabel(__('Subtotal (Inclusive of VAT)'))?>
+                <?php endif;?>
+                <?php if ($_total->getBlockName()) : ?>
+                    <?= $block->getChildHtml($_total->getBlockName(), false) ?>
+                <?php else :?>
+                    <tr class="<?= $block->escapeHtmlAttr($_code) ?>">
+                        <th scope="row">
+                            <?php if ($_total->getStrong()) : ?>
+                                <strong><?= $block->escapeHtml($_total->getLabel()) ?></strong>
+                            <?php else : ?>
+                                <?= $block->escapeHtml($_total->getLabel()) ?>
+                            <?php endif ?>
+                        </th>
+                        <td data-th="<?= $block->escapeHtmlAttr($_total->getLabel()) ?>">
+                            <?php if ($_total->getStrong()) : ?>
+                                <strong><?= /* @noEscape */ $block->formatValue($_total) ?></strong>
+                            <?php else : ?>
+                                <?= /* @noEscape */ $block->formatValue($_total) ?>
+                            <?php endif?>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+                <?php if($_code =='subtotal'): ?>
+                    <?php if(!array_key_exists('discount', $block->getTotals())):?>
+                        <tr class="discount">
+                            <th scope="row">
+                                <?= __('Order Discount')?>
+                            </th>
+                            <td  data-th="<?= __('Order Discount')?>">
+                                <?= /* @noEscape */ $block->getOrder()->formatPrice(0) ?>
+                            </td>
+                        </tr>
+                    <?php endif;?>
+                <?php endif;?>
+            <?php endforeach?>
+        </table>
+    </div>
+</div>
+
+

@@ -1,0 +1,93 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/** @var $block \Magento\Swatches\Block\Product\Renderer\Configurable */
+/** @var \Magento\Swatches\ViewModel\Product\Renderer\Configurable $configurableViewModel */
+$configurableViewModel = $block->getConfigurableViewModel();
+$helperProduct = $this->helper(\OnitsukaTiger\Catalog\Helper\Data::class);
+$product = $block->getProduct();
+$helper= $this->helper(\OnitsukaTigerKorea\ConfigurableProduct\Helper\Data::class);
+$helperConfig = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);
+$colorAttrId = $helperProduct->getColorAttributeId();
+$sizeAttrId = $helperProduct->getSizeAttributeId();
+$productPageUrl = $block->getUrl('ajaxcolor/product/view');
+$storeId = $helperProduct->getStoreId();
+$mageLaoderImg = $block->escapeUrl($block->getViewFileUrl('images/loader-2.gif'));
+?>
+<div class="swatch-opt" data-role="swatch-options"></div>
+
+<script type="text/x-magento-init">
+    {
+        "[data-role=swatch-options]": {
+            "Magento_Swatches/js/swatch-renderer": {
+                "jsonConfig": <?= /* @noEscape */ $swatchOptions = $block->getJsonConfig() ?>,
+                "enableMaxQuantity": <?=
+                    /* @noEscape */ $helperConfig->getConfig('catalog/them_customize/qty_validate')
+                ?>,
+                "enableMaxQuantitySales": <?=
+                    /* @noEscape */ $helperConfig->getConfig('catalog/them_customize/qty_validate_sales')
+                ?>,
+                "quantityDropdown": <?=
+                    /* @noEscape */ $helperConfig->getConfig('catalog/them_customize/qty_dropdown')
+                ?>,
+                "maxQuantityPurchase": <?= /* @noEscape */ $helperProduct->getJsonProduct($product)?>,
+                "jsonSwatchConfig": <?= /* @noEscape */ $swatchOptions = $block->getJsonSwatchConfig() ?>,
+                "mediaCallback": "<?= $block->escapeJs($block->escapeUrl($block->getMediaCallback())) ?>",
+                "gallerySwitchStrategy": "<?=
+                    $block->escapeJs(
+                        $block->getVar('gallery_switch_strategy', 'Magento_ConfigurableProduct')
+                    ) ?: 'replace';
+                ?>",
+                "jsonSwatchImageSizeConfig": <?= /* @noEscape */ $block->getJsonSwatchSizeConfig() ?>,
+                "jsonAttributeProduct": <?= /* @noEscape */ $helperProduct->getAttributeProduct($product)?>,
+                "defaultChildColor": "<?= /* @noEscape */ $helperProduct->getDefaultChildColor($product)?>",
+                "showTooltip": 0,
+                "colorAttrId": <?= /* @noEscape */ $colorAttrId ?>,
+                "sizeAttrId": <?= /* @noEscape */ $sizeAttrId ?>,
+                "productId": "<?= /* @noEscape */ $block->getProduct()->getId(); ?>",
+                "productSku": "<?= /* @noEscape */ $block->getProduct()->getSku(); ?>",
+                "styleCode": "<?= /* @noEscape */ $block->getProduct()->getStyleCode(); ?>",
+                "ajaxUrl": "<?= /* @noEscape */ $productPageUrl; ?>",
+                "graphqlUrl": "<?= /* @noEscape */ $block->getUrl('graphql'); ?>",
+                "currentPageUrl":"<?=
+                    /* @noEscape */ $block->getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true])
+                ?>",
+                "storeId": "<?= /* @noEscape */ $storeId; ?>",
+                "mageLoaderImg": "<?= /* @noEscape */ $mageLaoderImg; ?>"
+            }
+        },
+        "*" : {
+            "Magento_Swatches/js/catalog-add-to-cart": {}
+        }
+    }
+</script>
+<div class="message-qty-validate"><span></span></div>
+
+
+<script>
+    require([
+        'jquery',
+        'domReady!'
+    ], function ($) {
+        $(document).ready(function () {
+            var intervalId = window.setInterval(function(){
+                if ($('.swatch-option.image.other-color-options.selected').length) {
+                    var firstVar = $('.swatch-option.image.other-color-options.selected');
+                    firstVar.removeClass('selected');
+                    firstVar.trigger('click');
+                    clearInterval(intervalId);
+                }
+            }, 1000);
+        });
+
+        $(document).on('click','#swatch-qa-size-options', function (e) {
+            if (!$(this).hasClass("ot-size-options")) {
+                $(this).toggleClass('active-visible');
+            }
+        });
+    });
+</script>

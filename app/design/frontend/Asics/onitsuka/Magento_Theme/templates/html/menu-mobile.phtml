@@ -1,0 +1,38 @@
+<ul class="links-mobile">
+    <?= $block->getChildHtml('wish-list-link-header-mobile')?>
+    <li id="mobile-link-welcome" class="link greet" data-bind="scope: 'customer'">
+        <!-- ko if: customer().fullname  -->
+        <div class="link-mobile">
+            <a class="logged-in" href="<?= $block->getUrl('customer/account') ?>">
+                <span class="text" data-bind="text: new String('<?= $block->escapeHtml(__('Hello %1', '%1')) ?>').replace('%1', customer().firstname)"></span>
+            </a>
+            <a class="logged-in" href="<?= $block->getUrl('customer/account/logout') ?>">
+                <span class="text"><?= __('(Log Out)')?></span>
+            </a>
+        </div>
+        <!-- /ko -->
+        <!-- ko ifnot: customer().fullname  -->
+        <div class="link-mobile">
+            <a class="logged-in" href="<?= $block->getUrl('customer/account/login') ?>">
+                <span class="text" data-bind="text: '<?= __('LOGIN / REGISTER')?>'"></span>
+            </a>
+        </div>
+        <!-- /ko -->
+    </li>
+    <li class="link minicart">
+        <a href="<?= $block->getUrl('checkout/cart')?>"><span class="text"><?= __('SHOPPING BAG')?></span></a>
+    </li>
+</ul>
+<script type="text/x-magento-init">
+{
+    "#mobile-link-welcome": {
+        "Magento_Ui/js/core/app": {
+            "components": {
+                "customer": {
+                    "component": "Magento_Customer/js/view/customer"
+                }
+            }
+        }
+    }
+}
+</script>

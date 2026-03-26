@@ -1,0 +1,55 @@
+@font-face {
+  font-family: "Matter JP";
+  src: url("../fonts/matter-jp/Matter-Jp-Light.woff2") format("woff2"), url("../fonts/matter-jp/Matter-Jp-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Matter JP";
+  src: url("../fonts/matter-jp/Matter-Jp-Regular.woff2") format("woff2"), url("../fonts/matter-jp/Matter-Jp-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Matter JP";
+  src: url("../fonts/matter-jp/Matter-Jp-Medium.woff2") format("woff2"), url("../fonts/matter-jp/Matter-Jp-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Matter JP";
+  src: url("../fonts/matter-jp/Matter-Jp-SemiBold.woff2") format("woff2"), url("../fonts/matter-jp/Matter-Jp-SemiBold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Matter JP";
+  src: url("../fonts/matter-jp/Matter-Jp-Bold.woff2") format("woff2"), url("../fonts/matter-jp/Matter-Jp-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Matter JP";
+  src: url("../fonts/matter-jp/Matter-Jp-Heavy.woff2") format("woff2"), url("../fonts/matter-jp/Matter-Jp-Heavy.woff") format("woff");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Reckless OT";
+  src: url("../fonts/reckless/Reckless-Regular.eot");
+  src: url("../fonts/reckless/Reckless-Regular.eot?#iefix") format("embedded-opentype"), 
+  url("../fonts/reckless/Reckless-Regular.woff2") format("woff2"),
+  url("../fonts/reckless/Reckless-Regular.woff") format("woff"),
+  url("../fonts/reckless/Reckless-Regular.ttf") format("truetype"),
+  url("../fonts/reckless/Reckless-Regular.svg#Reckless-Regular") format("svg");
+  src: url("../fonts/reckless/Reckless-Regular.woff2") format("woff2"), url("../fonts/reckless/Reckless-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

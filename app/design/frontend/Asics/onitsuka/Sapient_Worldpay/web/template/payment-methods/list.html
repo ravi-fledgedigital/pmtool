@@ -1,0 +1,26 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+ -->
+<div if="isPaymentMethodsAvailable()"
+     class="items payment-methods">
+    <div repeat="foreach: paymentGroupsList, item: '$group'"
+         class="payment-group">
+         <div class="payment-titlelogo-wrapper">
+              <div class="payment-title-wrapper">
+                   <h2 if="getRegion($group().displayArea)().length"
+                         translate="getGroupTitle($group)"
+                         class="step-title"
+                         data-role="title">
+                    </h2>
+               </div>
+          </div>
+        <each args="data: getRegion($group().displayArea), as: 'method'" render=""></each>
+    </div>
+</div>
+<div ifnot="isPaymentMethodsAvailable()"
+     class="no-payments-block"
+     translate="'No Payment Methods'">
+</div>

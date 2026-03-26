@@ -1,0 +1,138 @@
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .restock-customer-index{
+        .products-grid{
+           .product-items{
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .product-item{
+                margin-bottom: 20px;
+                width: 49%;
+                margin-right: 2%;
+                padding: 20px;
+                box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2);
+                .product-item-info{
+                    position: relative;
+                    font-size: 12px;
+                    .action-remove{
+                        position: absolute;
+                        right: 0;
+                        top: 0;
+                        font-size: 0;
+                        &:before{
+                            content: "" !important;
+                            background: url("../images/btn-delete.png");
+                            width: 29px;
+                            height: 29px;
+                            display: inline-block;
+                            vertical-align: top;
+                        }
+                    }
+                    .product-image-photo{
+                        width: auto;
+                    }
+                }
+            }
+            .product-item:nth-child(2n){
+                margin-right: 0px;
+            }
+        }
+        .btm-top-1{
+            padding-top: 10px;
+        }
+        .btm-space-2{
+            padding-bottom: 20px;
+        }
+        .products-grid{
+            .product-image-container{
+                aspect-ratio: inherit;
+            }
+        }
+    }
+
+    .catalog-product-view{
+        .restock-popup.modal-slide.modal-popup{
+            text-align: center;
+        }
+        .page-wrapper{
+            .page-main{
+                .content-wrap.item-detail{
+                    .swatch-attribute[attribute-code*=qa_size].active-visible,
+                    .swatch-attribute[attribute-code*=size].active-visible{
+                        .swatch-attribute-options{
+                            border: none;
+                            border-right: 1px solid #000;
+                            display: grid;
+                            grid-template-columns: repeat(5, minmax(0, 1fr));
+                        }
+                        .swatch-attribute-options:before{
+                            content: '';
+                            display: inline-block;
+                            height: 1px;
+                            background: #000;
+                            position: absolute;
+                            left: 0;
+                            width: 100%;
+                            bottom: 0;
+                        }
+                    }
+                    .swatch-attribute[attribute-code*=qa_size],
+                    .swatch-attribute[attribute-code*=size]{
+                        .swatch-attribute-options{
+                            .swatch-option{
+                                border: 1px solid #000!important;
+                                width: 100%;
+                                margin: 0;
+                                border-top: none!important;
+                                border-right: none!important;
+                                overflow: inherit;
+                            }
+                            .swatch-option:last-child:after,
+                            .swatch-option:after{
+                                content: '';
+                                display: inline-block!important;
+                                height: 100%;
+                                background: #000;
+                                position: absolute;
+                                right: -1px;
+                                left:auto;
+                                width: 1px;
+                                bottom: 0;
+                            }
+                        }
+                    }
+                }
+            }    
+        }        
+    }
+}
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .catalog-product-view {
+        .restock-popup.modal-slide.modal-popup{
+            left: 20px;
+            right: 20px;
+            top: 50px;
+            .modal-inner-wrap{
+                margin: 0 auto;
+                height: auto;
+            }
+        }
+    }
+    .restock-customer-index{
+        .products-grid{
+            .product-item{
+                .product-item-info{
+                    .product-image-photo{
+                        width: auto;
+                        max-width: 100%;
+                        height: 150px !important;
+                    }
+                }
+            }
+        }
+    }
+}

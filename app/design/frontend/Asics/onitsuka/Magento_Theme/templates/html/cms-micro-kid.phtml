@@ -1,0 +1,109 @@
+<script type="text/javascript">
+    require([
+        'jquery',
+        'js/lottie.min'
+    ], function($,lottie){
+        scroll_event();
+        $(window).bind("scroll", scroll_event);
+
+        function scroll_event() {
+            var now_top = $(this).scrollTop();
+
+            if (now_top > $('.main-page').offset().top) {
+                $('.shopBtn-container').addClass('fixed');
+            } else {
+                $('.shopBtn-container').removeClass('fixed');
+            }
+        }
+        $(window).on('scroll load assessFeatureHeaders', function () {
+            var scrollTop = $(window).scrollTop();
+            var appearenceBuffer = 60;
+            var windowBottom = scrollTop + $(window).height() - appearenceBuffer;
+            $('body').toggleClass('scrolled-down', scrollTop > 0);
+            $('.animate:not(.show)').filter(function () {
+                var offset = $(this).offset().top;
+                var height = $(this).outerHeight();
+                return offset + height >= scrollTop && offset <= windowBottom;
+            }).addClass('show');
+        });
+
+        $(function () {
+            var headerHeight = $('#header').outerHeight();
+
+            $('.scroll-page').on("click", function (e) {
+                var href = $(this).attr("href");
+                var target = $(href);
+                var position = target.offset().top - headerHeight;
+                $('body,html').stop().animate({scrollTop: position}, 1000);
+            });
+        });
+
+        var userAgent = window.navigator.userAgent.toLowerCase();
+        if (userAgent.indexOf('msie') != -1 || userAgent.indexOf('trident') != -1 || userAgent.indexOf('edge') != -1) {
+            $('html').addClass('not_full_support');
+        }
+
+        // youtube modal window
+        $('a.yt_mw').bind('click', function(){
+            var id = $(this).attr('data-id');
+
+            var html = '';
+            html += '<div class="mw">';
+            html += '<div class="mw_bg"></div>';
+            html += '<div class="mw_content">';
+            html += '<div class="mw_inner">';
+            html += '<a href="javascript:void(0);" class="close"><span>CLOSE</span></a>';
+            html += '<div class="mw_video">';
+            // html += '<iframe frameborder="0" allow="autoplay" allowfullscreen="1" width="640" height="360" src="https://www.youtube.com/embed/'+id+'?rel=0&autoplay=1"></iframe>';
+            html += '<iframe frameborder="0" allowfullscreen="1" width="640" height="360" src="https://www.youtube.com/embed/'+id+'?rel=0&autoplay=1"></iframe>';
+            html += '</div>';
+            html += '</div>';
+            html += '</div>';
+            html += '</div>';
+
+            $('body').append(html);
+            $('.mw').fadeIn(300, function(){
+                $('.mw a.close, .mw .mw_bg').bind('click', function(){
+                    $('.mw').fadeOut(300, function(){
+                        $(this).remove();
+                    });
+                });
+            });
+        });
+        function isObjectCenter($object) {
+            var wh = $(window).height();
+            var now_top = $(window).scrollTop();
+            var this_top = $object.offset().top;
+
+            if (now_top >= this_top - wh / 2) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        function isObjectBottom($object, offset) {
+            var offset = offset || 0;
+            var wh = $(window).height();
+            var now_top = $(window).scrollTop();
+            var this_top = $object.offset().top;
+
+            if (now_top >= this_top - wh + offset) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        function isObjectTop($object, offset) {
+            var offset = offset || 0;
+            var oh = $object.height();
+            var now_top = $(window).scrollTop();
+            var this_top = $object.offset().top;
+
+            if (now_top >= this_top + oh + offset) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    });
+</script>

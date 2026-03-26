@@ -1,0 +1,51 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Store Locator for Magento 2
+ */
+
+use Amasty\Storelocator\Block\Location as LocationBlock;
+use Amasty\Storelocator\Model\Location;
+use Magento\Framework\Escaper;
+
+/** @var LocationBlock $block */
+/** @var Location $location */
+/** @var Escaper $escaper */
+
+$locations = $block->getLocationCollection();
+$helper = $this->helper('OnitsukaTiger\Fixture\Helper\Data');
+?>
+<div class="amlocator-wrapper">
+    <div class="amlocator-stores-wrapper">
+        <?php foreach ($locations as $location):
+            ?>
+            <div class="amlocator-store-desc" name="leftLocation"
+                 data-mapid="<?= $block->escapeHtml($block->getMapId()); ?>"
+                 data-amid="<?= (int)$location['id']; ?>">
+                <div class="amlocator-block">
+                    <div class="amlocator-index-list<?php if($location->getName() == "THE ONITSUKA ION ORCHARD") { ?> theonit-logo-new<?php } ?>">
+                        <?= $location->getPosition()?>
+                    </div>
+                    <div class="amlocator-store-information">
+                        <h4 title="<?= $location->getName()?>"><?= $location->getName()?></h4>
+                        <div class="address">
+                            <span class="street-address">
+                                <?= $location->getAddress()?>
+                            </span>
+                            <span class="locality"><?= $location->getState()?></span>
+                            <span class="region"><?= $location->getCity()?></span>
+                            <span class="postal-code"><?= $location->getZip()?></span>
+                            <a title="<?= $location->getName()?>" href="<?= $block->getUrl($helper->getConfig('amlocator/locator/main_settings/url') . '/' . $location->getUrlKey())?>" class="view-details"><?= __('View Store Details')?></a>
+                            <a href="https://www.google.com/maps?q=<?= $location->getLat()?>,<?= $location->getLng()?>" class="get-directions-details" target="_blank"><?= __('Get Directions')?></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+
+    <?php if ($pager = $block->getPagerHtml()): ?>
+        <div class="amlocator-pager-container"><?= /** @escapeNotVerified */ $pager; ?></div>
+    <?php endif; ?>
+</div>

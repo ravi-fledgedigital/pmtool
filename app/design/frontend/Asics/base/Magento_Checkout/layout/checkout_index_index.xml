@@ -1,0 +1,73 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="checkout" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="checkout.root">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="checkout" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="steps" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="check-login-step" xsi:type="array">
+                                            <item name="component" xsi:type="string">Magento_Checkout/js/checkout-login-step</item>
+                                            <item name="sortOrder" xsi:type="string">0</item>
+                                            <item name="children" xsi:type="array">
+                                                <item name="customer-email" xsi:type="array">
+                                                    <item name="component" xsi:type="string">Magento_Checkout/js/view/form/element/email-login</item>
+                                                    <item name="displayArea" xsi:type="string">customer-email</item>
+                                                    <item name="tooltip" xsi:type="array">
+                                                        <item name="description" xsi:type="string" translate="true">We'll send your order confirmation here.</item>
+                                                    </item>
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="before-login-form" xsi:type="array">
+                                                            <item name="component" xsi:type="string">uiComponent</item>
+                                                            <item name="displayArea" xsi:type="string">before-login-form</item>
+                                                            <item name="children" xsi:type="array">
+                                                                <!-- before login form fields -->
+                                                            </item>
+                                                        </item>
+                                                        <item name="additional-login-form-fields" xsi:type="array">
+                                                            <item name="component" xsi:type="string">uiComponent</item>
+                                                            <item name="displayArea" xsi:type="string">additional-login-form-fields</item>
+                                                            <item name="children" xsi:type="array">
+                                                                <!-- additional login form fields -->
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                                <item name="sidebar" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="summary" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="totals" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="grand-total" xsi:type="array">
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="title" xsi:type="string" translate="true">Total</item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+        <referenceContainer name="page.wrapper">
+            <container after="main.content" htmlTag="div" htmlClass="page-footer">
+                <container name="page.checkout.footer" as="page_checkout_footer" after="main.content" htmlTag="div" htmlClass="footer content"/>
+            </container>
+        </referenceContainer>
+        <move element="copyright" destination="page.bottom.container"/>
+        <move element="page.bottom.container" destination="page.checkout.footer"/>
+    </body>
+</page>

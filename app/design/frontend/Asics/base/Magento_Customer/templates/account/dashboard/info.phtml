@@ -1,0 +1,32 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Customer\Block\Account\Dashboard\Info $block */
+?>
+<div class="block block-dashboard-info">
+    <div class="block-title"><strong><?= $block->escapeHtml(__('Account Information')) ?></strong></div>
+    <div class="block-content">
+        <div class="address-books-lists">
+            <div class="address-books-item">
+                <div class="address-label"><?= $block->escapeHtml(__('Contact Information')) ?></div>
+                <div class="container-address-item">
+                    <div class="address-name">
+                        <?= $block->escapeHtml($block->getName()) ?>
+                    </div>
+                    <div class="customer-phone">
+                        <span class="customer-email"><?= $block->escapeHtml($block->getCustomer()->getEmail()) ?></span>
+                    </div>
+                    <?= $block->getChildHtml('customer.account.dashboard.info.extra'); ?>
+                    <div class="address-actions">
+                        <a class="action edit" href="<?= $block->escapeUrl($block->getUrl('customer/account/edit')) ?>">
+                            <span><?= $block->escapeHtml(__('Edit')) ?></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

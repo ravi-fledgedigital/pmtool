@@ -1,0 +1,22 @@
+<?php if(trim($block->getChildHtml('product.price.final'))) : ?>
+    <?= $block->getChildHtml('product.price.final')?>
+<?php else:?>
+    <?php
+    $_product = $block->getProduct();
+    $helper = $this->helper(Magento\Framework\Pricing\Helper\Data::class);
+    $price = 0;
+    if($_product->getPriceInfo()->getPrice('regular_price')) {
+        $price = (string)$_product->getPriceInfo()->getPrice('regular_price')->getMinRegularAmount();
+    }
+    $formattedPrice = $helper->currency($price, true, false);
+    ?>
+    <div class="price-box price-final_price" data-role="priceBox" data-product-id="<?= $_product->getId()?>" data-price-box="product-id-<?= $_product->getId()?>">
+        <span class="normal-price">
+            <span class="price-container price-final_price tax " itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+                <span id="product-price-<?= $_product->getId()?>" data-price-amount="<?= $price?>" data-price-type="finalPrice" class="price-wrapper ">
+                    <span class="price"><?= $formattedPrice?></span>
+                </span>
+            </span>
+        </span>
+    </div>
+<?php endif;?>

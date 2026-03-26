@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/view.xsd">
+    <media>
+        <images module="Magento_Catalog">
+            <image id="cart_page_product_thumbnail" type="small_image">
+                <width>100</width>
+                <height>100</height>
+            </image>
+            <image id="category_page_grid" type="small_image">
+                <width>300</width>
+                <height>210</height>
+            </image>
+            <image id="product_page_image_medium" type="image">
+                <width>1024</width>
+                <height>768</height>
+            </image>
+            <image id="product_page_main_image" type="image">
+                <width>1024</width>
+                <height>768</height>
+            </image>
+            <image id="product_page_main_image_default" type="image">
+                <width>1024</width>
+                <height>768</height>
+            </image>
+            <image id="product_page_more_views" type="thumbnail">
+                <width>80</width>
+                <height>80</height>
+            </image>
+            <image id="product_page_image_small" type="thumbnail">
+                <width>100</width>
+                <height>80</height>
+            </image>
+            <image id="mini_cart_product_thumbnail" type="thumbnail">
+                <width>100</width>
+                <height>100</height>
+            </image>
+            <image id="product_swatch_image_medium" type="image">
+                <width>300</width>
+                <height>210</height>
+            </image>
+            <image id="swatch_image" type="swatch_image">
+                <width>60</width>
+                <height>23</height>
+            </image>
+            <image id="swatch_image_base" type="swatch_image">
+                <width>60</width>
+                <height>23</height>
+            </image>
+        </images>
+    </media>
+    <vars module="Magento_Catalog">
+        <var name="gallery">
+            <var name="thumbmargin">0</var>
+            <var name="allowfullscreen">false</var>
+            <var name="transition">
+                <var name="effect">dissolve</var> <!-- Sets transition effect for slides changing (slide/crossfade/dissolve) -->
+                <var name="duration">0</var> <!-- Sets transition duration in ms -->
+            </var>
+        </var>
+        <var name="breakpoints">
+            <var name="mobile">
+                <var name="options">
+                    <var name="options">
+                        <var name="nav">thumbs</var>
+                        <var name="allowfullscreen">true</var>
+                    </var>
+                </var>
+            </var>
+        </var>
+    </vars>
+</view>

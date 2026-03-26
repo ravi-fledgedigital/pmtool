@@ -1,0 +1,22 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+/** @var $block \Magento\Sales\Block\Order\Email\Items */
+?>
+<?php $_order = $block->getOrder() ?>
+<?php $helper = $this->helper(\OnitsukaTiger\Sales\Helper\Data::class)?>
+<?php if ($_order) : ?>
+    <?php $date = date("d-M-Y", strtotime($_order->getCreatedAt()));?>
+    <p><strong><?= __('Order Number:')?></strong> <?= $_order->getIncrementId()?></p>
+    <p><strong><?= __('Order Date:')?></strong> <?= $date?></p>
+    <p><strong><?= __('Order Total:')?></strong> <?= $block->getOrder()->formatPrice($_order->getGrandTotal())?></p>
+    <p><strong><?= __('Shipping & Handling:')?></strong> <?= $block->getOrder()->formatPrice($_order->getShippingAmount())?></p>
+    <p><strong><?= __('Promotion Discount:')?></strong> <?= $block->getOrder()->formatPrice($_order->getDiscountAmount())?></p>
+    <p><strong><?= __('Order Method:')?></strong> <?= __('Home Delivery'); ?></p>
+    <p><strong><?= __('Order Status:')?></strong> <?= __('Cancelled'); ?></p>
+<?php endif; ?>

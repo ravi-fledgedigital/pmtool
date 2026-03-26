@@ -1,0 +1,141 @@
+<script type="text/javascript">
+    require([
+        'jquery',
+        'js/lottie.min'
+    ], function($,lottie){
+        var win=$(window);
+        var scrollTop=0;
+        var winW=win.width();
+        var winH=win.height();
+
+        if(navigator.userAgent.match(/MSIE 10/i) || navigator.userAgent.match(/Trident\/7\./) || navigator.userAgent.match(/Edge\/12\./)) {
+            $('body').on("mousewheel", function () {
+                event.preventDefault();
+                var wd = event.wheelDelta;
+                var csp = window.pageYOffset;
+                window.scrollTo(0, csp - wd);
+            });
+        }
+
+        $('.content .h2_container').each(function(){
+            var container = $(this);
+            var content = $(container).html();
+            var newHtml = "";
+            content.split("").forEach(function(v) {
+                newHtml += "<span>" + v + "</span>";
+            });
+
+            $(container).html(newHtml);
+        })
+
+        win.bind("scroll",scrollHl);
+        win.bind("resize",resizeHl);
+        resizeHl();
+
+        var loadStatus = 0;
+        var img_num = $('img').length;
+
+        $('img').each(function() {
+            var src = $(this).attr('src');
+            $('<img>').attr('src', src).bind('load',(function() {
+                loadStatus++;
+                if(loadStatus>=img_num){
+                    setTimeout(function(){
+                        resizeHl();
+                    },100);
+                }
+            }));
+        });
+
+        function resizeHl(){
+
+            winW=win.width();
+            winH=win.height();
+            winH=window.innerHeight;
+
+            scrollHl();
+        }
+        function scrollHl(){
+            scrollTop = $(this).scrollTop();
+
+
+            if(scrollTop > $('section.hero').offset().top){
+                $('.shopBtn-container').addClass('fixed');
+            }else{
+                $('.shopBtn-container').removeClass('fixed');
+            }
+
+            if( scrollTop >= 10 ) {
+                $("section.hero").addClass("scrolled");
+            } else {
+                $("section.hero").removeClass("scrolled");
+            }
+
+            $('.animate').each(function(){
+                if(isObjectCenter($(this))){
+                    $(this).addClass('show');
+
+
+                }
+            });
+
+        }
+
+        $('a.yt_mw').bind('click', function(){
+            var id = $(this).attr('data-id');
+
+            var html = '';
+            html += '<div class="mw">';
+            html += '<div class="mw_bg"></div>';
+            html += '<div class="mw_content">';
+            html += '<div class="mw_inner">';
+            html += '<a href="javascript:void(0);" class="close"><span>CLOSE</span></a>';
+            html += '<div class="mw_video">';
+            html += '<iframe frameborder="0" allowfullscreen="1" width="640" height="360" src="https://www.youtube.com/embed/'+id+'?autoplay=1&showinfo=0&rel=0"></iframe>';
+            html += '</div>';
+            html += '</div>';
+            html += '</div>';
+            html += '</div>';
+
+            $('body').append(html);
+            $('.mw').fadeIn(300, function(){
+                $('.mw a.close, .mw .mw_bg').bind('click', function(){
+                    $('.mw').fadeOut(300, function(){
+                        $(this).remove();
+                    });
+                });
+            });
+        });
+
+
+        var userAgent = window.navigator.userAgent.toLowerCase();
+        if(userAgent.indexOf('msie') != -1 || userAgent.indexOf('trident') != -1 || userAgent.indexOf('edge') != -1){
+            $('html').addClass('not_full_support');
+        }
+
+
+        function isObjectCenter($object){
+            var this_top = $object.offset().top;
+
+            if (scrollTop >= this_top - winH *0.9){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        var video = document.getElementById('video1');
+        $("#sound_btn").bind('click',toggleMute);
+        function toggleMute(){
+            $("#sound_btn").toggleClass("on");
+            video.muted = !video.muted;
+        }
+
+        const scroll_icon_white = lottie.loadAnimation({
+            container: document.getElementById('scroll_icon'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: '<?= $block->getViewFileUrl('js/scroll_icon_white.json')?>'
+        });
+    });
+</script>

@@ -1,0 +1,19 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $_product = $block->getProduct(); ?>
+
+<?php if($_product->getAdditionalLabel()): ?>
+    <div class="product-additional-label-quick-view">
+        <?= /* @noEscape */ $this->helper(Magento\Catalog\Helper\Output::class)->productAttribute(
+            $block->getProduct(),
+            $block->getProduct()->getAdditionalLabel(),
+            'additional_label'
+        ) ?>
+    </div>
+<?php endif;?>

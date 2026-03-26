@@ -1,0 +1,152 @@
+<script type="text/javascript">
+    require([
+        'jquery',
+        'js/lottie.min'
+    ], function($,lottie){
+        var win=$(window);
+        var scrollTop=0;
+        var winW=win.width();
+        var winH=win.height();
+
+        if(navigator.userAgent.match(/MSIE 10/i) || navigator.userAgent.match(/Trident\/7\./) || navigator.userAgent.match(/Edge\/12\./)) {
+            $('body').on("mousewheel", function () {
+                event.preventDefault();
+                var wd = event.wheelDelta;
+                var csp = window.pageYOffset;
+                window.scrollTo(0, csp - wd);
+            });
+        }
+
+
+
+        win.bind("scroll",scrollHl);
+        win.bind("resize",resizeHl);
+
+        resizeHl();
+
+
+        var loadStatus = 0; //ローディング進捗
+        var img_num = $('img').length; //読み込む画像の数
+
+        $('img').each(function() { //画像が読み込まれたら、、
+            var src = $(this).attr('src');
+            $('<img>').attr('src', src).bind('load',(function() {
+                loadStatus++; //画像が読み込まれたら、loading状況を更新
+                if(loadStatus>=img_num){
+                    setTimeout(function(){
+                        resizeHl();
+                    },100);
+                }
+            }));
+        });
+
+        function resizeHl(){
+
+            winW=win.width();
+            winH=win.height();
+            winH=window.innerHeight;
+
+            scrollHl();
+        }
+
+
+        function scrollHl(){
+            scrollTop = $(this).scrollTop();
+
+            if(scrollTop > $('#main').offset().top){
+                $('.shopBtn-container').addClass('fixed');
+            }else{
+                $('.shopBtn-container').removeClass('fixed');
+            }
+
+            if( scrollTop >= 10 ) {
+                $("section.hero,.fixed_logo").addClass("scrolled");
+            } else {
+                $("section.hero,.fixed_logo").removeClass("scrolled");
+            }
+
+            if( scrollTop >= $("section.hero").outerHeight()*0.5 + $('#main').offset().top ) {
+                $(".fixed_logo.bk").addClass("hide");
+                $(".fixed_logo.wh,.fixed_logo.overlay").removeClass("hide");
+
+                if(scrollTop + winH*0.5 > $('.block4 .text').offset().top ) {
+                    $(".fixed_logo.wh,.fixed_logo.overlay").addClass("hide");
+                } else {
+                    $(".fixed_logo.wh,.fixed_logo.overlay").removeClass("hide");
+                }
+            } else {
+                $(".fixed_logo.bk").removeClass("hide");
+                $(".fixed_logo.wh,.fixed_logo.overlay").addClass("hide");
+            }
+
+
+            $('.animate,.block .pic').each(function(){
+                if(isObjectCenter($(this))){
+                    $(this).addClass('show');
+
+                }
+            });
+
+        }
+
+
+        // youtube modal window
+        $('a.yt_mw').bind('click', function(){
+            var id = $(this).attr('data-id');
+
+            var html = '';
+            html += '<div class="mw">';
+            html += '<div class="mw_bg"></div>';
+            html += '<div class="mw_content">';
+            html += '<div class="mw_inner">';
+            html += '<a href="javascript:void(0);" class="close"><span>CLOSE</span></a>';
+            html += '<div class="mw_video">';
+            html += '<iframe frameborder="0" allowfullscreen="1" width="640" height="360" src="https://www.youtube.com/embed/'+id+'?autoplay=1&showinfo=0&rel=0"></iframe>';
+            html += '</div>';
+            html += '</div>';
+            html += '</div>';
+            html += '</div>';
+
+            $('body').append(html);
+            $('.mw').fadeIn(300, function(){
+                $('.mw a.close, .mw .mw_bg').bind('click', function(){
+                    $('.mw').fadeOut(300, function(){
+                        $(this).remove();
+                    });
+                });
+            });
+        });
+
+
+        var userAgent = window.navigator.userAgent.toLowerCase();
+        if(userAgent.indexOf('msie') != -1 || userAgent.indexOf('trident') != -1 || userAgent.indexOf('edge') != -1){
+            $('html').addClass('not_full_support');
+        }
+
+
+        function isObjectCenter($object){
+            var this_top = $object.offset().top;
+
+            if (scrollTop >= this_top - winH *0.8){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        const scroll_icon_white = lottie.loadAnimation({
+            container: document.getElementById('scroll_icon_white'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: '<?= $block->getViewFileUrl('js/scroll_icon_white.json')?>'
+        });
+        const scroll_icon_black = lottie.loadAnimation({
+            container: document.getElementById('scroll_icon_black'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: '<?= $block->getViewFileUrl('js/scroll_icon_black.json')?>'
+        });
+
+    });
+</script>

@@ -1,0 +1,121 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// phpcs:ignoreFile
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php $buttonTitle = __('Add to Cart'); ?>
+<?php if ($_product->isSaleable()) :?>
+    <div class="box-tocart">
+        <div class="fieldset">
+            <?php if ($block->shouldRenderQuantity()) :?>
+                <div class="field qty">
+                    <label class="label" for="qty"><span><?= $block->escapeHtml(__('Qty')) ?></span></label>
+                    <div class="control">
+                        <span class="label-decrease">-</span>
+                        <input type="number"
+                               name="qty"
+                               id="qty"
+                               min="0"
+                               value="<?= $block->getProductDefaultQty() * 1 ?>"
+                               title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                               class="input-text qty"
+                               data-validate="<?= $block->escapeHtmlAttr(json_encode($block->getQuantityValidators())) ?>"
+                               disabled
+                        />
+                        <span class="label-increase">+</span>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <div class="available" title="Availability">
+                <span><?=  __('Availability:In stock')?></span>
+            </div>
+            <div class="actions">
+                <button type="button" id="button-so-custom" class="so default action primary" style="display: none !important; background-color: #e7e8ea !important; color: #9d9d9d !important;" disabled>
+                    <span><?= $block->escapeHtml(__("Sold Out")) ?></span>
+                </button>
+                <button type="submit"
+                        title="<?= $block->escapeHtmlAttr($buttonTitle) ?>"
+                        class="action primary tocart"
+                        id="product-addtocart-button" disabled>
+                    <span><?= $block->escapeHtml($buttonTitle) ?></span>
+                </button>
+                <button type="button" id="button-alert-custom" data-product-id="<?= $_product->getId()?>" class="alert default action primary" style="display: none !important;">
+                    <span><?= $block->escapeHtml(__("Notify Me")) ?></span>
+                </button>
+                <button type="button" id="button-oos-custom" class="oos default action primary" style="display: none !important; background-color: #e7e8ea !important; color: #9d9d9d !important;" disabled>
+                    <span><?= $block->escapeHtml(__("Out Of Stock")) ?></span>
+                </button>
+
+                <?= $block->getChildHtml('', true) ?>
+            </div>
+        </div>
+        <div class="coming-soon" style="display: none">
+            <span class="coming-soon-label"></span>
+        </div>
+    </div>
+    <div class="product-shipping-message">
+        <?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('product-shipping-message')->toHtml();?>
+    </div>
+<?php else: ?>
+    <div class="box-tocart">
+        <div class="fieldset">
+            <?php if ($block->shouldRenderQuantity()) :?>
+                <div class="field qty">
+                    <label class="label" for="qty"><span><?= $block->escapeHtml(__('Qty')) ?></span></label>
+                    <div class="control">
+                        <span class="label-decrease">-</span>
+                        <input type="number"
+                               name="qty"
+                               id="qty"
+                               min="0"
+                               value="<?= $block->getProductDefaultQty() * 1 ?>"
+                               title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                               class="input-text qty"
+                               data-validate="<?= $block->escapeHtmlAttr(json_encode($block->getQuantityValidators())) ?>"
+                        />
+                        <span class="label-increase">+</span>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <div class="available" title="Availability">
+                <span><?=  __('Availability:Out of stock')?></span>
+            </div>
+            <div class="actions">
+                <button type="button" id="button-so-custom" class="so default action primary" style="display: none !important; background-color: #e7e8ea !important; color: #9d9d9d !important;" disabled>
+                    <span><?= $block->escapeHtml(__("Sold Out")) ?></span>
+                </button>
+                <button type="submit"
+                        title="<?= $block->escapeHtmlAttr($buttonTitle) ?>"
+                        class="action primary tocart disabled"
+                        id="product-addtocart-button" disabled>
+                    <span><?= $block->escapeHtml($buttonTitle) ?></span>
+                </button>
+                <button type="button" id="button-alert-custom" data-product-id="<?= $_product->getId()?>" class="alert default action primary" style="display: none !important;">
+                    <span><?= $block->escapeHtml(__("Notify Me")) ?></span>
+                </button>
+                <button type="button" id="button-oos-custom" class="oos default action primary" style="display: none !important; background-color: #e7e8ea !important; color: #9d9d9d !important;" disabled>
+                    <span><?= $block->escapeHtml(__("Out Of Stock")) ?></span>
+                </button>
+
+                <?= $block->getChildHtml('', true) ?>
+            </div>
+        </div>
+        <div class="coming-soon" style="display: none">
+            <span class="coming-soon-label"></span>
+        </div>
+    </div>
+    <div class="product-shipping-message">
+        <?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('product-shipping-message')->toHtml();?>
+    </div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>

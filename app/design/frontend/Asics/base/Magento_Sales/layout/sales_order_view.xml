@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.main.title" remove="true"/>
+        <referenceContainer name="sales.order.info.buttons" remove="true" />
+        <referenceBlock name="additional.product.info" remove="true"/>
+        <referenceContainer name="sales.order.info.links" remove="true"/>
+        <referenceBlock name="order_attributes" remove="true"/>
+        <referenceBlock name="order_totals" remove="true"/>
+        <referenceBlock name="content">
+            <container htmlTag="div" name="order.details.container" htmlClass="order-details-totals" after="sales.order.view">
+                <block class="Magento\Sales\Block\Order\Totals" name="order_totals_content" as="order_totals_content" template="Magento_Sales::order/totals_content.phtml" after="sales.order.info">
+                    <arguments>
+                        <argument name="label_properties" xsi:type="string">colspan="1" class="mark"</argument>
+                        <argument name="value_properties" xsi:type="string">class="amount"</argument>
+                    </arguments>
+                    <block class="Magento\Tax\Block\Sales\Order\Tax" name="tax" template="Magento_Tax::order/tax.phtml"/>
+                </block>
+            </container>
+        </referenceBlock>
+        <move element="sales.order.info" destination="order.details.container" before="-"/>
+    </body>
+</page>

@@ -1,0 +1,14 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Customer\Block\Widget\Taxvat $block */
+?>
+<div class="field taxvat<?= $block->isRequired() ? ' required' : ''; ?>">
+    <label class="label" for="<?= $block->escapeHtmlAttr($block->getFieldId('taxvat')) ?>"><span><?= __('Tax ID') ?></span></label>
+    <div class="control">
+        <input type="text" autocomplete="false" id="<?= $block->escapeHtmlAttr($block->getFieldId('taxvat')) ?>" name="<?= $block->escapeHtmlAttr($block->getFieldName('taxvat')) ?>" value="<?= $block->escapeHtmlAttr($block->getTaxvat()) ?>" title="<?= $block->escapeHtmlAttr($block->getStoreLabel('taxvat')) ?>" class="input-text <?= $block->escapeHtmlAttr($this->helper(\Magento\Customer\Helper\Address::class)->getAttributeValidationClass('taxvat')) ?> validate-number validate-length minimum-length-8 maximum-length-13" <?= $block->isRequired() ? ' data-validate="{required:true}"' : '' ?>>
+    </div>
+</div>

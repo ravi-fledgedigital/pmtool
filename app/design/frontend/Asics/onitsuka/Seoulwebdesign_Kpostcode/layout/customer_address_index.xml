@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Seoulwebdesign_Kpostcode::css/style.css"/>
+        <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js?autoload=false" src_type="url"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Seoulwebdesign\Kpostcode\Block\PostCode" name="kpostcode_popup" template="postcode.phtml"/>
+            <block class="Seoulwebdesign\Kpostcode\Block\PostCode" name="kpostcode_customer_address_edit" template="customer/address.phtml" after="kpostcode_popup"/>
+        </referenceContainer>
+    </body>
+</page>

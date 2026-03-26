@@ -1,0 +1,256 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .promotion-popup-content {
+        .newsletter-container {
+            .subscribe-popup-form {
+                div.field {
+                    .date-of-birth {
+                        select{
+                            background-color: #000;
+                            text-align: center;
+                            text-align: -webkit-center;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    label#newsletter-error {
+        display: none!important;
+    }
+
+    .promotion-popup-newsletter {
+        .promotion-popup-close {
+            background: none;
+            &:before, &:after {
+                position: absolute;
+                top: 0;
+                right: 10px;
+                content: "";
+                display: block;
+                width: 3px;
+                height: 25px;
+                background: #fff;
+                transform: rotate(45deg);
+            }
+            &:after {
+                transform: rotate(-45deg);
+            }
+        }
+        .promotion-popup-content{
+            .newsletter-container {
+                padding: 0;
+                .heading-block {
+                    p {
+                        font-size: 17px;
+                        line-height: 20px;
+                        letter-spacing: 0.3px;
+                        font-weight: normal;
+                        color: #fff;
+                        max-width: 65%;
+                        margin: 5px 0 7px;
+                    }
+                }
+                .newsletter{
+                    .newsletter-left img{
+                        max-height:100%;
+                    }
+                    .newsletter-left-img-pc {
+                        height: auto;
+                        img{
+                            height: auto;
+                            display: block;
+                        }
+                    }
+                    .newsletter-left-img-mb {
+                        display:none;
+                    }
+                    .validation-checkbox{
+                        text-align: center;
+                        label {
+                            position: relative;
+                            display: block;
+                            &:before {
+                                margin-right: 0;
+                                position: absolute;
+                                left: 0;
+                            }
+                        }
+                    }
+                    .heading-block {
+                        display: inline-block;
+                        vertical-align: top;
+                        width: 100%;
+                        text-align: center;
+                        margin-top: 17px;
+                        img {
+                            width: auto;
+                            max-width: 100%;
+                        }
+                        .small-heading{
+                            font-weight: bold;
+                            max-width: 350px;
+                            font-size: 18px;
+                            margin-top: 15px;
+                            .block-static-block.widget{
+                                margin-bottom: 10px;
+                            }
+                        }
+                    }
+                    .validation-checkbox {
+                        > p {
+                            position: relative;
+                            display: block;
+                            color: #fff;
+                            font-family: sans-serif;
+                            &:before {
+                                width: 19px;
+                                height: 19px;
+                                content: "";
+                                display: inline-block;
+                                vertical-align: middle;
+                                margin-right: 10px;
+                                border: 2px solid #fff;
+                                box-sizing: border-box;
+                            }
+                        }
+                        input[type="checkbox"]:checked+p:after {
+                            width: 19px;
+                            height: 19px;
+                            content: "";
+                            display: inline-block;
+                            vertical-align: middle;
+                            margin-right: 10px;
+                            border: 2px solid #fff;
+                            -webkit-transform: scale(.4) !important;
+                            -ms-transform: scale(.4) !important;
+                            transform: scale(.4) !important;
+                            position: absolute;
+                            top: 0px;
+                            left: 0px;
+                            background-color: #fff;
+                            box-sizing: border-box;
+                        }
+                    }
+                    div.field{
+                        input{
+                            width: 80% ;
+                            border: 2px solid #fff;
+                            font-weight: bold;
+                            &.mage-error {
+                                border-color: red;
+                            }
+                        }
+                        input[type="email"] {
+                            height: 40px;
+                            padding: 0px;
+                            max-width: initial;
+                            width: 85%;
+                            font-size: 16px;
+                            border-width: 1px;
+                            font-weight: normal;
+                        }
+                        > p.label-date {
+                            font-weight: 700;
+                            padding: 0;
+                            font-size: 18px;
+                            color: #fff;
+                            margin-bottom: 0;
+                        }
+                        .date-of-birth{
+                            max-width: initial;
+                            width: 85%;
+                            margin-bottom: 10px;
+                            .month-select {
+                                width: 40%;
+                            }
+                            .year-select {
+                                width: 30%;
+                            }
+                            .day-select {
+                                width: 28%;
+                            }
+                        }
+                    }
+                    .actions{
+                        margin-bottom: 0;
+                        .action.primary{
+                            padding: 0px;
+                            background: #ffffff;
+                            color: #000000;
+                            width: 85%;
+                            font-size: 18px;
+                            font-weight: 700;
+                            line-height: 40px;
+                            margin-top: 0;
+                        }
+                    }
+                    .select2-selection--single{
+                        .select2-selection__rendered{
+                            padding-right: 20px;
+                            border: 1px solid #fff;
+                            line-height: 38px;
+                            height: 40px;
+                            font-weight: bold;
+                            text-transform: uppercase;
+                        }
+                    }
+                    .policy-checkbox p {
+                        padding-left: 0;
+                        word-spacing: 0px;
+                    }
+                }
+            }
+        }
+    }
+    @media (max-width:767px) {
+        .promotion-popup-newsletter {
+            .promotion-popup-content .newsletter-container {
+                .newsletter {
+                    flex-direction: column;
+                    div.field {
+                        >p.label-date {
+                            margin-bottom: 5px;
+                        }
+                        input[type="email"] {
+                            max-width: 100%;
+                            width: 100%;
+                        }
+                        .date-of-birth {
+                            width: 100%;
+                        }
+                    }
+                    .validation-checkbox{
+                        padding-bottom: 20px;
+                    }
+                    .actions {
+                        .action.primary {
+                            width: 100%;
+                        }
+                    }
+                    .select2-selection--single {
+                        span.select2-selection__rendered {
+                            padding-left: 0px;
+                            font-size: 12px;
+                        }
+                    }
+                    .newsletter-right {
+                        padding: 0 10px;
+                    }
+                    .heading-block p {
+                        max-width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

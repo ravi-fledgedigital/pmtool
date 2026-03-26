@@ -1,0 +1,43 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .page-products {
+        .block.filter {
+            .am-filter-items-price {
+                li.item {
+                    position: relative;
+                    z-index: 1000;
+                    a {
+                        display: flex;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .page-products {
+        .block.filter {
+            .am-filter-items-price {
+                li.item {
+                    a {
+                        span.label {
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

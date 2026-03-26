@@ -1,0 +1,26 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/* @var \Magento\Wishlist\Block\Customer\Wishlist\Item\Options $block */
+?>
+
+<?php $options = $block->getOptionList(); ?>
+<?php if ($options) : ?>
+    <div class="product-items-options">
+        <?php foreach ($options as $option) : ?>
+            <div class="product-options-<?= strtolower(__($option['label']))?>">
+                <span class="label"><?= $block->escapeHtml(__($option['label'])) ?>: </span>
+                <span class="value-options">
+                    <?php if (is_array($option['value'])) : ?>
+                        <?= /* @noEscape */ nl2br(implode("\n", $option['value'])) ?>
+                    <?php else : ?>
+                        <?= /* @noEscape */ $option['value'] ?>
+                    <?php endif; ?>
+                </span>
+            </div>
+        <?php endforeach; ?>
+    </div>
+<?php endif ?>

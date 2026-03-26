@@ -1,0 +1,105 @@
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .line-through{
+        text-decoration: line-through;
+    }
+    .payment-option {
+        .point-title {
+            margin-bottom: 15px;
+        }
+        #points-form {
+            .form-groups{
+                &.w-label {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 8px;
+                }
+            }
+            .use-points {
+                margin-right: 5px;
+                height: 45px;
+            }
+            .action-apply,
+            .action-cancel {
+                width: 100%;
+                float: none;
+                height: 45px;
+                margin-right: 0;
+            }
+        }
+    }
+    .order-summary {
+        span.points-to-be-earned,
+        span.usage-point {
+            line-height: 27px;
+            color: #777777;
+            font-size: 12px;
+        }
+    }
+    #point-block {
+        order: 2;
+        background: #fff;
+        padding: 20px 10px;
+        #block-discount-heading {
+            font-size: 14px;
+            text-transform: uppercase;
+            color: #000;
+            font-weight: 400;
+        }
+        .current-point {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            .leftheader {
+                margin-right: 5px;
+            }
+        }
+        .actions-toolbar {
+            margin-left: 10px;
+            margin-bottom: 0;
+            width: ~"calc(32% - 10px)";
+            .primary {
+                width: 100%;
+            }
+            .action {
+                span {
+                    font-size: 14px;
+                    font-weight: normal;
+                    text-transform: uppercase;
+                }
+            }
+        }
+        .use-all-point-box {
+            display: flex;
+            p, span {
+                line-height: 20px;
+                display: block;
+            }
+            input {
+                margin-top: 0;
+                height: 20px;
+                width: 20px;
+            }
+            p {
+                display: flex;
+                margin-left: 5px;
+            }
+        }
+        .input-use-point {
+            width: 68%;
+        }
+        p {
+            margin-bottom: 0;
+        }
+    }
+
+    #use_points {
+        &.disabled {
+            pointer-events: none;
+            opacity: .5;
+        }
+    }
+}

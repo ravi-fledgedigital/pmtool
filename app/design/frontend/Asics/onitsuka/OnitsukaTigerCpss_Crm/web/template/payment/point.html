@@ -1,0 +1,67 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- ko if: isEnabled() -->
+<!-- ko if: isEnabledPointCheckoutPage() -->
+<div id="point-block" class="payment-option opc-payment-additional point-discount-code">
+    <div class="payment-option-title field choice point-title" data-role="title">
+            <span class="action action-toggle" id="block-discount-heading" role="heading" aria-level="2">
+                <!-- ko i18n: 'Designation of Points of Use'--><!-- /ko -->
+            </span>
+    </div>
+    <div class="payment-point-content" data-role="content">
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+
+        <form class="form form-points" id="points-form" style="display:block;">
+            <div class="payment-option-inner">
+                <div>
+                    <div class="current-point">
+                        <div class="leftheader"><!-- ko i18n: 'Current balance: '--><!-- /ko --></div>
+                        <div><span data-bind="text: formatPointDisplay(getCurrentPoints())"></span> <!-- ko i18n: ' points' --><!-- /ko --></div>
+                    </div>
+                    <div>
+                        <div class="form-field-groups">
+                            <div class="form-groups w-label">
+                                <div class="input-use-point">
+                                    <input class="input-text use-points"
+                                           type="number"
+                                           id="use_points"
+                                           name="use_points"
+                                           data-bind=""/>
+                                </div>
+                                <div class="actions-toolbar">
+                                    <!-- ko ifnot: isApplied() -->
+                                    <div class="primary">
+                                        <button class="action action-apply" type="submit" data-bind="'value': $t('Apply'), click: applyPoints, enable: hasPoint()">
+                                            <span><!-- ko i18n: 'Apply'--><!-- /ko --></span>
+                                        </button>
+                                    </div>
+                                    <!-- /ko -->
+                                    <!-- ko if: isApplied() -->
+                                    <div class="primary">
+                                        <button class="action action-cancel" type="submit" data-bind="'value': $t('Cancel'), click: cancelPoints, enable: hasPoint()">
+                                            <span><!-- ko i18n: 'Cancel'--><!-- /ko --></span>
+                                        </button>
+                                    </div>
+                                    <!-- /ko -->
+                                </div>
+                            </div>
+                            <div class="form-groups use-all-point-box">
+                                <input type="checkbox" name="how_to_use[]" class="use_all" data-bind="click: selectUse()" value="use_all"/>
+                                <span><!-- ko i18n: 'Use all points'--><!-- /ko --></span>
+                                <p>(<span data-bind="text: formatPointDisplay(getCurrentPoints())"></span>)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!--/ko-->
+<!--/ko-->

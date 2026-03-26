@@ -1,0 +1,133 @@
+<!--
+  ~                       ######
+  ~                       ######
+  ~ ############    ####( ######  #####. ######  ############   ############
+  ~ #############  #####( ######  #####. ######  #############  #############
+  ~        ######  #####( ######  #####. ######  #####  ######  #####  ######
+  ~ ###### ######  #####( ######  #####. ######  #####  #####   #####  ######
+  ~ ###### ######  #####( ######  #####. ######  #####          #####  ######
+  ~ #############  #############  #############  #############  #####  ######
+  ~  ############   ############  #############   ############  #####  ######
+  ~                                      ######
+  ~                               #############
+  ~                               ############
+  ~
+  ~ Adyen Payment Module
+  ~
+  ~ Copyright (c) 2018 Adyen B.V.
+  ~ This file is open source and available under the MIT license.
+  ~ See the LICENSE file for more info.
+  ~
+  ~ Author: Adyen <magento@adyen.com>
+  -->
+
+<div class="payment-method" data-bind="css: {'_active': (getCode() == isChecked())}">
+    <div class="payment-method-title field choice">
+        <input type="radio"
+               name="payment[method]"
+               class="radio"
+               data-bind="attr: {'id': getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()"/>
+        <label data-bind="attr: {'for': getCode()}" class="label">
+
+            <!-- ko if: showLogo() -->
+
+            <div data-bind="attr: { 'class': 'adyen-sprite ' + getCode() }"></div>
+
+            <!--/ko-->
+
+            <span data-bind="text: getTitle()"></span>
+        </label>
+    </div>
+
+    <!-- ko foreach: getRegion('messages') -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <!--/ko-->
+
+    <div class="payment-method-content">
+        <div class="payment-method-billing-address">
+            <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+
+        <!-- ko if: (getConnectedTerminals().length > 0) -->
+
+            <div class="field required"
+                 data-bind="attr: {id: getCode() + '_connected_terminals_div'}, visible: getConnectedTerminals().length > 0">
+                <label data-bind="attr: {for: getCode() + '_connected_terminals'}" class="label">
+                    <span><!-- ko text: $t('Connected terminals')--><!-- /ko --></span>
+                </label>
+                <div class="control">
+
+                    <select class="select"
+                            name="paymentMethod[connected_terminals]"
+                            data-bind="attr: {id: getCode() + '_connected_terminals', 'data-container': getCode() + '-connected-terminals', 'data-validate': JSON.stringify({required:true})},
+                                            options: getConnectedTerminals(),
+                                            optionsValue: 'value',
+                                            optionsText: 'key',
+                                            value: terminalId"
+                            >
+                    </select>
+                </div>
+            </div>
+
+            <!-- ko if: (hasInstallments())-->
+            <div class="field required"
+                 data-bind="attr: {id: getCode() + '_installments_div'}, visible: installments().length > 0">
+                <label data-bind="attr: {for: getCode() + '_installments'}" class="label">
+                    <span><!-- ko text: $t('Installments')--><!-- /ko --></span>
+                </label>
+                <div class="control">
+
+                    <select class="select"
+                            name="payment[number_of_installments]"
+                            data-bind="attr: {id: getCode() + '_installments', 'data-container': getCode() + '-installments', 'data-validate': JSON.stringify({required:false})},
+
+                                            enable: isActive($parents),
+                                            options: installments,
+                                            optionsValue: 'value',
+                                            optionsText: 'key',
+                                            optionsCaption: $t('Do not use Installments'),
+                                            value: installment"
+                            data-validate="{required:true}">
+                    </select>
+                </div>
+            </div>
+            <!-- /ko -->
+
+            <div class="checkout-agreements-block">
+                <!-- ko foreach: $parent.getRegion('before-place-order') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+                <!--/ko-->
+            </div>
+        <!--/ko-->
+        <!-- ko ifnot: (getConnectedTerminals().length > 0) -->
+            <p><!-- ko text: $t('Please connect at least 1 terminal')--><!-- /ko --></p>
+        <!--/ko-->
+
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button class="action primary"
+                        type="button"
+                        data-bind="
+                    click: placeOrderValidate,
+                    attr: {title: $t('Place Order')},
+                    enable: isButtonActive()
+                    ">
+                    <span data-bind="i18n: 'Place Order'"></span>
+                </button>
+                <div class="hidden">
+                    <button style="display: none" class="action primary checkout"
+                            type="submit"
+                            data-bind="
+                            click: initiate,
+                            attr: {title: $t('Place Order')},
+                            enable: isButtonActive()
+                            ">
+                        <span data-bind="text: $t('Place Order')"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

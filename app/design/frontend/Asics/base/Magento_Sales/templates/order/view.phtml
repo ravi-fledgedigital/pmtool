@@ -1,0 +1,158 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<?php /** @var  $block \Magento\Sales\Block\Order\View*/?>
+<?php
+$helper = $this->helper(\OnitsukaTiger\Sales\Helper\Data::class);
+$helperTracking = $this->helper(\OnitsukaTiger\OrderStatusTracking\Helper\Data::class);
+$helperReturn = $this->helper(\OnitsukaTiger\Rma\Helper\Data::class);
+?>
+<div class="page-title-wrapper">
+    <h1 class="page-title">
+        <span class="base" data-ui-id="page-title-wrapper"><?= __('My Orders')?></span>
+    </h1>
+</div>
+<div class="order-details-items ordered">
+    <?php $_order = $block->getOrder() ?>
+    <?php $date = date("d-M-Y", strtotime($_order->getCreatedAt()));?>
+    <?php $updateDate = date("d-M-Y", strtotime($_order->getUpdatedAt()));?>
+    <?php $shipmentTrackHistory = $helper->getKerryTrackHistory($_order);?>
+    <?php $shipmentTrack = $helper->getKerryTrack($_order);?>
+    <?php $statusOrderTrack = $helperTracking->getStatusTracking($_order);?>
+    <?php $totalTrack = count($statusOrderTrack)?>
+    <?php $orderStatus = $_order->getStatus()?>
+    <?php $index=0; foreach ($statusOrderTrack as $key => $track): $index++;?>
+        <?php if((int)$index == $totalTrack){
+            $updateDate = date("d-M-Y", strtotime($track->getCreatedAt()));
+            $orderStatus = $track->getStatus();
+        } ?>
+    <?php endforeach;?>
+    <div class="order-title">
+        <div class="order-id"><strong><?= __('Order ID:')?></strong> <?= $_order->getIncrementId()?></div>
+        <div class="order-date"><strong><?= __('Order date:')?></strong><?= $date?></div>
+    </div>
+    <div class="order-details-container">
+        <div class="order-head">
+            <div class="order-details">
+                <span><?= $orderStatus?> </span>on <?= $updateDate?>
+            </div>
+            <div class="order-tracking-graph">
+                <ul class="hidden">
+                    <?php $totalTrack = count($statusOrderTrack)?>
+                    <?php $index=0; foreach ($statusOrderTrack as $key => $track): $index++;?>
+                        <li class="order-step processed <?php if((int)$index == $totalTrack): echo 'processed-continous';endif; ?>" data-index="<?= $key?>"><div class="setp-bullet"></div></li>
+                    <?php endforeach;?>
+                </ul>
+                <div class="info-box">
+                    <?php $index=0; foreach ($statusOrderTrack as $key => $track): $index++;?>
+                        <div class="loginfodiv" style="display: <?php if((int)$index == $totalTrack): echo 'block'; else: echo 'none';endif; ?>" data-index="<?= $key?>">
+                            <div class="arrow arrow0"></div>
+                            <div class="info-msg"><?= __($helperTracking->getStatusDescription($track->getStatus()))?></div>
+                        </div>
+                    <?php endforeach;?>
+                </div>
+            </div>
+            <div class="shipment-track">
+                <?php if($shipmentTrackHistory): ?>
+                    <a href="#" data-trigger="trigger"><?= __('Shipping Details')?></a>
+                    <div id="modal-shipment">
+                        <div class="content">
+                            <div class="shipment_details">
+                                <h2><?= __('shipment details')?></h2>
+                                <div id="divShipmentLog">
+                                    <div class="shipment" id="shipmentDetail-7492083">
+                                        <ul data-role="none">
+                                            <li data-role="none">
+                                                <div class="twocols fl_left">
+                                                    <label data-role="none"><?=__('Courier Name:')?></label>
+                                                    <span data-role="none"><?= __('Kerry')?></span>
+                                                </div>
+                                                <div class="twocols fl_right">
+                                                    <label data-role="none"><?= __('Dispatch Date:')?></label>
+                                                    <span data-role="none"><?= date('d-M-Y', strtotime($shipmentTrackHistory->getData('create_time')))?></span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="twocols fl_left">
+                                                    <label data-role="none"><?= __('Tracking Number:')?></label>
+                                                    <span><a id="awbid" data-role="none"><?= $shipmentTrackHistory->getData('con_no')?></a></span>
+                                                </div>
+                                                <div class="twocols fl_right">
+                                                    <label data-role="none"><?= __('Shipping Mode:')?></label>
+                                                    <span data-role="none"><?= $shipmentTrack['service_code']?></span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="twocols fl_left">
+                                                    <label data-role="none" data-status="D"><?= __('Shipment Status:')?></label>
+                                                    <span data-role="none"><?= $shipmentTrackHistory->getData('status')?></span>
+                                                </div>
+                                                <div class="twocols fl_right">
+                                                    <label data-role="none"><?= __('Status Updated Date:')?></label>
+                                                    <span data-role="none"><?= date('d-M-Y', strtotime($shipmentTrackHistory->getData('update_time')))?></span>
+
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif;?>
+            </div>
+        </div>
+        <div class="order-items-list">
+            <?= $block->getChildHtml('order_items') ?>
+        </div>
+    </div>
+    <div class="reorder-order">
+        <?php if($helperReturn->checkButtonReorder($_order)): ?>
+            <a data-role="order-return" href="#" data-return='<?= /* @noEscape */$helperReturn->getCreateReturnUrl($_order) ?>' class="action order">
+                <span><?= $block->escapeHtml(__('Return All')) ?></span>
+            </a>
+        <?php endif ?>
+        <?php if ($this->helper(\Magento\Sales\Helper\Reorder::class)->canReorder($_order->getEntityId())) : ?>
+            <a href="#" data-post='<?= /* @noEscape */
+            $this->helper(\Magento\Framework\Data\Helper\PostHelper::class)
+                ->getPostData($block->getUrl('sales/order/reorder', ['order_id' => $_order->getId()]))
+            ?>' class="action order">
+                <span><?= $block->escapeHtml(__('Reorder All')) ?></span>
+            </a>
+        <?php endif ?>
+    </div>
+    <script type="text/x-magento-init">
+                {
+                    ".order-items": {
+                        "orderAjax": {
+                            "addressJson": "",
+                            "deleteUrlPrefix": ""
+                        }
+                    }
+                }
+            </script>
+</div>
+<script type="text/javascript">
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ], function($) {
+            $(".order-tracking-graph .order-step").hover(function(){
+                $('.info-box .loginfodiv').hide();
+                $('.info-box .loginfodiv[data-index="'+$(this).data("index")+'"]').show();
+            }, function(){
+                $('.info-box .loginfodiv').hide();
+                $('.info-box .loginfodiv:last-child').show();
+            });
+        }
+    );
+</script>
+<div class="loadding-ajax">
+    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+</div>

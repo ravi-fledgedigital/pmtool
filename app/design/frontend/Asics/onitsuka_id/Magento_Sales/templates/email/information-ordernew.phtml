@@ -1,0 +1,61 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * phpcs:ignoreFile
+ */
+
+/** @var $block \Magento\Sales\Block\Order\Email\Items */
+?>
+<?php $_order = $block->getOrder() ?>
+<?php $orderStatus = $this->getData('order_status') ?? $_order->getStatus();
+if (strtolower($orderStatus) == 'pre_order_pending') {
+    $orderStatus = __('Pre-order Processing');
+} elseif (strtolower($orderStatus) == 'pre_order_processing') {
+    $orderStatus = __('Pre-order Processing');
+} elseif ((strtolower($orderStatus) == 'processing' || strtolower($orderStatus) == 'pending') &&
+    $_order->getIsPreOrder()) {
+    $orderStatus = 'Pre-order Processing';
+} else {
+    $orderStatus =  ucwords($orderStatus);
+}
+?>
+<?php $helper = $this->helper(\OnitsukaTiger\Sales\Helper\Data::class)?>
+<?php $helperStore = $this->helper(\OnitsukaTiger\Store\Helper\Data::class)?>
+<?php $crmHelper = $this->helper(\OnitsukaTigerCpss\Crm\Helper\HelperData::class)?>
+<?php if ($_order) : ?>
+    <?php $date = $helperStore->formatDate($_order->getCreatedAt(),$_order->getStoreId());?>
+    <?php
+    $usedPoint = 0;
+    $pointValue = 0;
+    $pointLabel = 'Points to be earned:';
+    if ($_order->getUsedPoint()) {
+        $usedPoint = number_format($_order->getUsedPoint());
+    }
+    if ($_order->getAddedPointDate() > 0 || $_order->getAcquiredPoint() > 0) {
+        $pointValue = number_format($_order->getAcquiredPoint());
+
+        if ($_order->getAddedPoint() > 0) {
+            $pointLabel = 'Added Points:';
+            $pointValue = number_format($_order->getAddedPoint());
+        }
+    }
+    ?>
+    <p><strong><?= __('Order Number:')?></strong> <a href="javascript:void(0)"><?= $_order->getIncrementId()?></a></p>
+    <p><strong><?= __('Order Date:')?></strong> <?= $date?></p>
+    <p><strong><?= __('Order Total:')?></strong> <?= $_order->formatPrice($_order->getGrandTotal())?></p>
+    <?php if ($crmHelper->isCpssModuleEnable()): ?>
+        <p><strong><?= /* @noEscape */ __('Used point:') ?></strong>
+            <?= /* @noEscape */ $block->escapeHtml($usedPoint) . __(' points') ?></p>
+        <p><strong><?= /* @noEscape */ __($pointLabel) ?></strong>
+            <?= /* @noEscape */ $block->escapeHtml($pointValue) . __(' points') ?></p>
+
+    <?php endif; ?>
+    <p><strong><?= __('Shipping & Handling:')?></strong> <?= $_order->formatPrice($_order->getShippingAmount())?></p>
+    <p><strong><?= __('Promotion Discount:')?></strong> <?= $_order->formatPrice($_order->getDiscountAmount())?></p>
+    <p><strong><?= __('Order Method:')?></strong>  <?= __($_order->getData('shipping_description')) ?></p>
+    <p><strong><?= __('Order Status:')?></strong> <?= /* @noEscape */ $orderStatus; ?></p>
+<?php endif; ?>

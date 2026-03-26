@@ -1,0 +1,152 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .amlocator-main-container {
+        .amlocator-map-container {
+            .amlocator-block.-filter {
+                display: none;
+            }
+        }
+    }
+    body:not(.web_kr_ko) {
+        div.amlocator-current-location {
+            .amlocator-reset {
+                display: none;
+            }
+            .amlocator-text {
+                font-size: 1.4rem;
+                font-family: @font-family-matter;
+                font-style: normal;
+            }
+            .amlocator-search {
+                margin-right: 0;
+            }
+        }
+
+        div.amlocator-search-container {
+            background: none;
+
+            .amlocator-block {
+                padding: 15px 0;
+            }
+        }
+    }
+
+    .amlocator-store-desc {
+        .amlocator-store-information {
+            .address {
+                .address-line {
+                    .title-address {
+                        width: 40%;
+                    }
+                    .content-address {
+                        width: 60%;
+                    }
+                    &.phone-number-line {
+                        .title-phone-number {
+                            font-weight: 700;
+                            padding-right: 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    body:not(.web_kr_ko) {
+        div.amlocator-current-location {
+            .amlocator-search {
+                margin-right: 0;
+            }
+
+            .amlocator-text {
+                width: 74%;
+            }
+        }
+    }
+
+    body.web_th_en {
+        .amlocator-location-container {
+            .amlocator-column {
+                &.-left {
+                    width: 30%;
+                }
+                &.-right {
+                    width: 70%;
+                }
+            }
+        }
+    }
+}
+
+
+.amlocator-block.-filter{
+    display:none;
+}
+.amlocator-index-index .page-title-wrapper,
+.amlocator-location-view .page-title-wrapper{
+    text-align: center;
+}
+.amlocator-index-index .page-title-wrapper .page-title,
+.amlocator-location-view .page-title-wrapper .page-title{
+    font-family: 'Matter-Bold';
+    font-weight: 400;
+    font-size: 3rem;
+    margin: 20px 0;
+    letter-spacing: 1px;
+}
+.amlocator-title{
+    font-family: 'Matter-Bold';
+    font-weight: 700;
+}
+.amlocator-current-location .amlocator-text{
+    font-style: normal;
+    font-size: 1.4rem;
+}
+.amlocator-location-main .amlocator-location-container > .amlocator-column.-left,
+.amlocator-location-main .amlocator-location-container .amlocator-block.-grey{
+    background: #fff!important;
+}
+.amlocator-location-view .amlocator-location-attribute .amlocator-value{
+    box-shadow: none;
+    padding: 0;
+}
+.amlocator-location-view .amlocator-attributes-container{
+    padding: 0;
+}
+.amlocator-location-view .amlocator-location-container .amlocator-column > .amlocator-block{
+    padding: 0;
+}
+body:not(.web_kr_ko) div.amlocator-current-location .amlocator-reset {
+    display: none;
+}
+body.web_kr_ko div.amlocator-current-location{
+    display: none;
+}
+body .amlocator-location-main .amlocator-location-attribute{
+    width: 100%!important;
+}
+@media screen and (max-width: 768px) {
+    .amlocator-search-container .amlocator-block{
+        padding: 0;
+    }
+    body .amlocator-map-container > .amlocator-block.-map {
+        display: none;
+    }
+    .amlocator-block.amlocator-location-gallery{
+        margin-bottom: 20px;
+    }
+}

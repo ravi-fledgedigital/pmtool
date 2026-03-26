@@ -1,0 +1,22 @@
+<div class="field-hidden">
+    <input class="input-text" type="text" data-bind="
+    value: value,
+    valueUpdate: 'keyup',
+    hasFocus: focused,
+    attr: {
+        name: inputName,
+        placeholder: placeholder,
+        'aria-describedby': getDescriptionId(),
+        'aria-required': required,
+        'aria-invalid': error() ? true : 'false',
+        id: uid,
+        disabled: disabled
+    }">
+</div>
+<div class="container-telephone">
+    <input type="text" class="mobile-country-code" id="ShipMobileCode" data-bind="
+    value: showValuePrefix(value) "  disabled="">
+    <input type="text" data-validate="{'validate-number':true}" class="mobile-number validate-length minimum-length-7" id="ShipMobile" minlength="7" maxlength="13" data-bind="
+    value: showValue(value),
+    afterRender: bindTelephone() ">
+</div>

@@ -1,0 +1,46 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/** @var \Magento\Wishlist\Block\Customer\Wishlist\Items $block */
+$columns = $block->getColumns();
+?>
+
+<div class="products-grid wishlist">
+    <?php if (count($block->getItems())) : ?>
+    <ol class="product-items">
+        <?php foreach ($block->getItems() as $item) : ?>
+            <li data-row="product-item" class="product-item" id="item_<?= $block->escapeHtmlAttr($item->getId()) ?>">
+                <div class="product-item-info product-wishlist-information" data-container="product-grid">
+                    <?php $isProductComingSoon = 0;
+                    $currentTime = date('Y-m-d H:i:s');
+                    $launchDate = $item->getProduct()->getLaunchDate();
+                    if (!empty($launchDate) && strtotime($launchDate) > strtotime($currentTime)) {
+                        $isProductComingSoon = 1;
+                    } ?>
+                    <?php if ($isProductComingSoon == 0) { ?>
+                    <div class="checkbox wishlist_checkbox">
+                        <input data-role="checked-tocart" value="<?= $item->getId()?>" type="checkbox" data-varid="<?= $item->getId()?>" class="selected-product" keypress-bind="true">
+                    </div>
+                    <?php } ?>
+                    <?php foreach ($columns as $column) : ?>
+                        <?= $column->setItem($item)->toHtml();?>
+                    <?php endforeach; ?>
+                </div>
+            </li>
+        <?php endforeach; ?>
+    </ol>
+    <?php else : ?>
+        <div class="address-empty">
+            <h2><?= __('Empty Wishlist')?></h2>
+            <span><?= __('You have no items in your wishlist. ')?></span> <a href="<?= $block->getUrl('')?>"><?= __('Start adding!')?></a>
+        </div>
+    <?php endif; ?>
+</div>
+
+<?php foreach ($columns as $column) : ?>
+    <?= $column->getAdditionalHtml() ?>
+<?php endforeach; ?>

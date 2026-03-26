@@ -1,0 +1,253 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// phpcs:ignoreFile
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php $helper = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);?>
+<?php $buttonTitle = __('Add to Cart'); ?>
+<?php $genderInformation = strtolower($_product->getResource()->getAttribute('gender')->getFrontend()->getValue($_product));?>
+<?php if (strpos($genderInformation, 'shoes') !== false) :?>
+    <?php if (strpos($genderInformation, 'women') !== false) :?>
+        <div class="product hidden gender">
+            <?= __('Women')?>
+        </div>
+    <?php elseif (strpos($genderInformation, 'kids') !== false) :?>
+    <?php else: ?>
+        <div class="product hidden gender">
+            <?= __('Unisex')?>
+        </div>
+    <?php endif;?>
+<?php endif;?>
+<?php if (strpos($genderInformation, 'shoes') !== false && strpos($genderInformation, 'socks') !== true) :?>
+    <div class="product gender value" style="display: none">
+        <?= __($genderInformation)?>
+    </div>
+<?php endif;?>
+<?php if ($_product->isSaleable()) :?>
+    <div class="box-tocart <?php if (!$helper->getConfig('catalog/them_customize/qty_dropdown')):?> minus-plus-box <?php endif;?>">
+        <div class="fieldset">
+            <?php if ($block->shouldRenderQuantity()) :?>
+                <?php if ($helper->getConfig('catalog/them_customize/qty_dropdown')):?>
+                    <div class="box-select">
+                        <div class="box-select-btn">
+                            <div class="text"><?= __('Quantity')?>: <span class="js-select-text">1</span></div>
+                        </div>
+                        <div class="box-select-options">
+                            <ul>
+                                <li>1</li>
+                                <li>2</li>
+                                <li>3</li>
+                                <li>4</li>
+                                <li>5</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="field qty hidden">
+                        <div class="control">
+                            <input type="number"
+                                   name="qty"
+                                   id="qty"
+                                   min="0"
+                                   value="<?= $block->getProductDefaultQty() * 1 ?>"
+                                   title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                                   class="input-text qty"
+                                   data-validate="<?= $block->escapeHtmlAttr(json_encode($block->getQuantityValidators())) ?>"
+                            />
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <div class="field qty">
+                        <label class="label" for="qty"><span><?= $block->escapeHtml(__('Quantity')) ?></span></label>
+                        <div class="control">
+                            <span class="label-decrease">-</span>
+                            <input type="number"
+                                   name="qty"
+                                   id="qty"
+                                   min="0"
+                                   readonly="readonly"
+                                   value="<?= $block->getProductDefaultQty() * 1 ?>"
+                                   title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                                   class="input-text qty"
+                                   data-validate="<?= $block->escapeHtmlAttr(json_encode($block->getQuantityValidators())) ?>"
+                            />
+                            <span class="label-increase">+</span>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            <?php endif; ?>
+            <div class="actions">
+
+                <button type="button" id="button-so-custom" class="so default action primary" style="display: none !important; background-color: #e7e8ea !important; color: #9d9d9d !important;" disabled>
+                    <span><?= $block->escapeHtml(__("Sold Out")) ?></span>
+                </button>
+
+                <button type="submit"
+                        title="<?= $block->escapeHtmlAttr($buttonTitle) ?>"
+                        class="action primary tocart"
+                        id="product-addtocart-button" disabled>
+                    <span><?= $block->escapeHtml($buttonTitle) ?></span>
+                </button>
+
+                <button type="button" id="button-alert-custom" data-product-id="<?= $_product->getId()?>" class="alert default action primary" style="display: none !important;">
+                    <span><?= $block->escapeHtml(__("Notify Me")) ?></span>
+                </button>
+                <button type="button" id="button-oos-custom" class="oos default action primary" style="display: none !important; background-color: #e7e8ea !important; color: #9d9d9d !important;" disabled>
+                    <span><?= $block->escapeHtml(__("Out Of Stock")) ?></span>
+                </button>
+                <?= $block->getChildHtml('', true) ?>
+            </div>
+        </div>
+        <div class="box-guide" id="size-guide">
+            <span><?= __('Size Guide')?></span>
+        </div>
+        <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('free-delivery-and-30-days-returns')->toHtml();?>
+        <?php if (strpos($genderInformation, 'shoes') !== false) :?>
+            <?php if (strpos($genderInformation, 'women') !== false) :?>
+                <div class="box-woment-guide"><?= __('Women sizes run smaller.')?></div>
+            <?php endif;?>
+        <?php endif;?>
+    </div>
+<?php else: ?>
+    <div class="box-tocart <?php if (!$helper->getConfig('catalog/them_customize/qty_dropdown')):?> minus-plus-box <?php endif;?>">
+        <div class="fieldset">
+            <?php if ($block->shouldRenderQuantity()) :?>
+                <?php if ($helper->getConfig('catalog/them_customize/qty_dropdown')):?>
+                    <div class="box-select">
+                        <div class="box-select-btn">
+                            <div class="text"><?= __('Quantity')?>: <span class="js-select-text">1</span></div>
+                        </div>
+                        <div class="box-select-options">
+                            <ul>
+                                <li>1</li>
+                                <li>2</li>
+                                <li>3</li>
+                                <li>4</li>
+                                <li>5</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="field qty hidden">
+                        <div class="control">
+                            <input type="number"
+                                   name="qty"
+                                   id="qty"
+                                   min="0"
+                                   value="<?= $block->getProductDefaultQty() * 1 ?>"
+                                   title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                                   class="input-text qty"
+                                   data-validate="<?= $block->escapeHtmlAttr(json_encode($block->getQuantityValidators())) ?>"
+                            />
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <div class="field qty">
+                        <label class="label" for="qty"><span><?= $block->escapeHtml(__('Quantity')) ?></span></label>
+                        <div class="control">
+                            <span class="label-decrease">-</span>
+                            <input type="number"
+                                   name="qty"
+                                   id="qty"
+                                   readonly="readonly"
+                                   min="0"
+                                   value="<?= $block->getProductDefaultQty() * 1 ?>"
+                                   title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                                   class="input-text qty"
+                                   data-validate="<?= $block->escapeHtmlAttr(json_encode($block->getQuantityValidators())) ?>"
+                            />
+                            <span class="label-increase">+</span>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            <?php endif; ?>
+            <div class="actions">
+
+                <button type="button" id="button-so-custom" class="so default action primary" style="display: none !important; background-color: #e7e8ea !important; color: #9d9d9d !important;" disabled>
+                    <span><?= $block->escapeHtml(__("Sold Out")) ?></span>
+                </button>
+
+                <button type="submit"
+                        title="<?= $block->escapeHtmlAttr($buttonTitle) ?>"
+                        class="action primary tocart"
+                        id="product-addtocart-button" disabled>
+                    <span><?= $block->escapeHtml($buttonTitle) ?></span>
+                </button>
+
+                <button type="button" id="button-alert-custom" data-product-id="<?= $_product->getId()?>" class="alert default action primary" style="display: none !important;">
+                    <span><?= $block->escapeHtml(__("Notify Me")) ?></span>
+                </button>
+                <button type="button" id="button-oos-custom" class="oos default action primary" style="display: none !important; background-color: #e7e8ea !important; color: #9d9d9d !important;" disabled>
+                    <span><?= $block->escapeHtml(__("Out Of Stock")) ?></span>
+                </button>
+
+                <?= $block->getChildHtml('', true) ?>
+            </div>
+        </div>
+        <div class="box-guide" id="size-guide">
+            <span><?= __('Size Guide')?></span>
+        </div>
+        <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('free-delivery-and-30-days-returns')->toHtml();?>
+        <?php if (strpos($genderInformation, 'shoes') !== false) :?>
+            <?php if (strpos($genderInformation, 'women') !== false) :?>
+                <div class="box-woment-guide"><?= __('Women sizes run smaller.')?></div>
+            <?php endif;?>
+        <?php endif;?>
+    </div>
+<?php endif; ?>
+<?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('size-guide-popup')->toHtml();?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Catalog/js/restock": {
+                "pageIdentifier": "product_view_page"
+            }
+        }
+    }
+</script>
+<script type="text/javascript">
+    require(["jquery","domReady!"], function ($) {
+        $('.content-wrap.item-detail .area-content .box-select .box-select-options li').on("click", function (e) {
+            if(!$(this).hasClass('disabled-select')) {
+                $('.content-wrap.item-detail .area-content .box-select .box-select-btn .js-select-text').text($(this).text());
+                $('.box-tocart .input-text.qty').val($(this).text()).trigger('change');
+                $(this).parents('.box-select').toggleClass('active');
+            }
+        })
+    });
+</script>
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/modal',
+        'mage/translate'
+    ], function ($, modal, $t) {
+        document.getElementById('size-guide').addEventListener('click', function () {
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: 'Size Guide',
+                modalClass: 'size-guide-modals',
+                buttons: [{
+                    text: $.mage.__('Submit'),
+                    click: function () {
+                        this.closeModal();
+                    }
+                }]
+            };
+            /*var popup = modal(options, $('.sizing-table'));
+            $('.sizing-table').modal('openModal');*/
+            $(".sizing-table").modal(options).modal('openModal');
+        });
+    });
+</script>

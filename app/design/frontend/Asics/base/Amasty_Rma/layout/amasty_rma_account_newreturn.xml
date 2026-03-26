@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.main.title" remove="true"/>
+<!--        <referenceContainer name="sales.order.info.buttons" remove="true" />-->
+<!--        <referenceBlock name="additional.product.info" remove="true"/>-->
+<!--        <referenceContainer name="page.top" remove="true"/>-->
+<!--        <referenceBlock name="div.sidebar.main" remove="true"/>-->
+<!--        <referenceContainer name="header.panel" remove="true" />-->
+<!--        <referenceBlock name="header.container" remove="true" />-->
+<!--        <referenceContainer name="footer-container" remove="true"/>-->
+<!--        <referenceContainer name="page-header-sticky" remove="true"/>-->
+<!--        <referenceContainer name="sales.order.info.links" remove="true"/>-->
+<!--        <referenceBlock name="order_attributes" remove="true"/>-->
+<!--        <referenceBlock name="order_totals" remove="true"/>-->
+    </body>
+</page>

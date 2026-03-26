@@ -1,0 +1,140 @@
+<?php
+$helper = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);
+$currentStore = $helper->getCurrentStore();
+?>
+<script type="text/javascript">
+    require([
+        'jquery',
+        'js/lottie.min'
+    ], function($,lottie){
+        scroll_event();
+        $(window).bind("scroll", scroll_event);
+        function scroll_event(){
+            $('.animate').each(function(){
+                if(isObjectCenter($(this))){
+                    $(this).addClass('show');
+                }
+            });
+        }
+        var now_play = '';
+        function init_hero_video(){
+            var videos = [
+                "<?= $block->getViewFileUrl('images/collaboration/video1.mp4')?>",
+                "<?= $block->getViewFileUrl('images/collaboration/video2.mp4')?>",
+                <?php if($currentStore->getCode() == 'web_th_en' || $currentStore->getCode() == 'web_th_th') :?>
+                "<?= $block->getViewFileUrl('images/collaboration/video3.mp4')?>",
+                "<?= $block->getViewFileUrl('images/collaboration/video4.mp4')?>",
+                <?php endif;?>
+                "<?= $block->getViewFileUrl('images/collaboration/video5.mp4')?>",
+                "<?= $block->getViewFileUrl('images/collaboration/video6.mp4')?>",
+                "<?= $block->getViewFileUrl('images/collaboration/video7.mp4')?>",
+                "<?= $block->getViewFileUrl('images/collaboration/video8.mp4')?>"
+            ];
+            var video_num = videos.length;
+            var ran_video_id = Math.ceil(Math.random()*video_num);
+            if(ran_video_id >= videos.length){
+                ran_video_id = 0;
+            }
+            if(ran_video_id !== now_play){
+                now_play = ran_video_id;
+                $('.hero video').attr('src', videos[ran_video_id]);
+            }else{
+                init_hero_video();
+            }
+        }
+        var userAgent = window.navigator.userAgent.toLowerCase();
+        if(userAgent.indexOf('msie') != -1 || userAgent.indexOf('trident') != -1 || userAgent.indexOf('edge') != -1){
+            $('html').addClass('not_full_support');
+        }
+
+        init_hero_video();
+        $('.hero video').get(0).addEventListener("ended", function(){
+            init_hero_video();
+        }, false);
+
+        resize_event();
+        $(window).resize(resize_event);
+
+        var resize_timer = false;
+        function resize_event(){
+            if (resize_timer !== false) {
+                clearTimeout(resize_timer);
+            }
+            resize_timer = setTimeout(function() {
+                if(window.matchMedia('(max-width: 770px)').matches){
+                    try{
+                        $('.slider').slick('unslick');
+                    }catch(e){}
+                }else{
+                    try{
+                        $('.slider').slick({
+                            arrows: false,
+                            dots: true,
+                            infinite: true
+                        });
+                    }catch(e){}
+                }
+            }, 100);
+        }
+
+        var $now_drag_obj;
+        $('.drag_frame').on({
+            'mouseenter':function(){
+                $now_drag_obj = $('.drag', $(this));
+                $now_drag_obj.fadeIn(100);
+                $(this).on('mousedown mousemove', function(e){
+                    $now_drag_obj.css({'transform': 'translate('+e.offsetX+'px,'+e.offsetY+'px)'});
+                    //$now_drag_obj.get(0).style.transform = 'translate(' + e.offsetX + 'px, ' + e.offsetY + 'px)';
+                });
+            },
+            'mouseleave':function(){
+                $('.drag', $(this)).fadeOut(100, function(){
+                    $(this).off('mousedown mousemove');
+                    //$now_drag_obj.removeAttr('style');
+                });
+            }
+        });
+
+        var hover_fade_timer;
+        $('.hover_fade').on({
+            'mouseenter':function(){
+                hover_fade_action();
+            },
+            'mouseleave':function(){
+                $('.hover_fade .row').stop();
+                $('.hover_fade .row').eq(1).fadeOut(2000);
+                $('.hover_fade .row').eq(2).fadeOut(2000);
+                clearTimeout(hover_fade_timer);
+                hover_fade_timer = null;
+            }
+        });
+
+        function hover_fade_action(){
+            $('.hover_fade .row').eq(1).fadeIn(2000, function(){
+                hover_fade_timer = setTimeout(function(){
+                    $('.hover_fade .row').eq(2).fadeIn(2000, function(){
+                        $('.hover_fade .row').eq(1).hide();
+                        hover_fade_timer = setTimeout(function(){
+                            $('.hover_fade .row').stop().eq(2).fadeOut(2000, function(){
+                                hover_fade_timer = setTimeout(function(){
+                                    hover_fade_action();
+                                }, 2000);
+                            });
+                        }, 2000);
+                    });
+                }, 2000);
+            });
+        }
+        function isObjectCenter($object){
+            var wh = $(window).height();
+            var now_top = $(window).scrollTop();
+            var this_top = $object.offset().top;
+
+            if (now_top >= this_top - wh / 2){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    });
+</script>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="empty"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+      <body>
+          <referenceContainer name="product.info.main">
+              <container name="quickview_product_attribute" htmlTag="div" htmlClass="quickview-product-attribute" before="product.info.price">
+                  <block class="Magento\Catalog\Block\Product\View\Description" template="OnitsukaTiger_QuickView::product/view/product_attribute_gender.phtml"/>
+              </container>
+          </referenceContainer>
+          <referenceContainer name="product.info.price">
+              <block class="Magento\Catalog\Block\Product\View" template="OnitsukaTiger_QuickView::product/view/quickview.phtml" before="product.price.final"/>
+              <block class="Magento\Catalog\Block\Product\View" template="OnitsukaTiger_QuickView::product/view/additional_label.phtml" after="-"/>
+          </referenceContainer>
+          <move element="product.info.stock.sku" destination="quickview_product_attribute" after="-" />
+          <referenceContainer name="product.info.media">
+              <block class="Magento\Framework\View\Element\Template" template="OnitsukaTiger_QuickView::product/view/button_zoom_product_image.phtml" after="-"/>
+          </referenceContainer>
+          <referenceBlock name="product.info.details" remove="true"/>
+          <referenceBlock name="product.info.review" remove="true"/>
+          <referenceContainer name="columns.top" remove="true"/>
+          <referenceContainer name="page.bottom.container" remove="true"/>
+          <referenceContainer name="footer-container" remove="true"/>
+          <referenceContainer name="before.body.end" remove="true"/>
+          <referenceContainer name="page.top" remove="true"/>
+          <referenceContainer name="header.container" remove="true"/>
+          <referenceContainer name="top.links" remove="true"/>
+          <referenceContainer name="product.size.guide" remove="true"/>
+          <referenceContainer name="page-header-sticky" remove="true"/>
+          <referenceContainer name="product.init.zoom" remove="true"/>
+      </body>
+</page>

@@ -1,0 +1,95 @@
+// @codingStandardsIgnoreFile
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+  .homepage-container{
+    .swiper-container{
+      overflow: hidden;
+    }
+  }
+  .catalogsearch-result-index{
+    .column.main{
+        dl.block{
+            display: none;
+        }
+    }
+  }
+  .web_kr_ko.catalogsearch-result-index{
+    .column.main{
+        dl.block{
+            display: block;
+        }
+    }
+  }
+}
+
+@media only screen and (min-width: 769px){
+    .page-with-filter{
+        .page-wrapper{
+            .products.products-grid{
+                .product-items{
+                    .product-item{
+                        .product-item-info{
+                            height: 90%;
+                            .product-item-details{
+                                min-height: 91px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media screen and (min-width: 769px) and (max-width: 1135px) {
+    .page-with-filter{
+        .page-wrapper{
+            .product-coming-soon{
+                font-size: 11px;
+                padding-top:0;
+                padding-bottom:0;
+                margin-top: 5px;
+            }
+            .products.products-grid{
+                .product-items{
+                    .product-item{
+                        .product-item-info{
+                            .product-item-name,
+                            .product-item-link{
+                                min-height: 30px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 769px){
+    body:not(.web_kr_ko){
+        .nav-sections{
+            .navigation{
+                .level0.level-top > .level-top:hover:after{
+                    display: none !important;
+                }
+                .level0.level-top > .level-top label{
+                    position: relative;
+                    cursor: pointer;
+                }
+                .level-top:hover label:after{
+                    content: "";
+                    display: block;
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: 20px;
+                    height: 1px;
+                    background: #cd0037;
+                }
+            }
+        }
+    }
+}

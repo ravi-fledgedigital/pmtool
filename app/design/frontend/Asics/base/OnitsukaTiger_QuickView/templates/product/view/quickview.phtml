@@ -1,0 +1,12 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $_product = $block->getProduct(); ?>
+<div class="more_details_quickview">
+    <a class="mtb-more" title="<?= __('Click for more details')?>" href="<?= $_product->getProductUrl()?>"><?= __('View Full Details')?></a>
+</div>

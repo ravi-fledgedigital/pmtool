@@ -1,0 +1,49 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    div.amrma-table-container {
+        .table-wrapper>.amrma-table {
+            .amrma-tbody > .amrma-row {
+                position: relative;
+                > .col {
+                    &:first-child {
+                        left: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .amrma-customer-information .amrma-customer-address {
+        margin-bottom: 20px;
+    }
+
+
+    .amrma-tracking-information {
+        .amrma-items-table {
+            .table:not(.cart):not(.totals):not(.table-comparison) {
+                tbody {
+                    >tr.amrma-row {
+                        display: flex;
+                        >td {
+                            padding: 10px 20px 10px 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

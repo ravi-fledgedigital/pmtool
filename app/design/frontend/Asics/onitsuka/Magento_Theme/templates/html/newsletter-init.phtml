@@ -1,0 +1,51 @@
+<?php $urlPrivacy = $block->getUrl().'privacy-policy'?>
+<div class="promotion-popup promotion-popup-newsletter">
+    <div class="promotion-popup-content">
+        <button class="promotion-popup-close"></button>
+        <div class="newsletter-container">
+            <form class="subscribe-popup-form"
+                  novalidate
+                  action="<?= $block->escapeUrl($block->getFormActionUrl()) ?>"
+                  method="post"
+                  data-mage-init='{"validation": {"errorClass": "mage-error"}}'
+                  id="newsletter-validate-popup-details">
+                <input type="hidden" name="isAjax" value="1"/>
+                <input name="dob" id="dob" type="text" class="hidden"/>
+                <?= $block->getChildHtml('newsletter-popup')?>
+            </form>
+            <script type="text/javascript">
+                require.config({
+                    map: {
+                        '*': {
+                            newsletterPopup: 'Magento_Newsletter/js/newsletter-popup'
+                        }
+                    }
+                });
+            </script>
+            <script type="text/x-magento-init">
+                {
+                    "#newsletter-validate-popup-details": {
+                        "newsletterPopup": {
+                        }
+                    }
+                }
+            </script>
+        </div>
+    </div>
+</div>
+<div class="promotion-popup-overlay"></div>
+<script type="text/javascript">
+    require([
+        'jquery'
+    ], function($){
+        if(!document.cookie.match('InStoreCookie_2237')){
+            $(".promotion-popup,.promotion-popup-overlay").show();
+            $('.promotion-popup-close').on("click", function (e) {
+                document.cookie = 'InStoreCookie_2237={"WN":"2237||"}; expires='.concat(new Date(Date.now() + 6048e5).toUTCString(), "; path=/;");
+                $(".promotion-popup,.promotion-popup-overlay").hide();
+            });
+        }else{
+            $(".promotion-popup,.promotion-popup-overlay").remove();
+        }
+    });
+</script>

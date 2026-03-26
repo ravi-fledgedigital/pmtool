@@ -1,0 +1,7 @@
+<?= $block->escapeHtml(
+    __(
+        '<a class="back-link" href="%1">Continue Shopping</a>',
+        $block->escapeUrl($block->getContinueShoppingUrl())
+    ),
+    ['a']
+) ?>

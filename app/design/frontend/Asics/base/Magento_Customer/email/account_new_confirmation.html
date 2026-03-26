@@ -1,0 +1,26 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "You're Almost There"}} @-->
+<!--@vars {
+"var store.frontend_name":"Store Name",
+"var this.getUrl($store,'customer/account/confirm/',[_query:[id:$customer.id,key:$customer.confirmation,back_url:$back_url],_nosid:1])":"Account Confirmation URL",
+"var this.getUrl($store, 'customer/account/')":"Customer Account URL",
+"var customer.email":"Customer Email",
+"var customer.name":"Customer Name"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+<div class="customer-account-container">
+    <img
+        src="{{view url='/images/email/customer-confirmation.jpg'}}"
+        alt="{{trans "You're Almost There"}}"
+    />
+    <p class="greeting">{{trans "Hello %customer_name," customer_name=$customer.firstname}}</p>
+    <p>{{trans "Welcome! Your %store_name account registration is almost complete. Click the button below to confirm your email address and you’ll be all set." store_name=$store.frontend_name}}</p>
+    <a target="_blank" href="{{var this.getUrl($store,'customer/account/confirm/',[_query:[id:$customer.id,key:$customer.confirmation,back_url:$back_url],_nosid:1])}}" class="button-account-reset"><b><span>{{trans "Confirm Email Address"}}</span></b></a>
+</div>
+{{template config_path="design/email/footer_template"}}

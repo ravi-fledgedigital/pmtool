@@ -1,0 +1,39 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Image $block */
+
+/** @var \Magento\Wishlist\Model\Item $item */
+$item = $block->getItem();
+$product = $item->getProduct();
+$blockOptions = $block->getChildBlock('customer.wishlist.item.options.details');
+$options = $blockOptions->getConfiguredOptions();
+$helper = $this->helper(\OnitsukaTiger\Rma\Helper\Data::class);
+$childProduct = null;
+$imageDisplayArea = 'category_page_grid';
+?>
+<?php if($options):?>
+    <?php
+    $superAttribute = [];
+    foreach ($options as $option) {
+        if(array_key_exists('option_id',$option)){
+            $superAttribute[$option['option_id']] = $option['option_value'];
+        }
+    }
+    ?>
+    <?php $childProduct = $helper->getChildFromProductAttribute($product,$superAttribute);?>
+<?php endif;?>
+<a class="product-item-photo" data-product="<?php echo $product->getEntityId()?>" tabindex="-1" href="<?= $block->escapeUrl($product->getProductUrl()) ?>" title="<?= $block->escapeHtmlAttr($product->getName()) ?>">
+    <?php if($childProduct):?>
+        <?php
+        $imageChildrenURL = $block->getImage($childProduct, $imageDisplayArea)->getImageUrl();
+        $imageHtml = $block->getImage($product, $imageDisplayArea)->setImageUrl($imageChildrenURL);
+        ?>
+        <?= $imageHtml->toHtml()?>
+    <?php else :?>
+        <?= $block->getImage($product, $imageDisplayArea)->toHtml()?>
+    <?php endif;?>
+</a>

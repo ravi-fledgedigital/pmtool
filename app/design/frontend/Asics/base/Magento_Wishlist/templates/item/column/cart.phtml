@@ -1,0 +1,74 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Cart $block */
+
+/** @var \Magento\Wishlist\Model\Item $item */
+$item = $block->getItem();
+$product = $item->getProduct();
+/** @var \Magento\Wishlist\ViewModel\AllowedQuantity $viewModel */
+$viewModel = $block->getData('allowedQuantityViewModel');
+$allowedQty = $viewModel->setItem($item)->getMinMaxQty();
+$helper = $this->helper(\OnitsukaTiger\Wishlist\Helper\Data::class);
+$helperConfigration = $this->helper('OnitsukaTiger\Fixture\Helper\Data');
+$comingSoonLabel = $helperConfigration->getConfig('coming_soon/general/coming_soon_label');
+$simpleProduct  =  $helper->getProductBySku($product->getSku());
+$restock = $simpleProduct->getRestockNotificationFlag();
+$isProductComingSoon = 0;
+$currentTime = date('Y-m-d H:i:s');
+$launchDate = $product->getLaunchDate();
+if (!empty($launchDate) && strtotime($launchDate) > strtotime($currentTime)) {
+    $isProductComingSoon = 1;
+}
+?>
+<?php foreach ($block->getChildNames() as $childName) : ?>
+    <?= /* @noEscape */ $block->getLayout()->renderElement($childName, false) ?>
+<?php endforeach;?>
+<?php if ($isProductComingSoon == 0) { ?>
+<?php if ($restock == 2) : ?>
+    <p class="available stock" is_restock ="<?=$restock?>" title="<?= $block->escapeHtmlAttr(__('Restock Available')) ?>">
+        <span><?= $block->escapeHtml(__('Restock Available')) ?></span>
+    </p>
+<?php elseif ($restock != 2) : ?>
+    <p class="available stock" is_restock ="<?=$restock?>" title="<?= $block->escapeHtmlAttr(__('Stock Available')) ?>">
+        <span><?= $block->escapeHtml(__('Stock Available')) ?></span>
+    </p>
+<?php else : ?>
+    <p class="unavailable stock" is_restock ="<?=$restock?>" title="<?= $block->escapeHtmlAttr(__('Stock Not Available')) ?>">
+        <span><?= $block->escapeHtml(__('Stock not Available')) ?></span>
+    </p>
+<?php endif; ?>
+<?php } ?>
+<?php if ($isProductComingSoon == 1) { ?>
+    <div class="coming-soon">
+        <p class="coming-soon-product"
+           title="<?= $block->escapeHtmlAttr(__($comingSoonLabel)) ?>">
+            <span><?= $block->escapeHtml(__($comingSoonLabel)) ?></span>
+        </p>
+    </div>
+<?php } ?>
+<div class="box-tocart">
+    <fieldset class="fieldset">
+        <?php if ($item->canHaveQty() && $product->isVisibleInSiteVisibility() && $isProductComingSoon == 0) : ?>
+            <div class="field qty">
+                <label class="label" for="qty[<?= $block->escapeHtmlAttr($item->getId()) ?>]"><span><?= $block->escapeHtml(__('Qty')) ?></span></label>
+                <div class="control">
+                    <input type="number" data-role="qty" id="qty[<?= $block->escapeHtmlAttr($item->getId()) ?>]" class="input-text qty" data-validate="{'required-number':true,'validate-greater-than-zero':true, 'validate-item-quantity':{'minAllowed':<?= /* @noEscape */ $allowedQty['minAllowed'] ?>,'maxAllowed':<?= /* @noEscape */ $allowedQty['maxAllowed'] ?>}}"
+                           name="qty[<?= $block->escapeHtmlAttr($item->getId()) ?>]" value="<?= /* @noEscape */ $block->getAddToCartQty($item) * 1 ?>" <?= $product->isSaleable() ? '' : 'disabled="disabled"' ?>>
+                </div>
+            </div>
+        <?php endif; ?>
+        <?php if ($product->isSaleable() && $isProductComingSoon == 0) : ?>
+            <div class="product-item-actions">
+                <div class="actions-primary">
+                    <button type="button" data-role="tocart" data-post='<?= /* @noEscape */ $helper->getItemAddToCartParams($item) ?>' title="<?= $block->escapeHtmlAttr(__('Buy now')) ?>" data-item-id="<?= $block->escapeHtmlAttr($item->getId()) ?>" class="action tocart primary">
+                        <span><?= $block->escapeHtml(__('Buy now')) ?></span>
+                    </button>
+                </div>
+            </div>
+        <?php endif; ?>
+    </fieldset>
+</div>

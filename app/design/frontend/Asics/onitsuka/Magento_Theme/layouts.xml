@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page_layouts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/PageLayout/etc/layouts.xsd">
+    <layout id="fullwidth-ohb">
+        <label translate="true">Ohboriex Page Layout</label>
+    </layout>
+    <layout id="fullwidth-hrm">
+        <label translate="true">HRM PEAK Layout</label>
+    </layout>
+    <layout id="fullwidth-ss21">
+        <label translate="true">Spring Summer Layout</label>
+    </layout>
+    <layout id="fullwidth-mon21">
+        <label translate="true">MonsterPiece Series Layout</label>
+    </layout>
+    <layout id="fullwidth-fashion">
+        <label translate="true">Fashion Show Layout</label>
+    </layout>
+    <layout id="fullwidth-kidcollection">
+        <label translate="true">Cms Kids Collection</label>
+    </layout>
+    <layout id="fullwidth-collaboration">
+        <label translate="true">Cms Collaboration Layout</label>
+    </layout>
+    <layout id="fullwidth-aw21">
+        <label translate="true">Autumn Winter 2021</label>
+    </layout>
+    <layout id="fullwidth-intel">
+        <label translate="true">Intel World Open Layout</label>
+    </layout>
+    <layout id="fullwidth-mexico">
+        <label translate="true">Mexico 66 SD PF Layout</label>
+    </layout>
+    <layout id="fullwidth-micro-kid">
+        <label translate="true">Microsite Kids Collection</label>
+    </layout>
+</page_layouts>

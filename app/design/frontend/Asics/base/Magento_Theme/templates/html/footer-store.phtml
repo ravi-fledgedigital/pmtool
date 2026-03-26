@@ -1,0 +1,7 @@
+<?php
+$helper = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);
+$store = $helper->getCurrentStore();
+?>
+<small class="region-change">
+    <span class="footer-country"><?= __($store->getName())?></span>&nbsp;<a href="<?= $block->getUrl()?>location-selector">CHANGE LOCATION</a>
+</small>

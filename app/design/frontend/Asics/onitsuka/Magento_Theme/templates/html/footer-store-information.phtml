@@ -1,0 +1,28 @@
+<?php
+$helper = $this->helper('OnitsukaTiger\Fixture\Helper\Data');
+$blockStore = $block->getChildBlock('store.location.footer.container');
+?>
+<?= $block->getChildHtml('footer-flagship-store')?>
+<a class="btn-find" href="<?= $block->getUrl($helper->getConfig('amlocator/locator/main_settings/url')) ? $block->getUrl($helper->getConfig('amlocator/locator/main_settings/url')) : 'amlocator';?>">
+    <span><?= __('Find A Store')?></span>
+</a>
+<?php if($helper->getConfig('amlocator/geoip/usebrowserip')):?>
+    <script type="text/javascript">
+        require([
+            'jquery',
+            'Magento_Theme/js/nearest-store',
+            'domReady!',
+            'https://maps.googleapis.com/maps/api/js?libraries=places&key=<?= $block->escapeHtml(
+                $helper->getConfig('amlocator/general/api')
+            ); ?>'
+        ], function ($) {
+            $('.footer-store-information').nearestStore({
+                useGeoConfig: "1",
+                jsonLocations: "",
+                ajaxCallUrl: "<?= $block->escapeHtml(
+                    $block->getUrl('amlocator/index/ajax')
+                ); ?>",
+            });
+        });
+    </script>
+<?php endif; ?>

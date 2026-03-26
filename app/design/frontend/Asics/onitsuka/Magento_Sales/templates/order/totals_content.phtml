@@ -1,0 +1,110 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @var $block \Magento\Sales\Block\Order\Totals
+ * @see \Magento\Sales\Block\Order\Totals
+ */
+$usedPoint = 0;
+$pointValue = 0;
+$pointLabel = 'Points to be earned:';
+
+$giftHelper = $this->helper(\OnitsukaTigerKorea\Checkout\Helper\Data::class);
+?>
+<div class="order-details-item">
+    <strong class="box-title"><span><?= $block->escapeHtml(__('Order Summary')) ?></span></strong>
+    <div class="box-content">
+        <table>
+            <?php foreach ($block->getTotals() as $_code => $_total):?>
+                <?php $_total->setLabelProperties("")?>
+                <?php if ($_code == 'grand_total'): ?>
+                    <?php $_total->setLabel(__('Total'))?>
+                <?php elseif ($_code == 'discount'): ?>
+                    <?php $_total->setLabel(__('Order Discount'))?>
+                <?php elseif ($_code == 'shipping'): ?>
+                    <?php $_total->setLabel(__('Shipping'))?>
+                <?php elseif ($_code == 'subtotal'): ?>
+                    <?php $_total->setLabel(__('Subtotal (Inclusive of VAT)'))?>
+                <?php endif;?>
+                <?php if ($_total->getBlockName()): ?>
+                    <?= $block->getChildHtml($_total->getBlockName(), false) ?>
+                <?php else:?>
+                    <tr class="<?= $block->escapeHtmlAttr($_code) ?>">
+                        <th scope="row">
+                            <?php if ($_total->getStrong()): ?>
+                                <strong><?= $block->escapeHtml($_total->getLabel()) ?></strong>
+                            <?php else: ?>
+                                <?= $block->escapeHtml($_total->getLabel()) ?>
+                            <?php endif ?>
+                        </th>
+                        <td data-th="<?= $block->escapeHtmlAttr($_total->getLabel()) ?>">
+                            <?php if ($_total->getStrong()): ?>
+                                <strong><?= /* @noEscape */ $block->formatValue($_total) ?></strong>
+                            <?php else: ?>
+                                <?= /* @noEscape */ $block->formatValue($_total) ?>
+                            <?php endif?>
+                        </td>
+                    </tr>
+                <?php if($_code == 'grand_total') :?>
+                        <?php
+                        if ($block->getOrder()->getAddedPointDate() > 0 || $block->getOrder()->getAcquiredPoint() > 0) {
+                            $pointValue = number_format($block->getOrder()->getAcquiredPoint());
+
+                            if (($block->getOrder()->getAddedPoint() > 0)) {
+                                $pointLabel = 'Added Points';
+                                $pointValue = number_format($block->getOrder()->getAddedPoint());
+                            }
+                            ?>
+                            <tr class="points-to-be-earned">
+                                <th scope="row">
+                                    <?= $block->escapeHtml(__($pointLabel)) ?>
+                                </th>
+                                <td data-th="<?= $block->escapeHtml(__($pointLabel)) ?>">
+                                    <?= /* @noEscape */ $block->escapeHtml($pointValue) . __(' points') ?>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                        <?php if ($giftHelper->isGiftPackagingEnabled()): ?>
+                            <tr class="points-to-be-earned">
+                                <th scope="row">
+                                    <?= $block->escapeHtml(__('Gift Packaging Requested: ')) ?>
+                                </th>
+                                <td data-th="<?= $block->escapeHtml(__($pointLabel)) ?>">
+                                    <?= /* @noEscape */ ($block->getOrder()->getGiftPackaging()) ? __("Yes") : __("No"); ?>
+                                </td>
+                            </tr>
+                        <?php endif;?>
+                <?php endif;?>
+                <?php endif; ?>
+                <?php if ($_code =='subtotal'): ?>
+                    <?php if (!array_key_exists('discount', $block->getTotals())):?>
+                        <tr class="discount">
+                            <th scope="row">
+                                <?= /* @noEscape */ __('Order Discount')?>
+                            </th>
+                            <td  data-th="<?= /* @noEscape */ __('Order Discount')?>">
+                                <?= /* @noEscape */ $block->getOrder()->formatPrice(0) ?>
+                            </td>
+                        </tr>
+                    <?php endif;?>
+                <?php endif;?>
+            <?php endforeach?>
+
+            <?php if ($block->getLayout()->createBlock(Cpss\Crm\Block\Member\Info::class)->isModuleEnabled()): ?>
+                <?php if ($block->getOrder()->getUsedPoint()): ?>
+                    <span class="usage-point">
+                        <?= $block->escapeHtml(__('Used point')) ?>
+                        <span class="point" style="float: right">
+                            <?= /* @noEscape */
+                            $block->escapeHtml(number_format($block->getOrder()->getUsedPoint())) . __(' points') ?>
+                        </span> </br>
+                </span>
+                <?php endif; ?>
+
+            <?php endif;?>
+        </table>
+    </div>
+</div>

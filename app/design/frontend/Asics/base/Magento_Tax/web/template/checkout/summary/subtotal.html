@@ -1,0 +1,40 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- ko if: isBothPricesDisplayed() -->
+<tr class="totals sub excl">
+    <th class="mark" scope="row">
+        <span data-bind="i18n: 'Subtotal  (Exclusive of VAT)'"></span>
+    </th>
+    <td class="amount">
+        <span class="price" data-bind="text: getValue(), attr: {'data-th': 'Subtotal (Exclusive of GST)'}"></span>
+    </td>
+</tr>
+<tr class="totals sub incl">
+    <th class="mark" scope="row">
+        <span data-bind="i18n: 'Subtotal  (Inclusive of VAT)'"></span>
+    </th>
+    <td class="amount">
+        <span class="price" data-bind="text: getValueInclTax(), attr: {'data-th': 'Subtotal (Inclusive of VAT)'}"></span>
+    </td>
+</tr>
+<!-- /ko -->
+<!-- ko if: !isBothPricesDisplayed() && isIncludingTaxDisplayed() -->
+<tr class="totals sub">
+    <th data-bind="i18n: 'Subtotal  (Inclusive of GST)'" class="mark" scope="row"></th>
+    <td class="amount">
+        <span class="price" data-bind="text: getValueInclTax(), attr: {'data-th': 'Subtotal (Inclusive of VAT)'}"></span>
+    </td>
+</tr>
+<!-- /ko -->
+<!-- ko if: !isBothPricesDisplayed() && !isIncludingTaxDisplayed() -->
+<tr class="totals sub">
+    <th data-bind="i18n: 'Subtotal  (Exclusive of GST)'" class="mark" scope="row"></th>
+    <td class="amount">
+        <span class="price" data-bind="text: getValue(), attr: {'data-th': 'Subtotal (Exclusive of VAT)'}"></span>
+    </td>
+</tr>
+<!-- /ko -->

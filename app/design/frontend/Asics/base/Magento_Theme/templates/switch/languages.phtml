@@ -1,0 +1,6 @@
+<?php
+$helper = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);
+$storeCode = $block->getData('store_code');
+$storeData = $helper->getStoreDataByCode($storeCode);
+?>
+<li><a href="<?= $storeData['url']?>"><?= __($storeData['label'])?></a></li>

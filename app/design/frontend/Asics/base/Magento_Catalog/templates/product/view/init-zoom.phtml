@@ -1,0 +1,44 @@
+<script type="text/javascript">
+    require([
+        'jquery',
+        'mage/gallery/gallery',
+        'js/jqzoom'
+    ], function($){
+        loadZoom();
+        function loadZoom(){
+            $('[data-gallery-role=gallery-placeholder]').on('gallery:loaded',  $.proxy(function () {
+                $(this).on('fotorama:load',  $.proxy(function () {
+                    $('.fotorama__stage').removeClass('fotorama__wrap--no-controls').addClass('fotorama__wrap--no-controls');
+                    if($(".fotorama").data("fotorama").activeFrame.$stageFrame.find('img').length && !$(".fotorama").data("fotorama").activeFrame.$stageFrame.find('.zoomPad').length) {
+                        var options = {
+                            zoomType: 'innerzoom',
+                            lens:true,
+                            preloadImages: false,
+                            alwaysOn:false
+                        }
+                        jqzoom($(".fotorama").data("fotorama").activeFrame.$stageFrame,options);
+                    }
+                }, this));
+                $(this).on('fotorama:showend',  $.proxy(function () {
+                    $('.fotorama__stage').removeClass('fotorama__wrap--no-controls').addClass('fotorama__wrap--no-controls');
+                    if($('.product.media .fotorama__stage__frame.fotorama__active img').length && !$('.product.media .fotorama__stage__frame.fotorama__active .zoomPad').length) {
+                        var options = {
+                            zoomType: 'innerzoom',
+                            lens:true,
+                            preloadImages: false,
+                            alwaysOn:false
+                        }
+                        jqzoom($('.product.media .fotorama__stage__frame.fotorama__active'),options);
+                    }
+                }, this));
+            }, this));
+        }
+        $('.product.media').on("click", function (e) {
+            if($(e.target).hasClass('fotorama__img')) {
+                setTimeout(function () {
+                    loadZoom();
+                },200);
+            }
+        })
+    });
+</script>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Thank you for your order</title>
+    </head>
+    <body>
+        <referenceContainer name="page.top">
+            <block class="Magento\Cms\Block\Block" name="header-alert" after="-">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">header-alert</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="page.main.title" remove="true"/>
+    </body>
+</page>

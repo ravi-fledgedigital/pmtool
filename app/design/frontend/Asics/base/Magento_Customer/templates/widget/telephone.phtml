@@ -1,0 +1,78 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Customer\Block\Widget\Telephone $block */
+?>
+<?php
+$helper = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);
+$telephonePrefix = $helper->getConfig('general/telephone_prefix/number') ? $helper->getConfig('general/telephone_prefix/number') : '66';
+?>
+<?php if($helper->getConfig('general/telephone_prefix/enable')): ?>
+<div class="field telephone <?= $block->isRequired() ? 'required' : '' ?>">
+    <label for="telephone" class="label">
+        <span>
+            <?= $block->escapeHtml(__('Phone Number')) ?>
+        </span>
+    </label>
+    <div class="control">
+            <?php
+            $_validationClass = $block->escapeHtmlAttr(
+                $this->helper(\Magento\Customer\Helper\Address::class)
+                     ->getAttributeValidationClass('telephone')
+            );
+            ?>
+        <input type="hidden"
+               name="telephone"
+               id="telephone"
+               value="<?= $block->escapeHtmlAttr($block->getTelephone()) ?>"
+               title="<?= $block->escapeHtmlAttr(__('Phone Number')) ?>" maxlength="9"
+               class="input-text <?= $_validationClass ?: '' ?>"
+        >
+        <input type="text"
+               id="phone-countrycode"
+               value="<?= $telephonePrefix?>"
+               title="<?= $block->escapeHtmlAttr(__('Phone Number')) ?>"
+               class="input-text phone-countrycode" disabled="disabled"
+        >
+        <input type="text"
+               id="mobile-number"
+               value=""
+               title="<?= $block->escapeHtmlAttr(__('Phone Number')) ?>"
+               class="input-text validate-number mobile-number validate-length minimum-length-8 maximum-length-9 required-entry"
+        >
+    </div>
+    <script type="text/x-magento-init">
+    {
+        ".field.telephone": {
+            "addressTelephone": {}
+        }
+    }
+</script>
+</div>
+<?php else: ?>
+    <div class="field telephone <?= $block->isRequired() ? 'required' : '' ?>">
+        <label for="telephone" class="label">
+        <span>
+            <?= $block->escapeHtml(__('Phone Number')) ?>
+        </span>
+        </label>
+        <div class="control">
+            <?php
+            $_validationClass = $block->escapeHtmlAttr(
+                $this->helper(\Magento\Customer\Helper\Address::class)
+                    ->getAttributeValidationClass('telephone')
+            );
+            ?>
+            <input type="text"
+                   name="telephone"
+                   id="telephone"
+                   value="<?= $block->escapeHtmlAttr($block->getTelephone()) ?>"
+                   title="<?= $block->escapeHtmlAttr(__('Phone Number')) ?>"
+                   class="input-text <?= $_validationClass ?: '' ?> validate-number validate-length minimum-length-8 maximum-length-12 required-entry"
+            >
+        </div>
+    </div>
+<?php endif;?>

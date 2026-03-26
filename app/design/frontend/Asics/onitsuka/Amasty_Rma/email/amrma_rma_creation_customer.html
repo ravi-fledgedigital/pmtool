@@ -1,0 +1,54 @@
+<!--@subject {{trans "Onitsuka Tiger Return Initiated %increment_id" increment_id=$email_request.getOrderIncrement()}}@-->
+<!--@vars
+{
+"var email_request":"Request Object"
+}
+@-->
+
+{{template config_path="design/email/header_template"}}
+<div class="order-container-information">
+    <table>
+        <tr class="email-intro">
+            <td>
+                <p class="greeting-order">{{trans "Dear %customer_name," customer_name=$email_request.getCustomerName()}}</p>
+                <p>
+                    {{trans 'Please add <a href="mailto:%store_email">%store_email</a> to your email address book so all Onitsuka Tiger notifications are received.' store_email=$store_email |raw}}
+                </p>
+            </td>
+        </tr>
+        <tr class="email-summary">
+            <td>
+                {{layout handle="sales_email_order_info_rma_return" order=$email_request.getOrderIncrement() create=$email_request.getOrderCreatedAt() status=$email_request.getStatus() area="frontend"}}
+            </td>
+        </tr>
+        <tr class="order-notification">
+            <td>
+                <p>{{trans "We have received your return request."}}</p>
+                <p>
+                    {{trans "For Home Delivery orders, please note that the Return Form included in your order has to be filled up and inserted into your return parcel in order to process your return. We will be contacting you to arrange for the item(s) to be picked up for return with details on the return shipping label. Before the pick up, pack your return item(s) into the original packaging and paste the return shipping label on the return parcel."}}
+                </p>
+                <p>{{trans "If you did not raise a return request, you are receiving this email due to the unforeseen circumstance of not being about to deliver the item(s) to you successfully."}}</p>
+            </td>
+        </tr>
+        <tr class="email-intro rma-details">
+            <td>
+                <p class="email-title">{{trans "Return Details"}}</p>
+                <p>{{trans "RMA Number:"}} {{var email_request.rma_increment|escape}}</p>
+                <p>{{trans "Return Method: Postal Returns"}}</p>
+            </td>
+        </tr>
+        <tr class="email-summary">
+            <td>
+                {{block class='Magento\\Framework\\View\\Element\\Template' area='frontend' order=$email_request.getOrderIncrement() template='Amasty_Rma::email/return_items.phtml' returnItems=$email_request.getRequestItems()}}
+            </td>
+        </tr>
+        <tr class="order-notification">
+            <td>
+                <p class="question-order-information">
+                    {{trans 'If you have any additional questions or concerns, please feel free to contact us at <a href="mailto:%store_email">%store_email</a>.' store_email=$store_email |raw}}
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+{{template config_path="design/email/footer_template"}}

@@ -1,0 +1,22 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="field addresses">
+    <div class="control">
+        <div class="shipping-address-items">
+            <!-- ko foreach: { data: elems, as: 'element' } -->
+            <!-- ko template: element.getTemplate() --><!-- /ko -->
+            <!-- /ko -->
+            <div class="new-address-popup" data-bind="fadeVisible: checkAddress()">
+                <button type="button"
+                        class="action action-show-popup"
+                        click="$parent.showPopupAddress">
+                    <span translate="'Add New Address'"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

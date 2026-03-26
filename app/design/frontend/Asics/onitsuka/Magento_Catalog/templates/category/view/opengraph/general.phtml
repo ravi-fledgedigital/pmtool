@@ -1,0 +1,12 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block \Magento\Catalog\Block\Category\View */
+$logoConfig = $block->escapeUrl($block->getLogoSrc());
+?>
+<?php if($logoConfig): ?>
+    <meta property="og:image" content="<?= $logoConfig ?>" />
+<?php endif; ?>

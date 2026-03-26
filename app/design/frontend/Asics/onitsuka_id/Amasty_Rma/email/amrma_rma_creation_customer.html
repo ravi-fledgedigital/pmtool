@@ -1,0 +1,37 @@
+<!--@subject {{trans "Onitsuka Tiger New Return Information "}}{{var email_request.rma_increment|escape}}@-->
+<!--@vars
+{
+"var email_request":"Request Object"
+}
+@-->
+{{template config_path="design/email/header_template"}}
+
+<div class="order-container-information">
+    <table style="width:100%" cellspacing="0" cellpadding="0">
+        <tr class="email-summary">
+            <td>
+                <p class="amrma-title">{{trans "Dear"}} <strong>{{var email_request.getCustomerName()|escape}}</strong>, your <a href="{{var email_request.getUrl()|escape}}">{{trans "RMA Request"}}</a> {{trans "has been updated"}}</p>
+                <p><strong>{{trans "RMA ID:"}} </strong><span>{{var email_request.rma_increment|escape}}</span></p>
+                <p><strong>{{trans "RMA Status: "}} </strong><span class="amrma-status" style="padding: 0 10px 1px;border-radius: 4px;color: #fff;text-transform: uppercase;font-size: 12px;font-weight: 600;background: {{var email_request.getStatusColor()|escape}}">{{var email_request.getStatus()|escape}}</span></p>
+            </td>
+        </tr>
+
+        <tr class="order-items-content">
+            <td>
+                <div class="order-information">
+                    {{block class='Magento\\Framework\\View\\Element\\Template' area='frontend' order=$email_request.getOrderIncrement() template='Amasty_Rma::email/return_items.phtml' returnItems=$email_request.getRequestItems()}}
+                </div>
+            </td>
+        </tr>
+
+        <tr class="order-notification">
+            <td>
+                <p class="question-order-information">
+                    {{trans 'If you have any additional questions or concerns, please feel free to contact us at <a href="mailto:%store_email">%store_email</a>.' store_email=$store_email |raw}}
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+
+{{template config_path="design/email/footer_template"}}

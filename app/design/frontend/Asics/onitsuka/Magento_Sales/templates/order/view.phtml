@@ -1,0 +1,99 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<?php /** @var  $block \Magento\Sales\Block\Order\View*/?>
+<?php
+$helperTracking = $this->helper(\OnitsukaTiger\OrderStatusTracking\Helper\Data::class);
+$helperReturn = $this->helper(\OnitsukaTiger\Rma\Helper\Data::class);
+$helperStore = $this->helper(\OnitsukaTiger\Store\Helper\Data::class);
+?>
+<div class="page-title-wrapper">
+    <h1 class="page-title">
+        <span class="base" data-ui-id="page-title-wrapper"><?= __('My Orders')?></span>
+    </h1>
+</div>
+<div class="order-details-items ordered">
+    <?php $_order = $block->getOrder() ?>
+    <?php $date = $helperStore->formatDate($_order->getCreatedAt(),$_order->getStoreId());?>
+    <?php $updateDate = $helperStore->formatDate($_order->getUpdatedAt(),$_order->getStoreId());?>
+    <?php $statusOrderTrack = $helperTracking->getStatusTracking($_order);?>
+    <?php $totalTrack = count($statusOrderTrack)?>
+    <?php $orderStatus = $_order->getStatusLabel()?>
+    <?php $index=0; foreach ($statusOrderTrack as $key => $track): $index++;?>
+        <?php if((int)$index == $totalTrack){
+            $updateDate = $helperStore->formatDate($track->getCreatedAt(),$_order->getStoreId());
+        } ?>
+    <?php endforeach;?>
+    <div class="order-title">
+        <div class="order-id"><strong><?= __('Order ID:')?></strong> <?= $_order->getIncrementId()?></div>
+        <div class="order-date"><strong><?= __('Order date:')?></strong><?= $date?></div>
+    </div>
+    <div class="order-details-container">
+        <div class="order-head">
+            <div class="order-details">
+                <span><?= __($orderStatus)?></span><?= __('on ')?><?= $updateDate?>
+            </div>
+            <div class="order-tracking-graph">
+                <div class="info-box">
+                    <?php $index=0; foreach ($statusOrderTrack as $key => $track): $index++;?>
+                        <div class="loginfodiv" style="display: <?php if((int)$index == $totalTrack): echo 'block'; else: echo 'none';endif; ?>" data-index="<?= $key?>">
+                            <div class="arrow arrow0"></div>
+                            <div class="info-msg"><?= __($helperTracking->getStatusDescription($track->getStatus()))?></div>
+                        </div>
+                    <?php endforeach;?>
+                </div>
+            </div>
+        </div>
+        <div class="order-items-list">
+            <?= $block->getChildHtml('order_items') ?>
+        </div>
+    </div>
+
+    <div class="order-details-container shipment-list">
+        <div class="order-items-list">
+            <?= $block->getChildHtml('shipment_items') ?>
+        </div>
+    </div>
+
+    <div class="reorder-order">
+        <?php if($helperReturn->checkButtonReorder($_order)): ?>
+            <a data-role="order-return" href="#" data-return='<?= /* @noEscape */$helperReturn->getCreateReturnUrl($_order) ?>' class="action order">
+                <span><?= $block->escapeHtml(__('Return All')) ?></span>
+            </a>
+        <?php endif ?>
+    </div>
+    <script type="text/x-magento-init">
+                {
+                    ".order-items": {
+                        "orderAjax": {
+                            "addressJson": "",
+                            "deleteUrlPrefix": ""
+                        }
+                    }
+                }
+            </script>
+</div>
+<script type="text/javascript">
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ], function($) {
+            $(".order-tracking-graph .order-step").hover(function(){
+                $('.info-box .loginfodiv').hide();
+                $('.info-box .loginfodiv[data-index="'+$(this).data("index")+'"]').show();
+            }, function(){
+                $('.info-box .loginfodiv').hide();
+                $('.info-box .loginfodiv:last-child').show();
+            });
+        }
+    );
+</script>
+<div class="loadding-ajax">
+    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+</div>

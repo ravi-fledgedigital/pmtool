@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="3columns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="header.panel">
+            <block class="Magento\Cms\Block\Block" name="store-link-header-top" as="store-link-header-top">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">footer-socials</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="top.links">
+            <block class="Magento\Framework\View\Element\Template" before="-" template="Magento_Theme::html/store-links-nav.phtml"/>
+        </referenceBlock>
+        <referenceContainer name="page.wrapper">
+            <container htmlTag="div" name="page-header-sticky" htmlClass="page-header-sticky" before="-"/>
+        </referenceContainer>
+        <referenceContainer name="before.body.end">
+            <block class="Magento\Framework\View\Element\Template" before="-" template="Magento_Theme::html/back-totop.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="footer">
+            <container name="footer-about-link" as="footer-about-link" htmlTag="div" htmlClass="footer-nav-list">
+                <block class="Magento\Cms\Block\Block" name="footer-about-links">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">footer-about-links</argument>
+                    </arguments>
+                </block>
+            </container>
+            <container name="footer-service-link" as="footer-service-link" htmlTag="div" htmlClass="footer-nav-list">
+                <block class="Magento\Cms\Block\Block" name="footer-service-links">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">footer-service-links</argument>
+                    </arguments>
+                </block>
+            </container>
+            <container name="footer-shop-link" as="footer-shop-links" htmlTag="div" htmlClass="footer-nav-list">
+                <block class="Magento\Cms\Block\Block" name="footer-shop-links">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">footer-shop-links</argument>
+                    </arguments>
+                </block>
+            </container>
+            <container name="footer-newsletter" as="footer-newsletter" htmlTag="div" htmlClass="contact-wrapper">
+                <block class="Magento\Cms\Block\Block" name="footer-socials">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">footer-socials</argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceContainer>
+        <referenceContainer name="footer-container" >
+            <container name="footer-bottom" as="footer-bottom" htmlTag="div" htmlClass="footer bottom" after="-">
+                <container name="footer-mobile-social" as="footer-mobile-social" htmlTag="div" htmlClass="social-box-mobile">
+                    <container htmlTag="div" htmlClass="footer content" after="-">
+                        <block class="Magento\Cms\Block\Block" name="footer-social">
+                            <arguments>
+                                <argument name="block_id" xsi:type="string">footer-socials</argument>
+                            </arguments>
+                        </block>
+                    </container>
+                </container>
+                <container htmlTag="div" htmlClass="tiger-bar">
+                    <container name="footer-copyright-content" as="footer-copyright-content" htmlTag="div" htmlClass="footer content" after="-">
+                        <container htmlTag="div" htmlClass="tiger-bar-container">
+                            <container htmlTag="div" htmlClass="tiger-bar-container-center">
+                                <block class="Magento\Cms\Block\Block" name="footer-copyright">
+                                    <arguments>
+                                        <argument name="block_id" xsi:type="string">footer-copyright</argument>
+                                    </arguments>
+                                </block>
+                            </container>
+                        </container>
+                        <block class="Magento\Framework\View\Element\Template" name="store-link-footer" as="store-link-footer" template="Magento_Theme::html/footer-store.phtml"/>
+                    </container>
+                </container>
+                <container htmlTag="div" htmlClass="footer trademark" >
+                    <container htmlTag="div" htmlClass="footer content" after="-">
+                        <container htmlTag="div" htmlClass="footer-trademark-container" after="-">
+                            <block class="Magento\Cms\Block\Block" name="footer-trademark" after="-">
+                                <arguments>
+                                    <argument name="block_id" xsi:type="string">footer-trademark</argument>
+                                </arguments>
+                            </block>
+                        </container>
+                    </container>
+                </container>
+                <block class="Magento\Framework\View\Element\Template" after="-" name="footer-mobile-newsletter" as="footer-mobile-newsletter" template="Magento_Theme::html/footer-newsletter.phtml"/>
+            </container>
+        </referenceContainer>
+        <referenceContainer name="page.top">
+            <container htmlTag="div" htmlClass="header-offer" before="-">
+                <block class="Magento\Cms\Block\Block" name="header-offer" after="-">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">header-offer</argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceContainer>
+        <referenceBlock name="header">
+            <block class="Magento\Customer\Block\Account\AuthorizationLink" name="authorization-link-header"
+                   template="Magento_Customer::account/link/authorization.phtml"/>
+        </referenceBlock>
+        <referenceBlock name="wish-list-link" remove="true"/>
+        <referenceBlock name="catalog.compare.link" remove="true"/>
+        <referenceBlock name="footer_links" remove="true"/>
+        <referenceBlock name="report.bugs" remove="true"/>
+        <referenceBlock name="catalog.compare.sidebar" remove="true"/>
+        <referenceBlock name="wishlist_sidebar" remove="true"/>
+        <referenceBlock name="my-account-link" remove="true"/>
+        <referenceBlock name="register-link" remove="true"/>
+        <referenceBlock name="authorization-link" remove="true"/>
+        <referenceBlock name="sale.reorder.sidebar" remove="true"/>
+        <move element="copyright" destination="footer-copyright-content" before="footer-copyright"/>
+        <move element="form.subscribe" destination="footer-newsletter" before="-"/>
+        <move element="header.container" destination="page-header-sticky" before="-"/>
+        <move element="navigation.sections" destination="page-header-sticky"/>
+    </body>
+</page>

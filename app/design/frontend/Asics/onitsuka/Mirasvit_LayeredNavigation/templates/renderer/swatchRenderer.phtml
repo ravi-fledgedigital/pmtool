@@ -1,0 +1,167 @@
+<?php
+/**
+ * @var $block \Mirasvit\LayeredNavigation\Block\Renderer\SwatchRenderer
+ */
+
+$swatchData    = $block->getSwatchData();
+$attributeCode = $swatchData['attribute_code'];
+$attributeId   = $swatchData['attribute_id'];
+$filter        = $block->getSwatchFilter();
+
+$useAlphabeticalIndex = strpos(get_class($filter), 'AttributeFilter') !== false && $filter->isUseAlphabeticalIndex();
+
+$checkedItemsCount = 0;
+
+$letter  = '';
+?>
+
+<div class="swatch-attribute swatch-layered <?= $block->escapeHtmlAttr($attributeCode) ?> mst-nav__swatch" attribute-code="<?= $block->escapeHtmlAttr($attributeCode) ?>" attribute-id="<?= $block->escapeHtmlAttr($attributeId) ?>">
+    <div class="swatch-attribute-options clearfix" data-mst-nav-filter="<?= $block->escapeHtmlAttr($attributeCode) ?>">
+        <?= /* @noEscape */ $block->getSearchBoxElement($attributeCode) ?>
+        <!--<div data-holder="alphabetical"></div>-->
+        <?php foreach ($swatchData['options'] as $optionId => $label): ?>
+            <?php
+            $isItemChecked = $block->isItemChecked($optionId);
+            $url           = $isItemChecked ? $block->getRemoveUrl($attributeCode, $optionId) : $block->getSwatchOptionLink($attributeCode, $optionId);
+            $cssClass      = [
+                'swatch-option-link-layered',
+                $isItemChecked ? '_checked' : '',
+            ];
+
+            if ($isItemChecked) {
+                $checkedItemsCount++;
+            }
+
+            $customStyle   = isset($label['custom_style']) ? $block->escapeHtmlAttr($label['custom_style']) : '';
+            ?>
+            <?php if($useAlphabeticalIndex && $filter->isSortByLabel() && $letter !== $block->getFirstLetter($label['label'])):
+                $letter = $block->getFirstLetter($label['label']);
+                ?>
+                <div class="mst-nav__letter mst-nav__label-item" data-letter="<?= $block->escapeHtmlAttr($letter) ?>" data-element = filter>
+                    <b><?= $block->escapeHtml($letter) ?></b>
+                </div>
+            <?php endif; ?>
+
+            <a
+                href="<?= $block->escapeUrl($url) ?>"
+                class="<?= $block->escapeHtmlAttr(implode(' ', $cssClass)) ?>"
+                data-element="filter"
+                data-hidden="false"
+                data-search-hidden="false"
+                data-letter-hidden="false"
+                data-value="<?= $block->escapeHtmlAttr($optionId) ?>"
+                rel="<?= $block->escapeHtmlAttr($block->getRelAttributeValue()) ?>"
+                <?= /* @noEscape */ $useAlphabeticalIndex ? 'data-letter="' .  $block->getFirstLetter($label['label']) . '"' : '' ?>
+            >
+                <?php if (isset($swatchData['swatches'][$optionId]['type'])) : ?>
+                    <?php switch ($swatchData['swatches'][$optionId]['type']) {
+                        case '3':
+                            ?>
+                            <div class="swatch-option <?= $block->escapeHtmlAttr($customStyle) ?>"
+                                 tabindex="-1"
+                                 data-option-type="3"
+                                 option-type="3"
+                                 data-option-id="<?= $block->escapeHtmlAttr($optionId) ?>"
+                                 option-id="<?= $block->escapeHtmlAttr($optionId) ?>"
+                                 data-option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                                 option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                                 data-option-tooltip-thumb=""
+                                 option-tooltip-thumb=""
+                                 data-option-tooltip-value=""
+                                 option-tooltip-value=""
+                            ></div>
+                            <?php break;
+                        case '2':
+                            if (isset($swatchData['swatches'][$optionId]['value'])) {
+                                $isGroupedOption = isset($swatchData['swatches'][$optionId]['grouped']);
+                                $swatchThumbPath = $block->getSwatchFilePath('swatch_thumb', $swatchData['swatches'][$optionId]['value'], $isGroupedOption);
+                                $swatchImagePath = $block->getSwatchFilePath('swatch_image', $swatchData['swatches'][$optionId]['value'], $isGroupedOption);
+                            }?>
+                            <div class="swatch-option image <?= $block->escapeHtmlAttr($customStyle) ?>"
+                                 tabindex="-1"
+                                 data-option-type="2"
+                                 option-type="2"
+                                 data-option-id="<?= $block->escapeHtmlAttr($optionId) ?>"
+                                 option-id="<?= $block->escapeHtmlAttr($optionId) ?>"
+                                 data-option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                                 option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                                 data-option-tooltip-thumb="<?= $block->escapeUrl($swatchThumbPath) ?>"
+                                 option-tooltip-thumb="<?= $block->escapeUrl($swatchThumbPath) ?>"
+                                 data-option-tooltip-value=""
+                                 option-tooltip-value=""
+                                 style="background: url(<?= $block->escapeUrl($swatchImagePath) ?>) no-repeat center; background-size: initial;"></div>
+                            <?php break;
+                        case '1':
+                            ?>
+                            <div class="swatch-option color <?= $block->escapeHtmlAttr($customStyle) ?>"
+                                 tabindex="-1"
+                                 data-option-type="1"
+                                 option-type="1"
+                                 data-option-id="<?= $block->escapeHtmlAttr($optionId) ?>"
+                                 option-id="<?= $block->escapeHtmlAttr($optionId) ?>"
+                                 data-option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                                 option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                                 data-option-tooltip-thumb=""
+                                 option-tooltip-thumb=""
+                                 data-option-tooltip-value="<?= $block->escapeHtmlAttr($swatchData['swatches'][$optionId]['value']) ?>"
+                                 option-tooltip-value="<?= $block->escapeHtmlAttr($swatchData['swatches'][$optionId]['value']) ?>"
+                                 style="background: <?= $block->escapeHtmlAttr($swatchData['swatches'][$optionId]['value']) ?> no-repeat center; background-size: initial;"></div>
+                            <?php break;
+                        case '0':
+                        default:
+                            ?>
+                            <div class="swatch-option text <?= $block->escapeHtmlAttr($customStyle) ?>"
+                                 tabindex="-1"
+                                 data-option-type="0"
+                                 option-type="0"
+                                 data-option-id="<?= $block->escapeHtmlAttr($optionId) ?>"
+                                 option-id="<?= $block->escapeHtmlAttr($optionId) ?>"
+                                 data-option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                                 option-label="<?= $block->escapeHtmlAttr($label['label']) ?>"
+                                 data-option-tooltip-thumb=""
+                                 option-tooltip-thumb=""
+                                 data-option-tooltip-value=""
+                                 option-tooltip-value=""
+                            ><?= $block->escapeHtml($swatchData['swatches'][$optionId]['value']) ?></div>
+                            <?php break;
+                    } ?>
+                <?php endif; ?>
+            </a>
+        <?php endforeach ?>
+    </div>
+    <?php if(strtolower($swatchData['attribute_code']) == 'size' || strtolower($swatchData['attribute_code']) == 'qa_size'): ?>
+        <div class="size-guide-link">
+            <a href="<?=$block->getUrl()?>size-guide"><?= __('Size Guide')?></a>
+        </div>
+    <?php endif;?>
+</div>
+<?php if ($useAlphabeticalIndex): ?>
+    <style>
+        .swatch-attribute-options a[data-element="filter"] {
+            display: inline-block;
+        }
+    </style>
+<?php endif; ?>
+<script type="text/x-magento-init"><?= \Mirasvit\Core\Service\SerializeService::encode([
+        '.swatch-layered.'. $attributeCode => [
+            'Mirasvit_LayeredNavigation/js/renderer/swatch-renderer' => [],
+        ],
+    ]) ?>
+</script>
+<script type="text/x-magento-init"><?= \Mirasvit\Core\Service\SerializeService::encode([
+        '[data-mst-nav-filter=' . $attributeCode . ']' => [
+            'Mirasvit_LayeredNavigation/js/renderer/label-renderer' => [],
+            'Mirasvit_LayeredNavigation/js/helper/checked-items' => [
+                'count'    => $checkedItemsCount,
+                'clearUrl' => $block->getAttributeClearUrl($attributeCode)
+            ],
+            'Mirasvit_LayeredNavigation/js/helper/tooltip' => [
+                'tooltip' => $block->getTooltip(),
+            ],
+            'Mirasvit_LayeredNavigation/js/renderer/element/alphabetical' => [
+                'shouldDisplay' => $useAlphabeticalIndex && $filter->isAlphabeticalIndexAllowedByLimit(),
+                'limit'         => $filter->getAlphabeticalLimit()
+            ],
+        ],
+    ]) ?>
+</script>

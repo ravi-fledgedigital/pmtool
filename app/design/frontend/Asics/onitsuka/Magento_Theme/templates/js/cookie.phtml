@@ -1,0 +1,28 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * Cookie settings initialization script
+ *
+ * @var $block \Magento\Framework\View\Element\Js\Cookie
+ */
+?>
+<?php
+$helperConfig = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "mage/cookies": {
+                "expires": null,
+                "path": "<?= $helperConfig->getConfig('web/cookie/cookie_path') ? $block->escapeJs($block->getPath()) : '/'; ?>",
+                "domain": "<?= $helperConfig->getConfig('web/cookie/cookie_domain') ? $block->escapeJs($block->getDomain()) : '/'; ?>",
+                "secure": false,
+                "lifetime": "<?= $block->escapeJs($block->getLifetime()) ?>"
+            }
+        }
+    }
+</script>

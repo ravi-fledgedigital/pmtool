@@ -1,0 +1,23 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<if args="visible()">
+    <div class="address-name">
+        <text args="address().prefix"></text> <text args="address().firstname"></text>
+        <text args="address().middlename"></text>
+        <text args="address().lastname"></text> <text args="address().suffix"></text>
+    </div>
+    <div class="customer-address">
+        <span html="getAddressLine(address().street)"></span>
+        <span text="address().region"></span>,
+        <text args="address().city "></text> - <text args="address().postcode"></text><text args="address().postcode"></text>,<br/>
+        <text args="getCountryName(address().countryId)"></text>
+    </div>
+    <div class="customer-phone">
+        <span class="customer-email"><text args="getCustomerEmail()"></text></span>
+        <a if="address().telephone" attr="'href': 'tel:' + address().telephone" text="getAddressPhone(address().telephone)"></a>
+    </div>
+</if>

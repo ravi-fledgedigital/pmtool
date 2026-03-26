@@ -1,0 +1,38 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Cart $block */
+?>
+<?php
+$item = $block->getItem();
+$product = $item->getProduct();
+$blockOptions = $block->getChildBlock('customer.wishlist.item.options');
+$options = $blockOptions->getConfiguredOptions();
+$helper = $this->helper(\OnitsukaTiger\Rma\Helper\Data::class);
+$childProduct = null;
+?>
+<?php if($options):?>
+    <?php
+    $superAttribute = [];
+    foreach ($options as $option) {
+        if(array_key_exists('option_id',$option)){
+            $superAttribute[$option['option_id']] = $option['option_value'];
+        }
+    }
+    ?>
+    <?php $childProduct = $helper->getChildFromProductAttribute($product,$superAttribute);?>
+<?php endif;?>
+<?php if($childProduct):?>
+    <?= /* @noEscape */ $block->getLayout()->renderElement('customer.wishlist.item.options', false) ?>
+    <div class="price-wishlist-container">
+        <?php $abstractProductBlock = $block->getLayout()->createBlock('\Magento\Catalog\Block\Product\AbstractProduct'); ?>
+        <?php echo $abstractProductBlock->getProductPrice($childProduct);?>
+    </div>
+<?php else: ?>
+    <?php foreach ($block->getChildNames() as $childName) : ?>
+        <?= /* @noEscape */ $block->getLayout()->renderElement($childName, false) ?>
+    <?php endforeach;?>
+<?php endif; ?>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+    <update handle="1column"/>
+    <referenceContainer name="columns">
+        <container name="div.sidebar.main" htmlTag="div" htmlClass="sidebar sidebar-main" after="main">
+            <container name="sidebar.main.cms" as="sidebar_main" label="Sidebar Main"/>
+        </container>
+        <container name="div.sidebar.additional" htmlTag="div" htmlClass="sidebar sidebar-additional" after="div.sidebar.main">
+            <container name="sidebar.additional.cms" as="sidebar_additional" label="Sidebar Additional"/>
+        </container>
+    </referenceContainer>
+    <referenceContainer name="root">
+        <container name="page.wrapper.cms-size-guide" as="page_wrapper_cms-size-guide" htmlTag="div" htmlClass="page-wrapper-cms-size-guide" before="-" after="after.body.start"/>
+    </referenceContainer>
+    <move element="page.wrapper" destination="page.wrapper.cms-size-guide"/>
+    <referenceContainer name="sidebar.main.cms">
+        <block class="Magento\Cms\Block\Block" name="cms-page-view-left-size-guide" before="-">
+            <arguments>
+                <argument name="block_id" xsi:type="string">cms-page-view-left-size-guide</argument>
+            </arguments>
+        </block>
+    </referenceContainer>
+</layout>

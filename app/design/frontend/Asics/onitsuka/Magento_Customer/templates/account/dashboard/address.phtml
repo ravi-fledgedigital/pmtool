@@ -1,0 +1,46 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Customer\Block\Account\Dashboard\Address $block */
+?>
+<div class="block block-dashboard-addresses">
+    <div class="block-title">
+        <strong><?= $block->escapeHtml(__('Address Book')) ?></strong>
+        <a class="action edit" href="<?= $block->escapeUrl($block->getAddressBookUrl()) ?>"><span><?= $block->escapeHtml(__('Manage Addresses')) ?></span></a>
+    </div>
+    <div class="block-content">
+        <div class="address-books-lists">
+            <div class="address-books-item">
+                <div class="address-label"><?= $block->escapeHtml(__('Default Billing Address')) ?></div>
+                <div class="container-address-item">
+                    <address>
+                        <?= $block->getPrimaryBillingAddressHtml() ?>
+                    </address>
+                    <div class="customer-phone">
+                        <span class="customer-email"><?= $block->escapeHtml($block->getCustomer()->getEmail())?></span>
+                    </div>
+                    <div class="address-actions">
+                        <a class="action edit" href="<?= $block->getUrl('customer/address',['id' => $block->getCustomer()->getDefaultBilling()])?>" data-ui-id="default-billing-edit-link"><span><?= $block->escapeHtml(__('Edit Address')) ?></span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="address-books-item">
+                <div class="address-label"><?= $block->escapeHtml(__('Default Shipping Address')) ?></div>
+                <div class="container-address-item">
+                    <address>
+                        <?= $block->getPrimaryShippingAddressHtml() ?>
+                    </address>
+                    <div class="customer-phone">
+                        <span class="customer-email"><?= $block->escapeHtml($block->getCustomer()->getEmail())?></span>
+                    </div>
+                    <div class="address-actions">
+                        <a class="action edit" href="<?= $block->getUrl('customer/address',['id' => $block->getCustomer()->getDefaultShipping()])?>" data-ui-id="default-shipping-edit-link"><span><?= $block->escapeHtml(__('Edit Address')) ?></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

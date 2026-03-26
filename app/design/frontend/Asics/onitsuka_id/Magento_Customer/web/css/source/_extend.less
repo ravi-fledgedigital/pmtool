@@ -1,0 +1,82 @@
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .form.password.reset {
+        .field {
+            &.password,
+            &.confirmation {
+                .label {
+                    width: 32%;
+                }
+
+                .control {
+                    width: 68%;
+                }
+            }
+        }
+    }
+    body.web_id_id {
+        .orders-history .order-items .order-item .order-left-content {
+            display: flex;
+            flex-wrap: wrap;
+            .order-information {
+                display: flex;
+                flex-wrap: wrap;
+                strong {
+                    padding-left: 3px;
+                }
+            }
+        }
+    }
+}
+//Mobile
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    body.web_id_id {
+        .orders-history {
+            .order-items {
+                .order-item {
+                    .order-left-content {
+                        .order-information {
+                            display: flex;
+                            flex-wrap: wrap;
+                            strong {
+                                padding-left: 3px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.page-header {
+    .header {
+        .links {
+            .link-header {
+                &.store-language-link {
+                    a {
+                        min-width: 60px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.sales-order-history {
+    .order-products-toolbar {
+        .pager {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            .pages {
+                position: static;
+                width: initial;
+            }
+            .limiter {
+                position: static;
+                padding: 8px 0;
+            }
+        }
+    }
+}

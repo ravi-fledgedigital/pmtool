@@ -1,0 +1,58 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Newsletter\Block\Subscribe $block */
+?>
+<div class="newsletter-container">
+    <form class="form subscribe subscribe-page"
+          novalidate
+          action="<?= $block->escapeUrl($block->getFormActionUrl()) ?>"
+          method="post"
+          data-mage-init='{"validation": {"errorClass": "mage-error"}}'
+          id="newsletter-validate-detail-page">
+        <input type="hidden" name="isAjax" value="1"/>
+        <input type="hidden" name="isPage" value="1"/>
+        <div class="validation-checkbox">
+            <input id="term-conditions" name="term-conditions" data-validate="{required:true}" type="checkbox" value="1">
+            <label id="policy-checkbox"  for="term-conditions" class="policy-checkbox">
+                <?= $block->escapeHtml(__('I have read the <a href="%1">Onitsuka Tiger terms and conditions</a> and I agree with it.', $block->getUrl('privacy-policy')), ['a']) ?>
+            </label>
+            <div class="validate-container"><?= __('You need to agree with the ASICS terms and conditions.')?></div>
+        </div>
+        <div class="form-newsletter-container">
+            <div class="field newsletter">
+                <div class="control">
+                    <label for="newsletter">
+                        <strong><?= __('Email Address')?></strong>
+                    </label>
+                    <input name="email" type="email" id="newsletter"
+                           placeholder="<?= $block->escapeHtmlAttr(__('john.smith@email.com')) ?>"
+                           data-mage-init='{"mage/trim-input":{}}'
+                           data-validate="{required:true, 'validate-email':true}" data-msg-required="<?= __('Please use a valid email address')?>"
+                    />
+                    <div class="container-newsletter-err-msg hidden"></div>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="action subscribe primary"
+                        title="<?= $block->escapeHtmlAttr(__('Sign Up')) ?>"
+                        type="submit"
+                        aria-label="Subscribe">
+                    <span><?= $block->escapeHtml(__('Sign Up')) ?></span>
+                </button>
+            </div>
+        </div>
+    </form>
+    <script type="text/x-magento-init">
+        {
+            "#newsletter-validate-detail-page": {
+                "newsletterAjax": {
+                    "isFooter": "1"
+                }
+            }
+        }
+    </script>
+</div>

@@ -1,0 +1,109 @@
+<script type="text/javascript">
+    require([
+        'jquery',
+        'js/lottie.min',
+        'js/luxy',
+        'js/luxy_main',
+        'js/luxy_sub1',
+        'js/lottie.min',
+        'js/luxy_sub2',
+        'Amasty_Base/vendor/slick/slick.min'
+    ], function($,lottie,luxy,luxy_main,luxy_sub1,luxy_sub2){
+        const anim = lottie.loadAnimation({
+            container: document.getElementById('scroll_icon'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: '<?= $block->getViewFileUrl('js/scroll_icon.json')?>'
+        });
+        var win=$(window);
+        var scrollTop=0;
+        var winW=win.width();
+        var winH=win.height();
+        var colorBtn = $(".color_area .dot");
+        colorBtn.bind('mouseenter',function(){
+            var thisBtn = $(this);
+            var area = thisBtn.parent().parent();
+            var btn = $(".dot",area);
+            var myNum =btn.index(this);
+            var item = $(".color_item",area);
+            if ( !thisBtn.hasClass("on") ) {
+                btn.removeClass("on");
+                thisBtn.addClass("on");
+                item.removeClass("show");
+                $(item[myNum]).addClass("show");
+            }
+        });
+        $('.content .h2_container').each(function(){
+            var container = $(this);
+            var content = $(container).html();
+            var newHtml = "";
+            content.split("").forEach(function(v) {
+                newHtml += "<span>" + v + "</span>";
+            });
+            $(container).html(newHtml);
+        })
+        win.bind("scroll",scrollHl);
+        win.bind("resize",resizeHl);
+        resizeHl();
+        var loadStatus = 0;
+        var img_num = $('img').length;
+        $('img').each(function() {
+            var src = $(this).attr('src');
+            $('<img>').attr('src', src).bind('load',(function() {
+                loadStatus++;
+                if(loadStatus>=img_num){
+                    setTimeout(function(){
+                        resizeHl();
+                    },100);
+                }
+            }));
+        });
+        function resizeHl(){
+
+            winW=win.width();
+            winH=win.height();
+            winH=window.innerHeight;
+            scrollHl();
+        }
+        function scrollHl(){
+            scrollTop = $(this).scrollTop();
+            if(scrollTop > $('section.hero').offset().top){
+                $('.shopBtn-container').addClass('fixed');
+            }else{
+                $('.shopBtn-container').removeClass('fixed');
+            }
+            $('.animate').each(function(){
+                if(isObjectCenter($(this))){
+                    $(this).addClass('show');
+
+                    if ( $(this).hasClass("color_area") ) {
+                        var dots = $(".dots",$(this));
+                        setTimeout(function(){
+                            dots.removeClass("notready");
+                        },2200);
+                    }
+                }
+            });
+        }
+        var userAgent = window.navigator.userAgent.toLowerCase();
+        if(userAgent.indexOf('msie') != -1 || userAgent.indexOf('trident') != -1 || userAgent.indexOf('edge') != -1){
+            $('html').addClass('not_full_support');
+        }
+        function isObjectCenter($object){
+            var this_top = $object.offset().top;
+
+            if (scrollTop >= this_top - winH *0.75){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        var video = document.getElementById('video1');
+        $("#sound_btn").bind('click',toggleMute);
+        function toggleMute(){
+            $("#sound_btn").toggleClass("on");
+            video.muted = !video.muted;
+        }
+    });
+</script>

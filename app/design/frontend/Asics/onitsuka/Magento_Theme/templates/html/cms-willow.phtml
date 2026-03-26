@@ -1,0 +1,129 @@
+<script type="text/javascript">
+    require([
+        'jquery',
+        'js/luxy',
+        'js/lottie.min'
+    ], function($,luxy,lottie){
+        var win=$(window);
+        var scrollTop=0;
+        var winW=win.width();
+        var winH=win.height();
+
+        if(navigator.userAgent.match(/MSIE 10/i) || navigator.userAgent.match(/Trident\/7\./) || navigator.userAgent.match(/Edge\/12\./)) {
+            $('body').on("mousewheel", function () {
+                event.preventDefault();
+                var wd = event.wheelDelta;
+                var csp = window.pageYOffset;
+                window.scrollTo(0, csp - wd);
+            });
+        }
+
+        win.bind("scroll",scrollHl);
+        win.bind("resize",resizeHl);
+        resizeHl();
+
+
+        var loadStatus = 0;
+        var img_num = $('img').length;
+
+        $('img').each(function() { //画像が読み込まれたら、、
+            var src = $(this).attr('src');
+            $('<img>').attr('src', src).bind('load',(function() {
+                loadStatus++; //画像が読み込まれたら、loading状況を更新
+                if(loadStatus>=img_num){
+                    setTimeout(function(){
+                        resizeHl();
+                    },100);
+                }
+            }));
+        });
+
+        function resizeHl(){
+
+            winW=win.width();
+            winH=win.height();
+            winH=window.innerHeight;
+
+            scrollHl();
+        }
+
+
+        function scrollHl(){
+            scrollTop = $(this).scrollTop();
+
+            if(scrollTop > $('section.content').offset().top){
+                $('.shopBtn-container').addClass('fixed');
+            }else{
+                $('.shopBtn-container').removeClass('fixed');
+            }
+
+            if ( winW < 769 ) {
+                if ( scrollTop < 118 ) {
+                    var myY = 118 - scrollTop;
+                    //myY = myY - myY*0.5;
+                    $("#video1").css({"margin-top":myY+"px"});
+
+                    /*if ( winW < winH ) {
+                      var myH = 118 - scrollTop;
+                      $("#video1").css({"height":"calc(102vh - "+myH+"px)"});
+                    }*/
+                } else {
+                    $("#video1").attr("style","");
+                }
+            }
+
+            if (scrollTop>winH*0.5) {
+                $(".content").addClass("scrolled");
+            } else {
+                $(".content").removeClass("scrolled");
+            }
+
+            $('.animate').each(function(){
+                if(isObjectCenter($(this))){
+                    $(this).addClass('show');
+
+
+                }
+            });
+
+        }
+
+
+
+        var userAgent = window.navigator.userAgent.toLowerCase();
+        if(userAgent.indexOf('msie') != -1 || userAgent.indexOf('trident') != -1 || userAgent.indexOf('edge') != -1){
+            $('html').addClass('not_full_support');
+        }
+
+
+        function isObjectCenter($object){
+            var this_top = $object.offset().top;
+
+            if (scrollTop >= this_top - winH *0.5){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        $("section.content").clone().attr("id","luxy").appendTo('#main');
+        luxy.init({
+            wrapper: '#luxy',
+            wrapperSpeed: 0.1
+        });
+        var video = document.getElementById('video1');
+        $("#sound_btn").bind('click',toggleMute);
+        function toggleMute(){
+            $("#sound_btn").toggleClass("on");
+            video.muted = !video.muted;
+        }
+
+        const anim = lottie.loadAnimation({
+            container: document.getElementById('scroll_icon'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: '<?= $block->getViewFileUrl('js/scroll_icon.json')?>'
+        });
+    });
+</script>

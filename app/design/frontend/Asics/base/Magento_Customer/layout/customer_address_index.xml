@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">My Saved Addresses</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="address_grid">
+            <block class="Magento\Customer\Block\Address\Edit" name="customer_address_edit_popup" as="customer_address_edit_popup" template="Magento_Customer::address/edit-popup.phtml" cacheable="false">
+                <arguments>
+                    <argument name="attribute_data" xsi:type="object">Magento\Customer\Block\DataProviders\AddressAttributeData</argument>
+                    <argument name="post_code_config" xsi:type="object">Magento\Customer\Block\DataProviders\PostCodesPatternsAttributeData</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

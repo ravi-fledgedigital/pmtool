@@ -1,0 +1,14 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <referenceBlock name="customer_form_register">
+        <block class="Magento\Cms\Block\Block" name="block_customer_content_privacy_policy">
+            <arguments>
+                <argument name="block_id" xsi:type="string">customer-content-privacy-policy</argument>
+            </arguments>
+        </block>
+        <block class="Magento\Cms\Block\Block" name="block_membership_agreement">
+            <arguments>
+                <argument name="block_id" xsi:type="string">membership-agreement</argument>
+            </arguments>
+        </block>
+    </referenceBlock>
+</page>

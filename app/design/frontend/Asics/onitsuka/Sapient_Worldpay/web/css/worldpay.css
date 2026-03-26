@@ -1,0 +1,211 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css");
+
+.checkout-payment-method .ccard .type .select,.checkout-payment-method .ccard .name .input-text { width: 225px; }
+.checkout-payment-method .cvv .control .saved-cvv-number {width: 55px;}
+ul{
+    list-style-type: none;
+}
+
+.worldpay_cc_we_accept {
+    margin-right: 10px;
+    line-height: 30px;
+    vertical-align: top;
+    display: inline-block;
+    font-size: 17px;
+    min-width: 85px;
+}
+.accepted_cc {
+    display: none;
+    align-items: center;
+}
+.accepted_cc .paymentoptions-icon-wrapper > div {
+    display: inline-block;
+    margin: 0 1px;
+    margin-top: 8px;
+}
+
+.accepted_cc .paymentoptions-icon-wrapper > div > img {
+    max-width: 69px;
+    height: 30px;
+    vertical-align: middle;
+}
+
+.paymentmethods-radio-wrapper label img {
+    max-width: 69px;
+}
+.checkout-payment-method .payment-method._active .payment-method-content {
+    margin-top: 20px;
+}
+
+.payment-method._active .payment-method-title .field choice {
+    margin-left: 20px;
+}
+
+.checkout-payment-method .payment-method-content>.actions-toolbar>.primary .action.primary {
+    margin-right: 30px;
+    padding: 8px 20px;
+    text-transform: uppercase;
+    font-size: 13px;
+    border-radius: 6px;
+}
+
+.paymentmethods-radio-wrapper {
+    display: inline-block;
+    margin-right: 0;
+    margin-left: 20px;
+}
+.paymentmethods-radio-wrapper input {
+    display: inline-block;
+    margin-right: 17px;
+}
+.paymentmethods-radio-wrapper label {
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    top: -3px;
+}
+.ccnumber_withcardtype {
+    position: relative;
+}
+span.cc-card-type {
+    position: absolute;
+    left: 228px;
+    top: 0px;
+}
+.checkout-billing-address .fieldset .actions-toolbar {
+    margin-right: 31px;
+}
+.payment-method .payment-method-cc-form .fieldset:last-child {
+    margin-bottom: 5px;
+}
+.checkout-payment-method .checkout-billing-address .billing-address-details {
+    padding-left: 0;
+}
+.payment-method-cc-form .payment_cc_number {
+    background: url('../images/cc/cc-locker.png') transparent no-repeat top right;
+    background-size: 30px;
+}
+.checkout-payment-method .field.cvv>.control .field-tooltip {
+    left: 60px
+}
+.payment-method-cc-form .field-tooltip .field-tooltip-action:before {
+    content: '';
+    background: url('../images/cc/cc-cvc.png') transparent no-repeat top right;
+    background-size: 30px;
+    width: 30px;
+    height: 30px;
+}
+.cc-card-type:before {
+    background: url('../images/cc/credit-card-icons.png') no-repeat center center;
+    border: 0 solid #cccccc;
+    content: "";
+    display: none;
+    overflow: hidden;
+    width: 44px;
+    height: 21px;
+    background-size: 339px 20px;
+    position: relative;
+    top: 5px;
+    left: 5px;
+}
+.is_visa .cc-card-type:before {
+    display: inline-block;
+    background-position-x: -43px;
+}
+.is_mastercard .cc-card-type:before {
+    display: inline-block;
+    background-position-x: 0;
+}
+.is_discover .cc-card-type:before {
+    display: inline-block;
+    background-position-x: -87px;
+}
+.is_amex .cc-card-type:before {
+    display: inline-block;
+    background-position-x: -131px;
+}
+.is_unionpay .cc-card-type:before {
+    display: inline-block;
+    background-position-x: -177px;
+}
+.is_jcb .cc-card-type:before {
+    display: inline-block;
+    background-position-x: -298px;
+}
+.is_diners .cc-card-type:before {
+    display: inline-block;
+    background-position-x: -214px;
+}
+.is_maestro .cc-card-type:before {
+    display: inline-block;
+    background-position-x: -256px;
+}
+
+.payment-titlelogo-wrapper {
+    display: flex;
+}
+.payment-title-wrapper {
+
+}
+.payment-title-wrapper .step-title {
+    margin: 0;
+    padding-bottom: 5px;
+    font-weight: bold;
+    font-size: 16px;
+}
+.payment-title-wrapper p {
+    font-style: italic;
+    padding: 0;
+    margin-bottom: 23px;
+}
+.payment-logo-wrapper {
+    margin: 0 auto;
+}
+.payment-logo-wrapper img {
+    width: 180px;
+    max-width: 180px;
+}
+.ach-block {
+    font-weight: 600;
+}
+.payment-method .paymentmethods-radio-wrapper .mage-error[generated] {
+    position: absolute;
+    margin-top: 0px;
+}
+@media screen and (max-width: 980px) {
+    .payment-titlelogo-wrapper {
+        display: block;
+        margin: 0 10px;
+    }
+    .payment-title-wrapper .step-title {
+        padding: 5px 0;
+    }
+    .payment-title-wrapper p {
+        margin-bottom: 10px;
+    }
+    .payment-method-title > label {
+        flex-basis: auto;
+    }
+    .checkout-payment-method .payment-method .payment-method-content {
+        margin: 0;
+        padding: 25px;
+    }
+    .paymentmethods-radio-wrapper input {
+        display: inline-block;
+        margin-right: 7px;
+    }
+    .checkout-billing-address .fieldset .actions-toolbar {
+        margin-right: 0;
+    }
+    .checkout-payment-method .payment-method._active .payment-method-content {
+        margin-top: 0px;
+    }
+    .checkout-payment-method .payment-method-content>.actions-toolbar>.primary .action.primary {
+        margin-top: 10px;
+        margin-right: 0;
+    }
+    .accepted_cc {
+        visibility: hidden;
+        display: none;
+    }
+}

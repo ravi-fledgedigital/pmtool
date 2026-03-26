@@ -1,0 +1,120 @@
+<script type="text/javascript">
+    require([
+        'jquery',
+        'js/lottie.min'
+    ], function($,lottie){
+        scroll_event();
+        if(!$('.shopBtn-container').hasClass('moved')){
+            if($(window).width()<770){
+                if($('.shopBtn-container').length){
+                    $('.shopBtn-container').appendTo($('.page-wrapper'))
+                }
+            }
+        }
+
+        $(window).bind("scroll", scroll_event);
+        if($(window).height() < 500) {
+            $('.page-wrapper-fullwidths.page-wrapper-ss21 article#main section.hero .overlay ul.watch').removeClass('small-height').addClass('small-height')
+        }
+        function scroll_event(){
+            var now_top = $(this).scrollTop();
+
+            if(now_top > 35){
+                $('section.hero').addClass('hide');
+                $('article#main .logo').addClass('small');
+                $('.scroll_icon').addClass('hide');
+            }else{
+                $('section.hero').removeClass('hide');
+                $('article#main .logo').removeClass('small');
+                $('.scroll_icon').removeClass('hide');
+            }
+
+            if(now_top > $('.share').offset().top - $(window).height()){
+                $('article#main .logo').addClass('hide');
+            }else{
+                $('article#main .logo').removeClass('hide');
+            }
+
+            if(now_top > $('section.hero').offset().top){
+                $('.shopBtn-container').addClass('fixed');
+            }else{
+                $('.shopBtn-container').removeClass('fixed');
+            }
+
+            $('section.images .image').each(function(){
+                if(isObjectBottom($(this))){
+                    $(this).addClass('show');
+                }
+            });
+        }
+
+        var userAgent = window.navigator.userAgent.toLowerCase();
+        if(userAgent.indexOf('msie') != -1 || userAgent.indexOf('trident') != -1 || userAgent.indexOf('edge') != -1){
+            $('html').addClass('not_full_support');
+        }
+
+        // youtube modal window
+        $('a.yt_mw').bind('click', function(){
+            var id = $(this).attr('data-id');
+
+            var html = '';
+            html += '<div class="mw">';
+            html += '<div class="mw_bg"></div>';
+            html += '<div class="mw_content">';
+            html += '<div class="mw_inner">';
+            html += '<a href="javascript:void(0);" class="close"><span>CLOSE</span></a>';
+            html += '<div class="mw_video">';
+            html += '<iframe frameborder="0" allowfullscreen="1" width="640" height="360" src="https://www.youtube.com/embed/'+id+'?autoplay=1&showinfo=0&rel=0"></iframe>';
+            html += '</div>';
+            html += '</div>';
+            html += '</div>';
+            html += '</div>';
+
+            $('body').append(html);
+            $('.mw').fadeIn(300, function(){
+                $('.mw a.close, .mw .mw_bg').bind('click', function(){
+                    $('.mw').fadeOut(300, function(){
+                        $(this).remove();
+                    });
+                });
+            });
+        });
+        function isObjectCenter($object){
+            var wh = $(window).height();
+            var now_top = $(window).scrollTop();
+            var this_top = $object.offset().top;
+
+            if (now_top >= this_top - wh / 2){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        function isObjectBottom($object, offset){
+            var offset = offset || 0;
+            var wh = $(window).height();
+            var now_top = $(window).scrollTop();
+            var this_top = $object.offset().top;
+
+            if (now_top >= this_top - wh + offset){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        const scroll_icon_black = lottie.loadAnimation({
+            container: document.getElementById('scroll_icon_black'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: '<?= $block->getViewFileUrl('js/scroll_icon_black.json')?>'
+        });
+        const scroll_icon_white = lottie.loadAnimation({
+            container: document.getElementById('scroll_icon_white'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: '<?= $block->getViewFileUrl('js/scroll_icon_white.json')?>'
+        });
+    });
+</script>

@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * Product view template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\Description
+ */
+?>
+<?php
+$_helper = $this->helper(Magento\Catalog\Helper\Output::class);
+$_product = $block->getProduct();
+$_attributeGenderValue = $block->getProduct()->getResource()->getAttribute('gender')->getFrontend()->getValue($block->getProduct());
+?>
+
+<div class="product attribute gender">
+    <p><?= /* @noEscape */ __($_attributeGenderValue) ?></p>
+</div>

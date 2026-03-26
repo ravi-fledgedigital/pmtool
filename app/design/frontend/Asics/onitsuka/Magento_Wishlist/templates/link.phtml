@@ -1,0 +1,37 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/* @var \Magento\Wishlist\Block\Link $block */
+?>
+<li id="link-wishlist-destop" class="link wishlist" data-bind="scope: 'wishlist'">
+    <a <?= /* @noEscape */ $block->getLinkAttributes() ?>>
+        <!-- ko if: wishlist().counter -->
+            <span data-bind="text: getWishlistCounter(wishlist().counter)" class="counter qty"></span>
+        <!-- /ko -->
+        <!-- ko ifnot: wishlist().counter -->
+            <span class="counter qty">0</span>
+        <!-- /ko -->
+        <span class="text">
+            <span class="mobile">
+                <?= __('MY WISH LIST')?>
+            </span>
+            <span><?= __('WISH LIST')?></span>
+        </span>
+    </a>
+</li>
+<script type="text/x-magento-init">
+    {
+        "#link-wishlist-destop": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "wishlist": {
+                        "component": "Magento_Wishlist/js/view/wishlist"
+                    }
+                }
+            }
+        }
+    }
+</script>

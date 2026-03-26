@@ -1,0 +1,40 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Category view template
+ *
+ * @var $block \Magento\Catalog\Block\Category\View
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+// phpcs:disable Generic.WhiteSpace.ScopeIndent.IncorrectExact
+// phpcs:disable Magento2.Security.LanguageConstruct.DirectOutput
+?>
+<?php
+    $_helper    = $this->helper(Magento\Catalog\Helper\Output::class);
+    $_catalogHelper = $this->helper(\OnitsukaTiger\Catalog\Helper\Output::class);
+    $_category  = $block->getCurrentCategory();
+    $_imgUrlDesktop = $_imgUrlMobile = '';
+    if($_category->getData('banner_image')) {
+        $_imgUrlDesktop = $_imgUrlMobile = $_catalogHelper->getImageUrl($_category->getData('banner_image'));
+    }
+    if($_category->getData('mobile_banner_image')) {
+        $_imgUrlMobile = $_catalogHelper->getImageUrl($_category->getData('mobile_banner_image'));
+    }
+?>
+
+<?php if ($_imgUrlDesktop || $_imgUrlMobile) : ?>
+    <div class="category-image">
+        <picture>
+            <?php if($_imgUrlDesktop) : ?>
+            <source media="(min-width:768px)" srcset="<?= $_imgUrlDesktop?>">
+            <?php endif;?>
+            <img src="<?= $_imgUrlMobile?>" alt="<?= $block->escapeHtmlAttr($_category->getName())?>" title="<?= $block->escapeHtmlAttr($_category->getName())?>">
+        </picture>
+    </div>
+<?php endif;?>

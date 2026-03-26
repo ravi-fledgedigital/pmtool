@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="3columns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="header.panel">
+            <block class="Magento\Cms\Block\Block" name="header-promotion" as="header-promotion">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">header-promotion</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="page-header-sticky">
+            <container htmlTag="div" name="page-header-sticky-container" htmlClass="page-header-sticky-container" before="-"/>
+        </referenceContainer>
+        <referenceContainer name="header-wrapper">
+            <container htmlTag="div" htmlClass="page-header-block-center" before="page-header-right-content">
+                <block class="Magento\Framework\View\Element\Template" before="-" template="Magento_Theme::html/menu-overlay.phtml"/>
+                <container htmlTag="div" name="page-header-center-content" htmlClass="page-header-block-center-container" after="-">
+                    <block class="Magento\Framework\View\Element\Template" name="menu-mobile" before="-" template="Magento_Theme::html/menu-mobile.phtml">
+                        <block class="Magento\Wishlist\Block\Link" name="wish-list-link-header-mobile" as="wish-list-link-header-mobile" template="Magento_Wishlist::link-mobile.phtml">
+                            <arguments>
+                                <argument name="sortOrder" xsi:type="number">60</argument>
+                            </arguments>
+                        </block>
+                    </block>
+                    <block class="Magento\Framework\View\Element\Template" after="-" template="Magento_Theme::html/menu-mobile-links.phtml">
+                        <block class="Magento\Framework\View\Element\Template" name="navigation-store-links"  template="Magento_Theme::html/store-links-nav.phtml"/>
+                        <block class="Magento\Framework\View\Element\Template" name="store-link-mobile-navigation" as="store-link-mobile-navigation" template="Magento_Theme::html/footer-store.phtml"/>
+                    </block>
+                </container>
+            </container>
+            <container htmlTag="div" name="page-header-right-content" htmlClass="page-header-block-right" after="page-header-center-content"/>
+            <container htmlTag="div" htmlClass="page-header-block-search" after="-">
+                <block class="Magento\Framework\View\Element\Template" name="top.search.mobile" as="top.search.mobile" template="Magento_Search::form.mini.mobile.phtml" />
+            </container>
+        </referenceContainer>
+        <referenceContainer name="header.container">
+            <container htmlTag="div" name="page-header-swap" htmlClass="page-header-swap" after="-"/>
+        </referenceContainer>
+
+        <referenceContainer name="footer">
+            <container htmlTag="div" htmlClass="left-menu">
+                <container name="footer-about-link" as="footer-about-link" htmlTag="div" htmlClass="footer-nav-list">
+                    <block class="Magento\Cms\Block\Block" name="footer-support-links">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">footer-support-links</argument>
+                        </arguments>
+                    </block>
+                </container>
+                <container name="footer-service-link" as="footer-service-link" htmlTag="div" htmlClass="footer-nav-list shop-links">
+                    <block class="Magento\Cms\Block\Block" name="footer-hader-shop-links">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">footer-hader-shop-links</argument>
+                        </arguments>
+                    </block>
+                </container>
+                <container name="footer-shop-link" as="footer-shop-links" htmlTag="div" htmlClass="footer-nav-list">
+                    <block class="Magento\Cms\Block\Block" name="footer-hader-about-links">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">footer-hader-about-links</argument>
+                        </arguments>
+                    </block>
+                </container>
+            </container>
+            <container name="footer-hader-newsletter" as="footer-hader-newsletter" htmlTag="div" htmlClass="contact-wrapper">
+                <container htmlTag="div" htmlClass="box-menu-child">
+                    <block class="Magento\Cms\Block\Block" before="-" name="footer-hader-socials">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">footer-hader-socials</argument>
+                        </arguments>
+                    </block>
+                </container>
+            </container>
+        </referenceContainer>
+        <referenceContainer name="footer-container">
+           <container name="footer-downloadable-options-container" as="footer-downloadable-options-container" htmlTag="div" htmlClass="footer-downloadable-options-container" before="-">
+                <block class="Magento\Cms\Block\Block">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">footer-app-store-download</argument>
+                    </arguments>
+                </block>
+          </container>
+
+            <container name="footer-store-information" as="footer-store-information" htmlTag="div" htmlClass="footer-store-information" before="-">
+                <block class="Magento\Framework\View\Element\Template" before="-" template="Magento_Theme::html/footer-store-information.phtml">
+                    <block class="Magento\Cms\Block\Block" name="footer-flagship-store">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">footer-flagship-store</argument>
+                        </arguments>
+                    </block>
+                </block>
+            </container>
+            <container htmlTag="div" htmlClass="footer-box-wrapper" after="-" before="footer-hader-bottom">
+                <block class="Magento\Cms\Block\Block" before="-" name="footer-box">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">footer-box</argument>
+                    </arguments>
+                </block>
+            </container>
+            <container name="footer-hader-bottom" as="footer-hader-bottom" htmlTag="div" htmlClass="footer block-bottom" after="-">
+                <container name="footer-hader-location" as="footer-hader-location" htmlTag="div" htmlClass="box-location"/>
+                <container name="footer-hader-logo" as="footer-hader-logo" htmlTag="div" htmlClass="box-logo">
+                    <block class="Magento\Cms\Block\Block" name="footer-logo">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">footer-logo</argument>
+                        </arguments>
+                    </block>
+                </container>
+                <container name="footer-hader-copyright" as="footer-hader-copyright" htmlTag="div" htmlClass="box-copyright">
+                    <block class="Magento\Cms\Block\Block">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">footer-hader-copyright</argument>
+                        </arguments>
+                    </block>
+                </container>
+            </container>
+        </referenceContainer>
+        <referenceContainer name="page.wrapper">
+            <container name="footer-hader-container" as="hader-footer" before="before.body.end" htmlTag="div" htmlClass="page-footer-hader"/>
+        </referenceContainer>
+        <referenceBlock name="store-link-header-top" remove="true"/>
+        <referenceBlock name="footer-about-links" remove="true"/>
+        <referenceBlock name="footer-service-links" remove="true"/>
+        <referenceBlock name="footer-shop-links" remove="true"/>
+        <referenceBlock name="footer-socials" remove="true"/>
+        <referenceBlock name="footer-newsletter" remove="true"/>
+        <referenceContainer name="footer-bottom" remove="true"/>
+        <referenceContainer name="cookie-status-check" remove="true"/>
+        <referenceBlock name="invitation_link_top" remove="true"/>
+        <referenceBlock name="wish-list-link" remove="true"/>
+        <referenceBlock name="wishlist_sidebar" remove="true"/>
+        <referenceBlock name="multiple-wishlist_sidebar" remove="true"/>
+        <!-- TODO: Check Varnish problems with ttl attribute -->
+        <referenceBlock name="store.menu">
+            <block class="Magento\Theme\Block\Html\Topmenu" name="catalog.topnav" template="Magento_Theme::html/topmenu.phtml" before="-"/>
+        </referenceBlock>
+
+        <move element="header.container" destination="page-header-sticky-container" before="-"/>
+        <move element="navigation.sections" destination="page-header-center-content" before="-"/>
+        <move element="top.search" destination="page-header-center-content" after="navigation.sections"/>
+        <move element="top.links" destination="page-header-right-content" before="-"/>
+        <move element="minicart" destination="page-header-right-content" after="-"/>
+        <move element="header-wrapper" destination="page-header-swap" after="-"/>
+        <move element="store-link-footer" destination="footer-hader-location" after="-"/>
+        <move element="form.subscribe" destination="footer-hader-newsletter" after="-"/>
+        <move element="footer-container" destination="footer-hader-container" before="-"/>
+        <move element="footer-container" destination="footer-hader-container" before="-"/>
+        <move element="footer" destination="footer-container" before="-" after="footer-store-information"/>
+    </body>
+</page>

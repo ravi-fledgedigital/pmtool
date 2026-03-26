@@ -1,0 +1,36 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- ko if: element.component =='OnitsukaTigerKorea_Checkout/js/form/element/readonly-field' -->
+    <input class="input-text" readonly type="text"
+           data-bind="
+            event: {change: userChanges},
+            value: value,
+            hasFocus: focused,
+            valueUpdate: valueUpdate,
+            attr: {
+                name: inputName,
+                placeholder: placeholder,
+                'aria-describedby': noticeId,
+                id: uid,
+                maxlength: 255
+        }"/>
+<!-- /ko -->
+<!-- ko ifnot: element.component =='OnitsukaTigerKorea_Checkout/js/form/element/readonly-field' -->
+<input class="input-text" type="text"
+       data-bind="
+            event: {change: userChanges},
+            value: value,
+            hasFocus: focused,
+            valueUpdate: valueUpdate,
+            attr: {
+                name: inputName,
+                placeholder: placeholder,
+                'aria-describedby': noticeId,
+                id: uid,
+                maxlength: 255
+        }"/>
+<!-- /ko -->

@@ -1,0 +1,34 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php if ($block->isDisabled()):?>
+    <button type="button" id='checkout-now-bottom'
+            title="<?= /* @noEscape */ __('Checkout Now') ?>"
+            data-mage-init='{"Sapient_Worldpay/js/proceed-to-checkout":{"checkoutNowUrl":"<?= /* @noEscape */
+            $block->getCheckoutUrl() ?>"}}'
+            class="action primary checkout<?= ($block->isDisabled()) ? ' disabled' : '' ?>"
+            disabled="disabled">
+        <span><?= /* @noEscape */ __('Checkout Now') ?></span>
+    </button>
+    <script type="text/javascript">
+        var browserType = window.navigator.userAgent.match(/chrome/i);
+        var browserEdge = window.navigator.userAgent.match(/edg/i);
+
+        if((browserType && browserType[0] == 'Chrome') && !browserEdge) {
+            window.ChromepayAvailable = '1';
+        }else{
+            window.ChromepayAvailable = '0';
+        }
+        if(window.ChromepayEnabled == 1 && window.ChromePaymentMode == 'direct'
+            && window.SubscriptionStatus == "" && window.ChromepayAvailable == '1') {
+            var buttonObj = document.getElementById("checkout-now-bottom");
+            buttonObj.value = window.ChromepayButtonName;
+            buttonObj.innerHTML = window.ChromepayButtonName;
+        }else{
+            document.getElementById('checkout-now-bottom').style.visibility='hidden';
+        }
+    </script>
+<?php endif;?>

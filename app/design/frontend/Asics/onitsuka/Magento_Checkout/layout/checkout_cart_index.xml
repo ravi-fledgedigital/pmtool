@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <meta name="robots" content="noindex,nofollow"/>
+    </head>
+    <body>
+        <referenceBlock name="checkout.cart.giftcardaccount" remove="true"/>
+        <referenceBlock name="minicart.refresh" remove="true"/>
+        <referenceBlock name="checkout.cart.validationmessages" remove="true"/>
+    </body>
+</page>

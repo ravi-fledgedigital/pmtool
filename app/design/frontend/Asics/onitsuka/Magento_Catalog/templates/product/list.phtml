@@ -1,0 +1,326 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+use Magento\Framework\App\Action\Action;
+
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @var $block \Magento\Catalog\Block\Product\ListProduct
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ */
+?>
+<?php
+$_productCollection = $block->getLoadedProductCollection();
+/** @var \Magento\Catalog\Helper\Output $_helper */
+$_helper = $block->getData('outputHelper');
+
+/** @var \Vaimo\OTAdobeDataLayer\Helper\Data $helper */
+$adobeDataHelper = $this->helper('\Vaimo\OTAdobeDataLayer\Helper\Data');
+$pageInfo = json_decode($adobeDataHelper->getPageInfoForProdView());
+$pageInfo = json_encode($pageInfo->pageInfo);
+
+$userInfo = json_encode($adobeDataHelper->getUserInfo());
+$catInfo = json_encode($adobeDataHelper->getCategoryInfoById());
+
+$productDataArr = [];
+$currentCatName = '';
+
+if($adobeDataHelper->getCurrentCategory()){
+    $currentCatName =  $adobeDataHelper->getCurrentCategory()->getName();
+}
+?>
+<?php if (!$_productCollection->count()): ?>
+    <div class="message info empty"><div><?= $block->escapeHtml(__('We can\'t find products matching the selection.')) ?></div></div>
+<?php else :?>
+    <?php
+    $_imageHelper = $this->helper(OnitsukaTiger\CategoryModelImage\Helper\Data::class);
+    $imageHelper = $this->helper(Magento\Catalog\Helper\Image::class);
+    $imagesGallery = $_imageHelper->getImage();
+    $helperConfigration = $this->helper('OnitsukaTiger\Fixture\Helper\Data');
+    $maximumLimit = $helperConfigration->getConfig('catalog/frontend/grid_per_page');
+    $comingSoonLabel = $helperConfigration->getConfig('coming_soon/general/coming_soon_label');
+    $priceMinimumHelper = $this->helper(OnitsukaTiger\Catalog\Helper\ConfigurablePrice::class);
+    ?>
+    <?= $block->getToolbarHtml() ?>
+    <?= $block->getAdditionalHtml() ?>
+    <?php
+    if ($block->getMode() === 'grid') {
+        $viewMode = 'grid';
+        $imageDisplayArea = 'category_page_grid';
+        $showDescription = false;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+    } else {
+        $viewMode = 'list';
+        $imageDisplayArea = 'category_page_list';
+        $showDescription = true;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
+    }
+    /**
+     * Position for actions regarding image size changing in vde if needed
+     */
+    $pos = $block->getPositioned();
+    ?>
+    <div class="products wrapper <?= /* @noEscape */ $viewMode ?> products-<?= /* @noEscape */ $viewMode ?>" data-seconbase="<?= $block->getViewFileUrl('Magento_Catalog::images/product/placeholder/base_mouseover_image.jpg')?>">
+        <?php if (count($imagesGallery) >= (int)$maximumLimit):?>
+            <ol class="products list items product-items all-image">
+                <?php foreach ($imagesGallery as  $imageGalleryItem) :?>
+                    <li class="item product product-item image-gallery">
+                        <div class="product-item-info">
+                            <div class="active-box">
+                                <?php if ($imageGalleryItem['link']) :?> <a href="<?= $imageGalleryItem['link']?>"> <?php endif;?>
+                                    <img class="img" src="<?= $imageGalleryItem['value']?>" alt="<?= $imageGalleryItem['alt_text']?>">
+                                    <?php if ($imageGalleryItem['link']) :?> </a><?php endif;?>
+                            </div>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ol>
+        <?php else: ?>
+            <ol class="products list items product-items">
+                <?php if ($_productCollection->count()) :?>
+                    <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+                    <?php $i=0; foreach ($_productCollection as  $_product) : $i++;?>
+                        <?php $productDataArr[] = [
+                                'sku' => $_product->getSku(),
+                                'name' => $_product->getName(),
+                                'productId' => $_product->getId(),
+                                'category' => $currentCatName,
+                                'list' => '',
+                                'position' => $_product->getCatIndexPosition()
+                            ];
+                        ?>
+                        <?php $j = $i; foreach ($imagesGallery as  $imageGalleryItem) :?>
+                            <?php if ($j - $i) : break;?>
+                            <?php endif;?>
+                            <?php if (array_key_exists($j, $imagesGallery)): $i++;?>
+                                <?php $imageGalleryItem = $imagesGallery[$j];?>
+                                <li class="item product product-item image-gallery">
+                                    <div class="product-item-info">
+                                        <div class="active-box">
+                                            <?php if ($imageGalleryItem['link']) :?> <a href="<?= $imageGalleryItem['link']?>"> <?php endif;?>
+                                                <img class="img" src="<?= $imageGalleryItem['value']?>" alt="<?= $imageGalleryItem['alt_text']?>">
+                                                <?php if ($imageGalleryItem['link']) :?> </a><?php endif;?>
+                                        </div>
+                                    </div>
+                                </li>
+                                <?php $j++; endif; ?>
+                        <?php endforeach; ?>
+                        <?php $additional_label = $_helper->productAttribute($_product, $_product->getAdditionalLabel(), 'additional_label') ?>
+
+                        <li class="item product product-item">
+                            <div class="product-item-info" <?php if (!$helperConfigration->getConfig('catalog/them_customize/quickview')):?>  onclick="window.location.href='<?= $block->escapeUrl($_product->getProductUrl()) ?>'" <?php endif;?> data-container="product-<?= /* @noEscape */ $viewMode ?>">
+                                <div class="active-box">
+                                    <?php
+                                    $viewModeVaimo = $block->getData('view_model');
+                                    $resizeImage = $viewModeVaimo->getResizeImage($_product);
+
+                                    $productImage = $block->getImage($_product, 'category_page_grid_base');
+                                    $secondImage =  $block->getImage($_product, 'category_page_grid_base_second', ['base_mouseover_image']);
+
+                                    if ($pos != null) {
+                                        $position = ' style="left:' . $productImage->getWidth() . 'px;'
+                                            . 'top:' . $productImage->getHeight() . 'px;"';
+                                    }
+                                    $childrenProduct = $priceMinimumHelper->getMinimalPrice($_product)['product_children'] ? $priceMinimumHelper->getMinimalPrice($_product)['product_children'] : $_product;
+                                    $brands = null;
+                                    if ($helperConfigration->getConfig('catalog/them_customize/brands')) {
+                                        $brands = $_product->getBrands();
+                                        $attribute = $_product->getResource()->getAttribute('brands');
+                                        $optionsIds = null;
+                                        if ($brands) {
+                                            $optionsIds = explode(',', $brands)[0];
+                                        }
+                                    }
+                                    ?>
+                                    <div class="active-box-container" data-product="<?= $_product->getId()?>">
+                                        <?php // Product Image?>
+                                        <a href="<?= $block->escapeUrl($_product->getProductUrl()) ?>"
+                                           class="product photo product-item-photo"
+                                           tabindex="-1" data-tealium-sku="<?php echo $_product->getSku()?>">
+                                            <span class="base-images <?= /* @noEscape */ $resizeImage['imageId'] ?>">
+                                                <?= $productImage->toHtml() ?>
+                                            </span>
+                                            <span class="base-image-hover <?= $resizeImage['imageId'] ?>">
+                                                <img class="product-image-photo-second "
+                                                     src="<?= $block->escapeUrl($productImage->getImageUrl()) ?>"
+                                                     max-width="<?= $block->escapeHtmlAttr($productImage->getWidth()) ?>"
+                                                     max-height="<?= $block->escapeHtmlAttr($productImage->getHeight()) ?>"
+                                                     alt="<?= /* @noEscape */ $block->stripTags($productImage->getLabel(), null, true) ?>"/>
+                                            </span>
+                                            <span class="seconds-base <?= /* @noEscape */ $resizeImage['imageId'] ?>">
+                                                <img class="product-image-photo-second"
+                                                     src="<?= $block->escapeUrl($secondImage->getImageUrl()) ?>"
+                                                     max-width="<?= $block->escapeHtmlAttr($secondImage->getWidth()) ?>"
+                                                     max-height="<?= $block->escapeHtmlAttr($secondImage->getHeight()) ?>"
+                                                     alt="<?= /* @noEscape */ $block->stripTags($secondImage->getLabel(), null, true) ?>"/>
+                                            </span>
+                                        </a>
+                                        <div class="active">
+                                            <div class="text-box">
+                                                <?php if ($brands): ?>
+                                                    <strong class="product-item-brands">
+                                                        <?= /* @noEscape */ $attribute->getSource()->getOptionText($optionsIds) ?>
+                                                    </strong>
+                                                <?php endif; ?>
+                                                <a class="product-item-link"
+                                                   href="<?= $block->escapeUrl($_product->getProductUrl()) ?>">
+                                                    <?= /* @noEscape */ $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
+                                                </a>
+                                                <?= /* @noEscape */ $block->getProductPrice($childrenProduct) ?>
+                                                <?php
+                                                $currentTime = date('Y-m-d H:i:s');
+                                                $launchDate = $_product->getLaunchDate();
+                                                if (!empty($launchDate) && strtotime($launchDate) > strtotime($currentTime)) { ?>
+                                                    <strong class="product-coming-soon">
+                                                        <?= $comingSoonLabel ?>
+                                                    </strong>
+                                                <?php }
+                                                ?>
+                                                <?php if ($additional_label) :?>
+                                                    <div class="product-additional-label">
+                                                        <?= /* @noEscape */ $additional_label?>
+                                                    </div>
+                                                <?php endif?>
+                                            </div>
+                                            <div class="product-options-list" data-product="<?= $_product->getEntityId()?>">
+                                                <?php /*if ($_product->isAvailable()) :*/?>
+                                                    <?= $block->getProductDetailsHtml($_product) ?>
+                                                <?php /*endif; */?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product details product-item-details">
+                                    <?php
+                                    $_productNameStripped = $block->stripTags($_product->getName(), null, true);
+                                    ?>
+                                    <?php if ($brands): ?>
+                                        <strong class="product-item-brands">
+                                            <?= /* @noEscape */ $attribute->getSource()->getOptionText($optionsIds) ?>
+                                        </strong>
+                                    <?php endif; ?>
+                                    <strong class="product name product-item-name">
+                                        <a class="product-item-link"
+                                           href="<?= $block->escapeUrl($_product->getProductUrl()) ?>">
+                                            <?= /* @noEscape */ $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
+                                        </a>
+                                    </strong>
+                                    <?= $block->getReviewsSummaryHtml($_product, $templateType) ?>
+                                    <?= /* @noEscape */ $block->getProductPrice($childrenProduct) ?>
+                                    <?php
+                                    $currentTime = date('Y-m-d H:i:s');
+                                    $launchDate = $_product->getLaunchDate();
+                                    if (!empty($launchDate) && strtotime($launchDate) > strtotime($currentTime)) { ?>
+                                        <strong class="product-coming-soon">
+                                            <?= $comingSoonLabel ?>
+                                        </strong>
+                                    <?php }
+                                    ?>
+                                    <?php if ($additional_label) :?>
+                                        <div class="product-additional-label">
+                                            <?= /* @noEscape */ $additional_label?>
+                                        </div>
+                                    <?php endif?>
+                                </div>
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                    <?php $currentLimit = $block->getChildBlock('toolbar')->getLimit() + count($imagesGallery);?>
+                    <?php foreach ($imagesGallery as  $imageGalleryItem) : $i++?>
+                        <?php if (array_key_exists($i, $imagesGallery)):?>
+                            <?php $imageGalleryItem = $imagesGallery[$i];?>
+                            <li class="item product product-item image-gallery">
+                                <div class="product-item-info">
+                                    <div class="active-box">
+                                        <?php if ($imageGalleryItem['link']) :?> <a href="<?= $imageGalleryItem['link']?>"> <?php endif;?>
+                                            <img class="img" src="<?= $imageGalleryItem['value']?>" alt="<?= $imageGalleryItem['alt_text']?>">
+                                            <?php if ($imageGalleryItem['link']) :?> </a><?php endif;?>
+                                    </div>
+                                </div>
+                            </li>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <?php foreach ($imagesGallery as  $imageGalleryItem) :?>
+                        <li class="item product product-item image-gallery">
+                            <div class="product-item-info">
+                                <div class="active-box">
+                                    <?php if ($imageGalleryItem['link']) :?> <a href="<?= $imageGalleryItem['link']?>"> <?php endif;?>
+                                        <img class="img" src="<?= $imageGalleryItem['value']?>" alt="<?= $imageGalleryItem['alt_text']?>">
+                                        <?php if ($imageGalleryItem['link']) :?> </a><?php endif;?>
+                                </div>
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </ol>
+        <?php endif;?>
+        <div class="product-load-more">
+            <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        </div>
+        <div class="tealium-tag-ajax">
+        </div>
+    </div>
+    <div class="toolbar-products-bottom hidden">
+        <?= $block->getChildBlock('toolbar')->setIsBottom(true)->toHtml() ?>
+    </div>
+    <script type="text/x-magento-init">
+    {
+        "*": {
+            "ajaxLoadmore": { "baseUrl": "<?php echo $block->getBaseUrl() ?>" }
+        }
+    }
+    </script>
+<?php endif; ?>
+<?php $productItems =  json_encode($productDataArr);?>
+<?php if($adobeDataHelper->isEnabledAdobeLaunch() && $productItems): ?>
+<script>
+    require(['jquery', 'mage/cookies'], function($){
+        // custom code for add adobe data layer start
+        $(document).ready(function() {
+            let adobeDataLayer = window.adobeDataLayer ? window.adobeDataLayer : [];
+            var prodData = JSON.parse('<?= $productItems; ?>');
+            if(prodData){
+                adobeDataLayer.push(
+                    {
+                        'event' : 'prodImp',
+                        'productListItems' : prodData,
+                        'page' : {
+                                'pageInfo' : JSON.parse('<?= $pageInfo ?>'),
+                                'category': JSON.parse('<?= $catInfo ?>'),
+                            },
+                        'userInfo' : JSON.parse('<?= $userInfo ?>'),
+                    }
+                ); //push data in to Adobe data layer
+                window.adobeDataLayer = adobeDataLayer;
+            }
+            $(".selected-category a, .selected-link-category a, .filter-clear-all a").bind("click", function() {
+                localStorage.setItem('CTAhref', $(this).attr('href'));
+                localStorage.setItem('CTAText', $(this).text());
+            });
+
+            $(".am-swatch-link").bind("click", function() {
+                var  ctaText = $(this).text();
+                if($(this).find('div').attr('option-label')){
+                    ctaText = $(this).find('div').attr('option-label');
+                }
+                localStorage.setItem('CTAhref', $(this).attr('href'));
+                localStorage.setItem('CTAText', ctaText);
+            });
+
+            $(".am-filter-items-price li a, .am-filter-items-gender_for_search li a").bind("click", function() {
+                localStorage.setItem('CTAhref', $(this).attr('href'));
+                localStorage.setItem('CTAText', $(this).parent().attr('data-label'));
+            });
+
+        });
+        // custom code for add adobe data layer end
+    });
+</script>
+<?php endif; ?>

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="checkout.cart.summary.title">
+            <arguments>
+                <argument translate="true" name="text" xsi:type="string">Order Summary</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="checkout.cart.form">
+            <block class="Magento\Cms\Block\Block" name="cart-shipping-information">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">cart-shipping-information</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Cms\Block\Block"  name="cart-return-policy">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">cart-return-policy</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceContainer name="cart.summary">
+            <block class="Magento\Checkout\Block\Cart" after="-" template="Magento_Checkout::cart/back-link.phtml"/>
+            <container htmlTag="div" htmlClass="cart-disclaimer" before="checkout.cart.methods.bottom" after="checkout.cart.totals.container">
+                <block class="Magento\Cms\Block\Block"  name="cart-disclaimer">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">cart-disclaimer</argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceContainer>
+        <referenceBlock name="checkout.cart.totals">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="block-totals" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="grand-total" xsi:type="array">
+                                    <item name="config" xsi:type="array">
+                                        <item name="title" xsi:type="string" translate="true">Total</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+        <move element="checkout.cart.coupon" destination="cart.summary" before="checkout.cart.shipping"/>
+    </body>
+</page>

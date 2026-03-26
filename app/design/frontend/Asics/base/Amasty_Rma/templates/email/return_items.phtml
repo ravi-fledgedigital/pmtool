@@ -1,0 +1,100 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Rma
+ */
+?>
+<?php
+/** @var \Amasty\Rma\Model\Request\Email\EmailRequestItem[] $items */
+$items = $block->getReturnItems();
+?>
+<?php $helper = $this->helper(\OnitsukaTiger\Checkout\Helper\Data::class); ?>
+<?php $_order = $helper->getOrderByIncrementId($block->getOrder()) ?>
+<?php $_items = $_order->getAllItems(); ?>
+<?php $helperFixture = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);?>
+<p class="space-order-items">&nbsp;</p>
+<div class="order-items-content">
+    <table class="email-items" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr>
+                <th class="item-info">
+                    <div>
+                        <?= $block->escapeHtml(__('Item(s)')) ?>
+                    </div>
+                </th>
+                <th class="item-name">
+                    <div>
+                        <?= $block->escapeHtml(__('Name')) ?>
+                    </div>
+                </th>
+                <th class="item-qty">
+                    <div>
+                        <?= $block->escapeHtml(__('Quantity')) ?>
+                    </div>
+                </th>
+                <th class="item-price" style=" border-right: 1px solid #000000;">
+                    <div>
+                        <?= $block->escapeHtml(__('Price')) ?>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php if ($items):
+            foreach ($items as $item): ?>
+                <?php foreach ($_items as $_item) : ?>
+                    <?php if (!$_item->getParentItem()) : ?>
+                        <?php if($_item->getSku() != $item->getItemSku()): continue;?><?php endif;?>
+                            <tr>
+                                <?php
+                                $productOption = $_item->getProductOptions();
+                                $catalogHelper = $this->helper(\Magento\Catalog\Helper\Image::class);
+                                $options = $helper->getItemOptions($_item);
+
+                                $helperReturn = $this->helper(\OnitsukaTiger\Rma\Helper\Data::class);
+                                $productForThumbnail = $helperReturn->getFinalProductThumbnail($_item, $_order);
+
+                                /** @var \Vaimo\OTScene7Integration\Helper\Data $scene7Helper */
+                                $scene7Helper = $this->helper(\Vaimo\OTScene7Integration\Helper\Data::class);
+                                $image_url = $scene7Helper->getOrderItemProductImage($productForThumbnail, "order_item_image_size");
+                                ?>
+                                <td class="item-info">
+                                    <p>
+                                        <img border="0" src="<?= $image_url ?>" alt="<?= $block->escapeHtml($_item->getName()) ?>"/>
+                                    </p>
+                                </td>
+                                <td class="item-name">
+                                    <div class="product-information">
+                                        <p class="product-name"><?= $block->escapeHtml($_item->getName()) ?></p>
+                                        <p class="sku"><?= $block->escapeHtml(__('Style')) ?> #: <?= $block->escapeHtml($_item->getSku()) ?></p>
+                                        <?php if ($options) : ?>
+                                            <div class="product-options">
+                                                <ul>
+                                                    <?php foreach ($options as $_option) : ?>
+                                                        <li>
+                                                            <?= $block->escapeHtml($_option['label']) ?> : <?= /* @noEscape */ nl2br($block->escapeHtml($_option['print_value'] ?? $_option['value'])) ?>
+                                                        </li>
+                                                    <?php endforeach; ?>
+                                                </ul>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                </td>
+                                <td class="item-qty"><?= (float) $item->getQty() ?></td>
+                                <td class="item-price" style=" border-right: 1px solid #000000;">
+                                    <?php if((int)$helperFixture->getConfig('tax/cart_display/subtotal') == 1):?>
+                                        <?= /* @noEscape */ $_order->formatPrice($_item->getPrice()) ?>
+                                    <?php else: ?>
+                                        <?= /* @noEscape */ $_order->formatPrice($_item->getPriceInclTax()) ?>
+                                    <?php endif;?>
+                                </td>
+                            </tr>
+                    <?php endif; ?>
+                <?php endforeach;?>
+            <?php endforeach;
+        endif;?>
+        </tbody>
+    </table>
+</div>
+<p class="space-order-items">&nbsp;</p>

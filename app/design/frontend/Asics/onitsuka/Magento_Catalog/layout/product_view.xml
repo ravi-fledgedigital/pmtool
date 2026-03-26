@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <container htmlTag="div" htmlClass="content-wrap item-detail" before="-">
+                <container htmlTag="div" htmlClass="product-info-main" >
+                    <container htmlTag="div" htmlClass="block-btn-sp" before="-">
+                        <block class="Magento\Catalog\Block\Product\View" name="addtocart-mobile" template="Magento_Catalog::product/view/addtocart-mobile.phtml"/>
+                    </container>
+                    <container htmlTag="div" htmlClass="block-slider js-slider" name="block-slider">
+                        <container htmlTag="div" htmlClass="block-slider-container" name="block-slider-container">
+                            <block class="Magento\Framework\View\Element\Template" name="product-details-label" as="product-details-label" template="Magento_Catalog::product/view/label.phtml" />
+                            <block name="product_custom_label" class="Mirasvit\CatalogLabel\Block\Product\View\Label" after="-"/>
+                        </container>
+                    </container>
+                    <container htmlTag="div" htmlClass="area-content js-sticky-element">
+                        <container htmlTag="div" name="product-inner-container" htmlClass="inner" before="-">
+                            <container htmlTag="div" htmlClass="block-variation" before="-">
+                                <container name="block-variation" htmlTag="div"  htmlClass="block-variation-container">
+                                    <block class="Magento\Catalog\Block\Product\View\Description" template="Magento_Catalog::product/view/attribute.phtml" after="-">
+                                        <arguments>
+                                            <argument name="at_call" xsi:type="string">getDescription</argument>
+                                            <argument name="at_code" xsi:type="string">description</argument>
+                                            <argument name="css_class" xsi:type="string">description</argument>
+                                            <argument name="at_label" xsi:type="string">description</argument>
+                                            <argument name="add_attribute" xsi:type="string">itemprop="description"</argument>
+                                        </arguments>
+                                    </block>
+                                    <block name="product_detail_button_view_description" class="Magento\Catalog\Block\Product\View\Description" template="Magento_Catalog::product/view/product_description_popup.phtml" after="-"/>
+                                </container>
+                            </container>
+                            <container htmlTag="div" name="block-detail" htmlClass="block-detail">
+                            </container>
+                        </container>
+                    </container>
+                    <container htmlTag="div" name="product-description-infor" after="-"  htmlClass="block-description-mobile">
+                        <block class="Magento\Catalog\Block\Product\View\Description" template="Magento_Catalog::product/view/attribute.phtml" after="-">
+                            <arguments>
+                                <argument name="at_call" xsi:type="string">getDescription</argument>
+                                <argument name="at_code" xsi:type="string">description</argument>
+                                <argument name="css_class" xsi:type="string">description</argument>
+                                <argument name="at_label" xsi:type="string">description</argument>
+                                <argument name="add_attribute" xsi:type="string">itemprop="description"</argument>
+                            </arguments>
+                        </block>
+                    </container>
+                    <!--  <container htmlTag="div" htmlClass="category-box sp-only" after="-">
+                        <block class="Magento\Cms\Block\Block" name="category-box-links">
+                            <arguments>
+                                <argument name="block_id" xsi:type="string">category-box-links</argument>
+                            </arguments>
+                        </block>
+                    </container> -->
+                </container>
+            </container>
+        </referenceContainer>
+        <referenceBlock name="product.info.sku">
+            <arguments>
+                <argument name="at_label" xsi:type="string" translate="true">Style #:</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceContainer name="product.info.stock.sku">
+            <block class="Magento\Catalog\Block\Product\View\Description" before="product.info.sku" template="Magento_Catalog::product/view/attribute.phtml" after="product.info.type">
+                <arguments>
+                    <argument name="at_call" xsi:type="string">getGender</argument>
+                    <argument name="at_code" xsi:type="string">gender</argument>
+                    <argument name="css_class" xsi:type="string">gender</argument>
+                    <argument name="at_label" xsi:type="string">default</argument>
+                    <argument name="at_type" xsi:type="string">text</argument>
+                    <argument name="add_attribute" xsi:type="string">itemprop="gender"</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="product.info.price">
+            <block class="Magento\Catalog\Block\Product\View" name="product.info.price.final" as="product-price-final" template="Magento_Catalog::product/view/price-details.phtml"/>
+        </referenceContainer>
+        <move element="page.main.title" destination="block-variation" after="product_detail_attr_brands"/>
+        <move element="product.info.price" destination="block-variation" after="page.main.title"/>
+        <move element="product.price.final" destination="product.info.price.final"/>
+        <move element="product.info.media.image" destination="block-slider-container" before="-" after="product-details-label"/>
+        <move element="product.info.media.video" destination="block-slider-container" before="-" after="product.info.media.image"/>
+        <move element="product.info" destination="block-detail" after="-"/>
+        <move element="product.info.details" destination="block-detail" after="product.info"/>
+        <move element="product-description-infor" destination="block-detail" after="product.info"/>
+        <move element="product.info.addto" destination="block-detail" before="-"/>
+        <move element="page.messages" destination="block-variation" before="page.main.title"/>
+        <referenceBlock name="product.init.zoom" remove="true" />
+        <referenceBlock name="breadcrumbs" remove="true" />
+        <referenceContainer name="product.info.media" remove="true" />
+        <referenceBlock name="product.info.main" remove="true" />
+        <referenceBlock name="product.size.guide" remove="true" />
+        <referenceBlock name="product.info.addtocart">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Magento_Catalog::product/view/addtocart-qty.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="product.info.addtocart.additional">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Magento_Catalog::product/view/addtocart-qty.phtml</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

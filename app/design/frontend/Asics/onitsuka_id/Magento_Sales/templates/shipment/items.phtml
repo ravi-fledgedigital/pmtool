@@ -1,0 +1,96 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+/** @var \Magento\Sales\Block\Order\Items $block */
+$helper = $this->helper(\OnitsukaTiger\Sales\Helper\Data::class);
+$helperStore = $this->helper(\OnitsukaTiger\Store\Helper\Data::class);
+$_order = $block->getOrder();
+$helperConfig = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);
+?>
+<?php if(count($_order->getShipmentsCollection()) > 0): ?>
+    <?php foreach ($_order->getShipmentsCollection() as $shipment) : ?>
+        <?php $trackDetail = $helper->getTrackDetail($shipment); ?>
+        <?php if($trackDetail['con_no'] != ''): ?>
+            <div class="order-head">
+                <div class="order-details">
+                    <span><?= __('Tracking Number:')?></span>
+                    <?= $trackDetail['con_no'] ?>
+                </div>
+                <div class="order-details">
+                    <span><?= __('Shipment Status:')?> </span>
+                    <?= __($trackDetail['shipment_status'].' on') ?> <?= $helperStore->formatDate($trackDetail['status_updated_date'] ? $trackDetail['status_updated_date'] : $trackDetail['dispatch_date'],$_order->getStoreId()) ?>
+                </div>
+                <div class="shipment-track">
+                    <a href="#" data-role="shipment-details" data-shipment="<?= $shipment->getId() ?>"><?= __('Shipping Details')?></a>
+                </div>
+            </div>
+        <?php endif;?>
+    <?php endforeach; ?>
+    <div id="modal-shipment" class="hidden">
+        <div class="content">
+            <div class="shipment_details">
+                <h2><?= __('shipment details')?></h2>
+                <div id="divShipmentLog">
+                    <div class="shipment" id="shipmentDetail-7492083">
+                        <ul data-role="none">
+                            <li data-role="none">
+                                <div class="twocols fl_left">
+                                    <label data-role="none"><?=__('Courier Name:')?></label>
+                                    <span data-role="courier-name"></span>
+                                </div>
+                                <div class="twocols fl_right">
+                                    <label data-role="none"><?= __('Dispatch Date:')?></label>
+                                    <span data-role="dispatch-date"></span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="twocols fl_left">
+                                    <label data-role="none"><?= __('Tracking Number:')?></label>
+                                    <span><a <?= $helperConfig->getConfig('shipping/shipping_link/enable') ? 'href="'.$helperConfig->getConfig('shipping/shipping_link/links').'"' :  '';  ?> id="awbid" data-role="tracking-number"></a></span>
+                                </div>
+                                <div class="twocols fl_right">
+                                    <label data-role="none"><?= __('Shipping Mode:')?></label>
+                                    <span data-role="service-code"></span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="twocols fl_left">
+                                    <label data-role="none" data-status="D"><?= __('Shipment Status:')?></label>
+                                    <span data-role="shipment-status"></span>
+                                </div>
+                                <div class="twocols fl_right">
+                                    <label data-role="none"><?= __('Status Updated Date:')?></label>
+                                    <span data-role="updated-date"></span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="order-details-items ordered">
+                    <div class="order-details-container">
+                        <div class="order-items-list">
+                            <div class="table-wrapper order-items">
+                                <table class="data table table-order-items">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/x-magento-init">
+        {
+            "#modal-shipment": {
+                "shipmentDetails": {
+                    "shipmentJson": "<?= $block->escapeJs($helper->getShipmentJson($_order->getShipmentsCollection(),$block->getViewFileUrl('Magento_Catalog::images/product/placeholder/image.jpg')))?>"
+                }
+            }
+        }
+    </script>
+<?php endif;?>

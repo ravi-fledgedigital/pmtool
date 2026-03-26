@@ -1,0 +1,5 @@
+<?php
+$helper = $this->helper(\OnitsukaTiger\Fixture\Helper\Data::class);
+$store = $helper->getCurrentStore();
+?>
+<a href="<?= $block->getUrl()?>location-selector"><?= __($store->getName())?> : CHANGE LOCATION</a>

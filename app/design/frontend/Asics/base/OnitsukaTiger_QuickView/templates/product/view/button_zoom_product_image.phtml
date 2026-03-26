@@ -1,0 +1,39 @@
+<p id="tapToZoom" class="zoom-icon" title="<?= __('Tap to Zoom')?>">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" id="icon-zoom-image-white"><g fill="none"><circle cx="17" cy="17" r="17" fill="#FFF" stroke="#6A6A6A" transform="translate(1 1)"></circle><path stroke="#6A6A6A" d="M24.081 9.314l1.392 5.858-7.372-5.163z"></path><path fill="#FFF" d="M17.036 8.043L27.685 15.5l-1.147 1.638-10.65-7.457z"></path><path d="M23.794 9.723l-4.588 6.554" stroke="#6A6A6A" stroke-linecap="square"></path><path stroke="#6A6A6A" d="M11.919 26.686l-1.392-5.858 7.372 5.163z"></path><path fill="#FFF" d="M18.964 27.957L8.315 20.5l1.147-1.638 10.65 7.457z"></path><path d="M12.206 26.277l4.588-6.554" stroke="#6A6A6A" stroke-linecap="square"></path></g></svg>
+</p>
+<div id="zoom-image-modal">
+    <button class="zoom-modal__close js-close" title="<?= __('Close this modal')?>"></button>
+    <img src="" alt="zoom-image"/>
+</div>
+<script type="text/javascript">
+    require(
+        [
+            'jquery'
+        ],
+        function($) {
+            $('#zoom-image-modal').hide();
+            $('#tapToZoom').on("click", function (e) {
+                $('#zoom-image-modal').show();
+                $('.mfp-content').addClass('zoom-image');
+                var imageLink = $('.fotorama__stage__frame.fotorama__active img').attr('src');
+                $('#zoom-image-modal img').attr('src', imageLink);
+            });
+            $('#zoom-image-modal img').draggable();
+
+            $('.zoom-modal__close').on("click", function (e) {
+                $('#zoom-image-modal').hide();
+                $('.mfp-content').removeClass('zoom-image');
+            });
+
+            $(document).on('click',function (e) {
+                if($(e.target).parents('.fotorama__nav__frame').length) {
+                    if($(e.target).parents('.fotorama__nav__frame').attr('class').indexOf('video-thumb-icon') > -1){
+                        $('#tapToZoom').hide();
+                    }else {
+                        $('#tapToZoom').show();
+                    }
+                }
+            });
+        }
+    );
+</script>

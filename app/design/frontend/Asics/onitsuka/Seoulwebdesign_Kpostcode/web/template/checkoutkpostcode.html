@@ -1,0 +1,15 @@
+<div class="init-modal-external not-active-init" data-bind="click: initModalShowRenderer"></div>
+<div class="init-modal-show"
+     data-bind="afterRender: initModalShow">
+    <div class="swd-kpostcode-popup kpostcode-popup" style="display: none">
+        <div class="popup_box" data-bind="css: { 'daum-popup': isInDaumMode() }">
+            <div class="image-top">
+                <a class="kpostcodeIconX icon-x" href="javascript:void(0)">Close</a>
+            </div>
+            <div class="content">
+                <h4 data-bind="text: getPopupTitle"></h4>
+                <div id="postcode-area"></div>
+            </div>
+        </div>
+    </div>
+</div>

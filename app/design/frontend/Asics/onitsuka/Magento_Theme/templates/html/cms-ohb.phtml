@@ -1,0 +1,73 @@
+<script type="text/javascript">
+    require([
+        'jquery',
+        'js/lottie.min',
+        'js/luxy',
+        'js/luxy_main',
+        'js/luxy_sub1',
+        'js/lottie.min',
+        'js/luxy_sub2',
+        'Amasty_Base/vendor/slick/slick.min'
+    ], function($,lottie,luxy,luxy_main,luxy_sub1,luxy_sub2){
+        const anim = lottie.loadAnimation({
+            container: document.getElementById('scroll_icon'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: '<?= $block->getViewFileUrl('js/scroll_icon.json')?>'
+        });
+
+        function array_shuffle(array) {
+            for(var i = array.length - 1; i > 0; i--){
+                var r = Math.floor(Math.random() * (i + 1));
+                var tmp = array[i];
+                array[i] = array[r];
+                array[r] = tmp;
+            }
+            return array;
+        }
+
+
+
+        function isObjectCenter($object){
+            var wh = $(window).height();
+            var now_top = $(window).scrollTop();
+            var this_top = $object.offset().top;
+
+            if (now_top >= this_top - wh / 2){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        scroll_event();
+        $(window).bind("scroll", scroll_event);
+        function scroll_event(){
+            var now_top = $(this).scrollTop();
+
+            if(now_top > $('section.hero').offset().top){
+                $('.shopBtn-container').addClass('fixed');
+            }else{
+                $('.shopBtn-container').removeClass('fixed');
+            }
+
+            $('.animate').each(function(){
+                if(isObjectCenter($(this))){
+                    $(this).addClass('show');
+                }
+            });
+        }
+
+        var userAgent = window.navigator.userAgent.toLowerCase();
+        if(userAgent.indexOf('msie') != -1 || userAgent.indexOf('trident') != -1 || userAgent.indexOf('edge') != -1){
+            $('html').addClass('not_full_support');
+        }
+
+        var video = document.getElementById('bg_video');
+        $("#sound_btn").bind('click',toggleMute);
+        function toggleMute(){
+            $("#sound_btn").toggleClass("on");
+            video.muted = !video.muted;
+        }
+    });
+</script>

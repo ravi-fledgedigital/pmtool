@@ -1,0 +1,55 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Newsletter\Block\Subscribe $block */
+?>
+<div class="block newsletter">
+    <h4><?= $block->escapeHtml(__('SIGN UP FOR OUR NEWSLETTER')) ?></h4>
+    <p><?= $block->escapeHtml(__('Sign up for our newsletter to receive special offers and exclusive news about Onitsuka Tiger products.')) ?></p>
+    <div class="content">
+        <form class="form subscribe"
+              action="<?= $block->escapeUrl($block->getFormActionUrl()) ?>"
+              method="post"
+              id="newsletter-validate-detail">
+            <input type="hidden" name="isAjax" value="1"/>
+            <div class="message-subscriber"><?= __('Please use a valid email address')?></div>
+            <div class="field newsletter">
+                <div class="control">
+                    <label for="newsletter">
+                        <input name="email" type="email" id="newsletter"
+                               placeholder="<?= $block->escapeHtmlAttr(__('Email Address...')) ?>"
+                               data-mage-init='{"mage/trim-input":{}}'
+                        />
+                    </label>
+                </div>
+            </div>
+            <div class="actions">
+                <button disabled="disabled" class="action subscribe primary"
+                        title="<?= $block->escapeHtmlAttr(__('Subscribe')) ?>"
+                        type="submit"
+                        aria-label="Subscribe">
+                    <span><?= $block->escapeHtml(__('Subscribe')) ?></span>
+                </button>
+            </div>
+            <label id="policy-checkbox" class="policy-checkbox">
+                <input type="checkbox">
+                <?= $block->escapeHtml(__("I would like to receive communications from ASICS - including for exclusive member services, events, and gear. I have read , understood and agree to the applicable <a href='%1'>Privacy Policy</a>", $block->getUrl('privacy-policy')), ['a']) ?>
+            </label>
+        </form>
+    </div>
+    <script type="text/x-magento-init">
+        {
+            "#newsletter-validate-detail": {
+                "newsletterAjax": {
+                    "isFooter": "1"
+                }
+            }
+        }
+    </script>
+</div>
+<div class="loadding-ajax newsletter-loading hidden">
+    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+</div>

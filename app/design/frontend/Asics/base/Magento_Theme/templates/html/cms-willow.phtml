@@ -1,0 +1,71 @@
+<script type="text/javascript">
+    require([
+        'jquery',
+        'js/lottie.min',
+        'js/luxy',
+        'js/luxy_main',
+        'js/luxy_sub1',
+        'js/lottie.min',
+        'js/luxy_sub2',
+        'Amasty_Base/vendor/slick/slick.min'
+    ], function($,lottie,luxy,luxy_main,luxy_sub1,luxy_sub2){
+        const anim = lottie.loadAnimation({
+            container: document.getElementById('scroll_icon'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: '<?= $block->getViewFileUrl('js/scroll_icon.json')?>'
+        });
+        function isObjectCenter($object){
+            var wh = $(window).height();
+            var now_top = $(window).scrollTop();
+            var this_top = $object.offset().top;
+            if (now_top >= this_top - wh / 2){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        scroll_event();
+        $(window).bind("scroll", scroll_event);
+        function scroll_event(){
+            $('.animate').each(function(){
+                if(isObjectCenter($(this))){
+                    $(this).addClass('show');
+                }
+            });
+        }
+
+        var userAgent = window.navigator.userAgent.toLowerCase();
+        if(userAgent.indexOf('msie') != -1 || userAgent.indexOf('trident') != -1 || userAgent.indexOf('edge') != -1){
+            $('html').addClass('not_full_support');
+        }
+
+        // youtube modal window
+        $('a.yt_mw').bind('click', function(){
+            var id = $(this).attr('data-id');
+
+            var html = '';
+            html += '<div class="mw">';
+            html += '<div class="mw_bg"></div>';
+            html += '<div class="mw_content">';
+            html += '<div class="mw_inner">';
+            html += '<a href="javascript:void(0);" class="close"><span>CLOSE</span></a>"';
+            html += '<div class="mw_video">';
+            html += '<iframe frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen width="640" height="360" src="https://www.youtube.com/embed/'+id+'"></iframe>';
+            html += '</div>';
+            html += '</div>';
+            html += '</div>';
+            html += '</div>';
+
+            $('body').append(html);
+            $('.mw').fadeIn(300, function(){
+                $('.mw a.close, .mw .mw_bg').bind('click', function(){
+                    $('.mw').fadeOut(300, function(){
+                        $(this).remove();
+                    });
+                });
+            });
+        });
+    });
+</script>

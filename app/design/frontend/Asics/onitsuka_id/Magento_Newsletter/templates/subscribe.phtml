@@ -1,0 +1,87 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Newsletter\Block\Subscribe $block */
+?>
+<div class="block newsletter">
+    <div class="top-newsletter">
+        <p><?= $block->escapeHtml(__('NEWSLETTER')) ?></p>
+    </div>
+    <div class="content">
+        <form class="form subscribe"
+              action="<?= $block->escapeUrl($block->getFormActionUrl()) ?>"
+              method="post"
+              id="newsletter-validate-detail">
+            <input type="hidden" name="isAjax" value="1"/>
+            <div class="message-subscriber"><?= __('Please use a valid email address')?></div>
+            <div class="form-container">
+                <div class="field newsletter">
+                    <div class="control">
+                        <label for="newsletter">
+                            <input name="email" type="email" id="newsletter"
+                                   placeholder="<?= $block->escapeHtmlAttr(__('E-mail Address')) ?>"
+                                   data-mage-init='{"mage/trim-input":{}}'
+                            />
+                        </label>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button class="action subscribe primary"
+                            title="<?= $block->escapeHtmlAttr(__('Subscribe')) ?>"
+                            type="submit"
+                            aria-label="Subscribe">
+                        <span><?= $block->escapeHtml(__('Subscribe')) ?></span>
+                    </button>
+                </div>
+            </div>
+            <label id="policy-checkbox" class="policy-checkbox">
+                <input type="checkbox" checked="checked">
+                <span class="checkmark"></span>
+            </label>
+            <p class="text-newsletter"><?= $block->escapeHtml(__("I would like to receive communications from ONITSUKA TIGER - including for exclusive member services, events, and gear. I have read, understood and agreed to the applicable <a href='%1'>Privacy Policy.</a>", $block->getUrl('privacy-policy')), ['a']) ?></p>
+        </form>
+    </div>
+    <script>
+        require([
+            'jquery'
+        ], function ($) {
+            $( document ).ready(function() {
+                var newletterOjb = $('.form-container').find("#newsletter");
+                newletterOjb.on("invalid", function() {
+                    if ($(this).val().trim() != '') {
+                        this.setCustomValidity("Mohon sertakan \'@\' di alamat email. '" + $(this).val() + "' tidak memiliki \'@\'.");
+                    }
+                });
+                newletterOjb.on("change", function() {
+                    if ($(this).val().trim() == '') {
+                        this.setCustomValidity('');
+                    }
+                });
+            });
+        })
+    </script>
+    <script type="text/javascript">
+        require.config({
+            map: {
+                '*': {
+                    newsletterAjax: 'Magento_Newsletter/js/newsletter-ajax'
+                }
+            }
+        });
+    </script>
+    <script type="text/x-magento-init">
+        {
+            "#newsletter-validate-detail": {
+                "newsletterAjax": {
+                    "isFooter": "1"
+                }
+            }
+        }
+    </script>
+</div>
+<div class="loadding-ajax newsletter-loading hidden">
+    <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+</div>

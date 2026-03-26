@@ -1,0 +1,39 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @var \Magento\Theme\Block\Html\Header $block
+ */
+$welcomeMessage = $block->getWelcome();
+?>
+<?php if ($block->getShowPart() == 'welcome') : ?>
+    <li class="greet welcome" data-bind="scope: 'customer'">
+        <!-- ko if: customer().fullname  -->
+        <a class="logged-in" href="<?= $block->getUrl('customer/account') ?>">
+            <span data-bind="text: new String('<?= $block->escapeHtml(__('Hello %1', '%1')) ?>').replace('%1', customer().firstname)"></span>
+        </a>
+        <?= $block->getChildHtml('authorization-link-header') ?>
+        <!-- /ko -->
+        <!-- ko ifnot: customer().fullname  -->
+        <?= $block->getChildHtml('authorization-link-header') ?>
+        <!-- /ko -->
+    </li>
+    <script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "customer": {
+                        "component": "Magento_Customer/js/view/customer"
+                    }
+                }
+            }
+        }
+    }
+    </script>
+<?php elseif ($block->getShowPart() == 'other') :?>
+    <?= $block->getChildHtml() ?>
+<?php endif ?>

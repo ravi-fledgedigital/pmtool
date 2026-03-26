@@ -1,0 +1,92 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "Your Onitsuka Tiger order has been shipped %order_id" order_id=$order.increment_id}} @-->
+<!--@vars {
+"var formattedBillingAddress|raw":"Billing Address",
+"var billing.name":"Guest Customer Name",
+"var order.increment_id":"Order Id",
+"var payment_html|raw":"Payment Details",
+"var comment|escape|nl2br":"Shipment Comment",
+"var shipment.increment_id":"Shipment Id",
+"layout handle=\"sales_email_order_shipment_items\" shipment=$shipment order=$order":"Shipment Items Grid",
+"block class='Magento\\\\Framework\\\\View\\\\Element\\\\Template' area='frontend' template='Magento_Sales::email\/shipment\/track.phtml' shipment=$shipment order=$order":"Shipment Track Details",
+"var formattedShippingAddress|raw":"Shipping Address",
+"var order.shipping_description":"Shipping Description",
+"var store.frontend_name":"Store Frontend Name",
+"var store_phone":"Store Phone",
+"var store_email":"Store Email",
+"var store_hours":"Store Hours",
+"var order_data.is_not_virtual": "Order Type",
+"var shipment": "Shipment",
+"var order": "Order"
+} @-->
+{{template config_path="design/email/header_template"}}
+<div class="order-container-information">
+    <table>
+        <tr class="email-intro">
+            <td>
+                <p class="email-title">
+                    {{trans "Your Order has been Shipped"}}
+                    {{layout handle="sales_email_shipment_number_title" shipment_id=$shipment_id order_id=$order_id area="frontend"}}
+                </p>
+                <p class="greeting-order">{{trans "Hello %customer_name," customer_name=$order_data.customer_name}}</p>
+                <p>
+                    {{trans 'Please add <a href="mailto:%store_email">%store_email</a> to your email address book so all Onitsuka Tiger notifications are received.' store_email=$store_email |raw}}
+                </p>
+            </td>
+        </tr>
+        <tr class="email-summary">
+            <td class="order-information">
+                <table>
+                    <tr>
+                        <td>
+                            <div>
+                                {{layout handle="sales_email_shipment_info" shipment_id=$shipment_id order_id=$order_id area="frontend"}}
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="email-information">
+            <td>
+                {{depend order_data.is_not_virtual}}
+                {{layout handle="sales_email_order_address" order_id=$order_id area="frontend"}}
+                {{/depend}}
+            </td>
+        </tr>
+        <tr class="email-information">
+            <td>
+                {{layout handle="sales_email_shipment_tracking" shipment_id=$shipment_id order_id=$order_id  area="frontend"}}
+            </td>
+        </tr>
+        <tr class="email-information">
+            <td>
+                <p class="space-order-items">&nbsp</p>
+                <div class="order-items-content">
+                    {{layout handle="sales_email_order_shipment_items" shipment_id=$shipment_id order_id=$order_id}}
+                </div>
+                <p class="space-order-items">&nbsp</p>
+            </td>
+        </tr>
+        <tr class="order-notification">
+            <td>
+                <p>
+                    {{trans "Your order has been processed and your Onitsuka Tiger merchandise is on its way."}}
+                    <br/>
+                    {{trans "If you ordered multiple items, they may ship separately."}}
+                    <br/>
+                    {{trans "You will receive additional email(s) once each item has been shipped."}}
+                </p>
+                <p class="question-order-information">
+                    {{trans 'If you have any additional questions or concerns, please feel free to contact us at <a href="mailto:%store_email">%store_email</a>.' store_email=$store_email |raw}}
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+{{template config_path="design/email/footer_template"}}

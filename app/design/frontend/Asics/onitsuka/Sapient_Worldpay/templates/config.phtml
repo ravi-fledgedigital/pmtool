@@ -1,0 +1,17 @@
+<?php
+/** @var $block \Sapient\Worldpay\Block\Webpayment */
+?>
+
+<script>
+    window.ChromepayButtonName = '<?= /* @noEscape */ $block->getChromepayButtonName() ?>';
+    window.ChromepayEnabled = '<?= /* @noEscape */ $block->getChromepayEnabled() ?>';
+    window.ChromePaymentMode = '<?= /* @noEscape */ $block->getPaymentMode() ?>';
+    window.SubscriptionStatus = '<?= /* @noEscape */ $block->checkSubscriptionItems() ?>'
+    window.GeneralExceptions = '<?= /* @noEscape */ $block->getGeneralException() ?>'
+    window.MyAccountExceptions = '<?= /* @noEscape */ $block->MyAccountExceptions() ?>';
+    window.CreditCardException = '<?= /* @noEscape */ $block->getCreditCardException() ?>';
+    window.isDynamic3DS2Enabled = '<?= /* @noEscape */ $block->isDynamic3DS2Enabled() ?>';
+    window.is3DsEnabled = '<?= /* @noEscape */ $block->is3DsEnabled() ?>';
+    window.jwtEventUrl = '<?= /* @noEscape */ $block->getJwtEventUrl() ?>';
+    window.isCheckoutCartPage = '<?= /* @noEscape */ $block->isCheckoutCartPage(); ?>';
+</script>

@@ -1,0 +1,37 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "Welcome! Get 10% Off Your First Purchase Here"}} @-->
+<!--@vars {
+"template config_path=\"design\/email\/footer_template\"":"Email Footer Template",
+"template config_path=\"design\/email\/header_template\"":"Email Header Template",
+"var coupon.code":"Coupon Code auto generate"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+<div class="order-container-information">
+    <div class="newsletter-subscription-container">
+        {{block class="Magento\Cms\Block\Block" area='frontend' block_id="email-successful-banner"}}
+        <p class="title-subscriber">{{trans "THANK YOU FOR SIGNING UP"}}</p>
+        <p class="message-content">
+            <span class="im">
+                {{trans "You will now receive latest news, promotions and offers from us. Additionally, get 10% off your first purchase by using this discount code upon checkout"}}
+                <br/>
+                <br/>
+            </span>
+            <b>{{var coupon.code}}</b>
+            <br/>
+            <span class="im">
+                <br/>
+                {{trans "Voucher code is valid for 30 days upon receiving this email."}}
+            </span>
+        </p>
+        <p class="shop-now-button">
+            <a href="{{config path="web/secure/base_url"}}">{{trans "Shop Now"}}</a>
+        </p>
+    </div>
+</div>
+{{template config_path="design/email/footer_template"}}

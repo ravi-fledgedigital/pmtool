@@ -1,0 +1,19 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+/** @var $block \Magento\Sales\Block\Order\Email\Items */
+?>
+<?php $_order = $block->getOrder() ?>
+<?php $_shipment = $block->getShipment() ?>
+
+<?php if ($_order->getShipmentsCollection()->count() != 1 && $_shipment->getData('shipment_number')): ?>
+    <?= __('(Shipment %1 of %2)', $_shipment->getData('shipment_number'), $_order->getShipmentsCollection()->count()) ?>
+<?php endif;?>
+
+
+

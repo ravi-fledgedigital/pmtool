@@ -1,0 +1,26 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- ko if: isDisplayed() -->
+<tr class="totals">
+    <th colspan="1" style="" class="mark" scope="row">
+        <span class="title" data-bind="i18n: 'Order Discount'"></span>
+    </th>
+    <td class="amount" data-bind="attr: {'data-th': 'Order Discount'}">
+        <span><span class="price" data-bind="text: getValue()"></span></span>
+    </td>
+</tr>
+<!-- /ko -->
+<!-- ko ifnot: isDisplayed() -->
+<tr class="totals">
+    <th colspan="1" style="" class="mark" scope="row">
+        <span class="title" data-bind="i18n: 'Order Discount'"></span>
+    </th>
+    <td class="amount" data-bind="attr: {'data-th': 'Order Discount'}">
+        <span><span class="price" data-bind="text: getValue()"></span></span>
+    </td>
+</tr>
+<!-- /ko -->

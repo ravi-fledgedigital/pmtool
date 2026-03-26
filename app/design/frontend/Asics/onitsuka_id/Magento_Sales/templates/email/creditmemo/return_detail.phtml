@@ -1,0 +1,15 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+/** @var $block \Magento\Sales\Block\Order\Email\Creditmemo\Items */
+?>
+<?php $_order = $block->getOrder() ?>
+<?php $_creditMemo = $block->getCreditmemo() ?>
+<?php if($_creditMemo): ?>
+    <p><?=__('Return Method:')?> <?= __($_order->getData('shipping_description')) ?></p>
+<?php endif;?>

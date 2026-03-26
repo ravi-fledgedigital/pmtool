@@ -1,0 +1,44 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+?>
+<?php $_creditmemo = $block->getCreditmemo() ?>
+<?php $_order      = $block->getOrder() ?>
+<?php if ($_creditmemo && $_order) : ?>
+    <table class="email-items" width="100%" border="1" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr>
+                <th class="item-info">
+                    <div>
+                        <?= $block->escapeHtml(__('Item(s)')) ?>
+                    </div>
+                </th>
+                <th class="item-name">
+                    <div>
+                        <?= $block->escapeHtml(__('Name')) ?>
+                    </div>
+                </th>
+                <th class="item-qty">
+                    <div>
+                        <?= $block->escapeHtml(__('Quantity')) ?>
+                    </div>
+                </th>
+                <th class="item-price">
+                    <div>
+                        <?= $block->escapeHtml(__('Price')) ?>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($_creditmemo->getAllItems() as $_item) : ?>
+            <?php if (!$_item->getOrderItem()->getParentItem()) : ?>
+                <?= $block->getItemHtml($_item) ?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php endif; ?>
