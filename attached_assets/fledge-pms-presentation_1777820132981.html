@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fledge Digital — AI-Powered Project Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --red: #3095C6;
+  --red-dark: #2478A8;
+  --dark: #212121;
+  --dark2: #2a2a2a;
+  --gold: #FAA700;
+  --white: #ffffff;
+  --gray: #64646D;
+  --light: #F5F5F5;
+}
+
+html, body {
+  height: 100%; overflow: hidden;
+  font-family: 'Poppins', -apple-system, sans-serif;
+  background: #111;
+}
+
+/* ── DECK ── */
+.deck { width: 100vw; height: 100vh; position: relative; }
+
+.slide {
+  position: absolute; inset: 0;
+  opacity: 0; pointer-events: none;
+  transition: opacity .5s cubic-bezier(.4,0,.2,1), transform .5s cubic-bezier(.4,0,.2,1);
+  transform: translateX(60px);
+  overflow: hidden;
+}
+.slide.active { opacity: 1; pointer-events: all; transform: translateX(0); }
+.slide.exit { opacity: 0; transform: translateX(-60px); }
+
+/* ── PROGRESS ── */
+.progress {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: var(--red);
+  transition: width .4s ease; z-index: 200;
+  box-shadow: 0 0 12px var(--red);
+}
+
+/* ── NAV ── */
+.nav {
+  position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 14px; z-index: 100;
+  background: rgba(255,255,255,.07); backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,.1); border-radius: 999px; padding: 10px 20px;
+}
+.nav button {
+  background: none; border: none; color: rgba(255,255,255,.7); cursor: pointer;
+  font-size: 20px; width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .2s; font-family: inherit;
+}
+.nav button:hover:not(:disabled) { background: rgba(255,255,255,.12); color: #fff; }
+.nav button:disabled { opacity: .25; cursor: default; }
+.slide-count { color: rgba(255,255,255,.45); font-size: 13px; min-width: 50px; text-align: center; font-weight: 500; }
+.dots { display: flex; gap: 6px; align-items: center; }
+.dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(255,255,255,.25); transition: all .3s; cursor: pointer;
+}
+.dot.active { background: var(--red); width: 22px; border-radius: 4px; box-shadow: 0 0 8px var(--red); }
+
+/* ── KEYBOARD HINT ── */
+.key-hint {
+  position: fixed; bottom: 32px; right: 40px;
+  color: rgba(255,255,255,.2); font-size: 11px; font-weight: 500;
+  letter-spacing: .05em; z-index: 100;
+}
+
+/* ═══════════════════════════════════════
+   SLIDE 1 — FLEDGE DIGITAL
+═══════════════════════════════════════ */
+.s1 {
+  background: var(--dark);
+  display: grid; grid-template-columns: 1fr 1fr;
+}
+
+.s1-left {
+  background: var(--red);
+  display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+  padding: 80px 72px;
+  gap: 28px;
+  position: relative; overflow: hidden;
+}
+.s1-left::before {
+  content: '';
+  position: absolute; bottom: -120px; left: -120px;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: rgba(0,0,0,.15);
+}
+.s1-left::after {
+  content: '';
+  position: absolute; top: -80px; right: -80px;
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.06);
+}
+
+.s1-bird {
+  width: 52px; height: 52px;
+  filter: brightness(0) invert(1);
+  position: relative; z-index: 1;
+  object-fit: contain;
+}
+.s1-wordmark {
+  width: 260px; height: auto;
+  position: relative; z-index: 1;
+}
+.s1-brewed {
+  font-size: 18px; opacity: .85; display: block; margin-top: 12px; font-weight: 400;
+}
+.s1-eyebrow {
+  font-size: 13px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(255,255,255,.6); margin-bottom: 12px; position: relative; z-index: 1;
+}
+.s1-tagline {
+  font-size: 18px; font-weight: 500; color: rgba(255,255,255,.8);
+  line-height: 1.5; position: relative; z-index: 1;
+  border-left: 3px solid rgba(255,255,255,.4); padding-left: 16px;
+}
+
+.s1-right {
+  display: flex; flex-direction: column; justify-content: center; padding: 80px 64px;
+  gap: 32px;
+}
+.s1-about {
+  color: rgba(255,255,255,.5); font-size: 13px; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase; margin-bottom: 8px;
+}
+.s1-desc {
+  font-size: 19px; font-weight: 400; color: rgba(255,255,255,.82); line-height: 1.7;
+}
+.s1-desc strong { color: #fff; font-weight: 600; }
+.s1-stats {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 8px;
+}
+.s1-stat {
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07);
+  border-radius: 16px; padding: 24px 20px;
+}
+.s1-stat-num {
+  font-size: 36px; font-weight: 800; color: var(--red); line-height: 1;
+  margin-bottom: 6px;
+}
+.s1-stat-label {
+  font-size: 14px; font-weight: 500; color: rgba(255,255,255,.45);
+  text-transform: uppercase; letter-spacing: .08em;
+}
+.s1-services {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.s1-service-tag {
+  background: rgba(48,149,198,.12); border: 1px solid rgba(48,149,198,.25);
+  color: #7ec8e3; border-radius: 8px; padding: 6px 14px;
+  font-size: 14px; font-weight: 500;
+}
+
+/* ═══════════════════════════════════════
+   SLIDE 2 — PMS OVERVIEW + AI
+═══════════════════════════════════════ */
+.s2 {
+  background: #111;
+  display: flex; flex-direction: column;
+}
+
+.s2-header {
+  background: var(--dark);
+  padding: 40px 64px 32px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.s2-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(48,149,198,.15); border: 1px solid rgba(48,149,198,.3);
+  border-radius: 999px; padding: 6px 16px;
+  color: #7ec8e3; font-size: 14px; font-weight: 600; letter-spacing: .05em;
+}
+.s2-badge::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--red); box-shadow: 0 0 6px var(--red);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+
+.s2-headline {
+  font-size: 42px; font-weight: 800; color: #fff; line-height: 1.1; margin-top: 14px;
+}
+.s2-headline em { color: var(--red); font-style: normal; }
+.s2-sub { font-size: 17px; color: rgba(255,255,255,.45); margin-top: 8px; font-weight: 400; }
+
+.s2-logo-sm { width: 36px; height: 36px; filter: brightness(0) invert(1) opacity(.4); }
+
+.s2-body {
+  flex: 1; padding: 32px 64px 80px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-content: start;
+}
+
+.feat-card {
+  background: var(--dark); border: 1px solid rgba(255,255,255,.07);
+  border-radius: 20px; padding: 28px 24px;
+  display: flex; flex-direction: column; gap: 12px;
+  transition: transform .3s, border-color .3s;
+  position: relative; overflow: hidden;
+}
+.feat-card::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(48,149,198,.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.feat-card:hover { transform: translateY(-3px); border-color: rgba(48,149,198,.3); }
+
+.feat-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: rgba(48,149,198,.15); border: 1px solid rgba(48,149,198,.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+.feat-icon.gold { background: rgba(250,167,0,.12); border-color: rgba(250,167,0,.25); }
+.feat-icon.blue { background: rgba(59,130,246,.12); border-color: rgba(59,130,246,.2); }
+.feat-icon.green { background: rgba(16,185,129,.12); border-color: rgba(16,185,129,.2); }
+.feat-icon.purple { background: rgba(139,92,246,.12); border-color: rgba(139,92,246,.2); }
+.feat-icon.teal { background: rgba(20,184,166,.12); border-color: rgba(20,184,166,.2); }
+
+.feat-title { font-size: 17px; font-weight: 700; color: #fff; }
+.feat-desc { font-size: 14px; font-weight: 400; color: rgba(255,255,255,.5); line-height: 1.6; }
+.feat-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
+.feat-chip {
+  font-size: 11px; font-weight: 600; letter-spacing: .05em;
+  padding: 3px 9px; border-radius: 999px;
+  background: rgba(255,255,255,.06); color: rgba(255,255,255,.45);
+}
+
+/* ═══════════════════════════════════════
+   SLIDE 3 — TEAM INTELLIGENCE
+═══════════════════════════════════════ */
+.s3 {
+  background: var(--dark);
+  display: grid; grid-template-columns: 1fr 1fr;
+}
+
+.s3-left {
+  background: #111;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 80px 56px;
+}
+.s3-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--gold); font-size: 13px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase; margin-bottom: 20px;
+}
+.s3-eyebrow::before { content: '02'; background: var(--gold); color: #000; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 999px; }
+.s3-h { font-size: 44px; font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 20px; }
+.s3-h em { color: var(--gold); font-style: normal; }
+.s3-p { font-size: 17px; color: rgba(255,255,255,.55); line-height: 1.7; margin-bottom: 36px; }
+
+.s3-items { display: flex; flex-direction: column; gap: 14px; }
+.s3-item {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 16px 18px; border-radius: 14px;
+  background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
+}
+.s3-item-icon {
+  width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 18px;
+  background: rgba(250,167,0,.1); border: 1px solid rgba(250,167,0,.2);
+}
+.s3-item-title { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+.s3-item-desc { font-size: 14px; color: rgba(255,255,255,.45); line-height: 1.5; }
+
+.s3-right {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 64px 56px; gap: 20px;
+}
+
+.s3-card {
+  border-radius: 20px; padding: 28px 28px;
+  position: relative; overflow: hidden;
+}
+.s3-card-main {
+  background: linear-gradient(135deg, #3095C6 0%, #1A5F80 100%);
+}
+.s3-card-main::before {
+  content: ''; position: absolute; top: -40px; right: -40px;
+  width: 180px; height: 180px; border-radius: 50%;
+  background: rgba(255,255,255,.08);
+}
+.s3-card-dark { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); }
+
+.s3-card-label {
+  font-size: 12px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(255,255,255,.5); margin-bottom: 10px;
+}
+.s3-card-value {
+  font-size: 44px; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 4px;
+}
+.s3-card-sub { font-size: 15px; color: rgba(255,255,255,.6); }
+
+.s3-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.s3-mini {
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07);
+  border-radius: 16px; padding: 20px 18px;
+}
+.s3-mini-icon { font-size: 24px; margin-bottom: 10px; }
+.s3-mini-title { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+.s3-mini-desc { font-size: 13px; color: rgba(255,255,255,.4); line-height: 1.5; }
+
+/* ═══════════════════════════════════════
+   SLIDE 4 — INTEGRATIONS & COMMS
+═══════════════════════════════════════ */
+.s4 {
+  background: #0e0e0e;
+  display: flex; flex-direction: column;
+}
+
+.s4-top {
+  flex: 0; padding: 52px 72px 36px;
+  display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 40px;
+}
+
+.s4-slide-no {
+  font-size: 12px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--red); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+}
+.s4-slide-no::before {
+  content: '03'; background: var(--red); color: #fff;
+  font-size: 11px; padding: 2px 8px; border-radius: 999px;
+}
+.s4-h { font-size: 44px; font-weight: 800; color: #fff; line-height: 1.1; }
+.s4-h em { color: var(--red); font-style: normal; }
+.s4-p { font-size: 17px; color: rgba(255,255,255,.45); margin-top: 10px; line-height: 1.6; }
+
+.s4-cta {
+  background: var(--red); color: #fff; border: none; cursor: pointer;
+  font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600;
+  padding: 12px 24px; border-radius: 12px;
+  display: flex; align-items: center; gap: 8px;
+  white-space: nowrap; margin-top: 8px;
+  transition: background .2s, transform .2s;
+}
+.s4-cta:hover { background: var(--red-dark); transform: translateY(-1px); }
+.s4-cta-wrap { display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-end; gap: 8px; }
+.s4-url { font-size: 11px; color: rgba(255,255,255,.25); }
+
+.s4-body {
+  flex: 1; padding: 0 72px 88px;
+  display: grid; grid-template-columns: 1.1fr 1fr; gap: 24px;
+}
+
+.s4-integrations {
+  display: flex; flex-direction: column; gap: 14px;
+}
+
+.s4-int-header {
+  font-size: 12px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+  color: rgba(255,255,255,.3); margin-bottom: 2px;
+}
+
+.int-row {
+  display: flex; align-items: center; gap: 16px;
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07);
+  border-radius: 14px; padding: 16px 18px;
+  transition: border-color .2s;
+}
+.int-row:hover { border-color: rgba(48,149,198,.25); }
+.int-logo {
+  width: 40px; height: 40px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center; font-size: 20px;
+  flex-shrink: 0; font-weight: 700;
+}
+.int-logo.jira { background: #0052cc; color: #fff; font-size: 13px; }
+.int-logo.notion { background: #fff; color: #000; font-size: 13px; }
+.int-logo.teams { background: #5558af; color: #fff; font-size: 13px; }
+.int-logo.email { background: #EA4335; color: #fff; font-size: 13px; }
+.int-logo.search { background: rgba(48,149,198,.15); border: 1px solid rgba(48,149,198,.25); color: var(--red); font-size: 18px; }
+
+.int-title { font-size: 16px; font-weight: 600; color: #fff; }
+.int-desc { font-size: 14px; color: rgba(255,255,255,.4); line-height: 1.5; margin-top: 2px; }
+.int-badge {
+  margin-left: auto; flex-shrink: 0;
+  background: rgba(16,185,129,.12); border: 1px solid rgba(16,185,129,.25);
+  color: #34d399; font-size: 12px; font-weight: 600; letter-spacing: .05em;
+  padding: 3px 9px; border-radius: 999px;
+}
+.int-badge.new { background: rgba(48,149,198,.12); border-color: rgba(48,149,198,.25); color: #7ec8e3; }
+
+.s4-right { display: flex; flex-direction: column; gap: 14px; }
+
+.s4-summary-label {
+  font-size: 12px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+  color: rgba(255,255,255,.3); margin-bottom: 2px;
+}
+
+.s4-quote {
+  background: linear-gradient(135deg, rgba(48,149,198,.15) 0%, rgba(48,149,198,.05) 100%);
+  border: 1px solid rgba(48,149,198,.2); border-left: 4px solid var(--red);
+  border-radius: 16px; padding: 24px 22px;
+}
+.s4-quote-text {
+  font-size: 18px; font-weight: 500; color: rgba(255,255,255,.85);
+  line-height: 1.6; font-style: italic;
+}
+.s4-quote-text strong { color: #fff; font-style: normal; }
+
+.s4-checklist { display: flex; flex-direction: column; gap: 10px; }
+.s4-check {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 15px; color: rgba(255,255,255,.65); font-weight: 400;
+}
+.s4-check::before {
+  content: '✓'; width: 22px; height: 22px; border-radius: 6px; flex-shrink: 0;
+  background: rgba(16,185,129,.15); border: 1px solid rgba(16,185,129,.3);
+  color: #34d399; font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.s4-bottom-strip {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, var(--red) 0%, var(--gold) 50%, var(--red) 100%);
+}
+
+/* ═══════════════════════════════════════
+   SLIDE 5 — CLOSING
+═══════════════════════════════════════ */
+.s5 {
+  background: var(--dark);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+
+.s5-bg-ring {
+  position: absolute; width: 700px; height: 700px; border-radius: 50%;
+  border: 1px solid rgba(48,149,198,.12); top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+.s5-bg-ring2 {
+  position: absolute; width: 500px; height: 500px; border-radius: 50%;
+  border: 1px solid rgba(48,149,198,.18); top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+.s5-bg-ring3 {
+  position: absolute; width: 320px; height: 320px; border-radius: 50%;
+  border: 1px solid rgba(48,149,198,.25); top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+.s5-glow {
+  position: absolute; width: 400px; height: 400px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(48,149,198,.18) 0%, transparent 70%);
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+}
+
+.s5-inner {
+  position: relative; z-index: 1; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 0;
+}
+.s5-logo {
+  width: 72px; height: 72px; margin-bottom: 32px;
+  filter: brightness(0) invert(1);
+}
+.s5-title { font-size: 60px; font-weight: 900; color: #fff; line-height: 1; letter-spacing: -.02em; }
+.s5-title span { color: var(--red); }
+.s5-tagline {
+  font-size: 18px; font-weight: 400; color: rgba(255,255,255,.5);
+  margin-top: 16px; margin-bottom: 48px;
+}
+.s5-tags { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.s5-tag {
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 999px; padding: 10px 20px;
+  color: rgba(255,255,255,.7); font-size: 13px; font-weight: 500;
+}
+.s5-tag.red { background: rgba(48,149,198,.15); border-color: rgba(48,149,198,.3); color: #7ec8e3; }
+.s5-url {
+  margin-top: 44px; font-size: 13px; color: rgba(255,255,255,.25);
+  letter-spacing: .05em;
+}
+.s5-url a { color: rgba(255,255,255,.4); text-decoration: none; }
+
+/* ═══════════════════════════════════════
+   SLIDE 5 — OKR PIPELINE OVERVIEW
+═══════════════════════════════════════ */
+.okr1 { background: #111; display: grid; grid-template-columns: 1fr 1.1fr; height: 100%; }
+
+.okr1-left {
+  background: var(--dark); border-right: 1px solid rgba(255,255,255,.06);
+  display: flex; flex-direction: column; justify-content: center; padding: 72px 56px;
+}
+.okr-bird {
+  width: 44px; height: 44px;
+  filter: brightness(0) invert(1);
+  object-fit: contain; margin-bottom: 24px;
+}
+
+.okr1-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--red); font-size: 13px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase; margin-bottom: 20px;
+}
+.okr1-eyebrow::before {
+  content: 'OKR'; background: var(--red); color: #fff;
+  font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 999px;
+}
+.okr1-h { font-size: 38px; font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 14px; }
+.okr1-h em { color: var(--red); font-style: normal; }
+.okr1-p { font-size: 15px; color: rgba(255,255,255,.5); line-height: 1.7; margin-bottom: 28px; }
+.okr1-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.okr-metric {
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07);
+  border-radius: 14px; padding: 16px 14px;
+}
+.okr-metric-num { font-size: 28px; font-weight: 800; color: var(--red); line-height: 1; margin-bottom: 4px; }
+.okr-metric-label { font-size: 12px; font-weight: 500; color: rgba(255,255,255,.4); text-transform: uppercase; letter-spacing: .07em; }
+
+.okr1-right { display: flex; flex-direction: column; justify-content: center; padding: 60px 48px; }
+.okr-flow-label {
+  font-size: 12px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(255,255,255,.3); margin-bottom: 14px;
+}
+.okr-flow { display: flex; flex-direction: column; }
+.okr-flow-step {
+  display: flex; align-items: center; gap: 14px;
+  padding: 13px 16px; background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.06); border-radius: 12px;
+}
+.okr-flow-step.hi { background: rgba(48,149,198,.1); border-color: rgba(48,149,198,.25); }
+.okr-flow-num {
+  width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(255,255,255,.07); color: rgba(255,255,255,.45);
+  font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+}
+.okr-flow-step.hi .okr-flow-num { background: var(--red); color: #fff; }
+.okr-flow-icon { font-size: 18px; flex-shrink: 0; width: 32px; text-align: center; }
+.okr-flow-title { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 2px; }
+.okr-flow-desc { font-size: 13px; color: rgba(255,255,255,.4); line-height: 1.5; }
+.okr-flow-connector { width: 1px; height: 8px; margin: 0 0 0 27px; background: rgba(255,255,255,.1); }
+
+/* ═══════════════════════════════════════
+   SLIDE 6 — OKR DATA TRANSFORMATION
+═══════════════════════════════════════ */
+.okr2 { background: #111; display: flex; flex-direction: column; height: 100%; }
+.okr2-header {
+  background: var(--dark); padding: 32px 64px 26px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.okr2-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(250,167,0,.12); border: 1px solid rgba(250,167,0,.25);
+  border-radius: 999px; padding: 5px 14px;
+  color: var(--gold); font-size: 14px; font-weight: 600; letter-spacing: .05em;
+}
+.okr2-headline { font-size: 38px; font-weight: 800; color: #fff; line-height: 1.1; margin-top: 12px; }
+.okr2-headline em { color: var(--gold); font-style: normal; }
+.okr2-sub { font-size: 16px; color: rgba(255,255,255,.4); margin-top: 6px; }
+.okr2-logo-sm { width: 36px; height: 36px; filter: brightness(0) invert(1) opacity(.4); }
+.okr2-body {
+  flex: 1; padding: 24px 64px 76px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-content: start;
+}
+
+/* ═══════════════════════════════════════
+   SLIDE 7 — OKR ZERO-TOUCH DEPLOYMENT
+═══════════════════════════════════════ */
+.okr3 { background: var(--dark); display: grid; grid-template-columns: 1fr 1fr; height: 100%; }
+.okr3-left {
+  background: #111;
+  display: flex; flex-direction: column; justify-content: center; padding: 72px 52px;
+}
+.okr3-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--gold); font-size: 13px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase; margin-bottom: 20px;
+}
+.okr3-eyebrow::before {
+  content: 'Deploy'; background: var(--gold); color: #000;
+  font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 999px;
+}
+.okr3-h { font-size: 40px; font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 14px; }
+.okr3-h em { color: var(--gold); font-style: normal; }
+.okr3-p { font-size: 15px; color: rgba(255,255,255,.5); line-height: 1.7; margin-bottom: 28px; }
+.okr3-checks { display: flex; flex-direction: column; gap: 10px; }
+.okr3-check {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 15px; color: rgba(255,255,255,.65);
+}
+.okr3-check::before {
+  content: '✓'; width: 24px; height: 24px; border-radius: 7px; flex-shrink: 0;
+  background: rgba(16,185,129,.15); border: 1px solid rgba(16,185,129,.3);
+  color: #34d399; font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.okr3-right {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 60px 48px; gap: 16px;
+}
+.okr3-term {
+  background: #0a0a0a; border: 1px solid rgba(255,255,255,.1);
+  border-radius: 14px; overflow: hidden;
+}
+.okr3-term-bar {
+  background: rgba(255,255,255,.05); padding: 9px 14px;
+  display: flex; align-items: center; gap: 6px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.okr3-term-dot { width: 10px; height: 10px; border-radius: 50%; }
+.okr3-term-title { font-size: 13px; color: rgba(255,255,255,.3); margin-left: 6px; }
+.okr3-term-body {
+  padding: 14px 18px;
+  font-size: 13px; font-family: 'Courier New', monospace;
+  line-height: 1.85; color: rgba(255,255,255,.55);
+}
+.tc { color: #34d399; }
+.ts { color: #7ec8e3; }
+.okr3-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.okr3-mini {
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07);
+  border-radius: 14px; padding: 16px 14px;
+}
+.okr3-mini-icon { font-size: 22px; margin-bottom: 8px; }
+.okr3-mini-title { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+.okr3-mini-desc { font-size: 13px; color: rgba(255,255,255,.4); line-height: 1.5; }
+
+/* ═══════════════════════════════════════
+   SLIDE NUMBERS
+═══════════════════════════════════════ */
+.slide-num-chip {
+  position: absolute; top: 28px; right: 40px;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08);
+  border-radius: 999px; padding: 5px 12px;
+  font-size: 11px; font-weight: 600; color: rgba(255,255,255,.3);
+  letter-spacing: .05em; z-index: 50;
+}
+
+/* ═══════════════════════════════════════
+   SLIDE 8 — AI ERROR MONITORING OVERVIEW
+═══════════════════════════════════════ */
+.ai1 { background: #111; display: grid; grid-template-columns: 1fr 1.1fr; height: 100%; }
+
+.ai1-left {
+  background: var(--dark); border-right: 1px solid rgba(255,255,255,.06);
+  display: flex; flex-direction: column; justify-content: center; padding: 72px 56px;
+}
+.ai1-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--red); font-size: 13px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase; margin-bottom: 20px;
+}
+.ai1-eyebrow::before {
+  content: 'AI'; background: var(--red); color: #fff;
+  font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 999px;
+}
+.ai1-h { font-size: 38px; font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 14px; }
+.ai1-h em { color: var(--red); font-style: normal; }
+.ai1-p { font-size: 15px; color: rgba(255,255,255,.5); line-height: 1.7; margin-bottom: 28px; }
+
+.ai1-right { display: flex; flex-direction: column; justify-content: center; padding: 60px 48px; }
+
+/* Live status badge */
+.ai1-live-badge {
+  display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px;
+  background: rgba(16,185,129,.1); border: 1px solid rgba(16,185,129,.25);
+  border-radius: 999px; padding: 6px 14px; width: fit-content;
+  color: #34d399; font-size: 13px; font-weight: 600;
+}
+.ai1-live-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #34d399; box-shadow: 0 0 6px #34d399;
+  animation: pulse 2s infinite;
+}
+
+/* ═══════════════════════════════════════
+   SLIDE 9 — AI ANALYSIS ENGINE
+═══════════════════════════════════════ */
+.ai2 { background: #111; display: flex; flex-direction: column; height: 100%; }
+.ai2-header {
+  background: var(--dark); padding: 32px 64px 26px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.ai2-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(48,149,198,.15); border: 1px solid rgba(48,149,198,.3);
+  border-radius: 999px; padding: 5px 14px;
+  color: #7ec8e3; font-size: 14px; font-weight: 600; letter-spacing: .05em;
+}
+.ai2-headline { font-size: 38px; font-weight: 800; color: #fff; line-height: 1.1; margin-top: 12px; }
+.ai2-headline em { color: var(--red); font-style: normal; }
+.ai2-sub { font-size: 16px; color: rgba(255,255,255,.4); margin-top: 6px; }
+.ai2-body {
+  flex: 1; padding: 24px 64px 76px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-content: start;
+}
+
+/* ═══════════════════════════════════════
+   SLIDE 10 — PRECISE FIX FROM LIVE CODE
+═══════════════════════════════════════ */
+.ai3 { background: var(--dark); display: grid; grid-template-columns: 1fr 1fr; height: 100%; }
+.ai3-left {
+  background: #111;
+  display: flex; flex-direction: column; justify-content: center; padding: 72px 52px;
+}
+.ai3-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--gold); font-size: 13px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase; margin-bottom: 20px;
+}
+.ai3-eyebrow::before {
+  content: 'Result'; background: var(--gold); color: #000;
+  font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 999px;
+}
+.ai3-h { font-size: 40px; font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 14px; }
+.ai3-h em { color: var(--gold); font-style: normal; }
+.ai3-p { font-size: 15px; color: rgba(255,255,255,.5); line-height: 1.7; margin-bottom: 28px; }
+.ai3-checks { display: flex; flex-direction: column; gap: 10px; }
+.ai3-check {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 15px; color: rgba(255,255,255,.65);
+}
+.ai3-check::before {
+  content: '✓'; width: 24px; height: 24px; border-radius: 7px; flex-shrink: 0;
+  background: rgba(16,185,129,.15); border: 1px solid rgba(16,185,129,.3);
+  color: #34d399; font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.ai3-right {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 60px 48px; gap: 16px;
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<div class="deck" id="deck">
+
+  <!-- ═══ SLIDE 1: FLEDGE DIGITAL ═══ -->
+  <div class="slide active" id="slide-0">
+    <div class="slide-num-chip">01 / 10</div>
+    <div class="s1">
+      <!-- LEFT: Red panel -->
+      <div class="s1-left">
+        <!-- Bird brandmark — original small position -->
+        <img class="s1-bird"
+          src="https://www.fledgedigital.com/wp-content/uploads/2022/05/fledgedigital-brandmark.svg"
+          alt="Fledge"
+          onerror="this.style.display='none'">
+
+        <!-- FLEDGE text SVG logo -->
+        <svg class="s1-wordmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129.8 40.4" aria-label="FLEDGE">
+          <path fill="#fff" d="M349.2,250.3h16.6v5.6H355.2v11.5h8.4V273h-8.4v16.5h-5.9V250.3Z" transform="translate(-349.2 -249.7)"/>
+          <path fill="#fff" d="M370.3,250.3h5.9v33.6h10.6v5.6H370.3Z" transform="translate(-349.2 -249.7)"/>
+          <path fill="#fff" d="M391.4,250.3h16.9v5.6H397.4v10.9h8.7v5.6h-8.7v11.5h10.9v5.6H391.4Z" transform="translate(-349.2 -249.7)"/>
+          <path fill="#fff" d="M413.3,250.3h9.3a8.63,8.63,0,0,1,9.3,9.3v20.5a9.21,9.21,0,0,1-2.5,6.8,9.06,9.06,0,0,1-6.8,2.5h-9.3Zm9,33.6a3.34,3.34,0,0,0,2.7-1,3.7,3.7,0,0,0,1-2.7V259.5a3.34,3.34,0,0,0-1-2.7,3.7,3.7,0,0,0-2.7-1h-3.1v28h3.1Z" transform="translate(-349.2 -249.7)"/>
+          <path fill="#fff" d="M450.4,262.5v-3.3a4,4,0,0,0-1-2.9,3.88,3.88,0,0,0-5.2,0,4.22,4.22,0,0,0-1,2.9v21.4a4,4,0,0,0,1,2.9,3.88,3.88,0,0,0,5.2,0,4.22,4.22,0,0,0,1-2.9v-6.9h-3.6v-5.6h9.5v12.5a9.68,9.68,0,0,1-2.6,6.9,9.12,9.12,0,0,1-6.9,2.6,9.68,9.68,0,0,1-6.9-2.6,9,9,0,0,1-2.6-6.9V259.2a9.68,9.68,0,0,1,2.6-6.9,9.51,9.51,0,0,1,6.9-2.6,9.68,9.68,0,0,1,6.9,2.6,9,9,0,0,1,2.6,6.9v3.3Z" transform="translate(-349.2 -249.7)"/>
+          <path fill="#fff" d="M462.1,250.3H479v5.6H468v10.9h8.7v5.6H468v11.5h11v5.6H462.1Z" transform="translate(-349.2 -249.7)"/>
+        </svg>
+
+        <div class="s1-eyebrow">Digital Commerce Agency</div>
+        <div class="s1-tagline">
+          Create&nbsp;·&nbsp;Connect&nbsp;·&nbsp;Convert<br>
+          <span class="s1-brewed">Brewed by Experience Realized by Passion</span>
+        </div>
+      </div>
+
+      <!-- RIGHT: Dark panel -->
+      <div class="s1-right">
+        <div>
+          <div class="s1-about">Who We Are</div>
+          <div class="s1-desc">
+            Fledge Digital is a <strong>full-service digital commerce agency</strong> empowering businesses of all sizes and industries. We combine <strong>deep expertise</strong> with a passion for innovation to deliver results that matter.
+          </div>
+        </div>
+
+        <div class="s1-stats">
+          <div class="s1-stat">
+            <div class="s1-stat-num">16+</div>
+            <div class="s1-stat-label">Years of Experience</div>
+          </div>
+          <div class="s1-stat">
+            <div class="s1-stat-num">200+</div>
+            <div class="s1-stat-label">Projects Delivered</div>
+          </div>
+          <div class="s1-stat">
+            <div class="s1-stat-num">&lt;2hr</div>
+            <div class="s1-stat-label">Response Time</div>
+          </div>
+          <div class="s1-stat">
+            <div class="s1-stat-num">AI</div>
+            <div class="s1-stat-label">Powered Workflows</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="s1-about" style="margin-bottom:10px;">What We Do</div>
+          <div class="s1-services">
+            <span class="s1-service-tag">E-Commerce</span>
+            <span class="s1-service-tag">Digital Strategy</span>
+            <span class="s1-service-tag">UI / UX Design</span>
+            <span class="s1-service-tag">Web Development</span>
+            <span class="s1-service-tag">AI &amp; Automation</span>
+            <span class="s1-service-tag">Cloud Solutions</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 2: PMS — SMART PROJECT MANAGEMENT ═══ -->
+  <div class="slide" id="slide-1">
+    <div class="slide-num-chip">02 / 10</div>
+    <div class="s2">
+      <div class="s2-header">
+        <div>
+          <div class="s2-badge">AI-Powered Platform</div>
+          <div class="s2-headline">Smart <em>Project Management</em><br>Built for Modern Teams</div>
+          <div class="s2-sub">Fledge PMS — connecting people, tasks, and tools in one intelligent workspace</div>
+        </div>
+        <img class="s2-logo-sm"
+          src="https://www.fledgedigital.com/wp-content/uploads/2022/05/fledgedigital-brandmark.svg"
+          alt="Fledge" onerror="this.style.display='none'">
+      </div>
+
+      <div class="s2-body">
+
+        <div class="feat-card">
+          <div class="feat-icon">📋</div>
+          <div class="feat-title">Kanban &amp; Task Management</div>
+          <div class="feat-desc">Visual boards with drag-and-drop columns. Inline status updates, priority badges, due dates, and multi-role estimated hours — all in one view.</div>
+          <div class="feat-chips">
+            <span class="feat-chip">Kanban</span>
+            <span class="feat-chip">Status Tracking</span>
+            <span class="feat-chip">Priorities</span>
+          </div>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon gold">🔄</div>
+          <div class="feat-title">JIRA &amp; Notion Sync</div>
+          <div class="feat-desc">Per-project filter mappings auto-sync tickets from JIRA and Notion. PMS-set fields (assignee, status, hours) are protected from overwrite on re-sync.</div>
+          <div class="feat-chips">
+            <span class="feat-chip">JIRA API</span>
+            <span class="feat-chip">Notion API</span>
+            <span class="feat-chip">Smart Merge</span>
+          </div>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon blue">🔍</div>
+          <div class="feat-title">Global Smart Search</div>
+          <div class="feat-desc">2-character autocomplete across all tickets, JIRA keys, and projects. Results rank by recency. Click any result to instantly open the task modal.</div>
+          <div class="feat-chips">
+            <span class="feat-chip">Real-time</span>
+            <span class="feat-chip">Autocomplete</span>
+            <span class="feat-chip">Cross-project</span>
+          </div>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon green">💬</div>
+          <div class="feat-title">Rich Comments &amp; Mentions</div>
+          <div class="feat-desc">Rich-text comment editor with @mention support, inline images, links, and code. Mentions trigger instant email notifications to the tagged user.</div>
+          <div class="feat-chips">
+            <span class="feat-chip">@Mentions</span>
+            <span class="feat-chip">Email Alerts</span>
+            <span class="feat-chip">Media Uploads</span>
+          </div>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon purple">🎫</div>
+          <div class="feat-title">Live JIRA &amp; Notion Comments</div>
+          <div class="feat-desc">View comments directly from JIRA and Notion inside PMS — no tab-switching. Fetched live on demand with full author, timestamp, and direct link.</div>
+          <div class="feat-chips">
+            <span class="feat-chip">Live Fetch</span>
+            <span class="feat-chip">JIRA Comments</span>
+            <span class="feat-chip">Notion Comments</span>
+          </div>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon teal">⚙️</div>
+          <div class="feat-title">Role-Based Access Control</div>
+          <div class="feat-desc">Granular permissions by role — Admin, Project Manager, Developer, QA, Frontend. Each role sees exactly what they need, nothing more.</div>
+          <div class="feat-chips">
+            <span class="feat-chip">RBAC</span>
+            <span class="feat-chip">Custom Roles</span>
+            <span class="feat-chip">Permissions</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 3: TEAM INTELLIGENCE ═══ -->
+  <div class="slide" id="slide-2">
+    <div class="slide-num-chip">03 / 10</div>
+    <div class="s3">
+
+      <div class="s3-left">
+        <img class="okr-bird"
+          src="https://www.fledgedigital.com/wp-content/uploads/2022/05/fledgedigital-brandmark.svg"
+          alt="Fledge" onerror="this.style.display='none'">
+        <div class="s3-eyebrow">Team Intelligence</div>
+        <div class="s3-h">Worklog Compliance<br>&amp; <em>Resource Planning</em></div>
+        <div class="s3-p">Automated monitoring keeps the team accountable. Smart enforcement rules, real-time Gantt charts, and heatmaps give managers a complete picture of team capacity — all derived from live task and worklog data.</div>
+
+        <div class="s3-items">
+          <div class="s3-item">
+            <div class="s3-item-icon">⏱️</div>
+            <div>
+              <div class="s3-item-title">Daily Worklog Enforcement</div>
+              <div class="s3-item-desc">Automated compliance checks from May 2026. Users missing 3+ consecutive days get warnings; 10+ days triggers auto-block with email notification to the team.</div>
+            </div>
+          </div>
+          <div class="s3-item">
+            <div class="s3-item-icon">📊</div>
+            <div>
+              <div class="s3-item-title">Gantt Chart Allocation</div>
+              <div class="s3-item-desc">Team allocation Gantt chart shows all members' assigned tickets as timeline bars — parallel tasks auto-stack. Toggle between Gantt and heatmap views.</div>
+            </div>
+          </div>
+          <div class="s3-item">
+            <div class="s3-item-icon">🔔</div>
+            <div>
+              <div class="s3-item-title">Smart Notifications</div>
+              <div class="s3-item-desc">Email + in-app alerts for task assignments, @mentions, and worklog warnings. Emails fire instantly and non-blocking with direct task deep links.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="s3-right">
+        <div class="s3-card s3-card-main">
+          <div class="s3-card-label">Worklog Compliance Rate</div>
+          <div class="s3-card-value">7h</div>
+          <div class="s3-card-sub">Minimum daily target per team member</div>
+        </div>
+
+        <div class="s3-grid">
+          <div class="s3-mini">
+            <div class="s3-mini-icon">📈</div>
+            <div class="s3-mini-title">Capacity Heatmap</div>
+            <div class="s3-mini-desc">Color-coded daily allocation per user — green, amber, red at a glance</div>
+          </div>
+          <div class="s3-mini">
+            <div class="s3-mini-icon">🗂️</div>
+            <div class="s3-mini-title">Worklog Detail</div>
+            <div class="s3-mini-desc">Per-user drill-down: filled vs missed days, total hours, entry notes</div>
+          </div>
+          <div class="s3-mini">
+            <div class="s3-mini-icon">✏️</div>
+            <div class="s3-mini-title">Edit &amp; Delete Logs</div>
+            <div class="s3-mini-desc">Inline edit and delete with full audit trail in the activity log</div>
+          </div>
+          <div class="s3-mini">
+            <div class="s3-mini-icon">🚫</div>
+            <div class="s3-mini-title">Auto-Block</div>
+            <div class="s3-mini-desc">Accounts auto-suspended after 10 consecutive missed workdays</div>
+          </div>
+        </div>
+
+        <div class="s3-card s3-card-dark" style="display:flex;align-items:center;gap:18px;">
+          <div style="font-size:36px;">🏆</div>
+          <div>
+            <div class="s3-card-label">Productivity Reports</div>
+            <div style="font-size:15px;font-weight:600;color:#fff;margin-top:4px;">Hours vs Estimates vs Billed</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:4px;">Per user, per project, per role — with profitability tracking</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 4: INTEGRATIONS + CLOSING ═══ -->
+  <div class="slide" id="slide-3">
+    <div class="slide-num-chip">04 / 10</div>
+    <div class="s4" style="position:relative;">
+      <div class="s4-top">
+        <div>
+          <div class="s4-slide-no">Integrations &amp; Automation</div>
+          <div class="s4-h">A <em>Unified</em> Intelligence Layer<br>Across Your Entire Stack</div>
+          <div class="s4-p">Fledge PMS connects the tools your team already uses — syncing data automatically so nothing falls through the cracks.</div>
+        </div>
+        <img class="s2-logo-sm"
+          src="https://www.fledgedigital.com/wp-content/uploads/2022/05/fledgedigital-brandmark.svg"
+          alt="Fledge" onerror="this.style.display='none'">
+      </div>
+
+      <div class="s4-body">
+        <div class="s4-integrations">
+          <div class="s4-int-header">Connected Platforms</div>
+
+          <div class="int-row">
+            <div class="int-logo jira">J</div>
+            <div>
+              <div class="int-title">JIRA Integration</div>
+              <div class="int-desc">Per-project filter mappings, bi-directional sync, live comment feed, field-protection on re-sync</div>
+            </div>
+            <div class="int-badge">Active</div>
+          </div>
+
+          <div class="int-row">
+            <div class="int-logo notion">N</div>
+            <div>
+              <div class="int-title">Notion Integration</div>
+              <div class="int-desc">Database + region filter mappings, page sync with property mapping, live comment feed</div>
+            </div>
+            <div class="int-badge">Active</div>
+          </div>
+
+          <div class="int-row">
+            <div class="int-logo teams">T</div>
+            <div>
+              <div class="int-title">Microsoft Teams</div>
+              <div class="int-desc">Instant webhook alerts for task assignments, worklog submissions, and compliance triggers</div>
+            </div>
+            <div class="int-badge">Active</div>
+          </div>
+
+          <div class="int-row">
+            <div class="int-logo email">✉</div>
+            <div>
+              <div class="int-title">Email Notifications</div>
+              <div class="int-desc">Assignment alerts, @mention emails, worklog compliance warnings — all with direct task deep-links</div>
+            </div>
+            <div class="int-badge new">Enhanced</div>
+          </div>
+
+          <div class="int-row">
+            <div class="int-logo search">🔍</div>
+            <div>
+              <div class="int-title">Global Search</div>
+              <div class="int-desc">Cross-project instant search across all tickets — 2-character autocomplete, opens task on click</div>
+            </div>
+            <div class="int-badge new">New</div>
+          </div>
+        </div>
+
+        <div class="s4-right">
+          <div class="s4-summary-label">Why Fledge PMS?</div>
+          <div class="s4-quote">
+            <div class="s4-quote-text">
+              "Built by Fledge Digital for <strong>Fledge Digital</strong> — a system that understands how modern agencies work, not a generic tool retrofitted to fit."
+            </div>
+          </div>
+
+          <div>
+            <div class="s4-summary-label" style="margin-bottom:12px;">What's Covered</div>
+            <div class="s4-checklist">
+              <div class="s4-check">Full task lifecycle with JIRA &amp; Notion sync</div>
+              <div class="s4-check">Worklog enforcement with auto-block protection</div>
+              <div class="s4-check">Gantt chart + capacity heatmap for resource planning</div>
+              <div class="s4-check">Real-time notifications via email, in-app &amp; Teams</div>
+              <div class="s4-check">Role-based access control with granular permissions</div>
+              <div class="s4-check">Global search &amp; live external comment feeds</div>
+              <div class="s4-check">Profitability &amp; productivity reporting per project</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="s4-bottom-strip"></div>
+    </div>
+  </div>
+
+
+  <!-- ═══ SLIDE 5: OKR IMPORT PIPELINE OVERVIEW ═══ -->
+  <div class="slide" id="slide-4">
+    <div class="slide-num-chip">05 / 10</div>
+    <div class="okr1">
+
+      <div class="okr1-left">
+        <img class="okr-bird"
+          src="https://www.fledgedigital.com/wp-content/uploads/2022/05/fledgedigital-brandmark.svg"
+          alt="Fledge" onerror="this.style.display='none'">
+        <div class="okr1-eyebrow">OnitsukaTiger Korea</div>
+        <div class="okr1-h">One Command.<br><em>Fully Automated</em><br>Product Import.</div>
+        <div class="okr1-p">A 9-step AI pipeline transforms a client Excel spreadsheet into live Magento 2 products — handling data conversion, attribute validation, and SSH cloud deployment without any manual steps.</div>
+        <div class="okr1-metrics">
+          <div class="okr-metric">
+            <div class="okr-metric-num">9</div>
+            <div class="okr-metric-label">Pipeline Steps</div>
+          </div>
+          <div class="okr-metric">
+            <div class="okr-metric-num">2×</div>
+            <div class="okr-metric-label">Import Passes</div>
+          </div>
+          <div class="okr-metric">
+            <div class="okr-metric-num">5</div>
+            <div class="okr-metric-label">Attributes Validated</div>
+          </div>
+          <div class="okr-metric">
+            <div class="okr-metric-num">0</div>
+            <div class="okr-metric-label">Manual Steps</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="okr1-right">
+        <div class="okr-flow-label">Pipeline Flow</div>
+        <div class="okr-flow">
+          <div class="okr-flow-step">
+            <div class="okr-flow-num">1</div>
+            <div class="okr-flow-icon">📥</div>
+            <div>
+              <div class="okr-flow-title">Parse Client Excel</div>
+              <div class="okr-flow-desc">Reads client_file.xlsx — configurable + simple products with hyperlinked category URLs</div>
+            </div>
+          </div>
+          <div class="okr-flow-connector"></div>
+          <div class="okr-flow-step">
+            <div class="okr-flow-num">2</div>
+            <div class="okr-flow-icon">⚙️</div>
+            <div>
+              <div class="okr-flow-title">Two-Pass Data Transformation</div>
+              <div class="okr-flow-desc">Pass 1 (global registration) + Pass 2 (store-view) with Korean descriptions, gender &amp; size mapping</div>
+            </div>
+          </div>
+          <div class="okr-flow-connector"></div>
+          <div class="okr-flow-step hi">
+            <div class="okr-flow-num">3</div>
+            <div class="okr-flow-icon">🗄️</div>
+            <div>
+              <div class="okr-flow-title">MySQL Validation &amp; Category IDs</div>
+              <div class="okr-flow-desc">SSH into Magento Cloud — auto-validate 5 EAV attributes, resolve category IDs via url_rewrite</div>
+            </div>
+          </div>
+          <div class="okr-flow-connector"></div>
+          <div class="okr-flow-step">
+            <div class="okr-flow-num">4</div>
+            <div class="okr-flow-icon">☁️</div>
+            <div>
+              <div class="okr-flow-title">SCP Upload &amp; Import Jobs</div>
+              <div class="okr-flow-desc">Upload via SCP, execute Pass 1 (job #141) then Pass 2 (job #44) on Magento Cloud</div>
+            </div>
+          </div>
+          <div class="okr-flow-connector"></div>
+          <div class="okr-flow-step">
+            <div class="okr-flow-num">5</div>
+            <div class="okr-flow-icon">🚀</div>
+            <div>
+              <div class="okr-flow-title">Post-Import Sync (4 CLI Commands)</div>
+              <div class="okr-flow-desc">Per configurable SKU: image angles, Google Shop links, catalog relations, product relations</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 6: OKR INTELLIGENT DATA TRANSFORMATION ═══ -->
+  <div class="slide" id="slide-5">
+    <div class="slide-num-chip">06 / 10</div>
+    <div class="okr2">
+
+      <div class="okr2-header">
+        <div>
+          <div class="okr2-eyebrow">Intelligent Data Transformation</div>
+          <div class="okr2-headline">From Raw Spreadsheet to<br><em>Magento-Ready</em> Catalogue</div>
+          <div class="okr2-sub">AI-powered mapping handles Korean localisation, product variants, and SEO — automatically</div>
+        </div>
+        <img class="okr2-logo-sm"
+          src="https://www.fledgedigital.com/wp-content/uploads/2022/05/fledgedigital-brandmark.svg"
+          alt="Fledge" onerror="this.style.display='none'">
+      </div>
+
+      <div class="okr2-body">
+
+        <div class="feat-card">
+          <div class="feat-icon">📋</div>
+          <div class="feat-title">Two-Pass Import System</div>
+          <div class="feat-desc">Pass 1 globally registers products (no website, price=0, fixed description). Pass 2 applies store-view, website, full Korean descriptions and live pricing — preventing Magento import conflicts.</div>
+          <div class="feat-chips">
+            <span class="feat-chip">Pass 1 — Global</span>
+            <span class="feat-chip">Pass 2 — Store View</span>
+          </div>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon gold">🇰🇷</div>
+          <div class="feat-title">Korean Localisation</div>
+          <div class="feat-desc">Auto-generates HTML product descriptions with Korean legal notices (원산지, 소재, 제조년월) and footwear care warnings. Meta titles, keywords, and short descriptions all in Korean.</div>
+          <div class="feat-chips">
+            <span class="feat-chip">Legal Notice</span>
+            <span class="feat-chip">SEO Meta</span>
+            <span class="feat-chip">HTML Desc</span>
+          </div>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon blue">👟</div>
+          <div class="feat-title">Division-Aware Gender Mapping</div>
+          <div class="feat-desc">Maps raw GENDER × ITEM_DIVISION to precise Magento values: "MEN" + "FW" → "MEN SHOES", "WOMEN" + "APP" → "WOMEN CLOTHING". Handles MEN/WOMEN/UNISEX/KIDS across all three divisions.</div>
+          <div class="feat-chips">
+            <span class="feat-chip">FW / APP / ACC</span>
+            <span class="feat-chip">MEN / WOMEN / KIDS</span>
+          </div>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon green">📏</div>
+          <div class="feat-title">Smart Size Resolution</div>
+          <div class="feat-desc">SIZE_ID resolved via product-type lookup tables: Tops (S–XXL), Pants (XS–4XL), Socks (S/M). Footwear uses RETAIL_SIZE (mm) directly. SIZE_ID "0" and RETAIL_SIZE "FREE" map to "One Size".</div>
+          <div class="feat-chips">
+            <span class="feat-chip">Tops / Pants</span>
+            <span class="feat-chip">Socks / Footwear</span>
+            <span class="feat-chip">One Size</span>
+          </div>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon purple">🔗</div>
+          <div class="feat-title">Category URL → ID Resolution</div>
+          <div class="feat-desc">Extracts hyperlinks from Excel CATEGORY columns using openpyxl, strips the locale prefix (kr/ko-kr/), and queries MySQL url_rewrite (store_id=5) to resolve each URL to its Magento category ID.</div>
+          <div class="feat-chips">
+            <span class="feat-chip">Hyperlink Extract</span>
+            <span class="feat-chip">MySQL Lookup</span>
+            <span class="feat-chip">store_id=5</span>
+          </div>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon teal">🛒</div>
+          <div class="feat-title">Google Shopping Auto-Fields</div>
+          <div class="feat-desc">Generates google_shop_category ("Apparel &amp; Accessories > Shoes/Clothing") and google_shop_product_type per gender/division combination. URL keys are auto-slugified from product name + SKU.</div>
+          <div class="feat-chips">
+            <span class="feat-chip">Shopping Feed</span>
+            <span class="feat-chip">URL Keys</span>
+            <span class="feat-chip">Meta Fields</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 7: OKR ZERO-TOUCH CLOUD DEPLOYMENT ═══ -->
+  <div class="slide" id="slide-6">
+    <div class="slide-num-chip">07 / 10</div>
+    <div class="okr3">
+
+      <div class="okr3-left">
+        <img class="okr-bird"
+          src="https://www.fledgedigital.com/wp-content/uploads/2022/05/fledgedigital-brandmark.svg"
+          alt="Fledge" onerror="this.style.display='none'">
+        <div class="okr3-eyebrow">Deploy</div>
+        <div class="okr3-h">Zero-Touch<br><em>Cloud Deployment</em></div>
+        <div class="okr3-p">The pipeline SSH-connects to Magento Cloud, validates database state, imports products in two passes, then runs four post-import Magento CLI commands — all sequenced automatically.</div>
+        <div class="okr3-checks">
+          <div class="okr3-check">SSH into Magento Cloud via system ssh (certificate-based auth)</div>
+          <div class="okr3-check">Auto-validate 5 EAV attribute sets — insert missing values to MySQL</div>
+          <div class="okr3-check">SCP upload Pass 1 + Pass 2 output files to remote import directory</div>
+          <div class="okr3-check">Run Pass 1 import job (global) then Pass 2 (store-view web_kr_ko)</div>
+          <div class="okr3-check">Per-SKU: sync image angles &amp; add Google Shop image links</div>
+          <div class="okr3-check">Per-SKU: add catalog relations &amp; update product relations (3G RAM)</div>
+        </div>
+      </div>
+
+      <div class="okr3-right">
+        <div class="okr3-term">
+          <div class="okr3-term-bar">
+            <div class="okr3-term-dot" style="background:#ff5f57"></div>
+            <div class="okr3-term-dot" style="background:#ffbd2e"></div>
+            <div class="okr3-term-dot" style="background:#28c940"></div>
+            <div class="okr3-term-title">magento_import_pipeline_production.py</div>
+          </div>
+          <div class="okr3-term-body">
+            <span class="tc">$</span> python magento_import_pipeline_production.py client_file.xlsx<br>
+            <span class="ts">── STEP 2: Converting → Pass 1 (global) ─────────</span><br>
+            &nbsp;&nbsp;✔&nbsp; Pass 1: 248 rows → output_pass1.xlsx<br>
+            <span class="ts">── STEP 2c: Resolving category IDs (MySQL) ───────</span><br>
+            &nbsp;&nbsp;✔&nbsp; 6 category URLs resolved via url_rewrite<br>
+            <span class="ts">── STEP 3: Validating EAV attribute options ──────</span><br>
+            &nbsp;&nbsp;✔&nbsp; color: 14 existing | 2 inserted<br>
+            &nbsp;&nbsp;✔&nbsp; brands: 1 existing | 0 inserted<br>
+            <span class="ts">── STEP 4: PASS 1 — Upload &amp; Import (job #141) ───</span><br>
+            &nbsp;&nbsp;✔&nbsp; Import job #141 completed (exit 0)<br>
+            <span class="ts">── STEP 5: PASS 2 — Upload &amp; Import (job #44) ────</span><br>
+            &nbsp;&nbsp;✔&nbsp; Import job #44 completed (exit 0)<br>
+            <span class="ts">── STEPS 6–9: Post-import sync (4 SKUs) ─────────</span><br>
+            &nbsp;&nbsp;✔&nbsp; Pipeline complete!&nbsp; (Pass 1 + Pass 2 + Post-import)
+          </div>
+        </div>
+        <div class="okr3-grid">
+          <div class="okr3-mini">
+            <div class="okr3-mini-icon">🖼️</div>
+            <div class="okr3-mini-title">Image Angle Sync</div>
+            <div class="okr3-mini-desc">asics:images:sync-angles chained per configurable SKU</div>
+          </div>
+          <div class="okr3-mini">
+            <div class="okr3-mini-icon">🛒</div>
+            <div class="okr3-mini-title">Google Shop Images</div>
+            <div class="okr3-mini-desc">asics_add_google_shop_image_link per SKU</div>
+          </div>
+          <div class="okr3-mini">
+            <div class="okr3-mini-icon">🔗</div>
+            <div class="okr3-mini-title">Catalog Relations</div>
+            <div class="okr3-mini-desc">catalog:relation:add with 3G memory limit per SKU</div>
+          </div>
+          <div class="okr3-mini">
+            <div class="okr3-mini-icon">🔄</div>
+            <div class="okr3-mini-title">Product Relations</div>
+            <div class="okr3-mini-desc">update:product:relations per configurable SKU</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ═══ SLIDE 8: AI ERROR MONITORING — OVERVIEW ═══ -->
+  <div class="slide" id="slide-7">
+    <div class="slide-num-chip">08 / 10</div>
+    <div class="ai1">
+
+      <div class="ai1-left">
+        <img class="okr-bird"
+          src="https://www.fledgedigital.com/wp-content/uploads/2022/05/fledgedigital-brandmark.svg"
+          alt="Fledge" onerror="this.style.display='none'">
+        <div class="ai1-eyebrow">Magento Cloud Monitoring</div>
+        <div class="ai1-h">Proactive Error<br>Intelligence for<br><em>Adobe Commerce Cloud</em></div>
+        <div class="ai1-p">Automatically SSHs into both staging and production Magento Cloud environments every 15 minutes. Parses system.log, exception.log, cron.log, and cloud.log — classifying every entry into actionable priorities before a developer even opens a browser tab.</div>
+        <div class="okr1-metrics">
+          <div class="okr-metric">
+            <div class="okr-metric-num">2</div>
+            <div class="okr-metric-label">Environments</div>
+          </div>
+          <div class="okr-metric">
+            <div class="okr-metric-num">15m</div>
+            <div class="okr-metric-label">Fetch Interval</div>
+          </div>
+          <div class="okr-metric">
+            <div class="okr-metric-num">4</div>
+            <div class="okr-metric-label">Log Files Parsed</div>
+          </div>
+          <div class="okr-metric">
+            <div class="okr-metric-num">P1–P3</div>
+            <div class="okr-metric-label">Priority Classes</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ai1-right">
+        <div class="ai1-live-badge">
+          <div class="ai1-live-dot"></div>
+          Live on Replit — pmtool-fledgedigital.replit.app
+        </div>
+        <div class="okr-flow-label">Monitoring Pipeline</div>
+        <div class="okr-flow">
+          <div class="okr-flow-step hi">
+            <div class="okr-flow-num">1</div>
+            <div class="okr-flow-icon">🔐</div>
+            <div>
+              <div class="okr-flow-title">SSH into Magento Cloud</div>
+              <div class="okr-flow-desc">Certificate-based SSH every 15 min — staging &amp; production independently polled</div>
+            </div>
+          </div>
+          <div class="okr-flow-connector"></div>
+          <div class="okr-flow-step">
+            <div class="okr-flow-num">2</div>
+            <div class="okr-flow-icon">📄</div>
+            <div>
+              <div class="okr-flow-title">Parse 4 Log Sources</div>
+              <div class="okr-flow-desc">system.log · exception.log · cron.log · cloud.log — last 500 lines per fetch</div>
+            </div>
+          </div>
+          <div class="okr-flow-connector"></div>
+          <div class="okr-flow-step">
+            <div class="okr-flow-num">3</div>
+            <div class="okr-flow-icon">🚦</div>
+            <div>
+              <div class="okr-flow-title">Classify P1 / P2 / P3</div>
+              <div class="okr-flow-desc">P1 Critical — fatal errors &amp; exceptions · P2 High — warnings &amp; cron failures · P3 Low — notices</div>
+            </div>
+          </div>
+          <div class="okr-flow-connector"></div>
+          <div class="okr-flow-step">
+            <div class="okr-flow-num">4</div>
+            <div class="okr-flow-icon">📊</div>
+            <div>
+              <div class="okr-flow-title">React Dashboard — Live &amp; Filterable</div>
+              <div class="okr-flow-desc">Filter by environment, priority, log type, or keyword — refreshes automatically</div>
+            </div>
+          </div>
+          <div class="okr-flow-connector"></div>
+          <div class="okr-flow-step hi">
+            <div class="okr-flow-num">5</div>
+            <div class="okr-flow-icon">🤖</div>
+            <div>
+              <div class="okr-flow-title">Click → AI Analysis &amp; Code Fix</div>
+              <div class="okr-flow-desc">One click triggers 4-layer Claude AI analysis — reads live source, delivers precise fix</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 9: AI ANALYSIS ENGINE ═══ -->
+  <div class="slide" id="slide-8">
+    <div class="slide-num-chip">09 / 10</div>
+    <div class="ai2">
+
+      <div class="ai2-header">
+        <div>
+          <div class="ai2-eyebrow">4-Layer AI Analysis Engine</div>
+          <div class="ai2-headline">From Raw Error Log to<br><em>Precise Code Fix</em></div>
+          <div class="ai2-sub">Claude AI + live source reading + validated web search — every solution grounded in actual Magento code</div>
+        </div>
+        <img class="okr2-logo-sm"
+          src="https://www.fledgedigital.com/wp-content/uploads/2022/05/fledgedigital-brandmark.svg"
+          alt="Fledge" onerror="this.style.display='none'">
+      </div>
+
+      <div class="ai2-body">
+
+        <div class="feat-card">
+          <div class="feat-icon">🐙</div>
+          <div class="feat-title">GitHub Code Sync</div>
+          <div class="feat-desc">Clones the full Magento codebase from GitHub every 30 minutes. Custom module files are instantly available locally — no SSH round-trip needed for the first read.</div>
+          <div class="feat-chips">
+            <span class="feat-chip">Auto-Sync 30m</span>
+            <span class="feat-chip">Local Clone</span>
+            <span class="feat-chip">Vendor-Safe</span>
+          </div>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon gold">🔐</div>
+          <div class="feat-title">SSH Live File Read</div>
+          <div class="feat-desc">When a file isn't in git, the engine SSHs directly into Magento Cloud and reads the exact PHP file at the error path — ensuring vendor overrides and environment-specific code are never missed.</div>
+          <div class="feat-chips">
+            <span class="feat-chip">SSH Fallback</span>
+            <span class="feat-chip">Exact Line</span>
+            <span class="feat-chip">Vendor Files</span>
+          </div>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon blue">🔍</div>
+          <div class="feat-title">Magento Web Search</div>
+          <div class="feat-desc">Searches StackExchange, Adobe Community, and Magento DevDocs for known solutions. Results are passed to Claude — not displayed raw — so only validated, relevant steps reach the developer.</div>
+          <div class="feat-chips">
+            <span class="feat-chip">StackExchange</span>
+            <span class="feat-chip">DevDocs</span>
+            <span class="feat-chip">Adobe Community</span>
+          </div>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon purple">🧠</div>
+          <div class="feat-title">Claude AI Synthesis</div>
+          <div class="feat-desc">Claude receives the error message, the actual PHP file content (centred on the error line), and web search results. It validates sources and synthesises a Magento-specific, step-by-step fix — not generic advice.</div>
+          <div class="feat-chips">
+            <span class="feat-chip">Claude API</span>
+            <span class="feat-chip">Source-Grounded</span>
+            <span class="feat-chip">No Hallucination</span>
+          </div>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon green">🛠️</div>
+          <div class="feat-title">Pattern-Based Code Fix</div>
+          <div class="feat-desc">Regex engine detects the error class — undefined variable, undefined array key, type error, undefined method — and generates the exact PHP initialisation or guard clause centred on the real error line.</div>
+          <div class="feat-chips">
+            <span class="feat-chip">Undefined Var</span>
+            <span class="feat-chip">Array Key</span>
+            <span class="feat-chip">Type Errors</span>
+          </div>
+        </div>
+
+        <div class="feat-card">
+          <div class="feat-icon teal">🚦</div>
+          <div class="feat-title">Intelligent Priority Classification</div>
+          <div class="feat-desc">Each log entry is scored P1 (fatal / uncaught exception), P2 (warning / cron failure / deprecation in critical path), or P3 (notice / info). The dashboard sorts by priority across both environments simultaneously.</div>
+          <div class="feat-chips">
+            <span class="feat-chip">P1 Critical</span>
+            <span class="feat-chip">P2 High</span>
+            <span class="feat-chip">P3 Low</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SLIDE 10: PRECISE FIX FROM LIVE CODE ═══ -->
+  <div class="slide" id="slide-9">
+    <div class="slide-num-chip">10 / 10</div>
+    <div class="ai3">
+
+      <div class="ai3-left">
+        <img class="okr-bird"
+          src="https://www.fledgedigital.com/wp-content/uploads/2022/05/fledgedigital-brandmark.svg"
+          alt="Fledge" onerror="this.style.display='none'">
+        <div class="ai3-eyebrow">AI Adoption in Practice</div>
+        <div class="ai3-h">Precise Fixes from<br><em>Live Source Code</em></div>
+        <div class="ai3-p">The dashboard doesn't just surface errors — it reads the actual production PHP file, marks the exact error line, and delivers a typed, context-aware code fix. Developers go from alert to fix in under 60 seconds.</div>
+        <div class="ai3-checks">
+          <div class="ai3-check">Reads actual PHP from GitHub or live SSH — not guesses</div>
+          <div class="ai3-check">Code snippet centred on error line with ◄◄◄ ERROR HERE marker</div>
+          <div class="ai3-check">Correct type inference — array name → <code style="font-size:12px;color:#7ec8e3;">$var = []</code></div>
+          <div class="ai3-check">Claude validates web results before surfacing any step</div>
+          <div class="ai3-check">Custom module errors skip web search — source is enough</div>
+          <div class="ai3-check">GitHub sync every 30 min — always analysing the latest code</div>
+        </div>
+      </div>
+
+      <div class="ai3-right">
+        <div class="okr3-term">
+          <div class="okr3-term-bar">
+            <div class="okr3-term-dot" style="background:#ff5f57"></div>
+            <div class="okr3-term-dot" style="background:#ffbd2e"></div>
+            <div class="okr3-term-dot" style="background:#28c940"></div>
+            <div class="okr3-term-title">magento_error_dashboard — AI Analysis</div>
+          </div>
+          <div class="okr3-term-body">
+            <span class="tc">●</span> <span class="ts">P1 CRITICAL — production — exception.log</span><br>
+            &nbsp;&nbsp;Undefined array key "childProducts" at line 263<br>
+            &nbsp;&nbsp;OnitsukaTiger/Catalog/Controller/Product/View.php<br>
+            <br>
+            <span class="ts">── Layer 1: GitHub local clone read ──────────────</span><br>
+            &nbsp;&nbsp;<span class="tc">✔</span>&nbsp; app/code/OnitsukaTiger/Catalog/Controller/Product/View.php<br>
+            &nbsp;&nbsp;<span class="tc">✔</span>&nbsp; Lines 253–273 extracted (error at line 263)<br>
+            <br>
+            <span class="ts">── Layer 2: Pattern-based code fix ───────────────</span><br>
+            &nbsp;&nbsp;<span class="tc">✔</span>&nbsp; TYPE: undefined array key → initialise as []<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#FAA700;">$childProducts = [];&nbsp; // add before line 263</span><br>
+            <br>
+            <span class="ts">── Layer 3: Claude AI validation ─────────────────</span><br>
+            &nbsp;&nbsp;<span class="tc">✔</span>&nbsp; Web results validated — 2 relevant, 1 skipped<br>
+            &nbsp;&nbsp;<span class="tc">✔</span>&nbsp; Solution: initialise + guard + cache:flush<br>
+            <br>
+            <span class="tc">✔</span>&nbsp; Analysis complete &nbsp;<span style="color:rgba(255,255,255,.3);">source: 📂 live file · claude_with_code</span>
+          </div>
+        </div>
+        <div class="okr3-grid">
+          <div class="okr3-mini">
+            <div class="okr3-mini-icon">⚡</div>
+            <div class="okr3-mini-title">Under 60 Seconds</div>
+            <div class="okr3-mini-desc">From error alert to validated fix — faster than opening a JIRA ticket</div>
+          </div>
+          <div class="okr3-mini">
+            <div class="okr3-mini-icon">📂</div>
+            <div class="okr3-mini-title">Live Source Always</div>
+            <div class="okr3-mini-desc">GitHub clone + SSH fallback ensures no stale or wrong file is ever analysed</div>
+          </div>
+          <div class="okr3-mini">
+            <div class="okr3-mini-icon">🧠</div>
+            <div class="okr3-mini-title">Claude-Validated Steps</div>
+            <div class="okr3-mini-desc">AI cross-checks web results — only Magento-specific, correct steps are shown</div>
+          </div>
+          <div class="okr3-mini">
+            <div class="okr3-mini-icon">🏆</div>
+            <div class="okr3-mini-title">Fledge AI Capability</div>
+            <div class="okr3-mini-desc">Built in-house on Replit — live, deployed, and monitoring production 24 / 7</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- Nav -->
+<div class="nav">
+  <button id="btn-prev" disabled onclick="go(-1)">&#8592;</button>
+  <div class="dots" id="dots"></div>
+  <div class="slide-count" id="slide-count">1 / 7</div>
+  <button id="btn-next" onclick="go(1)">&#8594;</button>
+</div>
+
+<div class="key-hint">← → arrow keys to navigate</div>
+
+<script>
+  const TOTAL = 10;
+  let current = 0;
+
+  const slides = document.querySelectorAll('.slide');
+  const dotsEl = document.getElementById('dots');
+  const countEl = document.getElementById('slide-count');
+  const prevBtn = document.getElementById('btn-prev');
+  const nextBtn = document.getElementById('btn-next');
+  const progressEl = document.getElementById('progress');
+
+  // Build dots
+  for (let i = 0; i < TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  }
+
+  function goTo(n) {
+    if (n === current) return;
+    slides[current].classList.remove('active');
+    slides[current].classList.add('exit');
+    setTimeout(() => slides[n - 1 >= 0 ? n : 0].classList.remove('exit'), 500);
+    current = n;
+    slides[current].classList.add('active');
+    // remove exit from prev after transition
+    setTimeout(() => {
+      document.querySelectorAll('.slide.exit').forEach(s => s.classList.remove('exit'));
+    }, 500);
+    render();
+  }
+
+  function go(dir) {
+    const next = current + dir;
+    if (next < 0 || next >= TOTAL) return;
+    goTo(next);
+  }
+
+  function render() {
+    const dots = dotsEl.querySelectorAll('.dot');
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    countEl.textContent = `${current + 1} / ${TOTAL}`;
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === TOTAL - 1;
+    progressEl.style.width = `${((current + 1) / TOTAL) * 100}%`;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); go(1); }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); go(-1); }
+    if (e.key === 'Home') goTo(0);
+    if (e.key === 'End') goTo(TOTAL - 1);
+  });
+
+  render();
+</script>
+</body>
+</html>
